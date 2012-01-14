@@ -1,0 +1,9 @@
+World CGraphics CPhysicEntity
+Player CAvatarController CAnimatedGraphics CLife CPhysicCharacter CRayPerception
+Entity CGraphics
+AnimatedEntity CAnimatedGraphics
+Camera CCamera
+Barril CGraphics CPhysicEntity
+PuertaTrigger CSwitchTrigger CPhysicEntity
+Puerta CGraphics CSwitchPosition
+Sierra CAnimatedGraphics CSwitchPosition CDamageTrigger CPhysicEntity
