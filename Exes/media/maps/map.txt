@@ -35,10 +35,17 @@ Map = {
 	
 	Camera = {
 		type = "Camera",
-		distance = 20,
-		height = 13,
+		distance = 60,
+		height = 100,
+		targetName = "TargetCamera",
 		targetDistance = 10,
 		targetHeight = 7,
+	},
+	
+	TargetCamera = {
+		type = "TargetCamera",
+		position = {0, 0, 0},
+		orientation = 180,
 	},
 	
 	Sol = {

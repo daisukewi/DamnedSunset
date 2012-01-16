@@ -120,6 +120,11 @@ namespace Logic
 		float _height;
 
 		/**
+		Nombre de la entidad a la que mirará la cámara.
+		*/
+		std::string _targetName;
+
+		/**
 		Distancia del punto al que mirará la cámara respecto a la entidad 
 		objetivo. Es distancia sobre el plano XZ, la altura tiene su propio 
 		atributo.

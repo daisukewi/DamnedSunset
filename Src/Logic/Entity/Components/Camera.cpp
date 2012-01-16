@@ -42,6 +42,9 @@ namespace Logic
 		if(entityInfo->hasAttribute("height"))
 			_height = entityInfo->getFloatAttribute("height");
 
+		if(entityInfo->hasAttribute("targetName"))
+			_targetName = entityInfo->getStringAttribute("targetName");
+
 		if(entityInfo->hasAttribute("targetDistance"))
 			_targetDistance = entityInfo->getFloatAttribute("targetDistance");
 
@@ -56,7 +59,8 @@ namespace Logic
 
 	bool CCamera::activate()
 	{
-		_target = CServer::getSingletonPtr()->getPlayer();
+		//_target = CServer::getSingletonPtr()->getPlayer();
+		_target = CServer::getSingletonPtr()->getMap()->getEntityByName(_targetName);
 
 		return true;
 
@@ -80,12 +84,12 @@ namespace Logic
 		{
 			// Actualizamos la posición de la cámara.
 			Vector3 position = _target->getPosition();
-			Vector3 direction = -_distance * Math::getDirection(_target->getOrientation());
+			Vector3 direction = -_distance * Vector3(0, 0, 1);//Math::getDirection(_target->getOrientation());
 			direction.y = _height;
 			_graphicsCamera->setCameraPosition(position + direction);
 
 			// Y la posición hacia donde mira la cámara.
-			direction = _targetDistance * Math::getDirection(_target->getOrientation());
+			direction = _targetDistance * Vector3(0, 0, 1);//Math::getDirection(_target->getOrientation());
 			direction.y = _targetHeight;
 			_graphicsCamera->setTargetCameraPosition(position + direction);
 		}
