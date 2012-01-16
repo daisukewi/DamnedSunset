@@ -1,10 +1,10 @@
 #ifndef NX_PHYSICS_NXEXPRESSION
 #define NX_PHYSICS_NXEXPRESSION
 
+#include <iostream>
+
 #include "NxHwParser.h"
 #if NX_ENABLE_HW_PARSER
-
-#include <iostream>
 
 namespace NxForceFieldInternals 
 {

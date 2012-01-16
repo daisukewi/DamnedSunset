@@ -18,7 +18,7 @@
 		#define NXP_DLL_EXPORT __declspec(dllexport)
 		//new: default foundation to static lib:
 		#define NXF_DLL_EXPORT //__declspec(dllimport)
-             #elif defined(__linux__) && defined(NX_LINUX_USE_VISIBILITY)
+             #elif defined(LINUX) && defined(NX_LINUX_USE_VISIBILITY)
 		#define NXP_DLL_EXPORT __attribute__ ((visibility ("default")))
 		#define NXF_DLL_EXPORT 
              #else
@@ -33,7 +33,7 @@
 		#define NXP_DLL_EXPORT __declspec(dllimport)
 		//new: default foundation to static lib:
 		#define NXF_DLL_EXPORT //__declspec(dllimport)
-             #elif defined(__linux__) && defined(NX_LINUX_USE_VISIBILITY)
+             #elif defined(LINUX) && defined(NX_LINUX_USE_VISIBILITY)
 		#define NXP_DLL_EXPORT __attribute__ ((visibility ("default")))
 		#define NXF_DLL_EXPORT 
              #else
@@ -52,7 +52,7 @@
 		//new: default foundation to static lib:
 		#define NXP_DLL_EXPORT __declspec(dllimport)
 		#define NXF_DLL_EXPORT //__declspec(dllimport)
-             #elif defined(__linux__) && defined(NX_LINUX_USE_VISIBILITY)
+             #elif defined(LINUX) && defined(NX_LINUX_USE_VISIBILITY)
 		#define NXP_DLL_EXPORT __attribute__ ((visibility ("default")))
 		#define NXF_DLL_EXPORT
              #else
@@ -100,17 +100,10 @@ AM: PLEASE MAKE SURE TO HAVE AN 'NX_' PREFIX ON ALL NEW DEFINES YOU ADD HERE!!!!
 //#define NX_SUPPORT_MESH_SCALE		// Experimental mesh scale support
 
 #define NX_DEFORMABLE_BATCH_SIZE   32
-#if defined(ANDROID) || defined (SN_TARGET_PSP2) || (defined(__APPLE__) && defined(__arm))
-#if !defined(NX_DISABLE_FLUIDS)
-#define NX_DISABLE_FLUIDS
-#endif
-#if !defined(NX_DISABLE_CLOTH)
-#define NX_DISABLE_CLOTH
-#endif
-#if !defined(NX_DISABLE_SOFTBODY)
-#define NX_DISABLE_SOFTBODY
-#endif
-#endif
+
+//#define NX_DISABLE_FLUIDS
+//#define NX_DISABLE_CLOTH
+//#define NX_DISABLE_SOFTBODY
 
 #ifdef NX_DISABLE_FLUIDS
 	#define NX_USE_FLUID_API  0

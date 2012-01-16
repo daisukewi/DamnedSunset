@@ -91,7 +91,7 @@ protected:
 	NxControllerManager() {}
 	virtual ~NxControllerManager() {}
 
-	friend NXCHARACTER_API void NX_CALL_CONV NxReleaseControllerManager(NxControllerManager* manager);
+	friend NXCHARACTER_API void NxReleaseControllerManager(NxControllerManager* manager);
 	virtual void release() = 0;
 };
 

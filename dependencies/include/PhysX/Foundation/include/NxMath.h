@@ -507,10 +507,8 @@ NX_INLINE NxI32 NxMath::sign(NxI32 a)
 
 #if defined(WIN32)
 #include "win/NxMath_WIN.h"
-#elif defined(__linux__) || defined(__APPLE__) || defined(ANDROID)
+#elif defined(LINUX) || defined(__APPLE__)
 #include "linux/NxMath_LINUX.h"
-#elif defined(SN_TARGET_PSP2)
-#include "psp2\NxMath_PSP2.h"
 #elif defined(_XBOX)
 #include "xbox360/NxMath_XBOX.h"
 #elif defined(__CELLOS_LV2__)

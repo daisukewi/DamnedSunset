@@ -78,8 +78,9 @@ class NxDistanceJointDesc : public NxJointDesc
 	/**
 	\brief (re)sets the structure to the default.	
 
+	\param[in] fromCtor skip redundant operations if called from contructor.
 	*/
-	NX_INLINE virtual void setToDefault();
+	NX_INLINE void setToDefault(bool fromCtor=false);
 	/**
 	\brief Returns true if the descriptor is valid.
 
@@ -95,10 +96,10 @@ class NxDistanceJointDesc : public NxJointDesc
 
 NX_INLINE NxDistanceJointDesc::NxDistanceJointDesc() : NxJointDesc(NX_JOINT_DISTANCE)	//constructor sets to default
 	{
-	setToDefault();
+	setToDefault(true);
 	}
 
-NX_INLINE void NxDistanceJointDesc::setToDefault()
+NX_INLINE void NxDistanceJointDesc::setToDefault(bool fromCtor)
 	{
 	NxJointDesc::setToDefault();
 	maxDistance = 0.0f;
@@ -106,8 +107,11 @@ NX_INLINE void NxDistanceJointDesc::setToDefault()
 	//stiffness = 1.0f;
 	flags = 0;
 
-	//this is redundant if we're being called from the ctor:
-	spring.setToDefault();
+	if (!fromCtor)
+		{
+		//this is redundant if we're being called from the ctor:
+		spring.setToDefault();
+		}
 	}
 
 NX_INLINE NxU32 NxDistanceJointDesc::checkValid() const

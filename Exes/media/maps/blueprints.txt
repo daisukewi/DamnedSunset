@@ -1,5 +1,4 @@
 World CGraphics CPhysicEntity
-Sun CGraphics CSunController
 Player CAvatarController CAnimatedGraphics CLife CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor
 Entity CGraphics
 AnimatedEntity CAnimatedGraphics

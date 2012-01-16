@@ -516,43 +516,6 @@ enum NxMemoryType
   NX_MEMORY_NgClothPreProcessTask,
   NX_MEMORY_NgClothPostProcessTask,
 
-  //GRB
-
-  NX_MEMORY_ShapeFlagBool,
-  NX_MEMORY_AddForceEvent,
-  NX_MEMORY_CreateShapeEvent,
-  NX_MEMORY_RealPair,
-  NX_MEMORY_CreateActorEvent,
-  NX_MEMORY_ReleaseActorEvent,
-  NX_MEMORY_CreateJointEvent,
-  NX_MEMORY_CreateSpringDamperEvent,
-  NX_MEMORY_CreateEffectorEvent,
-  NX_MEMORY_CreateForceFieldEvent, 
-  NX_MEMORY_ReleaseForceFieldEvent, 
-  NX_MEMORY_CreateKernelEvent,
-  NX_MEMORY_CreateShapeGroupEvent,	
-  NX_MEMORY_VarMatVal, 
-  NX_MEMORY_CreateMaterialEvent, 
-  NX_MEMORY_ReleaseMaterialEvent, 
-  NX_MEMORY_CreateCompartmentEvent, 
-  NX_MEMORY_CreateFluidEvent,
-  NX_MEMORY_ActorPairFlag,
-  NX_MEMORY_ShapePairFlag,
-  NX_MEMORY_CollisionGroups,
-  NX_MEMORY_DominanceGroups,
-  NX_MEMORY_ActorGroups,
-  NX_MEMORY_FilterOps,
-  NX_MEMORY_TimeStepSettings,
-  NX_MEMORY_FluidCookingReq,
-  NX_MEMORY_CreateClothEvent,
-  NX_MEMORY_CreateSoftBodyEvent,
-  NX_MEMORY_SimStatus,
-  NX_MEMORY_CreateSceneQueryEvent,
-  NX_MEMORY_FetchResultsEvent,
-  NX_MEMORY_ActorUpdateData,
-  NX_MEMORY_CreateForceFieldShapeEvent,
-  NX_MEMORY_AddShapeGroupEvent,
-
   NX_MEMORY_LAST
 };
 

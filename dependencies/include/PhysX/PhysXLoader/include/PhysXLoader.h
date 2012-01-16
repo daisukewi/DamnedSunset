@@ -10,12 +10,13 @@
 
 #include "NxPhysicsSDK.h"
 #include "NxUtilLib.h"
-#include "PhysX_GUIDS.h"
+
+#define DRIVERLESS_MODEL 1
 
 #ifdef NX_PHYSX_LOADER_EXPORTS
     #if defined(WIN32)
 	#define NXPHYSXLOADERDLL_API extern "C" __declspec(dllexport)
-#elif defined(__linux__)
+    #elif defined(LINUX) 
       #if defined(NX_LINUX_USE_VISIBILITY)
         #define NXPHYSXLOADERDLL_API extern "C" __attribute__ ((visibility ("default")))
       #else
@@ -29,7 +30,7 @@
 #else
     #if defined(WIN32)
 	#define NXPHYSXLOADERDLL_API extern "C" __declspec(dllimport)
-    #elif defined(__linux__)
+    #elif defined(LINUX)
 	#define NXPHYSXLOADERDLL_API extern "C" 
     #else
 	#define NXPHYSXLOADERDLL_API 
@@ -56,24 +57,27 @@ NOTE: Calls after the first will not change the allocator used in the SDK, but t
 \param outputStream User supplied interface for reporting errors and displaying messages(see #NxUserOutputStream)
 \param desc Optional descriptor used to define hardware allocation parameters
 \param errorCode Optional error code output parameter
-\param appGUID GUID of the application
 */
-NXPHYSXLOADERDLL_API NxPhysicsSDK*	NX_CALL_CONV NxCreatePhysicsSDK(NxU32 sdkVersion, NxUserAllocator* allocator = NULL, NxUserOutputStream* outputStream = NULL, const NxPhysicsSDKDesc& desc = NxPhysicsSDKDesc(), NxSDKCreateError* errorCode=NULL, const char* appGUID=PHYSX_284_CORE_GUID);
+NXPHYSXLOADERDLL_API NxPhysicsSDK*	NX_CALL_CONV NxCreatePhysicsSDK(NxU32 sdkVersion, NxUserAllocator* allocator = NULL, NxUserOutputStream* outputStream = NULL, const NxPhysicsSDKDesc& desc = NxPhysicsSDKDesc(), NxSDKCreateError* errorCode=NULL);
+
+#ifdef DRIVERLESS_MODEL
 
 /**
 \brief Load different modules.
 
 Load different modules. May not be a class member to avoid name mangling.
 Pass in the name of the module.
-Pass in the GUID of the module (DLL).
+Pass in the GUID of the calling application.
 Pass the constant NX_PHYSICS_SDK_VERSION as the argument.
 
 \param moduleName the module's name that's being loaded. Could be "PhysXCore", "PhysXCooking", other APEX modules.
-\param appGUID GUID of the application
+\param appGUID GUID of the application, which is an array of 4 NxU32
 \param sdkVersion Version number we are expecting(should be NX_PHYSICS_SDK_VERSION)
 */
 
-NXPHYSXLOADERDLL_API void* NX_CALL_CONV NxCreateModule(const char* moduleName, const char* appGUID, NxU32 sdkVersion);
+NXPHYSXLOADERDLL_API void* NX_CALL_CONV NxCreateModule(const char* moduleName, NxU32 appGUID[], NxU32 sdkVersion);
+
+#endif // DRIVERLESS_MODEL
 
 /**
 \brief Creates an instance of the physics SDK with an ID string for application identification.

@@ -98,14 +98,11 @@
     <ClCompile Include="..\..\Src\AI\WaypointGraph.cpp">
       <Filter>Movement\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\AI\LatentAction.cpp">
+    <ClCompile Include="LatentAction.cpp">
       <Filter>Decision\LatentActions\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\AI\SimpleLatentActions.cpp">
+    <ClCompile Include="SimpleLatentActions.cpp">
       <Filter>Decision\LatentActions\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\AI\StateMachine.cpp">
-      <Filter>Decision\StateMachines\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -142,17 +139,11 @@
     <ClInclude Include="..\..\Src\AI\DisjointSets.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\AI\LatentAction.h">
+    <ClInclude Include="LatentAction.h">
       <Filter>Decision\LatentActions\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\AI\SimpleLatentActions.h">
+    <ClInclude Include="SimpleLatentActions.h">
       <Filter>Decision\LatentActions\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\AI\StateMachine.h">
-      <Filter>Decision\StateMachines\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\AI\Condition.h">
-      <Filter>Decision\StateMachines\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -328,25 +328,6 @@ class NxTriangleMesh
 	*/
 	virtual	NxMaterialIndex		getTriangleMaterial(NxTriangleID triangleIndex)	const	= 0;
 
-	//LOC_MOD
-	/**
-	\brief Sets material index for a given triangle.
-
-	This function takes a post cooking triangle index.
-
-	\param[in] triangleIndex (internal) index of desired triangle
-	\param[in] materialIndex material index for desired triangle
-	\return true if the operation succeeds
-
-	<b>Platform:</b>
-	\li PC SW: Yes
-	\li GPU  : Yes [SW]
-	\li PS3  : Yes
-	\li XB360: Yes
-	\li WII	 : Yes
-	*/
-	virtual	bool		setTriangleMaterial(NxTriangleID triangleIndex, NxMaterialIndex materialIndex)	= 0;
-
 	/**
 	\brief Returns the reference count for shared meshes.
 
