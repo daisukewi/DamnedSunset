@@ -360,6 +360,11 @@ class NxArray : public AllocType
 																		return first;
 																		}
 
+	NX_INLINE Iterator* getFirstAddress()
+																		{
+																		return &first;
+																		}
+
 	/**
 	The member function returns a random-access iterator that points just beyond the end of the sequence.
 	*/

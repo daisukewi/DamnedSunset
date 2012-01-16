@@ -16,22 +16,28 @@
 DLL export macros
 */
 #ifndef NX_C_EXPORT
+#ifdef __cplusplus
 	#define NX_C_EXPORT extern "C"
+#endif
 #endif
 
 #ifndef NX_CALL_CONV
 	#if defined WIN32
 		#define NX_CALL_CONV __cdecl
-	#elif defined LINUX
+	#elif defined __linux__
 		#define NX_CALL_CONV
-    #elif defined __APPLE__
-        #define NX_CALL_CONV
+        #elif defined ANDROID
+              #define NX_CALL_CONV
+        #elif defined __APPLE__
+              #define NX_CALL_CONV
+	#elif defined(SN_TARGET_PSP2)
+			#define NX_CALL_CONV
 	#elif defined __CELLOS_LV2__
-		#define NX_CALL_CONV
+	       #define NX_CALL_CONV
 	#elif defined _XBOX
-        #define NX_CALL_CONV
+              #define NX_CALL_CONV
 	#elif defined(__PPCGEKKO__)
-        #define NX_CALL_CONV
+              #define NX_CALL_CONV
 	#else
 		#error custom definition of NX_CALL_CONV for your OS needed!
 	#endif
@@ -49,7 +55,7 @@ DLL export macros
 		#error PhysX SDK: Platforms pointer size ambiguous!  The defines WIN32 and NX64 are in conflict.  
 	#endif
 	#define NX32
-#elif defined __CELLOS_LV2__
+#elif defined __CELLOS_LV2__ 
 	#ifdef __LP32__
             #define NX32
     #else
@@ -57,9 +63,11 @@ DLL export macros
     #endif
 #elif defined _XBOX
 	#define NX32
-#elif defined LINUX
+#elif defined __linux__
         #define NX32
 #elif defined(__PPCGEKKO__)
+	#define NX32
+#elif defined(SN_TARGET_PSP2)
 	#define NX32
 #else
 	#error PhysX SDK: Platforms pointer size ambiguous.  Please define NX32 or Nx64 in the compiler settings!
@@ -78,6 +86,7 @@ DLL export macros
 #endif
 
 
+
 #if _MSC_VER
 	#define NX_MSVC		// Compiling with VC++
 	#if _MSC_VER >= 1400
@@ -90,7 +99,7 @@ DLL export macros
 	#endif
 #endif
 
-#if (defined(WIN32) || (defined(__APPLE__) && defined(__SSE__))) && !defined(_XBOX)
+#if (defined(WIN32) || ((defined(__APPLE__) || defined(__linux__)) && defined(__SSE__))) && !defined(_XBOX)
 	#define NX_SUPPORT_SSE
 #endif
 
@@ -301,3 +310,4 @@ enum NxThreadPriority
 // All rights reserved. www.nvidia.com
 ///////////////////////////////////////////////////////////////////////////
 //NVIDIACOPYRIGHTEND
+

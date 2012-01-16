@@ -289,15 +289,26 @@ class NxActorDescBase
 	\return The actor desc type. See #NxActorDescType
 	*/
 	NX_INLINE NxActorDescType getType() const;
+
+	/**
+	\brief For internal use only.
+	*/
+	NX_INLINE NxShapeDesc*** getShapesStart() const;
+
+	/**
+	\brief For internal use only.
+	*/
+	NX_INLINE bool isValidInternal(bool hasSolidShape) const;
+
 	protected:
 	/**
 	\brief constructor sets to default.
 	*/
 	NX_INLINE NxActorDescBase();	
 
-	NX_INLINE bool isValidInternal(bool hasSolidShape) const;
 
 	NxActorDescType			type;
+	NxShapeDesc***			shapesStart;
 	};
 
 /**
@@ -379,6 +390,7 @@ template<class AllocType = NxAllocatorDefault> class NxActorDesc_Template : publ
 		{
 		setToDefault();
 		type = NX_ADT_ALLOCATOR;
+		shapesStart = shapes.getFirstAddress();
 		}
 
 	NX_INLINE void setToDefault()
@@ -397,7 +409,7 @@ template<class AllocType = NxAllocatorDefault> class NxActorDesc_Template : publ
 
 		// Static actors need nothing but a shape
 		if (!body && shapes.size() > 0)
-			return 1;
+			return 0;
 		for (unsigned i = 0; i < shapes.size(); i++)
 			{
 			NxU32 checkShape = shapes[i]->checkValid();
@@ -464,6 +476,12 @@ NX_INLINE NxActorDescType NxActorDescBase::getType() const
 	return type; 
 	}
 
+NX_INLINE NxShapeDesc*** NxActorDescBase::getShapesStart() const
+	{
+		return shapesStart;
+	}
+
+
 NX_INLINE bool NxActorDescBase::isValidInternal(bool hasSolidShape) const
 	{
 	bool haveDensity = density!=0.0f;
@@ -484,6 +502,7 @@ NX_INLINE NxActorDesc::NxActorDesc()
 		memset(this,0,sizeof(NxActorDesc));
 	setToDefault();
 	type = NX_ADT_DEFAULT;
+	shapesStart = shapes.getFirstAddress();
 	}
 
 NX_INLINE void NxActorDesc::setToDefault()

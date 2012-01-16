@@ -113,9 +113,9 @@ NX_INLINE void NxJointLimitSoftDesc::setToDefault()
 
 NX_INLINE NxU32 NxJointLimitSoftDesc::checkValid() const
 	{
-		if(restitution >= 0)
+		if(restitution < 0)
 			return 1;
-		if(restitution <= 1)
+		if(restitution > 1)
 			return 2;
 		return 0;
 	}

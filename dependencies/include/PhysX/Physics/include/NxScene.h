@@ -2708,6 +2708,34 @@ class NxScene
 	@see NxBox NxShape NxSweepQueryHit NxSweepFlags NxUserEntityReport NxScene
 	*/
 	virtual NxU32						linearOBBSweep				(const NxBox& worldBox, const NxVec3& motion, NxU32 flags, void* userData, NxU32 nbShapes, NxSweepQueryHit* shapes, NxUserEntityReport<NxSweepQueryHit>* callback, NxU32 activeGroups=0xffffffff, const NxGroupsMask* groupsMask=NULL)			= 0;
+
+	/**
+	\brief Performs a linear sweep through space against a specific shape with an oriented box.
+
+	The function sweeps an oriented box through space and reports if it intersects with the specific shape. 
+	The result if they intersect will be put in the passed in #NxSweepQueryHit structure.  
+
+	\note Because the SDK double buffers shape state, a shape will not be updated until a simulation step is 
+	taken. For example the result of setting the global pose is not immediatly visible.
+
+	\param[in] worldBox The oriented box (#NxBox object) that is to be swept
+	\param[in] shape The shape to sweep against
+	\param[in] motion Length and direction of the sweep
+	\param[out] hit The result NxSweepQueryHit if any
+
+	\return TRUE if the OBB intersects with the specific shape
+
+	<b>Platform:</b>
+	\li PC SW: Yes
+	\li GPU  : Yes [SW]
+	\li PS3  : Yes
+	\li XB360: Yes
+	\li WII	 : Yes
+
+	@see NxBox NxShape NxSweepQueryHit NxScene
+	*/
+	virtual bool						linearOBBSpecificShapeSweep				(const NxBox& worldBox, const NxShape* shape, const NxVec3& motion, NxSweepQueryHit& hit)			= 0;
+
 	/**
 	\brief Performs a linear sweep through space with an oriented capsule.
 
