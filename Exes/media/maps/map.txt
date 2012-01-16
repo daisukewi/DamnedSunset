@@ -41,13 +41,15 @@ Map = {
 		targetHeight = 7,
 	},
 	
-	skybox = {
-		type = "Entity",
-		static = true,
-		position = {0, 0, 0},
+	Sol = {
+		type = "Sun",
+		position = {0, 10, -100},
 		orientation = 0,
-		model = "skybox.mesh",
-	},	
+		model = "esfera.mesh",
+		scale = 30.0,
+		speed = 5.0,
+		inclination = 120.0,
+	},
 	
 	Barril1 = {
 		type = "Barril",

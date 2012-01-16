@@ -135,6 +135,20 @@ namespace Graphics
 		*/
 		void removeStaticEntity(CStaticEntity* entity);
 
+		/**
+		Cambia la dirección de la luz direccional de la escena. 
+
+		@param direction Nuevo vector de dirección de la luz direccional.
+		*/
+		void setLightDirection(const float x, const float y, const float z);
+
+		/**
+		Devuelve el gestor de la escena de Ogre
+
+		@return Puntero al gestor de la escena de Ogre.
+		*/
+		Ogre::SceneManager *getSceneMgr() {return _sceneMgr;}
+
 	protected:
 
 		/**
@@ -190,14 +204,6 @@ namespace Graphics
 		*/
 		friend class CEntity;
 		friend class CCamera;
-
-		/**
-		Devuelve el gestor de la escena de Ogre
-
-		@return Puntero al gestor de la escena de Ogre.
-		*/
-		Ogre::SceneManager *getSceneMgr() {return _sceneMgr;}
-
 
 		/**
 		Clase amiga. Solo las entidades pueden acceder al gestor de la

@@ -135,7 +135,6 @@ namespace Graphics
 	} // deactivate
 	
 	//--------------------------------------------------------
-
 	
 	void CScene::tick(float secs)
 	{	
@@ -145,6 +144,13 @@ namespace Graphics
 			(*it)->tick(secs);
 
 	} // tick
+
+	//--------------------------------------------------------
+
+	void CScene::setLightDirection(const float x, const float y, const float z)
+	{
+		_directionalLight->setDirection(x, y, z);
+	} // setLightDirection
 
 	//--------------------------------------------------------
 
