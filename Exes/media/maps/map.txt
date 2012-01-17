@@ -46,6 +46,7 @@ Map = {
 		type = "TargetCamera",
 		position = {0, 0, 0},
 		orientation = 180,
+		isTargetCamera = true,
 	},
 	
 	Sol = {

@@ -187,6 +187,13 @@ namespace Logic
 		bool isPlayer() { return _isPlayer; }
 
 		/**
+		Método que indica si la entidad es o no el objetivo de la cámara.
+
+		@return true si la entidad es el objetivo de la cámara.
+		*/
+		bool isTargetCamera() {return _isTargetCamera; }
+
+		/**
 		Devuelve el mapa donde está la entidad.
 
 		@return Puntero al mapa que contiene la entidad.
@@ -369,6 +376,12 @@ namespace Logic
 		es false a no ser que se lea otra cosa de los atributos.
 		*/
 		bool _isPlayer;
+
+		/**
+		Atributo que indica si la entidad es el objetivo de la cámara; por
+		defecto es false a no ser que se lea otra cosa de los atributos.
+		*/
+		bool _isTargetCamera;
 
 	}; // class CEntity
 

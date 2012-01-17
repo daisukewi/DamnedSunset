@@ -22,12 +22,13 @@ de juego. Es una colección de componentes.
 
 #include "GUI/Server.h"
 #include "GUI/PlayerController.h"
+#include "GUI/CameraController.h"
 
 namespace Logic 
 {
 	CEntity::CEntity(TEntityID entityID) : _entityID(entityID), 
 				_map(0), _type(""), _name(""), _transform(Matrix4::IDENTITY),
-				_isPlayer(false), _activated(false)
+				_isPlayer(false), _activated(false), _isTargetCamera(false)
 	{
 
 	} // CEntity
@@ -69,6 +70,8 @@ namespace Logic
 		if(entityInfo->hasAttribute("isPlayer"))
 			_isPlayer = entityInfo->getBoolAttribute("isPlayer");
 		
+		if(entityInfo->hasAttribute("isTargetCamera"))
+			_isTargetCamera = entityInfo->getBoolAttribute("isTargetCamera");
 
 		// Inicializamos los componentes
 		TComponentList::const_iterator it;
@@ -93,6 +96,14 @@ namespace Logic
 		{
 			CServer::getSingletonPtr()->setPlayer(this);
 			GUI::CServer::getSingletonPtr()->getPlayerController()->setControlledAvatar(this);
+		}
+
+		// Si somos el objetivo al que apunta la cámara
+		// nos registramos para que nos informen de los
+		// movimientos que debemos realizar.
+		if (isTargetCamera())
+		{
+			GUI::CServer::getSingletonPtr()->getCameraController()->setControlledTarget(this);
 		}
 
 		// Activamos los componentes
