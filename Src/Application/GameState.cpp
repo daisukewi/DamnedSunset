@@ -22,6 +22,7 @@ Contiene la implementación del estado de juego.
 
 #include "GUI/Server.h"
 #include "GUI/PlayerController.h"
+#include "GUI/CameraController.h"
 
 #include "Physics/Server.h"
 
@@ -78,8 +79,9 @@ namespace Application {
 		// Activamos el mapa que ha sido cargado para la partida.
 		Logic::CServer::getSingletonPtr()->activateMap();
 
-		// Queremos que el GUI maneje al jugador.
+		// Queremos que el GUI maneje al jugador y la cámara.
 		GUI::CServer::getSingletonPtr()->getPlayerController()->activate();
+		GUI::CServer::getSingletonPtr()->getCameraController()->activate();
 
 		// Activamos la ventana que nos muestra el tiempo transcurrido y activamos el ratón.
 		CEGUI::System::getSingletonPtr()->setGUISheet(_timeWindow);

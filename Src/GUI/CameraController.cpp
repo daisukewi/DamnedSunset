@@ -63,6 +63,7 @@ namespace GUI {
 			case GUI::Key::RIGHTARROW:
 				m._string = "right";
 				break;
+
 			default:
 				return false;
 			}
@@ -84,10 +85,16 @@ namespace GUI {
 			switch(key.keyId)
 			{
 			case GUI::Key::UPARROW:
+				m._string = "stopUp";
+				break;
 			case GUI::Key::DOWNARROW:
+				m._string = "stopDown";
+				break;
 			case GUI::Key::LEFTARROW:
+				m._string = "stopLeft";
+				break;
 			case GUI::Key::RIGHTARROW:
-				m._string = "stop";
+				m._string = "stopRight";
 				break;
 
 			default:
