@@ -102,24 +102,14 @@ namespace Logic
 		void right();
 
 		/**
-		Provoca que la entidad pare el movimiento hacia delante.
+		Provoca que la entidad pare el movimiento hacia delante y/o hacia atrás.
 		*/
-		void stopUp();
+		void stopUpDown();
 
 		/**
-		Provoca que la entidad pare el movimiento hacia atrás.
+		Provoca que la entidad pare el movimiento hacia la izquierda y/o hacia la derecha.
 		*/
-		void stopDown();
-
-		/**
-		Provoca que la entidad pare el movimiento hacia la izquierda.
-		*/
-		void stopLeft();
-
-		/**
-		Provoca que la entidad pare el movimiento hacia la derecha.
-		*/
-		void stopRight();
+		void stopLeftRight();
 
 	protected:
 

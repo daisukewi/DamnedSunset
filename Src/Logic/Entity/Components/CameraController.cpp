@@ -56,14 +56,10 @@ namespace Logic
 				left();
 			else if(!message._string.compare("right"))
 				right();
-			else if(!message._string.compare("stopUp"))
-				stopUp();
-			else if(!message._string.compare("stopDown"))
-				stopDown();
-			else if(!message._string.compare("stopLeft"))
-				stopLeft();
-			else if(!message._string.compare("stopRight"))
-				stopRight();
+			else if(!message._string.compare("stopUpDown"))
+				stopUpDown();
+			else if(!message._string.compare("stopLeftRight"))
+				stopLeftRight();
 		}
 
 	} // process
@@ -102,35 +98,19 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CCameraController::stopUp()
+	void CCameraController::stopUpDown()
 	{
-		_up = false;
+		_up = _down = false;
 
-	} // stopUp
+	} // stopUpDown
 
 	//---------------------------------------------------------
 
-	void CCameraController::stopDown()
+	void CCameraController::stopLeftRight()
 	{
-		_down = false;
-
-	} // stopDown
-
-	//---------------------------------------------------------
-
-	void CCameraController::stopLeft()
-	{
-		_left = false;
+		_left = _right = false;
 
 	} // stopLeft
-
-	//---------------------------------------------------------
-
-	void CCameraController::stopRight()
-	{
-		_right = false;
-
-	} // stopRight
 
 	//---------------------------------------------------------
 

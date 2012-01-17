@@ -85,16 +85,13 @@ namespace GUI {
 			switch(key.keyId)
 			{
 			case GUI::Key::UPARROW:
-				m._string = "stopUp";
-				break;
 			case GUI::Key::DOWNARROW:
-				m._string = "stopDown";
+				m._string = "stopUpDown";
 				break;
+
 			case GUI::Key::LEFTARROW:
-				m._string = "stopLeft";
-				break;
 			case GUI::Key::RIGHTARROW:
-				m._string = "stopRight";
+				m._string = "stopLeftRight";
 				break;
 
 			default:
@@ -111,15 +108,33 @@ namespace GUI {
 	
 	bool CCameraController::mouseMoved(const CMouseState &mouseState)
 	{
-		/*if(_controlledTarget)
+		if(_controlledTarget)
 		{
-			Logic::TMessage m;
-			m._type = Logic::Message::CONTROL;
-			m._string = "turn";
-			m._float = -(float)mouseState.movX * TURN_FACTOR;
-			_controlledTarget->emitMessage(m);
+			Logic::TMessage m1;
+			m1._type = Logic::Message::CAMERA_CONTROL;
+
+			if (mouseState.posRelX <= 0)
+				m1._string = "left";
+			else if (mouseState.posRelX >= 1)
+				m1._string = "right";
+			else if ((mouseState.posRelX > 0) && (mouseState.posRelY < 1))
+				m1._string = "stopLeftRight";
+
+			_controlledTarget->emitMessage(m1);
+
+			Logic::TMessage m2;
+			m2._type = Logic::Message::CAMERA_CONTROL;
+
+			if (mouseState.posRelY <= 0)
+				m2._string = "up";
+			else if (mouseState.posRelY >= 1)
+				m2._string = "down";
+			else if ((mouseState.posRelY > 0) && (mouseState.posRelY < 1))
+				m2._string = "stopUpDown";
+
+			_controlledTarget->emitMessage(m2);
 			return true;
-		}*/
+		}
 		return false;
 
 	} // mouseMoved
