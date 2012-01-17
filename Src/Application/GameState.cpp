@@ -81,10 +81,11 @@ namespace Application {
 		// Queremos que el GUI maneje al jugador.
 		GUI::CServer::getSingletonPtr()->getPlayerController()->activate();
 
-		// Activamos la ventana que nos muestra el tiempo transcurrido.
+		// Activamos la ventana que nos muestra el tiempo transcurrido y activamos el ratón.
 		CEGUI::System::getSingletonPtr()->setGUISheet(_timeWindow);
 		_timeWindow->setVisible(true);
 		_timeWindow->activate();
+		CEGUI::MouseCursor::getSingleton().show();
 
 	} // activate
 
@@ -92,7 +93,8 @@ namespace Application {
 
 	void CGameState::deactivate() 
 	{
-		// Desactivamos la ventana de tiempo.
+		// Desactivamos la ventana de tiempo y el ratón.
+		CEGUI::MouseCursor::getSingleton().hide();
 		_timeWindow->deactivate();
 		_timeWindow->setVisible(false);
 

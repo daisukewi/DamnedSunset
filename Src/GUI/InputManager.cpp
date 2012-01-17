@@ -203,8 +203,7 @@ namespace GUI{
 			it = _keyListeners.begin();
 			for (; it != _keyListeners.end(); it++) 
 			{
-				if ((*it)->keyPressed(ois2galeon(e)))
-				  return true;
+				(*it)->keyPressed(ois2galeon(e));
 			}
 		}
 
@@ -222,8 +221,7 @@ namespace GUI{
 			it = _keyListeners.begin();
 			for (; it != _keyListeners.end(); it++) 
 			{
-				if ((*it)->keyReleased(ois2galeon(e)))
-				  return true;
+				(*it)->keyReleased(ois2galeon(e));
 			}
 		}
 
@@ -300,8 +298,7 @@ namespace GUI{
 			it = _mouseListeners.begin();
 			for (; it != _mouseListeners.end(); it++) 
 			{
-				if ((*it)->mouseMoved(_mouseState))
-				  return true;
+				(*it)->mouseMoved(_mouseState);
 			}
 		}
 
@@ -327,8 +324,7 @@ namespace GUI{
 			it = _mouseListeners.begin();
 			for (; it != _mouseListeners.end(); it++) 
 			{
-				if ((*it)->mousePressed(_mouseState))
-				  return true;
+				(*it)->mousePressed(_mouseState);
 			}
 		}
 
@@ -354,8 +350,7 @@ namespace GUI{
 			it = _mouseListeners.begin();
 			for (; it != _mouseListeners.end(); it++) 
 			{
-				if ((*it)->mouseReleased(_mouseState))
-				  return true;
+				(*it)->mouseReleased(_mouseState);
 			}
 		}
 
