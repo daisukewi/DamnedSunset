@@ -1,0 +1,17 @@
+material lambert1
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+
+			texture_unit
+			{
+				texture Grass_is_Grass_by_j_m_s.jpg
+			}
+		}
+
+	}
+
+}

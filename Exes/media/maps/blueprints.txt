@@ -5,6 +5,7 @@ Entity CGraphics
 AnimatedEntity CAnimatedGraphics
 Camera CCamera
 TargetCamera CCameraController
+Building CGraphics CPhysicEntity
 Barril CGraphics CPhysicEntity
 PuertaTrigger CSwitchTrigger CPhysicEntity
 Puerta CGraphics CSwitchPosition
