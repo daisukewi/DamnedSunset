@@ -16,8 +16,8 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CCameraController() : IComponent(), _up(false), _down(false), 
-			_left(false), _right(false), _speed(0.05f) {}
+		CCameraController() : IComponent(), _up(false), _upMouse(false), _down(false), _downMouse(false), 
+			_left(false), _leftMouse(false), _right(false), _rightMouse(false), _mouse(false), _speed(0.05f) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -114,26 +114,53 @@ namespace Logic
 	protected:
 
 		/**
-		Atributo para saber si la entidad está avanzando.
+		Atributo para saber si la entidad está avanzando con las teclas.
 		*/
 		bool _up;
 
 		/**
-		Atributo para saber si la entidad está retrocediendo.
+		Atributo para saber si la entidad está avanzando con el ratón.
+		*/
+		bool _upMouse;
+
+		/**
+		Atributo para saber si la entidad está retrocediendo con las teclas.
 		*/
 		bool _down;
 
 		/**
+		Atributo para saber si la entidad está retrocediendo con el ratón.
+		*/
+		bool _downMouse;
+
+		/**
 		Atributo para saber si la entidad está desplazándose
-		a la izquierda.
+		a la izquierda con las teclas.
 		*/
 		bool _left;
 
 		/**
 		Atributo para saber si la entidad está desplazándose
-		a la derecha.
+		a la izquierda con el ratón.
+		*/
+		bool _leftMouse;
+
+		/**
+		Atributo para saber si la entidad está desplazándose
+		a la derecha con las teclas.
 		*/
 		bool _right;
+
+		/**
+		Atributo para saber si la entidad está desplazándose
+		a la derecha con el ratón.
+		*/
+		bool _rightMouse;
+
+		/**
+		Atributo para saber si el usuario está moviendo la cámara con ratón.
+		*/
+		bool _mouse;
 
 		/**
 		Atributo que indica la magnitud de velocidad de la entidad.

@@ -48,6 +48,8 @@ namespace Logic
 		switch(message._type)
 		{
 		case Message::CAMERA_CONTROL:
+			_mouse = message._bool;
+
 			if(!message._string.compare("up"))
 				up();
 			else if(!message._string.compare("down"))
@@ -68,7 +70,12 @@ namespace Logic
 
 	void CCameraController::up()
 	{
-		_up = true;
+		if (_mouse)
+			_upMouse = true;
+		else
+			_up = true;
+
+		_mouse = false;
 
 	} // up
 
@@ -76,7 +83,12 @@ namespace Logic
 
 	void CCameraController::down()
 	{
-		_down = true;
+		if (_mouse)
+			_downMouse = true;
+		else
+			_down = true;
+
+		_mouse = false;
 
 	} // down
 
@@ -84,7 +96,12 @@ namespace Logic
 
 	void CCameraController::left()
 	{
-		_left = true;
+		if (_mouse)
+			_leftMouse = true;
+		else
+			_left = true;
+
+		_mouse = false;
 
 	} // left
 
@@ -92,7 +109,12 @@ namespace Logic
 
 	void CCameraController::right()
 	{
-		_right = true;
+		if (_mouse)
+			_rightMouse = true;
+		else
+			_right = true;
+
+		_mouse = false;
 
 	} // right
 
@@ -100,7 +122,12 @@ namespace Logic
 
 	void CCameraController::stopUpDown()
 	{
-		_up = _down = false;
+		if (_mouse)
+			_upMouse = _downMouse = false;
+		else
+			_up = _down = false;
+
+		_mouse = false;
 
 	} // stopUpDown
 
@@ -108,7 +135,12 @@ namespace Logic
 
 	void CCameraController::stopLeftRight()
 	{
-		_left = _right = false;
+		if (_mouse)
+			_leftMouse = _rightMouse = false;
+		else
+			_left = _right = false;
+
+		_mouse = false;
 
 	} // stopLeft
 
@@ -122,23 +154,23 @@ namespace Logic
 		// Calculamos si hay vectores de dirección de avance y strafe,
 		// hayamos la dirección de la suma y escalamos según la
 		// velocidad y el tiempo transcurrido.
-		if(_up || _down || _left || _right)
+		if(_up || _down || _left || _right || _upMouse || _downMouse || _leftMouse || _rightMouse)
 		{
 			Vector3 direction(Vector3::ZERO);
 			Vector3 directionStrafe(Vector3::ZERO);
 
-			if(_up || _down)
+			if(_up || _down || _upMouse || _downMouse)
 			{
 				direction = Math::getDirection(_entity->getYaw());
-				if(_down)
+				if(_down || _downMouse)
 					direction *= -1;
 			}
 
-			if(_left || _right)
+			if(_left || _right || _leftMouse || _rightMouse)
 			{
 				directionStrafe = 
 						Math::getDirection(_entity->getYaw() + Math::PI/2);
-				if(_right)
+				if(_right || _rightMouse)
 					directionStrafe *= -1;
 			}
 

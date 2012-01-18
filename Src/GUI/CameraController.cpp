@@ -49,6 +49,8 @@ namespace GUI {
 		{
 			Logic::TMessage m;
 			m._type = Logic::Message::CAMERA_CONTROL;
+			// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
+			m._bool = false;
 			switch(key.keyId)
 			{
 			case GUI::Key::UPARROW:
@@ -82,6 +84,8 @@ namespace GUI {
 		{
 			Logic::TMessage m;
 			m._type = Logic::Message::CAMERA_CONTROL;
+			// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
+			m._bool = false;
 			switch(key.keyId)
 			{
 			case GUI::Key::UPARROW:
@@ -112,18 +116,22 @@ namespace GUI {
 		{
 			Logic::TMessage m1;
 			m1._type = Logic::Message::CAMERA_CONTROL;
+			// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
+			m1._bool = true;
 
 			if (mouseState.posRelX <= 0)
 				m1._string = "left";
 			else if (mouseState.posRelX >= 1)
 				m1._string = "right";
-			else if ((mouseState.posRelX > 0) && (mouseState.posRelY < 1))
+			else if ((mouseState.posRelX > 0) && (mouseState.posRelX < 1))
 				m1._string = "stopLeftRight";
 
 			_controlledTarget->emitMessage(m1);
 
 			Logic::TMessage m2;
 			m2._type = Logic::Message::CAMERA_CONTROL;
+			// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
+			m2._bool = true;
 
 			if (mouseState.posRelY <= 0)
 				m2._string = "up";
