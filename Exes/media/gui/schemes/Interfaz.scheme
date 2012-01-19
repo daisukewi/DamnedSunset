@@ -1,0 +1,4 @@
+<?xml version="1.0" ?>
+<GUIScheme Name="Interfaz">
+	<Imageset Filename="Interfaz.imageset" />
+</GUIScheme>

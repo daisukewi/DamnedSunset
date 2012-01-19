@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout >
+    <Window Type="DefaultWindow" Name="Interfaz" >
+        <Property Name="UnifiedAreaRect" Value="{{0.000976567,0},{0,0},{1.00098,0},{1,0}}" />
+        <Window Type="OgreTray/StaticImage" Name="Interfaz/iFondo" >
+            <Property Name="Font" Value="FairChar-30" />
+            <Property Name="Text" Value="GALEON" />
+            <Property Name="UnifiedAreaRect" Value="{{-0.00292967,0},{0.751302,0},{0.99707,0},{1.0013,0}}" />
+            <Window Type="TaharezLook/ImageButton" Name="Interfaz/bPersonaje1" >
+                <Property Name="Font" Value="DejaVuSans-10" />
+                <Property Name="HoverImage" Value="set:Interfaz image:Personaje1h" />
+                <Property Name="AlwaysOnTop" Value="True" />
+                <Property Name="NormalImage" Value="set:Interfaz image:Personaje1" />
+                <Property Name="PushedImage" Value="set:Interfaz image:Personaje1p" />
+                <Property Name="UnifiedAreaRect" Value="{{0.017578,0},{0.116927,0},{0.191992,0},{0.933074,0}}" />
+            </Window>
+            <Window Type="TaharezLook/ImageButton" Name="Interfaz/bPersonaje2" >
+                <Property Name="Font" Value="DejaVuSans-10" />
+                <Property Name="HoverImage" Value="set:Interfaz image:Personaje2h" />
+                <Property Name="AlwaysOnTop" Value="True" />
+                <Property Name="NormalImage" Value="set:Interfaz image:Personaje2" />
+                <Property Name="PushedImage" Value="set:Interfaz image:Personaje2p" />
+                <Property Name="UnifiedAreaRect" Value="{{0.2,0},{0.0760409,0},{0.376562,0},{0.92393,0}}" />
+            </Window>
+            <Window Type="TaharezLook/ImageButton" Name="Interfaz/bPersonaje3" >
+                <Property Name="HoverImage" Value="set:Interfaz image:Personaje3h" />
+                <Property Name="NormalImage" Value="set:Interfaz image:Personaje3" />
+                <Property Name="PushedImage" Value="set:Interfaz image:Personaje3p" />
+                <Property Name="UnifiedAreaRect" Value="{{0.387695,0},{0.0885402,0},{0.546875,0},{0.91999,0}}" />
+            </Window>
+        </Window>
+        <Window Type="OgreTray/Title" Name="Interfaz/iNombreJuego/Name" >
+            <Property Name="Font" Value="Batang-26" />
+            <Property Name="Text" Value="Damned Sunset " />
+            <Property Name="AlwaysOnTop" Value="True" />
+            <Property Name="UnifiedAreaRect" Value="{{0.573437,0},{0.832939,0},{0.973437,0},{0.910544,0}}" />
+        </Window>
+    </Window>
+</GUILayout>
