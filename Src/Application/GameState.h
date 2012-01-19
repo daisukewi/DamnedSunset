@@ -190,6 +190,11 @@ namespace Application
 		*/
 		unsigned int _time;
 
+		/**
+		Ventana que muestra la interfaz.
+		*/
+		CEGUI::Window* _interfazWindow;
+
 	}; // CGameState
 
 } // namespace Application

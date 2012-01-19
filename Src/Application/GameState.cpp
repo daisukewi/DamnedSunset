@@ -51,6 +51,10 @@ namespace Application {
 		CEGUI::WindowManager::getSingletonPtr()->loadWindowLayout("Time.layout");
 		_timeWindow = CEGUI::WindowManager::getSingleton().getWindow("Time");
 
+		// Cargamos la interfaz
+		CEGUI::WindowManager::getSingletonPtr()->loadWindowLayout("Interfaz.layout");
+		_interfazWindow = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
+
 		return true;
 
 	} // init
@@ -87,6 +91,12 @@ namespace Application {
 		CEGUI::System::getSingletonPtr()->setGUISheet(_timeWindow);
 		_timeWindow->setVisible(true);
 		_timeWindow->activate();
+
+		// Activamos la ventana de interfaz
+		CEGUI::System::getSingletonPtr()->setGUISheet(_interfazWindow);
+		_interfazWindow->setVisible(true);
+		_interfazWindow->activate();
+
 		CEGUI::MouseCursor::getSingleton().show();
 
 	} // activate
@@ -99,6 +109,10 @@ namespace Application {
 		CEGUI::MouseCursor::getSingleton().hide();
 		_timeWindow->deactivate();
 		_timeWindow->setVisible(false);
+
+		// Desactivamos la ventana de interfaz
+		_interfazWindow->deactivate();
+		_interfazWindow->setVisible(false);
 
 		// Desactivamos la clase que procesa eventos de entrada para 
 		// controlar al jugador.

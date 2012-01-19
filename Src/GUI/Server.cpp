@@ -89,6 +89,7 @@ namespace GUI {
 		// (automáticamente cargan los archivos looknfeel e imageset)
 		CEGUI::SchemeManager::getSingleton().create("TaharezLook.scheme");
 		CEGUI::SchemeManager::getSingleton().create("OgreTray.scheme");
+		CEGUI::SchemeManager::getSingleton().create("Interfaz.scheme");
 
 		// Cargamos los archivos con las fuentes que usaremos.
 		CEGUI::FontManager::getSingleton().create("DejaVuSans-10.font");
