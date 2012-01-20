@@ -8,7 +8,7 @@ material lambert1
 
 			texture_unit
 			{
-				texture Grass_is_Grass_by_j_m_s.jpg
+				texture grass.jpg
 			}
 		}
 
