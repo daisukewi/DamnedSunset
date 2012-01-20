@@ -143,11 +143,12 @@ namespace Graphics
 		void setLightDirection(const float x, const float y, const float z);
 
 		/**
-		Devuelve el gestor de la escena de Ogre
+		Cambia el color de la luz ambiental de la escena. 
 
-		@return Puntero al gestor de la escena de Ogre.
+		@param valores RGB del nuevo color de la luz ambiental. Desde 0.0 hasta 1.0
 		*/
-		Ogre::SceneManager *getSceneMgr() {return _sceneMgr;}
+		void setAmbientLight(const float r, const float g, const float b);
+
 
 	protected:
 
@@ -210,6 +211,13 @@ namespace Graphics
 		escena de Ogre.
 		*/
 		friend class CStaticEntity;
+
+		/**
+		Devuelve el gestor de la escena de Ogre
+
+		@return Puntero al gestor de la escena de Ogre.
+		*/
+		Ogre::SceneManager *getSceneMgr() {return _sceneMgr;}
 
 		/**
 		Devuelve la geometría estática de la escena de Ogre

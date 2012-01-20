@@ -17,18 +17,8 @@ del sol y el control del la luz ambiental.
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
 
+#include "Graphics/Server.h"
 #include "Graphics/Scene.h"
-#include "Graphics/Entity.h"
-#include "Graphics/StaticEntity.h"
-
-#include <assert.h>
-
-#include <OgreRoot.h>
-#include <OgreSceneManager.h>
-#include <OgreRenderWindow.h>
-#include <OgreViewport.h>
-#include <OgreStaticGeometry.h>
-#include <OgreColourValue.h>
 
 
 namespace Logic 
@@ -50,6 +40,9 @@ namespace Logic
 
 		_sphereRad = entity->getPosition().length();
 		_phi = _entity->getPosition().angleBetween(Vector3(0, 0, _sphereRad)).valueRadians();
+
+		_currentColor = Vector3( 0.20f, 0.20f, 0.38f );
+		_lastColorChanged = 0;
 
 		return true;
 
@@ -91,28 +84,46 @@ namespace Logic
 		IComponent::tick(msecs);
 
 		Vector3 sunPos;
+		Vector3 nextColor;
+
+		// Nuevo ángulo de altura del sol.
 		_phi -= Math::fromDegreesToRadians(_speed * msecs * 0.001f);
 		_phi = (_phi < 0.0f) ? Math::PI * 2.0f : _phi;
 
-		sunPos.x = _sphereRad * Ogre::Math::Cos(_phi) * Ogre::Math::Sin(_theta);
-		sunPos.y = _sphereRad * Ogre::Math::Sin(_phi) * Ogre::Math::Sin(_theta);
-		sunPos.z = _sphereRad * Ogre::Math::Cos(_theta);
-
+		// Calcular la nueva posición del sol con coordenadas esféricas.
+		sunPos.x = _sphereRad * Math::Cos(_phi) * Math::Sin(_theta);
+		sunPos.y = _sphereRad * Math::Sin(_phi) * Math::Sin(_theta);
+		sunPos.z = _sphereRad * Math::Cos(_theta);
 		_entity->setPosition(sunPos);
 
 		Vector3 shadowDir = sunPos * -1.0f;
-		Graphics::CScene* _sm = _entity->getMap()->getScene();
-		_sm->setLightDirection(shadowDir.x, shadowDir.y, shadowDir.z);
+		//Graphics::CScene* _sm = _entity->getMap()->getScene();
+		Graphics::CScene* sm = Graphics::CServer::getSingletonPtr()->getActiveScene();
+		sm->setLightDirection(shadowDir.x, shadowDir.y, shadowDir.z);
 
+		// Calculamos el nuevo color ambiental que debe generar el sol.
 		if (_phi > Math::fromDegreesToRadians(0.0f))
-			_sm->getSceneMgr()->setAmbientLight(Ogre::ColourValue(.7f,.2f,.25f));
-		if (_phi > Math::fromDegreesToRadians(20.0f))
-			_sm->getSceneMgr()->setAmbientLight(Ogre::ColourValue(.9f,.9f,.9f));
-		if (_phi > Math::fromDegreesToRadians(160.0f))
-			_sm->getSceneMgr()->setAmbientLight(Ogre::ColourValue(.7f,.2f,.25f));
+			nextColor = Vector3( 0.86f, 0.26f, 0.20f );
+		if (_phi > Math::fromDegreesToRadians(30.0f))
+			nextColor = Vector3( 0.75f, 0.75f, 0.96f );
+		if (_phi > Math::fromDegreesToRadians(150.0f))
+			nextColor = Vector3( 0.65f, 0.63f, 0.60f );
 		if (_phi > Math::fromDegreesToRadians(180.0f))
-			_sm->getSceneMgr()->setAmbientLight(Ogre::ColourValue(.1f,.1f,.1f));
+			nextColor = Vector3( 0.20f, 0.20f, 0.38f );
 
+		// Si ha cambiado, mediante interpolación lineal lo ponemos
+		if (nextColor != _currentColor)
+		{
+			_lastColorChanged += msecs;
+			_lastColorChanged = (_lastColorChanged < 5000) ? _lastColorChanged : 5000;
+			float amount = (float)_lastColorChanged / 5000.0f;
+
+			_currentColor = Math::Lerp(_currentColor, nextColor, amount);
+			sm->setAmbientLight(_currentColor.x, _currentColor.y, _currentColor.z);
+		}
+		else
+			_lastColorChanged = 0;
+		
 	} // tick
 
 } // namespace Logic

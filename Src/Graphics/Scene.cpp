@@ -154,6 +154,13 @@ namespace Graphics
 
 	//--------------------------------------------------------
 
+	void CScene::setAmbientLight(const float r, const float g, const float b)
+	{
+		_sceneMgr->setAmbientLight(Ogre::ColourValue(r, g, b));
+	} // setAmbientLight
+
+	//--------------------------------------------------------
+
 	void CScene::buildStaticGeometry()
 	{
 		if(!_staticGeometry && !_staticEntities.empty())

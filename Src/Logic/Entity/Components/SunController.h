@@ -113,11 +113,27 @@ namespace Logic
 		*/
 		float _speed;
 
+		/**
+		Angulo al que se encuentra el sol sobre el horizonte.
+		*/
 		float _phi;
 
+		/**
+		Angulo que está girado el sol sobre la perpendicular al horizonte.
+		*/
 		float _theta;
 
+		/**
+		Distancia a la que se encuentra el sol desde el origen de coordenadas.
+		*/
 		float _sphereRad;
+
+		/**
+		Color actual de la iluminación ambiental.
+		*/
+		Vector3 _currentColor;
+
+		unsigned int _lastColorChanged;
 
 	}; // class CSunController
 

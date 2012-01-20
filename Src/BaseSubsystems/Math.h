@@ -189,6 +189,41 @@ namespace Math
 
 	} // getDirection
 
+	/**
+	Devuelve el coseno del ángulo que se pasa como parámetro.
+
+	@param angle Angulo sobre el que calcular su coseno.
+	@return Coseno del ángulo.
+	*/
+	static float Cos(const float angle)
+	{
+		return Ogre::Math::Cos(angle);
+	} // Cos
+
+	/**
+	Devuelve el seno del ángulo que se pasa como parámetro.
+
+	@param angle Angulo sobre el que calcular su seno.
+	@return Seno del ángulo.
+	*/
+	static float Sin(const float angle)
+	{
+		return Ogre::Math::Sin(angle);
+	} // Sin
+
+	/**
+	Hace una interpolación lineal entre dos vectores.
+
+	@param v1 Vector desde el que se empieza a interpolar.
+	@param v2 Vector que indica el final de la interpolación.
+	@param amount Cantidad que se debe interpolar. Desde 0.0 hasta 1.0.
+	@return Vector resultante de la interpolación lineal.
+	*/
+	static Vector3 Lerp(const Vector3 v1, const Vector3 v2, const float amount)
+	{
+		return v1 + ((v2 - v1) * amount);
+	} // Lerp
+
 } // namespace Math
 
 #endif // __BaseSubsystems_Math_H
