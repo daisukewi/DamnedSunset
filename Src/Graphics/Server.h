@@ -19,6 +19,8 @@ la ventana, etc.
 
 #include <map>
 
+#include "BaseSubsystems/Math.h"
+
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Ogre 
 {
@@ -98,6 +100,8 @@ namespace Graphics
 		@param secs Segundos desde que se reenderizó el último frame.
 		*/
 		void tick(float secs);
+
+		
 
 		/**
 		Crea una nueva escena. Puede ser de un estado como el menú o un
@@ -180,7 +184,17 @@ namespace Graphics
 		*/
 		void setScene(const std::string& name);
 
+		/**Obtener el rayo que es necesario lanzar al hacer un raicast con las coordenadas del ratón
+		
+		@param screenx Posición x del ratón en pantalla
+		@param screeny posición y del ratón en pantalla
+		*/
+
+		Ray getCameraToViewportRay(float screenx, float screeny);
+		
+
 	protected:
+		
 
 		/**
 		Constructor de la clase.

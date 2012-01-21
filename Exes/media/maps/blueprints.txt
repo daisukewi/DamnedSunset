@@ -4,7 +4,7 @@ Player CAvatarController CAnimatedGraphics CLife CPhysicCharacter CSteeringMovem
 Entity CGraphics
 AnimatedEntity CAnimatedGraphics
 Camera CCamera
-TargetCamera CCameraController
+TargetCamera CCameraController CRaycastController
 Building CGraphics CPhysicEntity
 Barril CGraphics CPhysicEntity
 PuertaTrigger CSwitchTrigger CPhysicEntity

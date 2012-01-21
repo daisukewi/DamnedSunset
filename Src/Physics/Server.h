@@ -328,6 +328,19 @@ namespace Physics {
 		Logic::CEntity* raycastClosest (const Ray& ray, float maxDist) const; 
 
 
+		/**
+			
+		Lanza un rayo y devuelve la primera entidad lógica contra la que interseca y el punto que en que ha intersecado.
+		Si el rayo
+		no choca contra ninguna entidad devuelve NULL.
+
+		@param ray Rayo lanzado.
+		@param entity parámetro donde se alamcenará el punto de la entidada en el que ha chocado
+		@return Primera entidad lógica alcanzada o NULL.
+		*/
+		Logic::CEntity* CServer::raycastAdvanced (const Ray& ray, Vector3* &point) const;
+
+
 	private:
 
 		/**

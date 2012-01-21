@@ -159,6 +159,16 @@ namespace GUI {
 
 	bool CCameraController::mouseReleased(const CMouseState &mouseState)
 	{
+		if (_controlledTarget){
+
+			Logic::TMessage m1;
+			m1._vector2.x = mouseState.posRelX;
+			m1._vector2.y = mouseState.posRelY;
+			m1._type = Logic::Message::CAMERA_CLICK;
+			_controlledTarget->emitMessage(m1);
+
+			return true;
+		}
 		return false;
 
 	} // mouseReleased

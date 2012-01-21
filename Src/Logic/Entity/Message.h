@@ -42,7 +42,9 @@ namespace Logic
 			MOVE_TO,
 			ROUTE_TO,
 			FINISHED_ROUTE,
-			FINISHED_MOVE
+			FINISHED_MOVE,
+			CAMERA_CLICK
+
 		};
 	}
 
@@ -112,6 +114,11 @@ namespace Logic
 		Atributo para almacenar una entidad.
 		*/
 		CEntity *_entity;
+
+		/**
+		Atributo para almacenar un vecotr de bidimensioanl
+		*/
+		Vector2 _vector2;
 
 	} TMessage; 
 

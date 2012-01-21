@@ -20,6 +20,10 @@ la ventana, etc.
 #include "BaseSubsystems/Server.h"
 #include "BaseSubsystems/Math.h"
 
+
+#include "Graphics\Scene.h"
+#include "Graphics\Camera.h"
+
 #include <assert.h>
 
 #include <OgreRoot.h>
@@ -222,5 +226,20 @@ namespace Graphics
 			_root->renderOneFrame(secs);
 		}
 	} // tick
+
+	//--------------------------------------------------------
+
+	Ray CServer::getCameraToViewportRay(float screenx, float screeny){
+	
+		if (_activeScene){
+			Graphics::CCamera* camera =  _activeScene->getCamera();
+			Ray mouseRay = camera->getCamera()->getCameraToViewportRay(screenx,screeny);
+		return mouseRay;
+		}
+		
+		
+		
+	} //getCameraToViewportRay
+
 
 } // namespace Graphics

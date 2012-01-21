@@ -96,6 +96,14 @@ namespace Graphics
 		@param newPosition Nueva posición para el _targetNode.
 		*/
 		void setTargetCameraPosition(const Vector3 &newPosition);
+		
+
+		/**
+		Devuelve la cámara de Ogre.
+
+		@return puntero a la cámara de Ogre.
+		*/
+		Ogre::Camera *getCamera() {return _camera;}
 
 	protected:
 		
@@ -104,13 +112,6 @@ namespace Graphics
 		poder crear el viewport.
 		*/
 		friend class CScene;
-
-		/**
-		Devuelve la cámara de Ogre.
-
-		@return puntero a la cámara de Ogre.
-		*/
-		Ogre::Camera *getCamera() {return _camera;}
 
 		/**
 		Nodo que contiene la cámara.
