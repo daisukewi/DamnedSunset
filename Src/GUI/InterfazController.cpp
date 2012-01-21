@@ -12,6 +12,8 @@
 #include <CEGUIWindow.h>
 #include <elements/CEGUIPushButton.h>
 
+#include <CEGUIUDim.h>
+
 namespace GUI {
 
 	CInterfazController::CInterfazController()
@@ -28,6 +30,8 @@ namespace GUI {
 
 	bool CInterfazController::init()
 	{
+		_vida1 = 100000;
+
 		// Cargamos la interfaz
 		CEGUI::WindowManager::getSingletonPtr()->loadWindowLayout("Interfaz.layout");
 		_interfazWindow = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
@@ -72,6 +76,12 @@ namespace GUI {
 		std::stringstream text;
 		text << "Time: " << _time/1000;
 		_interfazWindow->getChild("Interfaz/Tiempo")->setText(text.str());
+
+		_vida1 -= msecs;
+		_vida1 %= 100000;
+		float barra = _vida1 /100000.0f * 0.2;
+		_interfazWindow->getChild("Interfaz/iVida1")->setWidth(CEGUI::UDim(barra,.0f));
+
 	}
 	//--------------------------------------------------------
 
@@ -91,16 +101,25 @@ namespace GUI {
 	bool CInterfazController::clickPersonaje1(const CEGUI::EventArgs& e)
 	{
 		printf("Personaje1\n");
+		_interfazWindow->getChild("Interfaz/Menu1")->setVisible(true);
+		_interfazWindow->getChild("Interfaz/Menu2")->setVisible(false);
+		_interfazWindow->getChild("Interfaz/Menu3")->setVisible(false);
 		return true;
 	}
 	bool CInterfazController::clickPersonaje2(const CEGUI::EventArgs& e)
 	{
 		printf("Personaje2\n");
+		_interfazWindow->getChild("Interfaz/Menu1")->setVisible(false);
+		_interfazWindow->getChild("Interfaz/Menu2")->setVisible(true);
+		_interfazWindow->getChild("Interfaz/Menu3")->setVisible(false);
 		return true;
 	}
 	bool CInterfazController::clickPersonaje3(const CEGUI::EventArgs& e)
 	{
 		printf("Personaje3\n");
+		_interfazWindow->getChild("Interfaz/Menu1")->setVisible(false);
+		_interfazWindow->getChild("Interfaz/Menu2")->setVisible(false);
+		_interfazWindow->getChild("Interfaz/Menu3")->setVisible(true);
 		return true;
 	}
 } // namespace GUI

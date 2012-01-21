@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <Imageset Name="Interfaz" Imagefile="Interfaz.png" NativeHorzRes="800" NativeVertRes="600" AutoScaled="true" >
     <Image Name="Personaje1" XPos="0" YPos="0" Width="300" Height="300" />
 	<Image Name="Personaje2" XPos="300" YPos="0" Width="300" Height="300" />

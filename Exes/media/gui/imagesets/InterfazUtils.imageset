@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Imageset Name="InterfazUtils" Imagefile="InterfazUtils.png" NativeHorzRes="800" NativeVertRes="600" AutoScaled="true" >
+    <Image Name="vida" XPos="0" YPos="0" Width="5" Height="5" />
+	<Image Name="energia" XPos="5" YPos="0" Width="5" Height="5" />
+</Imageset>

@@ -85,7 +85,7 @@ namespace GUI
 	protected:
 
 	private:
-		
+		unsigned int _vida1;
 	};
 
 } // namespace GUI

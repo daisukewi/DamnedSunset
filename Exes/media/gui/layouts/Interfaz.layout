@@ -2,49 +2,79 @@
 
 <GUILayout >
     <Window Type="DefaultWindow" Name="Interfaz" >
-        <Property Name="UnifiedAreaRect" Value="{{0.000976567,0},{0.00130208,0},{1.00098,0},{1.0013,0}}" />
-        <Window Type="OgreTray/StaticImage" Name="Interfaz/iFondo" >
-            <Property Name="Font" Value="FairChar-30" />
-            <Property Name="Text" Value="GALEON" />
-            <Property Name="UnifiedAreaRect" Value="{{-0.000976607,0},{0.817708,0},{0.999023,0},{0.997393,0}}" />
-            <Window Type="TaharezLook/ImageButton" Name="Interfaz/bPersonaje1" >
-                <Property Name="Font" Value="DejaVuSans-10" />
-                <Property Name="HoverImage" Value="set:Interfaz image:Personaje1h" />
-                <Property Name="AlwaysOnTop" Value="True" />
-                <Property Name="NormalImage" Value="set:Interfaz image:Personaje1" />
-                <Property Name="PushedImage" Value="set:Interfaz image:Personaje1p" />
-                <Property Name="UnifiedAreaRect" Value="{{0.0136718,0},{0.0544264,0},{0.108008,0},{0.693716,0}}" />
-            </Window>
-            <Window Type="TaharezLook/ImageButton" Name="Interfaz/bPersonaje2" >
-                <Property Name="Font" Value="DejaVuSans-10" />
-                <Property Name="HoverImage" Value="set:Interfaz image:Personaje2h" />
-                <Property Name="AlwaysOnTop" Value="True" />
-                <Property Name="NormalImage" Value="set:Interfaz image:Personaje2" />
-                <Property Name="PushedImage" Value="set:Interfaz image:Personaje2p" />
-                <Property Name="UnifiedAreaRect" Value="{{0.121875,0},{0.0697004,0},{0.203711,0},{0.660795,0}}" />
-            </Window>
-            <Window Type="TaharezLook/ImageButton" Name="Interfaz/bPersonaje3" >
-                <Property Name="HoverImage" Value="set:Interfaz image:Personaje3h" />
-                <Property Name="NormalImage" Value="set:Interfaz image:Personaje3" />
-                <Property Name="PushedImage" Value="set:Interfaz image:Personaje3p" />
-                <Property Name="UnifiedAreaRect" Value="{{0.216797,0},{0.0781235,0},{0.296876,0},{0.660931,0}}" />
-            </Window>
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Window Type="TaharezLook/ImageButton" Name="Interfaz/bPersonaje1" >
+            <Property Name="Font" Value="DejaVuSans-10" />
+            <Property Name="HoverImage" Value="set:Interfaz image:Personaje1h" />
+            <Property Name="AlwaysOnTop" Value="True" />
+            <Property Name="NormalImage" Value="set:Interfaz image:Personaje1" />
+            <Property Name="PushedImage" Value="set:Interfaz image:Personaje1p" />
+            <Property Name="UnifiedAreaRect" Value="{{0.01,0},{0.55,0},{0.11,0},{0.65,0}}" />
+        </Window>
+        <Window Type="TaharezLook/ImageButton" Name="Interfaz/bPersonaje2" >
+            <Property Name="Font" Value="DejaVuSans-10" />
+            <Property Name="HoverImage" Value="set:Interfaz image:Personaje2h" />
+            <Property Name="AlwaysOnTop" Value="True" />
+            <Property Name="NormalImage" Value="set:Interfaz image:Personaje2" />
+            <Property Name="PushedImage" Value="set:Interfaz image:Personaje2p" />
+            <Property Name="UnifiedAreaRect" Value="{{0.01,0},{0.7,0},{0.11,0},{0.8,0}}" />
+        </Window>
+        <Window Type="TaharezLook/ImageButton" Name="Interfaz/bPersonaje3" >
+            <Property Name="HoverImage" Value="set:Interfaz image:Personaje3h" />
+            <Property Name="NormalImage" Value="set:Interfaz image:Personaje3" />
+            <Property Name="PushedImage" Value="set:Interfaz image:Personaje3p" />
+            <Property Name="UnifiedAreaRect" Value="{{0.01,0},{0.85,0},{0.11,0},{0.95,0}}" />
+        </Window>
+        <Window Type="WindowsLook/StaticImage" Name="Interfaz/iVida1" >
+            <Property Name="Image" Value="set:InterfazUtils image:vida" />
+            <Property Name="UnifiedAreaRect" Value="{{0.01,0},{0.65,0},{0.21,0},{0.67,0}}" />
+        </Window>
+        <Window Type="WindowsLook/StaticImage" Name="Interfaz/iEnergia1" >
+            <Property Name="Image" Value="set:InterfazUtils image:energia" />
+            <Property Name="UnifiedAreaRect" Value="{{0.01,0},{0.67,0},{0.21,0},{0.69,0}}" />
+        </Window>
+        <Window Type="WindowsLook/StaticImage" Name="Interfaz/iVida2" >
+            <Property Name="Image" Value="set:InterfazUtils image:vida" />
+            <Property Name="UnifiedAreaRect" Value="{{0.01,0},{0.80,0},{0.21,0},{0.82,0}}" />
+        </Window>
+		<Window Type="WindowsLook/StaticImage" Name="Interfaz/iEnergia2" >
+            <Property Name="Image" Value="set:InterfazUtils image:energia" />
+            <Property Name="UnifiedAreaRect" Value="{{0.01,0},{0.82,0},{0.21,0},{0.84,0}}" />
+        </Window>
+        <Window Type="WindowsLook/StaticImage" Name="Interfaz/iVida3" >
+            <Property Name="Image" Value="set:InterfazUtils image:vida" />
+            <Property Name="UnifiedAreaRect" Value="{{0.01,0},{0.95,0},{0.21,0},{0.97,0}}" />
+        </Window>
+		<Window Type="WindowsLook/StaticImage" Name="Interfaz/iEnergia3" >
+            <Property Name="Image" Value="set:InterfazUtils image:energia" />
+            <Property Name="UnifiedAreaRect" Value="{{0.01,0},{0.97,0},{0.21,0},{0.99,0}}" />
         </Window>
         <Window Type="OgreTray/Title" Name="Interfaz/iNombreJuego/Name" >
             <Property Name="Font" Value="Batang-26" />
             <Property Name="Text" Value="Damned Sunset " />
             <Property Name="AlwaysOnTop" Value="True" />
-            <Property Name="UnifiedAreaRect" Value="{{0.588085,0},{0.736585,0},{0.988086,0},{0.81419,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.497419,0},{0.810803,0},{0.804276,0},{0.849346,0}}" />
         </Window>
         <Window Type="OgreTray/FrameWindow" Name="Interfaz/Tiempo" >
             <Property Name="Text" Value="Time: " />
             <Property Name="CaptionFont" Value="DejaVuSans-10" />
+            <Property Name="SizingEnabled" Value="False" />
             <Property Name="TitlebarEnabled" Value="True" />
-            <Property Name="UnifiedAreaRect" Value="{{0.00449355,0},{0.759375,0},{0.183204,0},{0.821875,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.81316,0},{0.797135,0},{0.991867,0},{0.851823,0}}" />
             <Property Name="DragMovingEnabled" Value="False" />
+            <Property Name="CloseButtonEnabled" Value="False" />
         </Window>
         <Window Type="OgreTray/StaticImage" Name="Interfaz/Menu1" >
-            <Property Name="UnifiedAreaRect" Value="{{0.649414,0},{0.825521,0},{0.98535,0},{0.984376,0}}" />
+            <Property Name="Visible" Value="False" />
+            <Property Name="AlwaysOnTop" Value="True" />
+            <Property Name="UnifiedAreaRect" Value="{{0.5,0},{0.85,0},{0.99,0},{0.99,0}}" />
+        </Window>
+        <Window Type="TaharezLook/StaticImage" Name="Interfaz/Menu3" >
+            <Property Name="UnifiedAreaRect" Value="{{0.5,0},{0.85,0},{0.99,0},{0.99,0}}" />
+        </Window>
+        <Window Type="Vanilla/StaticImage" Name="Interfaz/Menu2" >
+            <Property Name="AlwaysOnTop" Value="True" />
+            <Property Name="UnifiedAreaRect" Value="{{0.5,0},{0.85,0},{0.99,0},{0.99,0}}" />
         </Window>
     </Window>
 </GUILayout>
