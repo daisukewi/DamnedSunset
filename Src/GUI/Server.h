@@ -24,6 +24,7 @@ namespace GUI
 {
 	class CPlayerController;
 	class CCameraController;
+	class CInterfazController;
 }
 
 namespace CEGUI
@@ -88,6 +89,10 @@ namespace GUI
 		@return Instancia de la clase GUI que contra la cámara.
 		*/
 		CCameraController *getCameraController() {return _cameraController;}
+
+		/**
+		*/
+		CInterfazController *getInterfazController() {return _interfazController;}
 
 		/***************************************************************
 		Métodos de CKeyboardListener
@@ -181,6 +186,11 @@ namespace GUI
 		Clase GUI que se encarga de controlar la cámara.
 		*/
 		CCameraController *_cameraController;
+
+		/**
+		Clase GUI que se encarga de controlar la cámara.
+		*/
+		CInterfazController *_interfazController;
 
 		/**
 		Sistema de la interfaz gráfica de usuario CEGUI.
