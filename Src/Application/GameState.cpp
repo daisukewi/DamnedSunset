@@ -23,15 +23,22 @@ Contiene la implementación del estado de juego.
 #include "GUI/Server.h"
 #include "GUI/PlayerController.h"
 #include "GUI/CameraController.h"
+#include "GUI/InterfazController.h"
 
 #include "Physics/Server.h"
 
+#include "GUI/Server.h"
 #include <CEGUISystem.h>
 #include <CEGUIWindowManager.h>
 #include <CEGUIWindow.h>
+#include <elements/CEGUIPushButton.h>
+
+namespace GUI 
+{
+	class CInterfazController;
+}
 
 namespace Application {
-
 	bool CGameState::init() 
 	{
 		CApplicationState::init();
@@ -47,17 +54,14 @@ namespace Application {
 		if (!Logic::CServer::getSingletonPtr()->loadLevel("map.txt"))
 			return false;
 
-		// Cargamos la ventana que muestra el tiempo de juego transcurrido.
-		CEGUI::WindowManager::getSingletonPtr()->loadWindowLayout("Time.layout");
-		_timeWindow = CEGUI::WindowManager::getSingleton().getWindow("Time");
+		//Inicializamos la interfaz
+		GUI::CServer::getSingletonPtr()->getInterfazController()->init();
 
-		// Cargamos la interfaz
-		CEGUI::WindowManager::getSingletonPtr()->loadWindowLayout("Interfaz.layout");
-		_interfazWindow = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
 
 		return true;
 
 	} // init
+
 
 	//--------------------------------------------------------
 
@@ -87,15 +91,8 @@ namespace Application {
 		GUI::CServer::getSingletonPtr()->getPlayerController()->activate();
 		GUI::CServer::getSingletonPtr()->getCameraController()->activate();
 
-		// Activamos la ventana que nos muestra el tiempo transcurrido y activamos el ratón.
-		CEGUI::System::getSingletonPtr()->setGUISheet(_timeWindow);
-		_timeWindow->setVisible(true);
-		_timeWindow->activate();
-
 		// Activamos la ventana de interfaz
-		CEGUI::System::getSingletonPtr()->setGUISheet(_interfazWindow);
-		_interfazWindow->setVisible(true);
-		_interfazWindow->activate();
+		GUI::CServer::getSingletonPtr()->getInterfazController()->activate();
 
 		CEGUI::MouseCursor::getSingleton().show();
 
@@ -107,12 +104,9 @@ namespace Application {
 	{
 		// Desactivamos la ventana de tiempo y el ratón.
 		CEGUI::MouseCursor::getSingleton().hide();
-		_timeWindow->deactivate();
-		_timeWindow->setVisible(false);
 
 		// Desactivamos la ventana de interfaz
-		_interfazWindow->deactivate();
-		_interfazWindow->setVisible(false);
+		GUI::CServer::getSingletonPtr()->getInterfazController()->deactivate();
 
 		// Desactivamos la clase que procesa eventos de entrada para 
 		// controlar al jugador.
@@ -137,12 +131,8 @@ namespace Application {
 		// Actualizamos la lógica de juego.
 		Logic::CServer::getSingletonPtr()->tick(msecs);
 
-		_time += msecs;
-		
-		std::stringstream text;
-		text << "Time: " << _time/1000;
-		_timeWindow->setText(text.str());
-
+		//Actualizamos la interfaz
+		GUI::CServer::getSingletonPtr()->getInterfazController()->tick(msecs);
 	} // tick
 
 	//--------------------------------------------------------

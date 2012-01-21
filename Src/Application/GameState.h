@@ -69,7 +69,7 @@ namespace Application
 		Constructor de la clase 
 		*/
 		CGameState(CBaseApplication *app) : CApplicationState(app), 
-				_scene(0), _time(0) {}
+				_scene(0) {}
 
 		/** 
 		Destructor 
@@ -180,20 +180,7 @@ namespace Application
 		*/
 		Graphics::CScene* _scene;
 
-		/**
-		Ventana que muestra el tiempo de juego transcurrido.
-		*/
-		CEGUI::Window* _timeWindow;
-
-		/**
-		Tiempo de juego en milisegundos.
-		*/
-		unsigned int _time;
-
-		/**
-		Ventana que muestra la interfaz.
-		*/
-		CEGUI::Window* _interfazWindow;
+	private:
 
 	}; // CGameState
 
