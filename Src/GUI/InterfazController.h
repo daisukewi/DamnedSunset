@@ -77,15 +77,33 @@ namespace GUI
 		bool clickPersonaje1(const CEGUI::EventArgs& e);
 		bool clickPersonaje2(const CEGUI::EventArgs& e);
 		bool clickPersonaje3(const CEGUI::EventArgs& e);
+		bool clickB1(const CEGUI::EventArgs& e);
+		bool clickB2(const CEGUI::EventArgs& e);
+		bool clickB3(const CEGUI::EventArgs& e);
+		bool clickB4(const CEGUI::EventArgs& e);
+
+
+
+
 
 		unsigned int _time;
 
 		CEGUI::Window* _interfazWindow;
 
+		enum Estado {normal , construir};
+
+		Estado _estado;
+		unsigned int _jugadorSel;
+
 	protected:
 
 	private:
 		unsigned int _vida1;
+		void CInterfazController::ocultarBotones();
+		void CInterfazController::cargarBoton(char numBoton, std::string nombreBoton);	
+		void CInterfazController::menuJugador1();
+		void CInterfazController::menuJugador2();
+		void CInterfazController::menuJugador3();
 	};
 
 } // namespace GUI

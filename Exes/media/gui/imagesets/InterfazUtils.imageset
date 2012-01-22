@@ -3,4 +3,20 @@
 <Imageset Name="InterfazUtils" Imagefile="InterfazUtils.png" NativeHorzRes="800" NativeVertRes="600" AutoScaled="true" >
     <Image Name="vida" XPos="0" YPos="0" Width="5" Height="5" />
 	<Image Name="energia" XPos="5" YPos="0" Width="5" Height="5" />
+	
+	<Image Name="martillo" XPos="0" YPos="5" Width="100" Height="100" />
+	<Image Name="martillo2" XPos="0" YPos="105" Width="100" Height="100" />
+	<Image Name="martillo3" XPos="0" YPos="205" Width="100" Height="100" />
+	
+	<Image Name="torreta" XPos="100" YPos="5" Width="100" Height="100" />
+	<Image Name="torreta2" XPos="100" YPos="105" Width="100" Height="100" />
+	<Image Name="torreta3" XPos="100" YPos="205" Width="100" Height="100" />
+	
+	<Image Name="granada" XPos="200" YPos="5" Width="100" Height="100" />
+	<Image Name="granada2" XPos="200" YPos="105" Width="100" Height="100" />
+	<Image Name="granada3" XPos="200" YPos="205" Width="100" Height="100" />
+	
+	<Image Name="volver" XPos="300" YPos="5" Width="100" Height="100" />
+	<Image Name="volver2" XPos="300" YPos="105" Width="100" Height="100" />
+	<Image Name="volver3" XPos="300" YPos="205" Width="100" Height="100" />
 </Imageset>
