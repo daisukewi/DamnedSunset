@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<!-- Fichero Ant para la compilacion de GALEON y sus subproyectos -->
-<!-- Marco Antonio Gomez Martin -->
-<!-- Septiembre 2010 -->
+<!-- Fichero Ant para la compilacion de Damned Sunset y sus subproyectos -->
+<!-- Grupo 3 -->
+<!-- Enero 2011 -->
 
-<project name="Galeon" default="build">
+<project name="Damned Sunset" default="build">
 
   <taskdef resource = "vcTasks.properties" classpath="vcTask"/>
 
@@ -11,7 +11,7 @@
   <!-- PROPIEDADES DEL PROYECTO -->
   <!-- ======================== -->
 
-  <property name="slnName" value="Galeon.sln"/>
+  <property name="slnName" value="DamnedSunset.sln"/>
   <property name="vslogfile" value="${basedir}/vslog.txt"/>
 
   <patternset id="vctmpfiles">
