@@ -1,10 +1,10 @@
 World CGraphics CPhysicEntity
 Sun CGraphics CSunController
-Player CAvatarController CAnimatedGraphics CLife CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor
+Player CAvatarController CAnimatedGraphics CLife CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor CSelectable
 Entity CGraphics
 AnimatedEntity CAnimatedGraphics
 Camera CCamera
-TargetCamera CCameraController CRaycastController
+TargetCamera CCameraController CRaycastController CSelectionController
 Building CGraphics CPhysicEntity
 Barril CGraphics CPhysicEntity
 PuertaTrigger CSwitchTrigger CPhysicEntity

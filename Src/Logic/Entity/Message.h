@@ -43,7 +43,9 @@ namespace Logic
 			ROUTE_TO,
 			FINISHED_ROUTE,
 			FINISHED_MOVE,
-			CAMERA_CLICK
+			CAMERA_CLICK,
+			SELECTABLE,
+			ENTITY_SELECTED
 
 		};
 	}

@@ -88,6 +88,11 @@ namespace Logic
 				std::cout << "Ray: " << mouseRay.getOrigin() << " " << mouseRay.getDirection();
 				std::cout << "Mouse: " << _mouseRelPosX << " " << _mouseRelPosY << "\n"<< "\n";  
 			}
+			
+			TMessage message;
+			message._type = Message::SELECTABLE;
+			message._entity = entity;
+			entity->emitMessage(message);
 
 			_makeRaycast = false;
 		}
