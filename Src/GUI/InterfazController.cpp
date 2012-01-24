@@ -2,6 +2,7 @@
 #include "InterfazController.h"
 #include "InputManager.h"
 
+#include "Logic/Server.h"
 #include "Logic/Entity/Entity.h"
 #include "Logic/Entity/Message.h"
 
@@ -197,8 +198,13 @@ namespace GUI {
 	}
 	bool CInterfazController::clickB2(const CEGUI::EventArgs& e)
 	{
+		Logic::CEntity *player = Logic::CServer::getSingletonPtr()->getPlayer();
 
-		return true;
+		Logic::TMessage m;
+		m._type = Logic::Message::BUILD_START;
+		m._string = "Turret";
+
+		return player->emitMessage(m);
 	}
 	bool CInterfazController::clickB3(const CEGUI::EventArgs& e)
 	{

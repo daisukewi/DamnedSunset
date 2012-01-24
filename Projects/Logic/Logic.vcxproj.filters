@@ -121,6 +121,9 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Message.cpp">
       <Filter>Entity\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\BuilderController.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\CameraControl.cpp">
       <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
@@ -214,6 +217,9 @@
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SelectionController.h">
+      <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\BuilderController.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\CameraControl.h">

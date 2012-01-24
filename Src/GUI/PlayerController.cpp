@@ -14,6 +14,7 @@ mover al jugador.
 #include "PlayerController.h"
 #include "InputManager.h"
 
+#include "Logic/Server.h"
 #include "Logic/Entity/Entity.h"
 #include "Logic/Entity/Message.h"
 
@@ -148,7 +149,11 @@ namespace GUI {
 
 	bool CPlayerController::mouseReleased(const CMouseState &mouseState)
 	{
-		return false;
+		Logic::TMessage m;
+		m._type = Logic::Message::BUILD_EMPLACE;
+		Logic::CEntity *player = Logic::CServer::getSingletonPtr()->getPlayer();
+		player->emitMessage(m);
+		return true;
 
 	} // mouseReleased
 
