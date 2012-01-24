@@ -35,7 +35,8 @@ namespace Map {
 
 	CMapParser::~CMapParser()
 	{
-		releaseEntityList();
+		//Ya me he encargado de eliminar la entityList manualmente mucho antes
+		//releaseEntityList();
 		_instance = 0;
 
 	} // ~CMapParser
