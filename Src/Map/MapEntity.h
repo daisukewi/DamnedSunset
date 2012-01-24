@@ -150,19 +150,18 @@ namespace Map
 		@param name Nombre de la entidad.
 		*/
 		void setName(const std::string &name) {_name = name;}
-
-	protected:
-
+		
 		/**
 		Tipo lista de CEntity donde guardaremos los pendientes de borrar.
 		*/
 		typedef std::map<std::string, std::string> TAttrList;
 
+		TAttrList getAttributes() {return _attributes;}
+	protected:
 		/**
 		Atributos de la entidad.
 		*/
 		TAttrList _attributes;
-
 		/**
 		Tipo de la entidad.
 		*/
@@ -172,6 +171,7 @@ namespace Map
 		Nombre de la entidad.
 		*/
 		std::string _name;
+		
 
 	}; // CEntity
 

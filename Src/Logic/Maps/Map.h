@@ -13,6 +13,7 @@ Contiene la declaración de la clase CMap, Un mapa lógico.
 
 #include <map>
 #include "EntityID.h"
+#include "Map/MapParser.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Logic 
@@ -158,7 +159,10 @@ namespace Logic
 		*/
 		Graphics::CScene *getScene() {return _scene;}
 
+		static void setAtributosArquetipos(Map::CEntity* entidad, Map::CMapParser::TEntityList & entityList);
+
 	private:
+		
 
 		/**
 		Tipo tabla de entidades de mapa.

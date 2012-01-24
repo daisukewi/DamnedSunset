@@ -1,0 +1,37 @@
+Map = {
+	World = {
+		type = "World",
+	},
+	Barril = {
+		type = "Barril",
+		position = {0, 10, 0},
+		orientation = 0,
+		model = "barril.mesh",
+		physic_entity = "simple",
+		physic_type = "dynamic",
+		physic_shape = "box",
+		physic_dimensions = { 2.3, 2.5, 2.3 },
+		physic_height = 2,
+		physic_radius = 0.5,
+		physic_mass = 1,
+		physic_collision_group = 2,
+	},
+	Player = {
+		type = "Player",
+		orientation = 180,
+		life = 100.0,
+		isPlayer = false,
+		model = "marine.mesh",
+		defaultAnimation = "Idle",
+		behavior = "wander",
+		physic_entity = "controller",
+		physic_shape = "capsule",
+		physic_radius = 3,
+		physic_height = 6,
+		speed = 0.05,
+		angularSpeed = 0.003,
+		accel = 0.001,
+		angularAccel = 0.00001,
+		movementTolerance = 7.0,
+	};
+}

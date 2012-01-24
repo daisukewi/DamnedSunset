@@ -205,6 +205,7 @@ Map = {
 		*/
 		void releaseEntityList();
 
+		static void CMapParser::releaseEntityList(TEntityList list);
 	private:
 		/**
 		Única instancia de la clase.

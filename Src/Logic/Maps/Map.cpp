@@ -30,6 +30,31 @@ Contiene la implementación de la clase CMap, Un mapa lógico.
 
 namespace Logic {
 		
+
+	void CMap::setAtributosArquetipos(Map::CEntity* entidad, Map::CMapParser::TEntityList & entityList) {
+		Map::CMapParser::TEntityList::const_iterator it, end;
+		it = entityList.begin();
+		end = entityList.end();
+
+		for(; it != end; it++)
+		{
+			if ((*it)->getType() == entidad->getType()) {	
+				std::map<std::string, std::string> tAttrList = (*it)->getAttributes();
+
+				std::map<std::string, std::string>::const_iterator it2, end2;
+				it2 = tAttrList.begin();
+				end2 = tAttrList.end();
+				// Creamos todas las entidades lógicas.
+				for(; it2 != end2; it2++) {
+					if (!entidad->hasAttribute((*it2).first)) {
+						entidad->setAttribute((*it2).first,(*it2).second);
+					}
+				}
+
+			}
+		}
+	}
+	
 	CMap* CMap::createMapFromFile(const std::string &filename)
 	{
 		// Completamos la ruta con el nombre proporcionado
@@ -46,10 +71,20 @@ namespace Logic {
 		CMap *map = new CMap(filename);
 
 		// Extraemos las entidades del parseo.
-		Map::CMapParser::TEntityList entityList = 
-			Map::CMapParser::getSingletonPtr()->getEntityList();
-
+		Map::CMapParser::TEntityList entityList = Map::CMapParser::getSingletonPtr()->getEntityList();
 		CEntityFactory* entityFactory = CEntityFactory::getSingletonPtr();
+
+		//** PARSEMOS EL ARCHIVO DE ARQUETIPOS**/
+		std::string completePath2(MAP_FILE_PATH);
+		completePath2.append("arquetipos.txt");
+		if(!Map::CMapParser::getSingletonPtr()->parseFile(completePath2))
+		{
+			assert(!"No se ha podido parsear el mapa de arquetipos.");
+			return false;
+		}
+		// Completamos la ruta con el nombre proporcionado
+
+		Map::CMapParser::TEntityList entityList2 = Map::CMapParser::getSingletonPtr()->getEntityList();
 
 		Map::CMapParser::TEntityList::const_iterator it, end;
 		it = entityList.begin();
@@ -65,10 +100,14 @@ namespace Logic {
 				entityFactory->createEntity((*it), map);
 			} else {
 				// La propia factoría se encarga de añadir la entidad al mapa.
+				setAtributosArquetipos(*it, entityList2);
+
 				CEntity *entity = entityFactory->createEntity((*it),map);
 				assert(entity && "No se pudo crear una entidad del mapa");
 			}
 		}
+		Map::CMapParser::releaseEntityList(entityList);
+		Map::CMapParser::releaseEntityList(entityList2);
 		// HACK - Cambiamos la altura de los nodos para calcular el grafo de navegación más fácilmente
 		AI::CServer::getSingletonPtr()->getNavigationGraph()->setWaypointHeight(7.0);
 		

@@ -73,7 +73,8 @@ namespace Map {
 		scanner.set_debug(_traceScanning);
 		_lexer = &scanner;
 
-		releaseEntityList();
+		_entityList.clear();
+		//releaseEntityList();
 		CParser parser(*this);
 		parser.set_debug_level(_traceParsing);
 		return (parser.parse() == 0);
@@ -123,4 +124,13 @@ namespace Map {
 		}
 	}
 
+	void CMapParser::releaseEntityList(TEntityList list)
+	{
+		while(!list.empty())
+		{
+			Map::CEntity * entityInProgress = list.back();
+			list.pop_back();
+			delete entityInProgress;
+		}
+	}
 } // namespace Map
