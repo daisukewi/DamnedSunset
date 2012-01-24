@@ -122,7 +122,55 @@ namespace Logic
 		*/
 		Vector2 _vector2;
 
-	} TMessage; 
+	} TMessage;
+
+	/**
+	Clase base de los mensajes que se mandarán a las entidades en todo momento.
+	<p>
+	Esta clase no contiene ningún atributo, de forma que son las clases hijas
+	las que tendrán los atributos concretos del tipo de mensaje que se quiera mandar.
+	<p>
+	Esta clase es la que implementa el funcionamiento del puntero inteligente ya que es
+	una función que deben tener todos los mensajes.
+	
+    @ingroup logicGroup
+
+	@author Alberto Plaza
+	@date Enero, 2012
+*/
+	class IMessage 
+	{
+	public:
+
+		/**
+		Constructor por defecto; en la clase base no hace nada.
+		*/
+		IMessage() : _numPtr(0) {}
+
+		/**
+		Destructor (virtual); en la clase base no hace nada.
+		*/
+		virtual ~IMessage() {}
+
+		/**
+		Añade una referencia al número de referencias.
+		*/
+		void addPtr() { _numPtr++; }
+
+		/**
+		Quita una referencia al número de referencias y si es cero o menos
+		se destruye el mensaje.
+		*/
+		void removePtr();
+
+	protected:
+
+		/**
+		Contador del número de referencias que apuntan a este mensaje.
+		*/
+		int _numPtr;
+
+	}; // class IMessage
 
 } // namespace Logic
 
