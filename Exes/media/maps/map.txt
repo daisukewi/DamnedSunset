@@ -43,6 +43,7 @@ Map = {
 	
 	TargetCamera = {
 		type = "TargetCamera",
+		isPlayer = true,
 		position = {0, 0, 0},
 		orientation = 180,
 		isTargetCamera = true,

@@ -143,8 +143,8 @@ material lambert1
 			// Base bump map
 			texture_unit normalmap
 			{
-				texture grass_Nbump.tga
-				transform 0.2 0 0 0 0 1 0 0 0 0 0.2 0 0 0 0 1
+				texture SoilSand_Nbump.tga
+				transform 0.5 0 0 0 0 0.5 0 0 0 0 1 0 0 0 0 1
 				colour_op replace
 				tex_coord_set 0
 				filtering trilinear
@@ -169,9 +169,9 @@ material lambert1
 			scene_blend dest_colour zero
 			texture_unit difusemap
 			{
-				texture grass.jpg 
-				transform 0.2 0 0 0 0 1 0 0 0 0 0.2 0 0 0 0 1
-				tex_coord_set 1
+				texture SoilSand.jpg 
+				transform 0.5 0 0 0 0 0.5 0 0 0 0 1 0 0 0 0 1
+				tex_coord_set 0
 				filtering trilinear
 			}
 			
