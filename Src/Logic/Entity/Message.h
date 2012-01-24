@@ -145,12 +145,12 @@ namespace Logic
 		/**
 		Constructor por defecto; en la clase base no hace nada.
 		*/
-		IMessage() : _numPtr(0) {}
+		IMessage() : _numPtr(0), _type("") {}
 
 		/**
 		Destructor (virtual); en la clase base no hace nada.
 		*/
-		virtual ~IMessage() {}
+		~IMessage() {}
 
 		/**
 		Añade una referencia al número de referencias.
@@ -163,12 +163,24 @@ namespace Logic
 		*/
 		void removePtr();
 
+		/**
+		Método para obtener el tipo de mensaje.
+
+		@return Un string indicando el tipo de mensaje.
+		*/
+		std::string getType() { return _type; }
+
 	protected:
 
 		/**
 		Contador del número de referencias que apuntan a este mensaje.
 		*/
 		int _numPtr;
+
+		/**
+		Tipo del mensaje. El string coincide con el nombre de la clase.
+		*/
+		std::string _type;
 
 	}; // class IMessage
 
