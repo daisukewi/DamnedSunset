@@ -80,6 +80,11 @@ namespace Logic
 			std::cout << "Entidad: "<< entity->getName()<< "\n"; 
 			std::cout << "Ray: " << mouseRay.getOrigin() << " " << mouseRay.getDirection()<< "\n"; 
 			std::cout << "Mouse: " << _mouseRelPosX << " " << _mouseRelPosY << "\n"<< "\n"; 
+
+			TMessage message;
+			message._type = Message::SELECTABLE;
+			message._entity = entity;
+			entity->emitMessage(message);
 				
 			}else{
 		
@@ -89,11 +94,6 @@ namespace Logic
 				std::cout << "Mouse: " << _mouseRelPosX << " " << _mouseRelPosY << "\n"<< "\n";  
 			}
 			
-			TMessage message;
-			message._type = Message::SELECTABLE;
-			message._entity = entity;
-			entity->emitMessage(message);
-
 			_makeRaycast = false;
 		}
 		
