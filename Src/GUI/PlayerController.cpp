@@ -124,16 +124,11 @@ namespace GUI {
 	
 	bool CPlayerController::mouseMoved(const CMouseState &mouseState)
 	{
-		if(_controlledAvatar)
-		{
-			Logic::TMessage m;
-			m._type = Logic::Message::CONTROL;
-			m._string = "turn";
-			m._float = -(float)mouseState.movX * TURN_FACTOR;
-			_controlledAvatar->emitMessage(m);
-			return true;
-		}
-		return false;
+		Logic::TMessage m;
+		m._type = Logic::Message::BUILD_MOVE;
+		m._vector2 = Vector2(mouseState.posRelX, mouseState.posRelY);
+		Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m);
+		return true;
 
 	} // mouseMoved
 
@@ -141,7 +136,11 @@ namespace GUI {
 		
 	bool CPlayerController::mousePressed(const CMouseState &mouseState)
 	{
-		return false;
+		Logic::TMessage m;
+		m._type = Logic::Message::BUILD_EMPLACE;
+		Logic::CEntity *player = Logic::CServer::getSingletonPtr()->getPlayer();
+		player->emitMessage(m);
+		return true;
 
 	} // mousePressed
 
@@ -149,11 +148,7 @@ namespace GUI {
 
 	bool CPlayerController::mouseReleased(const CMouseState &mouseState)
 	{
-		Logic::TMessage m;
-		m._type = Logic::Message::BUILD_EMPLACE;
-		Logic::CEntity *player = Logic::CServer::getSingletonPtr()->getPlayer();
-		player->emitMessage(m);
-		return true;
+		return false;
 
 	} // mouseReleased
 

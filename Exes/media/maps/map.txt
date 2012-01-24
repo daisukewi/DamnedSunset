@@ -59,7 +59,7 @@ Map = {
 		inclination = 120.0,
 	},
 	
-	Base = {
+	Torreta = {
 		type = "Building",
 		position = {10, 0, 0},
 		orientation = 0,

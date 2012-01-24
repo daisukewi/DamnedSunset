@@ -47,6 +47,7 @@ namespace Logic
 			SELECTABLE,
 			ENTITY_SELECTED,
 			BUILD_START,
+			BUILD_MOVE,
 			BUILD_EMPLACE
 
 		};

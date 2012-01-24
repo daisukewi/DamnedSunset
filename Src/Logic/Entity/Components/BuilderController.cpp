@@ -21,10 +21,15 @@ del sol y el control del la luz ambiental.
 #include "Graphics/Server.h"
 #include "Graphics/Scene.h"
 
+#include "Physics/Server.h"
+
 
 namespace Logic 
 {
 	IMP_FACTORY(CBuilderController);
+
+	const int GRID_SIZE = 5;
+	const int MAP_SIZE = 100;
 	
 	//---------------------------------------------------------
 
@@ -56,6 +61,7 @@ namespace Logic
 	bool CBuilderController::accept(const TMessage &message)
 	{
 		return message._type == Message::BUILD_START
+			|| message._type == Message::BUILD_MOVE
 			|| message._type == Message::BUILD_EMPLACE;
 
 	} // accept
@@ -70,6 +76,10 @@ namespace Logic
 			if (_building) return;
 			startBuilding(message._string);
 			break;
+		case Message::BUILD_MOVE:
+			if (!_building) return;
+			moveBuilding(message._vector2);
+			break;
 		case Message::BUILD_EMPLACE:
 			if (!_building) return;
 			emplaceBuilding();
@@ -83,22 +93,43 @@ namespace Logic
 	void CBuilderController::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
-
-		if (!_building) return;
-
-
 		
 	} // tick
 
-	void CBuilderController::startBuilding( std::string _string )
+	void CBuilderController::startBuilding( std::string buildingType )
 	{
 		_building = true;
 
-		Map::CEntity *newBuild = new Map::CEntity("Base");
-		newBuild->setAttribute("type", "Entity");
-		newBuild->setAttribute("position", "{0,0,0}");
-		newBuild->setAttribute("orientation", "0");
-		newBuild->setAttribute("model", "torreta_pie.mesh");
+		Map::CEntity *buildInfo = new Map::CEntity("Base");
+		buildInfo->setType("Entity");
+		buildInfo->setAttribute("position", "{0,0,0}");
+		buildInfo->setAttribute("orientation", "0");
+		buildInfo->setAttribute("model", "torreta_pie.mesh");
+
+		_buildingEntity = Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap());
+
+		if (!_buildingEntity)
+		{
+			_building = false;
+		}
+
+	}
+
+	void CBuilderController::emplaceBuilding()
+	{
+		Vector3 pos = _buildingEntity->getPosition();
+		std::stringstream vecPos;
+		vecPos << "{" << pos.x << "," << pos.y << "," << pos.z << "}";
+
+		// Borrar la entidad sin física
+		Logic::CEntityFactory::getSingletonPtr()->deleteEntity(_buildingEntity);
+
+		// Creamos una nueva entidad pero con física.
+		/*Map::CEntity *buildInfo = new Map::CEntity("Base");
+		buildInfo->setType("Entity");
+		buildInfo->setAttribute("position", vecPos.str());
+		buildInfo->setAttribute("orientation", "0");
+		buildInfo->setAttribute("model", "torreta_pie.mesh");
 			/*
 			type = "Building",
 			position = {10, 0, 0},
@@ -113,13 +144,23 @@ namespace Logic
 			physic_collision_group = 2,
 			*/
 
-		_buildingEntity = Logic::CEntityFactory::getSingletonPtr()->createEntity(newBuild, _entity->getMap());
+		//Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap());
 
+		_building = false;
 	}
 
-	void CBuilderController::emplaceBuilding()
+	void CBuilderController::moveBuilding( Vector2 pos )
 	{
-		_building = false;
+		if (!_buildingEntity) return;
+
+		Vector3 *point = new Vector3();
+
+		//Lanzar un rayo desde la camara hasta el plano del escenario.
+		Ray mouseRay = Graphics::CServer::getSingletonPtr()->getCameraToViewportRay(pos.x, pos.y	);
+		if (Physics::CServer::getSingletonPtr()->raycastAdvanced(mouseRay, point) == NULL) return;
+
+		_buildingEntity->setPosition(Vector3(point->x, 1.0f, point->z));
+
 	}
 
 } // namespace Logic

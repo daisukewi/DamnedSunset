@@ -112,9 +112,11 @@ namespace Logic
 		*/
 		virtual void process(const TMessage &message);
 
-		void startBuilding( std::string _string );
+		void startBuilding( std::string buildingType );
 
 		void emplaceBuilding();
+
+		void moveBuilding( Vector2 pos );
 
 	protected:
 
