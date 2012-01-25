@@ -22,11 +22,26 @@ namespace Logic {
 	
 	//---------------------------------------------------------
 
-	bool CCommunicationPort::set(const TMessage &message)
+	bool CCommunicationPort::set(const TMessage &message) // @MENSAJES
 	{
 		bool accepted = accept(message);
 		if(accepted)
 			_messages.push_back(message);
+
+		return accepted;
+
+	} // set
+
+	//---------------------------------------------------------
+
+	bool CCommunicationPort::set(IMessage *message)
+	{
+		bool accepted = accept(message);
+		if(accepted)
+		{
+			message->addPtr();
+			_messagesPtr.push_back(message);
+		}
 
 		return accepted;
 
@@ -41,6 +56,17 @@ namespace Logic {
 			process(*it);
 
 		_messages.clear();
+
+		// @MENSAJES
+
+		TMessageListPtr::const_iterator itPtr = _messagesPtr.begin();
+		for(; itPtr != _messagesPtr.end(); itPtr++)
+		{
+			process(*itPtr);
+			itPtr._Ptr->_Myval->removePtr();
+		}
+
+		_messagesPtr.clear();
 
 	} // processMessages
 

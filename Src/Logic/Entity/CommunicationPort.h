@@ -68,6 +68,8 @@ namespace Logic
 		@return true si el mensaje ha sido admitido y puesto en cola.
 		*/
 		bool set(const TMessage &message);
+		// @MENSAJES
+		bool set(IMessage *message);
 
 		/**
 		Método virtual que elige que mensajes son aceptados. Las clases
@@ -79,6 +81,8 @@ namespace Logic
 		@return true si el mensaje es aceptado.
 		*/
 		virtual bool accept(const TMessage &message) {return false;}
+		// @MENSAJES
+		virtual bool accept(IMessage *message) {return false;}
 
 		/**
 		Método virtual que procesa un mensaje.
@@ -86,6 +90,8 @@ namespace Logic
 		@param message Mensaje a procesar.
 		*/
 		virtual void process(const TMessage &message) {}
+		// @MENSAJES
+		virtual void process(IMessage *message) {}
 
 		/**
 		Método que procesa la lista de mensajes que faltan por procesar.
@@ -98,11 +104,15 @@ namespace Logic
 		Tipo lista de CEntity donde guardaremos los pendientes de borrar.
 		*/
 		typedef std::list<TMessage> TMessageList;
+		// @MENSAJES
+		typedef std::list<IMessage*> TMessageListPtr;
 
 		/**
 		Lista de mensajes por procesar
 		*/
 		TMessageList _messages;
+		// @MENSAJES
+		TMessageListPtr _messagesPtr;
 
 	}; // CCommunicationPort
 

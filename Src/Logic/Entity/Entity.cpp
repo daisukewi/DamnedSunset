@@ -211,6 +211,7 @@ namespace Logic
 	{
 		// Interceptamos los mensajes que además de al resto de los
 		// componentes, interesan a la propia entidad.
+		// @MENSAJES
 		switch(message._type)
 		{
 		case Message::SET_TRANSFORM:
@@ -226,6 +227,31 @@ namespace Logic
 			if( emitter != (*it) )
 				anyReceiver = (*it)->set(message) || anyReceiver;
 		}
+		return anyReceiver;
+
+	} // emitMessage
+
+	//---------------------------------------------------------
+
+	bool CEntity::emitMessage(IMessage *message, IComponent* emitter)
+	{
+		// Interceptamos los mensajes que además de al resto de los
+		// componentes, interesan a la propia entidad.
+
+		message->addPtr();
+
+		TComponentList::const_iterator it;
+		// Para saber si alguien quiso el mensaje.
+		bool anyReceiver = false;
+		for( it = _components.begin(); it != _components.end(); ++it )
+		{
+			// Al emisor no se le envia el mensaje.
+			if( emitter != (*it) )
+				anyReceiver = (*it)->set(message) || anyReceiver;
+		}
+
+		message->removePtr();
+
 		return anyReceiver;
 
 	} // emitMessage

@@ -2,7 +2,7 @@
 #include "InputManager.h"
 
 #include "Logic/Entity/Entity.h"
-#include "Logic/Entity/Message.h"
+#include "Logic/Entity/Messages/CameraControl.h"
 
 #include <cassert>
 
@@ -47,23 +47,31 @@ namespace GUI {
 	{
 		if(_controlledTarget)
 		{
-			Logic::TMessage m;
-			m._type = Logic::Message::CAMERA_CONTROL;
+			Logic::CCameraControl *m = new Logic::CCameraControl();
+			/*Logic::TMessage m;
+			m._type = Logic::Message::CAMERA_CONTROL;*/
+
 			// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
-			m._bool = false;
+			//m._bool = false; @MENSAJES
+			m->setMouse(false);
+
 			switch(key.keyId)
 			{
 			case GUI::Key::UPARROW:
-				m._string = "up";
+				//m._string = "up";
+				m->setMovement("up");
 				break;
 			case GUI::Key::DOWNARROW:
-				m._string = "down";
+				//m._string = "down";
+				m->setMovement("down");
 				break;
 			case GUI::Key::LEFTARROW:
-				m._string = "left";
+				//m._string = "left";
+				m->setMovement("left");
 				break;
 			case GUI::Key::RIGHTARROW:
-				m._string = "right";
+				//m._string = "right";
+				m->setMovement("right");
 				break;
 
 			default:
@@ -82,20 +90,26 @@ namespace GUI {
 	{
 		if(_controlledTarget)
 		{
-			Logic::TMessage m;
-			m._type = Logic::Message::CAMERA_CONTROL;
+			Logic::CCameraControl *m = new Logic::CCameraControl();
+			/*Logic::TMessage m;
+			m._type = Logic::Message::CAMERA_CONTROL;*/
+
 			// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
-			m._bool = false;
+			//m._bool = false; @MENSAJES
+			m->setMouse(false);
+
 			switch(key.keyId)
 			{
 			case GUI::Key::UPARROW:
 			case GUI::Key::DOWNARROW:
-				m._string = "stopUpDown";
+				//m._string = "stopUpDown";
+				m->setMovement("stopUpDown");
 				break;
 
 			case GUI::Key::LEFTARROW:
 			case GUI::Key::RIGHTARROW:
-				m._string = "stopLeftRight";
+				//m._string = "stopLeftRight";
+				m->setMovement("stopLeftRight");
 				break;
 
 			default:

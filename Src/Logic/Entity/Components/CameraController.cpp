@@ -3,6 +3,7 @@
 #include "Logic/Entity/Entity.h"
 #include "Map/MapEntity.h"
 
+#include "Logic/Entity/Messages/CameraControl.h"
 
 namespace Logic 
 {
@@ -37,7 +38,16 @@ namespace Logic
 
 	bool CCameraController::accept(const TMessage &message)
 	{
-		return message._type == Message::CAMERA_CONTROL;
+		return message._type == Message::CAMERA_CONTROL; // @MENSAJES
+
+	} // accept
+
+	//---------------------------------------------------------
+
+	bool CCameraController::accept(IMessage *message)
+	{
+		//return message._type == Message::CAMERA_CONTROL; @MENSAJES
+		return (message->getType().compare("CCameraControl") == 0);
 
 	} // accept
 	
@@ -45,6 +55,7 @@ namespace Logic
 
 	void CCameraController::process(const TMessage &message)
 	{
+		// @MENSAJES
 		switch(message._type)
 		{
 		case Message::CAMERA_CONTROL:
@@ -66,6 +77,53 @@ namespace Logic
 
 	} // process
 	
+	//---------------------------------------------------------
+
+	//void CCameraController::process(const TMessage &message) @MENSAJES
+	void CCameraController::process(IMessage *message)
+	{
+		// @MENSAJES
+		/*switch(message._type)
+		{
+		case Message::CAMERA_CONTROL:
+			_mouse = message._bool;
+
+			if(!message._string.compare("up"))
+				up();
+			else if(!message._string.compare("down"))
+				down();
+			else if(!message._string.compare("left"))
+				left();
+			else if(!message._string.compare("right"))
+				right();
+			else if(!message._string.compare("stopUpDown"))
+				stopUpDown();
+			else if(!message._string.compare("stopLeftRight"))
+				stopLeftRight();
+		}*/
+
+		if (!message->getType().compare("CCameraControl"))
+		{
+			CCameraControl *m = static_cast <CCameraControl*> (message);
+
+			_mouse = m->getMouse();
+
+			if(!m->getMovement().compare("up"))
+				up();
+			else if(!m->getMovement().compare("down"))
+				down();
+			else if(!m->getMovement().compare("left"))
+				left();
+			else if(!m->getMovement().compare("right"))
+				right();
+			else if(!m->getMovement().compare("stopUpDown"))
+				stopUpDown();
+			else if(!m->getMovement().compare("stopLeftRight"))
+				stopLeftRight();
+		}
+
+	} // process
+
 	//---------------------------------------------------------
 
 	void CCameraController::up()

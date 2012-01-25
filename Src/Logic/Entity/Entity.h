@@ -167,6 +167,8 @@ namespace Logic
 		@return true si al menos un componente aceptó el mensaje
 		*/
 		bool emitMessage(const TMessage &message, IComponent* emitter = 0);
+		// @MENSAJES
+		bool emitMessage(IMessage *message, IComponent* emitter = 0);
 
 		/**
 		Devuelve el identificador único de la entidad.
