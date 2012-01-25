@@ -13,6 +13,8 @@ mover un avatar utilizando movimientos cinéticos o dinámicos.
 
 #include "AI/Movement.h"
 
+#include "Logic/Entity/Messages/SetAnimation.h"
+
 namespace Logic 
 {
 
@@ -196,11 +198,12 @@ namespace Logic
 	*/
 	void CSteeringMovement::sendAnimationMessage(std::string animation) 
 	{
-		TMessage message;
-		message._type = Message::SET_ANIMATION;
-		message._string = animation;
-		message._bool = true;
-		_entity->emitMessage(message,this);
+		CSetAnimation *m = new CSetAnimation();
+
+		m->setAnimationName(animation);
+		m->setLoop(true);
+
+		_entity->emitMessage(m, this);
 	}
 
 	//---------------------------------------------------------

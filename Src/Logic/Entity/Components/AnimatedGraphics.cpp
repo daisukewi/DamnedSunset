@@ -19,6 +19,9 @@ gráfica de una entidad estática.
 
 #include "Graphics/Scene.h"
 
+#include "Logic/Entity/Messages/SetAnimation.h"
+#include "Logic/Entity/Messages/StopAnimation.h"
+
 namespace Logic 
 {
 	IMP_FACTORY(CAnimatedGraphics);
@@ -51,32 +54,35 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	bool CAnimatedGraphics::accept(const TMessage &message)
+	bool CAnimatedGraphics::accept(IMessage *message)
 	{
 		return CGraphics::accept(message) ||
-			   message._type == Message::SET_ANIMATION ||
-			   message._type == Message::STOP_ANIMATION;
+			  (message->getType().compare("CSetAnimation") == 0) ||
+			   (message->getType().compare("CStopTransform") == 0);
 
 	} // accept
 	
 	//---------------------------------------------------------
 
-	void CAnimatedGraphics::process(const TMessage &message)
+	void CAnimatedGraphics::process(IMessage *message)
 	{
 		CGraphics::process(message);
 
-		switch(message._type)
+		if (!message->getType().compare("CSetAnimation"))
 		{
-		case Message::SET_ANIMATION:
+			CSetAnimation *m = static_cast <CSetAnimation*> (message);
+
 			// Paramos todas las animaciones antes de poner una nueva.
 			// Un control más sofisticado debería permitir interpolación
 			// de animaciones. Galeon no lo plantea.
 			_animatedGraphicsEntity->stopAllAnimations();
-			_animatedGraphicsEntity->setAnimation(message._string,message._bool);
-			break;
-		case Message::STOP_ANIMATION:
-			_animatedGraphicsEntity->stopAnimation(message._string);
-			break;
+			_animatedGraphicsEntity->setAnimation(m->getAnimationName(),m->getLoop());
+		}
+		else if (!message->getType().compare("CStopAnimation"))
+		{
+			CStopAnimation *m = static_cast <CStopAnimation*> (message);
+
+			_animatedGraphicsEntity->stopAnimation(m->getAnimationName());
 		}
 
 	} // process

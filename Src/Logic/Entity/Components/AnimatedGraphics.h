@@ -31,8 +31,8 @@ namespace Logic
 	creada sea animada.
 	<p>
 	Además de los mensajes de cambio de posición y de cambio de orientación
-	que acepta CGraphics, acepta mensajes para poner o para una animación
-	(SET_ANIMATION y STOP_ANIMATION).
+	que acepta CGraphics, acepta mensajes para poner o parar una animación
+	(CSetAnimation y CStopAnimation).
 	
     @ingroup logicGroup
 
@@ -53,19 +53,19 @@ namespace Logic
 
 		/**
 		Método virtual que elige que mensajes son aceptados. Son válidos
-		SET_ANIMATION y STOP_ANIMATION.
+		CSetAnimation y CStopAnimation.
 
 		@param message Mensaje a chequear.
 		@return true si el mensaje es aceptado.
 		*/
-		virtual bool accept(const TMessage &message);
+		virtual bool accept(IMessage *message);
 
 		/**
 		Método virtual que procesa un mensaje.
 
 		@param message Mensaje a procesar.
 		*/
-		virtual void process(const TMessage &message);
+		virtual void process(IMessage *message);
 		
 		////////////////////////////////////////
 		// Métodos de CAnimatedEntityListener //

@@ -20,6 +20,8 @@ de la entidad.
 #include "AI/Server.h"
 #include "AI/Movement.h"
 
+#include "Logic/Entity/Messages/SetAnimation.h"
+
 
 namespace Logic 
 {
@@ -103,11 +105,12 @@ namespace Logic
 		_walking = true;
 
 		// Cambiamos la animación
-		TMessage message;
-		message._type = Message::SET_ANIMATION;
-		message._string = "Walk";
-		message._bool = true;
-		_entity->emitMessage(message,this);
+		CSetAnimation *m = new CSetAnimation();
+
+		m->setAnimationName("Walk");
+		m->setLoop(true);
+
+		_entity->emitMessage(m, this);
 
 	} // walk
 	
@@ -118,11 +121,12 @@ namespace Logic
 		_walkingBack = true;
 
 		// Cambiamos la animación
-		TMessage message;
-		message._type = Message::SET_ANIMATION;
-		message._string = "WalkBack";
-		message._bool = true;
-		_entity->emitMessage(message,this);
+		CSetAnimation *m = new CSetAnimation();
+
+		m->setAnimationName("WalkBack");
+		m->setLoop(true);
+
+		_entity->emitMessage(m, this);
 
 	} // walkBack
 	
@@ -136,11 +140,12 @@ namespace Logic
 		// lateralmente
 		if(!(_strafingLeft || _strafingRight))
 		{
-			TMessage message;
-			message._type = Message::SET_ANIMATION;
-			message._string = "Idle";
-			message._bool = true;
-			_entity->emitMessage(message,this);
+			CSetAnimation *m = new CSetAnimation();
+
+			m->setAnimationName("Idle");
+			m->setLoop(true);
+
+			_entity->emitMessage(m, this);
 		}
 
 	} // stopWalk
@@ -152,11 +157,12 @@ namespace Logic
 		_strafingLeft = true;
 
 		// Cambiamos la animación
-		TMessage message;
-		message._type = Message::SET_ANIMATION;
-		message._string = "StrafeLeft";
-		message._bool = true;
-		_entity->emitMessage(message,this);
+		CSetAnimation *m = new CSetAnimation();
+
+		m->setAnimationName("StrafeLeft");
+		m->setLoop(true);
+
+		_entity->emitMessage(m, this);
 
 	} // walk
 	
@@ -167,11 +173,12 @@ namespace Logic
 		_strafingRight = true;
 
 		// Cambiamos la animación
-		TMessage message;
-		message._type = Message::SET_ANIMATION;
-		message._string = "StrafeRight";
-		message._bool = true;
-		_entity->emitMessage(message,this);
+		CSetAnimation *m = new CSetAnimation();
+
+		m->setAnimationName("StrafeRight");
+		m->setLoop(true);
+
+		_entity->emitMessage(m, this);
 
 	} // walkBack
 	
@@ -201,11 +208,12 @@ namespace Logic
 		// Cambiamos la animación si no seguimos andando
 		if(!(_walking || _walkingBack))
 		{
-			TMessage message;
-			message._type = Message::SET_ANIMATION;
-			message._string = "Idle";
-			message._bool = true;
-			_entity->emitMessage(message,this);
+			CSetAnimation *m = new CSetAnimation();
+
+			m->setAnimationName("Idle");
+			m->setLoop(true);
+
+			_entity->emitMessage(m, this);
 		}
 
 	} // stopWalk

@@ -130,6 +130,12 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetTransform.cpp">
       <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp">
+      <Filter>Entity\Messages\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\StopAnimation.cpp">
+      <Filter>Entity\Messages\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Maps\ComponentFactory.h">
@@ -229,6 +235,12 @@
       <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetTransform.h">
+      <Filter>Entity\Messages\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h">
+      <Filter>Entity\Messages\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\StopAnimation.h">
       <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
