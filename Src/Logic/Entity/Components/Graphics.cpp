@@ -21,6 +21,8 @@ gráfica de la entidad.
 #include "Graphics/Entity.h"
 #include "Graphics/StaticEntity.h"
 
+#include "Logic/Entity/Messages/SetTransform.h"
+
 namespace Logic 
 {
 	IMP_FACTORY(CGraphics);
@@ -94,18 +96,42 @@ namespace Logic
 
 	bool CGraphics::accept(const TMessage &message)
 	{
+		// @MENSAJES
 		return message._type == Message::SET_TRANSFORM;
 
 	} // accept
 	
 	//---------------------------------------------------------
 
+	bool CGraphics::accept(IMessage *message)
+	{
+		return (message->getType().compare("CSetTransform") == 0);
+
+	} // accept
+
+	//---------------------------------------------------------
+
 	void CGraphics::process(const TMessage &message)
 	{
+		// @MENSAJES
 		switch(message._type)
 		{
 		case Message::SET_TRANSFORM:
 			_graphicsEntity->setTransform(message._transform);
+			break;
+		}
+
+	} // process
+
+	//---------------------------------------------------------
+
+	void CGraphics::process(IMessage *message)
+	{
+		if (!message->getType().compare("CSetTransform"))
+		{
+			CSetTransform *m = static_cast <CSetTransform*> (message);
+
+			_graphicsEntity->setTransform(m->getTransform());
 		}
 
 	} // process

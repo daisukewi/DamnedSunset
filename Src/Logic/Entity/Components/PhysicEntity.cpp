@@ -23,6 +23,8 @@ entidades que no son character controllers.
 #include "Physics/PhysicModelGeneric.h"
 #include "Physics/IPhysicObj.h"
 
+#include "Logic/Entity/Messages/SetTransform.h"
+
 using namespace Logic;
 using namespace Physics;
 
@@ -67,24 +69,23 @@ bool CPhysicEntity::spawn(CEntity *entity, CMap *map, const Map::CEntity *entity
 
 //---------------------------------------------------------
 
-bool CPhysicEntity::accept(const TMessage &message)
+bool CPhysicEntity::accept(IMessage *message)
 {
-	return message._type == Message::SET_TRANSFORM;
+	return (message->getType().compare("CSetTransform") == 0);
 }
 
 //---------------------------------------------------------
 
-void CPhysicEntity::process(const TMessage &message)
+void CPhysicEntity::process(IMessage *message)
 {
-
-	switch(message._type)
+	if (!message->getType().compare("CSetTransform"))
 	{
-	case Message::SET_TRANSFORM:
+		CSetTransform *m = static_cast <CSetTransform*> (message);
+
 		// Anotamos la transformación para usarla posteriormente en el método 
 		// tick. De esa forma, si recibimos varios mensajes en el mismo ciclo 
 		// sólo tendremos en cuenta el último
-		_transform =  message._transform;
-	break;
+		_transform = m->getTransform();
 	}
 }
 
@@ -96,7 +97,7 @@ void CPhysicEntity::tick(unsigned int msecs)
 	IComponent::tick(msecs);
 
 	// Si el objeto físico es kinemático intentamos moverlo a la posición
-	// recibida en el último mensaje de tipo SET_TRANSFORM
+	// recibida en el último mensaje de tipo CSetTransform
 	if (_physicObj->IsKinematic()) {
 		_physicServer->move(_physicObj, _transform);
 	} else {

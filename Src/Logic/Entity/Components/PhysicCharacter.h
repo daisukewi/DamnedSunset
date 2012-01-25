@@ -61,7 +61,7 @@ namespace Logic
 		/**
 		Si se recibe un mensaje de tipo AVATAR_WALK, se almacena su vector de 
 		desplazamiento para posteriormente mover el character controller en el tick.
-		De este moto, si en un ciclo se reciben varios mensaje de tipo SET_TRANSFORM 
+		De este moto, si en un ciclo se reciben varios mensaje de tipo CSetTransform
 		sólo tendrá efecto el último que se reciba.
 		*/
 		virtual void process(const TMessage &message);

@@ -68,7 +68,7 @@ namespace Logic
 	moverse directamente desde el juego si no es mediante la aplicación	de fuerzas.	Las 
 	entidades kinemáticas, por el contrario, se mueven tal y como dicta la lógica del juego. 
 	Cuando este componente se utiliza para representar una entidad kinemática acepta mensajes de 
-	tipo SET_TRANSFORM, y en cada tick pide la motor de física que mueva la entidad de acuerdo
+	tipo CSetTransform, y en cada tick pide la motor de física que mueva la entidad de acuerdo
 	a la transformación recibida desde la lógica.
 	
     @ingroup logicGroup
@@ -99,19 +99,19 @@ namespace Logic
 
 
 		/**
-		Este componente sólo acepta mensajes de tipo SET_TRANSFORM. La matriz de 
+		Este componente sólo acepta mensajes de tipo CSetTransform. La matriz de 
 		transformación recibida en dichos mensajes sólo se usara para mover la entidad
 		física asociada al componente si es de tipo kinemático. */
-		virtual bool accept(const TMessage &message);
+		virtual bool accept(IMessage *message);
 
 		/**
-		Si se recibe un mensaje de tipo SET_TRANSFORM, se almacena su matriz de 
+		Si se recibe un mensaje de tipo CSetTransform, se almacena su matriz de 
 		trasnformación para posteriormente mover la entidad física en el tick
 		(si la entidad física es de tipo kienmático). De este moto, si en un ciclo
-		se reciben varios mensaje de tipo SET_TRANSFORM sólo tendrá efecto el último
+		se reciben varios mensaje de tipo CSetTransform sólo tendrá efecto el último
 		que se reciba.
 		*/
-		virtual void process(const TMessage &message);
+		virtual void process(IMessage *message);
 
 		/**
 		Este método se invoca en cada ciclo de la simulación y hace lo siguiente:
@@ -121,7 +121,7 @@ namespace Logic
 		
 		<li>Si la entidad física asociada al componente es de tipo kinemático, 
 		solicita al motor de física que la mueva de acuerdo al último mensaje 
-		SET_TRANSFORM recibido.</li>
+		CSetTransform recibido.</li>
 		</ul>
 		*/
 		virtual void tick(unsigned int msecs);
@@ -185,7 +185,7 @@ namespace Logic
 		IPhysicObj *_physicObj;
 
 		/**
-		Matriz de transformación recibida en el último mensaje de tipo SET_TRANSFORM. Sirve
+		Matriz de transformación recibida en el último mensaje de tipo CSetTransform. Sirve
 		para mover entidades físicas kinemáticas.
 		*/
 		Matrix4 _transform;

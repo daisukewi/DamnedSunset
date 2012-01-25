@@ -48,29 +48,22 @@ namespace GUI {
 		if(_controlledTarget)
 		{
 			Logic::CCameraControl *m = new Logic::CCameraControl();
-			/*Logic::TMessage m;
-			m._type = Logic::Message::CAMERA_CONTROL;*/
 
 			// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
-			//m._bool = false; @MENSAJES
 			m->setMouse(false);
 
 			switch(key.keyId)
 			{
 			case GUI::Key::UPARROW:
-				//m._string = "up";
 				m->setMovement("up");
 				break;
 			case GUI::Key::DOWNARROW:
-				//m._string = "down";
 				m->setMovement("down");
 				break;
 			case GUI::Key::LEFTARROW:
-				//m._string = "left";
 				m->setMovement("left");
 				break;
 			case GUI::Key::RIGHTARROW:
-				//m._string = "right";
 				m->setMovement("right");
 				break;
 
@@ -91,24 +84,19 @@ namespace GUI {
 		if(_controlledTarget)
 		{
 			Logic::CCameraControl *m = new Logic::CCameraControl();
-			/*Logic::TMessage m;
-			m._type = Logic::Message::CAMERA_CONTROL;*/
 
 			// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
-			//m._bool = false; @MENSAJES
 			m->setMouse(false);
 
 			switch(key.keyId)
 			{
 			case GUI::Key::UPARROW:
 			case GUI::Key::DOWNARROW:
-				//m._string = "stopUpDown";
 				m->setMovement("stopUpDown");
 				break;
 
 			case GUI::Key::LEFTARROW:
 			case GUI::Key::RIGHTARROW:
-				//m._string = "stopLeftRight";
 				m->setMovement("stopLeftRight");
 				break;
 
@@ -128,31 +116,31 @@ namespace GUI {
 	{
 		if(_controlledTarget)
 		{
-			Logic::TMessage m1;
-			m1._type = Logic::Message::CAMERA_CONTROL;
+			Logic::CCameraControl *m1 = new Logic::CCameraControl();
+
 			// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
-			m1._bool = true;
+			m1->setMouse(true);
 
 			if (mouseState.posRelX <= 0)
-				m1._string = "left";
+				m1->setMovement("left");
 			else if (mouseState.posRelX >= 1)
-				m1._string = "right";
+				m1->setMovement("right");
 			else if ((mouseState.posRelX > 0) && (mouseState.posRelX < 1))
-				m1._string = "stopLeftRight";
+				m1->setMovement("stopLeftRight");
 
 			_controlledTarget->emitMessage(m1);
 
-			Logic::TMessage m2;
-			m2._type = Logic::Message::CAMERA_CONTROL;
+			Logic::CCameraControl *m2 = new Logic::CCameraControl();
+
 			// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
-			m2._bool = true;
+			m2->setMouse(true);
 
 			if (mouseState.posRelY <= 0)
-				m2._string = "up";
+				m2->setMovement("up");
 			else if (mouseState.posRelY >= 1)
-				m2._string = "down";
+				m2->setMovement("down");
 			else if ((mouseState.posRelY > 0) && (mouseState.posRelY < 1))
-				m2._string = "stopUpDown";
+				m2->setMovement("stopUpDown");
 
 			_controlledTarget->emitMessage(m2);
 			return true;

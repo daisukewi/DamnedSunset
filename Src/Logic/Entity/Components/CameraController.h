@@ -67,13 +67,11 @@ namespace Logic
 
 		/**
 		Método virtual que elige que mensajes son aceptados. Son válidos
-		CAMERA_CONTROL.
+		CCameraControl.
 
 		@param message Mensaje a chequear.
 		@return true si el mensaje es aceptado.
 		*/
-		virtual bool accept(const TMessage &message);
-		// @MENSAJES
 		virtual bool accept(IMessage *message);
 
 		/**
@@ -81,8 +79,6 @@ namespace Logic
 
 		@param message Mensaje a procesar.
 		*/
-		virtual void process(const TMessage &message);
-		// @MENSAJES
 		virtual void process(IMessage *message);
 
 		/**

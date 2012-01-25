@@ -24,6 +24,8 @@ de juego. Es una colección de componentes.
 #include "GUI/PlayerController.h"
 #include "GUI/CameraController.h"
 
+#include "Logic/Entity/Messages/SetTransform.h"
+
 namespace Logic 
 {
 	CEntity::CEntity(TEntityID entityID) : _entityID(entityID), 
@@ -237,6 +239,12 @@ namespace Logic
 	{
 		// Interceptamos los mensajes que además de al resto de los
 		// componentes, interesan a la propia entidad.
+		if (!message->getType().compare("CSetTransform"))
+		{
+			CSetTransform *m = static_cast <CSetTransform*> (message);
+
+			_transform = m->getTransform();
+		}
 
 		message->addPtr();
 
@@ -263,10 +271,11 @@ namespace Logic
 		_transform = transform;
 
 		// Avisamos a los componentes del cambio.
-		TMessage message;
-		message._type = Message::SET_TRANSFORM;
-		message._transform = _transform;
-		emitMessage(message);
+		CSetTransform *m = new CSetTransform();
+
+		m->setTransform(_transform);
+
+		emitMessage(m);
 
 	} // setTransform
 
@@ -277,10 +286,11 @@ namespace Logic
 		_transform.setTrans(position);
 
 		// Avisamos a los componentes del cambio.
-		TMessage message;
-		message._type = Message::SET_TRANSFORM;
-		message._transform = _transform;
-		emitMessage(message);
+		CSetTransform *m = new CSetTransform();
+
+		m->setTransform(_transform);
+
+		emitMessage(m);
 
 	} // setPosition
 
@@ -291,10 +301,11 @@ namespace Logic
 		_transform = orientation;
 
 		// Avisamos a los componentes del cambio.
-		TMessage message;
-		message._type = Message::SET_TRANSFORM;
-		message._transform = _transform;
-		emitMessage(message);
+		CSetTransform *m = new CSetTransform();
+
+		m->setTransform(_transform);
+
+		emitMessage(m);
 
 	} // setOrientation
 
@@ -315,10 +326,11 @@ namespace Logic
 		Math::setYaw(yaw,_transform);
 
 		// Avisamos a los componentes del cambio.
-		TMessage message;
-		message._type = Message::SET_TRANSFORM;
-		message._transform = _transform;
-		emitMessage(message);
+		CSetTransform *m = new CSetTransform();
+
+		m->setTransform(_transform);
+
+		emitMessage(m);
 
 	} // setYaw
 
@@ -329,10 +341,11 @@ namespace Logic
 		Math::yaw(yaw,_transform);
 
 		// Avisamos a los componentes del cambio.
-		TMessage message;
-		message._type = Message::SET_TRANSFORM;
-		message._transform = _transform;
-		emitMessage(message);
+		CSetTransform *m = new CSetTransform();
+
+		m->setTransform(_transform);
+
+		emitMessage(m);
 
 	} // yaw
 
