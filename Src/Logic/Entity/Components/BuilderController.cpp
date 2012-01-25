@@ -28,8 +28,7 @@ namespace Logic
 {
 	IMP_FACTORY(CBuilderController);
 
-	const int GRID_SIZE = 5;
-	const int MAP_SIZE = 100;
+	const int GRID_SIZE = 10;
 	
 	//---------------------------------------------------------
 
@@ -118,33 +117,28 @@ namespace Logic
 	void CBuilderController::emplaceBuilding()
 	{
 		Vector3 pos = _buildingEntity->getPosition();
-		std::stringstream vecPos;
-		vecPos << "{" << pos.x << "," << pos.y << "," << pos.z << "}";
+		std::stringstream vecPos, buildingName;
+		vecPos << pos.x << " 0.0 " << pos.z;
+		buildingName << _buildingEntity->getName() << ++_buildingNumber;
 
 		// Borrar la entidad sin física
 		Logic::CEntityFactory::getSingletonPtr()->deleteEntity(_buildingEntity);
 
 		// Creamos una nueva entidad pero con física.
-		/*Map::CEntity *buildInfo = new Map::CEntity("Base");
-		buildInfo->setType("Entity");
+		Map::CEntity *buildInfo = new Map::CEntity(buildingName.str());
+		buildInfo->setType("Building");
 		buildInfo->setAttribute("position", vecPos.str());
 		buildInfo->setAttribute("orientation", "0");
 		buildInfo->setAttribute("model", "torreta_pie.mesh");
-			/*
-			type = "Building",
-			position = {10, 0, 0},
-			orientation = 0,
-			model = "torreta_pie.mesh",
-			physic_entity = "simple",
-			physic_type = "static",
-			physic_shape = "box",
-			physic_dimensions = { 2.3, 2.5, 2.3 },
-			physic_height = 2,
-			physic_radius = 10,
-			physic_collision_group = 2,
-			*/
+		buildInfo->setAttribute("physic_entity", "simple");
+		buildInfo->setAttribute("physic_type", "static");
+		buildInfo->setAttribute("physic_shape", "box");
+		buildInfo->setAttribute("physic_dimensions", "2.3 2.5 2.3");
+		buildInfo->setAttribute("physic_height", "2");
+		buildInfo->setAttribute("physic_radius", "10");
+		buildInfo->setAttribute("physic_collision_group", "2");
 
-		//Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap());
+		Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap());
 
 		_building = false;
 	}
@@ -155,11 +149,15 @@ namespace Logic
 
 		Vector3 *point = new Vector3();
 
-		//Lanzar un rayo desde la camara hasta el plano del escenario.
+		// Lanzar un rayo desde la camara hasta el plano del escenario.
 		Ray mouseRay = Graphics::CServer::getSingletonPtr()->getCameraToViewportRay(pos.x, pos.y	);
 		if (Physics::CServer::getSingletonPtr()->raycastAdvanced(mouseRay, point) == NULL) return;
 
-		_buildingEntity->setPosition(Vector3(point->x, 1.0f, point->z));
+		// Ponemos la nueva posición del edificio en el centro de la casilla que le corresponda.
+		Vector2 newPos;
+		newPos.x = ( (int)point->x / GRID_SIZE - 0.5 ) * GRID_SIZE;
+		newPos.y = ( (int)point->z / GRID_SIZE - 0.5 ) * GRID_SIZE;
+		_buildingEntity->setPosition(Vector3(newPos.x, 1.0f, newPos.y));
 
 	}
 

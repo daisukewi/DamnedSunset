@@ -47,7 +47,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CBuilderController() : IComponent(), _building(false) {}
+		CBuilderController() : IComponent(), _building(false), _buildingNumber(0) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -125,7 +125,17 @@ namespace Logic
 		*/
 		bool _building;
 
+		/**
+		Atributo que contiene a la entidad "fantasma"
+		del edificio que se está construyendo.
+		*/
 		CEntity *_buildingEntity;
+
+		/**
+		Atributo que lleva la cuenta del identificador del edificio
+		que se tiene que construir.
+		*/
+		int _buildingNumber;
 
 	}; // class CBuilderController
 

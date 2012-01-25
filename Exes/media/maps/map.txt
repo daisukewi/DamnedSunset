@@ -79,7 +79,7 @@ Map = {
 	
 	Barril2 = {
 		type = "Barril",
-		position = {5, 1, 15},
+		position = {5, 10, 15},
 	},	
 	
 	Barril3 = {
