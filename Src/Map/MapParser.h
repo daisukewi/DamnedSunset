@@ -200,12 +200,21 @@ Map = {
 		const TEntityList getEntityList() {return _entityList;}
 
 		/**
+		Devuelve el listado de las entidades leidas del mapa.
+
+		@return Entidades parseadas.
+		*/
+		const void setEntityList(TEntityList& list) {_entityList = list;}
+
+		/**
 		Elimina todas las entidades que contenga la lista de entidades 
 		parseadas.
 		*/
 		void releaseEntityList();
 
 		static void CMapParser::releaseEntityList(TEntityList list);
+
+		Map::CEntity * getEntitieInfo( std::string);
 	private:
 		/**
 		Única instancia de la clase.

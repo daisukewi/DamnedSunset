@@ -107,7 +107,9 @@ namespace Logic {
 			}
 		}
 		Map::CMapParser::releaseEntityList(entityList);
-		Map::CMapParser::releaseEntityList(entityList2);
+		//Map::CMapParser::releaseEntityList(entityList2);
+		Map::CMapParser::getSingletonPtr()->setEntityList(entityList2);
+
 		// HACK - Cambiamos la altura de los nodos para calcular el grafo de navegación más fácilmente
 		AI::CServer::getSingletonPtr()->getNavigationGraph()->setWaypointHeight(7.0);
 		

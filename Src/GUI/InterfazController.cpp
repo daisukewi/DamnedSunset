@@ -15,6 +15,13 @@
 
 #include <CEGUIUDim.h>
 
+
+//Includes para crear entidades dinamicamente
+#include "Map/MapEntity.h"
+#include "Logic/Maps/EntityFactory.h"
+#include "Logic/Maps/Map.h"
+
+
 namespace GUI {
 
 	CInterfazController::CInterfazController()
@@ -213,7 +220,14 @@ namespace GUI {
 	}
 	bool CInterfazController::clickB4(const CEGUI::EventArgs& e)
 	{
-
+		/** PRUBA PARA VER QUE FUNCIONA sacar los valores del arquetipo*/
+		Map::CEntity * mapEntity = Map::CMapParser::getSingletonPtr()->getEntitieInfo("Barril");
+		//Hay que cambiarle el nombre xq sino solo se crearia el primero (coja la vida1 x coger cualquier cosa)
+		std::stringstream ss;
+		ss << _vida1;
+		mapEntity->setName(ss.str());
+		Logic::CEntity *entity = Logic::CEntityFactory::getSingletonPtr()->createEntity(mapEntity,Logic::CServer::getSingletonPtr()->getMap());
+		/* FIN PRUEBA */
 		return true;
 	}
 } // namespace GUI

@@ -36,7 +36,7 @@ namespace Map {
 	CMapParser::~CMapParser()
 	{
 		//Ya me he encargado de eliminar la entityList manualmente mucho antes
-		//releaseEntityList();
+		releaseEntityList();
 		_instance = 0;
 
 	} // ~CMapParser
@@ -133,5 +133,19 @@ namespace Map {
 			list.pop_back();
 			delete entityInProgress;
 		}
+	}
+
+	Map::CEntity * CMapParser::getEntitieInfo( std::string s)
+	{
+		Map::CMapParser::TEntityList list = Map::CMapParser::getSingletonPtr()->getEntityList();
+		Map::CMapParser::TEntityList::const_iterator it, end;
+		it = list.begin();
+		end = list.end();
+		for(; it != end; it++)
+		{
+			if ((*it)->getType() == s)
+				return *it;
+		}
+		return 0;
 	}
 } // namespace Map
