@@ -6,6 +6,8 @@
 #include "Graphics\Server.h"
 #include "Physics\Server.h"
 
+#include "AI/Movement.h"
+
 
 namespace Logic 
 {
@@ -52,14 +54,34 @@ namespace Logic
 		switch(message._type)
 		{
 		case Message::ENTITY_SELECTED:
-			_entity = message._entity;
+			CEntity *_aux = message._entity;
 
-			if (_entity != NULL){
-				std::cout << "ENTIDAD SELECCIONADA: "<< _entity->getName()<< "\n"; 
-				std::cout << "POSICION DE LA ENTIDAD: " << _entity->getPosition(); 
-			}else
+			if (_aux->getType() == "Player")
 			{
+				_entity = message._entity;
+				std::cout << "ENTIDAD SELECCIONADA: "<< _entity->getName()<< "\n"; 
+				std::cout << "POSICION DE LA ENTIDAD: " << _entity->getPosition()<< "\n"; 
+				
+			}else if ((_aux->getType() == "World") & (_entity != NULL) ){
+				if (_entity->getType() == "Player"){
+					std::cout << "PUNTO DEL MAPA: " << message._pointvector3->x << "," << message._pointvector3->y << "," << message._pointvector3->z<< "\n"; 
+				
+					TMessage m;
+					m._type = Message::MOVE_TO;
+					m._vector3.x = message._pointvector3->x;
+					m._vector3.y = message._pointvector3->y;
+					m._vector3.z = message._pointvector3->z;
+
+					m._int = AI::IMovement::MOVEMENT_DYNAMIC_ARRIVE;
+					_entity->emitMessage(m);
+				
+				}
 			}
+
+
+			
+
+			
 			break;
 		}
 

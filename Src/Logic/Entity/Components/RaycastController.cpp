@@ -68,30 +68,39 @@ namespace Logic
 		
 		if (_makeRaycast){
 			Vector3 *point = new Vector3();
-		
+			
 			//Obtener el rayo a lanzar.
 			Ray mouseRay = Graphics::CServer::getSingletonPtr()->getCameraToViewportRay(_mouseRelPosX, _mouseRelPosY);
 
 			Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastAdvanced(mouseRay, point);
+			/*message._pointvector3->x = point->x;
+			message._pointvector3->y = point->y;
+			message._pointvector3->z = point->z;*/
+
 
 			if (entity != NULL){
 		
-			std::cout << "Punto: " << point->x << "," << point->y << "," << point->z <<"\n"; 
-			std::cout << "Entidad: "<< entity->getName()<< "\n"; 
-			std::cout << "Ray: " << mouseRay.getOrigin() << " " << mouseRay.getDirection()<< "\n"; 
-			std::cout << "Mouse: " << _mouseRelPosX << " " << _mouseRelPosY << "\n"<< "\n"; 
+			//std::cout << "Punto: " << point->x << "," << point->y << "," << point->z <<"\n"; 
+			//std::cout << "Entidad: "<< entity->getName()<< "\n"; 
+			//std::cout << "Ray: " << mouseRay.getOrigin() << " " << mouseRay.getDirection()<< "\n"; 
+			//std::cout << "Mouse: " << _mouseRelPosX << " " << _mouseRelPosY << "\n"<< "\n"; 
 
 			TMessage message;
+			message._pointvector3 = new Vector3(point->x,point->y,point->z);
 			message._type = Message::SELECTABLE;
 			message._entity = entity;
 			entity->emitMessage(message);
-				
+								
+			
+			//std::cout << "VECTOR QUE VA A SER ENVIADO" << message._pointvector3->x << "," << message._pointvector3->y << "," << message._pointvector3->z  << "\n";
+
+
 			}else{
 		
-				std::cout << "Punto: "<< "\n"; 
-				std::cout << "Entidad: "<< "\n"; 
-				std::cout << "Ray: " << mouseRay.getOrigin() << " " << mouseRay.getDirection();
-				std::cout << "Mouse: " << _mouseRelPosX << " " << _mouseRelPosY << "\n"<< "\n";  
+				//std::cout << "Punto: "<< "\n"; 
+				//std::cout << "Entidad: "<< "\n"; 
+				//std::cout << "Ray: " << mouseRay.getOrigin() << " " << mouseRay.getDirection();
+				//std::cout << "Mouse: " << _mouseRelPosX << " " << _mouseRelPosY << "\n"<< "\n";  
 			}
 			
 			_makeRaycast = false;

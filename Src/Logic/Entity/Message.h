@@ -113,6 +113,11 @@ namespace Logic
 		Vector3 _vector3;
 
 		/**
+		Atributo para almacenar un vector.
+		*/
+		Vector3 *_pointvector3;
+
+		/**
 		Atributo para almacenar una entidad.
 		*/
 		CEntity *_entity;

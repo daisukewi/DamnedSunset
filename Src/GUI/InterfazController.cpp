@@ -6,6 +6,8 @@
 #include "Logic/Entity/Entity.h"
 #include "Logic/Entity/Message.h"
 
+#include "Logic/Maps/Map.h"
+
 #include <cassert>
 
 #include <CEGUISystem.h>
@@ -169,16 +171,19 @@ namespace GUI {
 	bool CInterfazController::clickPersonaje1(const CEGUI::EventArgs& e)
 	{
 		this->menuJugador1();
+		this->sendClickMessage("Jack");
 		return true;
 	}
 	bool CInterfazController::clickPersonaje2(const CEGUI::EventArgs& e)
 	{
 		this->menuJugador2();
+		this->sendClickMessage("Erick");
 		return true;
 	}
 	bool CInterfazController::clickPersonaje3(const CEGUI::EventArgs& e)
 	{
 		this->menuJugador3();
+		this->sendClickMessage("Amor");
 		return true;
 	}
 	bool CInterfazController::clickB1(const CEGUI::EventArgs& e)
@@ -229,5 +234,16 @@ namespace GUI {
 		Logic::CEntity *entity = Logic::CEntityFactory::getSingletonPtr()->createEntity(mapEntity,Logic::CServer::getSingletonPtr()->getMap());
 		/* FIN PRUEBA */
 		return true;
+	}
+
+	void CInterfazController::sendClickMessage(std::string name){
+	
+		Logic::CEntity *target = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("TargetCamera");
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName(name);
+		Logic::TMessage m;
+		m._entity = entity;
+		m._type = Logic::Message::ENTITY_SELECTED;
+		target->emitMessage(m);
+
 	}
 } // namespace GUI

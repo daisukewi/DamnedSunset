@@ -1,4 +1,4 @@
-World CGraphics CPhysicEntity
+World CGraphics CPhysicEntity CSelectable
 Sun CGraphics CSunController
 Player CAvatarController CAnimatedGraphics CLife CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor CSelectable
 Enemy CEnemyController CAnimatedGraphics CLife CSteeringMovement CRouteTo

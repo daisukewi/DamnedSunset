@@ -104,6 +104,9 @@ namespace GUI
 		void CInterfazController::menuJugador1();
 		void CInterfazController::menuJugador2();
 		void CInterfazController::menuJugador3();
+		
+		
+		void CInterfazController::sendClickMessage(std::string name);
 	};
 
 } // namespace GUI

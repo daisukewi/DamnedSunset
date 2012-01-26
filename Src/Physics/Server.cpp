@@ -450,6 +450,9 @@ Logic::CEntity* CServer::raycastAdvanced (const Ray& ray, Vector3* &point) const
 
 
 	// Recuperar el punto de intersección
-	point = &NxVec3ToVector3(info.vImpact);
+	Vector3 pointAux = NxVec3ToVector3(info.vImpact);
+	point->x = pointAux.x;
+	point->y = pointAux.y;
+	point->z = pointAux.z;
 	return physicEntity->getEntity();
 }

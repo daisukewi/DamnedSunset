@@ -55,10 +55,12 @@ namespace Logic
 		case Message::SELECTABLE:
 			//Obtener la entidad encargadad de controllar el gameplay
 			CEntity *entity = _entity->getMap()->getEntityByName("TargetCamera");
-			TMessage message;
-			message._type = Message::ENTITY_SELECTED;
-			message._entity = _entity;
-			entity->emitMessage(message);
+			TMessage m;
+			m._type = Message::ENTITY_SELECTED;
+			m._entity = _entity;
+			m._pointvector3 = message._pointvector3;
+			entity->emitMessage(m);
+			
 			break;
 		}
 
