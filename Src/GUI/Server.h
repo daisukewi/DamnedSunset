@@ -18,6 +18,7 @@ la gestión de la interfaz con el usuario (entrada de periféricos, CEGui...).
 namespace Logic 
 {
 	class CAvatarController;
+	class CEnemyController;
 }
 
 namespace GUI 

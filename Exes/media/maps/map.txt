@@ -31,6 +31,12 @@ Map = {
 		type = "Player",
 		position = {40, 5, 0},
 	},
+
+	Enemy = {
+		type = "Enemy",
+		position = {20, 5, 50},
+		orientation = 0,
+	},
 	
 	Camera = {
 		type = "Camera",
@@ -87,4 +93,3 @@ Map = {
 		position = {-5, 1, 15},
 	},
 }
-	
