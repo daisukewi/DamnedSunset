@@ -23,7 +23,7 @@ namespace Logic
 	<p>
 	Cuando se recibe un mensaje de este tipo, se calcula una nueva ruta
 	hasta el destino indicado y se comienza su seguimiento. Para cada 
-	segmento de la ruta, el componente envía un mensaje de tipo MOVE_TO, con el 
+	segmento de la ruta, el componente envía un mensaje CMoveSteering, con el 
 	destino de ese segmento y el tipo de movimiento necesario como parámetros 
 	(estos mensajes pueden ser aceptados por el componente CSteeringMovement).
 	<p>
@@ -102,7 +102,7 @@ namespace Logic
 		*/
 		std::vector<Vector3> *_currentRoute;
 		/** 
-		Envía un mensaje MOVE_TO.
+		Envía un mensaje CMoveSteering.
 
 		@param target Destino.
 		@movementType Tipo de movimiento.

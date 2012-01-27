@@ -14,6 +14,7 @@ mover un avatar utilizando movimientos cinéticos o dinámicos.
 #include "AI/Movement.h"
 
 #include "Logic/Entity/Messages/SetAnimation.h"
+#include "Logic/Entity/Messages/MoveSteering.h"
 
 namespace Logic 
 {
@@ -208,27 +209,28 @@ namespace Logic
 
 	//---------------------------------------------------------
 	/**
-	Este componente sólo acepta mensajes de tipo MOVE_TO.
+	Este componente sólo acepta mensajes CMoveSteering.
 	*/
-	bool CSteeringMovement::accept(const TMessage &message)
+	bool CSteeringMovement::accept(IMessage *message)
 	{
-		return message._type == Message::MOVE_TO;
+		return (message->getType().compare("CMoveSteering") == 0);
 	} // accept
 
 	//---------------------------------------------------------
 	/**
-	Si se recibe un mensaje de tipo MOVE_TO, almacena el vector como 
+	Si se recibe un mensaje CMoveSteering, almacena el vector como 
 	destino del movimiento y el tipo de movimiento.
 	*/
-	void CSteeringMovement::process(const TMessage &message)
+	void CSteeringMovement::process(IMessage *message)
 	{
-		if (message._type == Message::MOVE_TO) 
+		if (!message->getType().compare("CMoveSteering"))
 		{
+			CMoveSteering *m = static_cast <CMoveSteering*> (message);
 			// Anotamos el vector de desplazamiento para usarlo posteriormente en 
 			// el método tick. De esa forma, si recibimos varios mensajes AVATAR_MOVE
 			// en el mismo ciclo sólo tendremos en cuenta el último.
-			_target = message._vector3;
-			_movType = message._int;			
+			_target = m->getTarget();
+			_movType = m->getMovementType();
 		}
 
 	} // process

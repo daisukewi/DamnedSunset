@@ -94,6 +94,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Message.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\CameraControl.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\MoveSteering.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetTransform.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\StopAnimation.cpp" />
@@ -128,6 +129,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchPosition.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\CameraControl.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\MoveSteering.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetTransform.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\StopAnimation.h" />

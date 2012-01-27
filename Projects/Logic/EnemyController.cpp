@@ -24,6 +24,8 @@ del enemigo.
 #include "AI/Server.h"
 #include "AI/Movement.h"
 
+#include "Logic/Entity/Messages/MoveSteering.h"
+
 
 namespace Logic
 {
@@ -83,20 +85,23 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 		
-		// Si no se está moviendo calculamos un nuevo punto de destino y el vector _orientation
-		// de desplazamiento en cada tick para llegar a _destino
+		// Si no se está moviendo calculamos un nuevo punto de destino y llevamos al enemigo para allá.
+		// Cuando la distancia al objetivo es pequeña volvemos a hacer el mismo proceso.
 		if (!_moving)
 		{
 			_destino.x = rand() % 200 - 100;
-			_destino.y = 0.0f;
+			_destino.y = 5.0f;
 			_destino.z = rand() % 200 - 100;
-			_orientation = _destino - _entity->getPosition();
-			_orientation.normalise();
-			_orientation *= msecs * _speed;
+
+			CMoveSteering *m = new CMoveSteering();
+
+			m->setMovementType(2);
+			m->setTarget(_destino);
+
+			_entity->emitMessage(m, this);
 		}
 
-		_entity->setPosition(_entity->getPosition() + _orientation);
-		_moving = (_entity->getPosition() - _destino).length() >= 1;
+		_moving = (_entity->getPosition() - _destino).length() >= 15;
 
 	} // tick
 

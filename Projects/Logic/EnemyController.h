@@ -41,7 +41,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CEnemyController() : IComponent(), _moving(false), _speed(0.04f), _destino(Vector3::ZERO), _orientation(Vector3::ZERO) {}
+		CEnemyController() : IComponent(), _moving(false), _speed(0.04f), _destino(Vector3::ZERO) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -122,11 +122,6 @@ namespace Logic
 		Atributo para saber el destino del enemigo.
 		*/
 		Vector3 _destino;
-
-		/**
-		Atributo para saber hacia qué dirección mira el enemigo.
-		*/
-		Vector3 _orientation;
 
 	}; // class CEnemyController
 

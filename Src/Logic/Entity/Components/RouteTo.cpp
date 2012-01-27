@@ -6,6 +6,8 @@
 #include "AI/Server.h"
 #include "AI/Movement.h"
 
+#include "Logic/Entity/Messages/MoveSteering.h"
+
 namespace Logic 
 {
 
@@ -120,19 +122,19 @@ namespace Logic
 
 	//---------------------------------------------------------
 	/** 
-	Envía un mensaje MOVE_TO.
+	Envía un mensaje CMoveSteering.
 
 	@param target Destino.
 	@movementType Tipo de movimiento.
 	*/
 	void CRouteTo::sendMoveMessage(Vector3 target, int movementType)
 	{
-		TMessage message;
-		message._type = Message::MOVE_TO;
-		message._vector3 = target;
-		message._vector3.y = 0.0;
-		message._int = movementType;
-		_entity->emitMessage(message, this);
+		CMoveSteering *m = new CMoveSteering();
+
+		m->setTarget(Vector3(target.x, 0.0,target.z));
+		m->setMovementType(movementType);
+
+		_entity->emitMessage(m, this);
 	}
 
 	//---------------------------------------------------------
