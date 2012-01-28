@@ -22,6 +22,7 @@ gráfica de la entidad.
 #include "Graphics/StaticEntity.h"
 
 #include "Logic/Entity/Messages/SetTransform.h"
+#include "Logic/Entity/Messages/SetBillboard.h"
 
 namespace Logic 
 {
@@ -96,7 +97,7 @@ namespace Logic
 
 	bool CGraphics::accept(IMessage *message)
 	{
-		return (message->getType().compare("CSetTransform") == 0);
+		return (message->getType().compare("CSetTransform") == 0 || !message->getType().compare("CSetBillboard"));
 
 	} // accept
 
@@ -109,6 +110,13 @@ namespace Logic
 			CSetTransform *m = static_cast <CSetTransform*> (message);
 
 			_graphicsEntity->setTransform(m->getTransform());
+		} else 	if (!message->getType().compare("CSetBillboard"))
+		{
+			CSetBillboard *m = static_cast <CSetBillboard*> (message);
+			if ( _billboardSet) //Actualizamos el billboardser
+				m->_funcion(_billboardSet, m->getPorcentajeVida());
+			else //creamos el billboardset
+				_billboardSet = _graphicsEntity->createBuildBoard(m->_funcion, m->getPorcentajeVida());
 		}
 
 	} // process

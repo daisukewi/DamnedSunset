@@ -14,6 +14,15 @@ Contiene la declaración del componente que controla la vida de una entidad.
 
 #include "Logic/Entity/Component.h"
 
+#include <OgreBillboard.h>
+
+
+namespace Graphics 
+{
+	class CEntity;
+	class CScene;
+}
+
 //declaración de la clase
 namespace Logic 
 {
@@ -41,7 +50,7 @@ namespace Logic
 		/**
 		Constructor por defecto; en la clase base no hace nada.
 		*/
-		CLife() : IComponent(), _life(100.f) {}
+		CLife();
 		
 		/**
 		Inicialización del componente usando la descripción de la entidad que hay en 
@@ -65,7 +74,10 @@ namespace Logic
 		Vida de la entidad
 		*/
 		float _life;
-
+		/**
+		Vida maxima de la entidad
+		*/
+		float _maxLife;
 	}; // class CLife
 
 	REG_FACTORY(CLife);

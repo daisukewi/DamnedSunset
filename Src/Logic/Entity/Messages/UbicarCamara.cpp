@@ -7,11 +7,10 @@ Contiene la implementación del mensaje de control de la cámara.
 @date Enero, 2012
 */
 
-#ifndef __GUI_UbicarCamara_H
-#define __GUI_UbicarCamara_H
+#ifndef __Logic_UbicarCamara_CPP
+#define __Logic_UbicarCamara_CPP
 
 #include "UbicarCamara.h"
-
 
 namespace Logic
 {

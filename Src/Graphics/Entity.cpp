@@ -25,6 +25,9 @@ Contiene la implementación de la clase que representa una entidad gráfica.
 #include <OgreSceneNode.h>
 #include <OgreSceneManager.h>
 
+#include <OgreBillboard.h>
+#include <OgreBillboardSet.h>
+
 namespace Graphics 
 {
 	CEntity::CEntity(const std::string &name, const std::string &mesh)
@@ -32,7 +35,6 @@ namespace Graphics
 	{
 		_name = name;
 		_mesh = mesh;
-
 	} // CEntity
 
 	//--------------------------------------------------------
@@ -61,7 +63,6 @@ namespace Graphics
 
 		// Si ya estaba cargada en la escena se devuelve cierto.
 		return true;
-
 	} // attachToScene
 	
 	//--------------------------------------------------------
@@ -100,7 +101,6 @@ namespace Graphics
 								createChildSceneNode(_name + "_node");
 		_entityNode->attachObject(_entity);
 		_loaded = true;
-
 		return true;
 
 	} // load
@@ -207,5 +207,15 @@ namespace Graphics
 
 	} // setScale
 
+	Ogre::BillboardSet* CEntity::createBuildBoard(void (*funcion) (Ogre::BillboardSet*, float), float porcentajeVida) 
+	{
+
+		Ogre::BillboardSet* billboardset = _scene->getSceneMgr()->createBillboardSet(1);
+
+		funcion(billboardset, porcentajeVida);
+
+		_entityNode->attachObject(billboardset);
+		return billboardset;
+	}
 
 } // namespace Graphics

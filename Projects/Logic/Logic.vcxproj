@@ -96,6 +96,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\CameraControl.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MoveSteering.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetBillboard.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetTransform.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\StopAnimation.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\UbicarCamara.cpp" />
@@ -132,6 +133,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\CameraControl.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MoveSteering.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetBillboard.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetTransform.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\StopAnimation.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\UbicarCamara.h" />

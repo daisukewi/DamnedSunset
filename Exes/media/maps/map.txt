@@ -19,17 +19,20 @@ Map = {
 	Jack = {
 		type = "Player",
 		position = {0, 5, 0},
+		life = 100.0,
 	},
 	
 	Erick = {
 		type = "Player",
 		position = {20, 5, 0},
 		orientation = 90,
+		life = 80.0,
 	},
 	
 	Amor = {
 		type = "Player",
 		position = {40, 5, 0},
+		life = 10.0,
 	},
 
 	Enemy = {

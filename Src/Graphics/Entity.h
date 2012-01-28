@@ -158,6 +158,8 @@ namespace Graphics
 		*/
 		Ogre::Entity* getEntity() {return _entity;}
 
+		Ogre::BillboardSet* createBuildBoard(void (*funcion) (Ogre::BillboardSet*, float), float porcentajeVida);
+
 	protected:
 
 		// CScene es la única que puede añadir o eliminar entidades de una 
