@@ -97,6 +97,7 @@ namespace GUI
 
 	protected:
 
+
 	private:
 		unsigned int _vida1;
 		void CInterfazController::ocultarBotones();
@@ -107,6 +108,8 @@ namespace GUI
 		
 		
 		void CInterfazController::sendClickMessage(std::string name);
+
+		Logic::CEntity *_entidadDios;
 	};
 
 } // namespace GUI

@@ -98,6 +98,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetTransform.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\StopAnimation.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\UbicarCamara.cpp" />
     <ClCompile Include="..\..\Src\Logic\Maps\ComponentFactory.cpp" />
     <ClCompile Include="..\..\Src\Logic\Maps\EntityFactory.cpp" />
     <ClCompile Include="..\..\Src\Logic\Maps\EntityID.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetTransform.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\StopAnimation.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\UbicarCamara.h" />
     <ClInclude Include="..\..\Src\Logic\Maps\ComponentFactory.h" />
     <ClInclude Include="..\..\Src\Logic\Maps\Documentation.h" />
     <ClInclude Include="..\..\Src\Logic\Maps\EntityFactory.h" />

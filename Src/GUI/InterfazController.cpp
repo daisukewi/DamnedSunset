@@ -17,6 +17,9 @@
 
 #include <CEGUIUDim.h>
 
+//Mensajes
+#include "Logic/Entity/Messages/UbicarCamara.h"
+
 
 //Includes para crear entidades dinamicamente
 #include "Map/MapEntity.h"
@@ -71,7 +74,9 @@ namespace GUI {
 	//--------------------------------------------------------
 
 	void CInterfazController::activate()
-	{		
+	{
+		_entidadDios = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("TargetCamera");
+
 		CInputManager::getSingletonPtr()->addKeyListener(this);
 
 		// Activamos la ventana de interfaz
@@ -172,18 +177,37 @@ namespace GUI {
 	{
 		this->menuJugador1();
 		this->sendClickMessage("Jack");
+		
+		//Mandamos en mensaje a la camara para que se centre en el jugador
+		Logic::CUbicarCamara *m = new Logic::CUbicarCamara();
+		Logic::CEntity *entidad = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack");
+		m->setPosition(entidad->getPosition());
+		_entidadDios->emitMessage(m);
+
 		return true;
 	}
 	bool CInterfazController::clickPersonaje2(const CEGUI::EventArgs& e)
 	{
 		this->menuJugador2();
 		this->sendClickMessage("Erick");
+
+		//Mandamos en mensaje a la camara para que se centre en el jugador
+		Logic::CUbicarCamara *m = new Logic::CUbicarCamara();
+		Logic::CEntity *entidad = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick");
+		m->setPosition(entidad->getPosition());
+		_entidadDios->emitMessage(m);
 		return true;
 	}
 	bool CInterfazController::clickPersonaje3(const CEGUI::EventArgs& e)
 	{
 		this->menuJugador3();
 		this->sendClickMessage("Amor");
+
+		//Mandamos en mensaje a la camara para que se centre en el jugador
+		Logic::CUbicarCamara *m = new Logic::CUbicarCamara();
+		Logic::CEntity *entidad = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor");
+		m->setPosition(entidad->getPosition());
+		_entidadDios->emitMessage(m);
 		return true;
 	}
 	bool CInterfazController::clickB1(const CEGUI::EventArgs& e)

@@ -3,6 +3,7 @@
 #include "Logic/Entity/Entity.h"
 #include "Map/MapEntity.h"
 
+#include "Logic/Entity/Messages/UbicarCamara.h"
 #include "Logic/Entity/Messages/CameraControl.h"
 
 namespace Logic 
@@ -38,7 +39,7 @@ namespace Logic
 
 	bool CCameraController::accept(IMessage *message)
 	{
-		return (message->getType().compare("CCameraControl") == 0);
+		return (message->getType().compare("CCameraControl") == 0 || !message->getType().compare("CUbicarCamara"));
 
 	} // accept
 	
@@ -64,6 +65,11 @@ namespace Logic
 				stopUpDown();
 			else if(!m->getMovement().compare("stopLeftRight"))
 				stopLeftRight();
+		}
+		else if (!message->getType().compare("CUbicarCamara"))
+		{
+			CUbicarCamara *m = static_cast <CUbicarCamara*> (message);
+			_entity->setPosition(m->getPosition());
 		}
 
 	} // process
