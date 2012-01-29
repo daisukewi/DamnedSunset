@@ -18,6 +18,8 @@ mover al jugador.
 #include "Logic/Entity/Entity.h"
 #include "Logic/Entity/Message.h"
 
+#include "Logic/Entity/Messages/MouseEvent.h"
+
 #include <cassert>
 
 #define TURN_FACTOR 0.001f
@@ -143,8 +145,18 @@ namespace GUI {
 
 	bool CPlayerController::mouseReleased(const CMouseState &mouseState)
 	{
-		return false;
+		Logic::MMouseEvent *m_message = new Logic::MMouseEvent();
 
+		if (mouseState.button == Button::LEFT)
+			m_message->setAction(Logic::TMouseAction::LEFT_CLICK);
+		else if (mouseState.button == Button::RIGHT)
+			m_message->setAction(Logic::TMouseAction::RIGHT_CLICK);
+		else if (mouseState.button == Button::MIDDLE)
+			m_message->setAction(Logic::TMouseAction::MIDDLE_CLICK);
+
+		Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m_message);
+
+		return true;
 	} // mouseReleased
 
 } // namespace GUI

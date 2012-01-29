@@ -5,7 +5,7 @@ Enemy CEnemyController CAnimatedGraphics CLife CPhysicCharacter CSteeringMovemen
 Entity CGraphics
 AnimatedEntity CAnimatedGraphics
 Camera CCamera
-TargetCamera CCameraController CRaycastController CSelectionController CBuilderController
+PlayerGod CCameraController CRaycastController CSelectionController CBuilderController
 Building CGraphics CPhysicEntity
 Turret CGraphics CPhysicEntity
 Barril CGraphics CPhysicEntity

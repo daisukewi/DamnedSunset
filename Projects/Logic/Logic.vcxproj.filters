@@ -150,6 +150,9 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.cpp">
       <Filter>Messages\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\MouseEvent.cpp">
+      <Filter>Messages\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Maps\ComponentFactory.h">
@@ -273,6 +276,9 @@
       <Filter>Messages\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.h">
+      <Filter>Messages\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\MouseEvent.h">
       <Filter>Messages\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -25,6 +25,7 @@ del sol y el control del la luz ambiental.
 
 #include "Logic/Entity/Messages/EmplaceBuilding.h"
 #include "Logic/Entity/Messages/ControlRaycast.h"
+#include "Logic/Entity/Messages/MouseEvent.h"
 
 
 namespace Logic 
@@ -60,36 +61,15 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	bool CBuilderController::accept(const TMessage &message)
-	{
-		return message._type == Message::CAMERA_CLICK;
-
-	} // accept
-
 	bool CBuilderController::accept(IMessage *message)
 	{
 		return !message->getType().compare("MEmplaceBuilding")
-			|| !message->getType().compare("MControlRaycast");
+			|| !message->getType().compare("MControlRaycast")
+			|| !message->getType().compare("MMouseEvent");
 
 	} // accept
 	
 	//---------------------------------------------------------
-
-	void CBuilderController::process(const TMessage &message)
-	{
-		switch (message._type)
-		{
-			case Message::RAYCAST_HIT:
-				if (!_building) return;
-				moveBuilding(message._vector2);
-				break;
-			case Message::CAMERA_CLICK:
-				if (!_building) return;
-				emplaceBuilding();
-				break;
-		}
-		
-	} // process
 
 	void CBuilderController::process(IMessage *message)
 	{
@@ -117,7 +97,20 @@ namespace Logic
 					moveBuilding(Vector2(collPoint.x, collPoint.z));
 					break;
 			}
+
+		} else if (!message->getType().compare("MMouseEvent"))
+		{
+			MMouseEvent *m_mouse = static_cast <MMouseEvent*> (message);
+
+			switch(m_mouse->getAction())
+			{
+				case TMouseAction::LEFT_CLICK:
+					if (!_building) return;
+					emplaceBuilding();
+					break;
+			}
 		}
+
 	} // process
 	
 	//---------------------------------------------------------

@@ -44,8 +44,7 @@ namespace Logic
 
 	bool CRaycastController::accept(const TMessage &message)
 	{
-		return message._type == Message::CAMERA_CLICK
-			|| message._type == Message::MOUSE_MOVE;
+		return message._type == Message::MOUSE_MOVE;
 
 	} // accept
 
@@ -65,9 +64,6 @@ namespace Logic
 			_mouseRelPosX = message._vector2.x;
 			_mouseRelPosY = message._vector2.y;
 			break;
-		case Message::CAMERA_CLICK:
-			_mouseRelPosX = message._vector2.x;
-			_mouseRelPosY = message._vector2.y;
 		}
 
 	} // process

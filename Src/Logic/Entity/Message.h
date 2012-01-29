@@ -44,7 +44,6 @@ namespace Logic
 			SELECTABLE,
 			ENTITY_SELECTED,
 			MOUSE_MOVE,
-			RAYCAST_HIT,
 			BUILD_MOVE
 		};
 	}

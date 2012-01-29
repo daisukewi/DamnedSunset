@@ -1,7 +1,7 @@
 /**
 @file EmplaceBuilding.h
 
-Contiene la declaración del mensaje para construir edificios.
+Contiene la declaración del mensaje para controlar el lanzamiento de raycast.
 
 @see Logic::IMessage
 
