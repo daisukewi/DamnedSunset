@@ -32,12 +32,16 @@ namespace Logic
 
 	CGraphics::~CGraphics() 
 	{
+		if(_billboardSet) {
+			_graphicsEntity->destroyBillBoardSet(_billboardSet);
+		}
 		if(_graphicsEntity)
 		{
 			_scene->removeEntity(_graphicsEntity);
 			delete _graphicsEntity;
 			_graphicsEntity = 0;
 		}
+
 
 	} // ~CGraphics
 	
@@ -113,10 +117,10 @@ namespace Logic
 		} else 	if (!message->getType().compare("CSetBillboard"))
 		{
 			CSetBillboard *m = static_cast <CSetBillboard*> (message);
-			if ( _billboardSet) //Actualizamos el billboardser
+			if ( _billboardSet) //Actualizamos el billboardset
 				m->_funcion(_billboardSet, m->getPorcentajeVida());
 			else //creamos el billboardset
-				_billboardSet = _graphicsEntity->createBuildBoard(m->_funcion, m->getPorcentajeVida());
+				_billboardSet = _graphicsEntity->createBillBoard(m->_funcion, m->getPorcentajeVida());
 		}
 
 	} // process

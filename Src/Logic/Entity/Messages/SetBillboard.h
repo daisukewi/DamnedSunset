@@ -21,11 +21,11 @@ namespace Logic
 		void setPorcetajeVida(float f) {_porcentajeVida = f;}
 		float getPorcentajeVida() {return _porcentajeVida;}
 
-		//void setFuncion(void (*f) (Ogre::BillboardSet*)) { _funcion = f;};
-
-		//void(Ogre::BillboardSet*) getFuncion();// {return _funcion;};
+		//void setFuncion(void (*f) (Ogre::BillboardSet*,float)) { _funcion = f;};
+		//void (*_funcion) (Ogre::BillboardSet*,float) getFuncion() {return _funcion;};
 
 		void (*_funcion) (Ogre::BillboardSet*,float);
+
 	protected:
 
 		/**

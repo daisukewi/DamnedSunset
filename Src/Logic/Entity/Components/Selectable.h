@@ -96,7 +96,6 @@ namespace Logic
 		*/
 		virtual void process(const TMessage &message);
 
-
 	protected:
 		
 

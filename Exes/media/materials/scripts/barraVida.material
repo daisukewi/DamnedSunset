@@ -4,8 +4,8 @@ material barraVida
 	{
 		pass
 		{
-			emissive 0.7 0.7 0.7 1.0
-			
+			scene_blend alpha_blend
+			depth_write off
 			texture_unit
 			{
 				texture vida.png

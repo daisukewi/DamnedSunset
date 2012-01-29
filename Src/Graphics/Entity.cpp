@@ -207,15 +207,21 @@ namespace Graphics
 
 	} // setScale
 
-	Ogre::BillboardSet* CEntity::createBuildBoard(void (*funcion) (Ogre::BillboardSet*, float), float porcentajeVida) 
+	Ogre::BillboardSet* CEntity::createBillBoard(void (*funcion) (Ogre::BillboardSet*, float), float porcentajeVida) 
 	{
 
 		Ogre::BillboardSet* billboardset = _scene->getSceneMgr()->createBillboardSet(1);
+		billboardset->setMaterialName("barraVida");
 
 		funcion(billboardset, porcentajeVida);
 
 		_entityNode->attachObject(billboardset);
 		return billboardset;
+	}
+
+	void CEntity::destroyBillBoardSet(Ogre::BillboardSet*b)
+	{
+		_scene->getSceneMgr()->destroyBillboardSet(b);
 	}
 
 } // namespace Graphics

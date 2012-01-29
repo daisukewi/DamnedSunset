@@ -48,17 +48,22 @@ namespace Logic
 
 
 	void generarBillboard(Ogre::BillboardSet* b, float porcentajeVida) {
-		b->setMaterialName("barraVida");
-		Ogre::Billboard* billboard = b->createBillboard(0,15,0);
+		//Tendria q haber 1 billboard creados, si no estan los creamos
+		Ogre::Billboard* billboard;
+		while (b->getNumBillboards() < 1 ) {
+			billboard = b->createBillboard(0,13,0);
+			billboard->setDimensions(0,0);
+		}
+		//El ultimo billboard es el q nos interesa: El '1'
+		billboard = b->getBillboard(0);
 		billboard->setDimensions(8,1);
-		billboard->setTexcoordRect((1-porcentajeVida)/2.0f/*inicioX*/, 0.0f, 0.5f+(1.0f-porcentajeVida)/2.0f/*finX*/, 1.0f);
-		
+		billboard->setTexcoordRect((0.2f-porcentajeVida*0.2)/2.0f/*inicioX*/, 0.0f, 0.1f+(0.2f-porcentajeVida*0.2f)/2.0f/*finX*/, 0.2f);
 	}
 
-	void actualizarBillboard(Ogre::BillboardSet* b, float porcentajeVida) {
-		Ogre::Billboard* billboard = b->getBillboard(0);
-		billboard->setTexcoordRect((1-porcentajeVida)/2.0f/*inicioX*/, 0.0f, 0.5f+(1.0f-porcentajeVida)/2.0f/*finX*/, 1.0f);
-	}
+	//void actualizarBillboard(Ogre::BillboardSet* b, float porcentajeVida) {
+	//	Ogre::Billboard* billboard = b->getBillboard(0);
+	//	billboard->setTexcoordRect((1-porcentajeVida)/2.0f/*inicioX*/, 0.0f, 0.5f+(1.0f-porcentajeVida)/2.0f/*finX*/, 1.0f);
+	//}
 
 	bool CLife::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
 	{
@@ -97,8 +102,6 @@ namespace Logic
 			{
 				// Disminuir la vida de la entidad
 				_life -= message._float;
-				printf("Herido\n");
-
 				
 				if (_life <= 0) {
 					_life = 0;
@@ -110,7 +113,7 @@ namespace Logic
 				// @todo Si la vida es menor que 0 poner animación de morir.
 
 				Logic::CSetBillboard *m = new Logic::CSetBillboard();
-				m->_funcion = actualizarBillboard;
+				m->_funcion = generarBillboard;
 				m->setPorcetajeVida(_life/_maxLife);
 				_entity->emitMessage(m);
 
