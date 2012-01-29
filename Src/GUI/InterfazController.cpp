@@ -27,6 +27,8 @@
 #include "Logic/Maps/Map.h"
 
 
+#include "Logic\Entity\Message.h"
+
 namespace GUI {
 
 	CInterfazController::CInterfazController()
@@ -97,16 +99,18 @@ namespace GUI {
 
 	void CInterfazController::tick(unsigned int msecs)
 	{
-		_time += msecs;
-		std::stringstream text;
-		text << "Time: " << _time/1000;
-		_interfazWindow->getChild("Interfaz/Tiempo")->setText(text.str());
+		Logic::TMessage m;
+		m._type = Logic::Message::DAMAGED;
+		m._float = msecs/1000.0f;
+		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack")->emitMessage(m);
+		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick")->emitMessage(m);
+		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor")->emitMessage(m);
+	}
 
-		_vida1 -= msecs;
-		_vida1 %= 100000;
-		float barra = _vida1 /100000.0 * 0.2;
-		_interfazWindow->getChild("Interfaz/iVida1")->setWidth(CEGUI::UDim(barra,.0f));
-
+	void CInterfazController::actualizarBarraVida(char numPersonaje, float porcentajeVida) {
+		std::string urlVida = "Interfaz/iVida";
+		urlVida+=numPersonaje;
+		_interfazWindow->getChild(urlVida)->setWidth(CEGUI::UDim(porcentajeVida*0.2,.0f));
 	}
 	//--------------------------------------------------------
 

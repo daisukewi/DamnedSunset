@@ -29,6 +29,9 @@ Contiene la implementación del componente que controla la vida de una entidad.
 //Mensajes
 #include "Logic/Entity/Messages/SetBillboard.h"
 
+#include "GUI/Server.h"
+#include "GUI/InterfazController.h"
+
 
 #include <OgreBillboard.h>
 #include <OgreBillboardSet.h>
@@ -96,9 +99,12 @@ namespace Logic
 				_life -= message._float;
 				printf("Herido\n");
 
-				// Si han matado al jugador salir de la partida
-				if ((_life <= 0) && (_entity->isPlayer())) {
-					Application::CBaseApplication::getSingletonPtr()->setState("gameOver");
+				
+				if (_life <= 0) {
+					_life = 0;
+					// Si han matado al jugador salir de la partida
+					if (_entity->isPlayer())
+						Application::CBaseApplication::getSingletonPtr()->setState("gameOver");
 				}
 				// @todo Poner la animación de herido.
 				// @todo Si la vida es menor que 0 poner animación de morir.
@@ -107,6 +113,22 @@ namespace Logic
 				m->_funcion = actualizarBillboard;
 				m->setPorcetajeVida(_life/_maxLife);
 				_entity->emitMessage(m);
+
+				if (!_entity->getName().compare("Jack"))
+				{
+					//Actualizamos la vida en la interfaz
+					GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('1',_life/_maxLife);
+				}
+				if (!_entity->getName().compare("Erick"))
+				{
+					//Actualizamos la vida en la interfaz
+					GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('2',_life/_maxLife);
+				}
+				if (!_entity->getName().compare("Amor"))
+				{
+					//Actualizamos la vida en la interfaz
+					GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('3',_life/_maxLife);
+				}
 			}
 			break;
 		}

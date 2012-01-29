@@ -95,6 +95,8 @@ namespace GUI
 		Estado _estado;
 		unsigned int _jugadorSel;
 
+		void actualizarBarraVida(char numPersonaje, float porcentajeVida);
+
 	protected:
 
 
