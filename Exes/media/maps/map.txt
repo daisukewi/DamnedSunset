@@ -69,18 +69,9 @@ Map = {
 		inclination = 120.0,
 	},
 	
-	Torreta = {
-		type = "Building",
+	Torreta1 = {
+		type = "Turret",
 		position = {10, 0, 0},
-		orientation = 0,
-		model = "torreta_pie.mesh",
-		physic_entity = "simple",
-		physic_type = "static",
-		physic_shape = "box",
-		physic_dimensions = { 2.3, 2.5, 2.3 },
-		physic_height = 2,
-		physic_radius = 10,
-		physic_collision_group = 2,
 	},
 	
 	Barril1 = {

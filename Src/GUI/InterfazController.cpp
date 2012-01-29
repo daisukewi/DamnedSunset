@@ -28,6 +28,7 @@
 
 
 #include "Logic\Entity\Message.h"
+#include "Logic\Entity\Messages\EmplaceBuilding.h"
 
 namespace GUI {
 
@@ -240,11 +241,11 @@ namespace GUI {
 	{
 		Logic::CEntity *player = Logic::CServer::getSingletonPtr()->getPlayer();
 
-		Logic::TMessage m;
-		m._type = Logic::Message::BUILD_START;
-		m._string = "Turret";
+		Logic::MEmplaceBuilding *buildMessage = new Logic::MEmplaceBuilding();
+		buildMessage->setAction(Logic::BuildingMessage::START_BUILDING);
+		buildMessage->setBuildingType("Turret");
 
-		return player->emitMessage(m);
+		return player->emitMessage(buildMessage);
 	}
 	bool CInterfazController::clickB3(const CEGUI::EventArgs& e)
 	{
@@ -266,12 +267,12 @@ namespace GUI {
 
 	void CInterfazController::sendClickMessage(std::string name){
 	
-		Logic::CEntity *target = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("TargetCamera");
+		Logic::CEntity *player = Logic::CServer::getSingletonPtr()->getPlayer();
 		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName(name);
 		Logic::TMessage m;
 		m._entity = entity;
 		m._type = Logic::Message::ENTITY_SELECTED;
-		target->emitMessage(m);
+		player->emitMessage(m);
 
 	}
 } // namespace GUI

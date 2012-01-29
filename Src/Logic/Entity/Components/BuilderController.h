@@ -97,13 +97,13 @@ namespace Logic
 		virtual void tick(unsigned int msecs);
 
 		/**
-		Método virtual que elige que mensajes son aceptados. Este componente
-		no acepta ningún mensaje.
+		Método virtual que elige que mensajes son aceptados.
 
 		@param message Mensaje a chequear.
 		@return true si el mensaje es aceptado.
 		*/
 		virtual bool accept(const TMessage &message);
+		virtual bool accept(IMessage *message);
 
 		/**
 		Método virtual que procesa un mensaje.
@@ -111,14 +111,37 @@ namespace Logic
 		@param message Mensaje a procesar.
 		*/
 		virtual void process(const TMessage &message);
-
-		void startBuilding( std::string buildingType );
-
-		void emplaceBuilding();
-
-		void moveBuilding( Vector2 pos );
+		virtual void process(IMessage *message);
 
 	protected:
+
+		/**
+		Método que se llama para comenzar a construir un edificio.
+		Crea una entidad fantasma (sin física) del tipo de edificio que se quiere construir.
+
+		@param buildingType Tipo de edificio que se quiere construir.
+		*/
+		void startBuilding( std::string buildingType );
+
+		/**
+		Cancela la construcción que se esté realizando en ese momento.
+		*/
+		void cancelBuilding();
+
+		/**
+		Método que se llama para aceptar una construcción.
+		Elimina la entidad fantasma que sigue al cursor y lo sustituye por una entidad física
+		con nombre propio, en la misma posición que estaba la fantasma.
+		*/
+		void emplaceBuilding();
+
+		/**
+		Método que se llama para mover el edificio fantasma a la posición
+		donde se encuentra el cursor.
+
+		@param pos Posición del plano 2D donde hay que posicionar la entidad.
+		*/
+		void moveBuilding( Vector2 pos );
 
 		/**
 		Atributo que controla que está construyendo un edificio.

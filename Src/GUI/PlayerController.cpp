@@ -125,7 +125,7 @@ namespace GUI {
 	bool CPlayerController::mouseMoved(const CMouseState &mouseState)
 	{
 		Logic::TMessage m;
-		m._type = Logic::Message::BUILD_MOVE;
+		m._type = Logic::Message::MOUSE_MOVE;
 		m._vector2 = Vector2(mouseState.posRelX, mouseState.posRelY);
 		Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m);
 		return true;
@@ -136,12 +136,7 @@ namespace GUI {
 		
 	bool CPlayerController::mousePressed(const CMouseState &mouseState)
 	{
-		Logic::TMessage m;
-		m._type = Logic::Message::BUILD_EMPLACE;
-		Logic::CEntity *player = Logic::CServer::getSingletonPtr()->getPlayer();
-		player->emitMessage(m);
-		return true;
-
+		return false;
 	} // mousePressed
 
 	//--------------------------------------------------------

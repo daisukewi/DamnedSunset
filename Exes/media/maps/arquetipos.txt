@@ -2,6 +2,28 @@ Map = {
 	World = {
 		type = "World",
 	},
+	
+	Entity = {
+		type = "Entity",
+		position = {0, 0, 0},
+		orientation = 0,
+		model = "torreta_pie.mesh",
+	},
+	
+	Turret = {
+		type = "Turret",
+		position = {0, 0, 0},
+		orientation = 0,
+		model = "torreta_pie.mesh",
+		physic_entity = "simple",
+		physic_type = "static",
+		physic_shape = "box",
+		physic_dimensions = { 2.3, 2.5, 2.3 },
+		physic_height = 2,
+		physic_radius = 10,
+		physic_collision_group = 2,
+	},
+	
 	Barril = {
 		type = "Barril",
 		position = {0, 1, 0},
@@ -16,6 +38,7 @@ Map = {
 		physic_mass = 1,
 		physic_collision_group = 2,
 	},
+	
 	Enemy = {
 		type = "Enemy",
 		orientation = 180,

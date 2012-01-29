@@ -43,10 +43,9 @@ namespace Logic
 			CAMERA_CLICK,
 			SELECTABLE,
 			ENTITY_SELECTED,
-			BUILD_START,
-			BUILD_MOVE,
-			BUILD_EMPLACE
-
+			MOUSE_MOVE,
+			RAYCAST_HIT,
+			BUILD_MOVE
 		};
 	}
 
@@ -129,65 +128,70 @@ namespace Logic
 
 	} TMessage;
 
-	/**
-	Clase base de los mensajes que se mandarán a las entidades en todo momento.
-	<p>
-	Esta clase no contiene ningún atributo, de forma que son las clases hijas
-	las que tendrán los atributos concretos del tipo de mensaje que se quiera mandar.
-	<p>
-	Esta clase es la que implementa el funcionamiento del puntero inteligente ya que es
-	una función que deben tener todos los mensajes.
+	/*namespace Message
+	{*/
+
+		/**
+		Clase base de los mensajes que se mandarán a las entidades en todo momento.
+		<p>
+		Esta clase no contiene ningún atributo, de forma que son las clases hijas
+		las que tendrán los atributos concretos del tipo de mensaje que se quiera mandar.
+		<p>
+		Esta clase es la que implementa el funcionamiento del puntero inteligente ya que es
+		una función que deben tener todos los mensajes.
 	
-    @ingroup logicGroup
+		@ingroup logicGroup
 
-	@author Alberto Plaza
-	@date Enero, 2012
-*/
-	class IMessage 
-	{
-	public:
+		@author Alberto Plaza
+		@date Enero, 2012
+	*/
+		class IMessage 
+		{
+		public:
 
-		/**
-		Constructor por defecto; en la clase base no hace nada.
-		*/
-		IMessage() : _numPtr(0), _type("") {}
+			/**
+			Constructor por defecto; en la clase base no hace nada.
+			*/
+			IMessage(std::string messageType = "") : _numPtr(0), _type(messageType) {}
 
-		/**
-		Destructor (virtual); en la clase base no hace nada.
-		*/
-		~IMessage() {}
+			/**
+			Destructor (virtual); en la clase base no hace nada.
+			*/
+			virtual ~IMessage() {}
 
-		/**
-		Añade una referencia al número de referencias.
-		*/
-		void addPtr() { _numPtr++; }
+			/**
+			Añade una referencia al número de referencias.
+			*/
+			void addPtr() { _numPtr++; }
 
-		/**
-		Quita una referencia al número de referencias y si es cero o menos
-		se destruye el mensaje.
-		*/
-		void removePtr();
+			/**
+			Quita una referencia al número de referencias y si es cero o menos
+			se destruye el mensaje.
+			*/
+			void removePtr();
 
-		/**
-		Método para obtener el tipo de mensaje.
+			/**
+			Método para obtener el tipo de mensaje.
 
-		@return Un string indicando el tipo de mensaje.
-		*/
-		std::string getType() { return _type; }
+			@return Un string indicando el tipo de mensaje.
+			*/
+			std::string getType() { return _type; }
 
-	protected:
+		protected:
 
-		/**
-		Contador del número de referencias que apuntan a este mensaje.
-		*/
-		int _numPtr;
+			/**
+			Contador del número de referencias que apuntan a este mensaje.
+			*/
+			int _numPtr;
 
-		/**
-		Tipo del mensaje. El string coincide con el nombre de la clase.
-		*/
-		std::string _type;
+			/**
+			Tipo del mensaje. El string coincide con el nombre de la clase.
+			*/
+			std::string _type;
 
-	}; // class IMessage
+		}; // class IMessage
+
+	//} // namespace Message
 
 } // namespace Logic
 

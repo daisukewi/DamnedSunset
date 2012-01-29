@@ -6,6 +6,9 @@
 #include "Graphics\Server.h"
 #include "Physics\Server.h"
 
+#include "Logic\Entity\Message.h"
+#include "Logic\Entity\Messages\ControlRaycast.h"
+
 
 namespace Logic 
 {
@@ -41,7 +44,14 @@ namespace Logic
 
 	bool CRaycastController::accept(const TMessage &message)
 	{
-		return message._type == Message::CAMERA_CLICK;
+		return message._type == Message::CAMERA_CLICK
+			|| message._type == Message::MOUSE_MOVE;
+
+	} // accept
+
+	bool CRaycastController::accept(IMessage *message)
+	{
+		return !message->getType().compare("MControlRaycast");
 
 	} // accept
 	
@@ -51,13 +61,29 @@ namespace Logic
 	{
 		switch(message._type)
 		{
+		case Message::MOUSE_MOVE:
+			_mouseRelPosX = message._vector2.x;
+			_mouseRelPosY = message._vector2.y;
+			break;
 		case Message::CAMERA_CLICK:
 			_mouseRelPosX = message._vector2.x;
 			_mouseRelPosY = message._vector2.y;
-
-			_makeRaycast = true;
 		}
 
+	} // process
+
+	void CRaycastController::process(IMessage *message)
+	{
+		MControlRaycast *m_building = static_cast <MControlRaycast*> (message);
+		switch (m_building->getAction())
+		{
+		case RaycastMessage::START_RAYCAST:
+			_makeRaycast = true;
+			break;
+		case RaycastMessage::STOP_RAYCAST:
+			_makeRaycast = false;
+			break;
+		}
 	} // process
 
 	//---------------------------------------------------------
@@ -66,46 +92,23 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 		
-		if (_makeRaycast){
-			Vector3 *point = new Vector3();
+		if (!_makeRaycast) return;
+
+		Vector3 point;
 			
-			//Obtener el rayo a lanzar.
-			Ray mouseRay = Graphics::CServer::getSingletonPtr()->getCameraToViewportRay(_mouseRelPosX, _mouseRelPosY);
+		// Lanzar un rayo desde la camara hasta el plano del escenario.
+		Ray mouseRay = Graphics::CServer::getSingletonPtr()->getCameraToViewportRay(_mouseRelPosX, _mouseRelPosY);
 
-			Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastAdvanced(mouseRay, point);
-			/*message._pointvector3->x = point->x;
-			message._pointvector3->y = point->y;
-			message._pointvector3->z = point->z;*/
+		Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastAdvanced(mouseRay, &point);
 
+		if (entity == NULL) return;
 
-			if (entity != NULL){
-		
-			//std::cout << "Punto: " << point->x << "," << point->y << "," << point->z <<"\n"; 
-			//std::cout << "Entidad: "<< entity->getName()<< "\n"; 
-			//std::cout << "Ray: " << mouseRay.getOrigin() << " " << mouseRay.getDirection()<< "\n"; 
-			//std::cout << "Mouse: " << _mouseRelPosX << " " << _mouseRelPosY << "\n"<< "\n"; 
-
-			TMessage message;
-			message._pointvector3 = new Vector3(point->x,point->y,point->z);
-			message._type = Message::SELECTABLE;
-			message._entity = entity;
-			entity->emitMessage(message);
-								
-			
-			//std::cout << "VECTOR QUE VA A SER ENVIADO" << message._pointvector3->x << "," << message._pointvector3->y << "," << message._pointvector3->z  << "\n";
-
-
-			}else{
-		
-				//std::cout << "Punto: "<< "\n"; 
-				//std::cout << "Entidad: "<< "\n"; 
-				//std::cout << "Ray: " << mouseRay.getOrigin() << " " << mouseRay.getDirection();
-				//std::cout << "Mouse: " << _mouseRelPosX << " " << _mouseRelPosY << "\n"<< "\n";  
-			}
-			
-			_makeRaycast = false;
-		}
-		
+		// Mandar el mensaje a todos los componentes de esta entidad (_entity)
+		MControlRaycast *rc_message = new MControlRaycast();
+		rc_message->setAction(RaycastMessage::HIT_RAYCAST);
+		rc_message->setCollisionPoint(point);
+		rc_message->setCollisionEntity(entity);
+		_entity->emitMessage(rc_message);
 
 	} // tick
 

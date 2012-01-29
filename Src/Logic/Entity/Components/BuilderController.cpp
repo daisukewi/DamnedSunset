@@ -23,6 +23,9 @@ del sol y el control del la luz ambiental.
 
 #include "Physics/Server.h"
 
+#include "Logic/Entity/Messages/EmplaceBuilding.h"
+#include "Logic/Entity/Messages/ControlRaycast.h"
+
 
 namespace Logic 
 {
@@ -59,9 +62,14 @@ namespace Logic
 
 	bool CBuilderController::accept(const TMessage &message)
 	{
-		return message._type == Message::BUILD_START
-			|| message._type == Message::BUILD_MOVE
-			|| message._type == Message::BUILD_EMPLACE;
+		return message._type == Message::CAMERA_CLICK;
+
+	} // accept
+
+	bool CBuilderController::accept(IMessage *message)
+	{
+		return !message->getType().compare("MEmplaceBuilding")
+			|| !message->getType().compare("MControlRaycast");
 
 	} // accept
 	
@@ -71,20 +79,45 @@ namespace Logic
 	{
 		switch (message._type)
 		{
-		case Message::BUILD_START:
-			if (_building) return;
-			startBuilding(message._string);
-			break;
-		case Message::BUILD_MOVE:
-			if (!_building) return;
-			moveBuilding(message._vector2);
-			break;
-		case Message::BUILD_EMPLACE:
-			if (!_building) return;
-			emplaceBuilding();
-			break;
+			case Message::RAYCAST_HIT:
+				if (!_building) return;
+				moveBuilding(message._vector2);
+				break;
+			case Message::CAMERA_CLICK:
+				if (!_building) return;
+				emplaceBuilding();
+				break;
 		}
 		
+	} // process
+
+	void CBuilderController::process(IMessage *message)
+	{
+		if (!message->getType().compare("MEmplaceBuilding"))
+		{
+			MEmplaceBuilding *m_building = static_cast <MEmplaceBuilding*> (message);
+			switch (m_building->getAction())
+			{
+				case BuildingMessage::START_BUILDING:
+					startBuilding(m_building->getBuildingType());
+					break;
+				case BuildingMessage::CANCEL_BUILDING:
+					cancelBuilding();
+					break;
+			}
+
+		} else if (!message->getType().compare("MControlRaycast"))
+		{
+			MControlRaycast *m_raycast = static_cast <MControlRaycast*> (message);
+			switch (m_raycast->getAction())
+			{
+				case RaycastMessage::HIT_RAYCAST:
+					if (!_building) return;
+					Vector3 collPoint = m_raycast->getCollisionPoint();
+					moveBuilding(Vector2(collPoint.x, collPoint.z));
+					break;
+			}
+		}
 	} // process
 	
 	//---------------------------------------------------------
@@ -95,12 +128,21 @@ namespace Logic
 		
 	} // tick
 
+	//---------------------------------------------------------
+
 	void CBuilderController::startBuilding( std::string buildingType )
 	{
+		if (_building)
+		{
+			// Borrar la entidad que se estaba construyendo antes
+			Logic::CEntityFactory::getSingletonPtr()->deleteEntity(_buildingEntity);
+		}
+
 		_building = true;
 
-		Map::CEntity *buildInfo = new Map::CEntity("Base");
-		buildInfo->setType("Entity");
+		// Creamos una nueva entidad sacada de los arquetipos
+		Map::CEntity * buildInfo = Map::CMapParser::getSingletonPtr()->getEntitieInfo("Entity");
+		buildInfo->setName("PhantomBuilding");
 		buildInfo->setAttribute("position", "{0,0,0}");
 		buildInfo->setAttribute("orientation", "0");
 		buildInfo->setAttribute("model", "torreta_pie.mesh");
@@ -110,9 +152,34 @@ namespace Logic
 		if (!_buildingEntity)
 		{
 			_building = false;
+			return;
 		}
 
-	}
+		MControlRaycast *rc_message = new MControlRaycast();
+		rc_message->setAction(RaycastMessage::START_RAYCAST);
+		_entity->emitMessage(rc_message);
+
+	} //startBuilding
+
+	//---------------------------------------------------------
+
+	void CBuilderController::cancelBuilding()
+	{
+		if (!_building) return;
+
+		// Borrar la entidad que se estaba construyendo antes
+		Logic::CEntityFactory::getSingletonPtr()->deleteEntity(_buildingEntity);
+
+		// Mandamos un mensaje para dejar de lanzar raycasts
+		MControlRaycast *rc_message = new MControlRaycast();
+		rc_message->setAction(RaycastMessage::STOP_RAYCAST);
+		_entity->emitMessage(rc_message);
+
+		_building = false;
+
+	} // cancelBuilding
+
+	//---------------------------------------------------------
 
 	void CBuilderController::emplaceBuilding()
 	{
@@ -124,42 +191,37 @@ namespace Logic
 		// Borrar la entidad sin física
 		Logic::CEntityFactory::getSingletonPtr()->deleteEntity(_buildingEntity);
 
-		// Creamos una nueva entidad pero con física.
-		Map::CEntity *buildInfo = new Map::CEntity(buildingName.str());
-		buildInfo->setType("Building");
-		buildInfo->setAttribute("position", vecPos.str());
-		buildInfo->setAttribute("orientation", "0");
-		buildInfo->setAttribute("model", "torreta_pie.mesh");
-		buildInfo->setAttribute("physic_entity", "simple");
-		buildInfo->setAttribute("physic_type", "static");
-		buildInfo->setAttribute("physic_shape", "box");
-		buildInfo->setAttribute("physic_dimensions", "2.3 2.5 2.3");
-		buildInfo->setAttribute("physic_height", "2");
-		buildInfo->setAttribute("physic_radius", "10");
-		buildInfo->setAttribute("physic_collision_group", "2");
+		// Creamos una nueva entidad sacada de los arquetipos
+		Map::CEntity * buildInfo = Map::CMapParser::getSingletonPtr()->getEntitieInfo("Turret");
 
+		// Le ponemos un nuevo nombre para poder hacer spawn y la posición del edificio fantasma
+		buildInfo->setName(buildingName.str());
+		buildInfo->setAttribute("position", vecPos.str());
+		
 		Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap());
 
+		// Mandamos un mensaje para dejar de lanzar raycasts.
+		MControlRaycast *rc_message = new MControlRaycast();
+		rc_message->setAction(RaycastMessage::STOP_RAYCAST);
+		_entity->emitMessage(rc_message);
+
 		_building = false;
-	}
+
+	} // emplaceBuilding
+
+	//---------------------------------------------------------
 
 	void CBuilderController::moveBuilding( Vector2 pos )
 	{
 		if (!_buildingEntity) return;
 
-		Vector3 *point = new Vector3();
-
-		// Lanzar un rayo desde la camara hasta el plano del escenario.
-		Ray mouseRay = Graphics::CServer::getSingletonPtr()->getCameraToViewportRay(pos.x, pos.y	);
-		if (Physics::CServer::getSingletonPtr()->raycastAdvanced(mouseRay, point) == NULL) return;
-
 		// Ponemos la nueva posición del edificio en el centro de la casilla que le corresponda.
 		Vector2 newPos;
-		newPos.x = ( (int)point->x / GRID_SIZE - 0.5 ) * GRID_SIZE;
-		newPos.y = ( (int)point->z / GRID_SIZE - 0.5 ) * GRID_SIZE;
+		newPos.x = ( (int)pos.x / GRID_SIZE - 0.5 ) * GRID_SIZE;
+		newPos.y = ( (int)pos.y / GRID_SIZE - 0.5 ) * GRID_SIZE;
 		_buildingEntity->setPosition(Vector3(newPos.x, 1.0f, newPos.y));
 
-	}
+	} // moveBuilding
 
 } // namespace Logic
 
