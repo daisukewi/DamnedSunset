@@ -28,6 +28,7 @@ Contiene la implementación del componente que controla la vida de una entidad.
 
 //Mensajes
 #include "Logic/Entity/Messages/SetBillboard.h"
+#include "Logic/Entity/Messages/Damaged.h"
 
 #include "GUI/Server.h"
 #include "GUI/InterfazController.h"
@@ -86,22 +87,21 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	bool CLife::accept(const TMessage &message)
+	bool CLife::accept(IMessage *message)
 	{
-		return message._type == Message::DAMAGED;
+		return (message->getType().compare("CDamaged") == 0);
 
 	} // accept
 	
 	//---------------------------------------------------------
 
-	void CLife::process(const TMessage &message)
+	void CLife::process(IMessage *message)
 	{
-		switch(message._type)
+		if (!message->getType().compare("CDamaged"))
 		{
-		case Message::DAMAGED:
-			{
+				CDamaged *md = static_cast <CDamaged*> (message);
 				// Disminuir la vida de la entidad
-				_life -= message._float;
+				_life -= md->getHurt();
 				
 				if (_life <= 0) {
 					_life = 0;
@@ -132,8 +132,6 @@ namespace Logic
 					//Actualizamos la vida en la interfaz
 					GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('3',_life/_maxLife);
 				}
-			}
-			break;
 		}
 
 	} // process

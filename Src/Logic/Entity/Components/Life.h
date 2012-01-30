@@ -27,8 +27,8 @@ namespace Graphics
 namespace Logic 
 {
 /**
-	Este componente controla la vida de una entidad. Procesa mensajes de tipo 
-	DAMAGED (indican que la entidad ha sido herida) y resta el daño a la vida de la
+	Este componente controla la vida de una entidad. Procesa mensajes CDamaged
+	(indican que la entidad ha sido herida) y resta el daño a la vida de la
 	entidad.
 	<p>
 	La vida de la entidad se especifica en el mapa con el atributo "life".
@@ -59,14 +59,14 @@ namespace Logic
 		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 
 		/**
-		Este componente sólo acepta mensajes de tipo DAMAGED.
+		Este componente sólo acepta mensajes CDamaged.
 		*/
-		virtual bool accept(const TMessage &message);
+		virtual bool accept(IMessage *message);
 
 		/**
-		Al recibir un mensaje de tipo DAMAGED la vida de la entidad disminuye.
+		Al recibir un mensaje CDamaged la vida de la entidad disminuye.
 		*/
-		virtual void process(const TMessage &message);
+		virtual void process(IMessage *message);
 
 	protected:
 

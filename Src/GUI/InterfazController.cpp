@@ -29,6 +29,7 @@
 
 #include "Logic\Entity\Message.h"
 #include "Logic\Entity\Messages\EmplaceBuilding.h"
+#include "Logic\Entity\Messages\Damaged.h"
 
 namespace GUI {
 
@@ -100,9 +101,9 @@ namespace GUI {
 
 	void CInterfazController::tick(unsigned int msecs)
 	{
-		Logic::TMessage m;
-		m._type = Logic::Message::DAMAGED;
-		m._float = msecs/1000.0f;
+		Logic::CDamaged *m = new Logic::CDamaged();
+		m->setHurt(msecs/1000.0f);
+
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack")->emitMessage(m);
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick")->emitMessage(m);
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor")->emitMessage(m);

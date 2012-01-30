@@ -8,6 +8,8 @@
 
 #include "AI/Movement.h"
 
+#include "Logic/Entity/Messages/MoveSteering.h"
+#include "Logic/Entity/Messages/Damaged.h"
 
 namespace Logic 
 {
@@ -66,20 +68,22 @@ namespace Logic
 				if (_entity->getType() == "Player"){
 					std::cout << "PUNTO DEL MAPA: " << message._pointvector3->x << "," << message._pointvector3->y << "," << message._pointvector3->z<< "\n"; 
 				
-					TMessage m;
-					m._type = Message::MOVE_TO;
-					m._vector3.x = message._pointvector3->x;
-					m._vector3.y = message._pointvector3->y;
-					m._vector3.z = message._pointvector3->z;
+					CMoveSteering *m = new CMoveSteering();
 
-					m._int = AI::IMovement::MOVEMENT_DYNAMIC_ARRIVE;
-					_entity->emitMessage(m);
+					m->setMovementType(AI::IMovement::MOVEMENT_DYNAMIC_ARRIVE);
+					m->setTarget(Vector3(message._pointvector3->x,message._pointvector3->y,message._pointvector3->z));
+
+					_entity->emitMessage(m, this);
 				
 				}
+			}else if ((_aux->getType() == "Enemy") & (_entity != NULL) ){
+				if (_entity->getType() == "Player"){
+
+					CDamaged *m = new CDamaged();
+					m->setHurt(10.0f);
+					_entity->emitMessage(m, this);
+				}
 			}
-
-
-			
 
 			
 			break;
