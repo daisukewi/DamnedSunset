@@ -164,7 +164,7 @@ namespace Logic
 	{
 		_components.push_back(component);
 		component->setEntity(this);
-
+		
 	} // addComponent
 
 	//---------------------------------------------------------

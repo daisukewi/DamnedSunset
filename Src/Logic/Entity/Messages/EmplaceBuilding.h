@@ -22,7 +22,7 @@ namespace Logic
 	*/
 	namespace BuildingMessage
 	{
-		enum ActionType
+		enum BuildingAction
 		{
 			START_BUILDING,
 			CANCEL_BUILDING,
@@ -30,7 +30,7 @@ namespace Logic
 		};
 	}
 
-	typedef BuildingMessage::ActionType ActionType;
+	typedef BuildingMessage::BuildingAction BuildingAction;
 
 	/**
 	Clase mensaje que se encargará de avisar a la entidad jugador, de cuando hay que empezar
@@ -54,14 +54,14 @@ namespace Logic
 
 		@param action Tipo de la acción a realizar.
 		*/
-		void setAction(ActionType action);
+		void setAction(BuildingAction action);
 
 		/**
 		Método que devuelve la acción que se quiere realizar con este mensaje.
 
 		@return Tipo de la acción a realizar.
 		*/
-		ActionType getAction();
+		BuildingAction getAction();
 
 		/**
 		Método que establece el tipo de edificio que se quiere construir.
@@ -82,7 +82,7 @@ namespace Logic
 		/**
 		Atributo que indica la acción que se va a realizar con este mensaje.
 		*/
-		ActionType _action;
+		BuildingAction _action;
 
 		/**
 		Atributo que indica el tipo de edificio a construir.

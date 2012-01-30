@@ -12,7 +12,7 @@ Contiene la implementación del mensaje de construir un edificio.
 namespace Logic
 {
 
-	void MEmplaceBuilding::setAction(ActionType action)
+	void MEmplaceBuilding::setAction(BuildingAction action)
 	{
 		_action = action;
 
@@ -20,7 +20,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	ActionType MEmplaceBuilding::getAction()
+	BuildingAction MEmplaceBuilding::getAction()
 	{
 		return _action;
 

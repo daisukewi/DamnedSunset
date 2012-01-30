@@ -8,8 +8,10 @@
 
 #include "AI/Movement.h"
 
-#include "Logic/Entity/Messages/MoveSteering.h"
-#include "Logic/Entity/Messages/Damaged.h"
+#include "Logic/Entity/Messages/MouseEvent.h"
+#include "Logic/Entity/Messages/ControlRaycast.h"
+#include "Logic/Entity/Messages/EntitySelected.h"
+#include "Logic/Entity/Messages/UbicarCamara.h"
 
 namespace Logic 
 {
@@ -29,9 +31,9 @@ namespace Logic
 	//---------------------------------------------------------
 
 	bool CSelectionController::activate()
-	{	
-		_entity = NULL;
+	{
 		return true;
+
 	} // activate
 	
 	//---------------------------------------------------------
@@ -43,51 +45,60 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	bool CSelectionController::accept(const TMessage &message)
+	bool CSelectionController::accept(IMessage *message)
 	{
-		return message._type == Message::ENTITY_SELECTED;
+		bool accepted = !message->getType().compare("MMouseEvent")
+			|| !message->getType().compare("MControlRaycast")
+			|| !message->getType().compare("MEntitySelected");
 
+		if (accepted) message->addPtr();
+
+		return accepted;
 	} // accept
 	
 	//---------------------------------------------------------
 
-	void CSelectionController::process(const TMessage &message)
+	void CSelectionController::process(IMessage *message)
 	{
-		switch(message._type)
+		if (!message->getType().compare("MMouseEvent"))
 		{
-		case Message::ENTITY_SELECTED:
-			CEntity *_aux = message._entity;
+			if (!_canSelect) return;
+			MMouseEvent *m_mouse = static_cast <MMouseEvent*> (message);
 
-			if (_aux->getType() == "Player")
+			switch(m_mouse->getAction())
 			{
-				_entity = message._entity;
-				std::cout << "ENTIDAD SELECCIONADA: "<< _entity->getName()<< "\n"; 
-				std::cout << "POSICION DE LA ENTIDAD: " << _entity->getPosition()<< "\n"; 
-				
-			}else if ((_aux->getType() == "World") & (_entity != NULL) ){
-				if (_entity->getType() == "Player"){
-					std::cout << "PUNTO DEL MAPA: " << message._pointvector3->x << "," << message._pointvector3->y << "," << message._pointvector3->z<< "\n"; 
-				
-					CMoveSteering *m = new CMoveSteering();
-
-					m->setMovementType(AI::IMovement::MOVEMENT_DYNAMIC_ARRIVE);
-					m->setTarget(Vector3(message._pointvector3->x,message._pointvector3->y,message._pointvector3->z));
-
-					_entity->emitMessage(m, this);
-				
-				}
-			}else if ((_aux->getType() == "Enemy") & (_entity != NULL) ){
-				if (_entity->getType() == "Player"){
-
-					CDamaged *m = new CDamaged();
-					m->setHurt(10.0f);
-					_entity->emitMessage(m, this);
-				}
+				case TMouseAction::LEFT_CLICK:
+					startSelection();
+					break;
+				case TMouseAction::RIGHT_CLICK:
+					startAction();
+					break;
 			}
 
-			
-			break;
+		} else if (!message->getType().compare("MControlRaycast"))
+		{
+			MControlRaycast *m_raycast = static_cast <MControlRaycast*> (message);
+			switch (m_raycast->getAction())
+			{
+				case RaycastMessage::START_RAYCAST:
+					_canSelect = false;
+					break;
+				case RaycastMessage::STOP_RAYCAST:
+					_canSelect = true;
+					break;
+				case RaycastMessage::HIT_RAYCAST:
+					if (!_isSelecting && !_isWaitingForAction) return;
+					processRayCast(m_raycast->getCollisionPoint(), m_raycast->getCollisionEntity());
+					break;
+			}
+
+		} else if (!message->getType().compare("MEntitySelected"))
+		{
+			MEntitySelected *m_selection = static_cast <MEntitySelected*> (message);
+			saveSelectedEntity(m_selection->getSelectedEntity());
 		}
+
+		message->removePtr();
 
 	} // process
 
@@ -96,8 +107,74 @@ namespace Logic
 	void CSelectionController::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
-			
 
 	} // tick
+
+	//---------------------------------------------------------
+
+	void CSelectionController::processRayCast( Vector3 colPoint, CEntity* colEntity )
+	{
+
+		if (colEntity->getType().compare("Player") == 0)
+		{
+			if (_isSelecting)
+				saveSelectedEntity(colEntity);
+
+		} else if (colEntity->getType().compare("World") == 0)
+		{
+			if (_selectedEntity != NULL && _isWaitingForAction)
+			{
+				TMessage m;
+				m._type = Message::MOVE_TO;
+				m._vector3 = colPoint;
+				m._int = AI::IMovement::MOVEMENT_DYNAMIC_ARRIVE;
+				_entity->emitMessage(m);
+			}
+		}
+
+		_isSelecting = false;
+		_isWaitingForAction = false;
+
+		// Mandamos un mensaje para dejar de lanzar raycasts
+		MControlRaycast *rc_message = new MControlRaycast();
+		rc_message->setAction(RaycastMessage::STOP_RAYCAST);
+		_entity->emitMessage(rc_message);
+
+	} // processRayCast
+
+	//---------------------------------------------------------
+
+	void CSelectionController::startSelection()
+	{
+		/*_isSelecting = true;
+
+		MControlRaycast *rc_message = new MControlRaycast();
+		rc_message->setAction(RaycastMessage::START_RAYCAST);
+		_entity->emitMessage(rc_message, this);*/
+
+	} // startSelection
+
+	//---------------------------------------------------------
+
+	void CSelectionController::startAction()
+	{
+		/*_isWaitingForAction = true;
+
+		MControlRaycast *rc_message = new MControlRaycast();
+		rc_message->setAction(RaycastMessage::START_RAYCAST);
+		_entity->emitMessage(rc_message, this);*/
+
+	} // startAction
+
+	void CSelectionController::saveSelectedEntity( CEntity* selectedEntity )
+	{
+		_selectedEntity = selectedEntity;
+
+		//Mandamos un mensaje a la camara para que se centre en el jugador
+		CUbicarCamara *m_ubicar = new CUbicarCamara();
+		m_ubicar->setPosition(_selectedEntity->getPosition());
+		_entity->emitMessage(m_ubicar, this);
+
+	} // saveSelectedEntity
 
 } // namespace Logic

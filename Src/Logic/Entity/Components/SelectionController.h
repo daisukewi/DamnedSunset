@@ -30,14 +30,15 @@ namespace Logic
 */
 	class CSelectionController : public IComponent
 	{
-		DEC_FACTORY(CSelectedController);
+		DEC_FACTORY(CSelectionController);
 	public:
 
 		/**
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CSelectionController() : IComponent() {}
+		CSelectionController() : IComponent(), _canSelect(true),
+			_isSelecting(false), _isWaitingForAction(false) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -87,19 +88,33 @@ namespace Logic
 		@param message Mensaje a chequear.
 		@return true si el mensaje es aceptado.
 		*/
-		virtual bool accept(const TMessage &message);
+		virtual bool accept(IMessage *message);
 
 		/**
 		Método virtual que procesa un mensaje.
 
 		@param message Mensaje a procesar.
 		*/
-		virtual void process(const TMessage &message);
-
+		virtual void process(IMessage *message);
 
 	protected:
-		//Entidad que se encuentra actualmente seleccionada
-		 CEntity *_entity;
+
+		void processRayCast( Vector3 colPoint, CEntity* colEntity );
+
+		void startSelection();
+
+		void startAction();
+		void saveSelectedEntity( CEntity* selectedEntity );
+		/**
+		Entidad que se encuentra actualmente seleccionada
+		*/
+		CEntity *_selectedEntity;
+
+		bool _canSelect;
+
+		bool _isSelecting;
+
+		bool _isWaitingForAction;
 
 	}; // class CSelectedController
 
@@ -107,4 +122,4 @@ namespace Logic
 
 } // namespace Logic
 
-#endif // __Logic_SelectedController_H
+#endif // __Logic_SelectionController_H

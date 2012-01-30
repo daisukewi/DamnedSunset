@@ -30,6 +30,7 @@
 #include "Logic\Entity\Message.h"
 #include "Logic\Entity\Messages\EmplaceBuilding.h"
 #include "Logic\Entity\Messages\Damaged.h"
+#include "Logic\Entity\Messages\EntitySelected.h"
 
 namespace GUI {
 
@@ -183,12 +184,6 @@ namespace GUI {
 	{
 		this->menuJugador1();
 		this->sendClickMessage("Jack");
-		
-		//Mandamos en mensaje a la camara para que se centre en el jugador
-		Logic::CUbicarCamara *m = new Logic::CUbicarCamara();
-		Logic::CEntity *entidad = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack");
-		m->setPosition(entidad->getPosition());
-		_entidadDios->emitMessage(m);
 
 		return true;
 	}
@@ -197,11 +192,6 @@ namespace GUI {
 		this->menuJugador2();
 		this->sendClickMessage("Erick");
 
-		//Mandamos en mensaje a la camara para que se centre en el jugador
-		Logic::CUbicarCamara *m = new Logic::CUbicarCamara();
-		Logic::CEntity *entidad = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick");
-		m->setPosition(entidad->getPosition());
-		_entidadDios->emitMessage(m);
 		return true;
 	}
 	bool CInterfazController::clickPersonaje3(const CEGUI::EventArgs& e)
@@ -209,11 +199,6 @@ namespace GUI {
 		this->menuJugador3();
 		this->sendClickMessage("Amor");
 
-		//Mandamos en mensaje a la camara para que se centre en el jugador
-		Logic::CUbicarCamara *m = new Logic::CUbicarCamara();
-		Logic::CEntity *entidad = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor");
-		m->setPosition(entidad->getPosition());
-		_entidadDios->emitMessage(m);
 		return true;
 	}
 	bool CInterfazController::clickB1(const CEGUI::EventArgs& e)
@@ -266,14 +251,14 @@ namespace GUI {
 		return true;
 	}
 
-	void CInterfazController::sendClickMessage(std::string name){
-	
+	void CInterfazController::sendClickMessage(std::string name)
+	{
 		Logic::CEntity *player = Logic::CServer::getSingletonPtr()->getPlayer();
 		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName(name);
-		Logic::TMessage m;
-		m._entity = entity;
-		m._type = Logic::Message::ENTITY_SELECTED;
-		player->emitMessage(m);
+
+		Logic::MEntitySelected *m_selection = new Logic::MEntitySelected();
+		m_selection->setSelectedEntity(entity);
+		player->emitMessage(m_selection);
 
 	}
 } // namespace GUI

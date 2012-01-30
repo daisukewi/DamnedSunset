@@ -97,6 +97,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\Damaged.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EmplaceBuilding.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntitySelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MouseEvent.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MoveSteering.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\Damaged.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EmplaceBuilding.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntitySelected.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MouseEvent.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MoveSteering.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h" />

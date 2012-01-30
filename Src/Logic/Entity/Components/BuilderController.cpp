@@ -63,9 +63,13 @@ namespace Logic
 
 	bool CBuilderController::accept(IMessage *message)
 	{
-		return !message->getType().compare("MEmplaceBuilding")
+		bool accepted = !message->getType().compare("MEmplaceBuilding")
 			|| !message->getType().compare("MControlRaycast")
 			|| !message->getType().compare("MMouseEvent");
+
+		if (accepted) message->addPtr();
+
+		return accepted;
 
 	} // accept
 	
@@ -110,6 +114,8 @@ namespace Logic
 					break;
 			}
 		}
+
+		message->removePtr();
 
 	} // process
 	
