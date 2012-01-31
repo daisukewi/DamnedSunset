@@ -8,6 +8,7 @@
 
 #include "Logic\Entity\Message.h"
 #include "Logic\Entity\Messages\ControlRaycast.h"
+#include "Logic/Entity/Messages/MouseMove.h"
 
 
 namespace Logic 
@@ -42,43 +43,35 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	bool CRaycastController::accept(const TMessage &message)
-	{
-		return message._type == Message::MOUSE_MOVE;
-
-	} // accept
-
 	bool CRaycastController::accept(IMessage *message)
 	{
-		return !message->getType().compare("MControlRaycast");
+		return ((!message->getType().compare("MControlRaycast")) || (!message->getType().compare("MMouseMove")));
 
 	} // accept
 	
 	//---------------------------------------------------------
 
-	void CRaycastController::process(const TMessage &message)
-	{
-		switch(message._type)
-		{
-		case Message::MOUSE_MOVE:
-			_mouseRelPosX = message._vector2.x;
-			_mouseRelPosY = message._vector2.y;
-			break;
-		}
-
-	} // process
-
 	void CRaycastController::process(IMessage *message)
 	{
-		MControlRaycast *m_building = static_cast <MControlRaycast*> (message);
-		switch (m_building->getAction())
+		if (!message->getType().compare("MMouseMove"))
 		{
-		case RaycastMessage::START_RAYCAST:
-			_makeRaycast = true;
-			break;
-		case RaycastMessage::STOP_RAYCAST:
-			_makeRaycast = false;
-			break;
+			MMouseMove *m = static_cast <MMouseMove*> (message);
+
+			_mouseRelPosX = m->getPoint().x;
+			_mouseRelPosY = m->getPoint().y;
+		}
+		else if (!message->getType().compare("MControlRaycast"))
+		{
+			MControlRaycast *m_building = static_cast <MControlRaycast*> (message);
+			switch (m_building->getAction())
+			{
+			case RaycastMessage::START_RAYCAST:
+				_makeRaycast = true;
+				break;
+			case RaycastMessage::STOP_RAYCAST:
+				_makeRaycast = false;
+				break;
+			}
 		}
 	} // process
 

@@ -44,7 +44,7 @@ namespace Logic
 
 	bool CSelectable::accept(const TMessage &message)
 	{
-		return message._type == Message::SELECTABLE;
+		return false;//message._type == Message::SELECTABLE;
 
 	} // accept
 	
@@ -69,14 +69,14 @@ namespace Logic
 	{
 		switch(message._type)
 		{
-		case Message::SELECTABLE:
+		/*case Message::SELECTABLE:
 			//Obtener la entidad encargadad de controllar el gameplay
 			CEntity *entity = _entity->getMap()->getEntityByName("TargetCamera");
 			TMessage m;
 			m._type = Message::ENTITY_SELECTED;
 			m._entity = _entity;
 			m._pointvector3 = message._pointvector3;
-			entity->emitMessage(m);
+			entity->emitMessage(m);*/
 			
 
 			//Logic::CSetBillboard *ms = new Logic::CSetBillboard();

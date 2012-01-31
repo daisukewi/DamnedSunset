@@ -19,6 +19,7 @@ mover al jugador.
 #include "Logic/Entity/Message.h"
 
 #include "Logic/Entity/Messages/MouseEvent.h"
+#include "Logic/Entity/Messages/MouseMove.h"
 
 #include <cassert>
 
@@ -77,9 +78,8 @@ namespace GUI {
 	
 	bool CPlayerController::mouseMoved(const CMouseState &mouseState)
 	{
-		Logic::TMessage m;
-		m._type = Logic::Message::MOUSE_MOVE;
-		m._vector2 = Vector2(mouseState.posRelX, mouseState.posRelY);
+		Logic::MMouseMove *m = new Logic::MMouseMove();
+		m->setPoint(Vector2(mouseState.posRelX, mouseState.posRelY));
 		Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m);
 		return false;
 
