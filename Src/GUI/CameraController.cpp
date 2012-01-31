@@ -66,12 +66,8 @@ namespace GUI {
 			case GUI::Key::RIGHTARROW:
 				m->setMovement("right");
 				break;
-
-			default:
-				return false;
 			}
 			_controlledTarget->emitMessage(m);
-			return true;
 		}
 		return false;
 
@@ -99,12 +95,8 @@ namespace GUI {
 			case GUI::Key::RIGHTARROW:
 				m->setMovement("stopLeftRight");
 				break;
-
-			default:
-				return false;
 			}
 			_controlledTarget->emitMessage(m);
-			return true;
 		}
 		return false;
 
@@ -143,7 +135,6 @@ namespace GUI {
 				m2->setMovement("stopUpDown");
 
 			_controlledTarget->emitMessage(m2);
-			return true;
 		}
 		return false;
 
@@ -168,8 +159,6 @@ namespace GUI {
 			m1._vector2.y = mouseState.posRelY;
 			m1._type = Logic::Message::CAMERA_CLICK;
 			_controlledTarget->emitMessage(m1);
-
-			return true;
 		}
 		return false;
 

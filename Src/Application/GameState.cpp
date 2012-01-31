@@ -109,7 +109,8 @@ namespace Application {
 		GUI::CServer::getSingletonPtr()->getInterfazController()->deactivate();
 
 		// Desactivamos la clase que procesa eventos de entrada para 
-		// controlar al jugador.
+		// controlar al jugador y la cámara.
+		GUI::CServer::getSingletonPtr()->getCameraController()->deactivate();
 		GUI::CServer::getSingletonPtr()->getPlayerController()->deactivate();
 		
 		// Desactivamos el mapa de la partida.

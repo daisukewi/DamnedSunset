@@ -82,11 +82,8 @@ namespace GUI {
 			case GUI::Key::E:
 				m._string = "specialAction";
 				break;
-			default:
-				return false;
 			}
 			_controlledAvatar->emitMessage(m);
-			return true;
 		}
 		return false;
 
@@ -111,12 +108,8 @@ namespace GUI {
 			case GUI::Key::D:
 				m._string = "stopStrafe";
 				break;
-
-			default:
-				return false;
 			}
 			_controlledAvatar->emitMessage(m);
-			return true;
 		}
 		return false;
 
@@ -130,7 +123,7 @@ namespace GUI {
 		m._type = Logic::Message::MOUSE_MOVE;
 		m._vector2 = Vector2(mouseState.posRelX, mouseState.posRelY);
 		Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m);
-		return true;
+		return false;
 
 	} // mouseMoved
 
@@ -156,7 +149,7 @@ namespace GUI {
 
 		Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m_message);
 
-		return true;
+		return false;
 	} // mouseReleased
 
 } // namespace GUI

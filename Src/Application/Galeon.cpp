@@ -30,6 +30,7 @@ leaks. En función de la configuración y plataforma se usa un main o un WinMain.
 
 #include "Application/GaleonApplication.h"
 
+
 #if (defined _DEBUG) || !(defined _WIN32)
 int main(int argc, char **argv) 
 {
@@ -49,6 +50,7 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 			miApp.run();
 
 		miApp.release();
+
 	}
 
 	return 0;
