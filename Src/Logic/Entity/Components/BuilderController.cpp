@@ -204,6 +204,10 @@ namespace Logic
 		rc_message->setAction(RaycastMessage::STOP_RAYCAST);
 		_entity->emitMessage(rc_message);
 
+		MEmplaceBuilding *b_message = new MEmplaceBuilding();
+		b_message->setAction(BuildingAction::EMPLACE_BUILDING);
+		_entity->emitMessage(b_message, this);
+
 		_building = false;
 
 	} // emplaceBuilding

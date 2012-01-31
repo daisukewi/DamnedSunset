@@ -12,6 +12,9 @@
 #include "Logic/Entity/Messages/ControlRaycast.h"
 #include "Logic/Entity/Messages/EntitySelected.h"
 #include "Logic/Entity/Messages/UbicarCamara.h"
+#include "Logic/Entity/Messages/MoveSteering.h"
+#include "Logic/Entity/Messages/Damaged.h"
+#include "Logic/Entity/Messages/EmplaceBuilding.h"
 
 namespace Logic 
 {
@@ -49,7 +52,8 @@ namespace Logic
 	{
 		bool accepted = !message->getType().compare("MMouseEvent")
 			|| !message->getType().compare("MControlRaycast")
-			|| !message->getType().compare("MEntitySelected");
+			|| !message->getType().compare("MEntitySelected")
+			|| !message->getType().compare("MEmplaceBuilding");
 
 		if (accepted) message->addPtr();
 
@@ -62,16 +66,34 @@ namespace Logic
 	{
 		if (!message->getType().compare("MMouseEvent"))
 		{
-			if (!_canSelect) return;
-			MMouseEvent *m_mouse = static_cast <MMouseEvent*> (message);
-
-			switch(m_mouse->getAction())
+			if (_canSelect)
 			{
-				case TMouseAction::LEFT_CLICK:
-					startSelection();
+				MMouseEvent *m_mouse = static_cast <MMouseEvent*> (message);
+
+				switch(m_mouse->getAction())
+				{
+					case TMouseAction::LEFT_CLICK:
+						startSelection();
+						break;
+					case TMouseAction::RIGHT_CLICK:
+						startAction();
+						break;
+				}
+			}
+
+		} else if (!message->getType().compare("MEmplaceBuilding"))
+		{
+			// TODO: (Blackboard): Este pequeño hack evita realizar acciones cuando se ha mandado
+			// la orden de construir. Se puede modificar si se implemente el blackboard.
+			MEmplaceBuilding *m_building = static_cast <MEmplaceBuilding*> (message);
+			switch (m_building->getAction())
+			{
+				case BuildingMessage::START_BUILDING:
+					_canSelect = false;
 					break;
-				case TMouseAction::RIGHT_CLICK:
-					startAction();
+				case BuildingMessage::EMPLACE_BUILDING:
+				case BuildingMessage::CANCEL_BUILDING:
+					_canSelect = true;
 					break;
 			}
 
@@ -80,15 +102,9 @@ namespace Logic
 			MControlRaycast *m_raycast = static_cast <MControlRaycast*> (message);
 			switch (m_raycast->getAction())
 			{
-				case RaycastMessage::START_RAYCAST:
-					_canSelect = false;
-					break;
-				case RaycastMessage::STOP_RAYCAST:
-					_canSelect = true;
-					break;
 				case RaycastMessage::HIT_RAYCAST:
-					if (!_isSelecting && !_isWaitingForAction) return;
-					processRayCast(m_raycast->getCollisionPoint(), m_raycast->getCollisionEntity());
+					if (_isSelecting || _isWaitingForAction)
+						processRayCast(m_raycast->getCollisionPoint(), m_raycast->getCollisionEntity());
 					break;
 			}
 
@@ -114,31 +130,56 @@ namespace Logic
 
 	void CSelectionController::processRayCast( Vector3 colPoint, CEntity* colEntity )
 	{
-
-		if (colEntity->getType().compare("Player") == 0)
+		// Hack para cancelar la orden mientras se está construyendo.
+		if (!_canSelect)
 		{
-			if (_isSelecting)
-				saveSelectedEntity(colEntity);
-
-		} else if (colEntity->getType().compare("World") == 0)
-		{
-			if (_selectedEntity != NULL && _isWaitingForAction)
-			{
-				TMessage m;
-				m._type = Message::MOVE_TO;
-				m._vector3 = colPoint;
-				m._int = AI::IMovement::MOVEMENT_DYNAMIC_ARRIVE;
-				_entity->emitMessage(m);
-			}
+			_isSelecting = _isWaitingForAction = false;
+			return;
 		}
 
+		// Procesar mensaje del raycast cuando se está seleccionando
+		if (_isSelecting)
+		{
+			if (!colEntity->getType().compare("Player"))
+			{
+				saveSelectedEntity(colEntity);
+
+			}
+
+		// Procesar mensaje del raycast cuando se hace una accion y se tiene algo seleccionado
+		} else if (_isWaitingForAction && _selectedEntity != NULL)
+		{
+			if (!colEntity->getType().compare("Player"))
+			{
+				// Realizar acciones sobre un jugador.
+
+			// Realizar acciones sobre el suelo
+			} else if (!colEntity->getType().compare("World"))
+			{
+				CMoveSteering *m_movement = new CMoveSteering();
+				m_movement->setMovementType(AI::IMovement::MOVEMENT_DYNAMIC_ARRIVE);
+				m_movement->setTarget(colPoint);
+				_selectedEntity->emitMessage(m_movement, this);
+
+			// Realizar acciones sobre un enemigo
+			} else if (!colEntity->getType().compare("Enemy"))
+			{
+				if (!_selectedEntity->getType().compare("Player"))
+				{
+					CDamaged *m_damage = new CDamaged();
+					m_damage->setHurt(10.0f);
+					colEntity->emitMessage(m_damage, this);
+				}
+			}
+		}
+		
 		_isSelecting = false;
 		_isWaitingForAction = false;
 
 		// Mandamos un mensaje para dejar de lanzar raycasts
 		MControlRaycast *rc_message = new MControlRaycast();
 		rc_message->setAction(RaycastMessage::STOP_RAYCAST);
-		_entity->emitMessage(rc_message);
+		_entity->emitMessage(rc_message, this);
 
 	} // processRayCast
 
@@ -146,11 +187,11 @@ namespace Logic
 
 	void CSelectionController::startSelection()
 	{
-		/*_isSelecting = true;
+		_isSelecting = true;
 
 		MControlRaycast *rc_message = new MControlRaycast();
 		rc_message->setAction(RaycastMessage::START_RAYCAST);
-		_entity->emitMessage(rc_message, this);*/
+		_entity->emitMessage(rc_message, this);
 
 	} // startSelection
 
@@ -158,11 +199,11 @@ namespace Logic
 
 	void CSelectionController::startAction()
 	{
-		/*_isWaitingForAction = true;
+		_isWaitingForAction = true;
 
 		MControlRaycast *rc_message = new MControlRaycast();
 		rc_message->setAction(RaycastMessage::START_RAYCAST);
-		_entity->emitMessage(rc_message, this);*/
+		_entity->emitMessage(rc_message, this);
 
 	} // startAction
 
