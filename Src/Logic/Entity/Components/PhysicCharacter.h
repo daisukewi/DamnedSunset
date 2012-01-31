@@ -22,7 +22,7 @@ namespace Logic
 	Componente que se utiliza para representar jugadores y enemigos en el mundo físico usando 
 	character controllers.
 	<p>
-	Este componente recibe mensajes de tipo AVATAR_WALK para mover el controller.
+	Este componente recibe mensajes de tipo CAvatarWalk para mover el controller.
 	<p>
 	La implementación de esta clase también gestiona las diferencias que existen entre el
 	sistema de coordenadas local (SCL) lógico y físico. El SCL que usa la lógica para cada 
@@ -54,17 +54,17 @@ namespace Logic
 		virtual ~CPhysicCharacter();
 
 		/**
-		Este componente sólo acepta mensajes de tipo AVATAR_WALK.
+		Este componente sólo acepta mensajes de tipo CAvatarWalk.
 		*/
-		virtual bool accept(const TMessage &message);
+		virtual bool accept(IMessage *message);
 		
 		/**
-		Si se recibe un mensaje de tipo AVATAR_WALK, se almacena su vector de 
+		Si se recibe un mensaje de tipo CAvatarWalk, se almacena su vector de 
 		desplazamiento para posteriormente mover el character controller en el tick.
 		De este moto, si en un ciclo se reciben varios mensaje de tipo CSetTransform
 		sólo tendrá efecto el último que se reciba.
 		*/
-		virtual void process(const TMessage &message);
+		virtual void process(IMessage *message);
 
 		/**
 		Este método se invoca en cada ciclo de la simulación y hace lo siguiente:
@@ -72,7 +72,7 @@ namespace Logic
 		<li>Actualiza la posición de la entidad lógica usando la información que proporciona
 		el motor de física.</li>
 		
-		<li>Mueve el character controller de acuerdo al último mensaje AVATAR_WALK recibido.</li>
+		<li>Mueve el character controller de acuerdo al último mensaje CAvatarWalk recibido.</li>
 		</ul>
 		<p>
 		Necesitamos sobreescribir el método de la clase padre ya que los character controllers
@@ -114,7 +114,7 @@ namespace Logic
 		float _offsetY;
 
 		/**
-		Vector de desplazamiento recibido en el último mensaje de tipo AVATAR_WALK. 
+		Vector de desplazamiento recibido en el último mensaje de tipo CAvatarWalk. 
 		*/
 		Vector3 _movement;
 

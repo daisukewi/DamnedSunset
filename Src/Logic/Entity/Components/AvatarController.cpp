@@ -21,6 +21,7 @@ de la entidad.
 #include "AI/Movement.h"
 
 #include "Logic/Entity/Messages/SetAnimation.h"
+#include "Logic/Entity/Messages/AvatarWalk.h"
 
 
 namespace Logic 
@@ -59,7 +60,7 @@ namespace Logic
 
 	bool CAvatarController::accept(const TMessage &message)
 	{
-		return message._type == Message::CONTROL;
+		return false;
 
 	} // accept
 	
@@ -67,26 +68,6 @@ namespace Logic
 
 	void CAvatarController::process(const TMessage &message)
 	{
-		switch(message._type)
-		{
-		case Message::CONTROL:
-			if(!message._string.compare("walk"))
-				walk();
-			else if(!message._string.compare("walkBack"))
-				walkBack();
-			else if(!message._string.compare("stopWalk"))
-				stopWalk();
-			else if(!message._string.compare("strafeLeft"))
-				strafeLeft();
-			else if(!message._string.compare("strafeRight"))
-				strafeRight();
-			else if(!message._string.compare("stopStrafe"))
-				stopStrafe();
-			else if(!message._string.compare("specialAction"))
-				specialAction();
-			else if(!message._string.compare("turn"))
-				turn(message._float);
-		}
 
 	} // process
 	
@@ -253,10 +234,9 @@ namespace Logic
 			direction *= msecs * _speed;
 
 			// Enviar un mensaje para que el componente físico mueva el personaje
-			TMessage message;
-			message._type = Message::AVATAR_WALK;
-			message._vector3 = direction;
-			_entity->emitMessage(message);
+			Logic::CAvatarWalk *m = new Logic::CAvatarWalk();
+			m->setMovement(direction);
+			_entity->emitMessage(m);
 
 			//Vector3 newPosition = _entity->getPosition() + direction;
 			//_entity->setPosition(newPosition);

@@ -50,7 +50,7 @@ namespace Logic
 
 	bool CCameraController::accept(IMessage *message)
 	{
-		return (message->getType().compare("CCameraControl") == 0 || !message->getType().compare("CUbicarCamara"));
+		return (!message->getType().compare("CCameraControl") || !message->getType().compare("CUbicarCamara"));
 
 	} // accept
 	

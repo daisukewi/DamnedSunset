@@ -82,8 +82,7 @@ namespace Logic
 		virtual void tick(unsigned int msecs);
 
 		/**
-		Método virtual que elige que mensajes son aceptados. Son válidos
-		CONTROL.
+		Método virtual que elige que mensajes son aceptados..
 
 		@param message Mensaje a chequear.
 		@return true si el mensaje es aceptado.

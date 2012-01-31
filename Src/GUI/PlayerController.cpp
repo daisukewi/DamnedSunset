@@ -61,30 +61,6 @@ namespace GUI {
 
 	bool CPlayerController::keyPressed(TKey key)
 	{
-		if(_controlledAvatar)
-		{
-			Logic::TMessage m;
-			m._type = Logic::Message::CONTROL;
-			switch(key.keyId)
-			{
-			case GUI::Key::W:
-				m._string = "walk";
-				break;
-			case GUI::Key::S:
-				m._string = "walkBack";
-				break;
-			case GUI::Key::A:
-				m._string = "strafeLeft";
-				break;
-			case GUI::Key::D:
-				m._string = "strafeRight";
-				break;
-			case GUI::Key::E:
-				m._string = "specialAction";
-				break;
-			}
-			_controlledAvatar->emitMessage(m);
-		}
 		return false;
 
 	} // keyPressed
@@ -93,24 +69,6 @@ namespace GUI {
 
 	bool CPlayerController::keyReleased(TKey key)
 	{
-		if(_controlledAvatar)
-		{
-			Logic::TMessage m;
-			m._type = Logic::Message::CONTROL;
-			switch(key.keyId)
-			{
-			case GUI::Key::W:
-			case GUI::Key::S:
-				m._string = "stopWalk";
-				break;
-
-			case GUI::Key::A:
-			case GUI::Key::D:
-				m._string = "stopStrafe";
-				break;
-			}
-			_controlledAvatar->emitMessage(m);
-		}
 		return false;
 
 	} // keyReleased

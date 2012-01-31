@@ -15,6 +15,7 @@ mover un avatar utilizando movimientos cinéticos o dinámicos.
 
 #include "Logic/Entity/Messages/SetAnimation.h"
 #include "Logic/Entity/Messages/MoveSteering.h"
+#include "Logic/Entity/Messages/AvatarWalk.h"
 
 namespace Logic 
 {
@@ -118,8 +119,7 @@ namespace Logic
 		// Si tenemos que movernos (no hemos llegado al destino y nuestro movimiento no es NULL)
 		//		Invocar al método move del movimiento actual. 
 		//		Le pasamos la variable _currentProperties, que contiene las velocidades actuales y en la que recogemos las nuevas velocidades y aceleraciones
-		//		Calcular la nueva posición y notificarla a la física para que nos mueva (mensaje AVATAR_WALK)
-		//		Calcular la nueva rotación y notificarla al AvatarController para que nos gire (mensaje CONTROL)
+		//		Calcular la nueva posición y notificarla a la física para que nos mueva (mensaje CAvatarWalk)
 		//		Actualizar las velocidades usando la aceleración que hemos obtenido en _currentProperties
 		//		Las velocidades que tenemos que actualizar también están en _currentProperties para pasárselas en el siguiente tick al movimiento
 
@@ -163,17 +163,9 @@ namespace Logic
 			_yaw->move(msecs, _currentProperties);
 
 			// Enviar un mensaje para que el componente físico mueva el personaje
-			TMessage message;
-			message._type = Message::AVATAR_WALK;
-			message._vector3 = _currentProperties.linearSpeed * msecs;
-			_entity->emitMessage(message, this);
-			
-			// Aplicar la rotación
-			message._type = Message::CONTROL;
-			message._string = "turn";
-			message._float = _currentProperties.angularSpeed * msecs;
-			_entity->emitMessage(message, this);
-			
+			Logic::CAvatarWalk *m = new Logic::CAvatarWalk();
+			m->setMovement(_currentProperties.linearSpeed * msecs);
+			_entity->emitMessage(m);
 			
 			// Acelerar
 			_currentProperties.linearSpeed += _currentProperties.linearAccel * msecs;

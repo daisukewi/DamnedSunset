@@ -21,6 +21,8 @@ el mundo físico usando character controllers.
 #include "Physics/PhysicModelCharacter.h"
 #include "Physics/PhysicObjCharacter.h"
 
+#include "Logic/Entity/Messages/AvatarWalk.h"
+
 
 using namespace Physics;
 using namespace Logic;
@@ -44,23 +46,23 @@ CPhysicCharacter::~CPhysicCharacter()
 
 //---------------------------------------------------------
 
-bool CPhysicCharacter::accept(const TMessage &message)
+bool CPhysicCharacter::accept(IMessage *message)
 {
-	return message._type == Message::AVATAR_WALK;
+	return !message->getType().compare("CAvatarWalk");
 } 
 
 //---------------------------------------------------------
 
-void CPhysicCharacter::process(const TMessage &message)
+void CPhysicCharacter::process(IMessage *message)
 {
-	switch(message._type)
+	if (!message->getType().compare("CAvatarWalk"))
 	{
-	case Message::AVATAR_WALK:
+		CAvatarWalk *m = static_cast <CAvatarWalk*> (message);
+
 		// Anotamos el vector de desplazamiento para usarlo posteriormente en 
-		// el método tick. De esa forma, si recibimos varios mensajes AVATAR_WALK
+		// el método tick. De esa forma, si recibimos varios mensajes CAvatarWalk
 		// en el mismo ciclo sólo tendremos en cuenta el último.
-		_movement = message._vector3;
-		break;
+		_movement = m->getMovement();
 	}
 
 } 
