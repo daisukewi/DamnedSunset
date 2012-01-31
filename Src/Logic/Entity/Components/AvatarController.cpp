@@ -22,7 +22,6 @@ de la entidad.
 
 #include "Logic/Entity/Messages/SetAnimation.h"
 #include "Logic/Entity/Messages/AvatarWalk.h"
-#include "Logic/Entity/Messages/WayTo.h"
 
 
 namespace Logic 

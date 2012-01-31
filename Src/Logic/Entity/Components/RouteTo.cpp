@@ -7,7 +7,6 @@
 #include "AI/Movement.h"
 
 #include "Logic/Entity/Messages/MoveSteering.h"
-#include "Logic/Entity/Messages/WayTo.h"
 
 namespace Logic 
 {
