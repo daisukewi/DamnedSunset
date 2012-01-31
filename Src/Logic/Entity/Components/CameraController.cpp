@@ -1,3 +1,14 @@
+/**
+@file CameraController.cpp
+
+Contiene la implementación del componente que controla el movimiento de la cámara por la escena.
+
+@see Logic::IComponent
+
+@author Alberto Plaza
+@date Enero, 2012
+*/
+
 #include "CameraController.h"
 
 #include "Logic/Entity/Entity.h"

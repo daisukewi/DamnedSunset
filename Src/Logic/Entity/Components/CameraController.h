@@ -1,3 +1,15 @@
+/**
+@file CameraController.h
+
+Contiene la declaración del componente que controla el movimiento de la cámara.
+
+@see Logic::CCamera
+@see Logic::IComponent
+
+@author Alberto Plaza
+@date Enero, 2012
+*/
+
 #ifndef __Logic_CameraController_H
 #define __Logic_CameraController_H
 
@@ -6,7 +18,12 @@
 //declaración de la clase
 namespace Logic 
 {
+	/**
+	Clase del componente que se encarga de mover la cámara por la escena.
 
+	@author Alberto Plaza
+	@date Enero, 2012
+*/
 	class CCameraController : public IComponent
 	{
 		DEC_FACTORY(CCameraController);

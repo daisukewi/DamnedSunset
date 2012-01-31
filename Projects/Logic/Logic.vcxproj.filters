@@ -29,13 +29,13 @@
     <Filter Include="Entity\Components\Header Files">
       <UniqueIdentifier>{40d43982-4d6f-4a4a-b427-ce5753f432e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Messages">
+    <Filter Include="Entity\Messages">
       <UniqueIdentifier>{041dc450-fbd7-4703-842d-8579506bbb0f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Messages\Header Files">
+    <Filter Include="Entity\Messages\Header Files">
       <UniqueIdentifier>{4cabedc1-9997-417d-bea1-20e569575318}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Messages\Source Files">
+    <Filter Include="Entity\Messages\Source Files">
       <UniqueIdentifier>{314b8f0e-1e6b-4415-8bdb-e3fe614204ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -125,37 +125,43 @@
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\CameraControl.cpp">
-      <Filter>Messages\Source Files</Filter>
+      <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetTransform.cpp">
-      <Filter>Messages\Source Files</Filter>
+      <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp">
-      <Filter>Messages\Source Files</Filter>
+      <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\StopAnimation.cpp">
-      <Filter>Messages\Source Files</Filter>
+      <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Logic\Entity\Messages\MoveSteering.cpp" />
-    <ClCompile Include="EnemyController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\UbicarCamara.cpp">
-      <Filter>Messages\Source Files</Filter>
+      <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetBillboard.cpp">
-      <Filter>Messages\Source Files</Filter>
+      <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EmplaceBuilding.cpp">
-      <Filter>Messages\Source Files</Filter>
+      <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.cpp">
-      <Filter>Messages\Source Files</Filter>
+      <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MouseEvent.cpp">
-      <Filter>Messages\Source Files</Filter>
+      <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Logic\Entity\Messages\Damaged.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntitySelected.cpp">
-      <Filter>Messages\Source Files</Filter>
+      <Filter>Entity\Messages\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\Damaged.cpp">
+      <Filter>Entity\Messages\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyController.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\MoveSteering.cpp">
+      <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -250,46 +256,46 @@
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\CameraControl.h">
-      <Filter>Messages\Header Files</Filter>
+      <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetTransform.h">
-      <Filter>Messages\Header Files</Filter>
+      <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h">
-      <Filter>Messages\Header Files</Filter>
+      <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\StopAnimation.h">
-      <Filter>Messages\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Logic\Entity\Messages\MoveSteering.h">
-      <Filter>Entity\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyController.h">
-      <Filter>Entity\Header Files</Filter>
+      <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\UbicarCamara.h">
-      <Filter>Messages\Header Files</Filter>
+      <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetBillboard.h">
-      <Filter>Messages\Header Files</Filter>
+      <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EmplaceBuilding.h">
-      <Filter>Messages\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Logic\Entity\Message.h">
-      <Filter>Messages\Header Files</Filter>
+      <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.h">
-      <Filter>Messages\Header Files</Filter>
+      <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MouseEvent.h">
-      <Filter>Messages\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Logic\Entity\Messages\Damaged.h">
-      <Filter>Entity\Header Files</Filter>
+      <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntitySelected.h">
-      <Filter>Messages\Header Files</Filter>
+      <Filter>Entity\Messages\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Message.h">
+      <Filter>Entity\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\Damaged.h">
+      <Filter>Entity\Messages\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyController.h">
+      <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\MoveSteering.h">
+      <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
