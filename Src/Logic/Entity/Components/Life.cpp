@@ -27,8 +27,9 @@ Contiene la implementación del componente que controla la vida de una entidad.
 #include "assert.h"
 
 //Mensajes
-#include "Logic/Entity/Messages/SetBillboard.h"
 #include "Logic/Entity/Messages/Damaged.h"
+#include "Logic/Entity/Messages/SendBillboard.h"
+#include "Logic/Entity/Messages/CreateBillboard.h"
 
 #include "GUI/Server.h"
 #include "GUI/InterfazController.h"
@@ -43,22 +44,31 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	CLife::CLife() : IComponent(), _life(100.f) {
+	CLife::CLife() : IComponent(), _life(100.f), _billboardSet(0) {
 
 	}
 
+	CLife::~CLife() {
+		//delete _billboardSet;
+		Graphics::CServer::getSingletonPtr()->getActiveScene()->removeBillboardset(_billboardSet);
+	}
 
-	void generarBillboard(Ogre::BillboardSet* b, float porcentajeVida) {
+
+	void crearBillboard(Ogre::BillboardSet* b, float porcentajeVida) {
 		//Tendria q haber 1 billboard creados, si no estan los creamos
 		Ogre::Billboard* billboard;
-		while (b->getNumBillboards() < 1 ) {
-			billboard = b->createBillboard(0,13,0);
-			billboard->setDimensions(0,0);
-		}
-		//El ultimo billboard es el q nos interesa: El '1'
-		billboard = b->getBillboard(0);
+		billboard = b->createBillboard(0.0f,13.0f,0.0f);
 		billboard->setDimensions(8,1);
 		billboard->setTexcoordRect((0.2f-porcentajeVida*0.2)/2.0f/*inicioX*/, 0.0f, 0.1f+(0.2f-porcentajeVida*0.2f)/2.0f/*finX*/, 0.2f);
+
+		//billboard->setDimensions(10,10);
+		//b->setTextureCoords(0,0,0);
+		//b->setBillboardType(Ogre::BBT_ORIENTED_COMMON);
+		//b->setCommonDirection(Vector3::UNIT_Z);
+	}
+
+	void updateBillboard(Ogre::BillboardSet* b, float porcentajeVida) {
+		b->getBillboard(0)->setTexcoordRect((1.0f-porcentajeVida*1.0)/2.0f/*inicioX*/, 0.0f, 0.5f+(1.0f-porcentajeVida*0.5f)/2.0f/*finX*/, 1.0f);
 	}
 
 	//void actualizarBillboard(Ogre::BillboardSet* b, float porcentajeVida) {
@@ -76,10 +86,7 @@ namespace Logic
 		if(entityInfo->hasAttribute("maxLife"))
 			_maxLife = entityInfo->getFloatAttribute("maxLife");
 
-		Logic::CSetBillboard *m = new Logic::CSetBillboard();
-		m->_funcion = generarBillboard;
-		m->setPorcetajeVida(_life/_maxLife);
-		_entity->emitMessage(m);
+		_entity->emitMessage(new Logic::CCreateBillboard());
 
 		return true;
 
@@ -89,7 +96,7 @@ namespace Logic
 
 	bool CLife::accept(IMessage *message)
 	{
-		return (message->getType().compare("CDamaged") == 0);
+		return (message->getType().compare("CDamaged") == 0) || !message->getType().compare("CSendBillboard");
 
 	} // accept
 	
@@ -112,10 +119,7 @@ namespace Logic
 				// @todo Poner la animación de herido.
 				// @todo Si la vida es menor que 0 poner animación de morir.
 
-				Logic::CSetBillboard *m = new Logic::CSetBillboard();
-				m->_funcion = generarBillboard;
-				m->setPorcetajeVida(_life/_maxLife);
-				_entity->emitMessage(m);
+				updateBillboard(_billboardSet, _life/_maxLife);
 
 				if (!_entity->getName().compare("Jack"))
 				{
@@ -132,6 +136,14 @@ namespace Logic
 					//Actualizamos la vida en la interfaz
 					GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('3',_life/_maxLife);
 				}
+		}
+		else if (!message->getType().compare("CSendBillboard"))
+		{
+			//Recibe el billboardset
+			CSendBillboard *m = static_cast <CSendBillboard*> (message);
+			_billboardSet = m->getBillboarSet();
+			_billboardSet->setMaterialName("barraVida");
+			crearBillboard(_billboardSet, _life/_maxLife);
 		}
 
 	} // process

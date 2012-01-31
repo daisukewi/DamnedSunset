@@ -158,8 +158,7 @@ namespace Graphics
 		*/
 		Ogre::Entity* getEntity() {return _entity;}
 
-		Ogre::BillboardSet* createBillBoard(void (*funcion) (Ogre::BillboardSet*, float), float porcentajeVida);
-		void destroyBillBoardSet(Ogre::BillboardSet*b);
+		Ogre::BillboardSet* createBillBoard();
 
 	protected:
 

@@ -27,6 +27,7 @@ namespace Ogre
 	class SceneManager;
 	class StaticGeometry;
 	class Light;
+	class BillboardSet;
 }
 namespace Graphics 
 {
@@ -149,7 +150,7 @@ namespace Graphics
 		*/
 		void setAmbientLight(const float r, const float g, const float b);
 
-
+		void removeBillboardset(Ogre::BillboardSet* b);
 	protected:
 
 		/**

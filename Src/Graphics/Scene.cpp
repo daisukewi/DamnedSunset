@@ -161,6 +161,12 @@ namespace Graphics
 
 	//--------------------------------------------------------
 
+
+	void CScene::removeBillboardset(Ogre::BillboardSet* b) {
+		_sceneMgr->destroyBillboardSet(b);
+	}
+
+
 	void CScene::buildStaticGeometry()
 	{
 		if(!_staticGeometry && !_staticEntities.empty())

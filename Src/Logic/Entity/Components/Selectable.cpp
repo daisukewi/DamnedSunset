@@ -8,7 +8,6 @@
 
 #include "Logic/Maps/Map.h"
 
-#include "Logic/Entity/Messages/SetBillboard.h"
 #include <OgreBillboard.h>
 #include <OgreBillboardSet.h>
 
@@ -80,10 +79,10 @@ namespace Logic
 			entity->emitMessage(m);
 			
 
-			Logic::CSetBillboard *ms = new Logic::CSetBillboard();
-			ms->_funcion = generarBillboardSelectable;
-			ms->setPorcetajeVida(0);
-			_entity->emitMessage(ms);
+			//Logic::CSetBillboard *ms = new Logic::CSetBillboard();
+			//ms->_funcion = generarBillboardSelectable;
+			//ms->setPorcetajeVida(0);
+			//_entity->emitMessage(ms);
 
 
 			break;

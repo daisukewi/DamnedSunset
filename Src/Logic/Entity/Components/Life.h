@@ -51,6 +51,8 @@ namespace Logic
 		Constructor por defecto; en la clase base no hace nada.
 		*/
 		CLife();
+
+		~CLife();
 		
 		/**
 		Inicialización del componente usando la descripción de la entidad que hay en 
@@ -78,6 +80,11 @@ namespace Logic
 		Vida maxima de la entidad
 		*/
 		float _maxLife;
+
+		/*
+		Billboard que muestra la vida
+		*/
+		Ogre::BillboardSet* _billboardSet;
 	}; // class CLife
 
 	REG_FACTORY(CLife);

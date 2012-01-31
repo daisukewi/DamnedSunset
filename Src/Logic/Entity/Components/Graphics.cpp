@@ -22,7 +22,8 @@ gráfica de la entidad.
 #include "Graphics/StaticEntity.h"
 
 #include "Logic/Entity/Messages/SetTransform.h"
-#include "Logic/Entity/Messages/SetBillboard.h"
+#include "Logic/Entity/Messages/CreateBillboard.h"
+#include "Logic/Entity/Messages/SendBillboard.h"
 
 namespace Logic 
 {
@@ -32,9 +33,6 @@ namespace Logic
 
 	CGraphics::~CGraphics() 
 	{
-		if(_billboardSet) {
-			_graphicsEntity->destroyBillBoardSet(_billboardSet);
-		}
 		if(_graphicsEntity)
 		{
 			_scene->removeEntity(_graphicsEntity);
@@ -101,7 +99,7 @@ namespace Logic
 
 	bool CGraphics::accept(IMessage *message)
 	{
-		return (message->getType().compare("CSetTransform") == 0 || !message->getType().compare("CSetBillboard"));
+		return (message->getType().compare("CSetTransform") == 0 || !message->getType().compare("CCreateBillboard"));
 
 	} // accept
 
@@ -114,15 +112,15 @@ namespace Logic
 			CSetTransform *m = static_cast <CSetTransform*> (message);
 
 			_graphicsEntity->setTransform(m->getTransform());
-		} else 	if (!message->getType().compare("CSetBillboard"))
+		} else 	if (!message->getType().compare("CCreateBillboard"))
 		{
-			CSetBillboard *m = static_cast <CSetBillboard*> (message);
-			if ( _billboardSet) //Actualizamos el billboardset
-				m->_funcion(_billboardSet, m->getPorcentajeVida());
-			else //creamos el billboardset
-				_billboardSet = _graphicsEntity->createBillBoard(m->_funcion, m->getPorcentajeVida());
+			CCreateBillboard *m = static_cast <CCreateBillboard*> (message);
+			Ogre::BillboardSet * billboardSet = _graphicsEntity->createBillBoard();
+			
+			CSendBillboard *m2 = new CSendBillboard();
+			m2->setBillboardSet(billboardSet);
+			_entity->emitMessage(m2);
 		}
-
 	} // process
 
 } // namespace Logic
