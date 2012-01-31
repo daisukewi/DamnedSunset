@@ -18,7 +18,7 @@ namespace Logic
 {
 	/**
 	Componente que se encarga de gestionar el cálculo y el seguimiento
-	de rutas. El componente acepta mensajes de tipo ROUTE_TO con un parámetro
+	de rutas. El componente acepta mensajes de tipo MWayTo con un parámetro
 	_vector que indica la posición de destino.
 	<p>
 	Cuando se recibe un mensaje de este tipo, se calcula una nueva ruta
@@ -67,14 +67,14 @@ namespace Logic
 		*/
 		virtual void tick(unsigned int msecs);
 		/**
-		Este componente sólo acepta mensajes de tipo ROUTE_TO.
+		Este componente sólo acepta mensajes de tipo MWayTo.
 		*/
-		virtual bool accept(const TMessage &message);
+		virtual bool accept(IMessage *message);
 		/**
-		Si se recibe un mensaje de tipo ROUTE_TO, almacena el vector como 
+		Si se recibe un mensaje de tipo MWayTo, almacena el vector como 
 		destino del movimiento.
 		*/
-		virtual void process(const TMessage &message);
+		virtual void process(IMessage *message);
 
 	private:
 		/**

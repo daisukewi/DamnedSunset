@@ -22,6 +22,7 @@ de la entidad.
 
 #include "Logic/Entity/Messages/SetAnimation.h"
 #include "Logic/Entity/Messages/AvatarWalk.h"
+#include "Logic/Entity/Messages/WayTo.h"
 
 
 namespace Logic 
@@ -166,7 +167,7 @@ namespace Logic
 	//---------------------------------------------------------
 	void CAvatarController::specialAction() 
 	{
-		// TODO PRÁCTICA IA
+		/*// TODO PRÁCTICA IA
 		// Este método es llamado cuando se activa la acción especial del jugador (por defecto con la tecla E).
 		// Aquí se pueden enviar mensajes para testear el funcionamiento de otros componentes.
 		AI::CWaypointGraph *wg = AI::CServer::getSingletonPtr()->getNavigationGraph();
@@ -174,10 +175,10 @@ namespace Logic
 		int targetId = rand() % waypoints;
 		Vector3 target = wg->getWaypoint(targetId);
 		std::cout << "Navigating to: " << target << std::endl;
-		TMessage message2;
-		message2._type = Message::ROUTE_TO;
-		message2._vector3 = target;
-		_entity->emitMessage(message2, this);
+
+		Logic::MWayTo *message2 = new Logic::MWayTo();
+		message2->setPoint(target);
+		_entity->emitMessage(message2, this);*/
 	} // specialAction
 	
 	//---------------------------------------------------------

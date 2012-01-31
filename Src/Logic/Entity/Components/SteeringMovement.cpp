@@ -147,13 +147,13 @@ namespace Logic
 		}
 
 		_arrived = _entity->getPosition().positionEquals(_target, _tolerance);
-		if (_arrived) {
+		/*if (_arrived) {
 			// Enviar un mensaje para informar de que hemos llegado a destino
 			TMessage message;
 			message._type = Message::FINISHED_MOVE;
 			message._bool = true;
 			_entity->emitMessage(message, this);
-		}
+		}*/
 
 		// Si nos estamos desplazando calculamos la próxima posición
 		if (!_arrived && _currentMovement != 0) {

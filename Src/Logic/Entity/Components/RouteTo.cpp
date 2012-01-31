@@ -7,6 +7,7 @@
 #include "AI/Movement.h"
 
 #include "Logic/Entity/Messages/MoveSteering.h"
+#include "Logic/Entity/Messages/WayTo.h"
 
 namespace Logic 
 {
@@ -80,10 +81,10 @@ namespace Logic
 			// Si no se puede calcular la ruta enviamos un mensaje de fallo
 			if (_currentRoute == 0) {
 				_arrived = true;
-				TMessage message;
+				/*TMessage message;
 				message._type = Message::FINISHED_ROUTE;
 				message._bool = false;
-				_entity->emitMessage(message, this);
+				_entity->emitMessage(message, this);*/
 			} else {
 				_currentNode = 0;
 				_arrived = false;
@@ -103,10 +104,10 @@ namespace Logic
 					_arrived = true;
 					sendMoveMessage(_target, AI::IMovement::MOVEMENT_NONE);
 					// Enviar un mensaje para notificar que hemos llegado la destino
-					TMessage message;
+					/*TMessage message;
 					message._type = Message::FINISHED_ROUTE;
 					message._bool = true;
-					_entity->emitMessage(message, this);
+					_entity->emitMessage(message, this);*/
 				} else if (_currentNode == _currentRoute->size() - 1) {
 					// Es el penúltimo nodo. Nos acercamos con Arrive
 					//sendMoveMessage((*_currentRoute)[_currentNode], AI::IMovement::MOVEMENT_KINEMATIC_ARRIVE);
@@ -139,22 +140,22 @@ namespace Logic
 
 	//---------------------------------------------------------
 	/**
-	Este componente sólo acepta mensajes de tipo ROUTE_TO.
+	Este componente sólo acepta mensajes de tipo MWayTo.
 	*/
-	bool CRouteTo::accept(const TMessage &message)
+	bool CRouteTo::accept(IMessage *message)
 	{
-		return message._type == Message::ROUTE_TO || message._type == Message::FINISHED_MOVE;
+		return false;//message._type == Message::FINISHED_MOVE;
 	} // accept
 
 	//---------------------------------------------------------
 	/**
-	 Si se recibe un mensaje de tipo ROUTE_TO, almacena el vector como 
+	 Si se recibe un mensaje de tipo MWayTo, almacena el vector como 
 	 destino del movimiento.
 	 Si recibe FINISHED_MOVE pasamos al siguiente punto de la ruta
 	*/
-	void CRouteTo::process(const TMessage &message)
+	void CRouteTo::process(IMessage *message)
 	{
-		switch(message._type)
+		/*switch(message._type)
 		{
 			case Message::ROUTE_TO:
 				// Comprobamos el bool para saber si tenemos que
@@ -183,7 +184,8 @@ namespace Logic
 				// siguiente punto de la ruta (si existe)
 				_nextWaypoint = true;
 				break;
-		}
+		}*/
+
 	} // process
 
 } //namespace Logic 
