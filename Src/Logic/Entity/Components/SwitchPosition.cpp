@@ -17,6 +17,8 @@ una entidad que tiene dos estado (posiciones) para ir de una a otra.
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
 
+#include "Logic/Entity/Messages/Switch.h"
+
 namespace Logic 
 {
 	IMP_FACTORY(CSwitchPosition);
@@ -58,22 +60,23 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	bool CSwitchPosition::accept(const TMessage &message)
+	bool CSwitchPosition::accept(IMessage *message)
 	{
-		return message._type == Message::SWITCH;
+		return !message->getType().compare("CSwitch");
 
 	} // accept
 	
 	//---------------------------------------------------------
 
-	void CSwitchPosition::process(const TMessage &message)
+	void CSwitchPosition::process(IMessage *message)
 	{
-		switch(message._type)
+		if (!message->getType().compare("CSwitch"))
 		{
-		case Message::SWITCH:
-			assert((message._int >= 0) && (message._int <= 1));
-			_targetPosition = _position[message._int];
-			break;
+			CSwitch *m = static_cast <CSwitch*> (message);
+			
+			assert((m->getState() >= 0) && (m->getState() <= 1));
+
+			_targetPosition = _position[m->getState()];
 		}
 
 	} // process

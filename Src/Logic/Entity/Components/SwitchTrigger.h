@@ -1,7 +1,7 @@
 /**
 @file SwitchTrigger.h
 
-Contiene la declaración del componente que envia un mensaje SWITCH a una
+Contiene la declaración del componente que envia un mensaje CSwitch a una
 entidad cuando su entidad es tocada o dejada de ser tocada.
 
 @see Logic::CSwitchTrigger
@@ -20,7 +20,7 @@ namespace Logic
 {
 /**
 	Este componente procesa mensajes de tipo CIsTouched (indica que la 
-	entidad ha sido tocada o dejada de ser tocada) para enviar un mensaje SWITCH a 
+	entidad ha sido tocada o dejada de ser tocada) para enviar un mensaje CSwitch a 
 	una entidad objetivo.
 	<p>
 	La entidad objetivo se especifica en el mapa con el atributo "target". Este 
@@ -64,7 +64,7 @@ namespace Logic
 		virtual bool accept(IMessage *message);
 
 		/**
-		Al recibir mensaje CIsTouched emite mensajes SWITCH
+		Al recibir mensaje CIsTouched emite mensajes CSwitch
 		a la entidad objetivo para que cambie de posición.
 		*/
 		virtual void process(IMessage *message);
@@ -72,13 +72,13 @@ namespace Logic
 	protected:
 
 		/**
-		Nombre de la entidad a la que se desea enviar un SWITCH cuando se 
+		Nombre de la entidad a la que se desea enviar un CSwitch cuando se 
 		recibe un mensaje CIsTouched.
 		*/
 		std::string _targetName;
 
 		/**
-		Entidad a la que se desea enviar un SWITCH cuando se recibe un mensaje 
+		Entidad a la que se desea enviar un CSwitch cuando se recibe un mensaje 
 		CIsTouched.
 		*/
 		CEntity *_target;

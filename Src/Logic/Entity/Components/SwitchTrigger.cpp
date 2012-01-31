@@ -1,7 +1,7 @@
 /**
 @file SwitchTrigger.cpp
 
-Contiene la implementación del componente que envia un mensaje SWITCH a una
+Contiene la implementación del componente que envia un mensaje CSwitch a una
 entidad cuando su entidad es tocada o dejada de ser tocada.
  
 @see Logic::CSwitchTrigger
@@ -18,6 +18,7 @@ entidad cuando su entidad es tocada o dejada de ser tocada.
 #include "Map/MapEntity.h"
 
 #include "Logic/Entity/Messages/IsTouched.h"
+#include "Logic/Entity/Messages/Switch.h"
 
 namespace Logic 
 {
@@ -76,15 +77,14 @@ namespace Logic
 
 			if (_target)
 			{
-				TMessage m2;
-				m2._type = Message::SWITCH;
+				Logic::CSwitch *m2 = new Logic::CSwitch();
 
 				if (m->getTouched())
-					m2._int = 1;
+					m2->setState(1);
 				else
-					m2._int = 0;
+					m2->setState(0);
 
-				_target->emitMessage(m);
+				_target->emitMessage(m2);
 			}
 		}
 

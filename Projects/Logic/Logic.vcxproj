@@ -106,6 +106,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetBillboard.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetTransform.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\StopAnimation.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\Switch.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\UbicarCamara.cpp" />
     <ClCompile Include="..\..\Src\Logic\Maps\ComponentFactory.cpp" />
     <ClCompile Include="..\..\Src\Logic\Maps\EntityFactory.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetBillboard.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetTransform.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\StopAnimation.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\Switch.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\UbicarCamara.h" />
     <ClInclude Include="..\..\Src\Logic\Maps\ComponentFactory.h" />
     <ClInclude Include="..\..\Src\Logic\Maps\Documentation.h" />

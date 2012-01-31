@@ -26,7 +26,7 @@ namespace Logic
 	De la misma manera se puede estableces el atributo "loop" que mantendrá constante
 	las transiciones. El atributo "speed" determina la velocidad del movimiento.
 	<p>
-	Recibe mensajes de tipo "SWITCH" para transitar de un estado a otro en caso de
+	Recibe mensajes de tipo "CSwitch" para transitar de un estado a otro en caso de
 	que no se encuentre en loop. El atributo "_int" del mensaje indica el estado
 	al que se debe mover la entidad.
 	
@@ -52,15 +52,15 @@ namespace Logic
 		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 
 		/**
-		Este componente sólo acepta mensajes de tipo SWITCH. 
+		Este componente sólo acepta mensajes de tipo CSwitch. 
 		*/
-		virtual bool accept(const TMessage &message);
+		virtual bool accept(IMessage *message);
 
 		/**
-		Al recibir un mensaje de tipo SWITCH la entidad empieza a moverse hacia la
+		Al recibir un mensaje de tipo CSwitch la entidad empieza a moverse hacia la
 		posición indicada por el atributo "_int" del mensaje.
 		*/
-		virtual void process(const TMessage &message);
+		virtual void process(IMessage *message);
 
 		/**
 		Mueve el componente hacia la posición de destino. Una vez la alcance se para

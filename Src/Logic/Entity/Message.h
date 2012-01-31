@@ -30,8 +30,6 @@ namespace Logic
 		{
 			UNASSIGNED = 0xFFFFFFFF,
 			SET_TRANSFORM, // @MENSAJES
-			SWITCH,
-			MOVE_TO,
 			ROUTE_TO,
 			FINISHED_ROUTE,
 			FINISHED_MOVE,
@@ -151,7 +149,7 @@ namespace Logic
 			/**
 			Destructor (virtual); en la clase base no hace nada.
 			*/
-			virtual ~IMessage() {int n = 0;}
+			virtual ~IMessage() {}
 
 			/**
 			Añade una referencia al número de referencias.
