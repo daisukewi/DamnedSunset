@@ -53,6 +53,7 @@ namespace Logic
 		*/
 		CEntity *_selectedEntity;
 
+
 	}; // class MEntitySelected
 
 } // namespace Logic

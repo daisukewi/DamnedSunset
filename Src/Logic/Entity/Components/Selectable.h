@@ -86,14 +86,14 @@ namespace Logic
 		@param message Mensaje a chequear.
 		@return true si el mensaje es aceptado.
 		*/
-		virtual bool accept(const TMessage &message);
+		virtual bool accept(IMessage *message);
 
 		/**
 		Método virtual que procesa un mensaje.
 
 		@param message Mensaje a procesar.
 		*/
-		virtual void process(const TMessage &message);
+		virtual void process(IMessage *message);
 
 	protected:
 		

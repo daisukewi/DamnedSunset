@@ -105,6 +105,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MouseEvent.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MouseMove.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MoveSteering.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\Selectable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SendBillboard.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetTransform.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MouseEvent.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MouseMove.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MoveSteering.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\Selectable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SendBillboard.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetTransform.h" />
@@ -194,6 +196,9 @@
       <Project>{599f27dc-a593-4e7c-a461-d7b3198118b0}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

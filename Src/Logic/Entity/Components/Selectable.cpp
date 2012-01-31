@@ -7,6 +7,7 @@
 #include "Physics\Server.h"
 
 #include "Logic/Maps/Map.h"
+#include "Logic/Entity/Messages/EntitySelected.h"
 
 #include <OgreBillboard.h>
 #include <OgreBillboardSet.h>
@@ -42,9 +43,9 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	bool CSelectable::accept(const TMessage &message)
+	bool CSelectable::accept(IMessage *message)
 	{
-		return false;//message._type == Message::SELECTABLE;
+		return !message->getType().compare("MSelectable");
 
 	} // accept
 	
@@ -65,18 +66,20 @@ namespace Logic
 		billboard->setTexcoordRect(0.0f/*inicioX*/, 0.2f, 0.4f/*finX*/, 0.6f);
 	}
 
-	void CSelectable::process(const TMessage &message)
+	void CSelectable::process(IMessage *message)
 	{
-		switch(message._type)
-		{
-		/*case Message::SELECTABLE:
+		if (!message->getType().compare("MSelectable")){
+
 			//Obtener la entidad encargadad de controllar el gameplay
-			CEntity *entity = _entity->getMap()->getEntityByName("TargetCamera");
-			TMessage m;
-			m._type = Message::ENTITY_SELECTED;
-			m._entity = _entity;
-			m._pointvector3 = message._pointvector3;
-			entity->emitMessage(m);*/
+			CEntity *entity = _entity->getMap()->getEntityByName("PlayerGod");
+			
+			//Crear y enviar el mensaje de entity selected
+			MEntitySelected* m_selected = new MEntitySelected();
+			m_selected->setSelectedEntity(_entity);
+			entity->emitMessage(m_selected);
+
+			
+			//std::cout << "SELECTABLE PROCESS ENTIDAD: " << _entity->getType();
 			
 
 			//Logic::CSetBillboard *ms = new Logic::CSetBillboard();
@@ -84,8 +87,6 @@ namespace Logic
 			//ms->setPorcetajeVida(0);
 			//_entity->emitMessage(ms);
 
-
-			break;
 		}
 
 	} // process
