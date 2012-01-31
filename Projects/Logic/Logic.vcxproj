@@ -77,6 +77,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\BillboardSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BuilderController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\CameraController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DamageTrigger.cpp" />
@@ -96,14 +97,15 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AvatarWalk.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\CameraControl.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\CreateBillboard.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\Damaged.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EmplaceBuilding.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntitySelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\IsTouched.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MouseEvent.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MoveSteering.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\SendBillboard.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp" />
-    <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetBillboard.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetTransform.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\StopAnimation.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\Switch.cpp" />
@@ -123,6 +125,7 @@
     <ClCompile Include="EnemyController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\BillboardSelected.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\BuilderController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\CameraController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DamageTrigger.h" />
@@ -141,14 +144,15 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AvatarWalk.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\CameraControl.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\CreateBillboard.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\Damaged.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EmplaceBuilding.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntitySelected.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\IsTouched.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MouseEvent.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MoveSteering.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\SendBillboard.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h" />
-    <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetBillboard.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetTransform.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\StopAnimation.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\Switch.h" />
