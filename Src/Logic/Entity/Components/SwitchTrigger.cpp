@@ -17,6 +17,8 @@ entidad cuando su entidad es tocada o dejada de ser tocada.
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
 
+#include "Logic/Entity/Messages/IsTouched.h"
+
 namespace Logic 
 {
 	IMP_FACTORY(CSwitchTrigger);
@@ -58,33 +60,32 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	bool CSwitchTrigger::accept(const TMessage &message)
+	bool CSwitchTrigger::accept(IMessage *message)
 	{
-		return message._type == Message::TOUCHED ||
-			message._type == Message::UNTOUCHED;
+		return !message->getType().compare("CIsTouched");
 
 	} // accept
 	
 	//---------------------------------------------------------
 
-	void CSwitchTrigger::process(const TMessage &message)
+	void CSwitchTrigger::process(IMessage *message)
 	{
-		switch(message._type)
+		if (!message->getType().compare("CIsTouched"))
 		{
-		case Message::TOUCHED:
-		case Message::UNTOUCHED:
-			if(_target)
+			CIsTouched *m = static_cast <CIsTouched*> (message);
+
+			if (_target)
 			{
-				TMessage m;
-				m._type = Message::SWITCH;
-				if (message._type == Message::TOUCHED) {
-					m._int = 1;
-				} else {
-					m._int = 0;
-				}
+				TMessage m2;
+				m2._type = Message::SWITCH;
+
+				if (m->getTouched())
+					m2._int = 1;
+				else
+					m2._int = 0;
+
 				_target->emitMessage(m);
 			}
-			break;
 		}
 
 	} // process

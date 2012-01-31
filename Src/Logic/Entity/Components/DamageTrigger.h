@@ -19,7 +19,7 @@ entidad es tocada. El mensaje se envía a la entidad que se ha tocado.
 namespace Logic 
 {
 	/**
-	Este componente procesa mensajes de tipo TOUCHED (indican que la entidad ha 
+	Este componente procesa mensajes de tipo CIsTouched (indican que la entidad ha 
 	sido tocada) para enviar un mensaje CDamaged a la entidad que tocó.
 	<p>
 	El daño que recibe la entidad se especifica en el mapa con el atributo "damage".
@@ -46,15 +46,15 @@ namespace Logic
 		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 
 		/**
-		Este componente sólo acepta mensajes de tipo TOUCHED.
+		Este componente sólo acepta mensajes de tipo CIsTouched.
 		*/
-		virtual bool accept(const TMessage &message);
+		virtual bool accept(IMessage *message);
 
 		/**
-		Al recibir un mensaje TOUCHED se envía otro mensaje de tipo CDamaged a la
+		Al recibir un mensaje CIsTouched se envía otro mensaje de tipo CDamaged a la
 		entidad tocada.
 		*/
-		virtual void process(const TMessage &message);
+		virtual void process(IMessage *message);
 
 	protected:
 

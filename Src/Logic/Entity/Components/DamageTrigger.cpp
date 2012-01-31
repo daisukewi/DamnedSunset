@@ -17,7 +17,8 @@ entidad es tocada. El mensaje se envía a la entidad que se ha tocado.
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
 
-#include "Logic\Entity\Messages\Damaged.h"
+#include "Logic/Entity/Messages/Damaged.h"
+#include "Logic/Entity/Messages/IsTouched.h"
 
 namespace Logic 
 {
@@ -39,25 +40,26 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	bool CDamageTrigger::accept(const TMessage &message)
+	bool CDamageTrigger::accept(IMessage *message)
 	{
-		return message._type == Message::TOUCHED;
+		return !message->getType().compare("CIsTouched");
 
 	} // accept
 	
 	//---------------------------------------------------------
 
-	void CDamageTrigger::process(const TMessage &message)
+	void CDamageTrigger::process(IMessage *message)
 	{
-		switch(message._type)
+		if (!message->getType().compare("CIsTouched"))
 		{
-		case Message::TOUCHED:
+			CIsTouched *m = static_cast <CIsTouched*> (message);
+
+			if (m->getTouched())
 			{
-				CDamaged *m = new CDamaged();
-				m->setHurt(_damage);
-				message._entity->emitMessage(m);
+				CDamaged *m2 = new CDamaged();
+				m2->setHurt(_damage);
+				m->getEntity()->emitMessage(m2);
 			}
-			break;
 		}
 
 	} // process

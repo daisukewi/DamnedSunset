@@ -19,7 +19,7 @@ entidad cuando su entidad es tocada o dejada de ser tocada.
 namespace Logic 
 {
 /**
-	Este componente procesa mensajes de tipo TOUCHED o UNTOUCHED (indican que la 
+	Este componente procesa mensajes de tipo CIsTouched (indica que la 
 	entidad ha sido tocada o dejada de ser tocada) para enviar un mensaje SWITCH a 
 	una entidad objetivo.
 	<p>
@@ -59,27 +59,27 @@ namespace Logic
 		virtual void deactivate();
 
 		/**
-		Este componente sólo acepta mensaje de tipos TOUCHED y UNTOUCHED.
+		Este componente sólo acepta mensaje de tipo CIsTouched.
 		*/
-		virtual bool accept(const TMessage &message);
+		virtual bool accept(IMessage *message);
 
 		/**
-		Al recibir mensaje TOUCHED y UNTOUCHED emite mensajes SWITCH
+		Al recibir mensaje CIsTouched emite mensajes SWITCH
 		a la entidad objetivo para que cambie de posición.
 		*/
-		virtual void process(const TMessage &message);
+		virtual void process(IMessage *message);
 
 	protected:
 
 		/**
 		Nombre de la entidad a la que se desea enviar un SWITCH cuando se 
-		recibe un mensaje TOUCHED o UNTOUCHED.
+		recibe un mensaje CIsTouched.
 		*/
 		std::string _targetName;
 
 		/**
 		Entidad a la que se desea enviar un SWITCH cuando se recibe un mensaje 
-		TOUCHED o UNTOUCHED.
+		CIsTouched.
 		*/
 		CEntity *_target;
 

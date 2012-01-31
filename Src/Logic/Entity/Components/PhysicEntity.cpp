@@ -24,6 +24,7 @@ entidades que no son character controllers.
 #include "Physics/IPhysicObj.h"
 
 #include "Logic/Entity/Messages/SetTransform.h"
+#include "Logic/Entity/Messages/IsTouched.h"
 
 using namespace Logic;
 using namespace Physics;
@@ -125,15 +126,19 @@ void CPhysicEntity::onEntityTrigger(const CEntity *otherEntity, bool enter, bool
 
 	// Construimos un mensaje de tipo TOUCHED o UNTOUCHED y lo enviamos a todos los
 	// componentes de la entidad. 
-	TMessage msg;
-	if (enter) {
-		msg._type = Message::TOUCHED;
-	} else {
-		msg._type = Message::UNTOUCHED;
+	CIsTouched *m = new CIsTouched();
+	if (enter)
+	{
+		m->setTouched(true);
 	}
-	msg._entity = const_cast<CEntity *> (otherEntity);
+	else
+	{
+		m->setTouched(false);
+	}
 
-	_entity->emitMessage(msg);
+	m->setEntity(const_cast<CEntity *> (otherEntity));
+
+	_entity->emitMessage(m);
 }
 
 //---------------------------------------------------------
