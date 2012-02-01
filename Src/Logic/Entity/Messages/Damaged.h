@@ -22,14 +22,14 @@ namespace Logic
 	@author Luis Mendoza
 	@date Enero, 2012
 	*/
-	class CDamaged : public IMessage
+	class MDamaged : public IMessage
 	{
 	public:
 
 		/**
 		Constructor por defecto.
 		*/
-		CDamaged();
+		MDamaged();
 
 		/**
 		Método que establece en el mensaje el daño causado.
@@ -52,7 +52,7 @@ namespace Logic
 		*/
 		float _hurt;
 
-	}; // class CDamaged
+	}; // class MDamaged
 
 } // namespace Logic
 

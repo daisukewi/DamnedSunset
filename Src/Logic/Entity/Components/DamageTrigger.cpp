@@ -1,7 +1,7 @@
 /**
 @file DamageTrigger.cpp
 
-Contiene la implementación del componente que envia un mensaje CDamaged cuando su 
+Contiene la implementación del componente que envia un mensaje MDamaged cuando su 
 entidad es tocada. El mensaje se envía a la entidad que se ha tocado.
  
 @see Logic::CDamageTrigger
@@ -42,7 +42,7 @@ namespace Logic
 
 	bool CDamageTrigger::accept(IMessage *message)
 	{
-		return !message->getType().compare("CIsTouched");
+		return !message->getType().compare("MIsTouched");
 
 	} // accept
 	
@@ -50,13 +50,13 @@ namespace Logic
 
 	void CDamageTrigger::process(IMessage *message)
 	{
-		if (!message->getType().compare("CIsTouched"))
+		if (!message->getType().compare("MIsTouched"))
 		{
-			CIsTouched *m = static_cast <CIsTouched*> (message);
+			MIsTouched *m = static_cast <MIsTouched*> (message);
 
 			if (m->getTouched())
 			{
-				CDamaged *m2 = new CDamaged();
+				MDamaged *m2 = new MDamaged();
 				m2->setHurt(_damage);
 				m->getEntity()->emitMessage(m2);
 			}

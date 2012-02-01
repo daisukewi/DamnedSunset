@@ -12,6 +12,16 @@ Contiene la implementación del mensaje para controlar el lanzamiento de raycasts
 namespace Logic
 {
 
+	MControlRaycast::MControlRaycast()
+	{
+		IMessage(); 
+		
+		_type = "MControlRaycast";
+
+	} // MControlRaycast
+
+	//---------------------------------------------------------
+
 	void MControlRaycast::setAction(TRaycastAction action)
 	{
 		_action = action;

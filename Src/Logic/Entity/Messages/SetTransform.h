@@ -14,6 +14,8 @@ Contiene la declaración del mensaje de aplicar una transformación a una entidad.
 
 #include "Logic/Entity/Message.h"
 
+#include "BaseSubsystems/Math.h"
+
 namespace Logic 
 {
 	/**
@@ -22,14 +24,14 @@ namespace Logic
 	@author Alberto Plaza
 	@date Enero, 2012
 	*/
-	class CSetTransform : public IMessage
+	class MSetTransform : public IMessage
 	{
 	public:
 
 		/**
 		Constructor por defecto.
 		*/
-		CSetTransform();
+		MSetTransform();
 
 		/**
 		Método que establece en el mensaje la matriz de transformación.
@@ -52,7 +54,7 @@ namespace Logic
 		*/
 		Matrix4 _transform;
 
-	}; // class CSetTransform
+	}; // class MSetTransform
 
 } // namespace Logic
 

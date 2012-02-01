@@ -1,7 +1,7 @@
 /**
 @file SwitchTrigger.cpp
 
-Contiene la implementación del componente que envia un mensaje CSwitch a una
+Contiene la implementación del componente que envia un mensaje MSwitch a una
 entidad cuando su entidad es tocada o dejada de ser tocada.
  
 @see Logic::CSwitchTrigger
@@ -63,7 +63,7 @@ namespace Logic
 
 	bool CSwitchTrigger::accept(IMessage *message)
 	{
-		return !message->getType().compare("CIsTouched");
+		return !message->getType().compare("MIsTouched");
 
 	} // accept
 	
@@ -71,13 +71,13 @@ namespace Logic
 
 	void CSwitchTrigger::process(IMessage *message)
 	{
-		if (!message->getType().compare("CIsTouched"))
+		if (!message->getType().compare("MIsTouched"))
 		{
-			CIsTouched *m = static_cast <CIsTouched*> (message);
+			MIsTouched *m = static_cast <MIsTouched*> (message);
 
 			if (_target)
 			{
-				Logic::CSwitch *m2 = new Logic::CSwitch();
+				Logic::MSwitch *m2 = new Logic::MSwitch();
 
 				if (m->getTouched())
 					m2->setState(1);

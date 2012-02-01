@@ -66,7 +66,7 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	bool CEnemyController::accept(const TMessage &message)
+	bool CEnemyController::accept(IMessage *message)
 	{
 		return false;
 
@@ -74,7 +74,7 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	void CEnemyController::process(const TMessage &message)
+	void CEnemyController::process(IMessage *message)
 	{
 
 	} // process
@@ -93,7 +93,7 @@ namespace Logic
 			_destino.y = 5.0f;
 			_destino.z = rand() % 200 - 100;
 
-			CMoveSteering *m = new CMoveSteering();
+			MMoveSteering *m = new MMoveSteering();
 
 			m->setMovementType(2);
 			m->setTarget(_destino);

@@ -84,7 +84,7 @@ namespace Logic
 
 		/**
 		Método virtual que elige que mensajes son aceptados. Son válidos
-		CCameraControl.
+		MCameraControl.
 
 		@param message Mensaje a chequear.
 		@return true si el mensaje es aceptado.

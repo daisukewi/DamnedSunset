@@ -57,7 +57,7 @@ namespace Logic
 	bool CAnimatedGraphics::accept(IMessage *message)
 	{
 		return CGraphics::accept(message) ||
-			  (message->getType().compare("CSetAnimation") == 0) ||
+			  (message->getType().compare("MSetAnimation") == 0) ||
 			   (message->getType().compare("CStopTransform") == 0);
 
 	} // accept
@@ -68,9 +68,9 @@ namespace Logic
 	{
 		CGraphics::process(message);
 
-		if (!message->getType().compare("CSetAnimation"))
+		if (!message->getType().compare("MSetAnimation"))
 		{
-			CSetAnimation *m = static_cast <CSetAnimation*> (message);
+			MSetAnimation *m = static_cast <MSetAnimation*> (message);
 
 			// Paramos todas las animaciones antes de poner una nueva.
 			// Un control más sofisticado debería permitir interpolación
@@ -78,9 +78,9 @@ namespace Logic
 			_animatedGraphicsEntity->stopAllAnimations();
 			_animatedGraphicsEntity->setAnimation(m->getAnimationName(),m->getLoop());
 		}
-		else if (!message->getType().compare("CStopAnimation"))
+		else if (!message->getType().compare("MStopAnimation"))
 		{
-			CStopAnimation *m = static_cast <CStopAnimation*> (message);
+			MStopAnimation *m = static_cast <MStopAnimation*> (message);
 
 			_animatedGraphicsEntity->stopAnimation(m->getAnimationName());
 		}

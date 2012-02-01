@@ -14,6 +14,8 @@ Contiene la declaración del mensaje de un steering movement.
 
 #include "Logic/Entity/Message.h"
 
+#include "BaseSubsystems/Math.h"
+
 namespace Logic 
 {
 	/**
@@ -22,14 +24,14 @@ namespace Logic
 	@author Luis Mendoza
 	@date Enero, 2012
 	*/
-	class CMoveSteering : public IMessage
+	class MMoveSteering : public IMessage
 	{
 	public:
 
 		/**
 		Constructor por defecto.
 		*/
-		CMoveSteering();
+		MMoveSteering();
 
 		/**
 		Método que establece el tipo de movimiento.
@@ -71,7 +73,7 @@ namespace Logic
 		*/
 		Vector3 _target;
 
-	}; // class CMoveSteering
+	}; // class MMoveSteering
 
 } // namespace Logic
 

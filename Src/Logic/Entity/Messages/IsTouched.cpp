@@ -13,17 +13,17 @@ de estar en contacto.
 namespace Logic
 {
 
-	CIsTouched::CIsTouched()
+	MIsTouched::MIsTouched()
 	{
 		IMessage();
 
-		_type = "CIsTouched";
+		_type = "MIsTouched";
 
-	} // CIsTouched
+	} // MIsTouched
 
 	//---------------------------------------------------------
 
-	void CIsTouched::setTouched(bool touched)
+	void MIsTouched::setTouched(bool touched)
 	{
 		_touched = touched;
 
@@ -31,7 +31,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	bool CIsTouched::getTouched()
+	bool MIsTouched::getTouched()
 	{
 		return _touched;
 
@@ -39,7 +39,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CIsTouched::setEntity(CEntity *entity)
+	void MIsTouched::setEntity(CEntity *entity)
 	{
 		_entity = entity;
 
@@ -47,7 +47,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	CEntity* CIsTouched::getEntity()
+	CEntity* MIsTouched::getEntity()
 	{
 		return _entity;
 	

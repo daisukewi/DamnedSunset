@@ -24,7 +24,7 @@ namespace Logic
 		/**
 		Constructor por defecto.
 		*/
-		MSelectable() : IMessage("MSelectable") {};
+		MSelectable();
 
 	};
 

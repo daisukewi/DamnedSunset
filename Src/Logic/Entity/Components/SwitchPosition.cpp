@@ -62,7 +62,7 @@ namespace Logic
 
 	bool CSwitchPosition::accept(IMessage *message)
 	{
-		return !message->getType().compare("CSwitch");
+		return !message->getType().compare("MSwitch");
 
 	} // accept
 	
@@ -70,9 +70,9 @@ namespace Logic
 
 	void CSwitchPosition::process(IMessage *message)
 	{
-		if (!message->getType().compare("CSwitch"))
+		if (!message->getType().compare("MSwitch"))
 		{
-			CSwitch *m = static_cast <CSwitch*> (message);
+			MSwitch *m = static_cast <MSwitch*> (message);
 			
 			assert((m->getState() >= 0) && (m->getState() <= 1));
 

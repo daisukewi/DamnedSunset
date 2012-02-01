@@ -15,6 +15,8 @@ de los edificios.
 
 #include "Logic/Entity/Component.h"
 
+#include "BaseSubsystems/Math.h"
+
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Logic 
 {

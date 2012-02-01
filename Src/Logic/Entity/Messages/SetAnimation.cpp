@@ -12,17 +12,17 @@ Contiene la implementación del mensaje de poner una animación.
 namespace Logic
 {
 
-	CSetAnimation::CSetAnimation()
+	MSetAnimation::MSetAnimation()
 	{
 		IMessage();
 
-		_type = "CSetAnimation";
+		_type = "MSetAnimation";
 
-	} // CSetAnimation
+	} // MSetAnimation
 
 	//---------------------------------------------------------
 
-	void CSetAnimation::setAnimationName(std::string animationName)
+	void MSetAnimation::setAnimationName(std::string animationName)
 	{
 		_animationName = animationName;
 
@@ -30,7 +30,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	std::string CSetAnimation::getAnimationName()
+	std::string MSetAnimation::getAnimationName()
 	{
 		return _animationName;
 
@@ -38,7 +38,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CSetAnimation::setLoop(bool loop)
+	void MSetAnimation::setLoop(bool loop)
 	{
 		_loop = loop;
 
@@ -46,7 +46,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	bool CSetAnimation::getLoop()
+	bool MSetAnimation::getLoop()
 	{
 		return _loop;
 

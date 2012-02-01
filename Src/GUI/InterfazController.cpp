@@ -102,7 +102,7 @@ namespace GUI {
 
 	void CInterfazController::tick(unsigned int msecs)
 	{
-		Logic::CDamaged *m = new Logic::CDamaged();
+		Logic::MDamaged *m = new Logic::MDamaged();
 		m->setHurt(msecs/1000.0f);
 
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack")->emitMessage(m);

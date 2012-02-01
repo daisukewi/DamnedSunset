@@ -86,7 +86,7 @@ namespace Logic
 		if(entityInfo->hasAttribute("maxLife"))
 			_maxLife = entityInfo->getFloatAttribute("maxLife");
 
-		_entity->emitMessage(new Logic::CCreateBillboard());
+		_entity->emitMessage(new Logic::MCreateBillboard());
 
 		return true;
 
@@ -96,7 +96,7 @@ namespace Logic
 
 	bool CLife::accept(IMessage *message)
 	{
-		return (message->getType().compare("CDamaged") == 0) || !message->getType().compare("CSendBillboard");
+		return (message->getType().compare("MDamaged") == 0) || !message->getType().compare("MSendBillboard");
 
 	} // accept
 	
@@ -104,9 +104,9 @@ namespace Logic
 
 	void CLife::process(IMessage *message)
 	{
-		if (!message->getType().compare("CDamaged"))
+		if (!message->getType().compare("MDamaged"))
 		{
-				CDamaged *md = static_cast <CDamaged*> (message);
+				MDamaged *md = static_cast <MDamaged*> (message);
 				// Disminuir la vida de la entidad
 				_life -= md->getHurt();
 				
@@ -137,10 +137,10 @@ namespace Logic
 					GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('3',_life/_maxLife);
 				}
 		}
-		else if (!message->getType().compare("CSendBillboard"))
+		else if (!message->getType().compare("MSendBillboard"))
 		{
 			//Recibe el billboardset
-			CSendBillboard *m = static_cast <CSendBillboard*> (message);
+			MSendBillboard *m = static_cast <MSendBillboard*> (message);
 			_billboardSet = m->getBillboarSet();
 			_billboardSet->setMaterialName("barraVida");
 			crearBillboard(_billboardSet, _life/_maxLife);

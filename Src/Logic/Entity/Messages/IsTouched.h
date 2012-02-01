@@ -26,32 +26,40 @@ namespace Logic
 	@author Alberto Plaza
 	@date Enero, 2012
 	*/
-	class CIsTouched : public IMessage
+	class MIsTouched : public IMessage
 	{
 	public:
 
 		/**
 		Constructor por defecto.
 		*/
-		CIsTouched();
+		MIsTouched();
 
 		/**
 		Método que establece el valor de tocado o no en el mensaje.
+
+		@param touched Valor a almacenar en el mensaje.
 		*/
 		void setTouched(bool touched);
 
 		/**
 		Método que devuelve el valor de tocado almacenado en el mensaje.
+
+		@return El valor alamacenado en el mensaje.
 		*/
 		bool getTouched();
 
 		/**
 		Método que establece la entidad a la que hay que avisar.
+
+		@param entity Entidad a guardar en el mensaje.
 		*/
 		void setEntity(CEntity *entity);
 
 		/**
 		Método que devuelve la entidad almacenada en el mensaje.
+
+		@return Entidad guardada en el mensaje.
 		*/
 		CEntity* getEntity();
 
@@ -67,7 +75,7 @@ namespace Logic
 		*/
 		CEntity *_entity;
 
-	}; // class CIsTouched
+	}; // class MIsTouched
 
 } // namespace Logic
 

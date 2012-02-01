@@ -22,22 +22,26 @@ namespace Logic
 	@author Alberto Plaza
 	@date Enero, 2012
 	*/
-	class CSwitch : public IMessage
+	class MSwitch : public IMessage
 	{
 	public:
 
 		/**
 		Constructor por defecto.
 		*/
-		CSwitch();
+		MSwitch();
 		
 		/**
 		Método que establece en el mensaje el estado.
+
+		@param state Estado a almacenar en el mensaje.
 		*/
 		void setState(int state);
 
 		/**
 		Método para obtener el valor del estado almacenado en el mensaje.
+
+		@return El estado almacenado en el mensaje.
 		*/
 		int getState();
 
@@ -48,7 +52,7 @@ namespace Logic
 		*/
 		int _state;
 
-	}; // class CSwitch
+	}; // class MSwitch
 
 } // namespace Logic
 

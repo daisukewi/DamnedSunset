@@ -5,10 +5,10 @@
 
 namespace Logic
 {
-	CCreateBillboard::CCreateBillboard()
+	MCreateBillboard::MCreateBillboard()
 	{
 		IMessage();
-		_type = "CCreateBillboard";
+		_type = "MCreateBillboard";
 	}
 }
 #endif

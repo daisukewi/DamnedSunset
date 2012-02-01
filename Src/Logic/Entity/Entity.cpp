@@ -209,39 +209,13 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	bool CEntity::emitMessage(const TMessage &message, IComponent* emitter)
-	{
-		// Interceptamos los mensajes que además de al resto de los
-		// componentes, interesan a la propia entidad.
-		// @MENSAJES
-		switch(message._type)
-		{
-		case Message::SET_TRANSFORM:
-			_transform = message._transform;
-		}
-
-		TComponentList::const_iterator it;
-		// Para saber si alguien quiso el mensaje.
-		bool anyReceiver = false;
-		for( it = _components.begin(); it != _components.end(); ++it )
-		{
-			// Al emisor no se le envia el mensaje.
-			if( emitter != (*it) )
-				anyReceiver = (*it)->set(message) || anyReceiver;
-		}
-		return anyReceiver;
-
-	} // emitMessage
-
-	//---------------------------------------------------------
-
 	bool CEntity::emitMessage(IMessage *message, IComponent* emitter)
 	{
 		// Interceptamos los mensajes que además de al resto de los
 		// componentes, interesan a la propia entidad.
-		if (!message->getType().compare("CSetTransform"))
+		if (!message->getType().compare("MSetTransform"))
 		{
-			CSetTransform *m = static_cast <CSetTransform*> (message);
+			MSetTransform *m = static_cast <MSetTransform*> (message);
 
 			_transform = m->getTransform();
 		}
@@ -271,7 +245,7 @@ namespace Logic
 		_transform = transform;
 
 		// Avisamos a los componentes del cambio.
-		CSetTransform *m = new CSetTransform();
+		MSetTransform *m = new MSetTransform();
 
 		m->setTransform(_transform);
 
@@ -286,7 +260,7 @@ namespace Logic
 		_transform.setTrans(position);
 
 		// Avisamos a los componentes del cambio.
-		CSetTransform *m = new CSetTransform();
+		MSetTransform *m = new MSetTransform();
 
 		m->setTransform(_transform);
 
@@ -301,7 +275,7 @@ namespace Logic
 		_transform = orientation;
 
 		// Avisamos a los componentes del cambio.
-		CSetTransform *m = new CSetTransform();
+		MSetTransform *m = new MSetTransform();
 
 		m->setTransform(_transform);
 
@@ -326,7 +300,7 @@ namespace Logic
 		Math::setYaw(yaw,_transform);
 
 		// Avisamos a los componentes del cambio.
-		CSetTransform *m = new CSetTransform();
+		MSetTransform *m = new MSetTransform();
 
 		m->setTransform(_transform);
 
@@ -341,7 +315,7 @@ namespace Logic
 		Math::yaw(yaw,_transform);
 
 		// Avisamos a los componentes del cambio.
-		CSetTransform *m = new CSetTransform();
+		MSetTransform *m = new MSetTransform();
 
 		m->setTransform(_transform);
 

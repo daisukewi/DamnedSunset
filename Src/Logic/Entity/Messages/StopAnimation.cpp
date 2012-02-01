@@ -12,17 +12,17 @@ Contiene la implementación del mensaje de parar una animación.
 namespace Logic
 {
 
-	CStopAnimation::CStopAnimation()
+	MStopAnimation::MStopAnimation()
 	{
 		IMessage();
 
-		_type = "CStopAnimation";
+		_type = "MStopAnimation";
 
-	} // CStopAnimation
+	} // MStopAnimation
 
 	//---------------------------------------------------------
 
-	void CStopAnimation::setAnimationName(std::string animationName)
+	void MStopAnimation::setAnimationName(std::string animationName)
 	{
 		_animationName = animationName;
 
@@ -30,7 +30,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	std::string CStopAnimation::getAnimationName()
+	std::string MStopAnimation::getAnimationName()
 	{
 		return _animationName;
 

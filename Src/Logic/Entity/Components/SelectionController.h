@@ -14,6 +14,8 @@ Contiene la declaración del componente que se encarga de gestionar la entidad se
 
 #include "Logic/Entity/Component.h"
 
+#include "BaseSubsystems/Math.h"
+
 //declaración de la clase
 namespace Logic 
 {

@@ -45,7 +45,7 @@ namespace Logic
 		/**
 		Constructor por defecto.
 		*/
-		MMouseEvent() : IMessage("MMouseEvent") {};
+		MMouseEvent();
 
 		/**
 		Método que establece la acción que se quiere realizar con este mensaje.

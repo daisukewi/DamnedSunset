@@ -14,6 +14,8 @@ Contiene la declaración del mensaje de mandar andar a una entidad.
 
 #include "Logic/Entity/Message.h"
 
+#include "BaseSubsystems/Math.h"
+
 namespace Logic 
 {
 	/**
@@ -22,22 +24,26 @@ namespace Logic
 	@author Alberto Plaza
 	@date Enero, 2012
 	*/
-	class CAvatarWalk : public IMessage
+	class MAvatarWalk : public IMessage
 	{
 	public:
 
 		/**
 		Constructor por defecto.
 		*/
-		CAvatarWalk();
+		MAvatarWalk();
 
 		/**
 		Método que establece el vector de movimiento en el mensaje.
+
+		@param movement Vector de movimiento para almacenar en el mensaje.
 		*/
 		void setMovement(Vector3 movement);
 
 		/**
 		Método que devuelve el vector de movimiento almacenado en el mensaje.
+
+		@return El vector de movimiento almacenado en el mensaje
 		*/
 		Vector3 getMovement();
 
@@ -48,7 +54,7 @@ namespace Logic
 		*/
 		Vector3 _movement;
 
-	}; // class CAvatarWalk
+	}; // class MAvatarWalk
 
 } // namespace Logic
 

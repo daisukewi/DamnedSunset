@@ -122,14 +122,14 @@ namespace Logic
 
 	//---------------------------------------------------------
 	/** 
-	Envía un mensaje CMoveSteering.
+	Envía un mensaje MMoveSteering.
 
 	@param target Destino.
 	@movementType Tipo de movimiento.
 	*/
 	void CRouteTo::sendMoveMessage(Vector3 target, int movementType)
 	{
-		CMoveSteering *m = new CMoveSteering();
+		MMoveSteering *m = new MMoveSteering();
 
 		m->setTarget(Vector3(target.x, 0.0,target.z));
 		m->setMovementType(movementType);

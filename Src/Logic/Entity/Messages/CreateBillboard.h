@@ -10,10 +10,10 @@
 namespace Logic 
 {
 
-	class CCreateBillboard : public IMessage
+	class MCreateBillboard : public IMessage
 	{
 	public:
-		CCreateBillboard();
+		MCreateBillboard();
 
 	protected:
 		

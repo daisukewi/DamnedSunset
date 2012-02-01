@@ -22,14 +22,14 @@ namespace Logic
 	@author Alberto Plaza
 	@date Enero, 2012
 	*/
-	class CStopAnimation : public IMessage
+	class MStopAnimation : public IMessage
 	{
 	public:
 
 		/**
 		Constructor por defecto.
 		*/
-		CStopAnimation();
+		MStopAnimation();
 
 		/**
 		Método que establece el nombre de la animación en el mensaje.
@@ -52,7 +52,7 @@ namespace Logic
 		*/
 		std::string _animationName;
 
-	}; // class CStopAnimation
+	}; // class MStopAnimation
 
 } // namespace Logic
 

@@ -12,17 +12,17 @@ Contiene la implementación del mensaje de aplicar una transformación a una entid
 namespace Logic
 {
 
-	CSetTransform::CSetTransform()
+	MSetTransform::MSetTransform()
 	{
 		IMessage();
 
-		_type = "CSetTransform";
+		_type = "MSetTransform";
 
-	} // CSetTransform
+	} // MSetTransform
 
 	//---------------------------------------------------------
 
-	void CSetTransform::setTransform(Matrix4 transform)
+	void MSetTransform::setTransform(Matrix4 transform)
 	{
 		_transform = transform;
 
@@ -30,7 +30,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	Matrix4 CSetTransform::getTransform()
+	Matrix4 MSetTransform::getTransform()
 	{
 		return _transform;
 

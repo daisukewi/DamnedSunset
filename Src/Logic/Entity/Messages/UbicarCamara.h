@@ -3,13 +3,15 @@
 
 #include "Logic/Entity/Message.h"
 
+#include "BaseSubsystems/Math.h"
+
 namespace Logic 
 {
 
-	class CUbicarCamara : public IMessage
+	class MUbicarCamara : public IMessage
 	{
 	public:
-		CUbicarCamara();
+		MUbicarCamara();
 
 		void setPosition(Vector3 pos) {_position = pos;}
 		Vector3 getPosition() {return _position;}

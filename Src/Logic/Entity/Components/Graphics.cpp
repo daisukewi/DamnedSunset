@@ -99,7 +99,7 @@ namespace Logic
 
 	bool CGraphics::accept(IMessage *message)
 	{
-		return (message->getType().compare("CSetTransform") == 0 || !message->getType().compare("CCreateBillboard"));
+		return (message->getType().compare("MSetTransform") == 0 || !message->getType().compare("MCreateBillboard"));
 
 	} // accept
 
@@ -107,17 +107,17 @@ namespace Logic
 
 	void CGraphics::process(IMessage *message)
 	{
-		if (!message->getType().compare("CSetTransform"))
+		if (!message->getType().compare("MSetTransform"))
 		{
-			CSetTransform *m = static_cast <CSetTransform*> (message);
+			MSetTransform *m = static_cast <MSetTransform*> (message);
 
 			_graphicsEntity->setTransform(m->getTransform());
-		} else 	if (!message->getType().compare("CCreateBillboard"))
+		} else 	if (!message->getType().compare("MCreateBillboard"))
 		{
-			CCreateBillboard *m = static_cast <CCreateBillboard*> (message);
+			MCreateBillboard *m = static_cast <MCreateBillboard*> (message);
 			Ogre::BillboardSet * billboardSet = _graphicsEntity->createBillBoard();
 			
-			CSendBillboard *m2 = new CSendBillboard();
+			MSendBillboard *m2 = new MSendBillboard();
 			m2->setBillboardSet(billboardSet);
 			_entity->emitMessage(m2);
 		}

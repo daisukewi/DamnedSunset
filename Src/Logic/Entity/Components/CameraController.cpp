@@ -50,7 +50,7 @@ namespace Logic
 
 	bool CCameraController::accept(IMessage *message)
 	{
-		return (!message->getType().compare("CCameraControl") || !message->getType().compare("CUbicarCamara"));
+		return (!message->getType().compare("MCameraControl") || !message->getType().compare("MUbicarCamara"));
 
 	} // accept
 	
@@ -58,9 +58,9 @@ namespace Logic
 
 	void CCameraController::process(IMessage *message)
 	{
-		if (!message->getType().compare("CCameraControl"))
+		if (!message->getType().compare("MCameraControl"))
 		{
-			CCameraControl *m = static_cast <CCameraControl*> (message);
+			MCameraControl *m = static_cast <MCameraControl*> (message);
 
 			_mouse = m->getMouse();
 
@@ -77,9 +77,9 @@ namespace Logic
 			else if(!m->getMovement().compare("stopLeftRight"))
 				stopLeftRight();
 		}
-		else if (!message->getType().compare("CUbicarCamara"))
+		else if (!message->getType().compare("MUbicarCamara"))
 		{
-			CUbicarCamara *m = static_cast <CUbicarCamara*> (message);
+			MUbicarCamara *m = static_cast <MUbicarCamara*> (message);
 			_entity->setPosition(m->getPosition());
 		}
 

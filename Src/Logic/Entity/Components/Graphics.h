@@ -32,7 +32,7 @@ namespace Logic
 	que especializan éste (CAnimatedGraphics y CStaticGraphics).
 	<p>
 	Acepta mensajes de cambio de posición y orientación (matriz de 
-	transformación) mediante el mensaje CSetTransform.
+	transformación) mediante el mensaje MSetTransform.
 	
     @ingroup logicGroup
 
@@ -71,7 +71,7 @@ namespace Logic
 
 		/**
 		Método virtual que elige que mensajes son aceptados. Son válidos
-		CSetTransform.
+		MSetTransform.
 
 		@param message Mensaje a chequear.
 		@return true si el mensaje es aceptado.

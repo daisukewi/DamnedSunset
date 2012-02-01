@@ -5,10 +5,10 @@
 
 namespace Logic
 {
-	CSendBillboard::CSendBillboard()
+	MSendBillboard::MSendBillboard()
 	{
 		IMessage();
-		_type = "CSendBillboard";
+		_type = "MSendBillboard";
 	}
 }
 #endif

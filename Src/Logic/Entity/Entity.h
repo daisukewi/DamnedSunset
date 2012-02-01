@@ -166,8 +166,6 @@ namespace Logic
 		@param emitter Componente emisor, si lo hay. No se le enviará el mensaje.
 		@return true si al menos un componente aceptó el mensaje
 		*/
-		bool emitMessage(const TMessage &message, IComponent* emitter = 0);
-		// @MENSAJES
 		bool emitMessage(IMessage *message, IComponent* emitter = 0);
 
 		/**

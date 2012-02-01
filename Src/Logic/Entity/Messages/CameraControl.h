@@ -22,14 +22,14 @@ namespace Logic
 	@author Alberto Plaza
 	@date Enero, 2012
 	*/
-	class CCameraControl : public IMessage
+	class MCameraControl : public IMessage
 	{
 	public:
 
 		/**
 		Constructor por defecto.
 		*/
-		CCameraControl();
+		MCameraControl();
 
 		/**
 		Método que devuelve si el ratón ha sido el culpable del movimiento o no.
@@ -71,7 +71,7 @@ namespace Logic
 		*/
 		std::string _movement;
 
-	}; // class CCameraControl
+	}; // class MCameraControl
 
 } // namespace Logic
 

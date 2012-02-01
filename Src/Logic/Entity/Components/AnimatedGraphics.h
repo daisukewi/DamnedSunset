@@ -32,7 +32,7 @@ namespace Logic
 	<p>
 	Además de los mensajes de cambio de posición y de cambio de orientación
 	que acepta CGraphics, acepta mensajes para poner o parar una animación
-	(CSetAnimation y CStopAnimation).
+	(MSetAnimation y MStopAnimation).
 	
     @ingroup logicGroup
 
@@ -53,7 +53,7 @@ namespace Logic
 
 		/**
 		Método virtual que elige que mensajes son aceptados. Son válidos
-		CSetAnimation y CStopAnimation.
+		MSetAnimation y MStopAnimation.
 
 		@param message Mensaje a chequear.
 		@return true si el mensaje es aceptado.

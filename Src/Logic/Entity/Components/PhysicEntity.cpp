@@ -72,16 +72,16 @@ bool CPhysicEntity::spawn(CEntity *entity, CMap *map, const Map::CEntity *entity
 
 bool CPhysicEntity::accept(IMessage *message)
 {
-	return (message->getType().compare("CSetTransform") == 0);
+	return (message->getType().compare("MSetTransform") == 0);
 }
 
 //---------------------------------------------------------
 
 void CPhysicEntity::process(IMessage *message)
 {
-	if (!message->getType().compare("CSetTransform"))
+	if (!message->getType().compare("MSetTransform"))
 	{
-		CSetTransform *m = static_cast <CSetTransform*> (message);
+		MSetTransform *m = static_cast <MSetTransform*> (message);
 
 		// Anotamos la transformación para usarla posteriormente en el método 
 		// tick. De esa forma, si recibimos varios mensajes en el mismo ciclo 
@@ -98,7 +98,7 @@ void CPhysicEntity::tick(unsigned int msecs)
 	IComponent::tick(msecs);
 
 	// Si el objeto físico es kinemático intentamos moverlo a la posición
-	// recibida en el último mensaje de tipo CSetTransform
+	// recibida en el último mensaje de tipo MSetTransform
 	if (_physicObj->IsKinematic()) {
 		_physicServer->move(_physicObj, _transform);
 	} else {
@@ -126,7 +126,7 @@ void CPhysicEntity::onEntityTrigger(const CEntity *otherEntity, bool enter, bool
 
 	// Construimos un mensaje de tipo TOUCHED o UNTOUCHED y lo enviamos a todos los
 	// componentes de la entidad. 
-	CIsTouched *m = new CIsTouched();
+	MIsTouched *m = new MIsTouched();
 	if (enter)
 	{
 		m->setTouched(true);

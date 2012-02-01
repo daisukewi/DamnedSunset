@@ -22,14 +22,14 @@ namespace Logic
 	@author Alberto Plaza
 	@date Enero, 2012
 	*/
-	class CSetAnimation : public IMessage
+	class MSetAnimation : public IMessage
 	{
 	public:
 
 		/**
 		Constructor por defecto.
 		*/
-		CSetAnimation();
+		MSetAnimation();
 
 		/**
 		Método que establece el nombre de la animación en el mensaje.
@@ -71,7 +71,7 @@ namespace Logic
 		*/
 		bool _loop;
 
-	}; // class CSetAnimation
+	}; // class MSetAnimation
 
 } // namespace Logic
 

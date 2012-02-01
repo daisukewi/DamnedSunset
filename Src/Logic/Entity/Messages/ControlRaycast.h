@@ -14,6 +14,10 @@ Contiene la declaración del mensaje para controlar el lanzamiento de raycast.
 
 #include "Logic/Entity/Message.h"
 
+#include "Logic/Entity/Entity.h"
+
+#include "BaseSubsystems/Math.h"
+
 namespace Logic
 {
 
@@ -46,7 +50,7 @@ namespace Logic
 		/**
 		Constructor por defecto.
 		*/
-		MControlRaycast() : IMessage("MControlRaycast") {};
+		MControlRaycast();
 
 		/**
 		Método que establece la acción que se quiere realizar con este mensaje.

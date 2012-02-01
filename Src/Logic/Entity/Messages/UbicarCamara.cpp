@@ -14,10 +14,10 @@ Contiene la implementación del mensaje de control de la cámara.
 
 namespace Logic
 {
-	CUbicarCamara::CUbicarCamara()
+	MUbicarCamara::MUbicarCamara()
 	{
 		IMessage();
-		_type = "CUbicarCamara";
+		_type = "MUbicarCamara";
 	}
 }
 #endif

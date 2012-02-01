@@ -14,6 +14,8 @@ Contiene la declaración del mensaje que avisa del movimiento del ratón.
 
 #include "Logic/Entity/Message.h"
 
+#include "BaseSubsystems/Math.h"
+
 namespace Logic 
 {
 	/**

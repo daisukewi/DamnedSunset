@@ -12,17 +12,17 @@ Contiene la implementación del mensaje de un steering movement.
 namespace Logic
 {
 
-	CMoveSteering::CMoveSteering()
+	MMoveSteering::MMoveSteering()
 	{
 		IMessage();
 
-		_type = "CMoveSteering";
+		_type = "MMoveSteering";
 
-	} // CMoveSteering
+	} // MMoveSteering
 
 	//---------------------------------------------------------
 
-	void CMoveSteering::setMovementType(int movementType)
+	void MMoveSteering::setMovementType(int movementType)
 	{
 		_movType = movementType;
 
@@ -30,7 +30,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	int CMoveSteering::getMovementType()
+	int MMoveSteering::getMovementType()
 	{
 		return _movType;
 
@@ -38,7 +38,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CMoveSteering::setTarget(Vector3 target)
+	void MMoveSteering::setTarget(Vector3 target)
 	{
 		_target = target;
 
@@ -46,7 +46,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	Vector3 CMoveSteering::getTarget()
+	Vector3 MMoveSteering::getTarget()
 	{
 		return _target;
 

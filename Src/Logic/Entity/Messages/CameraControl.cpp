@@ -12,17 +12,17 @@ Contiene la implementación del mensaje de control de la cámara.
 namespace Logic
 {
 
-	CCameraControl::CCameraControl()
+	MCameraControl::MCameraControl()
 	{
 		IMessage();
 
-		_type = "CCameraControl";
+		_type = "MCameraControl";
 
-	} // CCameraControl
+	} // MCameraControl
 
 	//---------------------------------------------------------
 
-	bool CCameraControl::getMouse()
+	bool MCameraControl::getMouse()
 	{
 		return _mouse;
 
@@ -30,7 +30,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CCameraControl::setMouse(bool mouse)
+	void MCameraControl::setMouse(bool mouse)
 	{
 		_mouse = mouse;
 
@@ -38,7 +38,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	std::string CCameraControl::getMovement()
+	std::string MCameraControl::getMovement()
 	{
 		return _movement;
 
@@ -46,7 +46,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CCameraControl::setMovement(std::string movement)
+	void MCameraControl::setMovement(std::string movement)
 	{
 		_movement = movement;
 

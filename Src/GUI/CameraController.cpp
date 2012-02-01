@@ -50,7 +50,7 @@ namespace GUI {
 	{
 		if(_controlledTarget)
 		{
-			Logic::CCameraControl *m = new Logic::CCameraControl();
+			Logic::MCameraControl *m = new Logic::MCameraControl();
 
 			// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
 			m->setMouse(false);
@@ -82,7 +82,7 @@ namespace GUI {
 	{
 		if(_controlledTarget)
 		{
-			Logic::CCameraControl *m = new Logic::CCameraControl();
+			Logic::MCameraControl *m = new Logic::MCameraControl();
 
 			// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
 			m->setMouse(false);
@@ -111,7 +111,7 @@ namespace GUI {
 	{
 		if(_controlledTarget)
 		{
-			Logic::CCameraControl *m1 = new Logic::CCameraControl();
+			Logic::MCameraControl *m1 = new Logic::MCameraControl();
 
 			// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
 			m1->setMouse(true);
@@ -125,7 +125,7 @@ namespace GUI {
 
 			_controlledTarget->emitMessage(m1);
 
-			Logic::CCameraControl *m2 = new Logic::CCameraControl();
+			Logic::MCameraControl *m2 = new Logic::MCameraControl();
 
 			// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
 			m2->setMouse(true);

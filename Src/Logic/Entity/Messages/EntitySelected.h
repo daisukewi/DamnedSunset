@@ -14,6 +14,8 @@ Contiene la declaración del mensaje para avisar que se ha seleccionado una entid
 
 #include "Logic/Entity/Message.h"
 
+#include "Logic/Entity/Entity.h"
+
 namespace Logic
 {
 
@@ -30,7 +32,7 @@ namespace Logic
 		/**
 		Constructor por defecto.
 		*/
-		MEntitySelected() : IMessage("MEntitySelected") {};
+		MEntitySelected();
 
 		/**
 		Método que establece la entidad que se ha seleccionado.

@@ -12,6 +12,16 @@ Contiene la implementación del mensaje para controlar avisar de los eventos del 
 namespace Logic
 {
 
+	MMouseEvent::MMouseEvent()
+	{
+		IMessage();
+
+		_type = "MMouseEvent";
+
+	} // MMouseEvent
+
+	//---------------------------------------------------------
+
 	void MMouseEvent::setAction(TMouseAction action)
 	{
 		_action = action;

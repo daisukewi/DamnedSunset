@@ -169,7 +169,7 @@ namespace Logic
 			// Realizar acciones sobre el suelo
 			} else if (!colEntity->getType().compare("World"))
 			{
-				CMoveSteering *m_movement = new CMoveSteering();
+				MMoveSteering *m_movement = new MMoveSteering();
 				m_movement->setMovementType(AI::IMovement::MOVEMENT_DYNAMIC_ARRIVE);
 				m_movement->setTarget(colPoint);
 				_selectedEntity->emitMessage(m_movement, this);
@@ -179,7 +179,7 @@ namespace Logic
 			{
 				if (!_selectedEntity->getType().compare("Player"))
 				{
-					CDamaged *m_damage = new CDamaged();
+					MDamaged *m_damage = new MDamaged();
 					m_damage->setHurt(10.0f);
 					colEntity->emitMessage(m_damage, this);
 				}
@@ -225,7 +225,7 @@ namespace Logic
 		_selectedEntity = selectedEntity;
 
 		//Mandamos un mensaje a la camara para que se centre en el jugador
-		CUbicarCamara *m_ubicar = new CUbicarCamara();
+		MUbicarCamara *m_ubicar = new MUbicarCamara();
 		m_ubicar->setPosition(_selectedEntity->getPosition());
 		_entity->emitMessage(m_ubicar, this);
 

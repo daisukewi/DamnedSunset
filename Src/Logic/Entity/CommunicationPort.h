@@ -67,8 +67,6 @@ namespace Logic
 		@param message Mensaje a procesar.
 		@return true si el mensaje ha sido admitido y puesto en cola.
 		*/
-		bool set(const TMessage &message);
-		// @MENSAJES
 		bool set(IMessage *message);
 
 		/**
@@ -80,8 +78,6 @@ namespace Logic
 		@param message Mensaje a chequear.
 		@return true si el mensaje es aceptado.
 		*/
-		virtual bool accept(const TMessage &message) {return false;}
-		// @MENSAJES
 		virtual bool accept(IMessage *message) {return false;}
 
 		/**
@@ -89,8 +85,6 @@ namespace Logic
 
 		@param message Mensaje a procesar.
 		*/
-		virtual void process(const TMessage &message) {}
-		// @MENSAJES
 		virtual void process(IMessage *message) {}
 
 		/**
@@ -103,16 +97,12 @@ namespace Logic
 		/**
 		Tipo lista de CEntity donde guardaremos los pendientes de borrar.
 		*/
-		typedef std::list<TMessage> TMessageList;
-		// @MENSAJES
-		typedef std::list<IMessage*> TMessageListPtr;
+		typedef std::list<IMessage*> TMessageList;
 
 		/**
 		Lista de mensajes por procesar
 		*/
 		TMessageList _messages;
-		// @MENSAJES
-		TMessageListPtr _messagesPtr;
 
 	}; // CCommunicationPort
 

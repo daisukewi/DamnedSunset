@@ -13,6 +13,16 @@ que se ha seleccionado una entidad.
 namespace Logic
 {
 
+	MEntitySelected::MEntitySelected()
+	{
+		IMessage();
+
+		_type = "MEntitySelected";
+
+	} // MEntitySelected
+
+	//---------------------------------------------------------
+
 	void MEntitySelected::setSelectedEntity(CEntity *entity)
 	{
 		_selectedEntity = entity;

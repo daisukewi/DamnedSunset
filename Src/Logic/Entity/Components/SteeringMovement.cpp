@@ -119,7 +119,7 @@ namespace Logic
 		// Si tenemos que movernos (no hemos llegado al destino y nuestro movimiento no es NULL)
 		//		Invocar al método move del movimiento actual. 
 		//		Le pasamos la variable _currentProperties, que contiene las velocidades actuales y en la que recogemos las nuevas velocidades y aceleraciones
-		//		Calcular la nueva posición y notificarla a la física para que nos mueva (mensaje CAvatarWalk)
+		//		Calcular la nueva posición y notificarla a la física para que nos mueva (mensaje MAvatarWalk)
 		//		Actualizar las velocidades usando la aceleración que hemos obtenido en _currentProperties
 		//		Las velocidades que tenemos que actualizar también están en _currentProperties para pasárselas en el siguiente tick al movimiento
 
@@ -163,7 +163,7 @@ namespace Logic
 			_yaw->move(msecs, _currentProperties);
 
 			// Enviar un mensaje para que el componente físico mueva el personaje
-			Logic::CAvatarWalk *m = new Logic::CAvatarWalk();
+			Logic::MAvatarWalk *m = new Logic::MAvatarWalk();
 			m->setMovement(_currentProperties.linearSpeed * msecs);
 			_entity->emitMessage(m);
 			
@@ -191,7 +191,7 @@ namespace Logic
 	*/
 	void CSteeringMovement::sendAnimationMessage(std::string animation) 
 	{
-		CSetAnimation *m = new CSetAnimation();
+		MSetAnimation *m = new MSetAnimation();
 
 		m->setAnimationName(animation);
 		m->setLoop(true);
@@ -201,23 +201,23 @@ namespace Logic
 
 	//---------------------------------------------------------
 	/**
-	Este componente sólo acepta mensajes CMoveSteering.
+	Este componente sólo acepta mensajes MMoveSteering.
 	*/
 	bool CSteeringMovement::accept(IMessage *message)
 	{
-		return (message->getType().compare("CMoveSteering") == 0);
+		return (message->getType().compare("MMoveSteering") == 0);
 	} // accept
 
 	//---------------------------------------------------------
 	/**
-	Si se recibe un mensaje CMoveSteering, almacena el vector como 
+	Si se recibe un mensaje MMoveSteering, almacena el vector como 
 	destino del movimiento y el tipo de movimiento.
 	*/
 	void CSteeringMovement::process(IMessage *message)
 	{
-		if (!message->getType().compare("CMoveSteering"))
+		if (!message->getType().compare("MMoveSteering"))
 		{
-			CMoveSteering *m = static_cast <CMoveSteering*> (message);
+			MMoveSteering *m = static_cast <MMoveSteering*> (message);
 			// Anotamos el vector de desplazamiento para usarlo posteriormente en 
 			// el método tick. De esa forma, si recibimos varios mensajes AVATAR_MOVE
 			// en el mismo ciclo sólo tendremos en cuenta el último.

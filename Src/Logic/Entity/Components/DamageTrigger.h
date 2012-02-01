@@ -1,7 +1,7 @@
 /**
 @file DamageTrigger.h
 
-Contiene la declaración de un componente que envia un mensaje CDamaged cuando su 
+Contiene la declaración de un componente que envia un mensaje MDamaged cuando su 
 entidad es tocada. El mensaje se envía a la entidad que se ha tocado.
 
 @see Logic::CDamageTrigger
@@ -19,8 +19,8 @@ entidad es tocada. El mensaje se envía a la entidad que se ha tocado.
 namespace Logic 
 {
 	/**
-	Este componente procesa mensajes de tipo CIsTouched (indican que la entidad ha 
-	sido tocada) para enviar un mensaje CDamaged a la entidad que tocó.
+	Este componente procesa mensajes de tipo MIsTouched (indican que la entidad ha 
+	sido tocada) para enviar un mensaje MDamaged a la entidad que tocó.
 	<p>
 	El daño que recibe la entidad se especifica en el mapa con el atributo "damage".
 	
@@ -46,12 +46,12 @@ namespace Logic
 		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 
 		/**
-		Este componente sólo acepta mensajes de tipo CIsTouched.
+		Este componente sólo acepta mensajes de tipo MIsTouched.
 		*/
 		virtual bool accept(IMessage *message);
 
 		/**
-		Al recibir un mensaje CIsTouched se envía otro mensaje de tipo CDamaged a la
+		Al recibir un mensaje MIsTouched se envía otro mensaje de tipo MDamaged a la
 		entidad tocada.
 		*/
 		virtual void process(IMessage *message);

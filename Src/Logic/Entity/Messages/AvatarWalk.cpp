@@ -12,17 +12,17 @@ Contiene la implementación del mensaje de mandar andar a una entidad.
 namespace Logic
 {
 
-	CAvatarWalk::CAvatarWalk()
+	MAvatarWalk::MAvatarWalk()
 	{
 		IMessage();
 
-		_type = "CAvatarWalk";
+		_type = "MAvatarWalk";
 
-	} // CAvatarWalk
+	} // MAvatarWalk
 
 	//---------------------------------------------------------
 
-	Vector3 CAvatarWalk::getMovement()
+	Vector3 MAvatarWalk::getMovement()
 	{
 		return _movement;
 
@@ -30,7 +30,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CAvatarWalk::setMovement(Vector3 movement)
+	void MAvatarWalk::setMovement(Vector3 movement)
 	{
 		_movement = movement;
 

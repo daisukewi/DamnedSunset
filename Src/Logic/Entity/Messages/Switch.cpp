@@ -12,17 +12,17 @@ Contiene la implementación del mensaje de cambiar de estado una entidad.
 namespace Logic
 {
 
-	CSwitch::CSwitch()
+	MSwitch::MSwitch()
 	{
 		IMessage();
 
-		_type = "CSwitch";
+		_type = "MSwitch";
 
-	} // CSwitch
+	} // MSwitch
 
 	//---------------------------------------------------------
 
-	void CSwitch::setState(int state)
+	void MSwitch::setState(int state)
 	{
 		_state = state;
 	
@@ -30,7 +30,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	int CSwitch::getState()
+	int MSwitch::getState()
 	{
 		return _state;
 	

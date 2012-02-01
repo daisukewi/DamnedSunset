@@ -9,10 +9,10 @@
 namespace Logic 
 {
 
-	class CSendBillboard : public IMessage
+	class MSendBillboard : public IMessage
 	{
 	public:
-		CSendBillboard();
+		MSendBillboard();
 
 		void setBillboardSet(Ogre::BillboardSet* b) {_billboardSet = b;}
 		Ogre::BillboardSet* getBillboarSet() { return _billboardSet;}

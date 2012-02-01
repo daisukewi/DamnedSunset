@@ -22,7 +22,7 @@ namespace Logic
 	Componente que se utiliza para representar jugadores y enemigos en el mundo físico usando 
 	character controllers.
 	<p>
-	Este componente recibe mensajes de tipo CAvatarWalk para mover el controller.
+	Este componente recibe mensajes de tipo MAvatarWalk para mover el controller.
 	<p>
 	La implementación de esta clase también gestiona las diferencias que existen entre el
 	sistema de coordenadas local (SCL) lógico y físico. El SCL que usa la lógica para cada 
@@ -54,14 +54,14 @@ namespace Logic
 		virtual ~CPhysicCharacter();
 
 		/**
-		Este componente sólo acepta mensajes de tipo CAvatarWalk.
+		Este componente sólo acepta mensajes de tipo MAvatarWalk.
 		*/
 		virtual bool accept(IMessage *message);
 		
 		/**
-		Si se recibe un mensaje de tipo CAvatarWalk, se almacena su vector de 
+		Si se recibe un mensaje de tipo MAvatarWalk, se almacena su vector de 
 		desplazamiento para posteriormente mover el character controller en el tick.
-		De este moto, si en un ciclo se reciben varios mensaje de tipo CSetTransform
+		De este moto, si en un ciclo se reciben varios mensaje de tipo MSetTransform
 		sólo tendrá efecto el último que se reciba.
 		*/
 		virtual void process(IMessage *message);
@@ -72,7 +72,7 @@ namespace Logic
 		<li>Actualiza la posición de la entidad lógica usando la información que proporciona
 		el motor de física.</li>
 		
-		<li>Mueve el character controller de acuerdo al último mensaje CAvatarWalk recibido.</li>
+		<li>Mueve el character controller de acuerdo al último mensaje MAvatarWalk recibido.</li>
 		</ul>
 		<p>
 		Necesitamos sobreescribir el método de la clase padre ya que los character controllers
@@ -114,7 +114,7 @@ namespace Logic
 		float _offsetY;
 
 		/**
-		Vector de desplazamiento recibido en el último mensaje de tipo CAvatarWalk. 
+		Vector de desplazamiento recibido en el último mensaje de tipo MAvatarWalk. 
 		*/
 		Vector3 _movement;
 

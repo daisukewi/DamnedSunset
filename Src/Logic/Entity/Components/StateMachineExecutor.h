@@ -62,12 +62,12 @@ namespace Logic
 		Este método delega en el método accept de la acción latente que se 
 		está ejecutando (_currentAction).
 		*/
-		virtual bool accept(const TMessage &message);
+		virtual bool accept(IMessage *message);
 		/**
 		Este método delega en el método process de la acción latente que se 
 		está ejecutando (_currentAction).
 		*/
-		virtual void process(const TMessage &message);
+		virtual void process(IMessage *message);
 
 	private:
 		/**

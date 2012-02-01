@@ -15,6 +15,8 @@ una entidad que tiene dos estado (posiciones) para ir de una a otra.
 
 #include "Logic/Entity/Component.h"
 
+#include "BaseSubsystems/Math.h"
+
 //declaración de la clase
 namespace Logic 
 {
@@ -26,7 +28,7 @@ namespace Logic
 	De la misma manera se puede estableces el atributo "loop" que mantendrá constante
 	las transiciones. El atributo "speed" determina la velocidad del movimiento.
 	<p>
-	Recibe mensajes de tipo "CSwitch" para transitar de un estado a otro en caso de
+	Recibe mensajes de tipo "MSwitch" para transitar de un estado a otro en caso de
 	que no se encuentre en loop. El atributo "_int" del mensaje indica el estado
 	al que se debe mover la entidad.
 	
@@ -52,12 +54,12 @@ namespace Logic
 		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 
 		/**
-		Este componente sólo acepta mensajes de tipo CSwitch. 
+		Este componente sólo acepta mensajes de tipo MSwitch. 
 		*/
 		virtual bool accept(IMessage *message);
 
 		/**
-		Al recibir un mensaje de tipo CSwitch la entidad empieza a moverse hacia la
+		Al recibir un mensaje de tipo MSwitch la entidad empieza a moverse hacia la
 		posición indicada por el atributo "_int" del mensaje.
 		*/
 		virtual void process(IMessage *message);

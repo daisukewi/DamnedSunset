@@ -48,16 +48,16 @@ CPhysicCharacter::~CPhysicCharacter()
 
 bool CPhysicCharacter::accept(IMessage *message)
 {
-	return !message->getType().compare("CAvatarWalk");
+	return !message->getType().compare("MAvatarWalk");
 } 
 
 //---------------------------------------------------------
 
 void CPhysicCharacter::process(IMessage *message)
 {
-	if (!message->getType().compare("CAvatarWalk"))
+	if (!message->getType().compare("MAvatarWalk"))
 	{
-		CAvatarWalk *m = static_cast <CAvatarWalk*> (message);
+		MAvatarWalk *m = static_cast <MAvatarWalk*> (message);
 
 		// Anotamos el vector de desplazamiento para usarlo posteriormente en 
 		// el método tick. De esa forma, si recibimos varios mensajes CAvatarWalk

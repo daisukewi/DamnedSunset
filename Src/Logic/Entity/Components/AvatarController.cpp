@@ -58,7 +58,7 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	bool CAvatarController::accept(const TMessage &message)
+	bool CAvatarController::accept(IMessage *message)
 	{
 		return false;
 
@@ -66,7 +66,7 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	void CAvatarController::process(const TMessage &message)
+	void CAvatarController::process(IMessage *message)
 	{
 
 	} // process
@@ -86,7 +86,7 @@ namespace Logic
 		_walking = true;
 
 		// Cambiamos la animación
-		CSetAnimation *m = new CSetAnimation();
+		MSetAnimation *m = new MSetAnimation();
 
 		m->setAnimationName("Walk");
 		m->setLoop(true);
@@ -102,7 +102,7 @@ namespace Logic
 		_walkingBack = true;
 
 		// Cambiamos la animación
-		CSetAnimation *m = new CSetAnimation();
+		MSetAnimation *m = new MSetAnimation();
 
 		m->setAnimationName("WalkBack");
 		m->setLoop(true);
@@ -121,7 +121,7 @@ namespace Logic
 		// lateralmente
 		if(!(_strafingLeft || _strafingRight))
 		{
-			CSetAnimation *m = new CSetAnimation();
+			MSetAnimation *m = new MSetAnimation();
 
 			m->setAnimationName("Idle");
 			m->setLoop(true);
@@ -138,7 +138,7 @@ namespace Logic
 		_strafingLeft = true;
 
 		// Cambiamos la animación
-		CSetAnimation *m = new CSetAnimation();
+		MSetAnimation *m = new MSetAnimation();
 
 		m->setAnimationName("StrafeLeft");
 		m->setLoop(true);
@@ -154,7 +154,7 @@ namespace Logic
 		_strafingRight = true;
 
 		// Cambiamos la animación
-		CSetAnimation *m = new CSetAnimation();
+		MSetAnimation *m = new MSetAnimation();
 
 		m->setAnimationName("StrafeRight");
 		m->setLoop(true);
@@ -189,7 +189,7 @@ namespace Logic
 		// Cambiamos la animación si no seguimos andando
 		if(!(_walking || _walkingBack))
 		{
-			CSetAnimation *m = new CSetAnimation();
+			MSetAnimation *m = new MSetAnimation();
 
 			m->setAnimationName("Idle");
 			m->setLoop(true);
@@ -234,7 +234,7 @@ namespace Logic
 			direction *= msecs * _speed;
 
 			// Enviar un mensaje para que el componente físico mueva el personaje
-			Logic::CAvatarWalk *m = new Logic::CAvatarWalk();
+			Logic::MAvatarWalk *m = new Logic::MAvatarWalk();
 			m->setMovement(direction);
 			_entity->emitMessage(m);
 

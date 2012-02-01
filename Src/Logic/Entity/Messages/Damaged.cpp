@@ -12,17 +12,17 @@ Contiene la implementación del mensaje de daño.
 namespace Logic
 {
 
-	CDamaged::CDamaged()
+	MDamaged::MDamaged()
 	{
 		IMessage();
 
-		_type = "CDamaged";
+		_type = "MDamaged";
 
-	} // CDamaged
+	} // MDamaged
 
 	//---------------------------------------------------------
 
-	void CDamaged::setHurt(float hurt)
+	void MDamaged::setHurt(float hurt)
 	{
 		_hurt = hurt;
 
@@ -30,7 +30,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	float CDamaged::getHurt()
+	float MDamaged::getHurt()
 	{
 		return _hurt;
 

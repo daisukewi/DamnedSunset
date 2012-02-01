@@ -22,7 +22,7 @@ namespace Logic
 	/**
 	Componente que se encarga de trasladar una entidad de un punto a otro
 	usando SteeringMovements. 
-	Acepta mensajes CMoveSteering. Los parámetros relevantes del mensaje
+	Acepta mensajes MMoveSteering. Los parámetros relevantes del mensaje
 	son el _vector, que indica el destino del movimiento, y el _int que indica 
 	el tipo de movimiento (ver los tipos en IMovement).
 	*/
@@ -65,11 +65,11 @@ namespace Logic
 		*/
 		virtual void tick(unsigned int msecs);
 		/**
-		Este componente sólo acepta mensajes CMoveSteering.
+		Este componente sólo acepta mensajes MMoveSteering.
 		*/
 		virtual bool accept(IMessage *message);
 		/**
-		Si se recibe un mensaje CMoveSteering, almacena el vector como 
+		Si se recibe un mensaje MMoveSteering, almacena el vector como 
 		destino del movimiento y el tipo de movimiento.
 		*/
 		virtual void process(IMessage *message);

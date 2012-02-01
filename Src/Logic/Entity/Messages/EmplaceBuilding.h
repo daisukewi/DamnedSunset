@@ -47,7 +47,7 @@ namespace Logic
 		/**
 		Constructor por defecto.
 		*/
-		MEmplaceBuilding() : IMessage("MEmplaceBuilding") {};
+		MEmplaceBuilding();
 
 		/**
 		Método que establece la acción que se quiere realizar con este mensaje.

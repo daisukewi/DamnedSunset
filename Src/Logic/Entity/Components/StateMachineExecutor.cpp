@@ -65,7 +65,7 @@ namespace Logic
 	Este método delega en el método accept de la acción latente que se 
 	está ejecutando (_currentAction).
 	*/
-	bool CStateMachineExecutor::accept(const TMessage &message)
+	bool CStateMachineExecutor::accept(IMessage *message)
 	{
 		// TODO PRÁCTICA IA
 		// El método accept delega en el método accept de la acción latente actual
@@ -77,7 +77,7 @@ namespace Logic
 	Este método delega en el método process de la acción latente que se 
 	está ejecutando (_currentAction).
 	*/
-	void CStateMachineExecutor::process(const TMessage &message)
+	void CStateMachineExecutor::process(IMessage *message)
 	{
 		// TODO PRÁCTICA IA
 		// El método process delega en el método process de la acción latente actual

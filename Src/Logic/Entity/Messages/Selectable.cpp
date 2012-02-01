@@ -11,5 +11,12 @@ Contiene la implementación del mensaje enviado para preguntar a una entidad si e
 
 namespace Logic
 {
+	MSelectable::MSelectable()
+	{
+		IMessage();
+
+		_type = "MSelectable";
+	
+	} // MSelectable
 
 } // namespace Logic

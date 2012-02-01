@@ -12,6 +12,16 @@ Contiene la implementación del mensaje de construir un edificio.
 namespace Logic
 {
 
+	MEmplaceBuilding::MEmplaceBuilding()
+	{
+		IMessage();
+
+		_type = "MEmplaceBuilding";
+
+	} // MEmplaceBuilding
+
+	//---------------------------------------------------------
+
 	void MEmplaceBuilding::setAction(BuildingAction action)
 	{
 		_action = action;
