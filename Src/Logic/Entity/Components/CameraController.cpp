@@ -80,6 +80,7 @@ namespace Logic
 		else if (!message->getType().compare("MUbicarCamara"))
 		{
 			MUbicarCamara *m = static_cast <MUbicarCamara*> (message);
+
 			_entity->setPosition(m->getPosition());
 		}
 

@@ -94,8 +94,10 @@ namespace Application {
 		// Activamos la ventana de interfaz
 		GUI::CServer::getSingletonPtr()->getInterfazController()->activate();
 
+		// Mostramos el ratón
 		CEGUI::MouseCursor::getSingleton().show();
 
+		// El siguiente código es para sincronizar el ratón de CEGUI con el de OIS.
 		const OIS::MouseState state = GUI::CInputManager::getSingletonPtr()->getMouseState();
 		CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();  
 		CEGUI::System::getSingleton().injectMouseMove(state.X.abs-mousePos.d_x,state.Y.abs-mousePos.d_y);

@@ -181,6 +181,9 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\Selectable.cpp">
       <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\MouseMove.cpp">
+      <Filter>Entity\Messages\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Maps\ComponentFactory.h">
@@ -333,8 +336,8 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\Selectable.h">
       <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\MouseMove.h">
+      <Filter>Entity\Messages\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

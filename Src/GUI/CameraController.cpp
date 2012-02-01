@@ -83,7 +83,7 @@ namespace GUI {
 		if(_controlledTarget)
 		{
 			Logic::MCameraControl *m = new Logic::MCameraControl();
-
+			
 			// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
 			m->setMouse(false);
 
@@ -99,6 +99,7 @@ namespace GUI {
 				m->setMovement("stopLeftRight");
 				break;
 			}
+
 			_controlledTarget->emitMessage(m);
 		}
 		return false;
