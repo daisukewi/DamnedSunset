@@ -8,6 +8,8 @@
 
 #include "Logic/Maps/Map.h"
 #include "Logic/Entity/Messages/EntitySelected.h"
+#include "Logic/Entity/Messages/IsSelectable.h"
+
 
 #include <OgreBillboard.h>
 #include <OgreBillboardSet.h>
@@ -45,7 +47,7 @@ namespace Logic
 
 	bool CSelectable::accept(IMessage *message)
 	{
-		return !message->getType().compare("MSelectable");
+		return !message->getType().compare("MIsSelectable");
 
 	} // accept
 
@@ -53,7 +55,9 @@ namespace Logic
 
 	void CSelectable::process(IMessage *message)
 	{
-		if (!message->getType().compare("MSelectable")){
+		if (!message->getType().compare("MIsSelectable")){
+
+			MIsSelectable *m_selectable = static_cast <MIsSelectable*> (message);
 
 			//Obtener la entidad encargadad de controllar el gameplay
 			CEntity *entity = _entity->getMap()->getEntityByName("PlayerGod");
@@ -61,6 +65,7 @@ namespace Logic
 			//Crear y enviar el mensaje de entity selected
 			MEntitySelected* m_selected = new MEntitySelected();
 			m_selected->setSelectedEntity(_entity);
+			m_selected->setPoint(m_selectable->getPoint());
 			entity->emitMessage(m_selected);
 
 			

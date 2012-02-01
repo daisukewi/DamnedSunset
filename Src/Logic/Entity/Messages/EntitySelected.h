@@ -48,6 +48,20 @@ namespace Logic
 		*/
 		CEntity* getSelectedEntity();
 
+		/**
+		Método que devuelve el punto de contacto del raycast
+
+		@return Punto de contacto del raycast
+		*/
+		Vector3 getPoint();
+
+		/**
+		Método que establece el punto de contacto del raycast
+
+		@param point Punto de contacto del raycast
+		*/
+		void setPoint(Vector3 point);
+
 	protected:
 
 		/**
@@ -55,6 +69,10 @@ namespace Logic
 		*/
 		CEntity *_selectedEntity;
 
+		/**
+		Atributo que contiene el punto de contacto del raycast
+		*/
+		Vector3 _point;
 
 	}; // class MEntitySelected
 

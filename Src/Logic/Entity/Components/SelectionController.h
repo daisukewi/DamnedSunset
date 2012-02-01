@@ -100,7 +100,7 @@ namespace Logic
 
 	protected:
 
-		void processRayCast( Vector3 colPoint, CEntity* colEntity );
+		void processEntity( Vector3 colPoint, CEntity* colEntity );
 
 		void startSelection();
 

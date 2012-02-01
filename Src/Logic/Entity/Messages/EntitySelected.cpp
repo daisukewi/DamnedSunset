@@ -37,4 +37,12 @@ namespace Logic
 
 	} // getSelectedEntity
 
+	Vector3 MEntitySelected::getPoint(){
+		return _point;
+	}
+
+	void MEntitySelected::setPoint(Vector3 point){
+		_point = point;
+	}
+
 } // namespace Logic

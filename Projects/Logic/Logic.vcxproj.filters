@@ -112,9 +112,6 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\RaycastController.cpp">
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Logic\Entity\Components\Selectable.cpp">
-      <Filter>Entity\Components\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SelectionController.cpp">
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
@@ -178,10 +175,13 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SendBillboard.cpp">
       <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Logic\Entity\Messages\Selectable.cpp">
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\MouseMove.cpp">
       <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Logic\Entity\Messages\MouseMove.cpp">
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Selectable.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\IsSelectable.cpp">
       <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -330,13 +330,13 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SendBillboard.h">
       <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\MouseMove.h">
+      <Filter>Entity\Messages\Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Selectable.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Logic\Entity\Messages\Selectable.h">
-      <Filter>Entity\Messages\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Logic\Entity\Messages\MouseMove.h">
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\IsSelectable.h">
       <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

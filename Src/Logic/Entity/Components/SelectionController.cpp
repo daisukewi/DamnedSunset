@@ -15,6 +15,8 @@
 #include "Logic/Entity/Messages/MoveSteering.h"
 #include "Logic/Entity/Messages/Damaged.h"
 #include "Logic/Entity/Messages/EmplaceBuilding.h"
+#include "Logic/Entity/Messages/IsSelectable.h"
+
 
 namespace Logic 
 {
@@ -103,15 +105,22 @@ namespace Logic
 			switch (m_raycast->getAction())
 			{
 				case RaycastMessage::HIT_RAYCAST:
-					if (_isSelecting || _isWaitingForAction)
-						processRayCast(m_raycast->getCollisionPoint(), m_raycast->getCollisionEntity());
+					if (_isSelecting || _isWaitingForAction){
+						//Comprobar si la entidad es seleccionable
+						CEntity *col_entity = m_raycast->getCollisionEntity();
+						
+						MIsSelectable* message = new MIsSelectable();
+						message->setPoint(m_raycast->getCollisionPoint());
+						col_entity->emitMessage(message);
+
+					}
 					break;
 			}
 
 		} else if (!message->getType().compare("MEntitySelected"))
 		{
 			MEntitySelected *m_selection = static_cast <MEntitySelected*> (message);
-			saveSelectedEntity(m_selection->getSelectedEntity());
+			processEntity(m_selection->getPoint(),m_selection->getSelectedEntity());
 		}
 
 		message->removePtr();
@@ -128,7 +137,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CSelectionController::processRayCast( Vector3 colPoint, CEntity* colEntity )
+	void CSelectionController::processEntity( Vector3 colPoint, CEntity* colEntity )
 	{
 		// Hack para cancelar la orden mientras se está construyendo.
 		if (!_canSelect)
@@ -148,11 +157,11 @@ namespace Logic
 
 		// Procesar mensaje del raycast cuando se hace una accion y se tiene algo seleccionado
 		} else if (_isWaitingForAction && _selectedEntity != NULL)
-		{
+		{   
 			if (!colEntity->getType().compare("Player"))
 			{
 				// Realizar acciones sobre un jugador.
-
+			
 			// Realizar acciones sobre el suelo
 			} else if (!colEntity->getType().compare("World"))
 			{
