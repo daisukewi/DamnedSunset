@@ -16,10 +16,6 @@
 #include "Logic/Entity/Messages/Damaged.h"
 #include "Logic/Entity/Messages/EmplaceBuilding.h"
 
-#include "Logic/Entity/Messages/Selectable.h"
-
-
-
 namespace Logic 
 {
 	IMP_FACTORY(CSelectionController);
@@ -85,7 +81,7 @@ namespace Logic
 				}
 			}
 
-		}else if (!message->getType().compare("MEmplaceBuilding"))
+		} else if (!message->getType().compare("MEmplaceBuilding"))
 		{
 			// TODO: (Blackboard): Este pequeño hack evita realizar acciones cuando se ha mandado
 			// la orden de construir. Se puede modificar si se implemente el blackboard.
@@ -144,20 +140,11 @@ namespace Logic
 		// Procesar mensaje del raycast cuando se está seleccionando
 		if (_isSelecting)
 		{
-			/*if (!colEntity->getType().compare("Player"))
+			if (!colEntity->getType().compare("Player"))
 			{
-				
+				saveSelectedEntity(colEntity);
 
-				//saveSelectedEntity(colEntity);
-
-			}*/
-
-			//enviar mensaje a la entidad para saber si es seleccionable
-			MSelectable *m_selectable = new MSelectable();
-			
-			if (colEntity != NULL)
-				colEntity->emitMessage(m_selectable);
-
+			}
 
 		// Procesar mensaje del raycast cuando se hace una accion y se tiene algo seleccionado
 		} else if (_isWaitingForAction && _selectedEntity != NULL)
