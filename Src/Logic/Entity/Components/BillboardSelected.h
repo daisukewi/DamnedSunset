@@ -2,7 +2,7 @@
 #define __Logic_BillboardSelected_H
 
 #include "Logic/Entity/Component.h"
-
+#include <OgreBillboard.h>
 // Los componentes pertenecen al namespace Logic
 namespace Logic 
 {
@@ -15,7 +15,8 @@ namespace Logic
 		/**
 		Constructor por defecto.
 		*/
-		CBillboardSelected() : IComponent() {}
+		CBillboardSelected();
+		~CBillboardSelected();
 		
 
 		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
@@ -24,6 +25,12 @@ namespace Logic
 
 	protected:
 
+		/*
+		Billboard que muestra que esta seleccionado
+		*/
+		Ogre::BillboardSet* _billboardSet;
+
+		bool peticionCrearBillboardEnviada;
 	};
 
 	REG_FACTORY(CBillboardSelected);

@@ -119,6 +119,7 @@ namespace Logic
 			
 			MSendBillboard *m2 = new MSendBillboard();
 			m2->setBillboardSet(billboardSet);
+			m2->setTipoBillboard(m->getTipoBillboard());
 			_entity->emitMessage(m2);
 		}
 	} // process

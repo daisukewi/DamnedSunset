@@ -1,7 +1,7 @@
 World CGraphics CPhysicEntity CSelectable
 Sun CGraphics CSunController
-Player CAvatarController CAnimatedGraphics CLife CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor CSelectable
-Enemy CEnemyController CAnimatedGraphics CLife CPhysicCharacter CSteeringMovement CRouteTo
+Player CAvatarController CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor CSelectable
+Enemy CEnemyController CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo
 Entity CGraphics
 AnimatedEntity CAnimatedGraphics
 Camera CCamera

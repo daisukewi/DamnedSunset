@@ -9,6 +9,7 @@ namespace Logic
 	{
 		IMessage();
 		_type = "MSendBillboard";
+		_tipoBillboard = "";
 	}
 }
 #endif

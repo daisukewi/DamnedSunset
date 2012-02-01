@@ -14,9 +14,13 @@ namespace Logic
 	{
 	public:
 		MCreateBillboard();
-
+		void setTipoBillboard(std::string s) {_tipoBillboard = s;}
+		std::string getTipoBillboard() {return _tipoBillboard;}
 	protected:
-		
+		/*
+		Indica el tipo del billboard, por ejemplo si es para la vida, o para si esta seleccionado
+		*/
+		std::string _tipoBillboard;
 	};
 
 } // namespace Logic

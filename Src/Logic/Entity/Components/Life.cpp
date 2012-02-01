@@ -20,8 +20,6 @@ Contiene la implementación del componente que controla la vida de una entidad.
 
 #include "Graphics/Server.h"
 #include "Graphics/Scene.h"
-
-#include "Graphics/Scene.h"
 #include "Graphics/Entity.h"
 
 #include "assert.h"
@@ -50,12 +48,14 @@ namespace Logic
 
 	CLife::~CLife() {
 		//delete _billboardSet;
-		Graphics::CServer::getSingletonPtr()->getActiveScene()->removeBillboardset(_billboardSet);
+		if (_billboardSet)
+			Graphics::CServer::getSingletonPtr()->getActiveScene()->removeBillboardset(_billboardSet);
 	}
 
 
 	void crearBillboard(Ogre::BillboardSet* b, float porcentajeVida) {
-		//Tendria q haber 1 billboard creados, si no estan los creamos
+		b->setMaterialName("barraVida");
+
 		Ogre::Billboard* billboard;
 		billboard = b->createBillboard(0.0f,13.0f,0.0f);
 		billboard->setDimensions(8,1);
@@ -71,11 +71,6 @@ namespace Logic
 		b->getBillboard(0)->setTexcoordRect((1.0f-porcentajeVida*1.0)/2.0f/*inicioX*/, 0.0f, 0.5f+(1.0f-porcentajeVida*0.5f)/2.0f/*finX*/, 1.0f);
 	}
 
-	//void actualizarBillboard(Ogre::BillboardSet* b, float porcentajeVida) {
-	//	Ogre::Billboard* billboard = b->getBillboard(0);
-	//	billboard->setTexcoordRect((1-porcentajeVida)/2.0f/*inicioX*/, 0.0f, 0.5f+(1.0f-porcentajeVida)/2.0f/*finX*/, 1.0f);
-	//}
-
 	bool CLife::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
 	{
 		if(!IComponent::spawn(entity,map,entityInfo))
@@ -86,7 +81,9 @@ namespace Logic
 		if(entityInfo->hasAttribute("maxLife"))
 			_maxLife = entityInfo->getFloatAttribute("maxLife");
 
-		_entity->emitMessage(new Logic::MCreateBillboard());
+		MCreateBillboard * m = new Logic::MCreateBillboard();
+		m->setTipoBillboard("CLife");
+		_entity->emitMessage(m);
 
 		return true;
 
@@ -141,9 +138,12 @@ namespace Logic
 		{
 			//Recibe el billboardset
 			MSendBillboard *m = static_cast <MSendBillboard*> (message);
-			_billboardSet = m->getBillboarSet();
-			_billboardSet->setMaterialName("barraVida");
-			crearBillboard(_billboardSet, _life/_maxLife);
+			if (m->getTipoBillboard() == "CLife") {
+				assert(!_billboardSet); //El billboardset no deberia de estar creado
+				_billboardSet = m->getBillboarSet();
+				crearBillboard(_billboardSet, _life/_maxLife);
+			}
+
 		}
 
 	} // process
