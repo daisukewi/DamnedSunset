@@ -195,6 +195,14 @@ namespace GUI{
 
 	//--------------------------------------------------------
 
+	OIS::MouseState CInputManager::getMouseState()
+	{
+		return _mouse->getMouseState();
+	
+	} // getMouseState
+
+	//--------------------------------------------------------
+
 	bool CInputManager::keyPressed(const OIS::KeyEvent &e) 
 	{
 		if (!_keyListeners.empty()) 

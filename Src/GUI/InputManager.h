@@ -609,6 +609,13 @@ namespace GUI
 		bool isModifierPressed(TModifier modifier) 
 			{return _keyboard->isModifierDown((OIS::Keyboard::Modifier)modifier);}
 
+		/**
+		Método que devuelve el estado del ratón de OIS
+
+		@return El estado del ratón de OIS.
+		*/
+		OIS::MouseState getMouseState();
+
 	private:
 
 		/**

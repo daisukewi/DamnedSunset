@@ -96,6 +96,10 @@ namespace Application {
 
 		CEGUI::MouseCursor::getSingleton().show();
 
+		const OIS::MouseState state = GUI::CInputManager::getSingletonPtr()->getMouseState();
+		CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();  
+		CEGUI::System::getSingleton().injectMouseMove(state.X.abs-mousePos.d_x,state.Y.abs-mousePos.d_y);
+
 	} // activate
 
 	//--------------------------------------------------------
