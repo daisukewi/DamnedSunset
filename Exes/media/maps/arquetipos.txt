@@ -41,11 +41,11 @@ Map = {
 	
 	Enemy = {
 		type = "Enemy",
-		orientation = 180,
+		orientation = 0,
 		life = 40.0,
 		maxLife = 100.0,
 		isPlayer = false,
-		model = "marine.mesh",
+		model = "loco.mesh",
 		defaultAnimation = "Walk",
 		behavior = "wander",
 		physic_entity = "controller",

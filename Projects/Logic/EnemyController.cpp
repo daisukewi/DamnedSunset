@@ -93,9 +93,12 @@ namespace Logic
 			_destino.y = 5.0f;
 			_destino.z = rand() % 200 - 100;
 
+			// Orientamos la entidad hacia el punto de destino
+			_entity->setYaw(atan((_destino.x - _entity->getPosition().x) / (_destino.z - _entity->getPosition().z)));
+
 			MMoveSteering *m = new MMoveSteering();
 
-			m->setMovementType(2);
+			m->setMovementType(AI::IMovement::MOVEMENT_KINEMATIC_ARRIVE);
 			m->setTarget(_destino);
 
 			_entity->emitMessage(m, this);

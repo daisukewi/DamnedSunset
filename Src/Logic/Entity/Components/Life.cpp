@@ -28,6 +28,7 @@ Contiene la implementación del componente que controla la vida de una entidad.
 #include "Logic/Entity/Messages/Damaged.h"
 #include "Logic/Entity/Messages/SendBillboard.h"
 #include "Logic/Entity/Messages/CreateBillboard.h"
+#include "Logic/Entity/Messages/SetAnimation.h"
 
 #include "GUI/Server.h"
 #include "GUI/InterfazController.h"
@@ -112,6 +113,17 @@ namespace Logic
 					// Si han matado al jugador salir de la partida
 					if (_entity->isPlayer())
 						Application::CBaseApplication::getSingletonPtr()->setState("gameOver");
+					// Si han matado al enemigo matarlo
+					else if (!_entity->getType().compare("Enemy"))
+					{
+						std::cout << "ENEMIGO MUERTO: "<< _entity->getName()<< "\n";
+						MSetAnimation *m = new MSetAnimation();
+
+						m->setAnimationName("Idle");
+						m->setLoop(true);
+
+						_entity->emitMessage(m, this);
+					}
 				}
 				// @todo Poner la animación de herido.
 				// @todo Si la vida es menor que 0 poner animación de morir.

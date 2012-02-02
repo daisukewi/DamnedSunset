@@ -30,7 +30,7 @@ namespace Logic
 {
 	CEntity::CEntity(TEntityID entityID) : _entityID(entityID), 
 				_map(0), _type(""), _name(""), _transform(Matrix4::IDENTITY),
-				_isPlayer(false), _activated(false), _isTargetCamera(false)
+				_isPlayer(false), _isEnemy(false), _activated(false), _isTargetCamera(false)
 	{
 
 	} // CEntity
@@ -71,6 +71,9 @@ namespace Logic
 
 		if(entityInfo->hasAttribute("isPlayer"))
 			_isPlayer = entityInfo->getBoolAttribute("isPlayer");
+
+		if(entityInfo->hasAttribute("isEnemy"))
+			_isEnemy = entityInfo->getBoolAttribute("isEnemy");
 		
 		if(entityInfo->hasAttribute("isTargetCamera"))
 			_isTargetCamera = entityInfo->getBoolAttribute("isTargetCamera");

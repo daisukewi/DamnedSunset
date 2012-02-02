@@ -38,8 +38,6 @@ Map = {
 	Enemy = {
 		type = "Enemy",
 		position = {20, 5, 50},
-		defaultAnimation = "Walk",
-		orientation = 0,
 	},
 	
 	Camera = {
