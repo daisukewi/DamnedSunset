@@ -187,14 +187,6 @@ namespace Logic
 		bool isPlayer() { return _isPlayer; }
 
 		/**
-		Método que indica si la entidad es o no un enemigo.
-		Funciona igual que isPlayer.
-		
-		@return true si la entidad es el jugador.
-		*/
-		bool isEnemy() { return _isEnemy; }
-
-		/**
 		Método que indica si la entidad es o no el objetivo de la cámara.
 
 		@return true si la entidad es el objetivo de la cámara.
@@ -384,12 +376,6 @@ namespace Logic
 		es false a no ser que se lea otra cosa de los atributos.
 		*/
 		bool _isPlayer;
-
-		/**
-		Atributo que indica si la entidad es un enemigo; por defecto
-		es false a no ser que se lea otra cosa de los atributos.
-		*/
-		bool _isEnemy;
 
 		/**
 		Atributo que indica si la entidad es el objetivo de la cámara; por

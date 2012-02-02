@@ -223,6 +223,12 @@ namespace Logic
 			// en el mismo ciclo sólo tendremos en cuenta el último.
 			_target = m->getTarget();
 			_movType = m->getMovementType();
+
+			// Orientamos la entidad hacia el punto de destino
+			float yaw = atan((_target.x - _entity->getPosition().x) / (_target.z - _entity->getPosition().z));
+			if ((_target.z - _entity->getPosition().z) >= 0)
+				yaw += Math::PI;
+			_entity->setYaw(yaw);
 		}
 
 	} // process

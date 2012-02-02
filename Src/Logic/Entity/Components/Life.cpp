@@ -117,14 +117,12 @@ namespace Logic
 					// Si han matado al enemigo matarlo
 					else if (!_entity->getType().compare("Enemy"))
 					{
-						std::cout << "ENEMIGO MUERTO: "<< _entity->getName()<< "\n";
 						MSetAnimation *m = new MSetAnimation();
-						CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
-
 						m->setAnimationName("Idle");
 						m->setLoop(true);
-
 						_entity->emitMessage(m, this);
+
+						CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 					}
 				}
 				// @todo Poner la animación de herido.
