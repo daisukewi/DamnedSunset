@@ -15,6 +15,7 @@ Contiene la implementación del componente que controla la vida de una entidad.
 #include "Logic/Server.h"
 #include "Logic/Entity/Entity.h"
 #include "Logic/Maps/Map.h"
+#include "Logic/Maps/EntityFactory.h"
 #include "Map/MapEntity.h"
 #include "Application/BaseApplication.h"
 
@@ -118,6 +119,7 @@ namespace Logic
 					{
 						std::cout << "ENEMIGO MUERTO: "<< _entity->getName()<< "\n";
 						MSetAnimation *m = new MSetAnimation();
+						CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 
 						m->setAnimationName("Idle");
 						m->setLoop(true);
