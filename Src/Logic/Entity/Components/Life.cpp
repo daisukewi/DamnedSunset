@@ -29,7 +29,7 @@ Contiene la implementación del componente que controla la vida de una entidad.
 #include "Logic/Entity/Messages/Damaged.h"
 #include "Logic/Entity/Messages/SendBillboard.h"
 #include "Logic/Entity/Messages/CreateBillboard.h"
-#include "Logic/Entity/Messages/SetAnimation.h"
+#include "Logic/Entity/Messages/AttackEntity.h"
 
 #include "GUI/Server.h"
 #include "GUI/InterfazController.h"
@@ -117,11 +117,9 @@ namespace Logic
 					// Si han matado al enemigo matarlo
 					else if (!_entity->getType().compare("Enemy"))
 					{
-						MSetAnimation *m = new MSetAnimation();
-						m->setAnimationName("Idle");
-						m->setLoop(true);
-						_entity->emitMessage(m, this);
-
+						MAttackEntity *m = new MAttackEntity();
+						m->setAttack(false);
+						md->getKiller()->emitMessage(m, this);
 						CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 					}
 				}

@@ -30,9 +30,25 @@ namespace Logic
 
 	//---------------------------------------------------------
 
+	void MDamaged::setKiller(CEntity* killer)
+	{
+		_killer = killer;
+
+	} // setKiller
+
+	//---------------------------------------------------------
+
 	float MDamaged::getHurt()
 	{
 		return _hurt;
+
+	} // getHurt
+
+	//---------------------------------------------------------
+
+	CEntity* MDamaged::getKiller()
+	{
+		return _killer;
 
 	} // getHurt
 

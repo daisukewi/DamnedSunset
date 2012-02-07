@@ -13,7 +13,7 @@
 #include "Logic/Entity/Messages/EntitySelected.h"
 #include "Logic/Entity/Messages/UbicarCamara.h"
 #include "Logic/Entity/Messages/MoveSteering.h"
-#include "Logic/Entity/Messages/Damaged.h"
+#include "Logic/Entity/Messages/AttackEntity.h"
 #include "Logic/Entity/Messages/EmplaceBuilding.h"
 #include "Logic/Entity/Messages/IsSelectable.h"
 
@@ -175,25 +175,11 @@ namespace Logic
 			{
 				if (!_selectedEntity->getType().compare("Player"))
 				{
-					// Llevamos al jugador hasta donde está el enemigo
-					MMoveSteering *m = new MMoveSteering();
-					m->setMovementType(AI::IMovement::MOVEMENT_KINEMATIC_ARRIVE);
-				//	Vector3 posEnemy = colEntity->getPosition();
-				//	do
-				//	{
-				//		if ((posEnemy - _selectedEntity->getPosition()).length() >= 10)
-				//		{
-							m->setTarget(colEntity->getPosition());
-							_selectedEntity->emitMessage(m, this);
-				//			posEnemy = colEntity->getPosition();
-				//		}
-				//	}
-				//	while ((_selectedEntity->getPosition() - colEntity->getPosition()).length() >= 10);
-
-					// Quitamos 10 puntos de vida al enemigo
-					MDamaged *m_damage = new MDamaged();
-					m_damage->setHurt(10.0f);
-					colEntity->emitMessage(m_damage, this);
+					// Enviamos una orden de ataque al enemigo
+					MAttackEntity *m = new MAttackEntity();
+					m->setEntity(colEntity);
+					m->setAttack(true);
+					_selectedEntity->emitMessage(m, this);
 				}
 			}
 		}

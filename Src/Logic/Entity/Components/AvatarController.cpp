@@ -22,7 +22,9 @@ de la entidad.
 
 #include "Logic/Entity/Messages/SetAnimation.h"
 #include "Logic/Entity/Messages/AvatarWalk.h"
-
+#include "Logic/Entity/Messages/MoveSteering.h"
+#include "Logic/Entity/Messages/Damaged.h"
+#include "Logic/Entity/Messages/AttackEntity.h"
 
 namespace Logic 
 {
@@ -60,7 +62,7 @@ namespace Logic
 
 	bool CAvatarController::accept(IMessage *message)
 	{
-		return false;
+		return (!message->getType().compare("MAttackEntity"));
 
 	} // accept
 	
@@ -68,6 +70,17 @@ namespace Logic
 
 	void CAvatarController::process(IMessage *message)
 	{
+		if (!message->getType().compare("MAttackEntity"))
+		{
+			MAttackEntity *m = static_cast <MAttackEntity*> (message);
+
+			_attack = m->getAttack();
+			if (_attack)
+				_enemy = m->getEntity();
+			else
+				std::cout << "Enemigo Muerto!!";
+
+		}
 
 	} // process
 	
@@ -240,6 +253,27 @@ namespace Logic
 
 			//Vector3 newPosition = _entity->getPosition() + direction;
 			//_entity->setPosition(newPosition);
+		}
+
+		if (_attack)
+		{
+			// Llevamos al jugador hasta donde está el enemigo
+			if ((_enemy->getPosition() - _entity->getPosition()).length() >= 10)
+			{
+				MMoveSteering *m = new MMoveSteering();
+				m->setMovementType(AI::IMovement::MOVEMENT_KINEMATIC_ARRIVE);
+				m->setTarget(_enemy->getPosition());
+				_entity->emitMessage(m, this);
+			}
+			
+			else
+			{
+				// Quitamos 1 puntos de vida al enemigo
+				MDamaged *m_damage = new MDamaged();
+				m_damage->setHurt(1.0f);
+				m_damage->setKiller(_entity);
+				_enemy->emitMessage(m_damage, this);
+			}
 		}
 
 	} // tick

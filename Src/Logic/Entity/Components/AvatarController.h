@@ -42,7 +42,7 @@ namespace Logic
 		defecto.
 		*/
 		CAvatarController() : IComponent(), _walking(false), _walkingBack(false), 
-			_strafingLeft(false), _strafingRight(false), _speed(0.05f) {}
+			_strafingLeft(false), _strafingRight(false), _attack(false), _speed(0.05f) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -93,6 +93,7 @@ namespace Logic
 
 		/**
 		Método virtual que elige que mensajes son aceptados.
+		Son válidos MAttackEntity.
 
 		@param message Mensaje a chequear.
 		@return true si el mensaje es aceptado.
@@ -171,6 +172,16 @@ namespace Logic
 		a la derecha.
 		*/
 		bool _strafingRight;
+
+		/**
+		Atributo para saber si la entidad tiene que atacar.
+		*/
+		bool _attack;
+
+		/**
+		Atributo para saber la entidad que hay que atacar.
+		*/
+		CEntity* _enemy;
 
 		/**
 		Atributo que indica la magnitud de velocidad de la entidad.

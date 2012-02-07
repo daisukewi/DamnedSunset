@@ -94,6 +94,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchPosition.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Message.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttackEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AvatarWalk.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\CameraControl.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SunController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchPosition.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttackEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AvatarWalk.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\CameraControl.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.h" />

@@ -13,6 +13,7 @@ Contiene la declaración del mensaje de daño.
 #define __Logic_Damaged_H
 
 #include "Logic/Entity/Message.h"
+#include "Logic/Entity/Entity.h"
 
 namespace Logic 
 {
@@ -39,11 +40,25 @@ namespace Logic
 		void setHurt(float hurt);
 
 		/**
+		Método que establece en el mensaje la entidad que ataca.
+
+		@param killer entidad que ataca.
+		*/
+		void setKiller(CEntity* killer);
+
+		/**
 		Método que devuelve el daño causado.
 
 		@return Daño causado.
 		*/
 		float getHurt();
+
+		/**
+		Método que devuelve la entidad atacante.
+
+		@return Entidad que causa el daño.
+		*/
+		CEntity *getKiller();
 
 	protected:
 
@@ -51,6 +66,11 @@ namespace Logic
 		Atributo que indica el daño causado.
 		*/
 		float _hurt;
+
+		/**
+		Entidad que ataca.
+		*/
+		CEntity* _killer;
 
 	}; // class MDamaged
 
