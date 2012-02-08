@@ -93,6 +93,9 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SunController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchPosition.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\GodStates\BuildSelected.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\GodStates\Free.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\GodStates\PlayerSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Message.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttackEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AvatarWalk.cpp" />
@@ -145,6 +148,10 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchPosition.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttackEntity.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\GodStates\BuildSelected.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Free.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\GodStates\GodState.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\GodStates\PlayerSelected.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AvatarWalk.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\CameraControl.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.h" />
@@ -198,6 +205,9 @@
       <Project>{599f27dc-a593-4e7c-a461-d7b3198118b0}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram11.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

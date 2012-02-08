@@ -16,6 +16,8 @@ Contiene la declaración del componente que se encarga de gestionar la entidad se
 
 #include "BaseSubsystems/Math.h"
 
+#include "Logic\Entity\GodStates\GodState.h"
+
 //declaración de la clase
 namespace Logic 
 {
@@ -40,7 +42,7 @@ namespace Logic
 		defecto.
 		*/
 		CSelectionController() : IComponent(), _canSelect(true),
-			_isSelecting(false), _isWaitingForAction(false) {}
+			_isSelecting(false), _isWaitingForAction(false), _numStates(3) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -98,6 +100,13 @@ namespace Logic
 		*/
 		virtual void process(IMessage *message);
 
+		/**
+		Método usado para poder cambiar de estado tanto llamándose desde la misma clase, como de las clases de los estados
+		
+		@param state stado nuevo al que se quiere cambiar
+		*/
+		void CSelectionController::changeState(int state);
+
 	protected:
 
 		void processEntity( Vector3 colPoint, CEntity* colEntity );
@@ -117,6 +126,28 @@ namespace Logic
 
 		bool _isWaitingForAction;
 
+
+		/**
+		Variable que contiene el número de estados que va a haber
+		*/
+		int _numStates;
+
+		/**
+		Variables para almacenar los estados en los que se puede encontrar el selectionController
+		*/
+		IGodState** _godStates;
+
+
+		/**
+		Estado activo actualmente
+		*/
+		IGodState *_activeState;
+
+		/**
+		Varibale temporal que se va a usar para saber el botón con el que se ha dado click
+		*/
+		int _button;
+		
 	}; // class CSelectedController
 
 	REG_FACTORY(CSelectionController);
