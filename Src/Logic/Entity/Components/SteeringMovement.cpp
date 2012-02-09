@@ -180,6 +180,10 @@ namespace Logic
 				_currentProperties.angularSpeed = Ogre::Math::Sign(_currentProperties.angularSpeed) * _maxAngularSpeed;
 
 		}
+		else {
+			// Si no hay movimiento paramos la animación
+			sendAnimationMessage("Idle");
+		}
 
 	} // tick
 

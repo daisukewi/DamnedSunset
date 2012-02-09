@@ -73,13 +73,21 @@ namespace Logic
 		if (!message->getType().compare("MAttackEntity"))
 		{
 			MAttackEntity *m = static_cast <MAttackEntity*> (message);
-
 			_attack = m->getAttack();
-			if (_attack)
-				_enemy = m->getEntity();
-			else
-				std::cout << "Enemigo Muerto!!";
 
+			MSetAnimation *m_anim = new MSetAnimation();
+			m_anim->setLoop(true);
+			if (_attack)
+			{
+				_enemy = m->getEntity();
+				m_anim->setAnimationName("Walk");
+			}
+			else
+			{
+				std::cout << "Enemigo Muerto!!";
+				m_anim->setAnimationName("Idle");
+			}
+			_entity->emitMessage(m_anim, this);
 		}
 
 	} // process
