@@ -42,17 +42,21 @@ namespace Logic
 
 	bool CBillboardSelected::accept(IMessage *message)
 	{
-		return !message->getType().compare("MIsSelectable");
+		return !message->getType().compare("MEntitySelected") || !message->getType().compare("MIsSelectable");
 	} // accept
 	
 	//---------------------------------------------------------
 
 	void CBillboardSelected::process(IMessage *message)
 	{
-		if (!message->getType().compare("MIsSelectable"))
+		if (!message->getType().compare("MEntitySelected"))
 		{
-			billboardVisible = !billboardVisible;
-			_billboard->setVisible(billboardVisible);
+			billboardVisible = false;
+			_billboard->setVisible(false);
+		} else if (!message->getType().compare("MIsSelectable"))
+		{
+			billboardVisible = true;
+			_billboard->setVisible(true);
 		}
 	} // process
 
