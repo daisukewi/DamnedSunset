@@ -3,6 +3,12 @@
 
 #include "Logic/Entity/Component.h"
 #include <OgreBillboard.h>
+
+namespace Graphics 
+{
+	class CBillboard;
+}
+
 // Los componentes pertenecen al namespace Logic
 namespace Logic 
 {
@@ -24,13 +30,12 @@ namespace Logic
 		virtual void process(IMessage *message);
 
 	protected:
-
 		/*
 		Billboard que muestra que esta seleccionado
 		*/
-		Ogre::BillboardSet* _billboardSet;
+		Graphics::CBillboard * _billboard;
 
-		bool peticionCrearBillboardEnviada;
+		bool billboardVisible;
 	};
 
 	REG_FACTORY(CBillboardSelected);

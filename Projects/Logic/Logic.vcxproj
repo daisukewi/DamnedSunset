@@ -97,11 +97,11 @@
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\Free.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\PlayerSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Message.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttackEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AvatarWalk.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\CameraControl.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.cpp" />
-    <ClCompile Include="..\..\Src\Logic\Entity\Messages\CreateBillboard.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\Damaged.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EmplaceBuilding.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntitySelected.cpp" />
@@ -110,7 +110,6 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MouseMove.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MoveSteering.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\IsSelectable.cpp" />
-    <ClCompile Include="..\..\Src\Logic\Entity\Messages\SendBillboard.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetTransform.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\StopAnimation.cpp" />
@@ -147,6 +146,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SunController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchPosition.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttackEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\BuildSelected.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Free.h" />
@@ -155,7 +155,6 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AvatarWalk.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\CameraControl.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.h" />
-    <ClInclude Include="..\..\Src\Logic\Entity\Messages\CreateBillboard.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\Damaged.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EmplaceBuilding.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntitySelected.h" />
@@ -164,7 +163,6 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MouseMove.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MoveSteering.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\IsSelectable.h" />
-    <ClInclude Include="..\..\Src\Logic\Entity\Messages\SendBillboard.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetTransform.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\StopAnimation.h" />

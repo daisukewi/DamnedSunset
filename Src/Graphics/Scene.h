@@ -35,6 +35,7 @@ namespace Graphics
 	class CCamera;
 	class CEntity;
 	class CStaticEntity;
+	class CBillboard;
 }
 
 namespace Graphics 
@@ -206,6 +207,7 @@ namespace Graphics
 		*/
 		friend class CEntity;
 		friend class CCamera;
+		friend class CBillboard;
 
 		/**
 		Clase amiga. Solo las entidades pueden acceder al gestor de la

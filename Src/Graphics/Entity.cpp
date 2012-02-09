@@ -207,12 +207,10 @@ namespace Graphics
 
 	} // setScale
 
-	Ogre::BillboardSet* CEntity::createBillBoard() 
+	void CEntity::attachBillboardSet(Ogre::BillboardSet* b) 
 	{
-
-		Ogre::BillboardSet* billboardset = _scene->getSceneMgr()->createBillboardSet();
-		_entityNode->attachObject(billboardset);
-		return billboardset;
+		_entityNode->attachObject(b);
+;
 	}
 
 } // namespace Graphics

@@ -14,13 +14,11 @@ Contiene la declaración del componente que controla la vida de una entidad.
 
 #include "Logic/Entity/Component.h"
 
-#include <OgreBillboard.h>
-
-
 namespace Graphics 
 {
 	class CEntity;
 	class CScene;
+	class CBillboard;
 }
 
 //declaración de la clase
@@ -84,7 +82,7 @@ namespace Logic
 		/*
 		Billboard que muestra la vida
 		*/
-		Ogre::BillboardSet* _billboardSet;
+		Graphics::CBillboard * _billboard;
 	}; // class CLife
 
 	REG_FACTORY(CLife);

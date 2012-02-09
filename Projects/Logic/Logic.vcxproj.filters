@@ -67,9 +67,6 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.cpp">
       <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Logic\Entity\Messages\CreateBillboard.cpp">
-      <Filter>Entity\Messages\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\Damaged.cpp">
       <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
@@ -98,9 +95,6 @@
       <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Selectable.cpp">
-      <Filter>Entity\Messages\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Logic\Entity\Messages\SendBillboard.cpp">
       <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp">
@@ -156,6 +150,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.cpp">
       <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.cpp">
+      <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -234,9 +231,6 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.h">
       <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Logic\Entity\Messages\CreateBillboard.h">
-      <Filter>Entity\Messages\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\Damaged.h">
       <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
@@ -271,9 +265,6 @@
       <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Selectable.h">
-      <Filter>Entity\Messages\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Logic\Entity\Messages\SendBillboard.h">
       <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h">
@@ -326,6 +317,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchPosition.h">
       <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.h">
+      <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

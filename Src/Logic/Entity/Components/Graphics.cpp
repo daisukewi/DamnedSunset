@@ -22,8 +22,7 @@ gráfica de la entidad.
 #include "Graphics/StaticEntity.h"
 
 #include "Logic/Entity/Messages/SetTransform.h"
-#include "Logic/Entity/Messages/CreateBillboard.h"
-#include "Logic/Entity/Messages/SendBillboard.h"
+#include "Logic/Entity/Messages/AttachBillboard.h"
 
 namespace Logic 
 {
@@ -99,7 +98,7 @@ namespace Logic
 
 	bool CGraphics::accept(IMessage *message)
 	{
-		return (message->getType().compare("MSetTransform") == 0 || !message->getType().compare("MCreateBillboard"));
+		return (message->getType().compare("MSetTransform") == 0 || !message->getType().compare("MAttachBillboard"));
 
 	} // accept
 
@@ -112,15 +111,10 @@ namespace Logic
 			MSetTransform *m = static_cast <MSetTransform*> (message);
 
 			_graphicsEntity->setTransform(m->getTransform());
-		} else 	if (!message->getType().compare("MCreateBillboard"))
+		} else 	if (!message->getType().compare("MAttachBillboard"))
 		{
-			MCreateBillboard *m = static_cast <MCreateBillboard*> (message);
-			Ogre::BillboardSet * billboardSet = _graphicsEntity->createBillBoard();
-			
-			MSendBillboard *m2 = new MSendBillboard();
-			m2->setBillboardSet(billboardSet);
-			m2->setTipoBillboard(m->getTipoBillboard());
-			_entity->emitMessage(m2);
+			MAttachBillboard *m = static_cast <MAttachBillboard*> (message);
+			_graphicsEntity->attachBillboardSet(m->getBillboardSet());
 		}
 	} // process
 

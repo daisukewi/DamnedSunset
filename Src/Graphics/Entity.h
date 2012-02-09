@@ -158,7 +158,7 @@ namespace Graphics
 		*/
 		Ogre::Entity* getEntity() {return _entity;}
 
-		Ogre::BillboardSet* createBillBoard();
+		void attachBillboardSet(Ogre::BillboardSet* b);
 
 	protected:
 
