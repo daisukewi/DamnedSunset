@@ -44,9 +44,8 @@ namespace Logic
 	}
 
 	CLife::~CLife() {
-		//delete _billboardSet;
-		//if (_billboardSet)
-		//	Graphics::CServer::getSingletonPtr()->getActiveScene()->removeBillboardset(_billboardSet);
+		if (_billboard)
+			delete _billboard;
 	}
 
 	bool CLife::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 

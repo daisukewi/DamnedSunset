@@ -11,6 +11,7 @@
 #include "Billboard.h"
 
 #include "Scene.h"
+#include "Server.h"
 
 #include "Logic/Server.h"
 #include "Logic/Maps/Map.h"
@@ -36,7 +37,7 @@ namespace Graphics
 
 	CBillboard::~CBillboard() 
 	{
-
+		Graphics::CServer::getSingletonPtr()->getActiveScene()->removeBillboardset(_billboardset);
 	}
 
 	void CBillboard::createBillBoard(Logic::CEntity * entity)
