@@ -14,7 +14,6 @@ Contiene la implementación del componente que controla la vida de una entidad.
 
 #include "Logic/Server.h"
 #include "Logic/Entity/Entity.h"
-#include "Logic/Maps/Map.h"
 #include "Logic/Maps/EntityFactory.h"
 #include "Map/MapEntity.h"
 #include "Application/BaseApplication.h"
@@ -39,8 +38,7 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	CLife::CLife() : IComponent(), _life(100.f) {
-		//_entity->getMap()->getScene();
+	CLife::CLife() : IComponent(), _life(100.f), _maxLife(100.0f) {
 	}
 
 	CLife::~CLife() {
@@ -57,14 +55,20 @@ namespace Logic
 			_life = entityInfo->getFloatAttribute("life");
 		if(entityInfo->hasAttribute("maxLife"))
 			_maxLife = entityInfo->getFloatAttribute("maxLife");
-
-		_billboard = new Graphics::CBillboard();
-		_billboard->createBillBoard(_entity);
-		_billboard->setMaterial("barraVida");
+		
+		//Billboard
+		_billboard = new Graphics::CBillboard(_entity);
+		if(entityInfo->hasAttribute("billboardLifeMaterial"))
+			_billboard->setMaterial(entityInfo->getStringAttribute("billboardLifeMaterial"));
+		if(entityInfo->hasAttribute("billboardLifeWith") && entityInfo->hasAttribute("billboardLifeHeight"))
+			_billboard->setDimensions(entityInfo->getFloatAttribute("billboardLifeWith"),entityInfo->getFloatAttribute("billboardLifeHeight"));
+		if(entityInfo->hasAttribute("billboardLifePosition"))
+		{
+			Vector3 v = entityInfo->getVector3Attribute("billboardLifePosition");
+			_billboard->setPosition(v.x,v.y,v.z);
+		}	
 		float porcentajeVida = _life/_maxLife;
 		_billboard->setPosicionImagen((1.0f-porcentajeVida*1.0)/2.0f/*inicioX*/, 0.0f, 0.5f+(1.0f-porcentajeVida*0.5f)/2.0f/*finX*/, 1.0f);
-		_billboard->setDimensions(8,1);
-		_billboard->setPosition(0,13,0);
 		return true;
 	} // spawn
 	

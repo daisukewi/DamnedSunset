@@ -4,6 +4,7 @@
 #include "Graphics/Scene.h"
 
 #include "Logic/Entity/Entity.h"
+#include "Map/MapEntity.h"
 
 #include "Graphics/Billboard.h"
 
@@ -26,12 +27,17 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 
-		_billboard = new Graphics::CBillboard();
-		_billboard->createBillBoard(_entity);
-		_billboard->setMaterial("circuloSeleccion");
-		_billboard->setDimensions(10,10);
-		//_billboard->setPosition(0,0,0);
-		_billboard->setDirection(Vector3::UNIT_Z);
+		_billboard = new Graphics::CBillboard(_entity);
+		if(entityInfo->hasAttribute("billboardSeleccionMaterial"))
+			_billboard->setMaterial(entityInfo->getStringAttribute("billboardSeleccionMaterial"));
+		if(entityInfo->hasAttribute("billboardSeleccionWith") && entityInfo->hasAttribute("billboardSeleccionHeight"))
+			_billboard->setDimensions(entityInfo->getFloatAttribute("billboardSeleccionWith"),entityInfo->getFloatAttribute("billboardSeleccionHeight"));
+		if(entityInfo->hasAttribute("billboardSeleccionPosition"))
+		{
+			Vector3 v = entityInfo->getVector3Attribute("billboardSeleccionPosition");
+			_billboard->setPosition(v.x,v.y,v.z);
+		}
+		_billboard->setPerpendicular();
 		_billboard->setVisible(false);
 		billboardVisible = false;
 		return true;

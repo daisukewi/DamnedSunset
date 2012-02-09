@@ -28,19 +28,7 @@
 
 namespace Graphics 
 {
-	CBillboard::CBillboard()
-	{
-
-	}
-
-	//--------------------------------------------------------
-
-	CBillboard::~CBillboard() 
-	{
-		Graphics::CServer::getSingletonPtr()->getActiveScene()->removeBillboardset(_billboardset);
-	}
-
-	void CBillboard::createBillBoard(Logic::CEntity * entity)
+	CBillboard::CBillboard(Logic::CEntity * entity)
 	{
 		CScene * scene = entity->getMap()->getScene();
 		_billboardset = scene->getSceneMgr()->createBillboardSet();
@@ -51,6 +39,13 @@ namespace Graphics
 
 		Ogre::Billboard* billboard;
 		billboard = _billboardset->createBillboard(0.0f,0.0f,0.0f);
+	}
+
+	//--------------------------------------------------------
+
+	CBillboard::~CBillboard() 
+	{
+		Graphics::CServer::getSingletonPtr()->getActiveScene()->removeBillboardset(_billboardset);
 	}
 
 	void CBillboard::setMaterial(std::string s)
@@ -70,10 +65,11 @@ namespace Graphics
 	{
 		_billboardset->getBillboard(0)->setTexcoordRect(x,x2,y,y2);
 	}
-	void CBillboard::setDirection(Ogre::Vector3 v)
+	void CBillboard::setPerpendicular()
 	{
-		_billboardset->setBillboardType(Ogre::BBT_ORIENTED_COMMON);
-		_billboardset->setCommonDirection(v);
+		_billboardset->setBillboardType(Ogre::BBT_PERPENDICULAR_COMMON);
+		_billboardset->setCommonDirection (Vector3::UNIT_Y);
+		_billboardset->setCommonUpVector(Vector3::UNIT_Z);
 	}
 	void CBillboard::setVisible(bool b)
 	{

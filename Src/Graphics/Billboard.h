@@ -46,19 +46,18 @@ namespace Graphics
 		/**
 		Constructor de la clase.
 		*/
-		CBillboard();
+		CBillboard(Logic::CEntity * entity);
 
 		/**
 		Destructor de la aplicación.
 		*/
 		virtual ~CBillboard();
 		
-		void createBillBoard(Logic::CEntity * entity);
 		void setMaterial(std::string s);
 		void setDimensions(float x, float y);
 		void setPosition(float x, float y, float z);
 		void setPosicionImagen(float x, float x2, float y, float y2);
-		void setDirection(Ogre::Vector3 v);
+		void setPerpendicular();
 		void setVisible(bool b);
 	protected:
 		friend class CScene;

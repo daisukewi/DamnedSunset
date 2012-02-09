@@ -57,6 +57,15 @@ Map = {
 		accel = 0.001,
 		angularAccel = 0.00001,
 		movementTolerance = 7.0,
+		
+		billboardLifeMaterial = "barraVida",
+		billboardLifeWith = 10.0,
+		billboardLifeHeight = 0.5,
+		billboardLifePosition = {0.0,12.0,0.0},
+		
+		billboardSeleccionMaterial = "circuloSeleccion",
+		billboardSeleccionWith = 15.0,
+		billboardSeleccionHeight = 15.0,
 	},
 	Player = {
 		type = "Player",
@@ -76,5 +85,15 @@ Map = {
 		accel = 0.001,
 		angularAccel = 0.00001,
 		movementTolerance = 7.0,
+		
+		billboardLifeMaterial = "barraVida",
+		billboardLifeWith = 8.0,
+		billboardLifeHeight = 1.0,
+		billboardLifePosition = {0.0,13.0,0.0},
+		
+		billboardSeleccionMaterial = "circuloSeleccion",
+		billboardSeleccionWith = 10.0,
+		billboardSeleccionHeight = 10.0,
+		
 	};
 }
