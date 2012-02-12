@@ -32,6 +32,8 @@
 #include "Logic\Entity\Messages\Damaged.h"
 #include "Logic\Entity\Messages\EntitySelected.h"
 
+#include "Logic\Entity\Messages\CrearBillboardMovimiento.h"
+
 namespace GUI {
 
 	CInterfazController::CInterfazController()
@@ -248,6 +250,13 @@ namespace GUI {
 		mapEntity->setName(ss.str());
 		Logic::CEntity *entity = Logic::CEntityFactory::getSingletonPtr()->createEntity(mapEntity,Logic::CServer::getSingletonPtr()->getMap());
 		/* FIN PRUEBA */
+
+		/**MENSAJE PRUEBA PARA BILLBOARD DE MOVIMIENTO**/
+		Logic::MCrearBillboardMovimiento *m = new Logic::MCrearBillboardMovimiento();
+		m->setPosX(20);
+		m->setPosY(20);
+		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("World")->emitMessage(m);
+		
 		return true;
 	}
 

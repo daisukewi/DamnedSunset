@@ -1,6 +1,12 @@
 Map = {
 	World = {
 		type = "World",
+		
+		billboardMoverMaterial = "circuloSeleccion",
+		billboardMoverWith = 10.0,
+		billboardMoverHeight = 10.0,
+		billboardMoverDimension = 5.0,
+		billboardMoverTime = 2.0,
 	},
 	
 	Entity = {
