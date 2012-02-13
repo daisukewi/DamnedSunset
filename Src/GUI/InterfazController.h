@@ -85,7 +85,6 @@ namespace GUI
 
 
 
-
 		unsigned int _time;
 
 		CEGUI::Window* _interfazWindow;

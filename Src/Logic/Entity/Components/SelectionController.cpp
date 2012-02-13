@@ -16,6 +16,7 @@
 #include "Logic/Entity/Messages/AttackEntity.h"
 #include "Logic/Entity/Messages/EmplaceBuilding.h"
 #include "Logic/Entity/Messages/IsSelectable.h"
+#include "Logic/Entity/Messages/ActivateSkill.h"
 
 #include "Logic/Entity/GodStates/Free.h"
 #include "Logic/Entity/GodStates/BuildSelected.h"
@@ -73,7 +74,8 @@ namespace Logic
 		bool accepted = !message->getType().compare("MMouseEvent")
 			|| !message->getType().compare("MControlRaycast")
 			|| !message->getType().compare("MEntitySelected")
-			|| !message->getType().compare("MEmplaceBuilding");
+			|| !message->getType().compare("MEmplaceBuilding")
+			|| !message->getType().compare("MActivateSkill");
 
 		if (accepted) message->addPtr();
 
@@ -140,6 +142,10 @@ namespace Logic
 		{
 			MEntitySelected *m_selection = static_cast <MEntitySelected*> (message);
 			processEntity(m_selection->getPoint(),m_selection->getSelectedEntity());
+		} else if (!message->getType().compare("MActivateSkill"))
+		{
+			MActivateSkill *m_skill = static_cast <MActivateSkill*> (message);
+			_skill = m_skill->getSkill();
 		}
 		
 		message->removePtr();
@@ -247,10 +253,19 @@ namespace Logic
 			if (!colEntity->getType().compare("Player"))
 			{
 				// Realizar acciones sobre un jugador.
+				if (!_selectedEntity->getName().compare("Amor") && _skill)
+				{
+					// Enviamos una orden de ataque al enemigo
+					MAttackEntity *m = new MAttackEntity();
+					m->setEntity(colEntity);
+					m->setAttack(true);
+					_selectedEntity->emitMessage(m, this);
+				}
 			
 			// Realizar acciones sobre el suelo
 			} else if (!colEntity->getType().compare("World"))
 			{
+				_skill = false;
 				MMoveSteering *m_movement = new MMoveSteering();
 				m_movement->setMovementType(AI::IMovement::MOVEMENT_DYNAMIC_ARRIVE);
 				m_movement->setTarget(colPoint);
@@ -259,6 +274,7 @@ namespace Logic
 			// Realizar acciones sobre un enemigo
 			} else if (!colEntity->getType().compare("Enemy"))
 			{
+				_skill = false;
 				if (!_selectedEntity->getType().compare("Player"))
 				{
 					// Enviamos una orden de ataque al enemigo
@@ -285,6 +301,7 @@ namespace Logic
 	void CSelectionController::startSelection()
 	{
 		_isSelecting = true;
+		_skill = false;
 
 		MControlRaycast *rc_message = new MControlRaycast();
 		rc_message->setAction(RaycastMessage::START_RAYCAST);

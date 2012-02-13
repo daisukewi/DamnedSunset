@@ -31,6 +31,7 @@
 #include "Logic\Entity\Messages\EmplaceBuilding.h"
 #include "Logic\Entity\Messages\Damaged.h"
 #include "Logic\Entity\Messages\EntitySelected.h"
+#include "Logic\Entity\Messages\ActivateSkill.h"
 
 #include "Logic\Entity\Messages\CrearBillboardMovimiento.h"
 
@@ -176,6 +177,7 @@ namespace GUI {
 		_jugadorSel = 3;
 		this->ocultarBotones();
 		this->cargarBoton('1',"martillo");
+		this->cargarBoton('4',"granada");
 	}
 	
 
@@ -257,6 +259,13 @@ namespace GUI {
 		m->setPosY(20);
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("World")->emitMessage(m);
 		
+
+		if (_jugadorSel == 3)
+		{
+			Logic::MActivateSkill *m_skill = new Logic::MActivateSkill();
+			m_skill->setSkill(true);
+			Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m_skill);
+		}
 		return true;
 	}
 

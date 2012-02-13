@@ -84,7 +84,6 @@ namespace Logic
 			}
 			else
 			{
-				std::cout << "Enemigo Muerto!!";
 				m_anim->setAnimationName("Idle");
 			}
 			_entity->emitMessage(m_anim, this);
@@ -276,9 +275,15 @@ namespace Logic
 			
 			else
 			{
-				// Quitamos 1 puntos de vida al enemigo
 				MDamaged *m_damage = new MDamaged();
-				m_damage->setHurt(1.0f);
+
+				if (!_enemy->getType().compare("Enemy"))
+					// Quitamos 1 punto de vida al enemigo
+					m_damage->setHurt(1.0f);
+				else
+					// Curamos 1 punto de vida al compañero
+					m_damage->setHurt(-1.0f);
+
 				m_damage->setKiller(_entity);
 				_enemy->emitMessage(m_damage, this);
 			}

@@ -15,6 +15,7 @@ Contiene la implementación del componente que controla la vida de una entidad.
 #include "Logic/Server.h"
 #include "Logic/Entity/Entity.h"
 #include "Logic/Maps/EntityFactory.h"
+#include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
 #include "Application/BaseApplication.h"
 
@@ -22,6 +23,8 @@ Contiene la implementación del componente que controla la vida de una entidad.
 #include "Graphics/Scene.h"
 #include "Graphics/Entity.h"
 #include "Graphics/Billboard.h"
+#include "Graphics.h"
+#include "Graphics/AnimatedEntity.h"
 
 #include "assert.h"
 
@@ -101,6 +104,33 @@ namespace Logic
 						MAttackEntity *m = new MAttackEntity();
 						m->setAttack(false);
 						md->getKiller()->emitMessage(m, this);
+						/*
+						Graphics::CAnimatedEntity * muerto = new Graphics::CAnimatedEntity("Enemy", "loco.mesh");
+						muerto->setAnimation("Death", true);
+						muerto->setPosition(_entity->getPosition());
+						muerto->setVisible(true);
+						*/
+						
+						Map::CEntity * muertoInfo = Map::CMapParser::getSingletonPtr()->getEntitieInfo("Entity");
+						muertoInfo->setName("EnemyDeath");
+						
+						char* cordX = new char[10];
+						sprintf(cordX, "%f", _entity->getPosition().x);
+						char* cordY = new char[10];
+						sprintf(cordY, "%f", _entity->getPosition().y);
+						char* cordZ = new char[10];
+						sprintf(cordZ, "%f", _entity->getPosition().z);
+						std::stringstream ss;
+						ss << '{' << cordX << ',' << ' ' << cordY << ',' << ' ' << cordZ << '}';
+						std::cout << ss.str() << '\n';
+						std::cout << _entity->getPosition() << '\n';
+						muertoInfo->setAttribute("position", ss.str());
+						muertoInfo->setAttribute("orientation", "90");
+						muertoInfo->setAttribute("model", "loco.mesh");
+
+						Logic::CEntity *muerto = Logic::CEntityFactory::getSingletonPtr()->createEntity(muertoInfo, _entity->getMap());
+						std::cout << muerto->getPosition() << '\n';
+
 						CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 					}
 				}
@@ -124,6 +154,15 @@ namespace Logic
 				{
 					//Actualizamos la vida en la interfaz
 					GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('3',_life/_maxLife);
+				}
+
+				// Si la entidad se ha curado paramos
+				if (_life >= _maxLife)
+				{
+					_life = _maxLife;
+					MAttackEntity *m = new MAttackEntity();
+					m->setAttack(false);
+					md->getKiller()->emitMessage(m, this);
 				}
 		}
 	} // process

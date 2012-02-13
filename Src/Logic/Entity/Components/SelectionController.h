@@ -42,7 +42,7 @@ namespace Logic
 		defecto.
 		*/
 		CSelectionController() : IComponent(), _canSelect(true),
-			_isSelecting(false), _isWaitingForAction(false), _numStates(3) {}
+			_isSelecting(false), _isWaitingForAction(false), _numStates(3), _skill(false) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -125,6 +125,8 @@ namespace Logic
 		bool _isSelecting;
 
 		bool _isWaitingForAction;
+
+		bool _skill;
 
 
 		/**

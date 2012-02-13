@@ -98,6 +98,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\Free.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\PlayerSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Message.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttackEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AvatarWalk.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SunController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchPosition.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttackEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\BuildSelected.h" />
