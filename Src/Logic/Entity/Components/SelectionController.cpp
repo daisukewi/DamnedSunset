@@ -255,7 +255,7 @@ namespace Logic
 				// Realizar acciones sobre un jugador.
 				if (!_selectedEntity->getName().compare("Amor") && _skill)
 				{
-					// Enviamos una orden de ataque al enemigo
+					// Enviamos una orden de curación al jugador.
 					MAttackEntity *m = new MAttackEntity();
 					m->setEntity(colEntity);
 					m->setAttack(true);
@@ -266,6 +266,12 @@ namespace Logic
 			} else if (!colEntity->getType().compare("World"))
 			{
 				_skill = false;
+
+				// Dejamos de atacar o curar y nos movemos.
+				MAttackEntity *m = new MAttackEntity();
+				m->setAttack(false);
+				_selectedEntity->emitMessage(m, this);
+
 				MMoveSteering *m_movement = new MMoveSteering();
 				m_movement->setMovementType(AI::IMovement::MOVEMENT_DYNAMIC_ARRIVE);
 				m_movement->setTarget(colPoint);

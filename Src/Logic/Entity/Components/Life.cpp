@@ -104,13 +104,14 @@ namespace Logic
 						MAttackEntity *m = new MAttackEntity();
 						m->setAttack(false);
 						md->getKiller()->emitMessage(m, this);
+
 						/*
-						Graphics::CAnimatedEntity * muerto = new Graphics::CAnimatedEntity("Enemy", "loco.mesh");
-						muerto->setAnimation("Death", true);
+						Graphics::CStaticEntity *muerto = new Graphics::CEntity(
 						muerto->setPosition(_entity->getPosition());
 						muerto->setVisible(true);
+						Graphics::CScene::addStaticEntity
 						*/
-						
+					
 						Map::CEntity * muertoInfo = Map::CMapParser::getSingletonPtr()->getEntitieInfo("Entity");
 						muertoInfo->setName("EnemyDeath");
 						
