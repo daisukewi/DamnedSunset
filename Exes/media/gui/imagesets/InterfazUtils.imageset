@@ -15,6 +15,10 @@
 	<Image Name="granada" XPos="200" YPos="5" Width="100" Height="100" />
 	<Image Name="granada2" XPos="200" YPos="105" Width="100" Height="100" />
 	<Image Name="granada3" XPos="200" YPos="205" Width="100" Height="100" />
+
+  <Image Name="jeringa" XPos="400" YPos="5" Width="100" Height="100" />
+  <Image Name="jeringa2" XPos="400" YPos="105" Width="100" Height="100" />
+  <Image Name="jeringa3" XPos="400" YPos="205" Width="100" Height="100" />
 	
 	<Image Name="volver" XPos="300" YPos="5" Width="100" Height="100" />
 	<Image Name="volver2" XPos="300" YPos="105" Width="100" Height="100" />

@@ -177,7 +177,7 @@ namespace GUI {
 		_jugadorSel = 3;
 		this->ocultarBotones();
 		this->cargarBoton('1',"martillo");
-		this->cargarBoton('4',"granada");
+		this->cargarBoton('4',"jeringa");
 	}
 	
 

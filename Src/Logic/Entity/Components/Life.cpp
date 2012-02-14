@@ -115,22 +115,13 @@ namespace Logic
 						Map::CEntity * muertoInfo = Map::CMapParser::getSingletonPtr()->getEntitieInfo("Entity");
 						muertoInfo->setName("EnemyDeath");
 						
-						char* cordX = new char[10];
-						sprintf(cordX, "%f", _entity->getPosition().x);
-						char* cordY = new char[10];
-						sprintf(cordY, "%f", _entity->getPosition().y);
-						char* cordZ = new char[10];
-						sprintf(cordZ, "%f", _entity->getPosition().z);
-						std::stringstream ss;
-						ss << '{' << cordX << ',' << ' ' << cordY << ',' << ' ' << cordZ << '}';
-						std::cout << ss.str() << '\n';
-						std::cout << _entity->getPosition() << '\n';
-						muertoInfo->setAttribute("position", ss.str());
+						std::stringstream pos;
+						pos << _entity->getPosition().x << ' ' << _entity->getPosition().y << ' ' << _entity->getPosition().z;
+						muertoInfo->setAttribute("position", pos.str());
 						muertoInfo->setAttribute("orientation", "90");
 						muertoInfo->setAttribute("model", "loco.mesh");
 
 						Logic::CEntity *muerto = Logic::CEntityFactory::getSingletonPtr()->createEntity(muertoInfo, _entity->getMap());
-						std::cout << muerto->getPosition() << '\n';
 
 						CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 					}
