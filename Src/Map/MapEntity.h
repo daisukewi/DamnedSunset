@@ -124,6 +124,16 @@ namespace Map
 		const Vector3 getVector3Attribute(const std::string &attr) const;
 
 		/**
+		Recupera un atributo previamente añadido de tipo tamaño IxJ. Si no existe 
+		salta una excepción. Las posiciones deben tener el formato "(x,y)".
+
+		@param attr Nombre del atributo a recuperar.
+		@param x Valor del eje X.
+		@param y Valor del eje Y.
+		*/
+		const Vector2 getVector2Attribute(const std::string &attr) const;
+
+		/**
 		Devuelve un string con el tipo de la entidad.
 
 		@return Tipo de la entidad.

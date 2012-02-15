@@ -1,10 +1,10 @@
 /**
-@file SunController.cpp
+@file BuilderController.cpp
 
 Contiene la implementación del componente que controla el movimiento 
-del sol y el control del la luz ambiental.
+de los edificios sobre el escenario, cuando se van a construir.
  
-@see Logic::CSunController
+@see Logic::CBuilderController
 @see Logic::IComponent
 
 @author Daniel Flamenco
@@ -85,6 +85,10 @@ namespace Logic
 				case BuildingMessage::START_BUILDING:
 					startBuilding(m_building->getBuildingType());
 					break;
+				case BuildingMessage::EMPLACE_BUILDING:
+					if (!_building) return;
+					emplaceBuilding();
+					break;
 				case BuildingMessage::CANCEL_BUILDING:
 					cancelBuilding();
 					break;
@@ -140,7 +144,7 @@ namespace Logic
 		_building = true;
 
 		// Creamos una nueva entidad sacada de los arquetipos
-		Map::CEntity * buildInfo = Map::CMapParser::getSingletonPtr()->getEntitieInfo("Entity");
+		Map::CEntity * buildInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Entity");
 		buildInfo->setName("PhantomBuilding");
 		buildInfo->setAttribute("position", "{0,0,0}");
 		buildInfo->setAttribute("orientation", "0");
@@ -182,16 +186,21 @@ namespace Logic
 
 	void CBuilderController::emplaceBuilding()
 	{
+		if (!_building || _buildingEntity == NULL) return;
+
 		Vector3 pos = _buildingEntity->getPosition();
 		std::stringstream vecPos, buildingName;
+		std::string	buildingType;
+
 		vecPos << pos.x << " 0.0 " << pos.z;
 		buildingName << _buildingEntity->getName() << ++_buildingNumber;
+		buildingType = _buildingEntity->getType();
 
 		// Borrar la entidad sin física
 		Logic::CEntityFactory::getSingletonPtr()->deleteEntity(_buildingEntity);
 
 		// Creamos una nueva entidad sacada de los arquetipos
-		Map::CEntity * buildInfo = Map::CMapParser::getSingletonPtr()->getEntitieInfo("Turret");
+		Map::CEntity * buildInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Turret");
 
 		// Le ponemos un nuevo nombre para poder hacer spawn y la posición del edificio fantasma
 		buildInfo->setName(buildingName.str());
@@ -205,7 +214,7 @@ namespace Logic
 		_entity->emitMessage(rc_message);
 
 		MEmplaceBuilding *b_message = new MEmplaceBuilding();
-		b_message->setAction(BuildingAction::EMPLACE_BUILDING);
+		b_message->setAction(BuildingAction::FINISH_BUILDING);
 		_entity->emitMessage(b_message, this);
 
 		_building = false;
@@ -216,7 +225,7 @@ namespace Logic
 
 	void CBuilderController::moveBuilding( Vector2 pos )
 	{
-		if (!_buildingEntity) return;
+		if (_buildingEntity == NULL) return;
 
 		// Ponemos la nueva posición del edificio en el centro de la casilla que le corresponda.
 		Vector2 newPos;

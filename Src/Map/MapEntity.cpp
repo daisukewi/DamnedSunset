@@ -104,4 +104,18 @@ namespace Map {
 
 	} // getVector3Attribute
 
+	//--------------------------------------------------------
+
+	const Vector2 CEntity::getVector2Attribute(const std::string &attr) const
+	{
+		// Recuperamos la cadena  "x y"
+		std::string position = (*_attributes.find(attr)).second;
+		int space1 = position.find(' ');
+		float x = (float)atof(position.substr(0,space1).c_str());
+		float y = (float)atof(position.substr(space1+1,position.size()-(space1+1)).c_str());
+
+		return Vector2(x,y);
+
+	} // getVector2Attribute
+
 } // namespace Map

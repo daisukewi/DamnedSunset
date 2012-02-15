@@ -80,6 +80,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BillboardIndicacionMover.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BillboardSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BuilderController.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\MapBuilding.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\CameraController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DamageTrigger.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Life.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\CameraController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DamageTrigger.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Life.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\MapBuilding.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicCharacter.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RaycastController.h" />
@@ -209,9 +211,6 @@
       <Project>{599f27dc-a593-4e7c-a461-d7b3198118b0}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram11.cd" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

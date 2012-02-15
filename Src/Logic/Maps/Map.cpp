@@ -68,6 +68,7 @@ namespace Logic {
 		}
 
 		// Si se ha realizado con éxito el parseo creamos el mapa.
+		//TODO: (LUA) Incluir el tamaño del mapa cuando se parsee del nuevo archivo map.lua
 		CMap *map = new CMap(filename);
 
 		// Extraemos las entidades del parseo.
@@ -130,12 +131,21 @@ namespace Logic {
 		_name = name;
 		_scene = Graphics::CServer::getSingletonPtr()->createScene(name);
 
+		// Reserva memoria para almacenar el mapa lógico y inicializa cada casilla.
+		_gridMap = (TGridTile**)malloc(sizeof(TGridTile) * MAP_WIDTH * MAP_WIDTH);
+		for (int i = 0; i < MAP_WIDTH; i++)
+			for (int j = 0; j < MAP_WIDTH; j++)
+				_gridMap[i][j] = new CGridTile(i, j);
+
 	} // CMap
 
 	//--------------------------------------------------------
 
 	CMap::~CMap()
 	{
+		// Libera la memoria utilizada para almacenar el mapa lógico.
+		delete(_gridMap);
+
 		destroyAllEntities();
 		if(Graphics::CServer::getSingletonPtr())
 			Graphics::CServer::getSingletonPtr()->removeScene(_scene);
@@ -312,5 +322,21 @@ namespace Logic {
 		return 0;
 
 	} // getEntityByType
+
+	//--------------------------------------------------------
+
+	TGridTile CMap::getTileFromPosition(const float x, const float y)
+	{
+		int i = (int)x / GRID_SIZE;
+		int j = (int)y / GRID_SIZE;
+
+		return _gridMap[i][j];
+
+	} // getGridFromPosition
+
+	TGridTile CMap::getTileFromCoord(const int i, const int j)
+	{
+		return _gridMap[i][j];
+	}
 
 } // namespace Logic

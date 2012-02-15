@@ -214,7 +214,7 @@ Map = {
 
 		static void CMapParser::releaseEntityList(TEntityList list);
 
-		Map::CEntity * getEntitieInfo( std::string);
+		Map::CEntity * getEntityInfo( std::string);
 	private:
 		/**
 		Única instancia de la clase.

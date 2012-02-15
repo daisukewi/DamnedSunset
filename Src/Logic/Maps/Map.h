@@ -29,6 +29,105 @@ namespace Graphics
 // Declaración de la clase
 namespace Logic
 {
+
+	const int GRID_SIZE = 10;
+	const int MAP_WIDTH = 10;
+
+	/**
+	Clase que contiene el tipo de datos de un tile del mapa.
+	Tiene una serie de atributos que se utilizan para almacenar
+	las entidades y el terreno que tiene cada casilla del mapa.
+
+	@author Daniel Flamenco González
+	@date Febrero, 2012
+	*/
+	class CGridTile
+	{
+	public:
+		/**
+		Constructor.
+		*/
+		CGridTile (unsigned int row, unsigned int col) : _row(row), _col(col), _terrain(0), _building(NULL) {}
+
+		/**
+		Destructor.
+		*/
+		~CGridTile() {}
+
+		/**
+		Devuelve la fila en la que se encuentra la casilla dentro de la tabla.
+		*/
+		unsigned int GetRow() { return _row; }
+
+		/**
+		Devuelve la columna en la que se encuentra la casilla dentro de la tabla.
+		*/
+		unsigned int GetCol() { return _col; }
+
+		/**
+		Pone el tipo de terreno de la casilla.
+		*/
+		void SetTerrain(int terrainType) { _terrain = terrainType; }
+
+		/**
+		Obtiene el tipo de terreno de la casilla.
+		*/
+		int GetTerrain() { return _terrain; }
+
+		/**
+		Establece el edificio que se encuentra en la casilla.
+		*/
+		void SetBuilding(CEntity* building) { _building = building; }
+
+		/**
+		Elimina el edificio que tiene la casilla.
+		*/
+		void DeleteBuilding() { _building = NULL; }
+
+		/**
+		Obtiene el edificio que se encuentra en la casilla.
+
+		Devuelve NULL si no hay edificio.
+		*/
+		CEntity* GetBuilding() { return _building; }
+
+		/**
+		Añade una nueva entidad a la casilla.
+		*/
+		void AddEntity(CEntity* entity) { _entityList.insert(std::pair<TEntityID, CEntity*>(entity->getEntityID(), entity)); }
+
+		/**
+		Elimina una entidad de la casilla.
+		*/
+		void DeleteEntity(CEntity* entity) { _entityList.erase(entity->getEntityID()); }
+
+	private:
+
+		/**
+		Atributos que indican la columna y la fila en las que se encuentra
+		la casilla dentro de la tabla.
+		*/
+		int _row, _col;
+
+		/**
+		Atributo que almacena el tipo de terreno que hay en la casilla.
+		*/
+		int _terrain;
+
+		/**
+		Atributo para almacenar la entidad de un edificio.
+		*/
+		CEntity* _building;
+
+		/**
+		Lista de agentes que se encuentran en la casilla.
+		*/
+		std::map<TEntityID, CEntity*> _entityList;
+
+	};
+
+	typedef CGridTile* TGridTile;
+
 	/**
 	Clase que representa un mapa lógico.
 	<p>
@@ -159,8 +258,18 @@ namespace Logic
 		*/
 		Graphics::CScene *getScene() {return _scene;}
 
-		static void setAtributosArquetipos(Map::CEntity* entidad, Map::CMapParser::TEntityList & entityList);
+		/**
+		Devuelve la casilla que le corresponde a una posición 2D del mapa.
+		*/
+		TGridTile getTileFromPosition(const float x, const float y);
 
+		/**
+		Devuelve la casilla que le corresponde a las coordenadas de la tabla.
+		*/
+		TGridTile CMap::getTileFromCoord(const int i, const int j);
+
+		static void setAtributosArquetipos(Map::CEntity* entidad, Map::CMapParser::TEntityList & entityList);
+		
 	private:
 		
 
@@ -184,6 +293,11 @@ namespace Logic
 		las entidades.
 		*/
 		Graphics::CScene* _scene;
+
+		/**
+		Grid de tiles donde se almacena el mapa lógico del escenario.
+		*/
+		TGridTile** _gridMap;
 
 	}; // class CMap
 

@@ -1,55 +1,50 @@
 /**
-@file BuilderController.h
+@file MapBuilding.h
 
-Contiene la declaración del componente que controla la construcción
-de los edificios.
+Contiene la declaración del componente que se comunica con
+el mapa lógico para ocupar y desocupar las casillas necesarias
+que ocupe un edificio.
 
-@see Logic::CBuilderController
+@see Logic::CMapBuilding
 @see Logic::IComponent
 
 @author Daniel Flamenco
-@date Enero, 2012
+@date Febrero, 2012
 */
-#ifndef __Logic_BuilderController_H
-#define __Logic_BuilderController_H
+#ifndef __Logic_MapBuilding_H
+#define __Logic_MapBuilding_H
 
 #include "Logic/Entity/Component.h"
-
-#include "BaseSubsystems/Math.h"
-
-// Predeclaración de clases para ahorrar tiempo de compilación
-namespace Logic 
-{
-	class CEntity;
-}
 
 //declaración de la clase
 namespace Logic 
 {
 /**
-	Este componente es el encargado de mover a una entidad animada. Tiene
-	diferentes métodos que permiten avances o giros. El uso de este componente
-	es un poco atípico ya que se puede registrar en otro controlador externo
-	(i.e. GUI::CPlayerController) que sea el que de las órdenes que se deben
-	llevar a cabo mediante llamadas a métodos públicos del componente. Puede
-	no obstante ampliarse este componente para aceptar mensajes tradicionales
-	con las órdenes, sin embargo de momento así es suficiente.
-	
+	Este componente se encarga de dar de alta un edificio dentro del mapa lógico
+	cuando se hace spawn.
+	Cuando el edificio es borrado, se encarga de liberar las casillas que estaba ocupando.
+
     @ingroup logicGroup
 
 	@author Daniel Flamenco
 	@date Enero, 2012
 */
-	class CBuilderController : public IComponent
+	class CMapBuilding : public IComponent
 	{
-		DEC_FACTORY(CBuilderController);
+		DEC_FACTORY(CMapBuilding);
 	public:
 
 		/**
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CBuilderController() : IComponent(), _building(false), _buildingNumber(0) {}
+		CMapBuilding() : IComponent() {}
+
+		/**
+		Destructor. Tiene que liberar las casillas ocupadas por el edificio
+		en el mapa lógico.
+		*/
+		~CMapBuilding();
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -112,58 +107,29 @@ namespace Logic
 		@param message Mensaje a procesar.
 		*/
 		virtual void process(IMessage *message);
-
-	protected:
-
-		/**
-		Método que se llama para comenzar a construir un edificio.
-		Crea una entidad fantasma (sin física) del tipo de edificio que se quiere construir.
-
-		@param buildingType Tipo de edificio que se quiere construir.
-		*/
-		void startBuilding( std::string buildingType );
+		
+	private:
 
 		/**
-		Cancela la construcción que se esté realizando en ese momento.
+		Rellena las casillas que ocupa el edificio en el mapa lógico.
 		*/
-		void cancelBuilding();
+		void FillMapCells();
 
 		/**
-		Método que se llama para aceptar una construcción.
-		Elimina la entidad fantasma que sigue al cursor y lo sustituye por una entidad física
-		con nombre propio, en la misma posición que estaba la fantasma.
+		Libera las casillas que ocupaba el edificio en el mapa lógico.
 		*/
-		void emplaceBuilding();
+		void FreeMapCells();
 
 		/**
-		Método que se llama para mover el edificio fantasma a la posición
-		donde se encuentra el cursor.
-
-		@param pos Posición del plano 2D donde hay que posicionar la entidad.
+		Atributo que contiene el tamaño (en casillas)
+		que ocupa el edificio en el mapa lógico.
 		*/
-		void moveBuilding( Vector2 pos );
+		Vector2 _buildingSize;
 
-		/**
-		Atributo que controla que está construyendo un edificio.
-		*/
-		bool _building;
+	}; // class CMapBuilding
 
-		/**
-		Atributo que contiene a la entidad "fantasma"
-		del edificio que se está construyendo.
-		*/
-		CEntity *_buildingEntity;
-
-		/**
-		Atributo que lleva la cuenta del identificador del edificio
-		que se tiene que construir.
-		*/
-		int _buildingNumber;
-
-	}; // class CBuilderController
-
-	REG_FACTORY(CBuilderController);
+	REG_FACTORY(CMapBuilding);
 
 } // namespace Logic
 
-#endif // __Logic_BuilderController_H
+#endif // __Logic_MapBuilding_H

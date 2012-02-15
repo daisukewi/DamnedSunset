@@ -245,7 +245,7 @@ namespace GUI {
 	bool CInterfazController::clickB4(const CEGUI::EventArgs& e)
 	{
 		/** PRUBA PARA VER QUE FUNCIONA sacar los valores del arquetipo*/
-		Map::CEntity * mapEntity = Map::CMapParser::getSingletonPtr()->getEntitieInfo("Barril");
+		Map::CEntity * mapEntity = Map::CMapParser::getSingletonPtr()->getEntityInfo("Barril");
 		//Hay que cambiarle el nombre xq sino solo se crearia el primero (coja la vida1 x coger cualquier cosa)
 		std::stringstream ss;
 		ss << _vida1;

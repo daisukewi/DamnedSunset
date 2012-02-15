@@ -135,7 +135,7 @@ namespace Map {
 		}
 	}
 
-	Map::CEntity * CMapParser::getEntitieInfo( std::string s)
+	Map::CEntity * CMapParser::getEntityInfo( std::string s)
 	{
 		Map::CMapParser::TEntityList list = Map::CMapParser::getSingletonPtr()->getEntityList();
 		Map::CMapParser::TEntityList::const_iterator it, end;
