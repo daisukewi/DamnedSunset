@@ -32,8 +32,6 @@ namespace Logic
 {
 	IMP_FACTORY(CBuilderController);
 
-	const int GRID_SIZE = 10;
-	
 	//---------------------------------------------------------
 
 	bool CBuilderController::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
@@ -228,9 +226,7 @@ namespace Logic
 		if (_buildingEntity == NULL) return;
 
 		// Ponemos la nueva posición del edificio en el centro de la casilla que le corresponda.
-		Vector2 newPos;
-		newPos.x = ( (int)pos.x / GRID_SIZE - 0.5 ) * GRID_SIZE;
-		newPos.y = ( (int)pos.y / GRID_SIZE - 0.5 ) * GRID_SIZE;
+		Vector2 newPos = _entity->getMap()->getAbsoluteGridPos(pos);
 		_buildingEntity->setPosition(Vector3(newPos.x, 1.0f, newPos.y));
 
 	} // moveBuilding

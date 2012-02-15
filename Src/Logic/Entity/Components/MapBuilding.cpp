@@ -33,7 +33,10 @@ namespace Logic
 
 		if(entityInfo->hasAttribute("building_size"))
 		{
-			_buildingSize = entityInfo->getVector2Attribute("building_size");
+			Vector2 size = entityInfo->getVector2Attribute("building_size");
+			_buildingWidth = size.x;
+			_buildingHeight = size.y;
+
 			FillMapCells();
 		}
 
@@ -86,34 +89,39 @@ namespace Logic
 		
 	} // tick
 
+	//---------------------------------------------------------
+
 	void CMapBuilding::FillMapCells()
 	{
 		TGridTile current_tile = _entity->getMap()->getTileFromPosition(_entity->getPosition().x, _entity->getPosition().z);
-		int start_row = current_tile->GetRow() - _buildingSize.x / 2;
-		int start_col = current_tile->GetCol() - _buildingSize.y / 2;
+		int start_row = current_tile->GetRow() - _buildingHeight / 2;
+		int start_col = current_tile->GetCol() - _buildingWidth / 2;
 
-		int end_row = start_row + _buildingSize.y;
-		int end_col = start_col + _buildingSize.x;
+		int end_row = start_row + _buildingHeight;
+		int end_col = start_col + _buildingWidth;
 
 		for (int row = start_row; row < end_row; row ++)
 			for (int col = start_col; col < end_col; col++)
 				_entity->getMap()->getTileFromCoord(row, col)->SetBuilding(_entity);
 
-	}
+	} // FillMapCells
+
+	//---------------------------------------------------------
 
 	void CMapBuilding::FreeMapCells()
 	{
 		TGridTile current_tile = _entity->getMap()->getTileFromPosition(_entity->getPosition().x, _entity->getPosition().z);
-		int start_row = current_tile->GetRow() - _buildingSize.x / 2;
-		int start_col = current_tile->GetCol() - _buildingSize.y / 2;
+		int start_row = current_tile->GetRow() - _buildingHeight / 2;
+		int start_col = current_tile->GetCol() - _buildingWidth / 2;
 
-		int end_row = start_row + _buildingSize.y;
-		int end_col = start_col + _buildingSize.x;
+		int end_row = start_row + _buildingHeight;
+		int end_col = start_col + _buildingWidth;
 
 		for (int row = start_row; row < end_row; row ++)
 			for (int col = start_col; col < end_col; col++)
 				_entity->getMap()->getTileFromCoord(row, col)->DeleteBuilding();
-	}
+
+	} // FreeMapCells
 
 } // namespace Logic
 

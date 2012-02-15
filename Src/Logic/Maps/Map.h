@@ -14,6 +14,7 @@ Contiene la declaración de la clase CMap, Un mapa lógico.
 #include <map>
 #include "EntityID.h"
 #include "Map/MapParser.h"
+#include "Logic/Entity/Entity.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Logic 
@@ -256,7 +257,13 @@ namespace Logic
 
 		@return Escena con las entidades gráficas.
 		*/
-		Graphics::CScene *getScene() {return _scene;}
+		Graphics::CScene *getScene() { return _scene; }
+
+		/**
+		Devuelve la posición modulada en el grid del mapa, de las
+		coordenadas pasadas por argumento.
+		*/
+		Vector2 getAbsoluteGridPos(const Vector2 pos);
 
 		/**
 		Devuelve la casilla que le corresponde a una posición 2D del mapa.

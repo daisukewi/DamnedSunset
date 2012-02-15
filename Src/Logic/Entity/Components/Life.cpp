@@ -112,7 +112,7 @@ namespace Logic
 						Graphics::CScene::addStaticEntity
 						*/
 					
-						Map::CEntity * muertoInfo = Map::CMapParser::getSingletonPtr()->getEntitieInfo("Entity");
+						Map::CEntity * muertoInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Entity");
 						muertoInfo->setName("EnemyDeath");
 						
 						std::stringstream pos;

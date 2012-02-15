@@ -325,6 +325,18 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
+	Vector2 CMap::getAbsoluteGridPos(const Vector2 pos)
+	{
+		Vector2 modulePos;
+		modulePos.x = ( (int)pos.x / GRID_SIZE - 0.5 ) * GRID_SIZE;
+		modulePos.y = ( (int)pos.y / GRID_SIZE - 0.5 ) * GRID_SIZE;
+
+		return modulePos;
+
+	} // getAbsoluteGridPos
+
+	//--------------------------------------------------------
+
 	TGridTile CMap::getTileFromPosition(const float x, const float y)
 	{
 		int i = (int)x / GRID_SIZE;
@@ -334,9 +346,12 @@ namespace Logic {
 
 	} // getGridFromPosition
 
+	//--------------------------------------------------------
+
 	TGridTile CMap::getTileFromCoord(const int i, const int j)
 	{
 		return _gridMap[i][j];
-	}
+
+	} // getTileFromCoord
 
 } // namespace Logic

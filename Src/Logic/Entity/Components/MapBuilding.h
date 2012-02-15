@@ -121,10 +121,10 @@ namespace Logic
 		void FreeMapCells();
 
 		/**
-		Atributo que contiene el tamaño (en casillas)
+		Atributos que contienen el tamaño (en casillas)
 		que ocupa el edificio en el mapa lógico.
 		*/
-		Vector2 _buildingSize;
+		unsigned int _buildingWidth, _buildingHeight;
 
 	}; // class CMapBuilding
 
