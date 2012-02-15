@@ -7,7 +7,7 @@ AnimatedEntity CAnimatedGraphics
 Camera CCamera
 PlayerGod CCameraController CRaycastController CSelectionController CBuilderController
 Building CGraphics CPhysicEntity
-Turret CGraphics CPhysicEntity
+Turret CGraphics CPhysicEntity CMapBuilding
 Barril CGraphics CPhysicEntity
 PuertaTrigger CSwitchTrigger CPhysicEntity
 Puerta CGraphics CSwitchPosition

@@ -132,10 +132,13 @@ namespace Logic {
 		_scene = Graphics::CServer::getSingletonPtr()->createScene(name);
 
 		// Reserva memoria para almacenar el mapa lógico y inicializa cada casilla.
-		_gridMap = (TGridTile**)malloc(sizeof(TGridTile) * MAP_WIDTH * MAP_WIDTH);
-		for (int i = 0; i < MAP_WIDTH; i++)
-			for (int j = 0; j < MAP_WIDTH; j++)
+		_gridMap = new TGridTile*[MAP_VGRIDS];
+		for (int i = 0; i < MAP_VGRIDS; ++i)
+		{
+			_gridMap[i] = new TGridTile[MAP_HGRIDS];
+			for (int j = 0; j < MAP_HGRIDS; ++j)
 				_gridMap[i][j] = new CGridTile(i, j);
+		}
 
 	} // CMap
 
@@ -143,10 +146,17 @@ namespace Logic {
 
 	CMap::~CMap()
 	{
+		destroyAllEntities();
+
 		// Libera la memoria utilizada para almacenar el mapa lógico.
+		for (int i = 0; i < MAP_VGRIDS; ++i)
+		{
+			for (int j = 0; j < MAP_HGRIDS; ++j)
+				delete(_gridMap[i][j]);
+			delete(_gridMap[i]);
+		}
 		delete(_gridMap);
 
-		destroyAllEntities();
 		if(Graphics::CServer::getSingletonPtr())
 			Graphics::CServer::getSingletonPtr()->removeScene(_scene);
 
@@ -339,8 +349,10 @@ namespace Logic {
 
 	TGridTile CMap::getTileFromPosition(const float x, const float y)
 	{
-		int i = (int)x / GRID_SIZE;
-		int j = (int)y / GRID_SIZE;
+		int i = (int)(x + MAP_WIDTH / 2) / GRID_SIZE;
+		int j = (int)(y + MAP_HEIGHT / 2) / GRID_SIZE;
+
+		assert(i >= 0 && i < MAP_HGRIDS && j >= 0 && j < MAP_VGRIDS);
 
 		return _gridMap[i][j];
 

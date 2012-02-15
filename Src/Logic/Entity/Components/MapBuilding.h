@@ -126,6 +126,12 @@ namespace Logic
 		*/
 		unsigned int _buildingWidth, _buildingHeight;
 
+		/**
+		Atributos que indican el cuadrado que contiene las casillas
+		que está ocupando el edificio.
+		*/
+		unsigned int _startRow, _startCol, _endRow, _endCol;
+
 	}; // class CMapBuilding
 
 	REG_FACTORY(CMapBuilding);

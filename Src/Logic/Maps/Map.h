@@ -32,7 +32,10 @@ namespace Logic
 {
 
 	const int GRID_SIZE = 10;
-	const int MAP_WIDTH = 10;
+	const int MAP_HGRIDS = 10;
+	const int MAP_VGRIDS = 10;
+	const float MAP_WIDTH = 100.0f;
+	const float MAP_HEIGHT = 100.0f;
 
 	/**
 	Clase que contiene el tipo de datos de un tile del mapa.

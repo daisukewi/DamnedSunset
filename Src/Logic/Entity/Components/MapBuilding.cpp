@@ -94,14 +94,14 @@ namespace Logic
 	void CMapBuilding::FillMapCells()
 	{
 		TGridTile current_tile = _entity->getMap()->getTileFromPosition(_entity->getPosition().x, _entity->getPosition().z);
-		int start_row = current_tile->GetRow() - _buildingHeight / 2;
-		int start_col = current_tile->GetCol() - _buildingWidth / 2;
+		_startRow = current_tile->GetRow() - _buildingHeight / 2;
+		_startCol = current_tile->GetCol() - _buildingWidth / 2;
 
-		int end_row = start_row + _buildingHeight;
-		int end_col = start_col + _buildingWidth;
+		_endRow = _startRow + _buildingHeight;
+		_endCol = _startCol + _buildingWidth;
 
-		for (int row = start_row; row < end_row; row ++)
-			for (int col = start_col; col < end_col; col++)
+		for (int row = _startRow; row < _endRow; row ++)
+			for (int col = _startCol; col < _endCol; col++)
 				_entity->getMap()->getTileFromCoord(row, col)->SetBuilding(_entity);
 
 	} // FillMapCells
@@ -110,15 +110,8 @@ namespace Logic
 
 	void CMapBuilding::FreeMapCells()
 	{
-		TGridTile current_tile = _entity->getMap()->getTileFromPosition(_entity->getPosition().x, _entity->getPosition().z);
-		int start_row = current_tile->GetRow() - _buildingHeight / 2;
-		int start_col = current_tile->GetCol() - _buildingWidth / 2;
-
-		int end_row = start_row + _buildingHeight;
-		int end_col = start_col + _buildingWidth;
-
-		for (int row = start_row; row < end_row; row ++)
-			for (int col = start_col; col < end_col; col++)
+		for (int row = _startRow; row < _endRow; row ++)
+			for (int col = _startCol; col < _endCol; col++)
 				_entity->getMap()->getTileFromCoord(row, col)->DeleteBuilding();
 
 	} // FreeMapCells
