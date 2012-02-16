@@ -96,6 +96,15 @@ namespace Logic
 		CEntity* GetBuilding() { return _building; }
 
 		/**
+		Indica si la casilla está ocupada por un edificio o tiene
+		alguna unidad en ella.
+
+		@return true Si hay un edificio construido, o cuando hay una unidad
+		en la casilla.
+		*/
+		bool IsPopulated() { return _building != NULL || !_entityList.empty(); }
+
+		/**
 		Añade una nueva entidad a la casilla.
 		*/
 		void AddEntity(CEntity* entity) { _entityList.insert(std::pair<TEntityID, CEntity*>(entity->getEntityID(), entity)); }

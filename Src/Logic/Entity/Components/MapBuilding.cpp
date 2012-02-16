@@ -48,7 +48,11 @@ namespace Logic
 
 	CMapBuilding::~CMapBuilding()
 	{
+		// No liberar las celdas aquí. Mandar un mensaje cuando el
+		// edificio sea destruido y llamar entonces a la función.
+		/*
 		FreeMapCells();
+		*/
 
 	} // destructor
 	

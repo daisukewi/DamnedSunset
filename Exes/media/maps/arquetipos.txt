@@ -16,6 +16,14 @@ Map = {
 		model = "torreta_pie.mesh",
 	},
 	
+	PhantomTurret = {
+		type = "PhantomTurret",
+		position = {0, -50, 0},
+		orientation = 0,
+		building_size = "1 1",
+		model = "torreta_pie.mesh",
+	},
+	
 	Turret = {
 		type = "Turret",
 		position = {0, 0, 0},

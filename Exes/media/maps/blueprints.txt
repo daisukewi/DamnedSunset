@@ -8,6 +8,7 @@ AnimatedEntity CAnimatedGraphics
 Camera CCamera
 PlayerGod CCameraController CRaycastController CSelectionController CBuilderController
 Building CGraphics CPhysicEntity
+PhantomTurret CGraphics
 Turret CGraphics CPhysicEntity CMapBuilding
 Barril CGraphics CPhysicEntity
 PuertaTrigger CSwitchTrigger CPhysicEntity

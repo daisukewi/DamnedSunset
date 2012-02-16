@@ -144,6 +144,14 @@ namespace Logic
 		void moveBuilding( Vector2 pos );
 
 		/**
+		Método que se encarga de comprobar si el edificio en construcción
+		puede construirse en la posición en que se encuentra.
+
+		@return true si se puede construir.
+		*/
+		bool CheckBuildingCanEmplace();
+
+		/**
 		Atributo que controla que está construyendo un edificio.
 		*/
 		bool _building;
@@ -159,6 +167,12 @@ namespace Logic
 		que se tiene que construir.
 		*/
 		int _buildingNumber;
+
+		/**
+		Atributos que almacenan el tamaño en casillas que ocupa el
+		edificio en el mapa lógico.
+		*/
+		unsigned int _buildingHeight, _buildingWidth;
 
 	}; // class CBuilderController
 

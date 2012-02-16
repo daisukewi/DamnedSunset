@@ -142,11 +142,12 @@ namespace Logic
 		_building = true;
 
 		// Creamos una nueva entidad sacada de los arquetipos
-		Map::CEntity * buildInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Entity");
+		Map::CEntity * buildInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("PhantomTurret");
 		buildInfo->setName("PhantomBuilding");
-		buildInfo->setAttribute("position", "{0,0,0}");
-		buildInfo->setAttribute("orientation", "0");
-		buildInfo->setAttribute("model", "torreta_pie.mesh");
+
+		Vector2 size = buildInfo->getVector2Attribute("building_size");
+		_buildingWidth = size.x;
+		_buildingHeight = size.y;
 
 		_buildingEntity = Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap());
 
@@ -185,6 +186,8 @@ namespace Logic
 	void CBuilderController::emplaceBuilding()
 	{
 		if (!_building || _buildingEntity == NULL) return;
+
+		if (!CheckBuildingCanEmplace()) return;
 
 		Vector3 pos = _buildingEntity->getPosition();
 		std::stringstream vecPos, buildingName;
@@ -230,6 +233,33 @@ namespace Logic
 		_buildingEntity->setPosition(Vector3(newPos.x, 1.0f, newPos.y));
 
 	} // moveBuilding
+
+	//---------------------------------------------------------
+
+	bool CBuilderController::CheckBuildingCanEmplace()
+	{
+		Vector3 pos = _buildingEntity->getPosition();
+
+		TGridTile current_tile = _entity->getMap()->getTileFromPosition(pos.x, pos.z);
+		int _startRow = current_tile->GetRow() - _buildingHeight / 2;
+		int _startCol = current_tile->GetCol() - _buildingWidth / 2;
+
+		int _endRow = _startRow + _buildingHeight;
+		int _endCol = _startCol + _buildingWidth;
+
+		bool canEmplace = true;
+
+		for (int row = _startRow; row < _endRow; row ++)
+			for (int col = _startCol; col < _endCol; col++)
+			{
+				//TODO: Comprobar cada casilla y mandar al pixel shader un color para mostrar
+				// el edificio en rojo, amarillo o verde.
+				canEmplace &= !_entity->getMap()->getTileFromCoord(row, col)->IsPopulated();
+			}
+
+		return canEmplace;
+
+	} // CheckBuildingCanEmplace
 
 } // namespace Logic
 
