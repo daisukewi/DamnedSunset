@@ -160,11 +160,14 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\CrearBillboardMovimiento.cpp">
       <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.cpp">
-      <Filter>Entity\Messages\Source Files</Filter>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemiesGenerator.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Components\MapBuilding.cpp">
       <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.cpp">
+      <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -339,11 +342,14 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\CrearBillboardMovimiento.h">
       <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.h">
-      <Filter>Entity\Messages\Header Files</Filter>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemiesGenerator.h">
+      <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MapBuilding.h">
       <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.h">
+      <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
