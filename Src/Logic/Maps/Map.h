@@ -102,17 +102,19 @@ namespace Logic
 		@return true Si hay un edificio construido, o cuando hay una unidad
 		en la casilla.
 		*/
-		bool IsPopulated() { return _building != NULL || !_entityList.empty(); }
+		bool IsPopulated() { return _building != NULL; }
 
 		/**
 		Añade una nueva entidad a la casilla.
+		NOT IMPLEMENTED
 		*/
-		void AddUnit(CEntity* entity) { _entityList.insert(std::pair<TEntityID, CEntity*>(entity->getEntityID(), entity)); }
+		void AddUnit(CEntity* entity) { /*_entityList.insert(std::pair<TEntityID, CEntity*>(entity->getEntityID(), entity));*/ }
 
 		/**
 		Elimina una entidad de la casilla.
+		NOT IMPLEMENTED
 		*/
-		void DeleteUnit(CEntity* entity) { _entityList.erase(entity->getEntityID()); }
+		void DeleteUnit(CEntity* entity) { /*_entityList.erase(entity->getEntityID());*/ }
 
 	private:
 
@@ -135,7 +137,7 @@ namespace Logic
 		/**
 		Lista de agentes que se encuentran en la casilla.
 		*/
-		std::map<TEntityID, CEntity*> _entityList;
+		//std::map<TEntityID, CEntity*> _entityList;
 
 	};
 
