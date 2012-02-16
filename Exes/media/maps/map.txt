@@ -39,6 +39,11 @@ Map = {
 		type = "Enemy",
 		position = {20, 5, 50},
 	},
+
+	EnemiesGenerator = {
+		type = "Enemies",
+		model = "torreta_pie.mesh",
+	},
 	
 	Camera = {
 		type = "Camera",

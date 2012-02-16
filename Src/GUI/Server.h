@@ -19,6 +19,7 @@ namespace Logic
 {
 	class CAvatarController;
 	class CEnemyController;
+	class CEnemiesGenerator;
 }
 
 namespace GUI 

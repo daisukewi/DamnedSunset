@@ -24,7 +24,6 @@ Contiene la implementación del componente que controla la vida de una entidad.
 #include "Graphics/Entity.h"
 #include "Graphics/Billboard.h"
 #include "Graphics.h"
-#include "Graphics/AnimatedEntity.h"
 
 #include "assert.h"
 
@@ -104,17 +103,13 @@ namespace Logic
 						MAttackEntity *m = new MAttackEntity();
 						m->setAttack(false);
 						md->getKiller()->emitMessage(m, this);
-
-						/*
-						Graphics::CStaticEntity *muerto = new Graphics::CEntity(
-						muerto->setPosition(_entity->getPosition());
-						muerto->setVisible(true);
-						Graphics::CScene::addStaticEntity
-						*/
 					
 						Map::CEntity * muertoInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Entity");
-						muertoInfo->setName("EnemyDeath");
-						
+
+						std::stringstream name;
+						name << _entity->getEntityID();
+						muertoInfo->setName(name.str());
+
 						std::stringstream pos;
 						pos << _entity->getPosition().x << ' ' << _entity->getPosition().y << ' ' << _entity->getPosition().z;
 						muertoInfo->setAttribute("position", pos.str());

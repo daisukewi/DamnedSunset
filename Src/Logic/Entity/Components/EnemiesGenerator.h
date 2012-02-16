@@ -1,17 +1,17 @@
 /**
-@file EnemyController.h
+@file EnemiesGenerator.h
 
-Contiene la declaración del componente que controla el movimiento 
-del enemigo.
+Contiene la declaración del componente que controla la generación en 
+el mapa de enemigos.
 
-@see Logic::CEnemyController
+@see Logic::CEnemiesGenerator
 @see Logic::IComponent
 
 @author Luis Mendoza
-@date Enero, 2012
+@date Febrero, 2012
 */
-#ifndef __Logic_EnemyController_H
-#define __Logic_EnemyController_H
+#ifndef __Logic_EnemiesGenerator_H
+#define __Logic_EnemiesGenerator_H
 
 #include "Logic/Entity/Component.h"
 
@@ -21,28 +21,27 @@ del enemigo.
 namespace Logic 
 {
 /**
-	Este componente es el encargado de mover al enemigo.
+	Este componente es el encargado de generar enemigos.
 	
     @ingroup logicGroup
 
 	@author Luis Mendoza
-	@date Enero, 2012
+	@date Febrero, 2012
 */
-	class CEnemyController : public IComponent
+	class CEnemiesGenerator : public IComponent
 	{
-		DEC_FACTORY(CEnemyController);
+		DEC_FACTORY(CEnemiesGenerator);
 	public:
 
 		/**
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CEnemyController() : IComponent(), _moving(false), _speed(0.04f), _destino(Vector3::ZERO) {}
+		CEnemiesGenerator() : IComponent(), _origen(Vector3::ZERO), _ticks(0), _enemy(0) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
-		la entidad leída del mapa (Maps::CEntity). Toma del mapa el atributo
-		speed que indica a la velocidad a la que se moverá el enemigo.
+		la entidad leída del mapa (Maps::CEntity).
 
 		@param entity Entidad a la que pertenece el componente.
 		@param map Mapa Lógico en el que se registrará el objeto.
@@ -67,14 +66,14 @@ namespace Logic
 		componente. Se invocará siempre, independientemente de si estamos
 		activados o no.
 		<p>
+
 		*/
 		virtual void deactivate();
 
 		/**
 		Método llamado en cada frame que actualiza el estado del componente.
 		<p>
-		Se encarga de mover la entidad en cada vuelta de ciclo cuando es
-		necesario.
+		Se encarga de crear un enemigo según ciertas condiciones.
 
 		@param msecs Milisegundos transcurridos desde el último tick.
 		*/
@@ -98,24 +97,24 @@ namespace Logic
 	protected:
 
 		/**
-		Atributo para saber la velocidad a la que avanza el enemigo.
+		Atributo para saber el lugar donde se crea el enemigo.
 		*/
-		float _speed;
+		Vector3 _origen;
 
 		/**
-		Atributo para saber si el enemigo está en movimiento.
+		Contador de ticks.
 		*/
-		bool _moving;
+		unsigned int _ticks;
 
 		/**
-		Atributo para saber el destino del enemigo.
+		Contador de enemigos.
 		*/
-		Vector3 _destino;
+		unsigned int _enemy;
 
-	}; // class CEnemyController
+	}; // class CEnemiesGenerator
 
-	REG_FACTORY(CEnemyController);
+	REG_FACTORY(CEnemiesGenerator);
 
 } // namespace Logic
 
-#endif // __Logic_EnemyController_H
+#endif // __Logic_EnemiesGenerator_H

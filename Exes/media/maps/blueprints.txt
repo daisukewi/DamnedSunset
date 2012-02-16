@@ -3,6 +3,7 @@ Sun CGraphics CSunController
 Player CAvatarController CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor CSelectable
 Enemy CEnemyController CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CSelectable
 Entity CGraphics
+Enemies CEnemiesGenerator CGraphics
 AnimatedEntity CAnimatedGraphics
 Camera CCamera
 PlayerGod CCameraController CRaycastController CSelectionController CBuilderController

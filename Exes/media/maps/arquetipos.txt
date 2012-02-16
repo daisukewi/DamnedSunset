@@ -46,6 +46,11 @@ Map = {
 		physic_collision_group = 2,
 	},
 	
+	Enemies = {
+		type = "Enemies",
+		position = {80, 5, -80},
+	},
+
 	Enemy = {
 		type = "Enemy",
 		orientation = 0,
@@ -74,6 +79,7 @@ Map = {
 		billboardSeleccionWith = 15.0,
 		billboardSeleccionHeight = 15.0,
 	},
+
 	Player = {
 		type = "Player",
 		orientation = 180,
@@ -101,6 +107,5 @@ Map = {
 		billboardSeleccionMaterial = "circuloSeleccion",
 		billboardSeleccionWith = 10.0,
 		billboardSeleccionHeight = 10.0,
-		
 	};
 }
