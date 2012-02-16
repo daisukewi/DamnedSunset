@@ -349,20 +349,20 @@ namespace Logic {
 
 	TGridTile CMap::getTileFromPosition(const float x, const float y)
 	{
-		int i = (int)(x + MAP_WIDTH / 2) / GRID_SIZE;
-		int j = (int)(y + MAP_HEIGHT / 2) / GRID_SIZE;
+		int row = (int)(x + MAP_WIDTH / 2) / GRID_SIZE;
+		int col = (int)(y + MAP_HEIGHT / 2) / GRID_SIZE;
 
-		assert(i >= 0 && i < MAP_HGRIDS && j >= 0 && j < MAP_VGRIDS);
+		assert(row >= 0 && row < MAP_HGRIDS && col >= 0 && col < MAP_VGRIDS);
 
-		return _gridMap[i][j];
+		return getTileFromCoord(row, col);
 
 	} // getGridFromPosition
 
 	//--------------------------------------------------------
 
-	TGridTile CMap::getTileFromCoord(const int i, const int j)
+	TGridTile CMap::getTileFromCoord(const int row, const int col)
 	{
-		return _gridMap[i][j];
+		return _gridMap[row][col];
 
 	} // getTileFromCoord
 

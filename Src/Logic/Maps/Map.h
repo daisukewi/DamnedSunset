@@ -107,12 +107,12 @@ namespace Logic
 		/**
 		Añade una nueva entidad a la casilla.
 		*/
-		void AddEntity(CEntity* entity) { _entityList.insert(std::pair<TEntityID, CEntity*>(entity->getEntityID(), entity)); }
+		void AddUnit(CEntity* entity) { _entityList.insert(std::pair<TEntityID, CEntity*>(entity->getEntityID(), entity)); }
 
 		/**
 		Elimina una entidad de la casilla.
 		*/
-		void DeleteEntity(CEntity* entity) { _entityList.erase(entity->getEntityID()); }
+		void DeleteUnit(CEntity* entity) { _entityList.erase(entity->getEntityID()); }
 
 	private:
 
@@ -285,7 +285,7 @@ namespace Logic
 		/**
 		Devuelve la casilla que le corresponde a las coordenadas de la tabla.
 		*/
-		TGridTile CMap::getTileFromCoord(const int i, const int j);
+		TGridTile CMap::getTileFromCoord(const int row, const int col);
 
 		static void setAtributosArquetipos(Map::CEntity* entidad, Map::CMapParser::TEntityList & entityList);
 		

@@ -37,7 +37,7 @@ Map = {
 
 	Enemy = {
 		type = "Enemy",
-		position = {20, 5, 50},
+		position = {20, 5, 49},
 	},
 
 	EnemiesGenerator = {
