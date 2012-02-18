@@ -70,7 +70,8 @@ namespace Logic
 			_billboard->setPosition(v.x,v.y,v.z);
 		}	
 		float porcentajeVida = _life/_maxLife;
-		_billboard->setPosicionImagen((1.0f-porcentajeVida*1.0)/2.0f/*inicioX*/, 0.0f, 0.5f+(1.0f-porcentajeVida*0.5f)/2.0f/*finX*/, 1.0f);
+		float num = 0.5f - porcentajeVida/2.0f;
+		_billboard->setPosicionImagen(num/*inicioX*/, 0.0f, num + 0.5f/*finX*/, 1.0f);
 		return true;
 	} // spawn
 	
@@ -125,7 +126,8 @@ namespace Logic
 				// @todo Si la vida es menor que 0 poner animación de morir.
 
 				float porcentajeVida = _life/_maxLife;
-				_billboard->setPosicionImagen((1.0f-porcentajeVida*1.0)/2.0f/*inicioX*/, 0.0f, 0.5f+(1.0f-porcentajeVida*0.5f)/2.0f/*finX*/, 1.0f);
+				float num = 0.5f - porcentajeVida/2.0f;
+				_billboard->setPosicionImagen(num/*inicioX*/, 0.0f, num + 0.5f/*finX*/, 1.0f);
 
 				if (!_entity->getName().compare("Jack"))
 				{
