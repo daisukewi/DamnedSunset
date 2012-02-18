@@ -169,9 +169,11 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.cpp">
       <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
-
     <ClCompile Include="..\..\Src\Logic\Entity\Components\MapUnit.cpp">
       <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Maps\GridMap.cpp">
+      <Filter>Maps\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -352,12 +354,14 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MapBuilding.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
-
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MapUnit.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.h">
       <Filter>Entity\Messages\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Maps\GridMap.h">
+      <Filter>Maps\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

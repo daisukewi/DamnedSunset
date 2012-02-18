@@ -229,7 +229,7 @@ namespace Logic
 		if (_buildingEntity == NULL) return;
 
 		// Ponemos la nueva posición del edificio en el centro de la casilla que le corresponda.
-		Vector2 newPos = _entity->getMap()->getAbsoluteGridPos(pos);
+		Vector2 newPos = _entity->getMap()->getGridMap()->getAbsoluteGridPos(pos);
 		_buildingEntity->setPosition(Vector3(newPos.x, 1.0f, newPos.y));
 
 	} // moveBuilding
@@ -240,7 +240,7 @@ namespace Logic
 	{
 		Vector3 pos = _buildingEntity->getPosition();
 
-		TGridTile current_tile = _entity->getMap()->getTileFromPosition(pos.x, pos.z);
+		TGridTile current_tile = _entity->getMap()->getGridMap()->getTileFromPosition(pos.x, pos.z);
 		int _startRow = current_tile->GetRow() - _buildingHeight / 2;
 		int _startCol = current_tile->GetCol() - _buildingWidth / 2;
 
@@ -254,7 +254,7 @@ namespace Logic
 			{
 				//TODO: Comprobar cada casilla y mandar al pixel shader un color para mostrar
 				// el edificio en rojo, amarillo o verde.
-				canEmplace &= !_entity->getMap()->getTileFromCoord(row, col)->IsPopulated();
+				canEmplace &= !_entity->getMap()->getGridMap()->getTileFromCoord(row, col)->IsPopulated();
 			}
 
 		return canEmplace;

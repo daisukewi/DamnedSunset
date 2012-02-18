@@ -43,10 +43,10 @@ namespace Logic
 		}
 
 		// Añade la unidad a la casilla que pertenece.
-		TGridTile current_tile = _entity->getMap()->getTileFromPosition(_entity->getPosition().x, _entity->getPosition().z);
+		TGridTile current_tile = _entity->getMap()->getGridMap()->getTileFromPosition(_entity->getPosition().x, _entity->getPosition().z);
 		_currentRow = current_tile->GetRow() - _unitHeight / 2;
 		_currentCol = current_tile->GetCol() - _unitWidth / 2;
-		_entity->getMap()->getTileFromCoord(_currentRow, _currentCol)->AddUnit(_entity);
+		_entity->getMap()->getGridMap()->getTileFromCoord(_currentRow, _currentCol)->AddUnit(_entity);
 
 		return true;
 
@@ -110,14 +110,14 @@ namespace Logic
 
 	void CMapUnit::UpdateMapCells()
 	{
-		TGridTile current_tile = _entity->getMap()->getTileFromPosition(_entity->getPosition().x, _entity->getPosition().z);
+		TGridTile current_tile = _entity->getMap()->getGridMap()->getTileFromPosition(_entity->getPosition().x, _entity->getPosition().z);
 		unsigned int newRow = current_tile->GetRow() - _unitHeight / 2;
 		unsigned int newCol = current_tile->GetCol() - _unitWidth / 2;
 
 		if (newRow != _currentRow || newCol != _currentCol)
 		{
 			FreeMapCells();
-			_entity->getMap()->getTileFromCoord(newRow, newCol)->AddUnit(_entity);
+			_entity->getMap()->getGridMap()->getTileFromCoord(newRow, newCol)->AddUnit(_entity);
 
 			_currentRow = newRow;
 			_currentCol = newCol;
@@ -129,7 +129,7 @@ namespace Logic
 
 	void CMapUnit::FreeMapCells()
 	{
-		_entity->getMap()->getTileFromCoord(_currentRow, _currentCol)->DeleteUnit(_entity);
+		_entity->getMap()->getGridMap()->getTileFromCoord(_currentRow, _currentCol)->DeleteUnit(_entity);
 
 	} // FreeMapCells
 

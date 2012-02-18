@@ -13,6 +13,7 @@ Contiene la implementación de la clase CMap, Un mapa lógico.
 
 #include "Logic/Entity/Entity.h"
 #include "EntityFactory.h"
+#include "GridMap.h"
 
 #include "Map/MapParser.h"
 #include "Map/MapEntity.h"
@@ -131,14 +132,7 @@ namespace Logic {
 		_name = name;
 		_scene = Graphics::CServer::getSingletonPtr()->createScene(name);
 
-		// Reserva memoria para almacenar el mapa lógico y inicializa cada casilla.
-		_gridMap = new TGridTile*[MAP_VGRIDS];
-		for (int i = 0; i < MAP_VGRIDS; ++i)
-		{
-			_gridMap[i] = new TGridTile[MAP_HGRIDS];
-			for (int j = 0; j < MAP_HGRIDS; ++j)
-				_gridMap[i][j] = new CGridTile(i, j);
-		}
+		_gridMap = new CGridMap();
 
 	} // CMap
 
@@ -148,13 +142,6 @@ namespace Logic {
 	{
 		destroyAllEntities();
 
-		// Libera la memoria utilizada para almacenar el mapa lógico.
-		for (int i = 0; i < MAP_VGRIDS; ++i)
-		{
-			for (int j = 0; j < MAP_HGRIDS; ++j)
-				delete(_gridMap[i][j]);
-			delete(_gridMap[i]);
-		}
 		delete(_gridMap);
 
 		if(Graphics::CServer::getSingletonPtr())
@@ -332,38 +319,5 @@ namespace Logic {
 		return 0;
 
 	} // getEntityByType
-
-	//--------------------------------------------------------
-
-	Vector2 CMap::getAbsoluteGridPos(const Vector2 pos)
-	{
-		Vector2 modulePos;
-		modulePos.x = ( (int)pos.x / GRID_SIZE - 0.5 ) * GRID_SIZE;
-		modulePos.y = ( (int)pos.y / GRID_SIZE - 0.5 ) * GRID_SIZE;
-
-		return modulePos;
-
-	} // getAbsoluteGridPos
-
-	//--------------------------------------------------------
-
-	TGridTile CMap::getTileFromPosition(const float x, const float y)
-	{
-		int row = (int)(x + MAP_WIDTH / 2) / GRID_SIZE;
-		int col = (int)(y + MAP_HEIGHT / 2) / GRID_SIZE;
-
-		assert(row >= 0 && row < MAP_HGRIDS && col >= 0 && col < MAP_VGRIDS);
-
-		return getTileFromCoord(row, col);
-
-	} // getGridFromPosition
-
-	//--------------------------------------------------------
-
-	TGridTile CMap::getTileFromCoord(const int row, const int col)
-	{
-		return _gridMap[row][col];
-
-	} // getTileFromCoord
 
 } // namespace Logic

@@ -97,7 +97,7 @@ namespace Logic
 
 	void CMapBuilding::FillMapCells()
 	{
-		TGridTile current_tile = _entity->getMap()->getTileFromPosition(_entity->getPosition().x, _entity->getPosition().z);
+		TGridTile current_tile = _entity->getMap()->getGridMap()->getTileFromPosition(_entity->getPosition().x, _entity->getPosition().z);
 		_startRow = current_tile->GetRow() - _buildingHeight / 2;
 		_startCol = current_tile->GetCol() - _buildingWidth / 2;
 
@@ -106,7 +106,7 @@ namespace Logic
 
 		for (int row = _startRow; row < _endRow; row ++)
 			for (int col = _startCol; col < _endCol; col++)
-				_entity->getMap()->getTileFromCoord(row, col)->SetBuilding(_entity);
+				_entity->getMap()->getGridMap()->getTileFromCoord(row, col)->SetBuilding(_entity);
 
 	} // FillMapCells
 
@@ -116,7 +116,7 @@ namespace Logic
 	{
 		for (int row = _startRow; row < _endRow; row ++)
 			for (int col = _startCol; col < _endCol; col++)
-				_entity->getMap()->getTileFromCoord(row, col)->DeleteBuilding();
+				_entity->getMap()->getGridMap()->getTileFromCoord(row, col)->DeleteBuilding();
 
 	} // FreeMapCells
 
