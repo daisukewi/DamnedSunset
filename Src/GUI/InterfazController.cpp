@@ -34,6 +34,7 @@
 #include "Logic\Entity\Messages\ActivateSkill.h"
 
 #include "Logic\Entity\Messages\CrearBillboardMovimiento.h"
+#include "Logic\Entity\Messages\LanzarGranada.h"
 
 namespace GUI {
 
@@ -163,6 +164,7 @@ namespace GUI {
 		_jugadorSel = 1;
 		this->ocultarBotones();
 		this->cargarBoton('1', "martillo");
+		this->cargarBoton('3',"granada");
 		this->cargarBoton('4',"granada");
 	}
 	void CInterfazController::menuJugador2() {
@@ -239,11 +241,6 @@ namespace GUI {
 	}
 	bool CInterfazController::clickB3(const CEGUI::EventArgs& e)
 	{
-
-		return true;
-	}
-	bool CInterfazController::clickB4(const CEGUI::EventArgs& e)
-	{
 		/** PRUBA PARA VER QUE FUNCIONA sacar los valores del arquetipo*/
 		Map::CEntity * mapEntity = Map::CMapParser::getSingletonPtr()->getEntityInfo("Barril");
 		//Hay que cambiarle el nombre xq sino solo se crearia el primero (coja la vida1 x coger cualquier cosa)
@@ -258,10 +255,20 @@ namespace GUI {
 		m->setPosX(20);
 		m->setPosY(20);
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("World")->emitMessage(m);
-		
+		return true;
+	}
+	bool CInterfazController::clickB4(const CEGUI::EventArgs& e)
+	{
 
+		if (_jugadorSel == 1)
+		{
+			//Granada
+			Logic::MLanzarGranada *mLanzarGranada = new Logic::MLanzarGranada();
+			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack")->emitMessage(mLanzarGranada);
+		}
 		if (_jugadorSel == 3)
 		{
+			//Jeringuilla
 			Logic::MActivateSkill *m_skill = new Logic::MActivateSkill();
 			m_skill->setSkill(true);
 			Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m_skill);

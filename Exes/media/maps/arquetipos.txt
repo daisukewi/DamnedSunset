@@ -115,5 +115,9 @@ Map = {
 		billboardSeleccionMaterial = "circuloSeleccion",
 		billboardSeleccionWith = 10.0,
 		billboardSeleccionHeight = 10.0,
+		
+		billboardLanzamientoMaterial = "circuloSeleccion",
+		billboardLanzamientoWith = 150.0,
+		billboardLanzamientoHeight = 150.0,
 	};
 }

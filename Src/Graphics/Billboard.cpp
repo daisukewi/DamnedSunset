@@ -25,11 +25,13 @@
 #include <OgreBillboardSet.h>
 
 #include "Logic/Entity/Messages/AttachBillboard.h"
+#include <cassert>
 
 namespace Graphics 
 {
 	CBillboard::CBillboard(Logic::CEntity * entity)
 	{
+		assert(entity);
 		CScene * scene = entity->getMap()->getScene();
 		_billboardset = scene->getSceneMgr()->createBillboardSet();
 
@@ -41,11 +43,27 @@ namespace Graphics
 		billboard = _billboardset->createBillboard(0.0f,0.0f,0.0f);
 	}
 
+	CBillboard::CBillboard(CScene * scene)
+	{
+		assert(scene);
+		_billboardset = scene->getSceneMgr()->createBillboardSet();
+
+		Ogre::Billboard* billboard;
+		billboard = _billboardset->createBillboard(0.0f,0.0f,0.0f);
+	}
+
 	//--------------------------------------------------------
 
 	CBillboard::~CBillboard() 
 	{
 		Graphics::CServer::getSingletonPtr()->getActiveScene()->removeBillboardset(_billboardset);
+	}
+
+	void CBillboard::attachEntity(Logic::CEntity * entity)
+	{
+		Logic::MAttachBillboard * m = new Logic::MAttachBillboard();
+		m->setBillboardset(_billboardset);
+		entity->emitMessage(m);
 	}
 
 	void CBillboard::setMaterial(std::string s)

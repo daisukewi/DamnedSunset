@@ -175,6 +175,12 @@
     <ClCompile Include="..\..\Src\Logic\Maps\GridMap.cpp">
       <Filter>Maps\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\LanzadorGranadas.cpp">
+      <Filter>Entity\Components\Abilities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\LanzarGranada.cpp">
+      <Filter>Entity\Messages\Abilities\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Entity\CommunicationPort.h">
@@ -363,6 +369,12 @@
     <ClInclude Include="..\..\Src\Logic\Maps\GridMap.h">
       <Filter>Maps\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\LanzadorGranadas.h">
+      <Filter>Entity\Components\Abilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\LanzarGranada.h">
+      <Filter>Entity\Messages\Abilities\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Entity">
@@ -415,6 +427,24 @@
     </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{f602cf11-4349-4aa4-83cf-d95dc01142ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Abilities">
+      <UniqueIdentifier>{616e61a0-bee8-4f0d-8a82-71dd13e4bf6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Abilities\Header Files">
+      <UniqueIdentifier>{30c7483b-1c91-437f-a517-a6a848c55b09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Abilities\Source Files">
+      <UniqueIdentifier>{70f553d9-adbb-4f0e-8c33-d7d3a24c3b29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Messages\Abilities">
+      <UniqueIdentifier>{697c7c26-d48f-4894-8ef6-a1bfb2632473}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Messages\Abilities\Header Files">
+      <UniqueIdentifier>{fbeb0a09-2b60-46d7-b4ee-d009aefd5d16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Messages\Abilities\Source Files">
+      <UniqueIdentifier>{274c13ad-e8ea-4dd3-a142-aaa6d020c3cc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

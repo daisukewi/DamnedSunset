@@ -47,12 +47,14 @@ namespace Graphics
 		Constructor de la clase.
 		*/
 		CBillboard(Logic::CEntity * entity);
-
+		CBillboard::CBillboard(CScene * scene);
 		/**
 		Destructor de la aplicación.
 		*/
 		virtual ~CBillboard();
-		
+
+		void attachEntity(Logic::CEntity * entity);
+
 		void setMaterial(std::string s);
 		void setDimensions(float x, float y);
 		void setPosition(float x, float y, float z);

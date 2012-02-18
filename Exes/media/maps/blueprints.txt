@@ -1,6 +1,6 @@
 World CGraphics CPhysicEntity CSelectable CBillboardIndicacionMover
 Sun CGraphics CSunController
-Player CAvatarController CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor CSelectable
+Player CAvatarController CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor CSelectable CLanzadorGranadas
 Enemy CEnemyController CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CSelectable
 Entity CGraphics
 Enemies CEnemiesGenerator CGraphics
