@@ -130,7 +130,6 @@ namespace Logic
 			if (_currentMovement != 0) {
 				delete _currentMovement;
 			}
-			printf("Going to: %f, %f\n", _target.x, _target.z);
 			_currentMovementType = _movType;
 			_currentTarget = _target;
 			_currentMovement = AI::IMovement::getMovement(_currentMovementType, _maxLinearSpeed, _maxAngularSpeed, _maxLinearAccel, _maxAngularAccel);
@@ -155,7 +154,6 @@ namespace Logic
 			m->setAction(RouteAction::FINISHED_MOVE);
 			m->setRouteFailed(false);
 			_entity->emitMessage(m, this);
-			printf("Arrived at: %f, %f\n", _entity->getPosition().x, _entity->getPosition().z);
 		}
 
 		// Si nos estamos desplazando calculamos la próxima posición

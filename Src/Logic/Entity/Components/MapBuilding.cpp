@@ -31,6 +31,14 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 
+		if(entityInfo->hasAttribute("position"))
+		{
+			// Ponemos la nueva posición del edificio en el centro de la casilla que le corresponda.
+			Vector3 oldpos = entityInfo->getVector3Attribute("position");
+			Vector2 newPos = map->getGridMap()->getAbsoluteGridPos(Vector2 (oldpos.x, oldpos.z));
+			entity->setPosition(Vector3(newPos.x, oldpos.y, newPos.y));
+		}
+
 		if(entityInfo->hasAttribute("building_size"))
 		{
 			Vector2 size = entityInfo->getVector2Attribute("building_size");
@@ -38,6 +46,7 @@ namespace Logic
 			_buildingHeight = size.y;
 
 			FillMapCells();
+			//map->getGridMap()->PrintMap();
 		}
 
 		return true;
@@ -104,8 +113,8 @@ namespace Logic
 		_endRow = _startRow + _buildingHeight;
 		_endCol = _startCol + _buildingWidth;
 
-		for (int row = _startRow; row < _endRow; row ++)
-			for (int col = _startCol; col < _endCol; col++)
+		for (int row = _startRow; row < _endRow; ++row)
+			for (int col = _startCol; col < _endCol; ++col)
 				_entity->getMap()->getGridMap()->getTileFromCoord(row, col)->SetBuilding(_entity);
 
 	} // FillMapCells

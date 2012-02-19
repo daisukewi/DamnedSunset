@@ -53,9 +53,10 @@ namespace Logic {
 
 	const Vector2 CGridMap::getAbsoluteGridPos(const Vector2 pos)
 	{
+		TGridTile tile = getTileFromPosition(pos.x, pos.y);
 		Vector2 modulePos;
-		modulePos.x = ( (int)pos.x / GRID_SIZE - 0.5 ) * GRID_SIZE;
-		modulePos.y = ( (int)pos.y / GRID_SIZE - 0.5 ) * GRID_SIZE;
+		modulePos.x = tile->GetCol() * GRID_SIZE + GRID_SIZE * 0.5 - MAP_WIDTH / 2;
+		modulePos.y = tile->GetRow() * GRID_SIZE + GRID_SIZE * 0.5 - MAP_HEIGHT / 2;
 
 		return modulePos;
 
@@ -68,7 +69,7 @@ namespace Logic {
 		int row = (int)(x + MAP_WIDTH / 2) / GRID_SIZE;
 		int col = (int)(y + MAP_HEIGHT / 2) / GRID_SIZE;
 
-		assert(row >= 0 && row < MAP_HGRIDS && col >= 0 && col < MAP_VGRIDS);
+		assert(row >= 0 && row < MAP_VGRIDS && col >= 0 && col < MAP_HGRIDS);
 
 		return getTileFromCoord(row, col);
 
@@ -78,7 +79,7 @@ namespace Logic {
 
 	const TGridTile CGridMap::getTileFromCoord(const int row, const int col)
 	{
-		return _gridMap[row][col];
+		return _gridMap[col][row];
 
 	} // getTileFromCoord
 
@@ -98,9 +99,9 @@ namespace Logic {
 		int row = index / MAP_HGRIDS;
 		int col = index % MAP_HGRIDS;
 
-		assert(row >= 0 && row < MAP_HGRIDS && col >= 0 && col < MAP_VGRIDS);
+		assert(row >= 0 && row < MAP_VGRIDS && col >= 0 && col < MAP_HGRIDS);
 
-		return _gridMap[row][col];
+		return getTileFromCoord(row, col);
 
 	} // getTileFromIndex
 
@@ -108,13 +109,12 @@ namespace Logic {
 
 	Vector3 CGridMap::getTilePositionFromIndex(const unsigned int index)
 	{
-		int row = index / MAP_HGRIDS;
-		int col = index % MAP_HGRIDS;
+		TGridTile tile = getTileFromIndex(index);
 
 		Vector3 tilePos;
-		tilePos.x = col * GRID_SIZE + 0.5 * GRID_SIZE - MAP_WIDTH / 2;
+		tilePos.x = tile->GetCol() * GRID_SIZE + 0.5 * GRID_SIZE - MAP_WIDTH / 2;
 		tilePos.y = 1.0f;
-		tilePos.z = row * GRID_SIZE + 0.5 * GRID_SIZE - MAP_HEIGHT / 2;
+		tilePos.z = tile->GetRow() * GRID_SIZE + 0.5 * GRID_SIZE - MAP_HEIGHT / 2;
 
 		return tilePos;
 
@@ -124,15 +124,17 @@ namespace Logic {
 
 	std::list<unsigned int> CGridMap::getAdjacencyGrids(const int index)
 	{
+		TGridTile tile = getTileFromIndex(index);
 		std::list<unsigned int>* neighbours = new std::list<unsigned int>();
-		if (index >= MAP_HGRIDS)
+		if (tile->GetRow() > 0)
 			neighbours->push_back(index - MAP_HGRIDS);
-		if (index % MAP_HGRIDS > 0)
-			neighbours->push_back(index - 1);
-		if (index % MAP_HGRIDS < MAP_HGRIDS - 1)
-			neighbours->push_back(index + 1);
-		if (index / MAP_HGRIDS < MAP_VGRIDS - 1)
+		if (tile->GetRow() < MAP_HGRIDS - 1)
 			neighbours->push_back(index + MAP_HGRIDS);
+		if (tile->GetCol() > 0)
+			neighbours->push_back(index - 1);
+		if (tile->GetCol() < MAP_VGRIDS - 1)
+			neighbours->push_back(index + 1);
+		
 
 		return (*neighbours);
 
@@ -143,6 +145,24 @@ namespace Logic {
 	int CGridMap::getNumGrids()
 	{
 		return ( MAP_HGRIDS * MAP_VGRIDS );
+	}
+
+	//--------------------------------------------------------
+
+	void CGridMap::PrintMap()
+	{
+		printf("--------Map Dump ---------\n");
+		printf("Size: %f, %f\n", MAP_WIDTH, MAP_HEIGHT);
+		printf("Grids: %d, %d\n\n", MAP_HGRIDS, MAP_VGRIDS);
+		for (int i = MAP_VGRIDS - 1; i >= 0; --i)
+		{
+			printf("|");
+			for (int j = MAP_HGRIDS - 1; j >= 0; --j)
+			{
+				printf(" %s", getTileFromCoord(i, j)->IsPopulated() ? "#" : "-");
+			}
+			printf("|\n");
+		}
 	}
 
 

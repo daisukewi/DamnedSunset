@@ -211,6 +211,11 @@ namespace Logic
 		Devuelve el número de casillas que tiene el mapa lógico.
 		*/
 		int getNumGrids();
+
+		/*
+		Imprime una representación del mapa en la pantalla.
+		*/
+		void PrintMap();
 		
 	private:
 
