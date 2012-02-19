@@ -104,6 +104,9 @@
     <ClCompile Include="SimpleLatentActions.cpp">
       <Filter>Decision\LatentActions\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\AI\GridmapGraph.cpp">
+      <Filter>Movement\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\AI\DynTriMat.h">
@@ -144,6 +147,9 @@
     </ClInclude>
     <ClInclude Include="SimpleLatentActions.h">
       <Filter>Decision\LatentActions\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\AI\GridmapGraph.h">
+      <Filter>Movement\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

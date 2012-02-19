@@ -51,7 +51,7 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	Vector2 CGridMap::getAbsoluteGridPos(const Vector2 pos)
+	const Vector2 CGridMap::getAbsoluteGridPos(const Vector2 pos)
 	{
 		Vector2 modulePos;
 		modulePos.x = ( (int)pos.x / GRID_SIZE - 0.5 ) * GRID_SIZE;
@@ -63,7 +63,7 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	TGridTile CGridMap::getTileFromPosition(const float x, const float y)
+	const TGridTile CGridMap::getTileFromPosition(const float x, const float y)
 	{
 		int row = (int)(x + MAP_WIDTH / 2) / GRID_SIZE;
 		int col = (int)(y + MAP_HEIGHT / 2) / GRID_SIZE;
@@ -76,10 +76,70 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	TGridTile CGridMap::getTileFromCoord(const int row, const int col)
+	const TGridTile CGridMap::getTileFromCoord(const int row, const int col)
 	{
 		return _gridMap[row][col];
 
 	} // getTileFromCoord
+
+	//--------------------------------------------------------
+
+	int CGridMap::getIndexTileFromCoord( Vector3 position )
+	{
+		TGridTile tile = getTileFromCoord(position.x, position.z);
+
+		return tile->GetRow() * MAP_HGRIDS + tile->GetCol();
+	}
+
+	//--------------------------------------------------------
+
+	const TGridTile CGridMap::getTileFromIndex(const unsigned int index)
+	{
+		int row = index / MAP_HGRIDS;
+		int col = index % MAP_HGRIDS;
+
+		assert(row >= 0 && row < MAP_HGRIDS && col >= 0 && col < MAP_VGRIDS);
+
+		return _gridMap[row][col];
+
+	} // getTileFromIndex
+
+	//--------------------------------------------------------
+
+	Vector3 CGridMap::getTilePositionFromIndex(const unsigned int index)
+	{
+		int row = index / MAP_HGRIDS;
+		int col = index % MAP_HGRIDS;
+
+		Vector3 tilePos;
+		tilePos.x = col * GRID_SIZE + 0.5 * GRID_SIZE;
+		tilePos.y = 0.0f;
+		tilePos.z = row * GRID_SIZE + 0.5 * GRID_SIZE;
+
+		return tilePos;
+
+	} // getTilePositionFromIndex
+
+	//--------------------------------------------------------
+
+	std::list<unsigned int> CGridMap::getAdjacencyGrids(const int index)
+	{
+		std::list<unsigned int>* neighbours = new std::list<unsigned int>();
+		neighbours->push_back(index + MAP_HGRIDS);
+		neighbours->push_back(index - 1);
+		neighbours->push_back(index + 1);
+		neighbours->push_back(index + MAP_HGRIDS);
+
+		return (*neighbours);
+
+	} // getAdjacencyGrids
+
+	//--------------------------------------------------------
+
+	int CGridMap::getNumGrids()
+	{
+		return ( MAP_HGRIDS * MAP_VGRIDS );
+	}
+
 
 } // namespace Logic

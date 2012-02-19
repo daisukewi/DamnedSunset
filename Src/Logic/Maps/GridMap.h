@@ -90,6 +90,15 @@ namespace Logic
 		*/
 		bool IsPopulated() { return _building != NULL; }
 
+		/*
+		Indica el coste que tiene la casilla para atravesarla de punta a punta.
+		<p>Esto sirve para hacer el cálculo de A*.
+
+		@return coste que tiene la casilla para atravesarla o destruir
+		su contenido.
+		*/
+		float GetTravelCost() { return _building == NULL ? 1.0f : 5.0f; }
+
 		/**
 		Añade una nueva entidad a la casilla.
 		NOT IMPLEMENTED
@@ -165,18 +174,44 @@ namespace Logic
 		Devuelve la posición modulada en el grid del mapa, de las
 		coordenadas pasadas por argumento.
 		*/
-		Vector2 getAbsoluteGridPos(const Vector2 pos);
+		const Vector2 getAbsoluteGridPos(const Vector2 pos);
 
 		/**
 		Devuelve la casilla que le corresponde a una posición 2D del mapa.
 		*/
-		TGridTile getTileFromPosition(const float x, const float y);
+		const TGridTile getTileFromPosition(const float x, const float y);
 
 		/**
 		Devuelve la casilla que le corresponde a las coordenadas de la tabla.
 		*/
-		TGridTile getTileFromCoord(const int row, const int col);
+		const TGridTile getTileFromCoord(const int row, const int col);
 
+		/*
+		Devuelve el índice de una casilla que contiene la posición dada.
+		*/
+		int getIndexTileFromCoord( Vector3 position );
+
+		/**
+		Devuelve la casilla que corresponde a un índice de la tabla.
+		*/
+		const TGridTile getTileFromIndex(const unsigned int index);
+
+		/**
+		Devuelve la posición de una casilla que corresponde a un 
+		índice de la tabla.
+		*/
+		Vector3 getTilePositionFromIndex(const unsigned int index);
+
+		/*
+		Devuelve una lista con las casillas adyacentes a la casilla dada.
+		*/
+		std::list<unsigned int> getAdjacencyGrids(const int index);
+
+		/*
+		Devuelve el número de casillas que tiene el mapa lógico.
+		*/
+		int getNumGrids();
+		
 	private:
 
 		typedef TGridTile** TGridMap;
