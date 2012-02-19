@@ -88,8 +88,8 @@ namespace AI {
 		std::vector<Vector3>* out = new std::vector<Vector3>();
 		// Añadimos el punto inicial si no coincide con el primer nodo
 		
-		if (!from.positionEquals(_navMap->getNodePosition((int)((*path)[0])), 5.0))
-			out->push_back(from);
+		/*if (!from.positionEquals(_navMap->getNodePosition((int)((*path)[0])), 5.0))
+		out->push_back(from);*/
 		for (std::vector<void*>::iterator it = path->begin(); it != path->end(); it++) {
 			out->push_back(_navMap->getNodePosition((int)(*it)));
 		}

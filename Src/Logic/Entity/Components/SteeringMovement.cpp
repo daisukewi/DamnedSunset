@@ -16,6 +16,7 @@ mover un avatar utilizando movimientos cinéticos o dinámicos.
 #include "Logic/Entity/Messages/SetAnimation.h"
 #include "Logic/Entity/Messages/MoveSteering.h"
 #include "Logic/Entity/Messages/AvatarWalk.h"
+#include "Logic/Entity/Messages/AStarRoute.h"
 
 namespace Logic 
 {
@@ -129,6 +130,7 @@ namespace Logic
 			if (_currentMovement != 0) {
 				delete _currentMovement;
 			}
+			printf("Going to: %f, %f\n", _target.x, _target.z);
 			_currentMovementType = _movType;
 			_currentTarget = _target;
 			_currentMovement = AI::IMovement::getMovement(_currentMovementType, _maxLinearSpeed, _maxAngularSpeed, _maxLinearAccel, _maxAngularAccel);
@@ -147,13 +149,14 @@ namespace Logic
 		}
 
 		_arrived = _entity->getPosition().positionEquals(_target, _tolerance);
-		/*if (_arrived) {
+		if (_arrived) {
 			// Enviar un mensaje para informar de que hemos llegado a destino
-			TMessage message;
-			message._type = Message::FINISHED_MOVE;
-			message._bool = true;
-			_entity->emitMessage(message, this);
-		}*/
+			MAStarRoute *m = new MAStarRoute();
+			m->setAction(RouteAction::FINISHED_MOVE);
+			m->setRouteFailed(false);
+			_entity->emitMessage(m, this);
+			printf("Arrived at: %f, %f\n", _entity->getPosition().x, _entity->getPosition().z);
+		}
 
 		// Si nos estamos desplazando calculamos la próxima posición
 		if (!_arrived && _currentMovement != 0) {

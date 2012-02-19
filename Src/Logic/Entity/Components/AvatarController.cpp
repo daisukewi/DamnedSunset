@@ -23,6 +23,7 @@ de la entidad.
 #include "Logic/Entity/Messages/SetAnimation.h"
 #include "Logic/Entity/Messages/AvatarWalk.h"
 #include "Logic/Entity/Messages/MoveSteering.h"
+#include "Logic/Entity/Messages/AStarRoute.h"
 #include "Logic/Entity/Messages/Damaged.h"
 #include "Logic/Entity/Messages/AttackEntity.h"
 
@@ -271,6 +272,10 @@ namespace Logic
 				m->setMovementType(AI::IMovement::MOVEMENT_KINEMATIC_ARRIVE);
 				m->setTarget(_enemy->getPosition());
 				_entity->emitMessage(m, this);
+				/*MAStarRoute *m_movement = new MAStarRoute();
+				m_movement->setAction(RouteAction::START_ROUTE);
+				m_movement->setRouteDestination(_enemy->getPosition());
+				_entity->emitMessage(m_movement, this);*/
 			}
 			
 			else

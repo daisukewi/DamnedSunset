@@ -15,10 +15,10 @@ Contiene la implementación de la clase CGridMap, Un mapa de celdas lógico.
 
 // HACK. Debería leerse de algún fichero de configuración
 const int GRID_SIZE = 10;
-const int MAP_HGRIDS = 10;
-const int MAP_VGRIDS = 10;
-const float MAP_WIDTH = 100.0f;
-const float MAP_HEIGHT = 100.0f;
+const float MAP_WIDTH = 200.0f;
+const float MAP_HEIGHT = 200.0f;
+const int MAP_HGRIDS = (int)MAP_WIDTH / GRID_SIZE;
+const int MAP_VGRIDS = (int)MAP_HEIGHT / GRID_SIZE;
 
 namespace Logic {
 
@@ -86,7 +86,7 @@ namespace Logic {
 
 	int CGridMap::getIndexTileFromCoord( Vector3 position )
 	{
-		TGridTile tile = getTileFromCoord(position.x, position.z);
+		TGridTile tile = getTileFromPosition(position.x, position.z);
 
 		return tile->GetRow() * MAP_HGRIDS + tile->GetCol();
 	}
@@ -112,9 +112,9 @@ namespace Logic {
 		int col = index % MAP_HGRIDS;
 
 		Vector3 tilePos;
-		tilePos.x = col * GRID_SIZE + 0.5 * GRID_SIZE;
-		tilePos.y = 0.0f;
-		tilePos.z = row * GRID_SIZE + 0.5 * GRID_SIZE;
+		tilePos.x = col * GRID_SIZE + 0.5 * GRID_SIZE - MAP_WIDTH / 2;
+		tilePos.y = 1.0f;
+		tilePos.z = row * GRID_SIZE + 0.5 * GRID_SIZE - MAP_HEIGHT / 2;
 
 		return tilePos;
 
@@ -125,10 +125,14 @@ namespace Logic {
 	std::list<unsigned int> CGridMap::getAdjacencyGrids(const int index)
 	{
 		std::list<unsigned int>* neighbours = new std::list<unsigned int>();
-		neighbours->push_back(index + MAP_HGRIDS);
-		neighbours->push_back(index - 1);
-		neighbours->push_back(index + 1);
-		neighbours->push_back(index + MAP_HGRIDS);
+		if (index >= MAP_HGRIDS)
+			neighbours->push_back(index - MAP_HGRIDS);
+		if (index % MAP_HGRIDS > 0)
+			neighbours->push_back(index - 1);
+		if (index % MAP_HGRIDS < MAP_HGRIDS - 1)
+			neighbours->push_back(index + 1);
+		if (index / MAP_HGRIDS < MAP_VGRIDS - 1)
+			neighbours->push_back(index + MAP_HGRIDS);
 
 		return (*neighbours);
 

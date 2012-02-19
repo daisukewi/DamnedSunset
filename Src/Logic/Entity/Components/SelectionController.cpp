@@ -13,6 +13,7 @@
 #include "Logic/Entity/Messages/EntitySelected.h"
 #include "Logic/Entity/Messages/UbicarCamara.h"
 #include "Logic/Entity/Messages/MoveSteering.h"
+#include "Logic/Entity/Messages/AStarRoute.h"
 #include "Logic/Entity/Messages/AttackEntity.h"
 #include "Logic/Entity/Messages/EmplaceBuilding.h"
 #include "Logic/Entity/Messages/IsSelectable.h"
@@ -272,10 +273,14 @@ namespace Logic
 				m->setAttack(false);
 				_selectedEntity->emitMessage(m, this);
 
-				MMoveSteering *m_movement = new MMoveSteering();
-				m_movement->setMovementType(AI::IMovement::MOVEMENT_DYNAMIC_ARRIVE);
-				m_movement->setTarget(colPoint);
+				MAStarRoute *m_movement = new MAStarRoute();
+				m_movement->setAction(RouteAction::START_ROUTE);
+				m_movement->setRouteDestination(colPoint);
 				_selectedEntity->emitMessage(m_movement, this);
+				/*MMoveSteering *m_steering = new MMoveSteering();
+				m_steering->setMovementType(AI::IMovement::MOVEMENT_DYNAMIC_ARRIVE);
+				m_steering->setTarget(colPoint);
+				_selectedEntity->emitMessage(m_steering, this);*/
 
 			// Realizar acciones sobre un enemigo
 			} else if (!colEntity->getType().compare("Enemy"))

@@ -118,6 +118,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MouseMove.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MoveSteering.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\IsSelectable.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\AStarRoute.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetTransform.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\StopAnimation.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MouseMove.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MoveSteering.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\IsSelectable.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\AStarRoute.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetTransform.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\StopAnimation.h" />

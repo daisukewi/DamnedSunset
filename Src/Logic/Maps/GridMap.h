@@ -97,7 +97,7 @@ namespace Logic
 		@return coste que tiene la casilla para atravesarla o destruir
 		su contenido.
 		*/
-		float GetTravelCost() { return _building == NULL ? 1.0f : 5.0f; }
+		float GetTravelCost() { return IsPopulated() ? 10.0f : 1.0f; }
 
 		/**
 		Añade una nueva entidad a la casilla.

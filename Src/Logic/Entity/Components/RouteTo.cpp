@@ -7,6 +7,7 @@
 #include "AI/Movement.h"
 
 #include "Logic/Entity/Messages/MoveSteering.h"
+#include "Logic/Entity/Messages/AStarRoute.h"
 
 namespace Logic 
 {
@@ -80,10 +81,12 @@ namespace Logic
 			// Si no se puede calcular la ruta enviamos un mensaje de fallo
 			if (_currentRoute == 0) {
 				_arrived = true;
-				/*TMessage message;
-				message._type = Message::FINISHED_ROUTE;
-				message._bool = false;
-				_entity->emitMessage(message, this);*/
+				/*message._type = Message::FINISHED_ROUTE;
+				message._bool = false;*/
+				MAStarRoute *m = new MAStarRoute();
+				m->setAction(RouteAction::FINISHED_ROUTE);
+				m->setRouteFailed(true);
+				_entity->emitMessage(m, this);
 			} else {
 				_currentNode = 0;
 				_arrived = false;
@@ -103,14 +106,16 @@ namespace Logic
 					_arrived = true;
 					sendMoveMessage(_target, AI::IMovement::MOVEMENT_NONE);
 					// Enviar un mensaje para notificar que hemos llegado la destino
-					/*TMessage message;
-					message._type = Message::FINISHED_ROUTE;
-					message._bool = true;
-					_entity->emitMessage(message, this);*/
+					MAStarRoute *m = new MAStarRoute();
+					m->setAction(RouteAction::FINISHED_ROUTE);
+					m->setRouteFailed(false);
+					_entity->emitMessage(m, this);
+
 				} else if (_currentNode == _currentRoute->size() - 1) {
 					// Es el penúltimo nodo. Nos acercamos con Arrive
 					//sendMoveMessage((*_currentRoute)[_currentNode], AI::IMovement::MOVEMENT_KINEMATIC_ARRIVE);
 					sendMoveMessage((*_currentRoute)[_currentNode], AI::IMovement::MOVEMENT_DYNAMIC_ARRIVE);
+
 				} else {
 					// Nos movemos al siguiente
 					//sendMoveMessage((*_currentRoute)[_currentNode], AI::IMovement::MOVEMENT_KINEMATIC_SEEK);
@@ -131,7 +136,7 @@ namespace Logic
 	{
 		MMoveSteering *m = new MMoveSteering();
 
-		m->setTarget(Vector3(target.x, 0.0,target.z));
+		m->setTarget(Vector3(target.x, 0.0, target.z));
 		m->setMovementType(movementType);
 
 		_entity->emitMessage(m, this);
@@ -139,11 +144,15 @@ namespace Logic
 
 	//---------------------------------------------------------
 	/**
-	Este componente sólo acepta mensajes de tipo MWayTo.
+	Este componente sólo acepta mensajes de tipo MRouteTo.
 	*/
 	bool CRouteTo::accept(IMessage *message)
 	{
-		return false;//message._type == Message::FINISHED_MOVE;
+		bool accepted = !message->getType().compare("MAStarRoute");
+		if (accepted) message->addPtr();
+
+		return accepted;
+
 	} // accept
 
 	//---------------------------------------------------------
@@ -154,36 +163,41 @@ namespace Logic
 	*/
 	void CRouteTo::process(IMessage *message)
 	{
-		/*switch(message._type)
+		if (!message->getType().compare("MAStarRoute"))
 		{
-			case Message::ROUTE_TO:
-				// Comprobamos el bool para saber si tenemos que
-				// calcular una nueva ruta o detenernos
-				if (message._bool) {
-					// Anotamos el vector de desplazamiento para usarlo posteriormente en 
-					// el método tick. De esa forma, si recibimos varios mensajes ROUTE_TO
-					// en el mismo ciclo sólo tendremos en cuenta el último.
-					_target = message._vector3;
-					_recalculateRoute = true;
-				} else {
-					// Dejamos de avanzar por la ruta
-					_recalculateRoute = false;
-					_arrived = true;
-					// Eliminamos la ruta
-					if (_currentRoute != 0) {
-						delete _currentRoute;
-						_currentRoute = 0;
-					}
-					// Y enviamos un mensaje para parar
-					sendMoveMessage(_target, AI::IMovement::MOVEMENT_NONE);
-				}
+			MAStarRoute *m_route = static_cast <MAStarRoute*> (message);
+			switch (m_route->getAction())
+			{
+			// Comprobamos si tenemos que calcular una nueva ruta o detenernos
+			case RouteAction::START_ROUTE:
+				// Anotamos el vector de desplazamiento para usarlo posteriormente en 
+				// el método tick. De esa forma, si recibimos varios mensajes ROUTE_TO
+				// en el mismo ciclo sólo tendremos en cuenta el último.
+				_target = m_route->getRouteDestination();
+				_recalculateRoute = true;
 				break;
-			case Message::FINISHED_MOVE:
+
+			case RouteAction::STOP_ROUTE:
+				// Dejamos de avanzar por la ruta
+				_recalculateRoute = false;
+				_arrived = true;
+				// Eliminamos la ruta
+				if (_currentRoute != 0) {
+					delete _currentRoute;
+					_currentRoute = 0;
+				}
+				// Y enviamos un mensaje para parar
+				sendMoveMessage(_target, AI::IMovement::MOVEMENT_NONE);
+				break;
+
+			case RouteAction::FINISHED_MOVE:
 				// Hemos terminado el movimiento actual así que tenemos que pasar al
 				// siguiente punto de la ruta (si existe)
 				_nextWaypoint = true;
 				break;
-		}*/
+			}
+		}
+		message->removePtr();
 
 	} // process
 
