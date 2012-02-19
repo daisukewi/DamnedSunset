@@ -24,7 +24,6 @@ namespace AI {
 	*/
 	CGridmapGraph::CGridmapGraph(void)
 	{
-		_gm	= Logic::CServer::getSingletonPtr()->getMap()->getGridMap();
 	}
 	
 	//--------------------------------------------------------
@@ -34,13 +33,6 @@ namespace AI {
 	*/
 	CGridmapGraph::~CGridmapGraph(void)
 	{
-	}
-
-	//--------------------------------------------------------
-
-	const CNode CGridmapGraph::getNode(int idNode)
-	{
-		return CNode(_gm->getTilePositionFromIndex(idNode));
 	}
 
 	//--------------------------------------------------------

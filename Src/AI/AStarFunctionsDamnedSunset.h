@@ -1,18 +1,18 @@
 /**
-@file AStarFunctionsGaleon.h
+@file AStarFunctionsDamnedSunset.h
 
-En este fichero se implementan las funciones
+En este fichero se definen las funciones
 necesarias para calcular rutas usando A*.
 
 
-@author Gonzalo Flórez
-@date Diciembre, 2010
+@author Daniel Flamenco
+@date Febrero, 2012
 */
 
 #pragma once
 
-#ifndef __AI_AStarFunctionsGaleon_H
-#define __AI_AStarFunctionsGaleon_H
+#ifndef __AI_AStarFunctionsDamnedSunset_H
+#define __AI_AStarFunctionsDamnedSunset_H
 
 #include "micropather.h"
 
@@ -20,24 +20,24 @@ namespace AI
 {
 	/**
 	Clase que hereda de micropather::Graph y que contiene las funciones
-	de A* específicas de Galeon.
+	de A* específicas de DamnedSunset.
 	*/
-	class CAStarFunctionsGaleon : public micropather::Graph
+	class CAStarFunctionsDamnedSunset : public micropather::Graph
 	{
 	public:
 		/** 
 		Constructor
 		*/
-		CAStarFunctionsGaleon(void);
+		CAStarFunctionsDamnedSunset(void);
 		/** 
 		Destructor
 		*/
-		~CAStarFunctionsGaleon(void);
+		~CAStarFunctionsDamnedSunset(void);
 		/**
 		Devuelve el coste según la heurística para llegar desde el estado stateStart hasta stateEnd.
 		Para que el camino devuelto por A* sea óptimo la heurística sea aceptable y no sobreestimar 
 		la distancia.
-		Para la búsqueda de caminos de Galeon utilizaremos como heurística la distancia euclídea
+		Para la búsqueda de caminos de Damned Sunset utilizaremos como heurística la distancia euclídea
 		entre los puntos.
 		*/
 		virtual float LeastCostEstimate( void* stateStart, void* stateEnd );
@@ -60,4 +60,4 @@ namespace AI
 
 } // namespace AI 
 
-#endif //__AI_AStarFunctionsGaleon_H
+#endif //__AI_AStarFunctionsDamnedSunset_H

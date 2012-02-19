@@ -97,7 +97,7 @@ namespace Logic {
 		{
 			if ((*it)->getType() == "Waypoint") {
 				// Procesar waypoint del grafo de navegación
-				AI::CServer::getSingletonPtr()->addWaypoint((*it)->getVector3Attribute("position"));
+				//AI::CServer::getSingletonPtr()->addWaypoint((*it)->getVector3Attribute("position"));
 				// Descomentar la siguiente línea para dibujar los nodos del grafo de navegación
 				entityFactory->createEntity((*it), map);
 			} else {
@@ -112,15 +112,6 @@ namespace Logic {
 		//Map::CMapParser::releaseEntityList(entityList2);
 		Map::CMapParser::getSingletonPtr()->setEntityList(entityList2);
 
-		// HACK - Cambiamos la altura de los nodos para calcular el grafo de navegación más fácilmente
-		AI::CServer::getSingletonPtr()->getNavigationGraph()->setWaypointHeight(7.0);
-		
-		// Generar el grafo de navegación
-		AI::CServer::getSingletonPtr()->computeNavigationGraph();
-
-		// HACK 2 - Volvermos a colocar los nodos en el suelo
-		AI::CServer::getSingletonPtr()->getNavigationGraph()->setWaypointHeight(0.0);
-
 		return map;
 
 	} // createMapFromFile
@@ -133,6 +124,7 @@ namespace Logic {
 		_scene = Graphics::CServer::getSingletonPtr()->createScene(name);
 
 		_gridMap = new CGridMap();
+		AI::CServer::getSingletonPtr()->getNavigationMap()->setGridMap(_gridMap);
 
 	} // CMap
 
@@ -142,6 +134,7 @@ namespace Logic {
 	{
 		destroyAllEntities();
 
+		AI::CServer::getSingletonPtr()->getNavigationMap()->setGridMap(NULL);
 		delete(_gridMap);
 
 		if(Graphics::CServer::getSingletonPtr())

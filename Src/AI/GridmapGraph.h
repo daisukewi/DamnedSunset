@@ -22,15 +22,13 @@ Clase para comunicarse con el mapa lógico y funcione con A*.
 namespace AI {
 
 /**
-Nodo del grafo. Contiene una posición.
-*/
-struct CNode {
-	CNode(Vector3 &pos) : position(pos) {};
-	Vector3 position;
-};
-
-/**
-
+Esta clase se encarga de hacer de interfaz entre el mapa lógico
+y el proyecto de IA para calcular una ruta entre dos puntos
+utilizando el algoritmo de A*.
+<p>
+Tiene un wrapper del GridMap y traduce las llamadas a métodos
+de CGridMap para calcular el A* sobre un mapa de celdas en vez
+de un grafo de waypoints.
 */
 class CGridmapGraph
 {
@@ -45,12 +43,13 @@ public:
 	Destructor
 	*/
 	~CGridmapGraph(void);
-	
-	/**
-	Devuelve un nodo del mapa.
-	*/
-	const CNode getNode(int idNode);
 
+	/*
+	Establece el mapa de celdas que usará la IA para calcular
+	la ruta con A*.
+	*/
+	void setGridMap(Logic::CGridMap* map) { _gm = map; };
+	
 	/**
 	Devuelve el coste asociado a la arista entre dos nodos (la distancia).
 	*/
