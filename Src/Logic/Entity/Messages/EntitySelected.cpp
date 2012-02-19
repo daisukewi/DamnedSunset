@@ -18,6 +18,7 @@ namespace Logic
 		IMessage();
 
 		_type = "MEntitySelected";
+		_interface = false;
 
 	} // MEntitySelected
 
@@ -43,6 +44,14 @@ namespace Logic
 
 	void MEntitySelected::setPoint(Vector3 point){
 		_point = point;
+	}
+
+	bool MEntitySelected::getInterface(){
+		return _interface;
+	}
+
+	void MEntitySelected::setInterface(bool interface){
+		_interface = interface;
 	}
 
 } // namespace Logic

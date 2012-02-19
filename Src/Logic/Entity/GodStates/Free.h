@@ -37,7 +37,7 @@ namespace Logic
 		/**
 		Constructor por defecto; 
 		*/
-		CFree(IComponent *component){_selectionController = component;}
+		CFree(CSelectionController *component){_selectionController = component;}
 
 		/**
 		Destructor (virtual);

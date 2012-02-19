@@ -17,13 +17,18 @@ Contiene la interfaz de la que heredarán los demás estados usados para controlar
 #include "Logic\Entity\Component.h"
 #include "Logic\Entity\Entity.h"
 
+namespace Logic 
+{
+	class CSelectionController;
+}
+
 namespace Logic
 {
 	/**
 	namespace para los tipos de estado que va a haber
 	*/
 	namespace State{
-			enum TState {FREE, PLAYER_SELECTED, BUILD_SELECTED};
+			enum TState {FREE, PLAYER_SELECTED, BUILD_SELECTED, BUILDING, HEALING};
 	}
 
 	/**
@@ -62,7 +67,7 @@ namespace Logic
 		/*
 		*Almacena el componente encaragado de gestionar los estados (SelectionController)
 		*/
-		IComponent* _selectionController;
+		CSelectionController* _selectionController;
 
 
 		/*

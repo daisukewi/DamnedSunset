@@ -38,7 +38,7 @@ namespace Logic
 		/**
 		Constructor por defecto; 
 		*/
-		CPlayerSelected(IComponent *component){_selectionController = component;}
+		CPlayerSelected(CSelectionController *component){_selectionController = component;}
 
 		/**
 		Destructor (virtual);

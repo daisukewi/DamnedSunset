@@ -51,6 +51,15 @@ namespace GUI
 		void deactivate();
 
 		void CInterfazController::tick(unsigned int msecs);
+
+
+
+		/**
+		Método que devuelve true en caso de que el ratón esté encima de la interfaz
+		@return true si el ratón está encima de la interfaz
+		*/
+		bool isMouseOnInterface();
+
 		/***************************************************************
 		Métodos de CKeyboardListener
 		***************************************************************/
@@ -74,6 +83,10 @@ namespace GUI
 		*/
 		bool keyReleased(TKey key);
 
+
+		
+
+
 		bool clickPersonaje1(const CEGUI::EventArgs& e);
 		bool clickPersonaje2(const CEGUI::EventArgs& e);
 		bool clickPersonaje3(const CEGUI::EventArgs& e);
@@ -96,6 +109,9 @@ namespace GUI
 
 		void actualizarBarraVida(char numPersonaje, float porcentajeVida);
 
+		bool _block;
+
+		
 	protected:
 
 
@@ -111,6 +127,7 @@ namespace GUI
 		void CInterfazController::sendClickMessage(std::string name);
 
 		Logic::CEntity *_entidadDios;
+
 	};
 
 } // namespace GUI

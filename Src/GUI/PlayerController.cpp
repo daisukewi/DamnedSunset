@@ -21,6 +21,11 @@ mover al jugador.
 #include "Logic/Entity/Messages/MouseEvent.h"
 #include "Logic/Entity/Messages/MouseMove.h"
 
+
+#include "GUI\Server.h"
+#include "GUI\InterfazController.h"
+
+
 #include <cassert>
 
 #define TURN_FACTOR 0.001f
@@ -96,17 +101,23 @@ namespace GUI {
 
 	bool CPlayerController::mouseReleased(const CMouseState &mouseState)
 	{
-		Logic::MMouseEvent *m_message = new Logic::MMouseEvent();
 
-		if (mouseState.button == Button::LEFT)
-			m_message->setAction(Logic::TMouseAction::LEFT_CLICK);
-		else if (mouseState.button == Button::RIGHT)
-			m_message->setAction(Logic::TMouseAction::RIGHT_CLICK);
-		else if (mouseState.button == Button::MIDDLE)
-			m_message->setAction(Logic::TMouseAction::MIDDLE_CLICK);
+		GUI::CInterfazController* controller = GUI::CServer::getSingletonPtr()->getInterfazController();
+		
+		if(!controller->isMouseOnInterface()){
 
-		Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m_message);
+			Logic::MMouseEvent *m_message = new Logic::MMouseEvent();
 
+			if (mouseState.button == Button::LEFT)
+				m_message->setAction(Logic::TMouseAction::LEFT_CLICK);
+			else if (mouseState.button == Button::RIGHT)
+				m_message->setAction(Logic::TMouseAction::RIGHT_CLICK);
+			else if (mouseState.button == Button::MIDDLE)
+				m_message->setAction(Logic::TMouseAction::MIDDLE_CLICK);
+	
+			Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m_message);
+		}
+		
 		return false;
 	} // mouseReleased
 

@@ -22,7 +22,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void MActivateSkill::setSkill(bool skill)
+	void MActivateSkill::setSkill(int skill)
 	{
 		_skill = skill;
 
@@ -30,7 +30,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	bool MActivateSkill::getSkill()
+	int MActivateSkill::getSkill()
 	{
 		return _skill;
 

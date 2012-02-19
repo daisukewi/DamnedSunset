@@ -82,8 +82,9 @@ namespace GUI {
 	bool CServer::open()
 	{
 		_playerController = new CPlayerController();
-		_cameraController = new CCameraController();
 		_interfazController = new CInterfazController();
+		_cameraController = new CCameraController();
+		
 
 		_GUISystem = BaseSubsystems::CServer::getSingletonPtr()->getGUISystem();
 

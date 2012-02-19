@@ -41,7 +41,7 @@ namespace Logic
 
 		return true;
 
-	} // spawn
+	} // spawna
 	
 	//---------------------------------------------------------
 
@@ -90,6 +90,7 @@ namespace Logic
 				case BuildingMessage::CANCEL_BUILDING:
 					cancelBuilding();
 					break;
+
 			}
 
 		} else if (!message->getType().compare("MControlRaycast"))
@@ -104,18 +105,7 @@ namespace Logic
 					break;
 			}
 
-		} else if (!message->getType().compare("MMouseEvent"))
-		{
-			MMouseEvent *m_mouse = static_cast <MMouseEvent*> (message);
-
-			switch(m_mouse->getAction())
-			{
-				case TMouseAction::LEFT_CLICK:
-					if (!_building) return;
-					emplaceBuilding();
-					break;
-			}
-		}
+		} 
 
 		message->removePtr();
 
@@ -186,7 +176,6 @@ namespace Logic
 	void CBuilderController::emplaceBuilding()
 	{
 		if (!_building || _buildingEntity == NULL) return;
-
 		if (!CheckBuildingCanEmplace()) return;
 
 		Vector3 pos = _buildingEntity->getPosition();
@@ -219,6 +208,8 @@ namespace Logic
 		_entity->emitMessage(b_message, this);
 
 		_building = false;
+
+
 
 	} // emplaceBuilding
 

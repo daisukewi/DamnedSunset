@@ -62,6 +62,22 @@ namespace Logic
 		*/
 		void setPoint(Vector3 point);
 
+
+		/**
+		Método que establece  si el mensaje ha sido enviado desde la interfaz
+
+		@param interface (true7/false)
+		*/
+		void setInterface(bool interface);
+
+
+		/**
+		Método que devuelve si el mensaje ha sido enviado desde la interfaz
+
+		@return _interface
+		*/
+		bool getInterface();
+
 	protected:
 
 		/**
@@ -73,6 +89,11 @@ namespace Logic
 		Atributo que contiene el punto de contacto del raycast
 		*/
 		Vector3 _point;
+
+		/**
+		Atributo que contiene si el mensaje ha sido enviado desde la interfaz
+		*/
+		bool _interface;
 
 	}; // class MEntitySelected
 

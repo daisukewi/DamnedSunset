@@ -17,6 +17,16 @@ Contiene la declaración del mensaje para activar una habilidad que se gestionará
 namespace Logic 
 {
 	/**
+	Tipo de habilidada activadad
+	*/
+	enum TSkill
+		{
+			DEACTIVATE,
+			CURE,
+			ATTACK,
+
+		};
+	/**
 	Clase mensaje que se encargará de activar una habilidad de una entidad.
 
 	@author Luis Mendoza
@@ -32,25 +42,25 @@ namespace Logic
 		MActivateSkill();
 
 		/**
-		Método que establece en el mensaje si la habilidad está activada.
+		Método que establece en el mensaje la habilidad quye hay que activar
 
 		@param bool Skill habilidad activada.
 		*/
-		void setSkill(bool skill);
+		void setSkill(int skill);
 
 		/**
-		Método que nos dice si la habilidad está activada.
+		Método que nos dice que habilidad está activada
 
-		@return Bool habilidad activada.
+		@return int habilidad activada.
 		*/
-		bool getSkill();
+		int getSkill();
 
 	protected:
 
 		/**
-		Atributo que indica si la habilidad está activada o no.
+		Atributo que indica que habilidad hay que activar
 		*/
-		bool _skill;
+		int _skill;
 
 	}; // class MActivateSkill
 

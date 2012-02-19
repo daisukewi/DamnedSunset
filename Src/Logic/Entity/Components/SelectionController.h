@@ -16,8 +16,10 @@ Contiene la declaración del componente que se encarga de gestionar la entidad se
 
 #include "BaseSubsystems/Math.h"
 
-#include "Logic\Entity\GodStates\GodState.h"
-
+namespace Logic 
+{
+	class IGodState;
+}
 //declaración de la clase
 namespace Logic 
 {
@@ -42,7 +44,7 @@ namespace Logic
 		defecto.
 		*/
 		CSelectionController() : IComponent(), _canSelect(true),
-			_isSelecting(false), _isWaitingForAction(false), _numStates(3), _skill(false) {}
+			_isSelecting(false), _isWaitingForAction(false), _numStates(5), _raycastStart(false) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -105,7 +107,22 @@ namespace Logic
 		
 		@param state stado nuevo al que se quiere cambiar
 		*/
-		void CSelectionController::changeState(int state);
+		void changeState(int state);
+
+
+		/**
+		Método usado para obtener la entidada que está seleccionada
+
+		@return entidad  seleccionada
+		*/
+		CEntity* getSelectedEntity();
+
+		/**
+		Método usado para cambiar la entidada que está seleccionada
+
+		@param entity  entidad nueva seleccionada
+		*/
+		void changeSelectedEntity(CEntity* entity);
 
 	protected:
 
@@ -126,7 +143,10 @@ namespace Logic
 
 		bool _isWaitingForAction;
 
-		bool _skill;
+		bool _raycastStart;
+
+
+		int _skill;
 
 
 		/**

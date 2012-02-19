@@ -87,7 +87,9 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemiesGenerator.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Life.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\MapUnit.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Move.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicCharacter.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicDebug.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\RaycastController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\RouteTo.cpp" />
@@ -98,8 +100,10 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SunController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchPosition.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\GodStates\Building.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\BuildSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\Free.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\GodStates\Healing.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\PlayerSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Message.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.cpp" />
@@ -109,6 +113,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\CameraControl.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\CrearBillboardMovimiento.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\CureEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\Damaged.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EmplaceBuilding.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntitySelected.cpp" />
@@ -119,6 +124,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MoveSteering.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\IsSelectable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AStarRoute.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\MoveTo.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetTransform.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\StopAnimation.cpp" />
@@ -150,7 +156,9 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Life.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MapBuilding.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MapUnit.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Move.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicCharacter.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicDebug.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RaycastController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RouteTo.h" />
@@ -161,7 +169,9 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SunController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchPosition.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Healing.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Building.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttackEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\BuildSelected.h" />
@@ -172,6 +182,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\CameraControl.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ControlRaycast.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\CrearBillboardMovimiento.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\CureEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\Damaged.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EmplaceBuilding.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntitySelected.h" />
@@ -182,6 +193,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MoveSteering.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\IsSelectable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AStarRoute.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\MoveTo.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetTransform.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\StopAnimation.h" />

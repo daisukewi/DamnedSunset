@@ -77,6 +77,9 @@ namespace GUI {
 			subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::SubscriberSlot(&GUI::CInterfazController::clickB3, this));
 		CEGUI::WindowManager::getSingleton().getWindow("Interfaz/Menu/b4")->
 			subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::SubscriberSlot(&GUI::CInterfazController::clickB4, this));
+
+
+
 		_time = 0;
 		return true;
 	}
@@ -112,6 +115,8 @@ namespace GUI {
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack")->emitMessage(m);
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick")->emitMessage(m);
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor")->emitMessage(m);
+	
+		
 	}
 
 	void CInterfazController::actualizarBarraVida(char numPersonaje, float porcentajeVida) {
@@ -197,7 +202,7 @@ namespace GUI {
 	{
 		this->menuJugador2();
 		this->sendClickMessage("Erick");
-
+	
 		return true;
 	}
 	bool CInterfazController::clickPersonaje3(const CEGUI::EventArgs& e)
@@ -270,7 +275,7 @@ namespace GUI {
 		{
 			//Jeringuilla
 			Logic::MActivateSkill *m_skill = new Logic::MActivateSkill();
-			m_skill->setSkill(true);
+			m_skill->setSkill(Logic::TSkill::CURE);
 			Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m_skill);
 		}
 		return true;
@@ -278,12 +283,28 @@ namespace GUI {
 
 	void CInterfazController::sendClickMessage(std::string name)
 	{
+
 		Logic::CEntity *player = Logic::CServer::getSingletonPtr()->getPlayer();
 		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName(name);
 
 		Logic::MEntitySelected *m_selection = new Logic::MEntitySelected();
 		m_selection->setSelectedEntity(entity);
+		m_selection->setInterface(true);
 		player->emitMessage(m_selection);
 
+
 	}
+
+	bool CInterfazController::isMouseOnInterface(){
+		CEGUI::Window* guiW = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
+
+		if(!(CEGUI::System::getSingletonPtr()->getWindowContainingMouse()==guiW))
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+
 } // namespace GUI

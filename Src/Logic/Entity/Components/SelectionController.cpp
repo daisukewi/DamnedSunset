@@ -23,7 +23,8 @@
 #include "Logic/Entity/GodStates/BuildSelected.h"
 #include "Logic/Entity/GodStates/PlayerSelected.h"
 #include "Logic/Entity/GodStates/GodState.h"
-
+#include "Logic/Entity/GodStates/Healing.h"
+#include "Logic/Entity/GodStates/Building.h"
 
 
 namespace Logic 
@@ -52,6 +53,8 @@ namespace Logic
 		_activeState = _godStates[State::FREE] = new CFree(this);
 		_godStates[State::PLAYER_SELECTED] = new CPlayerSelected(this);
 		_godStates[State::BUILD_SELECTED] = new CBuildSelected(this);
+		_godStates[State::BUILDING] = new CBuilding(this);
+		_godStates[State::HEALING] = new CHealing(this);
 		
 		_selectedEntity = NULL;
 		
@@ -88,7 +91,7 @@ namespace Logic
 	void CSelectionController::process(IMessage *message)
 	{
 		
-		if (!message->getType().compare("MMouseEvent"))
+		/*if (!message->getType().compare("MMouseEvent"))
 		{
 			if (_canSelect)
 			{
@@ -147,10 +150,13 @@ namespace Logic
 		{
 			MActivateSkill *m_skill = static_cast <MActivateSkill*> (message);
 			_skill = m_skill->getSkill();
+
 		}
 		
 		message->removePtr();
-		/*
+		
+		*/
+		
 
 		if (!message->getType().compare("MMouseEvent"))
 		{
@@ -164,20 +170,21 @@ namespace Logic
 			MControlRaycast *rc_message = new MControlRaycast();
 			rc_message->setAction(RaycastMessage::START_RAYCAST);
 			_entity->emitMessage(rc_message, this);
+			_raycastStart = true;
+			std::cout << "MOUSE_EVENT" << "\n";
 			
-		}/*else if (!message->getType().compare("MEmplaceBuilding"))
+		}else if (!message->getType().compare("MEmplaceBuilding"))
 		{
-			// TODO: (Blackboard): Este pequeño hack evita realizar acciones cuando se ha mandado
-			// la orden de construir. Se puede modificar si se implemente el blackboard.
 			MEmplaceBuilding *m_building = static_cast <MEmplaceBuilding*> (message);
 			switch (m_building->getAction())
 			{
 				case BuildingMessage::START_BUILDING:
-					_canSelect = false;
+					changeState(State::BUILDING);
+					std::cout << "MEmplaceBuilding \n";
 					break;
-				case BuildingMessage::EMPLACE_BUILDING:
+				case BuildingMessage::FINISH_BUILDING:
 				case BuildingMessage::CANCEL_BUILDING:
-					_canSelect = true;
+					changeState(State::PLAYER_SELECTED);
 					break;
 			}
 
@@ -185,10 +192,17 @@ namespace Logic
 		else if (!message->getType().compare("MControlRaycast"))
 		{
 			MControlRaycast *m_raycast = static_cast <MControlRaycast*> (message);
-			switch (m_raycast->getAction())
-			{
+			if (_raycastStart){
+				switch (m_raycast->getAction())
+				{
 				case RaycastMessage::HIT_RAYCAST:
-					if (_isSelecting || _isWaitingForAction){
+					{	
+						
+						//Parar el raycast
+						MControlRaycast *rc_message = new MControlRaycast();
+						rc_message->setAction(RaycastMessage::STOP_RAYCAST);
+						_entity->emitMessage(rc_message, this);
+
 						//Comprobar si la entidad es seleccionable
 						CEntity *col_entity = m_raycast->getCollisionEntity();
 						
@@ -196,22 +210,46 @@ namespace Logic
 						message->setPoint(m_raycast->getCollisionPoint());
 						col_entity->emitMessage(message);
 
-					}
-					break;
+						std::cout << "CONTROL_RAYCAST" << "\n";
+
+						break;
+			
+					}	
+					
+				}
 			}
+			_raycastStart = false;
 
 		} else if (!message->getType().compare("MEntitySelected"))
 		{
-			MEntitySelected *m_selection = static_cast <MEntitySelected*> (message);
-			//Enviar un mensaje al estado correspondiente
+				MEntitySelected *m_selection = static_cast <MEntitySelected*> (message);
+				//Enviar un mensaje al estado correspondiente
 
-			std::cout << "click al estado: " << _activeState;
-			_activeState->click(m_selection->getSelectedEntity(), m_selection->getPoint(),_button);
+				std::cout << "click al estado: " << _activeState;
+				//Si el mensaje ha sido enviado desde la interfaz, asignamos
+				//a la variable _button el valor TMouseAction::LEFT_CLICK, para que el estado
+				//sepa que hacer
+				if (m_selection->getInterface())
+					_button = TMouseAction::LEFT_CLICK;
+
+				_activeState->click(m_selection->getSelectedEntity(), m_selection->getPoint(),_button);
+				std::cout << "ENTITY_SELECTED" << "\n";
+
+
+		}else if (!message->getType().compare("MActivateSkill"))
+		{
+			MActivateSkill *m_skill = static_cast <MActivateSkill*> (message);
+			_skill = m_skill->getSkill();
+			switch (_skill)
+			{
+				case TSkill::CURE:
+					changeState(State::HEALING);
+					break;
+			}
+
 		}
 		
 		message->removePtr();
-
-		*/
 	} // process
 
 
@@ -349,6 +387,28 @@ namespace Logic
 
 	} // saveSelectedEntity
 
+	CEntity* CSelectionController::getSelectedEntity()
+	{
+		return _selectedEntity;
+
+	} // SelectedEntity
+
+	void CSelectionController::changeSelectedEntity(CEntity* entity){
+		//Enviar mensaje a la entidad para que se deseleccione
+		if (_selectedEntity != NULL){
+			MEntitySelected *m_selected = new MEntitySelected();
+			_selectedEntity->emitMessage(m_selected);
+		}
+
+		_selectedEntity = entity;
+
+		//Mandamos un mensaje a la camara para que se centre en el jugador
+		MUbicarCamara *m_ubicar = new MUbicarCamara();
+		m_ubicar->setPosition(_selectedEntity->getPosition());
+		_entity->emitMessage(m_ubicar, this);
+
+	}
+	
 	
 
 } // namespace Logic

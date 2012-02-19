@@ -31,6 +31,7 @@ namespace Logic
 			START_RAYCAST,
 			STOP_RAYCAST,
 			HIT_RAYCAST
+
 		};
 	}
 

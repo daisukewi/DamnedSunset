@@ -151,6 +151,16 @@ namespace GUI
 		*/
 		bool mouseReleased(const CMouseState &mouseState);
 
+
+
+
+		/**
+		Método que devuelve true en caso de que el ratón esté encima de la interfaz
+		@return true si el ratón está encima de la interfaz
+		*/
+		bool interfaceMouse();
+
+
 	protected:
 
 		/**
