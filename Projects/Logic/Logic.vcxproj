@@ -89,7 +89,6 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\MapUnit.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Move.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicCharacter.cpp" />
-    <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicDebug.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\RaycastController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\RouteTo.cpp" />
@@ -158,7 +157,6 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MapUnit.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Move.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicCharacter.h" />
-    <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicDebug.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RaycastController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RouteTo.h" />
