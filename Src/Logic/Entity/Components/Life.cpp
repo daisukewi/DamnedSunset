@@ -103,6 +103,7 @@ namespace Logic
 					{
 						MAttackEntity *m = new MAttackEntity();
 						m->setAttack(false);
+						assert(md);
 						md->getKiller()->emitMessage(m, this);
 					
 						Map::CEntity * muertoInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Entity");

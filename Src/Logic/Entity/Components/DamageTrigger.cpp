@@ -58,6 +58,7 @@ namespace Logic
 			{
 				MDamaged *m2 = new MDamaged();
 				m2->setHurt(_damage);
+				m2->setKiller(_entity);
 				m->getEntity()->emitMessage(m2);
 			}
 		}

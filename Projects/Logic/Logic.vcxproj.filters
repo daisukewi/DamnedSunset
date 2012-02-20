@@ -112,9 +112,6 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\UbicarCamara.cpp">
       <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyController.cpp">
-      <Filter>Entity\Components\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Graphics.cpp">
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
@@ -183,6 +180,11 @@
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\CureEntity.cpp">
       <Filter>Entity\Messages\Source Files</Filter>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyController.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Maps\GridMap.cpp">
+      <Filter>Maps\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\Healing.cpp">
       <Filter>Entity\GodStates\Source Files</Filter>
@@ -196,8 +198,8 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AStarRoute.cpp">
       <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Logic\Maps\GridMap.cpp">
-      <Filter>Maps\Source Files</Filter>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\TurretController.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -324,9 +326,6 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\Switch.h">
       <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyController.h">
-      <Filter>Entity\Components\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
@@ -395,6 +394,11 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\CureEntity.h">
       <Filter>Entity\Messages\Header Files</Filter>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemyController.h">
+      <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Maps\GridMap.h">
+      <Filter>Maps\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Healing.h">
       <Filter>Entity\GodStates\Header Files</Filter>
@@ -410,6 +414,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Maps\GridMap.h">
       <Filter>Maps\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\TurretController.h">
+      <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

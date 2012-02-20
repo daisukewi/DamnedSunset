@@ -10,7 +10,7 @@ Camera CCamera
 PlayerGod CCameraController CRaycastController CSelectionController CBuilderController
 Building CGraphics CPhysicEntity
 PhantomTurret CGraphics
-Turret CGraphics CPhysicEntity CMapBuilding
+Turret CGraphics CPhysicEntity CMapBuilding CTurretController
 Barril CGraphics CPhysicEntity
 PuertaTrigger CSwitchTrigger CPhysicEntity
 Puerta CGraphics CSwitchPosition

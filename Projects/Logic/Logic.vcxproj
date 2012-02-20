@@ -81,6 +81,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BillboardSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BuilderController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LanzadorGranadas.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\MapBuilding.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\CameraController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DamageTrigger.cpp" />
@@ -99,6 +100,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SunController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchPosition.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\TurretController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\Building.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\BuildSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\Free.cpp" />
@@ -142,7 +144,6 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Camera.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Graphics.cpp" />
     <ClCompile Include="..\..\Src\Logic\Server.cpp" />
-    <ClCompile Include="EnemyController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\BillboardIndicacionMover.h" />
@@ -152,6 +153,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DamageTrigger.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemiesGenerator.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LanzadorGranadas.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemyController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Life.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MapBuilding.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MapUnit.h" />
@@ -167,6 +169,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SunController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchPosition.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\TurretController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Healing.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Building.h" />
@@ -214,7 +217,6 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Graphics.h" />
     <ClInclude Include="..\..\Src\Logic\Documentation.h" />
     <ClInclude Include="..\..\Src\Logic\Server.h" />
-    <ClInclude Include="EnemyController.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseSubsystems\BaseSubsystems.vcxproj">
