@@ -15,8 +15,6 @@ del enemigo.
 
 #include "Logic/Entity/Component.h"
 
-#include "BaseSubsystems/Math.h"
-
 //declaración de la clase
 namespace Logic 
 {
@@ -37,7 +35,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CEnemyController() : IComponent(), _moving(false), _speed(0.04f), _destino(Vector3::ZERO) {}
+		CEnemyController() : IComponent(), _moving(false) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -98,19 +96,9 @@ namespace Logic
 	protected:
 
 		/**
-		Atributo para saber la velocidad a la que avanza el enemigo.
-		*/
-		float _speed;
-
-		/**
 		Atributo para saber si el enemigo está en movimiento.
 		*/
 		bool _moving;
-
-		/**
-		Atributo para saber el destino del enemigo.
-		*/
-		Vector3 _destino;
 
 	}; // class CEnemyController
 

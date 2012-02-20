@@ -12,7 +12,7 @@ Contiene la implementación de la clase encargada de gestionar el estado PlayerSe
 #include "PlayerSelected.h"
 
 #include "Logic/Entity/Messages/MouseEvent.h"
-#include "Logic/Entity/Messages/MoveTo.h"
+#include "Logic/Entity/Messages/AStarRoute.h"
 #include "Logic/Entity/Messages/AttackEntity.h"
 #include "Logic/Entity/Messages/CureEntity.h"
 
@@ -43,9 +43,10 @@ namespace Logic
 				
 				CEntity* selectedEntity = _selectionController->getSelectedEntity();
 
-				MMoveTo *m_moveto = new MMoveTo();
-				m_moveto->setPosition(point);
-				selectedEntity->emitMessage(m_moveto);
+				MAStarRoute *m_movement = new MAStarRoute();
+				m_movement->setAction(RouteAction::START_ROUTE);
+				m_movement->setRouteDestination(point);
+				selectedEntity->emitMessage(m_movement, NULL);
 
 				std::cout << "Mover entidad: " << entity->getName() << " a: " << point;
 			}else{

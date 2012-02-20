@@ -89,7 +89,7 @@ namespace Logic {
 	{
 		TGridTile tile = getTileFromPosition(position.x, position.z);
 
-		return tile->GetRow() * MAP_HGRIDS + tile->GetCol();
+		return tile->GetCol() * MAP_HGRIDS + tile->GetRow();
 	}
 
 	//--------------------------------------------------------
@@ -126,13 +126,13 @@ namespace Logic {
 	{
 		TGridTile tile = getTileFromIndex(index);
 		std::list<unsigned int>* neighbours = new std::list<unsigned int>();
-		if (tile->GetRow() > 0)
-			neighbours->push_back(index - MAP_HGRIDS);
-		if (tile->GetRow() < MAP_HGRIDS - 1)
-			neighbours->push_back(index + MAP_HGRIDS);
 		if (tile->GetCol() > 0)
+			neighbours->push_back(index - MAP_HGRIDS);
+		if (tile->GetCol() < MAP_HGRIDS - 1)
+			neighbours->push_back(index + MAP_HGRIDS);
+		if (tile->GetRow() > 0)
 			neighbours->push_back(index - 1);
-		if (tile->GetCol() < MAP_VGRIDS - 1)
+		if (tile->GetRow() < MAP_VGRIDS - 1)
 			neighbours->push_back(index + 1);
 		
 

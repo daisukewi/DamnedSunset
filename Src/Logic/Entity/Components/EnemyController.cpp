@@ -20,11 +20,13 @@ del enemigo.
 #include "Graphics/Server.h"
 #include "Graphics/Scene.h"
 
+#include "BaseSubsystems/Math.h"
+
 // Includes para pruebas de paso de mensajes a componentes de IA
 #include "AI/Server.h"
 #include "AI/Movement.h"
 
-#include "Logic/Entity/Messages/MoveSteering.h"
+#include "Logic/Entity/Messages/AStarRoute.h"
 
 
 namespace Logic
@@ -38,12 +40,6 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 		
-		if(entityInfo->hasAttribute("speed"))
-			_speed = entityInfo->getFloatAttribute("speed");
-
-		if(entityInfo->hasAttribute("position"))
-			_destino = entityInfo->getFloatAttribute("position");
-
 		_moving = false;
 
 		return true;
@@ -68,7 +64,10 @@ namespace Logic
 
 	bool CEnemyController::accept(IMessage *message)
 	{
-		return false;
+		bool accepted = !message->getType().compare("MAstarRoute");
+		if (accepted) message->addPtr();
+
+		return accepted;
 
 	} // accept
 	
@@ -76,7 +75,16 @@ namespace Logic
 
 	void CEnemyController::process(IMessage *message)
 	{
-
+		MAStarRoute *m_route = static_cast <MAStarRoute*> (message);
+		switch (m_route->getAction())
+		{
+		case RouteAction::FINISHED_ROUTE:
+			// Hemos terminado el movimiento actual así que tenemos que
+			// calcular una nueva ruta.
+			_moving = false;
+			break;
+		}
+		message->removePtr();
 	} // process
 	
 	//---------------------------------------------------------
@@ -89,19 +97,15 @@ namespace Logic
 		// Cuando la distancia al objetivo es pequeña volvemos a hacer el mismo proceso.
 		if (!_moving)
 		{
-			_destino.x = rand() % 200 - 100;
-			_destino.y = 5.0f;
-			_destino.z = rand() % 200 - 100;
+			Vector3 destino = Vector3 ( rand() % 200 - 100, 1.0f, rand() % 200 - 100);
 
-			MMoveSteering *m = new MMoveSteering();
-
-			m->setMovementType(AI::IMovement::MOVEMENT_KINEMATIC_ARRIVE);
-			m->setTarget(_destino);
-
+			MAStarRoute *m = new MAStarRoute();
+			m->setAction(RouteAction::START_ROUTE);
+			m->setRouteDestination(destino);
 			_entity->emitMessage(m, this);
-		}
 
-		_moving = (_entity->getPosition() - _destino).length() >= 15;
+			_moving = true;
+		}
 
 	} // tick
 
