@@ -64,7 +64,7 @@ namespace Logic
 
 	bool CEnemyController::accept(IMessage *message)
 	{
-		bool accepted = !message->getType().compare("MAstarRoute");
+		bool accepted = !message->getType().compare("MAStarRoute");
 		if (accepted) message->addPtr();
 
 		return accepted;

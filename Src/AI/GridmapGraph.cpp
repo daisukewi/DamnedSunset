@@ -42,7 +42,10 @@ namespace AI {
 	*/
 	float CGridmapGraph::getCost(int node1, int node2)
 	{
-		return _gm->getTileFromIndex(node2)->GetTravelCost();
+		if (_gm->getTileFromIndex(node2)->IsPopulated())
+			return 50.0f;
+		else
+			return 1.0f;
 	}
 
 	//--------------------------------------------------------
@@ -79,7 +82,14 @@ namespace AI {
 
 	int CGridmapGraph::getClosestNode(Vector3 position)
 	{
-		return _gm->getIndexTileFromCoord(position);
+		return _gm->getIndexTileFromPosition(position);
+	}
+
+	//--------------------------------------------------------
+
+	void CGridmapGraph::PrintMapWithRoute( std::vector<void*>* path )
+	{
+		_gm->PrintMapWithRoute(path);
 	}
 
 }

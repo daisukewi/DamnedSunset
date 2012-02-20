@@ -90,15 +90,6 @@ namespace Logic
 		*/
 		bool IsPopulated() { return _building != NULL; }
 
-		/*
-		Indica el coste que tiene la casilla para atravesarla de punta a punta.
-		<p>Esto sirve para hacer el cálculo de A*.
-
-		@return coste que tiene la casilla para atravesarla o destruir
-		su contenido.
-		*/
-		float GetTravelCost() { return IsPopulated() ? 10.0f : 1.0f; }
-
 		/**
 		Añade una nueva entidad a la casilla.
 		NOT IMPLEMENTED
@@ -186,11 +177,6 @@ namespace Logic
 		*/
 		const TGridTile getTileFromCoord(const int row, const int col);
 
-		/*
-		Devuelve el índice de una casilla que contiene la posición dada.
-		*/
-		int getIndexTileFromCoord( Vector3 position );
-
 		/**
 		Devuelve la casilla que corresponde a un índice de la tabla.
 		*/
@@ -201,6 +187,11 @@ namespace Logic
 		índice de la tabla.
 		*/
 		Vector3 getTilePositionFromIndex(const unsigned int index);
+
+		/*
+		Devuelve el índice de una casilla que contiene la posición dada.
+		*/
+		int getIndexTileFromPosition( Vector3 position );
 
 		/*
 		Devuelve una lista con las casillas adyacentes a la casilla dada.
@@ -216,8 +207,20 @@ namespace Logic
 		Imprime una representación del mapa en la pantalla.
 		*/
 		void PrintMap();
-		
+
+		/**
+		Imprime una representación del mapa en la pantalla.
+		En esta representación se imprime también la ruta calculada
+		con el algoritmo A*.
+		*/
+		void PrintMapWithRoute( std::vector<void*>* path );
+
 	private:
+
+		/*
+		Devuelve el índice de una casilla que se encuentra en las coordenadas dadas.
+		*/
+		int getIndexTileFromCoord( const int row, const int col );
 
 		typedef TGridTile** TGridMap;
 

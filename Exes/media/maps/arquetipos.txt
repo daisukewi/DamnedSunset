@@ -33,11 +33,10 @@ Map = {
 		physic_entity = "simple",
 		physic_type = "static",
 		physic_shape = "box",
-		physic_dimensions = { 50.5, 50.5, 50.5 },
+		physic_dimensions = { 2.3, 2.5, 2.3 },
 		physic_height = 2,
 		physic_radius = 15,
 		physic_collision_group = 2,
-		physic_trigger = true,
 		precision = 0.1,
 	},
 	

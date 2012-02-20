@@ -77,6 +77,11 @@ public:
 	*/
 	Vector3 getNodePosition(int numWaypoint);
 
+	/**
+	Hace un volcado del mapa en la consola. En este volcado
+	incluye la ruta de nodos de A* que se le pasa como parámetro
+	*/
+	void PrintMapWithRoute( std::vector<void*>* path );
 
 private:
 	
