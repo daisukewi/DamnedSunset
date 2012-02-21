@@ -42,11 +42,13 @@ namespace AI {
 	*/
 	float CGridmapGraph::getCost(int node1, int node2)
 	{
-		if (_gm->getTileFromIndex(node2)->IsPopulated())
-			return 50.0f;
-		else
-			return 1.0f;
-	}
+		if (!_gm->getTileFromIndex(node2)->IsPopulated()
+			|| (_gm->getTileFromIndex(node2)->GetBuilding() == _gm->getTileFromIndex(node1)->GetBuilding()))
+				return 1.0f;
+
+		return 50.0f;
+		
+	} // getCost
 
 	//--------------------------------------------------------
 

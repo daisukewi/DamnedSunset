@@ -537,7 +537,8 @@ void MicroPather::GetNodeNeighbors( PathNode* node, std::vector< NodeCost >* pNo
 		// it has no neighbors.
 		pNodeCost->resize( 0 );
 	}
-	else if ( node->cacheIndex < 0 )
+	// No queremos obtener caminos de la caché
+	else if ( true || node->cacheIndex < 0 )
 	{
 		// Not in the cache. Either the first time or just didn't fit. We don't know
 		// the number of neighbors and need to call back to the client.
@@ -571,11 +572,12 @@ void MicroPather::GetNodeNeighbors( PathNode* node, std::vector< NodeCost >* pNo
 				pNodeCostPtr[i].node = pathNodePool.GetPathNode( frame, state, FLT_MAX, FLT_MAX, 0 );
 			}
 
-			// Can this be cached?
-			int start = 0;
-			if ( pNodeCost->size() > 0 && pathNodePool.PushCache( pNodeCostPtr, pNodeCost->size(), &start ) ) {
-				node->cacheIndex = start;
-			}
+			// Comentado para no cachear los caminos.
+			//// Can this be cached?
+			//int start = 0;
+			//if ( pNodeCost->size() > 0 && pathNodePool.PushCache( pNodeCostPtr, pNodeCost->size(), &start ) ) {
+			//	node->cacheIndex = start;
+			//}
 		}
 	}
 	else {

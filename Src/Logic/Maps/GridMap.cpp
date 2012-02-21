@@ -180,7 +180,7 @@ namespace Logic {
 		printf("Grids: %d, %d\n\n", MAP_HGRIDS, MAP_VGRIDS);
 		for (int i = MAP_VGRIDS - 1; i >= 0; --i)
 		{
-			printf("%3d |", getIndexTileFromCoord(MAP_VGRIDS - i - 1, 0));
+			printf("%3d |", getIndexTileFromCoord(i, MAP_HGRIDS - 1));
 			for (int j = MAP_HGRIDS - 1; j >= 0; --j)
 			{
 				char empty = getTileFromCoord(i, j)->IsPopulated() ? 'i' : '-';
@@ -191,7 +191,7 @@ namespace Logic {
 				}
 				printf(" %c", empty);
 			}
-			printf("| %d\n", getIndexTileFromCoord(MAP_VGRIDS - i - 1, MAP_HGRIDS - 1));
+			printf("| %d\n", getIndexTileFromCoord(i, 0));
 		}
 	}
 
