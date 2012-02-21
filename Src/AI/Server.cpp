@@ -86,7 +86,7 @@ namespace AI {
 		}
 
 		// Imprimimos el mapa y el camino calculado.
-		_navMap->PrintMapWithRoute(path);
+		//_navMap->PrintMapWithRoute(path);
 
 		std::vector<Vector3>* out = new std::vector<Vector3>();
 		// Añadimos el punto inicial si no coincide con el primer nodo
