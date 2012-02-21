@@ -22,7 +22,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Physics", "Projects\Physics
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AI", "Projects\AI\AI.vcxproj", "{7BBE92AD-192A-42DB-9B43-829EE3B07E81}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sound", "Projects\Sound\Sound\Sound.vcxproj", "{E667483D-AA8E-4E75-8B33-142C3F8811DD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sound", "Projects\Sound\Sound.vcxproj", "{E667483D-AA8E-4E75-8B33-142C3F8811DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
