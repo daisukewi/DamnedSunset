@@ -13,6 +13,8 @@
 #include "Logic/Maps/Map.h"
 #include "Logic/Entity/Messages/LanzarGranada.h"
 
+#include "Logic/Maps/EntityFactory.h"
+
 namespace Logic 
 {
 	IMP_FACTORY(CLanzadorGranadas);
@@ -44,6 +46,9 @@ namespace Logic
 		}
 		_billboard->setPerpendicular();
 		_billboard->setVisible(false);
+
+		_estadoGranada = inactivo;
+
 		return true;
 	} // spawn
 
@@ -65,7 +70,24 @@ namespace Logic
 	{
 		if (!message->getType().compare("MLanzarGranada"))
 		{
-			_billboard->setVisible(true);
+			MLanzarGranada *m = static_cast <MLanzarGranada*> (message);
+			if (_estadoGranada == inactivo)
+			{
+				_billboard->setVisible(true);
+				_estadoGranada = lanzando;
+			} else
+			{
+				//Lanzamos la granada a dicha posicion
+				Map::CEntity * mapEntity = Map::CMapParser::getSingletonPtr()->getEntityInfo("Granada");
+				mapEntity->setName("granada" + rand() );
+
+				std::stringstream pos;
+				pos << _entity->getPosition().x << ' ' << _entity->getPosition().y << ' ' << _entity->getPosition().z;
+				mapEntity->setAttribute("position", pos.str());
+
+
+				Logic::CEntity *entity = CEntityFactory::getSingletonPtr()->createEntity(mapEntity,Logic::CServer::getSingletonPtr()->getMap());
+			}
 		}
 	} // process
 

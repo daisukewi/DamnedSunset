@@ -13,6 +13,7 @@ PhantomTurret CGraphics
 Turret CGraphics CPhysicEntity CMapBuilding
 TurretTrigger CPhysicEntity CTurretController CSelectable
 Barril CGraphics CPhysicEntity
+Granada CGraphics CPhysicEntity
 PuertaTrigger CSwitchTrigger CPhysicEntity
 Puerta CGraphics CSwitchPosition
 Sierra CAnimatedGraphics CSwitchPosition CDamageTrigger CPhysicEntity

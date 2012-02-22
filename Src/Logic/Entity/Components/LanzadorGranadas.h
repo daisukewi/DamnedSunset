@@ -34,6 +34,12 @@ namespace Logic
 		Billboard que muestra que esta seleccionado
 		*/
 		Graphics::CBillboard * _billboard;
+		enum EstadoGranada
+		{
+			inactivo = 0,
+			lanzando = 1,
+		};
+		enum EstadoGranada _estadoGranada;
 	};
 
 	REG_FACTORY(CLanzadorGranadas);

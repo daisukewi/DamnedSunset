@@ -8,7 +8,12 @@ namespace Logic
 	MLanzarGranada::MLanzarGranada()
 	{
 		IMessage();
+		_position = NULL;
 		_type = "MLanzarGranada";
+	}
+	MLanzarGranada::~MLanzarGranada() 
+	{
+		delete _position;
 	}
 }
 #endif

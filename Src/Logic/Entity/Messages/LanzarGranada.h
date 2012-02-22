@@ -14,7 +14,11 @@ namespace Logic
 	{
 	public:
 		MLanzarGranada();
+		~MLanzarGranada();
+		void setPosition(Ogre::Vector2 v) {_position = new Ogre::Vector2(v.x,v.y);}
+		Ogre::Vector2* getPosition() {return _position;}
 	protected:
+		Ogre::Vector2 * _position;
 	};
 
 } // namespace Logic
