@@ -53,10 +53,10 @@ namespace Logic
 				selectedEntity->emitMessage(m_movement, NULL);
 
 				//Mensaje para que se cree el billboard de movimiento en el mundo
-				Logic::MCrearBillboardMovimiento *m = new Logic::MCrearBillboardMovimiento();
-				m->setPosX(point.x);
-				m->setPosY(point.z);
-				entity->emitMessage(m);
+				Logic::MCrearBillboardMovimiento *mCrearBillboardMovimiento = new Logic::MCrearBillboardMovimiento();
+				mCrearBillboardMovimiento->setPosX(point.x);
+				mCrearBillboardMovimiento->setPosY(point.z);
+				entity->emitMessage(mCrearBillboardMovimiento);
 
 				std::cout << "Mover entidad: " << entity->getName() << " a: " << point;
 			}else{

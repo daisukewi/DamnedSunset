@@ -2,7 +2,7 @@
 #ifndef __Logic_CrearBillboardMovimiento_H
 #define __Logic_CrearBillboardMovimiento_H
 
-#include "Logic/Entity/Message.h"s
+#include "Logic/Entity/Message.h"
 namespace Logic 
 {
 
