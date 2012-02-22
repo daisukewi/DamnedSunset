@@ -76,6 +76,11 @@ Map = {
 		type = "Turret",
 		position = {15, 0, 5},
 	},
+
+	TorretaTrigger1 = {
+		type = "TurretTrigger",
+		position = {15, 0, 5},	
+	},
 	
 	Barril1 = {
 		type = "Barril",

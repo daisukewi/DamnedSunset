@@ -189,14 +189,19 @@ namespace Logic
 		// Borrar la entidad sin física
 		Logic::CEntityFactory::getSingletonPtr()->deleteEntity(_buildingEntity);
 
-		// Creamos una nueva entidad sacada de los arquetipos
+		// Creamos una nueva entidad con su entidad trigger sacada de los arquetipos
 		Map::CEntity * buildInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Turret");
+		Map::CEntity * triggerInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("TurretTrigger");
 
 		// Le ponemos un nuevo nombre para poder hacer spawn y la posición del edificio fantasma
 		buildInfo->setName(buildingName.str());
+		buildingName << "trigger";
+		triggerInfo->setName(buildingName.str());
 		buildInfo->setAttribute("position", vecPos.str());
+		triggerInfo->setAttribute("position", vecPos.str());
 		
 		Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap());
+		Logic::CEntityFactory::getSingletonPtr()->createEntity(triggerInfo, _entity->getMap());
 
 		// Mandamos un mensaje para dejar de lanzar raycasts.
 		MControlRaycast *rc_message = new MControlRaycast();

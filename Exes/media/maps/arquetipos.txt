@@ -37,6 +37,17 @@ Map = {
 		physic_height = 2,
 		physic_radius = 15,
 		physic_collision_group = 2,
+	},
+
+	TorretaTrigger = {
+		type = "TurretTrigger",
+		position = {0, 0, 0},
+		physic_entity = "simple",
+		physic_type = "static",
+		physic_trigger = true,
+		physic_shape = "box",
+		physic_dimensions = { 20, 2.5, 20 },
+		physic_collision_group = 5,
 		precision = 0.1,
 	},
 	
@@ -58,6 +69,7 @@ Map = {
 	Enemies = {
 		type = "Enemies",
 		position = {80, 5, -80},
+		periodo = 500,
 	},
 
 	Enemy = {
@@ -72,7 +84,7 @@ Map = {
 		physic_entity = "controller",
 		physic_shape = "capsule",
 		physic_radius = 4,
-		physic_height = 9,
+		physic_height = 6,
 		speed = 0.02,
 		angularSpeed = 0.003,
 		accel = 0.001,
@@ -87,6 +99,14 @@ Map = {
 		billboardSeleccionMaterial = "circuloSeleccion",
 		billboardSeleccionWith = 15.0,
 		billboardSeleccionHeight = 15.0,
+	},
+
+	SelectionEnemy = {
+		type = "SelectionEnemy",
+		physic_entity = "controller",
+		physic_shape = "capsule",
+		physic_radius = 6,
+		physic_height = 9,
 	},
 
 	Player = {

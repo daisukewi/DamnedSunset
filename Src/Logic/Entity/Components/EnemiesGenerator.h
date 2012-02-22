@@ -37,7 +37,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CEnemiesGenerator() : IComponent(), _origen(Vector3::ZERO), _ticks(0), _enemy(0) {}
+		CEnemiesGenerator() : IComponent(), _origen(Vector3::ZERO), _ticks(0), _enemy(0), _periodo(500) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -110,6 +110,11 @@ namespace Logic
 		Contador de enemigos.
 		*/
 		unsigned int _enemy;
+
+		/**
+		Cada cuántos ticks se crea un enemigo.
+		*/
+		unsigned int _periodo;
 
 	}; // class CEnemiesGenerator
 

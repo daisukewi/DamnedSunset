@@ -2,6 +2,7 @@ World CGraphics CPhysicEntity CSelectable CBillboardIndicacionMover
 Sun CGraphics CSunController
 Player CAvatarController CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor CSelectable CMapUnit CLanzadorGranadas
 Enemy CEnemyController CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CSelectable CMapUnit
+SelectionEnemy CPhysicCharacter CSelectable
 Entity CGraphics
 Enemies CEnemiesGenerator CGraphics
 AnimatedEntity CAnimatedGraphics
@@ -9,7 +10,8 @@ Camera CCamera
 PlayerGod CCameraController CRaycastController CSelectionController CBuilderController
 Building CGraphics CPhysicEntity
 PhantomTurret CGraphics
-Turret CGraphics CPhysicEntity CMapBuilding CTurretController
+Turret CGraphics CPhysicEntity CMapBuilding
+TurretTrigger CPhysicEntity CTurretController CSelectable
 Barril CGraphics CPhysicEntity
 PuertaTrigger CSwitchTrigger CPhysicEntity
 Puerta CGraphics CSwitchPosition

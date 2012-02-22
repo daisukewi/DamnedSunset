@@ -37,7 +37,7 @@ namespace Logic
 		if (button == TMouseAction::RIGHT_CLICK)
 		{
 		
-			if (!entity->getType().compare("World"))
+			if (!entity->getType().compare("World") || !entity->getType().compare("TurretTrigger"))
 			{
 				
 				

@@ -35,6 +35,9 @@ namespace Logic
 		if(entityInfo->hasAttribute("position"))
 			_origen = entityInfo->getVector3Attribute("position");
 
+		if(entityInfo->hasAttribute("periodo"))
+			_periodo = entityInfo->getIntAttribute("periodo");
+
 		return true;
 
 	} // spawn
@@ -74,9 +77,9 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 		
-		// Cada 100 ticks creamos un enemigo.
+		// Cada 500 ticks creamos un enemigo.
 		_ticks += 1;
-		if (_ticks >= 500)
+		if (_ticks >= _periodo)
 		{
 			_ticks = 0;
 			_enemy += 1;
