@@ -17,6 +17,7 @@ cuando se está construyendo.
 
 #include "Logic/Entity/Messages/CureEntity.h"
 #include "Logic/Entity/Messages/AttackEntity.h"
+#include "Logic/Entity/Messages/AStarRoute.h"
 
 namespace Logic
 {
@@ -42,6 +43,35 @@ namespace Logic
 			m->setEntity(entity);
 			m->setAttack(true);
 			selectedEntity->emitMessage(m);
+			}
+			else
+			{
+				_selectionController->changeState(State::PLAYER_SELECTED);
+				CEntity* selectedEntity = _selectionController->getSelectedEntity();
+
+				if (!entity->getType().compare("Enemy"))
+				{
+					// Dejamos de curar y enviamos una orden de ataque al enemigo
+					std::cout << "Dejamos de curar y atacamos a: " << entity->getName() << '\n';
+					MAttackEntity *m = new MAttackEntity();
+					m->setEntity(entity);
+					m->setAttack(true);
+					selectedEntity->emitMessage(m);
+				}
+				else if (!entity->getType().compare("World") || !entity->getType().compare("TurretTrigger"))
+				{
+					std::cout << "Dejamos de curar y vamos al punto: " << point << '\n';
+				
+					CEntity* selectedEntity = _selectionController->getSelectedEntity();
+					MAttackEntity *m = new MAttackEntity();
+					m->setAttack(false);
+					selectedEntity->emitMessage(m);
+				
+					MAStarRoute *m_movement = new MAStarRoute();
+					m_movement->setAction(RouteAction::START_ROUTE);
+					m_movement->setRouteDestination(point);
+					selectedEntity->emitMessage(m_movement, NULL);
+				}
 			}
 		}
 		if (button == TMouseAction::LEFT_CLICK){

@@ -103,7 +103,6 @@ namespace Logic
 					{
 						MAttackEntity *m = new MAttackEntity();
 						m->setAttack(false);
-						assert(md);
 						md->getKiller()->emitMessage(m, this);
 					
 						Map::CEntity * muertoInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Entity");
@@ -120,7 +119,8 @@ namespace Logic
 
 						Logic::CEntity *muerto = Logic::CEntityFactory::getSingletonPtr()->createEntity(muertoInfo, _entity->getMap());
 
-						CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
+						if (_entity != NULL)
+							CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 					}
 				}
 				// @todo Poner la animación de herido.

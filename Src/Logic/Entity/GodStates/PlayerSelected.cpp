@@ -39,10 +39,13 @@ namespace Logic
 		
 			if (!entity->getType().compare("World") || !entity->getType().compare("TurretTrigger"))
 			{
-				
-				
 				CEntity* selectedEntity = _selectionController->getSelectedEntity();
 
+				// Dejamos de atacar o de curar
+				MAttackEntity *m = new MAttackEntity();
+				m->setAttack(false);
+				selectedEntity->emitMessage(m);
+				
 				MAStarRoute *m_movement = new MAStarRoute();
 				m_movement->setAction(RouteAction::START_ROUTE);
 				m_movement->setRouteDestination(point);
