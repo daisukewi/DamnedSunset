@@ -10,10 +10,6 @@
 #include "Logic/Entity/Messages/EntitySelected.h"
 #include "Logic/Entity/Messages/IsSelectable.h"
 
-
-#include <OgreBillboard.h>
-#include <OgreBillboardSet.h>
-
 namespace Logic 
 {
 	IMP_FACTORY(CSelectable);
@@ -67,35 +63,8 @@ namespace Logic
 			m_selected->setSelectedEntity(_entity);
 			m_selected->setPoint(m_selectable->getPoint());
 			entity->emitMessage(m_selected);
-
-			
-			//std::cout << "SELECTABLE PROCESS ENTIDAD: " << _entity->getType();
-			
-
-			//Logic::CSetBillboard *ms = new Logic::CSetBillboard();
-			//ms->_funcion = generarBillboardSelectable;
-			//ms->setPorcetajeVida(0);
-			//_entity->emitMessage(ms);
-
 		}
 	} // process
-	
-	//---------------------------------------------------------
-
-
-	void generarBillboardSelectable(Ogre::BillboardSet* b, float unused) {
-		//Tendria q haber 2 billboard creados, si no estan los creamos
-		Ogre::Billboard* billboard;
-		while (b->getNumBillboards() < 2 ) {
-			billboard = b->createBillboard(0,13,0);
-			billboard->setDimensions(0,0);
-		}
-		//El ultimo billboard es el q nos interesa: El '1'
-		billboard = b->getBillboard(1);
-		billboard->setDimensions(4,4);
-		billboard->setPosition(0,16,0);
-		billboard->setTexcoordRect(0.0f/*inicioX*/, 0.2f, 0.4f/*finX*/, 0.6f);
-	}
 
 	//---------------------------------------------------------
 

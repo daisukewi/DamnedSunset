@@ -61,6 +61,8 @@ namespace Graphics
 		void setPosicionImagen(float x, float x2, float y, float y2);
 		void setPerpendicular();
 		void setVisible(bool b);
+		Ogre::BillboardSet* getBillboarset() {return _billboardset;}
+
 	protected:
 		friend class CScene;
 		

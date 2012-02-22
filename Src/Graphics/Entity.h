@@ -28,6 +28,7 @@ namespace Ogre
 namespace Graphics 
 {
 	class CScene;
+	class CBillboard;
 }
 
 namespace Graphics 
@@ -158,7 +159,7 @@ namespace Graphics
 		*/
 		Ogre::Entity* getEntity() {return _entity;}
 
-		void attachBillboardSet(Ogre::BillboardSet* b);
+		void attachBillboardSet(CBillboard* b);
 
 	protected:
 

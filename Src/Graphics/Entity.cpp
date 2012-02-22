@@ -28,6 +28,8 @@ Contiene la implementación de la clase que representa una entidad gráfica.
 #include <OgreBillboard.h>
 #include <OgreBillboardSet.h>
 
+#include "Billboard.h"
+
 namespace Graphics 
 {
 	CEntity::CEntity(const std::string &name, const std::string &mesh)
@@ -207,10 +209,9 @@ namespace Graphics
 
 	} // setScale
 
-	void CEntity::attachBillboardSet(Ogre::BillboardSet* b) 
+	void CEntity::attachBillboardSet(CBillboard* b) 
 	{
-		_entityNode->attachObject(b);
-;
+		_entityNode->attachObject(b->getBillboarset());
 	}
 
 } // namespace Graphics

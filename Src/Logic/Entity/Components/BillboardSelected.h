@@ -2,7 +2,6 @@
 #define __Logic_BillboardSelected_H
 
 #include "Logic/Entity/Component.h"
-#include <OgreBillboard.h>
 
 namespace Graphics 
 {

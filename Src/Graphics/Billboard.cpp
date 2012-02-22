@@ -36,7 +36,7 @@ namespace Graphics
 		_billboardset = scene->getSceneMgr()->createBillboardSet();
 
 		Logic::MAttachBillboard * m = new Logic::MAttachBillboard();
-		m->setBillboardset(_billboardset);
+		m->setBillboardset(this);
 		entity->emitMessage(m);
 
 		Ogre::Billboard* billboard;
@@ -62,7 +62,7 @@ namespace Graphics
 	void CBillboard::attachEntity(Logic::CEntity * entity)
 	{
 		Logic::MAttachBillboard * m = new Logic::MAttachBillboard();
-		m->setBillboardset(_billboardset);
+		m->setBillboardset(this);
 		entity->emitMessage(m);
 	}
 

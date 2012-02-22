@@ -4,22 +4,22 @@
 
 #include "Logic/Entity/Message.h"
 
-#include <OgreBillboard.h>
-#include <OgreBillboardSet.h>
+namespace Graphics
+{
+	class CBillboard;
+}
 
 namespace Logic 
 {
-
 	class MAttachBillboard : public IMessage
 	{
 	public:
 		MAttachBillboard();
-		void setBillboardset(Ogre::BillboardSet* b) { _billboardSet = b;}
-		Ogre::BillboardSet* getBillboardSet() { return _billboardSet;}
+		void setBillboardset(Graphics::CBillboard* b) { _billboardSet = b;}
+		Graphics::CBillboard* getBillboardSet() { return _billboardSet;}
 	protected:
-		Ogre::BillboardSet* _billboardSet;
+		Graphics::CBillboard* _billboardSet;
 	};
-
 } // namespace Logic
 
 #endif

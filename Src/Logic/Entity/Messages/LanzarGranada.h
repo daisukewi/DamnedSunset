@@ -3,9 +3,7 @@
 #define __Logic_LanzarGranada_H
 
 #include "Logic/Entity/Message.h"
-
-#include <OgreBillboard.h>
-#include <OgreBillboardSet.h>
+#include "BaseSubsystems/Math.h"
 
 namespace Logic 
 {
@@ -15,10 +13,10 @@ namespace Logic
 	public:
 		MLanzarGranada();
 		~MLanzarGranada();
-		void setPosition(Ogre::Vector2 v) {_position = new Ogre::Vector2(v.x,v.y);}
-		Ogre::Vector2* getPosition() {return _position;}
+		void setPosition(Vector2 v) {_position = new Vector2(v.x,v.y);}
+		Vector2* getPosition() {return _position;}
 	protected:
-		Ogre::Vector2 * _position;
+		Vector2 * _position;
 	};
 
 } // namespace Logic

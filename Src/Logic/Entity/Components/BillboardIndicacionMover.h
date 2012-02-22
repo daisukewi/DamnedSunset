@@ -2,7 +2,6 @@
 #define __Logic_BillboardIndicacionMover_H
 
 #include "Logic/Entity/Component.h"
-#include <OgreBillboard.h>
 
 namespace Graphics 
 {
