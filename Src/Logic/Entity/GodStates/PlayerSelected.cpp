@@ -15,6 +15,7 @@ Contiene la implementación de la clase encargada de gestionar el estado PlayerSe
 #include "Logic/Entity/Messages/AStarRoute.h"
 #include "Logic/Entity/Messages/AttackEntity.h"
 #include "Logic/Entity/Messages/CureEntity.h"
+#include "Logic/Entity/Messages/CrearBillboardMovimiento.h"
 
 #include "Logic/Entity/Components/SelectionController.h"
 
@@ -50,6 +51,12 @@ namespace Logic
 				m_movement->setAction(RouteAction::START_ROUTE);
 				m_movement->setRouteDestination(point);
 				selectedEntity->emitMessage(m_movement, NULL);
+
+				//Mensaje para que se cree el billboard de movimiento en el mundo
+				Logic::MCrearBillboardMovimiento *m = new Logic::MCrearBillboardMovimiento();
+				m->setPosX(point.x);
+				m->setPosY(point.z);
+				entity->emitMessage(m);
 
 				std::cout << "Mover entidad: " << entity->getName() << " a: " << point;
 			}else{

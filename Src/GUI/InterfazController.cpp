@@ -255,11 +255,6 @@ namespace GUI {
 		Logic::CEntity *entity = Logic::CEntityFactory::getSingletonPtr()->createEntity(mapEntity,Logic::CServer::getSingletonPtr()->getMap());
 		/* FIN PRUEBA */
 
-		/**MENSAJE PRUEBA PARA BILLBOARD DE MOVIMIENTO**/
-		Logic::MCrearBillboardMovimiento *m = new Logic::MCrearBillboardMovimiento();
-		m->setPosX(20);
-		m->setPosY(20);
-		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("World")->emitMessage(m);
 		return true;
 	}
 	bool CInterfazController::clickB4(const CEGUI::EventArgs& e)

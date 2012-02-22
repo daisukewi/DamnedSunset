@@ -32,14 +32,14 @@ namespace Logic
 		_billboard = new Graphics::CBillboard(_entity);
 		if(entityInfo->hasAttribute("billboardMoverMaterial"))
 			_billboard->setMaterial(entityInfo->getStringAttribute("billboardMoverMaterial"));
-		if(entityInfo->hasAttribute("billboardMoverWith") && entityInfo->hasAttribute("billboardMoverHeight"))
-			_billboard->setDimensions(entityInfo->getFloatAttribute("billboardMoverWith"),entityInfo->getFloatAttribute("billboardMoverHeight"));
+		
 		_billboard->setPerpendicular();
 		_billboard->setVisible(false);
 		_billboardVisible = false;
 
 		if(entityInfo->hasAttribute("billboardMoverDimension"))
 			_startDimension = entityInfo->getFloatAttribute("billboardMoverDimension");
+		_billboard->setDimensions(_startDimension,_startDimension);
 		if(entityInfo->hasAttribute("billboardMoverTime"))
 			_startTime = entityInfo->getFloatAttribute("billboardMoverTime");
 		return true;
