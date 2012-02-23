@@ -247,8 +247,9 @@ namespace Logic
 		del cambio.
 
 		@param position Nueva posición.
+		@param force Fuerza que la posición se aplique en todos los componentes.
 		*/
-		void setPosition(const Vector3 &position);
+		void setPosition(const Vector3 &position, const bool force = false);
 
 		/**
 		Devuelve la posición de la entidad.

@@ -47,12 +47,28 @@ namespace Logic
 		*/
 		Matrix4 getTransform();
 
+		/**
+		Método que establece en el mensaje si se tiene que forzar la transformación.
+		*/
+		void setForce(bool force);
+
+		/**
+		Método que devuelve si se tiene que forzar la transformación.
+		*/
+		bool getForce();
+
 	protected:
 
 		/**
 		Atributo que indica la matriz de transformación que hay que aplicar a la entidad receptora.
 		*/
 		Matrix4 _transform;
+
+		/**
+		Atributo que indica (sobre todo para la física) que esta transformación
+		se tiene que forzar su aplicación.
+		*/
+		bool _force;
 
 	}; // class MSetTransform
 

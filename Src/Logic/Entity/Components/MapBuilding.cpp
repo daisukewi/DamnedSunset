@@ -36,7 +36,7 @@ namespace Logic
 			// Ponemos la nueva posición del edificio en el centro de la casilla que le corresponda.
 			Vector3 oldpos = entityInfo->getVector3Attribute("position");
 			Vector2 newPos = map->getGridMap()->getAbsoluteGridPos(Vector2 (oldpos.x, oldpos.z));
-			entity->setPosition(Vector3(newPos.x, oldpos.y, newPos.y));
+			_entity->setPosition(Vector3(newPos.x, oldpos.y, newPos.y), true);
 		}
 
 		if(entityInfo->hasAttribute("building_size"))

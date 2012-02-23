@@ -33,7 +33,7 @@ IMP_FACTORY(CPhysicEntity);
 
 //---------------------------------------------------------
 
-CPhysicEntity::CPhysicEntity() : IComponent(), _physicObj(NULL) 
+CPhysicEntity::CPhysicEntity() : IComponent(), _physicObj(NULL) , _forceApplyTransform(false)
 {
 	_physicServer = CServer::getSingletonPtr();
 }
@@ -87,6 +87,7 @@ void CPhysicEntity::process(IMessage *message)
 		// tick. De esa forma, si recibimos varios mensajes en el mismo ciclo 
 		// sólo tendremos en cuenta el último
 		_transform = m->getTransform();
+		_forceApplyTransform = m->getForce();
 	}
 }
 
@@ -102,6 +103,11 @@ void CPhysicEntity::tick(unsigned int msecs)
 	if (_physicObj->IsKinematic()) {
 		_physicServer->move(_physicObj, _transform);
 	} else {
+		if (_forceApplyTransform)
+		{
+			_forceApplyTransform = false;
+			_physicServer->setStaticObjectPosition(_physicObj, _transform.getTrans());
+		}
 		// Actualizar la posición y la orientación de la entidad lógica usando la 
 		// información proporcionada por el motor de física
 		_entity->setPosition(_physicServer->getPosition(_physicObj));

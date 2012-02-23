@@ -354,6 +354,15 @@ Vector3 CServer::getPosition(const IPhysicObj *obj)
 
 //--------------------------------------------------------
 
+void CServer::setStaticObjectPosition(IPhysicObj *obj, const Vector3 &position)
+{
+	assert(obj);
+
+	obj->SetWorldPosition(Vector3ToNxVec3(position));
+}
+
+//--------------------------------------------------------
+
 Matrix3 CServer::getOrientation(const IPhysicObj *obj, int idxPart)
 {
 	assert(obj && (idxPart < obj->GetNumParts()));

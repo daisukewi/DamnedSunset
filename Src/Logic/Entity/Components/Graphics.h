@@ -70,6 +70,16 @@ namespace Logic
 		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 
 		/**
+		Método llamado en cada frame que actualiza el estado del componente.
+		<p>
+		Se encarga de mover la entidad en cada vuelta de ciclo cuando es
+		necesario (cuando está andando o desplazándose lateralmente).
+
+		@param msecs Milisegundos transcurridos desde el último tick.
+		*/
+		//virtual void tick(unsigned int msecs) { IComponent::tick(msecs); };
+
+		/**
 		Método virtual que elige que mensajes son aceptados. Son válidos
 		MSetTransform.
 

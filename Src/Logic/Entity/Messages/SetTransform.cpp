@@ -17,6 +17,7 @@ namespace Logic
 		IMessage();
 
 		_type = "MSetTransform";
+		_force = false;
 
 	} // MSetTransform
 
@@ -37,5 +38,19 @@ namespace Logic
 	} // getTransform
 
 	//---------------------------------------------------------
+
+	void MSetTransform::setForce(bool force)
+	{
+		_force = force;
+
+	} // setForce
+
+	//---------------------------------------------------------
+
+	bool MSetTransform::getForce()
+	{
+		return _force;
+
+	} // getForce
 
 } // namespace Logic

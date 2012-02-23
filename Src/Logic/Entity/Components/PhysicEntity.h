@@ -190,6 +190,12 @@ namespace Logic
 		*/
 		Matrix4 _transform;
 
+		/**
+		Indica si la transformación almacenada, se tiene que forzar a aplicar
+		aunque sea un objeto estático.
+		*/
+		bool _forceApplyTransform;
+
 	private:
 
 		/**

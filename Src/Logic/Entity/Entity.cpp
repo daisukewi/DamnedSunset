@@ -255,7 +255,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CEntity::setPosition(const Vector3 &position) 
+	void CEntity::setPosition(const Vector3 &position, const bool force) 
 	{
 		_transform.setTrans(position);
 
@@ -263,6 +263,7 @@ namespace Logic
 		MSetTransform *m = new MSetTransform();
 
 		m->setTransform(_transform);
+		m->setForce(force);
 
 		emitMessage(m);
 

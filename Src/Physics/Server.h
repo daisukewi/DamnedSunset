@@ -245,6 +245,15 @@ namespace Physics {
 		Vector3 getPosition(const IPhysicObj *obj);
 
 		/**
+		Establece la posición de un objeto físico.
+
+		@warning No es recomendable utilizar este método. Unicamente se utiliza
+		para reposicionar objetos físicos al principio del juego.
+		Puede afectar al rendimiento de la simulación.
+		*/
+		void setStaticObjectPosition(IPhysicObj *obj, const Vector3 &position);
+
+		/**
 		Devuelve la orientación de un objeto físico. Puesto que los objetos físicos genéricos
 		pueden estar compuesto spor varias partes es necesario indicar la parte de la que 
 		queremos obtener la orientación. Nótese que los objetos simples sólo tienen una parte 
