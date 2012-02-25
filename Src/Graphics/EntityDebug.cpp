@@ -34,7 +34,7 @@ namespace Graphics
 		: _entity(0), _entityNode(0), _scene(0), _loaded(false)
 	{
 		_name = name;
-		_prefab = (Ogre::SceneManager::PrefabType) prefab;
+		_prefab = prefab;
 		_dimensions = dimensions;
 		_height = 0.0;
 		_radius = 0.0;
@@ -44,7 +44,7 @@ namespace Graphics
 		: _entity(0), _entityNode(0), _scene(0), _loaded(false)
 	{
 		_name = name;
-		_prefab = (Ogre::SceneManager::PrefabType) prefab;
+		_prefab = prefab;
 		_height = height;
 		_radius = radius;
 	} // CEntity
@@ -104,7 +104,7 @@ namespace Graphics
 		try
 		{
 			//_entity = _scene->getSceneMgr()->createEntity(_name, _mesh);
-			_entity = _scene->getSceneMgr()->createEntity(_name,_prefab);
+			_entity = _scene->getSceneMgr()->createEntity(_name,0);
 			
 			
 		}

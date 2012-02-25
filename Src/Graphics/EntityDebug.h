@@ -19,8 +19,6 @@ Contiene la declaración de la clase que representa una entidad gráfica de debug,
 #include "BaseSubsystems/Math.h"
 #include "Graphics\Entity.h"
 #include "Graphics\Server.h"
-#include "OgrePrefabFactory.h"
-#include "OgreSceneManager.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Ogre 
@@ -316,7 +314,7 @@ namespace Graphics
 		/**
 		Nombre del prefab de la entidada
 		*/
-		Ogre::SceneManager::PrefabType _prefab;
+		TOgrePrefab _prefab;
 
 		/**
 		Indica si la entidad ha sido cargada en el motor gráfico.
