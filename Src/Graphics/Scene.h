@@ -214,6 +214,7 @@ namespace Graphics
 		escena de Ogre.
 		*/
 		friend class CStaticEntity;
+		friend class CEntityDebug;
 
 		/**
 		Devuelve el gestor de la escena de Ogre

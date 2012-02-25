@@ -68,6 +68,10 @@ namespace Graphics
 	class CEntity 
 	{
 	public:
+		/**
+		Constructor por defecto
+		*/
+		CEntity::CEntity(){}; 
 
 		/**
 		Constructor de la clase.

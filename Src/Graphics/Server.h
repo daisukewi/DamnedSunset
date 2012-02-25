@@ -43,6 +43,19 @@ se apoyan en Ogre.
 */
 namespace Graphics 
 {
+
+	/**
+	Indica los tipos de prefabs que tiene ogre
+	*/
+
+		enum TOgrePrefab
+		{
+			PT_PLANE,
+			PT_CUBE,
+			PT_SPHERE
+
+		};
+		
 	/**
 	Clase central del subistema gráfico. Se encarga de gestionar todas las
 	entidades que se pintan en la ventana de la aplicación.
