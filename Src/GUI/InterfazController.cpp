@@ -193,23 +193,17 @@ namespace GUI {
 	**/
 	bool CInterfazController::clickPersonaje1(const CEGUI::EventArgs& e)
 	{
-		this->menuJugador1();
 		this->sendClickMessage("Jack");
-
 		return true;
 	}
 	bool CInterfazController::clickPersonaje2(const CEGUI::EventArgs& e)
 	{
-		this->menuJugador2();
 		this->sendClickMessage("Erick");
-	
 		return true;
 	}
 	bool CInterfazController::clickPersonaje3(const CEGUI::EventArgs& e)
 	{
-		this->menuJugador3();
 		this->sendClickMessage("Amor");
-
 		return true;
 	}
 	bool CInterfazController::clickB1(const CEGUI::EventArgs& e)
@@ -278,16 +272,16 @@ namespace GUI {
 
 	void CInterfazController::sendClickMessage(std::string name)
 	{
+		//Obtener la entidad encargadad de controllar el gameplay
+		Logic::CEntity *diosEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod");
+			
+		//Crear y enviar el mensaje de entity selected
+		Logic::MEntitySelected* m_selected = new Logic::MEntitySelected();
 
-		Logic::CEntity *player = Logic::CServer::getSingletonPtr()->getPlayer();
-		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName(name);
-
-		Logic::MEntitySelected *m_selection = new Logic::MEntitySelected();
-		m_selection->setSelectedEntity(entity);
-		m_selection->setInterface(true);
-		player->emitMessage(m_selection);
-
-
+		Logic::CEntity * playerEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName(name);
+		m_selected->setSelectedEntity(playerEntity);
+		m_selected->setInterface(true);
+		diosEntity->emitMessage(m_selected);
 	}
 
 	bool CInterfazController::isMouseOnInterface(){

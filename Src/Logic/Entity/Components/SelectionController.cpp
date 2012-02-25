@@ -26,7 +26,10 @@
 #include "Logic/Entity/GodStates/Healing.h"
 #include "Logic/Entity/GodStates/Building.h"
 
+#include "GUI/Server.h"
+#include "GUI/InterfazController.h"
 
+#include <assert.h>
 namespace Logic 
 {
 	IMP_FACTORY(CSelectionController);
@@ -395,12 +398,29 @@ namespace Logic
 
 	void CSelectionController::changeSelectedEntity(CEntity* entity){
 		//Enviar mensaje a la entidad para que se deseleccione
-		if (_selectedEntity != NULL){
+		if (_selectedEntity != NULL)
+		{
 			MEntitySelected *m_selected = new MEntitySelected();
 			_selectedEntity->emitMessage(m_selected);
 		}
 
 		_selectedEntity = entity;
+
+		//Enviamos mensaje a la entidad para que se seleccione
+		MEntitySelected *m_selected = new MEntitySelected();
+		m_selected->setSelectedEntity(entity);
+		_selectedEntity->emitMessage(m_selected);
+
+
+		//Cargamos la interfaz correspondiente a la interfaz seleccionada
+		if (!_selectedEntity->getName().compare("Jack"))
+			GUI::CServer::getSingletonPtr()->getInterfazController()->menuJugador1();
+		else if (!_selectedEntity->getName().compare("Erick"))
+			GUI::CServer::getSingletonPtr()->getInterfazController()->menuJugador2();
+		else if (!_selectedEntity->getName().compare("Amor"))
+			GUI::CServer::getSingletonPtr()->getInterfazController()->menuJugador3();
+		else
+			assert(!"De momento solo se puede seleccionar una de esas 3 entidades");
 
 		//Mandamos un mensaje a la camara para que se centre en el jugador
 		MUbicarCamara *m_ubicar = new MUbicarCamara();

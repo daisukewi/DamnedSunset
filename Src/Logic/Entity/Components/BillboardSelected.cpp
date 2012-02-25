@@ -8,6 +8,8 @@
 
 #include "Graphics/Billboard.h"
 
+#include "Logic/Entity/Messages/EntitySelected.h"
+
 namespace Logic 
 {
 	IMP_FACTORY(CBillboardSelected);
@@ -48,7 +50,7 @@ namespace Logic
 
 	bool CBillboardSelected::accept(IMessage *message)
 	{
-		return !message->getType().compare("MEntitySelected") || !message->getType().compare("MIsSelectable");
+		return !message->getType().compare("MEntitySelected");
 	} // accept
 	
 	//---------------------------------------------------------
@@ -57,13 +59,11 @@ namespace Logic
 	{
 		if (!message->getType().compare("MEntitySelected"))
 		{
-			billboardVisible = false;
-			_billboard->setVisible(false);
-		} else if (!message->getType().compare("MIsSelectable"))
-		{
-			billboardVisible = true;
-			_billboard->setVisible(true);
-		}
+			MEntitySelected * m = static_cast <MEntitySelected*> (message);
+			bool mostrar = m->getSelectedEntity() == _entity;
+			billboardVisible = mostrar;
+			_billboard->setVisible(mostrar);
+		} 
 	} // process
 
 

@@ -111,7 +111,10 @@ namespace GUI
 
 		bool _block;
 
-		
+		void CInterfazController::menuJugador1();
+		void CInterfazController::menuJugador2();
+		void CInterfazController::menuJugador3();
+
 	protected:
 
 
@@ -119,9 +122,7 @@ namespace GUI
 		unsigned int _vida1;
 		void CInterfazController::ocultarBotones();
 		void CInterfazController::cargarBoton(char numBoton, std::string nombreBoton);	
-		void CInterfazController::menuJugador1();
-		void CInterfazController::menuJugador2();
-		void CInterfazController::menuJugador3();
+
 		
 		
 		void CInterfazController::sendClickMessage(std::string name);
