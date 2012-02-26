@@ -101,11 +101,26 @@ namespace Logic {
 				// Descomentar la siguiente línea para dibujar los nodos del grafo de navegación
 				entityFactory->createEntity((*it), map);
 			} else {
-				// La propia factoría se encarga de añadir la entidad al mapa.
-				setAtributosArquetipos(*it, entityList2);
+				if ((*it)->getType() == "Grid") {
 
-				CEntity *entity = entityFactory->createEntity((*it),map);
-				assert(entity && "No se pudo crear una entidad del mapa");
+					// Recupero las dimensiones y el tamaño del grid del mapa y lo inicializo.
+					if (((*it)->hasAttribute("width")) && ((*it)->hasAttribute("height")) && ((*it)->hasAttribute("grid_size"))) {
+						map->getGridMap()->initMap((*it)->getIntAttribute("width"), (*it)->getIntAttribute("height"), (*it)->getIntAttribute("grid_size"));
+						// Después de inicializarlo se lo paso al A* para que haga el pathfinding.
+						AI::CServer::getSingletonPtr()->getNavigationMap()->setGridMap(map->getGridMap());
+					} else {
+						assert(!"No se han encontrado dimensiones y/o tamaño del grid del mapa.");
+						return false;
+					}
+				} else {
+
+					// La propia factoría se encarga de añadir la entidad al mapa.
+					setAtributosArquetipos(*it, entityList2);
+
+					if (!entityFactory->createEntity((*it),map)) {
+						// @GRID
+					}
+				}
 			}
 		}
 		Map::CMapParser::releaseEntityList(entityList);
@@ -124,7 +139,6 @@ namespace Logic {
 		_scene = Graphics::CServer::getSingletonPtr()->createScene(name);
 
 		_gridMap = new CGridMap();
-		AI::CServer::getSingletonPtr()->getNavigationMap()->setGridMap(_gridMap);
 
 	} // CMap
 

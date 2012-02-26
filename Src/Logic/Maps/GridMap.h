@@ -162,6 +162,15 @@ namespace Logic
 		~CGridMap();
 
 		/**
+		Inicializa el mapa con el valor de anchura y altura pasados como parámetros e inicializa cada una de las casillas.
+
+		@param width anchura del mapa.
+		@param height altura del mapa.
+		@param gridSize tamaño de cada celda del mapa.
+		*/
+		void initMap(int width, int height, int gridSize);
+
+		/**
 		Devuelve la posición modulada en el grid del mapa, de las
 		coordenadas pasadas por argumento.
 		*/
@@ -234,6 +243,31 @@ namespace Logic
 		Grid de tiles donde se almacena el mapa lógico del escenario.
 		*/
 		TGridMap _gridMap;
+
+		/**
+		Tamaño de cada celda del mapa.
+		*/
+		int _gridSize;
+
+		/**
+		Anchura del mapa. En valor absoluto.
+		*/
+		float _mapWidth;
+
+		/**
+		Altura del mapa. En valor absoluto.
+		*/
+		float _mapHeight;
+
+		/**
+		Altura del mapa en número de celdas.
+		*/
+		int _mapHGrids;
+
+		/**
+		Anchura del mapa en número de celdas.
+		*/
+		int _mapVGrids;
 
 	};
 

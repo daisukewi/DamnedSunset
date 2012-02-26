@@ -203,7 +203,7 @@ namespace Logic
 		CEntity *ret = assembleEntity(entityInfo->getType());
 
 		if (!ret)
-			return 0;
+			return NULL;
 
 		// Añadimos la nueva entidad en el mapa antes de inicializarla.
 		map->addEntity(ret);
