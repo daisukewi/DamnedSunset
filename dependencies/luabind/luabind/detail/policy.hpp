@@ -50,7 +50,6 @@
 #include <luabind/detail/primitives.hpp>
 #include <luabind/detail/object_rep.hpp>
 #include <luabind/detail/typetraits.hpp>
-#include <luabind/detail/class_cache.hpp>
 #include <luabind/detail/debug.hpp>
 #include <luabind/detail/class_rep.hpp>
 #include <luabind/detail/has_get_pointer.hpp>
@@ -65,6 +64,10 @@
 #include <luabind/value_wrapper.hpp>
 #include <luabind/from_stack.hpp>
 #include <luabind/typeid.hpp>
+
+#if LUA_VERSION_NUM < 502
+# define lua_rawlen lua_objlen
+#endif
 
 namespace luabind
 {
@@ -745,7 +748,7 @@ struct default_converter<std::string>
 
     std::string from(lua_State* L, int index)
     {
-        return std::string(lua_tostring(L, index), lua_strlen(L, index));
+        return std::string(lua_tostring(L, index), lua_rawlen(L, index));
     }
 
     void to(lua_State* L, std::string const& value)
@@ -985,6 +988,20 @@ namespace detail
 		static void apply(lua_State*, int) {}
 	};
 
+    template <class Policies, class Sought>
+    struct has_policy
+      : mpl::if_<
+            boost::is_same<typename Policies::head, Sought>
+          , mpl::true_
+          , has_policy<typename Policies::tail, Sought>
+        >::type
+    {};
+
+    template <class Sought>
+    struct has_policy<null_type, Sought>
+      : mpl::false_
+    {};
+
 }} // namespace luabind::detail
 
 
@@ -1016,6 +1033,10 @@ namespace luabind { namespace
 # define LUABIND_PLACEHOLDER_ARG(N) boost::arg<N>
 #endif
 }}
+
+#if LUA_VERSION_NUM < 502
+# undef lua_rawlen
+#endif
 
 #endif // LUABIND_POLICY_HPP_INCLUDED
 

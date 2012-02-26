@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- Fichero Ant para la compilacion de luabind -->
+<!-- Daniel Flamenco González -->
+<!-- Febrero 2012 -->
+
+<project name="Luabind" default="build">
+
+<taskdef resource = "vcTasks.properties" classpath="vcTask"/>
+
+<!-- ==================== -->
+<!-- PROPIEDADES DEL PROYECTO -->
+<!-- ==================== -->
+
+<property name="bjamDefaultParams" value='-sLUA_PATH="../lua" -sBOOST_BUILD_PATH="./boost-build" -sBOOST_ROOT="../include" --toolset=msvc-10.0 link=shared'/>
+
+<!-- =============== -->
+<!-- TARGETS DE LIMPIEZA -->
+<!-- =============== -->
+
+<target name="cleanDebug"
+	description="Elimina los ficheros de la compilacion en Debug">
+
+	<delete includeemptydirs="true" failonerror="false">
+		<fileset dir="./bin/Debug" />
+		<fileset dir="./lib/Debug" />
+		<fileset dir="./bin/msvc-10.0/debug" />
+	</delete>
+
+</target>
+
+<target name="cleanRelease"
+	description="Elimina los ficheros de la compilacion en Release">
+
+	<delete includeemptydirs="true" failonerror="false">
+		<fileset dir="./bin/Release" />
+		<fileset dir="./lib/Release" />
+		<fileset dir="./bin/msvc-10.0/release" />
+	</delete>
+
+</target>
+
+<target name="clean"
+	description="Elimina ficheros de compilación"
+	depends="cleanDebug, cleanRelease">
+	
+	<delete includeemptydirs="true" failonerror="false">
+		<fileset dir="./bin" />
+	</delete>
+
+</target>
+
+<!-- ================================ -->
+<!-- TARGETS DE CREACION DE DOCUMENTACION -->
+<!-- ================================ -->
+
+<target name="doxygen"
+	description="Genera la documentación, si la hay.">
+
+<taskdef name="doxygen" classname="org.doxygen.tools.DoxygenTask" />
+<doxygen configFilename="Doxyfile"/>
+
+</target>
+
+<!-- ================================ -->
+<!-- TARGETS DE PUBLICACION DE RESULTADOS -->
+<!-- AL DIRECTORIO dependencies -->
+<!-- ================================ -->
+
+<target name="publishIncludes">
+	<mkdir dir="../include/luabind"/>
+	<copy todir="../include/luabind">
+		<fileset dir="./luabind"/>
+	</copy>
+</target>
+
+<target name="publishDebug" depends="publishIncludes">
+	<copy file="bin/msvc-10.0/debug/threading-multi/luabindd.dll" todir="../bin/Debug"/>
+	<copy file="bin/msvc-10.0/debug/threading-multi/luabindd.lib" todir="../lib/Debug"/>
+</target>
+
+<target name="publishRelease" depends="publishIncludes">
+	<copy file="bin/msvc-10.0/release/threading-multi/luabind.dll" todir="../bin/Release"/>
+	<copy file="bin/msvc-10.0/release/threading-multi/luabind.lib" todir="../lib/Release"/>
+</target>
+
+<!-- ============================== -->
+<!-- TARGETS DE COMPILACION INCREMENTAL -->
+<!-- ============================== -->
+
+<!-- Objetivo que compila el proyecto en modo Debug. -->
+<target name="debug"
+	description="Compilación (incremental) en modo Debug">
+
+	<exec executable="${basedir}/bjam" failonerror="true" dir="${basedir}">
+		<arg line="${bjamDefaultParams}"/>
+		<arg line="debug"/>
+	</exec>
+
+	<!-- Y publicamos los resultados -->
+	<antcall target="publishDebug"/>
+
+</target>
+
+<!-- Objetivo que compila el proyecto en modo Release. -->
+<target name="release"
+   description="Compilación (incremental) en modo Release">
+
+	<exec executable="${basedir}/bjam" failonerror="true" dir="${basedir}">
+		<arg line="${bjamDefaultParams}"/>
+		<arg line="release"/>
+	</exec>
+
+	<!-- Y publicamos los resultados -->
+	<antcall target="publishRelease"/>
+
+</target>
+
+<!-- Objetivo que compila el proyecto (Debug+Release) de forma incremental. -->
+<target name="build"
+	description="Compilación (incremental) Debug y Release."
+	depends="debug, release"/>
+
+<!-- =========================== -->
+<!-- TARGETS DE COMPILACION COMPLETA -->
+<!-- =========================== -->
+
+<!-- Objetivo que compila todo el proyecto en modo Debug. -->
+<target name="redebug"
+	description="Compilación desde cero en modo Debug"
+	depends="cleanDebug, debug">
+
+</target>
+
+<!-- Objetivo que compila todo el proyecto en modo Release. -->
+<target name="rerelease"
+	description="Compilación desde cero en modo Release"
+	depends="cleanRelease, release">
+
+</target>
+
+<!-- Objetivo que compila todo el proyecto (Debug+Release). -->
+<target name="rebuild"
+	description="Compilación desde cero en Debug y Release."
+	depends="redebug, rerelease"/>
+
+<!-- ======================= -->
+<!-- TARGETS PARA CRUISE CONTROL --> 
+<!-- ======================= -->
+
+<target name="CruiseControl"
+	description="Compilacion para CruiseControl."
+	depends="build">
+</target>
+
+</project> 
