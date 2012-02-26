@@ -22,6 +22,7 @@ el mundo físico usando character controllers.
 #include "Physics/PhysicObjCharacter.h"
 
 #include "Logic/Entity/Messages/AvatarWalk.h"
+#include "Logic/Entity/Messages/SetTransform.h"
 
 
 using namespace Physics;
@@ -48,7 +49,8 @@ CPhysicCharacter::~CPhysicCharacter()
 
 bool CPhysicCharacter::accept(IMessage *message)
 {
-	return !message->getType().compare("MAvatarWalk");
+	return !message->getType().compare("MAvatarWalk")
+		|| !message->getType().compare("MSetTransform");
 } 
 
 //---------------------------------------------------------
@@ -64,6 +66,16 @@ void CPhysicCharacter::process(IMessage *message)
 		// en el mismo ciclo sólo tendremos en cuenta el último.
 		_movement = m->getMovement();
 	}
+	else if (!message->getType().compare("MSetTransform"))
+	{
+		MSetTransform *m = static_cast <MSetTransform*> (message);
+
+		// Anotamos la transformación para usarla posteriormente en el método 
+		// tick. De esa forma, si recibimos varios mensajes en el mismo ciclo 
+		// sólo tendremos en cuenta el último
+		_transform = m->getTransform();
+		_forceApplyTransform = m->getForce();
+	}
 
 } 
 
@@ -74,10 +86,17 @@ void CPhysicCharacter::tick(unsigned int msecs)
 	// Llamar al método de la clase padre (IMPORTANTE).
 	IComponent::tick(msecs);
 
-	// Si estamos cayendo modificar el vector de desplazamiento para
-	// simular el efecto de la gravedad
-	if (_falling) {
-		_movement += Vector3(0,-1,0);
+	// Si es necesario, forzamos un cambio en la posición del personaje
+	// y se lo comunicamos al servidor de física.
+	if (_forceApplyTransform)
+	{
+		_forceApplyTransform = false;
+		_physicServer->setPosition((CPhysicObjCharacter *)_physicObj, fromLogicToPhysics(_transform.getTrans()));
+
+	} else if (_falling) {
+		// Si estamos cayendo modificar el vector de desplazamiento para
+		// simular el efecto de la gravedad
+		_movement += Vector3(0.0f, -0.4f, 0.0f);
 	}
 
 	// Mover el character controller y actualizar el flag de caida

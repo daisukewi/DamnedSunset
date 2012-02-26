@@ -39,7 +39,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CMapUnit() : IComponent() {}
+		CMapUnit() : IComponent(), _unitWidth(1), _unitHeight(1) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de

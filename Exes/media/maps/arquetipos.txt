@@ -124,6 +124,7 @@ Map = {
 	
 	Player = {
 		type = "Player",
+		position = {0, 5, 0},
 		orientation = 180,
 		life = 100.0,
 		maxLife = 100.0,

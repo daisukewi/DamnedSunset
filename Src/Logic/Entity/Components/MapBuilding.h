@@ -38,7 +38,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CMapBuilding() : IComponent() {}
+		CMapBuilding() : IComponent(), _startRow(0), _startCol(0), _endRow(0), _endCol(0) {}
 
 		/**
 		Destructor. Tiene que liberar las casillas ocupadas por el edificio

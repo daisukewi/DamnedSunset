@@ -64,6 +64,18 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
+	const Vector2 CGridMap::getRelativeMapPos( unsigned int row, unsigned int col )
+	{
+		Vector2 relativePos;
+		relativePos.x = col * GRID_SIZE + GRID_SIZE * 0.5 - MAP_WIDTH / 2;
+		relativePos.y = row * GRID_SIZE + GRID_SIZE * 0.5 - MAP_HEIGHT / 2;
+
+		return relativePos;
+
+	} // getRelativeMapPos
+
+	//--------------------------------------------------------
+
 	const TGridTile CGridMap::getTileFromPosition(const float x, const float y)
 	{
 		int col = (int)(x + MAP_WIDTH / 2) / GRID_SIZE;

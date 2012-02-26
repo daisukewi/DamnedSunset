@@ -412,6 +412,7 @@ unsigned CServer::moveCharacter(CPhysicObjCharacter *obj, const Vector3 &displ)
 	float sharpness = 1.0f;
 	return obj->Move(Vector3ToNxVec3(displ), collisionGroups, minDist, sharpness);
 }
+
 //--------------------------------------------------------
 
 void CServer::setPosition(CPhysicObjCharacter *obj, const Vector3 &position)
@@ -419,6 +420,7 @@ void CServer::setPosition(CPhysicObjCharacter *obj, const Vector3 &position)
 	assert(obj);
 
 	obj->SetWorldPosition(Vector3ToNxVec3(position));
+
 }
 
 //--------------------------------------------------------

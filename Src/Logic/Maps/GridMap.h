@@ -168,6 +168,12 @@ namespace Logic
 		const Vector2 getAbsoluteGridPos(const Vector2 pos);
 
 		/**
+		De vuelve un Vector2 con las coordenadas del centro de
+		la casilla que se encuentra	en la fila y la columna dadas.
+		*/
+		const Vector2 getRelativeMapPos( unsigned int row, unsigned int col );
+
+		/**
 		Devuelve la casilla que le corresponde a una posición 2D del mapa.
 		*/
 		const TGridTile getTileFromPosition(const float x, const float y);
@@ -221,7 +227,7 @@ namespace Logic
 		Devuelve el índice de una casilla que se encuentra en las coordenadas dadas.
 		*/
 		int getIndexTileFromCoord( const int row, const int col );
-
+		
 		typedef TGridTile** TGridMap;
 
 		/**

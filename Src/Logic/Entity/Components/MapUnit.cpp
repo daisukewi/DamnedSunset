@@ -37,16 +37,22 @@ namespace Logic
 			_unitWidth = size.x;
 			_unitHeight = size.y;
 
-		} else {
-			_unitWidth = 1;
-			_unitHeight = 1;
 		}
 
+		if(entityInfo->hasAttribute("grid_position"))
+		{
+			Vector2 currentTilePos = entityInfo->getVector2Attribute("grid_position");
+			Vector2 relativePosition = map->getGridMap()->getRelativeMapPos(currentTilePos.y, currentTilePos.x);
+
+			_entity->setPosition(Vector3(relativePosition.x, entity->getPosition().y, relativePosition.y), true);
+		}
+
+		// No se utiliza en esta arquitectura
 		// Añade la unidad a la casilla que pertenece.
-		TGridTile current_tile = _entity->getMap()->getGridMap()->getTileFromPosition(_entity->getPosition().x, _entity->getPosition().z);
+		/*TGridTile current_tile = _entity->getMap()->getGridMap()->getTileFromPosition(_entity->getPosition().x, _entity->getPosition().z);
 		_currentRow = current_tile->GetRow() - _unitHeight / 2;
 		_currentCol = current_tile->GetCol() - _unitWidth / 2;
-		_entity->getMap()->getGridMap()->getTileFromCoord(_currentRow, _currentCol)->AddUnit(_entity);
+		_entity->getMap()->getGridMap()->getTileFromCoord(_currentRow, _currentCol)->AddUnit(_entity);*/
 
 		return true;
 

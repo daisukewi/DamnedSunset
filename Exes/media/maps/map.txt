@@ -74,7 +74,7 @@ Map = {
 	
 	Torreta1 = {
 		type = "Turret",
-		position = {10, 0, 0},
+		grid_position = "10 10",
 	},
 
 	TorretaTrigger1 = {
