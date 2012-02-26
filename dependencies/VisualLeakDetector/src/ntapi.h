@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  Visual Leak Detector - NT API Definitions
-//  Copyright (c) 2006-2010 Dan Moulding
+//  Copyright (c) 2005-2012 VLD Team
 //
 //  This library is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU Lesser General Public
@@ -36,17 +36,17 @@ typedef LONG NTSTATUS;
 #define   STATUS_SUCCESS 0
 
 // Unicode string structure used by NT APIs.
-typedef struct unicodestring_s {
+struct unicodestring_t {
     USHORT length;    // Length of the string.
     USHORT maxlength; // Length of the buffer.
     PWSTR  buffer;    // The buffer containing the string.
-} unicodestring_t;
+};
 
 // Function pointer types for explicit dynamic linking with functions that can't
 // be load-time linked (no import library is available for these).
 typedef NTSTATUS (__stdcall *LdrLoadDll_t) (LPWSTR, ULONG, unicodestring_t *, PHANDLE);
 typedef LPVOID (__stdcall *RtlAllocateHeap_t) (HANDLE, DWORD, SIZE_T);
-typedef BOOL (__stdcall *RtlFreeHeap_t) (HANDLE, DWORD, LPVOID);
+typedef BYTE (__stdcall *RtlFreeHeap_t) (HANDLE, DWORD, LPVOID);
 typedef LPVOID (__stdcall *RtlReAllocateHeap_t) (HANDLE, DWORD, LPVOID, SIZE_T);
 
 // Provide forward declarations for the NT APIs for any source files that

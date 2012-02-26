@@ -36,6 +36,12 @@
     <ClCompile Include="vldheap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dllspatches.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vld_hooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callstack.h">
@@ -75,6 +81,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vld_def.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="criticalsection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="setup\version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  Visual Leak Detector - Internal C++ Heap Management
-//  Copyright (c) 2006 Dan Moulding
+//  Copyright (c) 2005-2012 VLD Team
 //
 //  This library is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU Lesser General Public
@@ -26,16 +26,59 @@
 #define VLDBUILD     // Declares that we are building Visual Leak Detector.
 #include "ntapi.h"   // Provides access to NT APIs.
 #include "vldheap.h" // Provides access to VLD's internal heap data structures.
+#include "criticalsection.h"
 #undef new           // Do not map "new" to VLD's new operator in this file
 
 // Global variables.
-vldblockheader_t *vldblocklist = NULL; // List of internally allocated blocks on VLD's private heap.
-HANDLE            vldheap;             // VLD's private heap.
-CRITICAL_SECTION  vldheaplock;         // Serializes access to VLD's private heap.
+vldblockheader_t *g_vldBlockList = NULL; // List of internally allocated blocks on VLD's private heap.
+HANDLE            g_vldHeap;             // VLD's private heap.
+CriticalSection   g_vldHeapLock;         // Serializes access to VLD's private heap.
 
 // Local helper functions.
-static inline void vlddelete (void *block);
 static inline void* vldnew (size_t size, const char *file, int line);
+static inline void vlddelete (void *block);
+
+// scalar new operator - New operator used to allocate a scalar memory block
+//   from VLD's private heap.
+//
+//  - size (IN): Size of the memory block to be allocated.
+//
+//  - file (IN): The name of the file from which this function is being
+//      called.
+//
+//  - line (IN): The line number, in the above file, at which this function is
+//      being called.
+//
+//  Return Value:
+//
+//    If the allocation succeeds, a pointer to the allocated memory block is
+//    returned. If the allocation fails, NULL is returned.
+//
+void* operator new (size_t size, const char *file, int line)
+{
+    return vldnew(size, file, line);
+}
+
+// vector new operator - New operator used to allocate a vector memory block
+//   from VLD's private heap.
+//
+//  - size (IN): Size of the memory block to be allocated.
+//
+//  - file (IN): The name of the file from which this function is being
+//      called.
+//
+//  - line (IN): The line number, in the above file, at which this function is
+//      being called.
+//
+//  Return Value:
+//
+//    If the allocation succeeds, a pointer to the allocated memory block is
+//    returned. If the allocation fails, NULL is returned.
+//
+void* operator new [] (size_t size, const char *file, int line)
+{
+    return vldnew(size, file, line);
+}
 
 // scalar delete operator - Delete operator used to free internally used memory
 //   back to VLD's private heap.
@@ -89,86 +132,11 @@ void operator delete [] (void *block, const char *, int)
     vlddelete(block);
 }
 
-// scalar new operator - New operator used to allocate a scalar memory block
-//   from VLD's private heap.
-//
-//  - size (IN): Size of the memory block to be allocated.
-//
-//  - file (IN): The name of the file from which this function is being
-//      called.
-//
-//  - line (IN): The line number, in the above file, at which this function is
-//      being called.
-//
-//  Return Value:
-//
-//    If the allocation succeeds, a pointer to the allocated memory block is
-//    returned. If the allocation fails, NULL is returned.
-//
-void* operator new (size_t size, const char *file, int line)
-{
-    return vldnew(size, file, line);
-}
-
-// vector new operator - New operator used to allocate a vector memory block
-//   from VLD's private heap.
-//
-//  - size (IN): Size of the memory block to be allocated.
-//
-//  - file (IN): The name of the file from which this function is being
-//      called.
-//
-//  - line (IN): The line number, in the above file, at which this function is
-//      being called.
-//
-//  Return Value:
-//
-//    If the allocation succeeds, a pointer to the allocated memory block is
-//    returned. If the allocation fails, NULL is returned.
-//
-void* operator new [] (size_t size, const char *file, int line)
-{
-    return vldnew(size, file, line);
-}
-
-// vlddelete - Local helper function that actually frees memory back to VLD's
-//   private heap.
-//
-//  - block (IN): Pointer to a memory block being freed.
-//
-//  Return Value:
-//
-//    None.
-//
-void vlddelete (void *block)
-{
-    BOOL              freed;
-    vldblockheader_t *header = VLDBLOCKHEADER((LPVOID)block);
-
-    // Unlink the block from the block list.
-    EnterCriticalSection(&vldheaplock);
-    if (header->prev) {
-        header->prev->next = header->next;
-    }
-    else {
-        vldblocklist = header->next;
-    }
-
-    if (header->next) {
-        header->next->prev = header->prev;
-    }
-    LeaveCriticalSection(&vldheaplock);
-
-    // Free the block.
-    freed = RtlFreeHeap(vldheap, 0x0, header);
-    assert(freed != FALSE);
-}
-
 // vldnew - Local helper function that actually allocates memory from VLD's
-//   private heap. Prepends a header, which is used for bookeeping information
+//   private heap. Prepends a header, which is used for bookkeeping information
 //   that allows VLD to detect and report internal memory leaks, to the returned
 //   block, but the header is transparent to the caller because the returned
-//   pointer points to the useable section of memory requested by the caller, it
+//   pointer points to the usable section of memory requested by the caller, it
 //   does not point to the block header.
 //
 //  - size (IN): Size of the memory block to be allocated.
@@ -184,7 +152,7 @@ void vlddelete (void *block)
 //
 void* vldnew (size_t size, const char *file, int line)
 {
-    vldblockheader_t *header = (vldblockheader_t*)RtlAllocateHeap(vldheap, 0x0, size + sizeof(vldblockheader_t));
+    vldblockheader_t *header = (vldblockheader_t*)RtlAllocateHeap(g_vldHeap, 0x0, size + sizeof(vldblockheader_t));
     static SIZE_T     serialnumber = 0;
 
     if (header == NULL) {
@@ -195,19 +163,55 @@ void* vldnew (size_t size, const char *file, int line)
     // Fill in the block's header information.
     header->file         = file;
     header->line         = line;
-    header->serialnumber = serialnumber++;
+    header->serialNumber = serialnumber++;
     header->size         = size;
 
     // Link the block into the block list.
-    EnterCriticalSection(&vldheaplock);
-    header->next         = vldblocklist;
+    g_vldHeapLock.Enter();
+    header->next         = g_vldBlockList;
     if (header->next != NULL) {
         header->next->prev = header;
     }
     header->prev         = NULL;
-    vldblocklist         = header;
-    LeaveCriticalSection(&vldheaplock);
+    g_vldBlockList       = header;
+    g_vldHeapLock.Leave();
 
     // Return a pointer to the beginning of the data section of the block.
     return (void*)VLDBLOCKDATA(header);
+}
+
+// vlddelete - Local helper function that actually frees memory back to VLD's
+//   private heap.
+//
+//  - block (IN): Pointer to a memory block being freed.
+//
+//  Return Value:
+//
+//    None.
+//
+void vlddelete (void *block)
+{
+    if (block == NULL)
+        return;
+
+    BOOL              freed;
+    vldblockheader_t *header = VLDBLOCKHEADER((LPVOID)block);
+
+    // Unlink the block from the block list.
+    g_vldHeapLock.Enter();
+    if (header->prev) {
+        header->prev->next = header->next;
+    }
+    else {
+        g_vldBlockList = header->next;
+    }
+
+    if (header->next) {
+        header->next->prev = header->prev;
+    }
+    g_vldHeapLock.Leave();
+
+    // Free the block.
+    freed = RtlFreeHeap(g_vldHeap, 0x0, header);
+    assert(freed != FALSE);
 }

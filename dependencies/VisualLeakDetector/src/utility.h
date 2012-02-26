@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  Visual Leak Detector - Various Utility Definitions
-//  Copyright (c) 2005-2006 Dan Moulding
+//  Copyright (c) 2005-2012 VLD Team
 //
 //  This library is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU Lesser General Public
@@ -58,14 +58,14 @@ Applications should never include this header."
 #define SPREG Rsp
 #endif // _M_IX86
 
-typedef struct context_s
+struct context_t
 {
     UINT_PTR* fp;
 #if defined(_M_X64)
     DWORD64 Rsp;
     DWORD64 Rip;
 #endif // _M_IX86
-} context_t;
+};
 
 #if defined(_M_IX86)
 // Copies the current frame pointer to the supplied variable.
@@ -87,7 +87,7 @@ typedef struct context_s
 #endif // _M_IX86 || _M_X64
 
 // Miscellaneous definitions
-#define R2VA(modulebase, rva)  (((PBYTE)modulebase) + rva) // Relative Virtual Address to Virtual Address conversion.
+#define R2VA(moduleBase, rva)  (((PBYTE)moduleBase) + rva) // Relative Virtual Address to Virtual Address conversion.
 #define BYTEFORMATBUFFERLENGTH 4
 #define HEXDUMPLINELENGTH      58
 
@@ -99,36 +99,54 @@ enum encoding_e {
 
 // This structure allows us to build a table of APIs which should be patched
 // through to replacement functions provided by VLD.
-typedef struct patchentry_s
+struct patchentry_t
 {
-    LPCSTR  importname;       // The name (or ordinal) of the imported API being patched.
+    LPCSTR	importName;       // The name (or ordinal) of the imported API being patched.
+    LPVOID* original;         // Pointer to the original function.
     LPCVOID replacement;      // Pointer to the function to which the imported API should be patched through to.
-} patchentry_t;
+};
 
-typedef struct moduleentry_s
+struct moduleentry_t
 {
-    LPCSTR          exportmodulename; // The name of the module exporting the patched API.
-    UINT_PTR        modulebase;       // The base address of the exporting module (filled in at runtime when the modules are loaded).
-    patchentry_t*   patchtable;
-} moduleentry_t;
+    LPCSTR          exportModuleName; // The name of the module exporting the patched API.
+    UINT_PTR        moduleBase;       // The base address of the exporting module (filled in at runtime when the modules are loaded).
+    patchentry_t*   patchTable;
+};
 
 // Utility functions. See function definitions for details.
-VOID dumpmemorya (LPCVOID address, SIZE_T length);
-VOID dumpmemoryw (LPCVOID address, SIZE_T length);
-BOOL findimport (HMODULE importmodule, HMODULE exportmodule, LPCSTR exportmodulename, LPCSTR importname);
-BOOL findpatch (HMODULE importmodule, LPCSTR exportmodulename, LPCVOID replacement);
-VOID insertreportdelay ();
-BOOL moduleispatched (HMODULE importmodule, moduleentry_t patchtable [], UINT tablesize);
-BOOL patchimport (HMODULE importmodule, moduleentry_t *module);
-BOOL patchmodule (HMODULE importmodule, moduleentry_t patchtable [], UINT tablesize);
-VOID report (LPCWSTR format, ...);
-VOID restoreimport (HMODULE importmodule, moduleentry_t* module);
-VOID restoremodule (HMODULE importmodule, moduleentry_t patchtable [], UINT tablesize);
-VOID setreportencoding (encoding_e encoding);
-VOID setreportfile (FILE *file, BOOL copydebugger, BOOL copytostdout);
-VOID strapp (LPWSTR *dest, LPCWSTR source);
-BOOL strtobool (LPCWSTR s);
+VOID DumpMemoryA (LPCVOID address, SIZE_T length);
+VOID DumpMemoryW (LPCVOID address, SIZE_T length);
+BOOL FindImport (HMODULE importmodule, HMODULE exportmodule, LPCSTR exportmodulename, LPCSTR importname);
+BOOL FindPatch (HMODULE importmodule, LPCSTR exportmodulename, LPCVOID replacement);
+VOID InsertReportDelay ();
+BOOL IsModulePatched (HMODULE importmodule, moduleentry_t patchtable [], UINT tablesize);
+BOOL PatchImport (HMODULE importmodule, moduleentry_t *module);
+BOOL PatchModule (HMODULE importmodule, moduleentry_t patchtable [], UINT tablesize);
+VOID Print (LPWSTR message);
+VOID Report (LPCWSTR format, ...);
+#ifdef _DEBUG
+#define DbgPrint(x)     Print(x)
+#define DbgReport(...)  Report(__VA_ARGS__)
+#define DbgTrace(...)
+#else
+#define DbgPrint(x)
+#define DbgReport(...)
+#define DbgTrace(...)
+#endif
+VOID RestoreImport (HMODULE importmodule, moduleentry_t* module);
+VOID RestoreModule (HMODULE importmodule, moduleentry_t patchtable [], UINT tablesize);
+VOID SetReportEncoding (encoding_e encoding);
+VOID SetReportFile (FILE *file, BOOL copydebugger, BOOL copytostdout);
+LPWSTR AppendString (LPWSTR dest, LPCWSTR source);
+BOOL StrToBool (LPCWSTR s);
 #if _WIN32_WINNT < 0x0600 // Windows XP or earlier, no GetProcessIdOfThread()
 DWORD _GetProcessIdOfThread (HANDLE thread);
 #define GetProcessIdOfThread _GetProcessIdOfThread
 #endif
+DWORD CalculateCRC32(UINT_PTR p, UINT startValue = 0xD202EF8D);
+// Formats a message string using the specified message and variable
+// list of arguments.
+void GetFormattedMessage(DWORD last_error);
+HMODULE GetCallingModule(UINT_PTR pCaller);
+DWORD FilterFunction(long);
+

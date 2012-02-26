@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  Visual Leak Detector - Lightweight STL-like Map Template
-//  Copyright (c) 2006 Dan Moulding
+//  Copyright (c) 2005-2012 VLD Team
 //
 //  This library is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU Lesser General Public
@@ -188,7 +188,7 @@ public:
 
         // operator - - Subtraction operator for Map Iterators. Causes the
         //   the Iterator to reference a key/value pair that is an in-order
-        //   predecessor of the currently refereced key/value pair.
+        //   predecessor of the currently referenced key/value pair.
         //
         //  - num (IN): Number indicating the number of preceding key/value
         //      pairs to decrement the iterator.
@@ -200,12 +200,10 @@ public:
         //
         Iterator operator - (SIZE_T num) const
         {
-            SIZE_T                                count;
             typename Tree<Pair<Tk, Tv> >::node_t *cur = m_node;
 
-            cur = m_tree->prev(m_node);
-            for (count = 0; count < num; count++)  {
-                cur = m_tree->prev(m_node);
+            for (SIZE_T count = 0; count < num; count++)  {
+                cur = m_tree->prev(cur);
                 if (cur == NULL) {
                     return Iterator(m_tree, NULL);
                 }
@@ -214,7 +212,7 @@ public:
         }
 
         // operator == - Equality operator for Map Iterators. Map Iterators are
-        //   considered equal if and only if they both refernce the same
+        //   considered equal if and only if they both reference the same
         //   key/value pair in the same Map.
         //
         //  - other (IN): The other Map Iterator to compare against.

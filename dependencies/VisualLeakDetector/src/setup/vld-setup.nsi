@@ -1,7 +1,7 @@
 ################################################################################
 #
 #  Visual Leak Detector - NSIS Installation Script
-#  Copyright (c) 2006-2010 Dan Moulding, Arkadiy Shapkin
+#  Copyright (c) 2005-2012 VLD Team
 #
 #  This program is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU General Public License
@@ -25,8 +25,7 @@
 !include "LogicLib.nsh" # Provides useable conditional script syntax
 !include "MUI.nsh"      # Provides the modern user-interface
 
-# Version number
-!define VLD_VERSION "2.0b"
+!include "version.h"  	# Version number
 
 # Define build system paths
 #!define CRT_PATH     "C:\Program Files\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT"
@@ -123,8 +122,8 @@ Section "Uninstaller"
     WriteRegStr HKLM "${REG_KEY_UNINSTALL}" "DisplayName" "Visual Leak Detector ${VLD_VERSION}"
     WriteRegStr HKLM "${REG_KEY_UNINSTALL}" "UninstallString" "$INSTDIR\uninstall.exe"
     WriteRegStr HKLM "${REG_KEY_UNINSTALL}" "InstallLocation" "$INSTDIR"
-    WriteRegStr HKLM "${REG_KEY_UNINSTALL}" "Publisher" "Dan Moulding"
-    WriteRegStr HKLM "${REG_KEY_UNINSTALL}" "URLInfoAbout" "http://www.danm.net"
+    WriteRegStr HKLM "${REG_KEY_UNINSTALL}" "Publisher" "VLD Team"
+    WriteRegStr HKLM "${REG_KEY_UNINSTALL}" "URLInfoAbout" "http://vld.codeplex.com/"
     WriteRegStr HKLM "${REG_KEY_UNINSTALL}" "DisplayVersion" "${VLD_VERSION}"
     WriteRegDWORD HKLM "${REG_KEY_UNINSTALL}" "NoModify" 1
     WriteRegDWORD HKLM "${REG_KEY_UNINSTALL}" "NoRepair" 1
@@ -168,10 +167,10 @@ addtopath:
 skipaddtopath:
     SetOutPath "${BIN_PATH}\Win32"
     !insertmacro InstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED "dbghelp\x86\${DHL_DLL}" "${BIN_PATH}\Win32\${DHL_DLL}" $INSTDIR
+    File "dbghelp\x86\Microsoft.DTfW.DHL.manifest"
     SetOutPath "${BIN_PATH}\Win64"
     !insertmacro InstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED "dbghelp\x64\${DHL_DLL}" "${BIN_PATH}\Win64\${DHL_DLL}" $INSTDIR
-#    !insertmacro InstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED "${CRT_PATH}\${CRT_DLL}" "${BIN_PATH}\${CRT_DLL}" $INSTDIR
-#    File "..\Microsoft.DTfW.DHL.manifest"
+    File "dbghelp\x64\Microsoft.DTfW.DHL.manifest"
 #    File "${CRT_PATH}\${CRT_MANIFEST}"
 SectionEnd
 
@@ -182,20 +181,20 @@ SectionEnd
 
 Section "Source Code"
     SetOutPath "${SRC_PATH}"
+    File "version.h"
     File "..\*.cpp"
     File "..\*.h"
-    File "..\vld.vcproj"
     File "..\vld.vcxproj"
     File "..\vld.vcxproj.filters"
-#    File "..\*.manifest"
+    File "..\*.manifest"
     File "..\*.rc"
 SectionEnd
 
 Section "Documentation"
     SetOutPath "$INSTDIR"
+    File "..\AUTHORS.txt"
     File "..\CHANGES.txt"
     File "..\COPYING.txt"
-    File "..\README.html"
 SectionEnd
 
 Section "Start Menu Shortcuts"
@@ -204,7 +203,8 @@ Section "Start Menu Shortcuts"
     SetShellVarContext all
     CreateDirectory "${LNK_PATH}"
     CreateShortcut "${LNK_PATH}\Configure.lnk"     "$INSTDIR\vld.ini"
-    CreateShortcut "${LNK_PATH}\Documentation.lnk" "$INSTDIR\README.html"
+    CreateShortcut "${LNK_PATH}\Documentation.lnk" "http://vld.codeplex.com/documentation"
+    CreateShortcut "${LNK_PATH}\Authors.lnk"       "$INSTDIR\AUTHORS.txt"
     CreateShortcut "${LNK_PATH}\License.lnk"       "$INSTDIR\COPYING.txt"
     CreateShortcut "${LNK_PATH}\Uninstall.lnk"     "$INSTDIR\uninstall.exe"
     !insertmacro MUI_STARTMENU_WRITE_END
@@ -240,11 +240,11 @@ Section "un.Dynamic Link Libraries"
     System::Call "editenv::pathRemove(i ${ES_SYSTEM}, t '${BIN_PATH}\Win64') ? u"
     Delete "$PLUGINSDIR\${EDITENV_DLL}"
     !insertmacro UnInstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED "${BIN_PATH}\Win32\${DHL_DLL}"
+    Delete "${BIN_PATH}\Win32\Microsoft.DTfW.DHL.manifest"
     RMDir "${BIN_PATH}\Win32"
     !insertmacro UnInstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED "${BIN_PATH}\Win64\${DHL_DLL}"
+    Delete "${BIN_PATH}\Win64\Microsoft.DTfW.DHL.manifest"
     RMDir "${BIN_PATH}\Win64"
-#    !insertmacro UnInstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED "${BIN_PATH}\${CRT_DLL}"
-#    Delete "${BIN_PATH}\Microsoft.DTfW.DHL.manifest"
 #    Delete "${BIN_PATH}\${CRT_MANIFEST}"
     RMDir "${BIN_PATH}"
 SectionEnd
@@ -256,7 +256,6 @@ SectionEnd
 Section "un.Source Code"
     Delete "${SRC_PATH}\*.cpp"
     Delete "${SRC_PATH}\*.h"
-    Delete "${SRC_PATH}\vld.vcproj"
     Delete "${SRC_PATH}\vld.vcxproj"
     Delete "${SRC_PATH}\vld.vcxproj.filters"
     Delete "${SRC_PATH}\*.manifest"
@@ -265,15 +264,16 @@ Section "un.Source Code"
 SectionEnd
 
 Section "un.Documentation"
+    Delete "$INSTDIR\AUTHORS.txt"
     Delete "$INSTDIR\CHANGES.txt"
     Delete "$INSTDIR\COPYING.txt"
-    Delete "$INSTDIR\README.html"
 SectionEnd
 
 Section "un.Start Menu Shortcuts"
     !insertmacro MUI_STARTMENU_GETFOLDER "Shortcuts" $SM_PATH
     SetShellVarContext all
     Delete "${LNK_PATH}\Configure.lnk"
+    Delete "${LNK_PATH}\Authors.lnk"
     Delete "${LNK_PATH}\Documentation.lnk"
     Delete "${LNK_PATH}\License.lnk"
     Delete "${LNK_PATH}\Uninstall.lnk"

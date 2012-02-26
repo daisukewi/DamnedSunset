@@ -10,7 +10,7 @@
   <!-- =========== -->
 
   <property name="vslogfile" value="${basedir}/vslog.txt"/>
-  <property name="vldSLN" value="vld.sln"/>
+  <property name="vldSLN" value="vld_vs10.sln"/>
 
   <patternset id="vctmpfiles">
     <include name="**/*.suo"/>
@@ -42,7 +42,7 @@
 
 <target name="publishDependenciesW64" depends="check-is-W32" unless="is-W32">
    <copy todir="../bin/Debug">
-       <fileset dir="bin/Win64/" includes="**.dll"/>
+       <fileset dir="bin/x64/" includes="**.dll"/>
    </copy>
 </target>
 
@@ -77,12 +77,12 @@
   vslogfile: fichero donde se guarda el log de la compilacion (se borra luego).
 -->
 <target name="windowsbuilder">
-  <vc9 projectfolder="${projectfolder}" 
+  <vc10 projectfolder="${projectfolder}" 
        buildmode="${buildmode}"
        rebuild="${rebuild}"
        logfile="${vslogfile}">
     <targets dir="${projectfolder}" includes="${project}"/>
-  </vc9>
+  </vc10>
   <delete file = "${vslogfile}"/>
 </target>
 

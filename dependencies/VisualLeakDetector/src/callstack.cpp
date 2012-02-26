@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  Visual Leak Detector - CallStack Class Implementations
-//  Copyright (c) 2005-2010 Dan Moulding
+//  Copyright (c) 2005-2012 VLD Team
 //
 //  This library is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU Lesser General Public
@@ -28,36 +28,27 @@
 #include "vldheap.h"    // Provides internal new and delete operators.
 #include "vldint.h"     // Provides access to VLD internals.
 
-#define MAXSYMBOLNAMELENGTH 256
-
 // Imported global variables.
-extern HANDLE             currentprocess;
-extern HANDLE             currentthread;
-extern CRITICAL_SECTION   stackwalklock;
-extern CRITICAL_SECTION   symbollock;
+extern HANDLE             g_currentProcess;
+extern HANDLE             g_currentThread;
+extern CriticalSection    g_stackWalkLock;
+extern CriticalSection    g_symbolLock;
+extern VisualLeakDetector g_vld;
 
 // Constructor - Initializes the CallStack with an initial size of zero and one
 //   Chunk of capacity.
 //
 CallStack::CallStack ()
 {
-    m_capacity   = CALLSTACKCHUNKSIZE;
+    m_capacity   = CALLSTACK_CHUNK_SIZE;
     m_size       = 0;
     m_status     = 0x0;
     m_store.next = NULL;
-    m_topchunk   = &m_store;
-    m_topindex   = 0;
-}
-
-// Copy Constructor - For efficiency, we want to avoid ever making copies of
-//   CallStacks (only pointer passing or reference passing should be performed).
-//   The sole purpose of this copy constructor is to ensure that no copying is
-//   being done inadvertently.
-//
-CallStack::CallStack (const CallStack &)
-{
-    // Don't make copies of CallStacks!
-    assert(FALSE);
+    m_topChunk   = &m_store;
+    m_topIndex   = 0;
+    m_resolved   = NULL;
+    m_resolvedCapacity   = 0;
+    m_resolvedLength = 0;
 }
 
 // Destructor - Frees all memory allocated to the CallStack.
@@ -72,20 +63,29 @@ CallStack::~CallStack ()
         chunk = temp->next;
         delete temp;
     }
+
+    if (m_resolved)
+    {
+        delete [] m_resolved;
+    }
+
+    m_resolved = NULL;
+    m_resolvedCapacity = 0;
+    m_resolvedLength = 0;
 }
 
-// operator = - Assignment operator. For efficiency, we want to avoid ever
-//   making copies of CallStacks (only pointer passing or reference passing
-//   should be performed). The sole purpose of this assignment operator is to
-//   ensure that no copying is being done inadvertently.
-//
-CallStack& CallStack::operator = (const CallStack &)
+CallStack* CallStack::Create()
 {
-    // Don't make copies of CallStacks!
-    assert(FALSE);
-    return *this;
+    CallStack* result = NULL;
+    if (g_vld.GetOptions() & VLD_OPT_SAFE_STACK_WALK) {
+        result = new SafeCallStack();
+    }
+    else {
+        result = new FastCallStack();
+    }
+    return result;
+    
 }
-
 // operator == - Equality operator. Compares the CallStack to another CallStack
 //   for equality. Two CallStacks are equal if they are the same size and if
 //   every frame in each is identical to the corresponding frame in the other.
@@ -99,11 +99,6 @@ CallStack& CallStack::operator = (const CallStack &)
 //
 BOOL CallStack::operator == (const CallStack &other) const
 {
-    const CallStack::chunk_t *chunk = &m_store;
-    UINT32                    index;
-    const CallStack::chunk_t *otherchunk = &other.m_store;
-    const CallStack::chunk_t *prevchunk = NULL;
-
     if (m_size != other.m_size) {
         // They can't be equal if the sizes are different.
         return FALSE;
@@ -111,16 +106,20 @@ BOOL CallStack::operator == (const CallStack &other) const
 
     // Walk the chunk list and within each chunk walk the frames array until we
     // either find a mismatch, or until we reach the end of the call stacks.
-    while (prevchunk != m_topchunk) {
-        for (index = 0; index < ((chunk == m_topchunk) ? m_topindex : CALLSTACKCHUNKSIZE); index++) {
-            if (chunk->frames[index] != otherchunk->frames[index]) {
+    const CallStack::chunk_t *prevChunk = NULL;
+    const CallStack::chunk_t *chunk = &m_store;
+    const CallStack::chunk_t *otherChunk = &other.m_store;
+    while (prevChunk != m_topChunk) {
+        UINT32 size = (chunk == m_topChunk) ? m_topIndex : CALLSTACK_CHUNK_SIZE;
+        for (UINT32 index = 0; index < size; index++) {
+            if (chunk->frames[index] != otherChunk->frames[index]) {
                 // Found a mismatch. They are not equal.
                 return FALSE;
             }
         }
-        prevchunk = chunk;
+        prevChunk = chunk;
         chunk = chunk->next;
-        otherchunk = otherchunk->next;
+        otherChunk = otherChunk->next;
     }
 
     // Reached the end of the call stacks. They are equal.
@@ -144,17 +143,16 @@ BOOL CallStack::operator == (const CallStack &other) const
 //    specified index is out of range for the CallStack, the return value is
 //    undefined.
 //
-SIZE_T CallStack::operator [] (UINT32 index) const
+UINT_PTR CallStack::operator [] (UINT32 index) const
 {
-    UINT32                    count;
+    UINT32                    chunknumber = index / CALLSTACK_CHUNK_SIZE;
     const CallStack::chunk_t *chunk = &m_store;
-    UINT32                    chunknumber = index / CALLSTACKCHUNKSIZE;
 
-    for (count = 0; count < chunknumber; count++) {
+    for (UINT32 count = 0; count < chunknumber; count++) {
         chunk = chunk->next;
     }
 
-    return chunk->frames[index % CALLSTACKCHUNKSIZE];
+    return chunk->frames[index % CALLSTACK_CHUNK_SIZE];
 }
 
 // clear - Resets the CallStack, returning it to a state where no frames have
@@ -171,9 +169,17 @@ SIZE_T CallStack::operator [] (UINT32 index) const
 VOID CallStack::clear ()
 {
     m_size     = 0;
-    m_topchunk = &m_store;
-    m_topindex = 0;
+    m_topChunk = &m_store;
+    m_topIndex = 0;
+    if (m_resolved)
+    {
+        delete [] m_resolved;
+        m_resolved = NULL;
+    }
+    m_resolvedCapacity = 0;
+    m_resolvedLength = 0;
 }
+
 
 // dump - Dumps a nicely formatted rendition of the CallStack, including
 //   symbolic information (function names and line numbers) if available.
@@ -188,71 +194,276 @@ VOID CallStack::clear ()
 //
 //    None.
 //
-VOID CallStack::dump (BOOL showinternalframes) const
+void CallStack::dump(BOOL showInternalFrames, UINT start_frame) const
 {
-    DWORD            displacement;
-    DWORD64          displacement64;
-    BOOL             foundline;
-    UINT32           frame;
-    SYMBOL_INFO     *functioninfo;
-    LPWSTR           functionname;
-    SIZE_T           programcounter;
-    IMAGEHLP_LINE64  sourceinfo = { 0 };
-    BYTE             symbolbuffer [sizeof(SYMBOL_INFO) + (MAXSYMBOLNAMELENGTH * sizeof(WCHAR)) - 1] = { 0 };
+    // The stack was dumped already
+    if (m_resolved)
+    {
+        dumpResolved();
+        return;
+    }
 
     if (m_status & CALLSTACK_STATUS_INCOMPLETE) {
         // This call stack appears to be incomplete. Using StackWalk64 may be
         // more reliable.
-        report(L"    HINT: The following call stack may be incomplete. Setting \"StackWalkMethod\"\n"
-               L"      in the vld.ini file to \"safe\" instead of \"fast\" may result in a more\n"
-               L"      complete stack trace.\n");
+        Report(L"    HINT: The following call stack may be incomplete. Setting \"StackWalkMethod\"\n"
+            L"      in the vld.ini file to \"safe\" instead of \"fast\" may result in a more\n"
+            L"      complete stack trace.\n");
     }
 
-    // Initialize structures passed to the symbol handler.
-    functioninfo = (SYMBOL_INFO*)&symbolbuffer;
-    functioninfo->SizeOfStruct = sizeof(SYMBOL_INFO);
-    functioninfo->MaxNameLen = MAXSYMBOLNAMELENGTH;
-    sourceinfo.SizeOfStruct = sizeof(IMAGEHLP_LINE64);
+    IMAGEHLP_LINE64  sourceInfo = { 0 };
+    sourceInfo.SizeOfStruct = sizeof(IMAGEHLP_LINE64);
+
+    BYTE symbolBuffer [sizeof(SYMBOL_INFO) + MAX_SYMBOL_NAME_SIZE] = { 0 };
+
+    WCHAR lowerCaseName [MAX_PATH];
+    WCHAR callingModuleName [MAX_PATH];
+
+    const size_t max_size = MAXREPORTLENGTH + 1;
 
     // Iterate through each frame in the call stack.
-    for (frame = 0; frame < m_size; frame++) {
+    for (UINT32 frame = start_frame; frame < m_size; frame++)
+    {
         // Try to get the source file and line number associated with
         // this program counter address.
-        programcounter = (*this)[frame];
-        EnterCriticalSection(&symbollock);
-        if ((foundline = SymGetLineFromAddrW64(currentprocess, programcounter, &displacement, &sourceinfo)) == TRUE) {
-            if (!showinternalframes) {
-                _wcslwr_s(sourceinfo.FileName, wcslen(sourceinfo.FileName) + 1);
-                if (wcsstr(sourceinfo.FileName, L"afxmem.cpp") ||
-                    wcsstr(sourceinfo.FileName, L"dbgheap.c") ||
-                    wcsstr(sourceinfo.FileName, L"malloc.c") ||
-                    wcsstr(sourceinfo.FileName, L"new.cpp") ||
-                    wcsstr(sourceinfo.FileName, L"newaop.cpp")) {
-                    // Don't show frames in files internal to the heap.
-                    continue;
-                }
+        SIZE_T programCounter = (*this)[frame];
+        g_symbolLock.Enter();
+        BOOL             foundline = FALSE;
+        DWORD            displacement = 0;
+        DbgTrace(L"dbghelp32.dll %i: SymGetLineFromAddrW64\n", GetCurrentThreadId());
+        foundline = SymGetLineFromAddrW64(g_currentProcess, programCounter, &displacement, &sourceInfo);
+        if (foundline && !showInternalFrames) {
+            wcscpy_s(lowerCaseName, sourceInfo.FileName);
+            _wcslwr_s(lowerCaseName, wcslen(lowerCaseName) + 1);
+            if (isInternalModule(lowerCaseName)) {
+                // Don't show frames in files internal to the heap.
+                g_symbolLock.Leave();
+                continue;
             }
         }
 
+        // Initialize structures passed to the symbol handler.
+        SYMBOL_INFO* functionInfo = (SYMBOL_INFO*)&symbolBuffer;
+        functionInfo->SizeOfStruct = sizeof(SYMBOL_INFO);
+        functionInfo->MaxNameLen = MAX_SYMBOL_NAME_LENGTH;
+
         // Try to get the name of the function containing this program
         // counter address.
-        if (SymFromAddrW(currentprocess, (*this)[frame], &displacement64, functioninfo)) {
-            functionname = functioninfo->Name;
+        DWORD64          displacement64 = 0;
+        LPWSTR           functionName;
+        DbgTrace(L"dbghelp32.dll %i: SymFromAddrW\n", GetCurrentThreadId());
+        if (SymFromAddrW(g_currentProcess, programCounter, &displacement64, functionInfo)) {
+            functionName = functionInfo->Name;
         }
         else {
-            functionname = L"(Function name unavailable)";
+            // GetFormattedMessage( GetLastError() );
+            functionName = L"(Function name unavailable)";
+            displacement64 = 0;
         }
-        LeaveCriticalSection(&symbollock);
+        g_symbolLock.Leave();
 
+        HMODULE hCallingModule = GetCallingModule(programCounter);
+        LPWSTR moduleName = L"(Module name unavailable)";
+        if (hCallingModule && 
+            GetModuleFileName(hCallingModule, callingModuleName, _countof(callingModuleName)) > 0)
+        {
+            moduleName = wcsrchr(callingModuleName, L'\\');
+            if (moduleName == NULL)
+                moduleName = wcsrchr(callingModuleName, L'/');
+            if (moduleName != NULL)
+                moduleName++;
+            else
+                moduleName = callingModuleName;
+        }
+
+        // Use static here to increase performance, and avoid heap allocs. Hopefully this won't
+        // prove to be an issue in thread safety. If it does, it will have to be simply non-static.
+        static WCHAR stack_line[MAXREPORTLENGTH + 1] = L"";
+        int NumChars = -1;
         // Display the current stack frame's information.
         if (foundline) {
-            report(L"    %s (%d): %s\n", sourceinfo.FileName, sourceinfo.LineNumber, functionname);
+            if (displacement == 0)
+                NumChars = _snwprintf_s(stack_line, max_size, _TRUNCATE, L"    %s (%d): %s!%s\n", 
+                sourceInfo.FileName, sourceInfo.LineNumber, moduleName, functionName);
+            else
+                NumChars = _snwprintf_s(stack_line, max_size, _TRUNCATE, L"    %s (%d): %s!%s + 0x%X bytes\n", 
+                sourceInfo.FileName, sourceInfo.LineNumber, moduleName, functionName, displacement);
         }
         else {
-            report(L"    " ADDRESSFORMAT L" (File and line number not available): ", (*this)[frame]);
-            report(L"%s\n", functionname);
+            if (displacement64 == 0)
+                NumChars = _snwprintf_s(stack_line, max_size, _TRUNCATE, L"    " ADDRESSFORMAT L" (File and line number not available): %s!%s\n", 
+                programCounter, moduleName, functionName);
+            else
+                NumChars = _snwprintf_s(stack_line, max_size, _TRUNCATE, L"    " ADDRESSFORMAT L" (File and line number not available): %s!%s + 0x%X bytes\n", 
+                programCounter, moduleName, functionName, (DWORD)displacement64);	
         }
+
+        Print(stack_line);
     }
+}
+
+// Resolve - Creates a nicely formatted rendition of the CallStack, including
+//   symbolic information (function names and line numbers) if available. and 
+//   saves it for later retrieval. This is almost identical to Callstack::dump above.
+//
+//   Note: The symbol handler must be initialized prior to calling this
+//     function.
+//
+//  - showInternalFrames (IN): If true, then all frames in the CallStack will be
+//      dumped. Otherwise, frames internal to the heap will not be dumped.
+//
+//  Return Value:
+//
+//    None.
+//
+void CallStack::resolve(BOOL showInternalFrames)
+{
+    if (m_resolved)
+    {
+        // already resolved, no need to do it again
+        // resolving twice may report an incorrect module for the stack frames
+        // if the memory was leaked in a dynamic library that was already unloaded.
+        return;
+    }
+    if (m_status & CALLSTACK_STATUS_INCOMPLETE) {
+        // This call stack appears to be incomplete. Using StackWalk64 may be
+        // more reliable.
+        Report(L"    HINT: The following call stack may be incomplete. Setting \"StackWalkMethod\"\n"
+            L"      in the vld.ini file to \"safe\" instead of \"fast\" may result in a more\n"
+            L"      complete stack trace.\n");
+    }
+
+    IMAGEHLP_LINE64  sourceInfo = { 0 };
+    sourceInfo.SizeOfStruct = sizeof(IMAGEHLP_LINE64);
+
+    BYTE symbolBuffer [sizeof(SYMBOL_INFO) + MAX_SYMBOL_NAME_SIZE] = { 0 };
+    
+    WCHAR callingModuleName [MAX_PATH] = L"";
+    WCHAR lowerCaseName [MAX_PATH];
+
+    const size_t max_line_length = MAXREPORTLENGTH + 1;
+    m_resolvedCapacity = m_size * max_line_length;
+    m_resolved = new WCHAR[m_resolvedCapacity];
+    const size_t allocedBytes = m_resolvedCapacity * sizeof(WCHAR);
+    ZeroMemory(m_resolved, allocedBytes);
+    
+    // Iterate through each frame in the call stack.
+    for (UINT32 frame = 0; frame < m_size; frame++)
+    {
+        // Try to get the source file and line number associated with
+        // this program counter address.
+        SIZE_T programCounter = (*this)[frame];
+        g_symbolLock.Enter();
+        BOOL             foundline = FALSE;
+        DWORD            displacement = 0;
+
+        // It turns out that calls to SymGetLineFromAddrW64 may free the very memory we are scrutinizing here
+        // in this method. If this is the case, m_Resolved will be null after SymGetLineFromAddrW64 returns. 
+        // When that happens there is nothing we can do except crash.
+        DbgTrace(L"dbghelp32.dll %i: SymGetLineFromAddrW64\n", GetCurrentThreadId());
+        foundline = SymGetLineFromAddrW64(g_currentProcess, programCounter, &displacement, &sourceInfo);
+        assert(m_resolved != NULL);
+
+        if (foundline && !showInternalFrames) {
+            wcscpy_s(lowerCaseName, sourceInfo.FileName);
+            _wcslwr_s(lowerCaseName, wcslen(lowerCaseName) + 1);
+            if (isInternalModule(lowerCaseName)) {
+                // Don't show frames in files internal to the heap.
+                g_symbolLock.Leave();
+                continue;
+            }
+        }
+
+        // Initialize structures passed to the symbol handler.
+        SYMBOL_INFO* functionInfo = (SYMBOL_INFO*)&symbolBuffer;
+        functionInfo->SizeOfStruct = sizeof(SYMBOL_INFO);
+        functionInfo->MaxNameLen = MAX_SYMBOL_NAME_LENGTH;
+
+        // Try to get the name of the function containing this program
+        // counter address.
+        DWORD64          displacement64 = 0;
+        LPWSTR           functionName;
+        DbgTrace(L"dbghelp32.dll %i: SymFromAddrW\n", GetCurrentThreadId());
+        if (SymFromAddrW(g_currentProcess, programCounter, &displacement64, functionInfo)) {
+            functionName = functionInfo->Name;
+        }
+        else {
+            // GetFormattedMessage( GetLastError() );
+            functionName = L"(Function name unavailable)";
+            displacement64 = 0;
+        }
+        g_symbolLock.Leave();
+
+        HMODULE hCallingModule = GetCallingModule(programCounter);
+        LPWSTR moduleName = L"(Module name unavailable)";
+        if (hCallingModule && 
+            GetModuleFileName(hCallingModule, callingModuleName, _countof(callingModuleName)) > 0)
+        {
+            moduleName = wcsrchr(callingModuleName, L'\\');
+            if (moduleName == NULL)
+                moduleName = wcsrchr(callingModuleName, L'/');
+            if (moduleName != NULL)
+                moduleName++;
+            else
+                moduleName = callingModuleName;
+        }
+
+        // Use static here to increase performance, and avoid heap allocs. Hopefully this won't
+        // prove to be an issue in thread safety. If it does, it will have to be simply non-static.
+        static WCHAR stack_line[max_line_length] = L"";
+        int NumChars = -1;
+        // Display the current stack frame's information.
+        if (foundline) {
+            // Just truncate anything that is too long.
+            if (displacement == 0)
+                NumChars = _snwprintf_s(stack_line, max_line_length, _TRUNCATE, L"    %s (%d): %s!%s\n", 
+                sourceInfo.FileName, sourceInfo.LineNumber, moduleName, functionName);
+            else
+                NumChars = _snwprintf_s(stack_line, max_line_length, _TRUNCATE, L"    %s (%d): %s!%s + 0x%X bytes\n", 
+                sourceInfo.FileName, sourceInfo.LineNumber, moduleName, functionName, displacement);
+        }
+        else {
+            if (displacement64 == 0)
+                NumChars = _snwprintf_s(stack_line, max_line_length, _TRUNCATE, L"    " ADDRESSFORMAT L" (File and line number not available): %s!%s\n", 
+                programCounter, moduleName, functionName);
+            else
+                NumChars = _snwprintf_s(stack_line, max_line_length, _TRUNCATE, L"    " ADDRESSFORMAT L" (File and line number not available): %s!%s + 0x%X bytes\n", 
+                programCounter, moduleName, functionName, (DWORD)displacement64);
+        }
+
+        if (NumChars >= 0) {
+            assert(m_resolved != NULL);
+            m_resolvedLength += NumChars;
+            wcsncat_s(m_resolved, m_resolvedCapacity, stack_line, NumChars);
+        }
+    } // end for loop
+}
+
+// DumpResolve
+void CallStack::dumpResolved() const
+{
+    if (m_resolved)
+        Print(m_resolved);
+}
+
+
+
+// getHashValue - Generate callstack hash value.
+//
+//  Return Value:
+//
+//    None.
+//
+DWORD CallStack::getHashValue () const
+{
+    DWORD       hashcode = 0xD202EF8D;
+
+    // Iterate through each frame in the call stack.
+    for (UINT32 frame = 0; frame < m_size; frame++) {
+        UINT_PTR programcounter = (*this)[frame];
+        hashcode = CalculateCRC32(programcounter, hashcode);
+    }
+    return hashcode;
 }
 
 // push_back - Pushes a frame's program counter onto the CallStack. Pushes are
@@ -270,31 +481,45 @@ VOID CallStack::dump (BOOL showinternalframes) const
 //
 VOID CallStack::push_back (const UINT_PTR programcounter)
 {
-    CallStack::chunk_t *chunk;
-
     if (m_size == m_capacity) {
         // At current capacity. Allocate additional storage.
-        chunk = new CallStack::chunk_t;
+        CallStack::chunk_t *chunk = new CallStack::chunk_t;
         chunk->next = NULL;
-        m_topchunk->next = chunk;
-        m_topchunk = chunk;
-        m_topindex = 0;
-        m_capacity += CALLSTACKCHUNKSIZE;
+        m_topChunk->next = chunk;
+        m_topChunk = chunk;
+        m_topIndex = 0;
+        m_capacity += CALLSTACK_CHUNK_SIZE;
     }
-    else if (m_topindex == CALLSTACKCHUNKSIZE) {
+    else if (m_topIndex >= CALLSTACK_CHUNK_SIZE) {
         // There is more capacity, but not in this chunk. Go to the next chunk.
         // Note that this only happens if this CallStack has previously been
         // cleared (clearing resets the data, but doesn't give up any allocated
         // space).
-        m_topchunk = m_topchunk->next;
-        m_topindex = 0;
+        m_topChunk = m_topChunk->next;
+        m_topIndex = 0;
     }
 
-    m_topchunk->frames[m_topindex++] = programcounter;
+    m_topChunk->frames[m_topIndex++] = programcounter;
     m_size++;
 }
 
-// getstacktrace - Traces the stack as far back as possible, or until 'maxdepth'
+bool CallStack::isInternalModule( const PWSTR filename ) const
+{
+    return wcsstr(filename, L"\\crt\\src\\afxmem.cpp") ||
+        wcsstr(filename, L"\\crt\\src\\dbgheap.c") ||
+        wcsstr(filename, L"\\crt\\src\\malloc.c") ||
+        wcsstr(filename, L"\\crt\\src\\dbgmalloc.c") ||
+        wcsstr(filename, L"\\crt\\src\\new.cpp") ||
+        wcsstr(filename, L"\\crt\\src\\newaop.cpp") ||
+        wcsstr(filename, L"\\crt\\src\\dbgcalloc.c") ||
+        wcsstr(filename, L"\\crt\\src\\realloc.c") ||
+        wcsstr(filename, L"\\crt\\src\\dbgrealloc.c") ||
+        wcsstr(filename, L"\\crt\\src\\dbgdel.cp") ||
+        wcsstr(filename, L"\\crt\\src\\free.c") ||
+        wcsstr(filename, L"\\vc\\include\\xmemory0");
+}
+
+// getStackTrace - Traces the stack as far back as possible, or until 'maxdepth'
 //   frames have been traced. Populates the CallStack with one entry for each
 //   stack frame traced.
 //
@@ -313,15 +538,15 @@ VOID CallStack::push_back (const UINT_PTR programcounter)
 //
 //    None.
 //
-VOID FastCallStack::getstacktrace (UINT32 maxdepth, context_t& context)
+VOID FastCallStack::getStackTrace (UINT32 maxdepth, const context_t& context)
 {
     UINT32  count = 0;
-    UINT_PTR* framepointer = context.fp;
+    UINT_PTR* framePointer = context.fp;
 
 #if defined(_M_IX86)
     while (count < maxdepth) {
-        if (*framepointer < (UINT)framepointer) {
-            if (*framepointer == NULL) {
+        if (*framePointer < (UINT_PTR)framePointer) {
+            if (*framePointer == NULL) {
                 // Looks like we reached the end of the stack.
                 break;
             }
@@ -332,7 +557,7 @@ VOID FastCallStack::getstacktrace (UINT32 maxdepth, context_t& context)
                 break;
             }
         }
-        if (*framepointer & (sizeof(UINT_PTR*) - 1)) {
+        if (*framePointer & (sizeof(UINT_PTR*) - 1)) {
             // Invalid frame pointer. Frame pointer addresses should always
             // be aligned to the size of a pointer. This probably means that
             // we've encountered a frame that was created by a module built with
@@ -340,22 +565,22 @@ VOID FastCallStack::getstacktrace (UINT32 maxdepth, context_t& context)
             m_status |= CALLSTACK_STATUS_INCOMPLETE;
             break;
         }
-        if (IsBadReadPtr((UINT*)*framepointer, sizeof(UINT_PTR*))) {
+        if (IsBadReadPtr((UINT*)*framePointer, sizeof(UINT_PTR*))) {
             // Bogus frame pointer. Again, this probably means that we've
             // encountered a frame built with FPO optimization.
             m_status |= CALLSTACK_STATUS_INCOMPLETE;
             break;
         }
         count++;
-        push_back(*(framepointer + 1));
-        framepointer = (UINT_PTR*)*framepointer;
+        push_back(*(framePointer + 1));
+        framePointer = (UINT_PTR*)*framePointer;
     }
 #elif defined(_M_X64)
     UINT32 maxframes = min(62, maxdepth + 10);
     static USHORT (WINAPI *s_pfnCaptureStackBackTrace)(ULONG FramesToSkip, ULONG FramesToCapture, PVOID* BackTrace, PULONG BackTraceHash) = 0;  
     if (s_pfnCaptureStackBackTrace == 0)  
     {  
-        const HMODULE hNtDll = GetModuleHandle(L"ntdll.dll");  
+        const HMODULE hNtDll = GetModuleHandleW(L"ntdll.dll");  
         reinterpret_cast<void*&>(s_pfnCaptureStackBackTrace)
             = ::GetProcAddress(hNtDll, "RtlCaptureStackBackTrace");
         if (s_pfnCaptureStackBackTrace == 0)  
@@ -368,7 +593,7 @@ VOID FastCallStack::getstacktrace (UINT32 maxdepth, context_t& context)
     while (count < maxframes) {
         if (myFrames[count] == 0)
             break;
-        if (myFrames[count] == *(framepointer + 1))
+        if (myFrames[count] == *(framePointer + 1))
             startIndex = count;
         count++;
     }
@@ -383,7 +608,7 @@ VOID FastCallStack::getstacktrace (UINT32 maxdepth, context_t& context)
 #endif
 }
 
-// getstacktrace - Traces the stack as far back as possible, or until 'maxdepth'
+// getStackTrace - Traces the stack as far back as possible, or until 'maxdepth'
 //   frames have been traced. Populates the CallStack with one entry for each
 //   stack frame traced.
 //
@@ -402,55 +627,53 @@ VOID FastCallStack::getstacktrace (UINT32 maxdepth, context_t& context)
 //
 //    None.
 //
-VOID SafeCallStack::getstacktrace (UINT32 maxdepth, context_t& context)
+VOID SafeCallStack::getStackTrace (UINT32 maxdepth, const context_t& context)
 {
-    DWORD        architecture;
-    CONTEXT      currentcontext;
-    UINT32       count = 0;
-    STACKFRAME64 frame;
-
-    UINT_PTR* framepointer = context.fp;
-
-    architecture   = X86X64ARCHITECTURE;
-    memset(&currentcontext, 0, sizeof(currentcontext));
+    UINT_PTR* framePointer = context.fp;
+    DWORD   architecture   = X86X64ARCHITECTURE;
+    CONTEXT currentContext;
+    memset(&currentContext, 0, sizeof(currentContext));
 
     // Get the required values for initialization of the STACKFRAME64 structure
     // to be passed to StackWalk64(). Required fields are AddrPC and AddrFrame.
 #if defined(_M_IX86)
-    UINT_PTR programcounter = *(framepointer + 1);
-    UINT_PTR stackpointer   = (*framepointer) - maxdepth * 10 * sizeof(void*);  // An approximation.
-    currentcontext.SPREG  = stackpointer;
-    currentcontext.BPREG  = (DWORD64)framepointer;
-    currentcontext.IPREG  = programcounter;
+    UINT_PTR programcounter = *(framePointer + 1);
+    UINT_PTR stackpointer   = (*framePointer) - maxdepth * 10 * sizeof(void*);  // An approximation.
+    currentContext.SPREG  = stackpointer;
+    currentContext.BPREG  = (DWORD64)framePointer;
+    currentContext.IPREG  = programcounter;
 #elif defined(_M_X64)
-    currentcontext.SPREG  = context.Rsp;
-    currentcontext.BPREG  = (DWORD64)framepointer;
-    currentcontext.IPREG  = context.Rip;
+    currentContext.SPREG  = context.Rsp;
+    currentContext.BPREG  = (DWORD64)framePointer;
+    currentContext.IPREG  = context.Rip;
 #else
-// If you want to retarget Visual Leak Detector to another processor
-// architecture then you'll need to provide architecture-specific code to
-// obtain the program counter and stack pointer from the given frame pointer.
+    // If you want to retarget Visual Leak Detector to another processor
+    // architecture then you'll need to provide architecture-specific code to
+    // obtain the program counter and stack pointer from the given frame pointer.
 #error "Visual Leak Detector is not supported on this architecture."
 #endif // _M_IX86 || _M_X64
 
     // Initialize the STACKFRAME64 structure.
+    STACKFRAME64 frame;
     memset(&frame, 0x0, sizeof(frame));
-    frame.AddrPC.Offset       = currentcontext.IPREG;
+    frame.AddrPC.Offset       = currentContext.IPREG;
     frame.AddrPC.Mode         = AddrModeFlat;
-    frame.AddrStack.Offset    = currentcontext.SPREG;
+    frame.AddrStack.Offset    = currentContext.SPREG;
     frame.AddrStack.Mode      = AddrModeFlat;
-    frame.AddrFrame.Offset    = currentcontext.BPREG;
+    frame.AddrFrame.Offset    = currentContext.BPREG;
     frame.AddrFrame.Mode      = AddrModeFlat;
     frame.Virtual             = TRUE;
 
     // Walk the stack.
-    EnterCriticalSection(&stackwalklock);
+    CriticalSectionLocker cs(g_stackWalkLock);
+    UINT32 count = 0;
     while (count < maxdepth) {
         count++;
-        if (!StackWalk64(architecture, currentprocess, currentthread, &frame, &currentcontext, NULL,
-                         SymFunctionTableAccess64, SymGetModuleBase64, NULL)) {
-            // Couldn't trace back through any more frames.
-            break;
+        DbgTrace(L"dbghelp32.dll %i: StackWalk64\n", GetCurrentThreadId());
+        if (!StackWalk64(architecture, g_currentProcess, g_currentThread, &frame, &currentContext, NULL,
+            SymFunctionTableAccess64, SymGetModuleBase64, NULL)) {
+                // Couldn't trace back through any more frames.
+                break;
         }
         if (frame.AddrFrame.Offset == 0) {
             // End of stack.
@@ -460,5 +683,4 @@ VOID SafeCallStack::getstacktrace (UINT32 maxdepth, context_t& context)
         // Push this frame's program counter onto the CallStack.
         push_back((UINT_PTR)frame.AddrPC.Offset);
     }
-    LeaveCriticalSection(&stackwalklock);
 }
