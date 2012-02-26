@@ -17,6 +17,10 @@ Contiene la declaración de un temporizador basado en Ogre.
 #define __Application_OgreClock_H
 
 #include "Clock.h"
+#include "ClockListener.h"
+
+#include <list>
+#include <utility>
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Ogre 
@@ -54,6 +58,24 @@ namespace Application
 		*/
 		virtual ~COgreClock() {}
 
+		/**
+		Hace avanzar la hora del reloj, para que
+		getTime() y getLastFrameDuration() devuelvan
+		los nuevos valores. Además se encarga de comprobar
+		si hay que avisar a alguno de los listeners de que su tiempo
+		ha pasado.
+		*/
+		virtual void updateTime();
+
+		/**
+		Añade un nuevo oyente del temporizador con el tiempo tras el cual quiere
+		ser avisado.
+
+		@param clock tiempo tras el cual el oyente quiere ser avisado (en milisegundos).
+		@param listener oyente del temporizador.
+		*/
+		void addListener(unsigned int clock, IClockListener* listener);
+
 	protected:
 
 		/**
@@ -70,6 +92,21 @@ namespace Application
 		Temporizador de Ogre.
 		*/
 		Ogre::Timer* _timer;
+
+		/**
+		Tipo Lista de oyentes del temporizador
+		*/
+		typedef std::list<std::pair<unsigned int, IClockListener*>> TListenersList;
+
+		/**
+		Lista de todos los oyentes del temporizador.
+		*/
+		TListenersList _listeners;
+
+		/**
+		Lista de oyentes a borrar en cada tick.
+		*/
+		TListenersList _deferredRemoveListenersList;
 
 	}; // COgreClock
 

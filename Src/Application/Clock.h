@@ -73,7 +73,7 @@ namespace Application
 		getTime() y getLastFrameDuration() devuelvan
 		los nuevos valores.
 		*/
-		void updateTime();
+		virtual void updateTime();
 
 		/**
 		Devuelve la hora en el momento de la última invocación
