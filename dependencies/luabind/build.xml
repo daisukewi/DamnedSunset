@@ -21,8 +21,6 @@
 	description="Elimina los ficheros de la compilacion en Debug">
 
 	<delete includeemptydirs="true" failonerror="false">
-		<fileset dir="./bin/Debug" />
-		<fileset dir="./lib/Debug" />
 		<fileset dir="./bin/msvc-10.0/debug" />
 	</delete>
 
@@ -32,8 +30,6 @@
 	description="Elimina los ficheros de la compilacion en Release">
 
 	<delete includeemptydirs="true" failonerror="false">
-		<fileset dir="./bin/Release" />
-		<fileset dir="./lib/Release" />
 		<fileset dir="./bin/msvc-10.0/release" />
 	</delete>
 
@@ -44,7 +40,7 @@
 	depends="cleanDebug, cleanRelease">
 	
 	<delete includeemptydirs="true" failonerror="false">
-		<fileset dir="./bin" />
+		<fileset dir="./bin/msvc-10.0" />
 	</delete>
 
 </target>
