@@ -244,30 +244,36 @@ namespace Logic
 		*/
 		TGridMap _gridMap;
 
+		/// Declaración de atributos útiles a lo largo de la ejecución del juego.
+
 		/**
-		Tamaño de cada celda del mapa.
+		Almacena las dimensiones actuales del mapa.
+		*/
+		int _mapWidth;
+		int _mapHeight;
+
+		/**
+		Atributos rápidos que almacena la mitad de la
+		dimensión del mapa actual.
+		*/
+		int _halfMapWidth;
+		int _halfMapHeight;
+
+		/**
+		Tamaño de las celdas en potencia de 2.
 		*/
 		int _gridSize;
 
 		/**
-		Anchura del mapa. En valor absoluto.
+		Almacena la mitad del tamaño de una celda.
 		*/
-		float _mapWidth;
+		int _halfGrid;
 
 		/**
-		Altura del mapa. En valor absoluto.
+		Número de columnas y filas que tiene el mapa actual.
 		*/
-		float _mapHeight;
-
-		/**
-		Altura del mapa en número de celdas.
-		*/
-		int _mapHGrids;
-
-		/**
-		Anchura del mapa en número de celdas.
-		*/
-		int _mapVGrids;
+		int _nMapCols;
+		int _nMapRows;
 
 	};
 

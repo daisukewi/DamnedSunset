@@ -4,7 +4,7 @@ Map = {
 		type = "Grid",
 		width = 20,
 		height = 20,
-		grid_size = 10,
+		grid_size = 16,
 	},
 
 	World = {
@@ -17,7 +17,7 @@ Map = {
 		physic_type = "static",
 		physic_shape = "box",
 		physic_normal = { 0, 1, 0 },
-		physic_dimensions = { 100.0, 0.5, 100.0 },
+		physic_dimensions = { 160.0, 0.5, 160.0 },
 		physic_height = 1,
 		physic_radius = 1,
 		physic_collision_group = 2,

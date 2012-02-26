@@ -224,6 +224,25 @@ namespace Math
 		return v1 + ((v2 - v1) * amount);
 	} // Lerp
 
+	/**
+	Potencia de un número.
+
+	@param base Base de la potencia.
+	@param exponent Exponente de la potencia.
+	*/
+	static float Pow(const float base, const float exponent)
+	{
+		return Ogre::Math::Pow(base, exponent);
+	} // Pow
+
+	/**
+	Logaritmo en base 2 del exponente dado.
+	*/
+	static float Log2(const float exponent)
+	{
+		return Ogre::Math::Log2(exponent);
+	}
+
 } // namespace Math
 
 #endif // __BaseSubsystems_Math_H

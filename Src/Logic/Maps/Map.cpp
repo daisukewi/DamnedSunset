@@ -109,8 +109,7 @@ namespace Logic {
 					// Recupero las dimensiones y el tamaño del grid del mapa y lo inicializo.
 					if (((*it)->hasAttribute("width")) && ((*it)->hasAttribute("height")) && ((*it)->hasAttribute("grid_size"))) {
 						map->getGridMap()->initMap((*it)->getIntAttribute("width"), (*it)->getIntAttribute("height"), (*it)->getIntAttribute("grid_size"));
-						// Después de inicializarlo se lo paso al A* para que haga el pathfinding.
-						AI::CServer::getSingletonPtr()->getNavigationMap()->setGridMap(map->getGridMap());
+
 					} else {
 						assert(!"No se han encontrado dimensiones y/o tamaño del grid del mapa.");
 						return false;
@@ -149,8 +148,11 @@ namespace Logic {
 	{
 		_name = name;
 		_scene = Graphics::CServer::getSingletonPtr()->createScene(name);
-
 		_gridMap = new CGridMap();
+
+		// Se le añade el mapa al servidor de IA para tener una referencia
+		// y poder calcular rutas con A*
+		AI::CServer::getSingletonPtr()->getNavigationMap()->setGridMap(_gridMap);
 
 	} // CMap
 
