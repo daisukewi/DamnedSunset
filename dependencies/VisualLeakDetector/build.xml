@@ -42,7 +42,7 @@
 
 <target name="publishDependenciesW64" depends="check-is-W32" unless="is-W32">
    <copy todir="../bin/Debug">
-       <fileset dir="bin/x64/" includes="**.dll"/>
+       <fileset dir="bin/Win64/" includes="**.dll"/>
    </copy>
 </target>
 
