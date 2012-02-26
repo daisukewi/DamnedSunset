@@ -172,6 +172,13 @@ namespace Logic
 		static void setAtributosArquetipos(Map::CEntity* entidad, Map::CMapParser::TEntityList & entityList);
 		
 	private:
+
+		/**
+		Transforma las posiciones de las entidades del editor de mapas a posiciones del juego.
+
+		@param entityList lista de entidades del mapa.
+		*/
+		static void transformPositions(Map::CMapParser::TEntityList & entityList);
 		
 		/**
 		Tipo tabla de entidades de mapa.

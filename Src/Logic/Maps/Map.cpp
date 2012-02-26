@@ -74,6 +74,8 @@ namespace Logic {
 
 		// Extraemos las entidades del parseo.
 		Map::CMapParser::TEntityList entityList = Map::CMapParser::getSingletonPtr()->getEntityList();
+		// Transformamos sus posiciones del editor a posiciones del juego.
+		transformPositions(entityList); // @GRID
 		CEntityFactory* entityFactory = CEntityFactory::getSingletonPtr();
 
 		//** PARSEMOS EL ARCHIVO DE ARQUETIPOS**/
@@ -87,6 +89,7 @@ namespace Logic {
 		// Completamos la ruta con el nombre proporcionado
 
 		Map::CMapParser::TEntityList entityList2 = Map::CMapParser::getSingletonPtr()->getEntityList();
+		transformPositions(entityList2); // @GRID
 
 		Map::CMapParser::TEntityList::const_iterator it, end;
 		it = entityList.begin();
@@ -118,7 +121,9 @@ namespace Logic {
 					setAtributosArquetipos(*it, entityList2);
 
 					if (!entityFactory->createEntity((*it),map)) {
-						// @GRID
+						// @TODO @GRID Cuando sepamos qué hacer con cada casilla aquí habrá que hacer algo mas complejo que simplemente poner el tipo.
+						// Por ahora lo hago "a pelo" pero igual vendría bien una factoría de casillas o algo así.
+						map->getGridMap()->getTileFromCoord((*it)->getVector2Attribute("position").x, (*it)->getVector2Attribute("position").y)->SetTerrain((*it)->getIntAttribute("terrain"));
 					}
 				}
 			}
@@ -130,6 +135,13 @@ namespace Logic {
 		return map;
 
 	} // createMapFromFile
+
+	//--------------------------------------------------------
+
+	void CMap::transformPositions(Map::CMapParser::TEntityList & entityList)
+	{
+		// @TODO @GRID
+	} // transformPositions
 
 	//--------------------------------------------------------
 
