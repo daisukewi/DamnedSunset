@@ -26,7 +26,8 @@ namespace Logic
 	}
 
 	CLanzadorGranadas::~CLanzadorGranadas() {
-
+		if (_billboard)
+			delete _billboard;
 	}
 
 	bool CLanzadorGranadas::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
@@ -71,11 +72,15 @@ namespace Logic
 		if (!message->getType().compare("MLanzarGranada"))
 		{
 			MLanzarGranada *m = static_cast <MLanzarGranada*> (message);
-			if (_estadoGranada == inactivo)
+
+			if (m->getOrden() == mostrar)
 			{
 				_billboard->setVisible(true);
-				_estadoGranada = lanzando;
-			} else
+			} else if (m->getOrden() == ocultar)
+			{
+				_billboard->setVisible(false);
+			}
+			else if (m->getOrden() == lanzar)
 			{
 				//Lanzamos la granada a dicha posicion
 				Map::CEntity * mapEntity = Map::CMapParser::getSingletonPtr()->getEntityInfo("Granada");

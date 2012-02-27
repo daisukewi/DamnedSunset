@@ -21,7 +21,8 @@ namespace Logic
 	}
 
 	CBillboardIndicacionMover::~CBillboardIndicacionMover() {
-
+		if (_billboard)
+			delete _billboard;
 	}
 
 	bool CBillboardIndicacionMover::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 

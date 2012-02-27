@@ -106,6 +106,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\BuildSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\Free.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\Healing.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\GodStates\LanzandoGranada.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\PlayerSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Message.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\TurretController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Healing.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\GodStates\LanzandoGranada.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Building.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.h" />

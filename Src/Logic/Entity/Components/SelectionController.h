@@ -44,7 +44,7 @@ namespace Logic
 		defecto.
 		*/
 		CSelectionController() : IComponent(), _canSelect(true),
-			_isSelecting(false), _isWaitingForAction(false), _numStates(5), _raycastStart(false) {}
+			_isSelecting(false), _isWaitingForAction(false), _numStates(6), _raycastStart(false) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de

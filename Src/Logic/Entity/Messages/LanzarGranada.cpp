@@ -10,6 +10,7 @@ namespace Logic
 		IMessage();
 		_position = NULL;
 		_type = "MLanzarGranada";
+		_ordenGranada = mostrar;
 	}
 	MLanzarGranada::~MLanzarGranada() 
 	{

@@ -28,7 +28,7 @@ namespace Logic
 	namespace para los tipos de estado que va a haber
 	*/
 	namespace State{
-			enum TState {FREE, PLAYER_SELECTED, BUILD_SELECTED, BUILDING, HEALING};
+			enum TState {FREE, PLAYER_SELECTED, BUILD_SELECTED, BUILDING, HEALING, LANZANDO_GRANADA};
 	}
 
 	/**

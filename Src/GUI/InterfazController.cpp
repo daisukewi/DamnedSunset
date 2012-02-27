@@ -259,6 +259,8 @@ namespace GUI {
 			//Granada
 			Logic::MLanzarGranada *mLanzarGranada = new Logic::MLanzarGranada();
 			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack")->emitMessage(mLanzarGranada);
+			mLanzarGranada = new Logic::MLanzarGranada();
+			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(mLanzarGranada);
 		}
 		if (_jugadorSel == 3)
 		{

@@ -21,7 +21,8 @@ namespace Logic
 	}
 
 	CBillboardSelected::~CBillboardSelected() {
-
+		if (_billboard)
+			delete _billboard;
 	}
 
 	bool CBillboardSelected::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 

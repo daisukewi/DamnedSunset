@@ -205,6 +205,9 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicDebug.cpp">
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\GodStates\LanzandoGranada.cpp">
+      <Filter>Entity\GodStates\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Entity\CommunicationPort.h">
@@ -422,6 +425,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicDebug.h">
       <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\GodStates\LanzandoGranada.h">
+      <Filter>Entity\GodStates\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

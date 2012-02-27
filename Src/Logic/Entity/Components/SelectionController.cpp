@@ -18,6 +18,7 @@
 #include "Logic/Entity/Messages/EmplaceBuilding.h"
 #include "Logic/Entity/Messages/IsSelectable.h"
 #include "Logic/Entity/Messages/ActivateSkill.h"
+#include "Logic/Entity/Messages/LanzarGranada.h"
 
 #include "Logic/Entity/GodStates/Free.h"
 #include "Logic/Entity/GodStates/BuildSelected.h"
@@ -25,6 +26,7 @@
 #include "Logic/Entity/GodStates/GodState.h"
 #include "Logic/Entity/GodStates/Healing.h"
 #include "Logic/Entity/GodStates/Building.h"
+#include "Logic/Entity/GodStates/LanzandoGranada.h"
 
 #include "GUI/Server.h"
 #include "GUI/InterfazController.h"
@@ -58,7 +60,7 @@ namespace Logic
 		_godStates[State::BUILD_SELECTED] = new CBuildSelected(this);
 		_godStates[State::BUILDING] = new CBuilding(this);
 		_godStates[State::HEALING] = new CHealing(this);
-		
+		_godStates[State::LANZANDO_GRANADA] = new CLanzandoGranada(this);
 		_selectedEntity = NULL;
 		
 		return true;
@@ -82,7 +84,8 @@ namespace Logic
 			|| !message->getType().compare("MControlRaycast")
 			|| !message->getType().compare("MEntitySelected")
 			|| !message->getType().compare("MEmplaceBuilding")
-			|| !message->getType().compare("MActivateSkill");
+			|| !message->getType().compare("MActivateSkill")
+			|| !message->getType().compare("MLanzarGranada");
 
 		if (accepted) message->addPtr();
 
@@ -239,7 +242,7 @@ namespace Logic
 				std::cout << "ENTITY_SELECTED" << "\n";
 
 
-		}else if (!message->getType().compare("MActivateSkill"))
+		} else if (!message->getType().compare("MActivateSkill"))
 		{
 			MActivateSkill *m_skill = static_cast <MActivateSkill*> (message);
 			_skill = m_skill->getSkill();
@@ -250,6 +253,10 @@ namespace Logic
 					break;
 			}
 
+		} else if (!message->getType().compare("MLanzarGranada"))
+		{
+			MLanzarGranada *m_lanzarGranada = static_cast <MLanzarGranada*> (message);
+			changeState(State::LANZANDO_GRANADA);
 		}
 		
 		message->removePtr();
