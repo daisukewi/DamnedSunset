@@ -2,9 +2,9 @@ Map = {
 
 	Grid = {
 		type = "Grid",
-		width = 20,
-		height = 20,
-		grid_size = 16,
+		width = 80,
+		height = 80,
+		grid_size = 4,
 	},
 
 	World = {
@@ -65,7 +65,7 @@ Map = {
 		type = "PlayerGod",
 		isPlayer = true,
 		position = {0, 0, 0},
-		orientation = 180,
+		orientation = 225,
 		isTargetCamera = true,
 	},
 	
