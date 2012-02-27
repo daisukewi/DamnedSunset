@@ -17,7 +17,8 @@ de todo el juego.
 
 #include "BaseApplication.h"
 #include "ApplicationState.h"
-#include "Clock.h"
+
+#include "BaseSubsystems/Server.h"
 
 #include <assert.h>
 
@@ -29,8 +30,7 @@ namespace Application {
 		_initialized(false),
 		_currentState(0),
 		_nextState(0),
-		_exit(false),
-		_clock(0)
+		_exit(false)
 	{
 		assert(!_instance && "No puede crearse más de una aplicación");
 
@@ -141,12 +141,10 @@ namespace Application {
 
 	void CBaseApplication::run() 
 	{
-		assert(_clock && "Asegurate de haber creado un reloj en el init de la clase de tu aplicacion!");
-
 		// Actualizamos una primera vez el tiempo, antes de
 		// empezar, para que el primer frame tenga un tiempo
 		// de frame razonable.
-		_clock->updateTime();
+		BaseSubsystems::CServer::getSingletonPtr()->updateClock();
 
 		// Ejecución del bucle principal. Simplemente miramos si
 		// tenemos que hacer una transición de estado, y si no hay que
@@ -157,9 +155,9 @@ namespace Application {
 					(_nextState && (_currentState != _nextState)))
 				changeState();
 
-			_clock->updateTime();
+			BaseSubsystems::CServer::getSingletonPtr()->updateClock();
 
-			tick(_clock->getLastFrameDuration());
+			tick(BaseSubsystems::CServer::getSingletonPtr()->getLastFrameDuration());
 		}
 
 	} // run
@@ -168,7 +166,7 @@ namespace Application {
 
 	unsigned int CBaseApplication::getAppTime() 
 	{
-		return _clock->getTime();
+		return BaseSubsystems::CServer::getSingletonPtr()->getLastTime();
 
 	} // getAppTime
 

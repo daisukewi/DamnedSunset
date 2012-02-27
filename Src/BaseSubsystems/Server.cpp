@@ -45,6 +45,8 @@ usados. La mayoría de ellos son parte de Ogre.
 // Para cerrar la aplicación si se cierra la ventana
 #include "Application/BaseApplication.h"
 
+#include "OgreClock.h"
+
 /**
 Si se define la siguiente directiva, en modo ventana se reenderiza aunque
 la ventana esté en background (siempre que esté visible)
@@ -95,7 +97,8 @@ namespace BaseSubsystems
 		_mouse(0),
 		_keyboard(0),
 		_inputSystem(0),
-		_windowEventListener(0)
+		_windowEventListener(0),
+		_appClock(0)
 	{
 		assert(!_instance && "Segunda inicialización de BaseSubsystems::CServer no permitida!");
 
@@ -203,6 +206,9 @@ namespace BaseSubsystems
 			if(!initOgreResources())
 				return false;
 		}
+
+		_appClock = new COgreClock();
+
 		return true;
 
 	} // initOgre
@@ -317,6 +323,8 @@ namespace BaseSubsystems
 
 	void CServer::releaseOgre()
 	{
+		delete _appClock;
+
 		if(_renderWindow)
 		{
 			_renderWindow->removeAllViewports();
@@ -533,5 +541,39 @@ namespace BaseSubsystems
 		mouseStateOIS.height = height;
 
 	} // setWindowExtents
+
+	//--------------------------------------------------------
+
+	unsigned long CServer::getLastTime()
+	{
+		return _appClock->getTime();
+
+	} // getLastTime
+
+	//--------------------------------------------------------
+
+	unsigned int CServer::getLastFrameDuration()
+	{
+		return _appClock->getLastFrameDuration();
+
+	} // getLastFrameDuration
+
+	//--------------------------------------------------------
+
+	void CServer::addClockListener(unsigned int clock, IClockListener* listener)
+	{
+		_appClock->addListener(clock, listener);
+
+	} // addClockListener
+
+	//--------------------------------------------------------
+
+	void CServer::updateClock()
+	{
+		_appClock->updateTime();
+
+	} // updateClock
+
+	//--------------------------------------------------------
 
 } // namespace BaseSubsystems

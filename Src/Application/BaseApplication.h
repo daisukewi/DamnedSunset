@@ -283,12 +283,6 @@ namespace Application
 		*/
 		bool _exit;
 
-		/**
-		Temporizador que lleva la cuenta del tiempo desde que se 
-		inició la aplicación.
-		*/
-		IClock *_clock;
-
 	}; // class BaseApplication
 
 } // namespace Application

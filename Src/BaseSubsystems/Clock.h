@@ -7,16 +7,21 @@
 
 Contiene la declaración de un interfaz para un temporizador.
 
-@see Application::IClock
+@see BaseSubsystems::IClock
 
 @author David Llansó
 @date Julio, 2010
 */
 
-#ifndef __Application_Clock_H
-#define __Application_Clock_H
+#ifndef __BaseSubsystems_Clock_H
+#define __BaseSubsystems_Clock_H
 
-namespace Application 
+#include "ClockListener.h"
+
+#include <list>
+#include <utility>
+
+namespace BaseSubsystems 
 {
 	/**
 	Reloj de la aplicación, que sirve para controlar el tiempo de la
@@ -49,8 +54,6 @@ namespace Application
 	accede al hardware para obtener el tiempo real.
 
 	Todas las unidades son en milisegundos.
-	
-	@ingroup applicationGroup
 
 	@author David Llansó, Marco Antonio Gómez Martín
 	@date Agosto, 2010
@@ -73,7 +76,7 @@ namespace Application
 		getTime() y getLastFrameDuration() devuelvan
 		los nuevos valores.
 		*/
-		virtual void updateTime();
+		void updateTime();
 
 		/**
 		Devuelve la hora en el momento de la última invocación
@@ -97,6 +100,15 @@ namespace Application
 		*/
 		unsigned int getLastFrameDuration() const { return _lastFrameDuration; }
 
+		/**
+		Añade un nuevo oyente del temporizador con el tiempo tras el cual quiere
+		ser avisado.
+
+		@param clock tiempo tras el cual el oyente quiere ser avisado (en milisegundos).
+		@param listener oyente del temporizador.
+		*/
+		void addListener(unsigned int clock, IClockListener* listener);
+
 	protected:
 
 		/**
@@ -116,6 +128,12 @@ namespace Application
 		virtual unsigned long getPhysicalTime() = 0;
 
 		/**
+		Comprueba si hay que notificar del fin de temporizador a algún listener y lo avisa en caso afirmativo.
+		Depués de ser avisado lo borra de la lista.
+		*/
+		void notifyListeners();
+
+		/**
 		Última hora registrada.
 		*/
 		unsigned long _lastTime;
@@ -125,8 +143,23 @@ namespace Application
 		*/
 		unsigned int _lastFrameDuration;
 
+		/**
+		Tipo Lista de oyentes del temporizador
+		*/
+		typedef std::list<std::pair<unsigned int, IClockListener*>> TListenersList;
+
+		/**
+		Lista de todos los oyentes del temporizador.
+		*/
+		TListenersList _listeners;
+
+		/**
+		Lista de oyentes a borrar en cada tick.
+		*/
+		TListenersList _deferredRemoveListenersList;
+
 	}; // IClock
 
-} // namespace Application
+} // namespace BaseSubsystems
 
-#endif //  __Application_Clock_H
+#endif //  __BaseSubsystems_Clock_H

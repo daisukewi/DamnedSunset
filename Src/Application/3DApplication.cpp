@@ -86,9 +86,6 @@ namespace Application {
 		if (!AI::CServer::Init())
 			return false;
 
-		// Creamos el reloj basado en Ogre.
-		_clock = new COgreClock();
-
 		return true;
 
 	} // init
@@ -97,9 +94,6 @@ namespace Application {
 
 	void C3DApplication::release()
 	{
-		// Eliminamos el reloj de la aplicación.
-		delete _clock;
-
 		// Destruimos la factoría de componentes. La factoría
 		// de componentes no es de construcción y destrucción explícita
 		// debido a como se registran los componentes. Por ello Init y

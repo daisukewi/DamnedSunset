@@ -1,43 +1,34 @@
 //---------------------------------------------------------------------------
-// OgreClock.cpp
+// Clock.cpp
 //---------------------------------------------------------------------------
 
 /**
-@file OgreClock.cpp
+@file Clock.cpp
 
 Contiene la implementación de un interfaz para un temporizador.
 
-@see Application::COgreClock
+@see BaseSubsystems::IClock
 
 @author David Llansó
 @date Julio, 2010
 */
 
-#include "OgreClock.h"
-#include "BaseSubsystems/Server.h"
+#include "Clock.h"
 
-#include <OgreTimer.h>
-#include <cassert>
+namespace BaseSubsystems {
 
-namespace Application {
+	void IClock::updateTime() {
+		unsigned long newTime = getPhysicalTime();
+		_lastFrameDuration = newTime - _lastTime;
+		_lastTime = newTime;
 
-	COgreClock::COgreClock() : IClock() 
-	{
-		_timer = BaseSubsystems::CServer::getSingletonPtr()->getAppTimer();
+		notifyListeners();
 
-	} // COgreClock
-
-	//--------------------------------------------------------
-
-	unsigned long COgreClock::getPhysicalTime()
-	{
-		assert(_timer);
-		return _timer->getMilliseconds();
-	} // getPhysicalTime
+	} // updateTime
 
 	//--------------------------------------------------------
 
-	void COgreClock::addListener(unsigned int clock, IClockListener* listener)
+	void IClock::addListener(unsigned int clock, IClockListener* listener)
 	{
 		_listeners.push_front(std::pair<unsigned int, IClockListener*> (clock, listener));
 
@@ -45,10 +36,8 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void COgreClock::updateTime()
+	void IClock::notifyListeners()
 	{
-		IClock::updateTime();
-
 		TListenersList::iterator it, end;
 		it = _listeners.begin();
 		end = _listeners.end();
@@ -76,9 +65,9 @@ namespace Application {
 		}
 
 		_deferredRemoveListenersList.clear();
-	
-	} // updateTime
+
+	} // notifyListeners
 
 	//--------------------------------------------------------
 
-} // namespace Application
+} // namespace BaseSubsystems

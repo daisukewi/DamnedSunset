@@ -47,6 +47,8 @@ namespace CEGUI
 namespace BaseSubsystems
 {
 	class WindowEventListener;
+	class IClock;
+	class IClockListener;
 }
 
 /**
@@ -183,6 +185,33 @@ namespace BaseSubsystems
 		CEGUI.
 		*/
 		CEGUI::System *getGUISystem() {return _GUISystem;}
+
+		/**
+		Devuelve la última medición del tiempo.
+
+		@return La última medición del tiempo en milisegundos.
+		*/
+		unsigned long getLastTime();
+
+		/**
+		Devuelve la duración del último frame.
+
+		@return La duración del último frame en milisegundos.
+		*/
+		unsigned int getLastFrameDuration();
+
+		/**
+		Añade un nuevo oyente al reloj de la aplicación con el tiempo especificado.
+
+		@param clock tiempo tras el cual el oyente quiere ser avisado (en milisegundos).
+		@param listener listener del temporizador que quiere ser avisado.
+		*/
+		void addClockListener(unsigned int clock, IClockListener* listener);
+
+		/**
+		Hace avanzar el reloj de la aplicación.
+		*/
+		void updateClock();
 
 	protected:
 
@@ -327,6 +356,11 @@ namespace BaseSubsystems
 		Sistema de la interfaz gráfica de usuario CEGUI.
 		*/
 		CEGUI::System *_GUISystem;
+
+		/**
+		Reloj de la aplicación.
+		*/
+		IClock *_appClock;
 
 	}; // class CServer
 

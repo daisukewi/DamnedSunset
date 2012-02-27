@@ -7,10 +7,10 @@ Contiene la declaración de un interfaz para un listener del temporizador.
 @date Febrero, 2012
 */
 
-#ifndef __Application_ClockListener_H
-#define __Application_ClockListener_H
+#ifndef __BaseSubsystems_ClockListener_H
+#define __BaseSubsystems_ClockListener_H
 
-namespace Application
+namespace BaseSubsystems
 {
 	/**
 	Listener del reloj de la aplicación.
@@ -44,6 +44,6 @@ namespace Application
 
 	}; // IClockListener
 
-} // namespace Application
+} // namespace BaseSubsystems
 
-#endif //  __Application_ClockListener_H
+#endif //  __BaseSubsystems_ClockListener_H
