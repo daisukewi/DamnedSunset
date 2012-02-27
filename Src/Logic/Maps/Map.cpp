@@ -78,6 +78,7 @@ namespace Logic {
 		CEntityFactory* entityFactory = CEntityFactory::getSingletonPtr();
 
 		//** PARSEMOS EL ARCHIVO DE ARQUETIPOS**/
+		// Cambiamos el nombre del fichero txt para que en "entityListArquetipos" guarde la información de "arquetipos.txt""
 		std::string completePath2(MAP_FILE_PATH);
 		completePath2.append("arquetipos.txt");
 		if(!Map::CMapParser::getSingletonPtr()->parseFile(completePath2))
@@ -87,7 +88,9 @@ namespace Logic {
 		}
 		// Completamos la ruta con el nombre proporcionado
 
-		Map::CMapParser::TEntityList entityList2 = Map::CMapParser::getSingletonPtr()->getEntityList();
+		// Guardamos la información de las entidades leídas de los arquetipos.
+		// En el MapParser ahora estará la información de arquetipos.txt, ya que lo hemos cambiado anteriormente.
+		Map::CMapParser::TEntityList entityListArquetipos = Map::CMapParser::getSingletonPtr()->getEntityList();
 
 		Map::CMapParser::TEntityList::const_iterator it, end;
 		it = entityList.begin();
@@ -115,7 +118,7 @@ namespace Logic {
 				} else {
 
 					// La propia factoría se encarga de añadir la entidad al mapa.
-					setAtributosArquetipos(*it, entityList2);
+					setAtributosArquetipos(*it, entityListArquetipos);
 
 					if (!entityFactory->createEntity((*it),map)) {
 						// @TODO @GRID Cuando sepamos qué hacer con cada casilla aquí habrá que hacer algo mas complejo que simplemente poner el tipo.
@@ -127,7 +130,7 @@ namespace Logic {
 		}
 		Map::CMapParser::releaseEntityList(entityList);
 		//Map::CMapParser::releaseEntityList(entityList2);
-		Map::CMapParser::getSingletonPtr()->setEntityList(entityList2);
+		Map::CMapParser::getSingletonPtr()->setEntityList(entityListArquetipos);
 
 		return map;
 
