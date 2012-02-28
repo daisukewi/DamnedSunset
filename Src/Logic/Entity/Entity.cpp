@@ -25,6 +25,7 @@ de juego. Es una colección de componentes.
 #include "GUI/CameraController.h"
 
 #include "Logic/Entity/Messages/SetTransform.h"
+#include "Logic/Entity/Messages/EntityDeathListener.h"
 
 namespace Logic 
 {
@@ -323,5 +324,31 @@ namespace Logic
 		emitMessage(m);
 
 	} // yaw
+
+	//---------------------------------------------------------
+
+	bool CEntity::addDeathListener(IDeathListener* listener)
+	{
+		MEntityDeathListener *m = new MEntityDeathListener();
+		m->setAdd(true);
+		m->setListener(listener);
+
+		return emitMessage(m);
+		
+	} // addDeathListener
+
+	//---------------------------------------------------------
+
+	bool CEntity::removeDeathListener(IDeathListener* listener)
+	{
+		MEntityDeathListener *m = new MEntityDeathListener();
+		m->setAdd(false);
+		m->setListener(listener);
+
+		return emitMessage(m);
+		
+	} // removeDeathListener
+
+	//---------------------------------------------------------
 
 } // namespace Logic

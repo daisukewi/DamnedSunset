@@ -30,6 +30,7 @@ Contiene la implementación del componente que controla la vida de una entidad.
 //Mensajes
 #include "Logic/Entity/Messages/Damaged.h"
 #include "Logic/Entity/Messages/AttackEntity.h"
+#include "Logic/Entity/Messages/EntityDeathListener.h"
 
 #include "GUI/Server.h"
 #include "GUI/InterfazController.h"
@@ -79,7 +80,7 @@ namespace Logic
 
 	bool CLife::accept(IMessage *message)
 	{
-		return (message->getType().compare("MDamaged") == 0) || !message->getType().compare("MSendBillboard");
+		return (message->getType().compare("MDamaged") == 0) || !message->getType().compare("MSendBillboard") || !message->getType().compare("MEntityDeathListener");
 
 	} // accept
 	
@@ -87,6 +88,7 @@ namespace Logic
 
 	void CLife::process(IMessage *message)
 	{
+		// Si es un mensaje de daño, se procesa y se comprueba que la entidad no ha muerto; con todo lo que ello conlleva.
 		if (!message->getType().compare("MDamaged"))
 		{
 				MDamaged *md = static_cast <MDamaged*> (message);
@@ -102,9 +104,9 @@ namespace Logic
 					else if (!_entity->getType().compare("Enemy"))
 					{
 						// @TODO @ENTITYDEATH Habrá que borrar este bloque de código cuando la notificación de la muerte de la entidad funcione bien.
-						MAttackEntity *m = new MAttackEntity();
+						/*MAttackEntity *m = new MAttackEntity();
 						m->setAttack(false);
-						md->getKiller()->emitMessage(m, this);
+						md->getKiller()->emitMessage(m, this);*/
 
 						// Notifico a todos mis oyentes de que la entidad ha muerto.
 						notifyDeathListeners();
@@ -158,6 +160,16 @@ namespace Logic
 					m->setAttack(false);
 					md->getKiller()->emitMessage(m, this);
 				}
+		} else if (!message->getType().compare("MEntityDeathListener")) {
+			// Si en un mensaje de listener se mira si hay que añadirlo o borrarlo y se hace.
+
+			MEntityDeathListener *m = static_cast <MEntityDeathListener*> (message);
+
+			if (m->getAdd())
+				addListener(m->getListener());
+			else
+				removeListener(m->getListener());
+			
 		}
 	} // process
 

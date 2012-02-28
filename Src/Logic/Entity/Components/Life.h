@@ -69,18 +69,22 @@ namespace Logic
 		*/
 		virtual void process(IMessage *message);
 
+	protected:
+
 		/**
 		Añade un nuevo listener para escuchar la muerte de la entidad a la que pertenece
 		este componente.
+
+		@param listener listener a añadir.
 		*/
 		void addListener(IDeathListener* listener);
 
 		/**
 		Borra el listener de la lista de listeners.
+
+		@param listener listener a borrar.
 		*/
 		void removeListener(IDeathListener* listener);
-
-	protected:
 
 		/**
 		Notifica a todos los listeners de la muerte de la entidad y

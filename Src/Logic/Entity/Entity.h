@@ -35,6 +35,7 @@ namespace Logic
 	class CMap;
 	class IComponent;
 	class CEntityFactory;
+	class IDeathListener;
 }
 
 // Declaración de la clase
@@ -313,6 +314,26 @@ namespace Logic
 		@return true si la entidad está activa.
 		*/
 		bool isActivated() {return _activated;}
+
+		/**
+		Añade un listener para ser avisado cuando la entidad muera.
+
+		@return true si se ha podido añadir el listener correctamente. false en caso contrario.
+		Concretamente devolverá true si la entidad tiene un componente de tipo Life ya que en caso 
+		contrario no hay ningún componente al que añadir el listener.
+		@param listener listener a añadir.
+		*/
+		bool addDeathListener(IDeathListener* listener);
+
+		/**
+		Borra un listener de la lista de listeners de la muerte de la entidad
+
+		@return true si se ha podido borrar el listener correctamente. false en caso contrario.
+		Concretamente devolverá true si la entidad tiene un componente de tipo Life ya que en caso 
+		contrario no hay ningún componente del que borrar el listener.
+		@param listener listener a borrar.
+		*/
+		bool removeDeathListener(IDeathListener* listener);
 
 	protected:
 

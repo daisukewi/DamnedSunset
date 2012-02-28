@@ -12,6 +12,11 @@ Contiene la declaración de un interfaz para un listener de la muerte de una enti
 
 namespace Logic
 {
+	class CEntity;
+}
+
+namespace Logic
+{
 	/**
 	Listener de la muerte de una entidad.
 
