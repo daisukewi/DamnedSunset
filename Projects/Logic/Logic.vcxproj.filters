@@ -435,6 +435,9 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\TriggerEntity.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\DeathListener.h">
+      <Filter>Entity\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Entity">

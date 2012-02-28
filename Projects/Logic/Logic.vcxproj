@@ -175,6 +175,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\TriggerEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\TurretController.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\DeathListener.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Healing.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\LanzandoGranada.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.h" />

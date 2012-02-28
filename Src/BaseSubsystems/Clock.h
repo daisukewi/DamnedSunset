@@ -144,7 +144,7 @@ namespace BaseSubsystems
 		unsigned int _lastFrameDuration;
 
 		/**
-		Tipo Lista de oyentes del temporizador
+		Tipo Lista de oyentes del temporizador.
 		*/
 		typedef std::list<std::pair<int, IClockListener*>> TListenersList;
 

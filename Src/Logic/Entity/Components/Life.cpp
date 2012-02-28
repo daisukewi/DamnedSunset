@@ -101,9 +101,13 @@ namespace Logic
 					// Si han matado al enemigo matarlo
 					else if (!_entity->getType().compare("Enemy"))
 					{
+						// @TODO @ENTITYDEATH Habrá que borrar este bloque de código cuando la notificación de la muerte de la entidad funcione bien.
 						MAttackEntity *m = new MAttackEntity();
 						m->setAttack(false);
 						md->getKiller()->emitMessage(m, this);
+
+						// Notifico a todos mis oyentes de que la entidad ha muerto.
+						notifyDeathListeners();
 					
 						Map::CEntity * muertoInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Entity");
 
@@ -156,5 +160,39 @@ namespace Logic
 				}
 		}
 	} // process
+
+	//---------------------------------------------------------
+
+	void CLife::addListener(IDeathListener* listener)
+	{
+		_listeners.push_back(listener);
+	
+	} // addListener
+
+	//---------------------------------------------------------
+
+	void CLife::removeListener(IDeathListener* listener)
+	{
+		_listeners.remove(listener);
+
+	} // removeListener
+
+	//---------------------------------------------------------
+
+	void CLife::notifyDeathListeners()
+	{
+		TListenersList::iterator it, end;
+		it = _listeners.begin();
+		end = _listeners.end();
+
+		for (; it != end; it++)
+			(*it)->entityDeath(_entity);
+
+		_listeners.clear();
+		
+	} // notifyDeathListeners
+
+	//---------------------------------------------------------
+
 } // namespace Logic
 

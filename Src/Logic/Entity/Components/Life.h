@@ -13,6 +13,7 @@ Contiene la declaración del componente que controla la vida de una entidad.
 #define __Logic_Life_H
 
 #include "Logic/Entity/Component.h"
+#include "Logic/Entity/DeathListener.h"
 
 namespace Graphics 
 {
@@ -68,7 +69,24 @@ namespace Logic
 		*/
 		virtual void process(IMessage *message);
 
+		/**
+		Añade un nuevo listener para escuchar la muerte de la entidad a la que pertenece
+		este componente.
+		*/
+		void addListener(IDeathListener* listener);
+
+		/**
+		Borra el listener de la lista de listeners.
+		*/
+		void removeListener(IDeathListener* listener);
+
 	protected:
+
+		/**
+		Notifica a todos los listeners de la muerte de la entidad y
+		vacia la lista de listeners.
+		*/
+		void notifyDeathListeners();
 
 		/**
 		Vida de la entidad
@@ -83,6 +101,17 @@ namespace Logic
 		Billboard que muestra la vida
 		*/
 		Graphics::CBillboard * _billboard;
+
+		/**
+		Tipo Lista de oyentes de la muerte de la entidad.
+		*/
+		typedef std::list<IDeathListener*> TListenersList;
+
+		/**
+		Lista de todos los oyentes de la muerte de la entidad.
+		*/
+		TListenersList _listeners;
+
 	}; // class CLife
 
 	REG_FACTORY(CLife);
