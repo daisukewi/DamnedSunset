@@ -44,7 +44,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CPhysicDebug() : IComponent(), _graphicsEntity(0) {}
+		CPhysicDebug() : IComponent(), _graphicsEntity(0) , _redMaterial("physic_debug_red50"), _blueMaterial("physic_debug_blue50"), _greenMaterial("physic_debug_green50") {}
 
 		/**
 		Destructor (virtual); Quita de la escena y destruye la entidad gráfica.
@@ -109,6 +109,17 @@ namespace Logic
 		las entidades. La guardamos para la destrucción de la entidad gráfica.
 		*/
 		Graphics::CScene* _scene;
+
+		/**
+		Materiales que va a tener el componente dependiendo del prefab y del tipo de entidad
+		**/
+		std::string _redMaterial;
+		std::string _blueMaterial;
+		std::string _greenMaterial;
+
+
+
+
 	}; // class CGraphics
 
 	REG_FACTORY(CPhysicDebug);

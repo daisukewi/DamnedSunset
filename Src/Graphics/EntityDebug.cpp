@@ -28,9 +28,14 @@ Contiene la implementación de la clase que representa una entidad gráfica de deb
 #include <OgreBillboard.h>
 #include <OgreBillboardSet.h>
 
+#include <OgreMaterial.h>
+
+#include "Billboard.h"
+
+
 namespace Graphics 
 {
-	CEntityDebug::CEntityDebug(const std::string &name, const Graphics::TOgrePrefab &prefab, const Vector3 &dimensions)
+	CEntityDebug::CEntityDebug(const std::string &name, const Graphics::TOgrePrefab &prefab, const Vector3 &dimensions, const std::string &material)
 		: _entity(0), _entityNode(0), _scene(0), _loaded(false)
 	{
 		_name = name;
@@ -38,9 +43,15 @@ namespace Graphics
 		_dimensions = dimensions;
 		_height = 0.0;
 		_radius = 0.0;
+		
+        
+		//_material = new Ogre::Material(String& group, bool isManual = false, ManualResourceLoader* loader = 0);
+		_material = material;
+		
+		
 	} // CEntity
 
-	CEntityDebug::CEntityDebug(const std::string &name, const Graphics::TOgrePrefab &prefab, const float &height, const float &radius)
+	CEntityDebug::CEntityDebug(const std::string &name, const Graphics::TOgrePrefab &prefab, const float &height, const float &radius, const std::string &material)
 		: _entity(0), _entityNode(0), _scene(0), _loaded(false)
 	{
 		_name = name;
@@ -103,8 +114,28 @@ namespace Graphics
 	{
 		try
 		{
-			//_entity = _scene->getSceneMgr()->createEntity(_name, _mesh);
-			_entity = _scene->getSceneMgr()->createEntity(_name,0);
+			//Creación de los prefabs
+			
+			Ogre::SceneManager::PrefabType auxPrefab;
+			switch (_prefab){
+				case TOgrePrefab::PT_CUBE:{
+					auxPrefab = Ogre::SceneManager::PrefabType::PT_CUBE;
+				break;
+				}
+
+				case TOgrePrefab::PT_PLANE:{
+					auxPrefab = Ogre::SceneManager::PrefabType::PT_PLANE;
+				break;
+				}
+
+				case TOgrePrefab::PT_SPHERE:{
+					auxPrefab = Ogre::SceneManager::PrefabType::PT_SPHERE;
+				break;
+				}		
+
+			}
+			_entity = _scene->getSceneMgr()->createEntity(_name,auxPrefab);
+			
 			
 			
 		}
@@ -116,6 +147,14 @@ namespace Graphics
 								createChildSceneNode(_name + "_node");
 		_entityNode->attachObject(_entity);
 		_loaded = true;
+
+		//Añadir el material
+		_entity->setMaterialName(_material);
+
+		//Reescalar el prefab
+		Ogre::Node *node = _entity->getParentNode();
+			node->scale(0.2,0.2,0.2);
+
 		return true;
 
 	} // load
@@ -217,9 +256,9 @@ namespace Graphics
 
 	} // setScale
 
-	void CEntityDebug::attachBillboardSet(Ogre::BillboardSet* b) 
+	void CEntityDebug::attachBillboardSet(CBillboard* b) 
 	{
-		_entityNode->attachObject(b);
+		_entityNode->attachObject(b->getBillboarset());
 
 	}
 

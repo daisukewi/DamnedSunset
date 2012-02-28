@@ -92,7 +92,7 @@ namespace Graphics
 		@param transform Referencia a la matriz de transformación con la 
 		que debe posicionarse y orientarse la entidad.
 		*/
-		void setTransform(const Matrix4 &transform);
+		virtual void setTransform(const Matrix4 &transform);
 
 		/**
 		Cambia la posición de la entidad.
@@ -100,7 +100,7 @@ namespace Graphics
 		@param position Nueva posición para el nodo que contiene la entidad 
 		de Ogre.
 		*/
-		void setPosition(const Vector3& position);
+		virtual void setPosition(const Vector3& position);
 
 		/**
 		Cambia la orientación de la entidad.
@@ -108,7 +108,7 @@ namespace Graphics
 		@param orientation Referencia a la matriz de rotación con la que debe 
 		orientarse la entidad.
 		*/
-		void setOrientation(const Matrix3 &orientation);
+		virtual void setOrientation(const Matrix3 &orientation);
 
 		/**
 		 Establece la propiedad visible de la entidad. Si
@@ -122,7 +122,7 @@ namespace Graphics
 
 		 @param visible Nuevo valor de la propiedad visible.
 		 */
-		void setVisible(bool visible);
+		virtual void setVisible(bool visible);
 
 		/**
 		 Devuelve el valor de la propiedad visible.
@@ -133,21 +133,21 @@ namespace Graphics
 		 @return Cierto si la entidad es visible (está activa 
 		 para ser reenderizada).
 		*/
-		const bool getVisible();
+		virtual const bool getVisible();
 
 		/**
 		 Escala la entidad.
 
 		 @param scale Valores de la escala en los diferentes ejes.
 		 */
-		void setScale(const Vector3 &scale);
+		virtual void setScale(const Vector3 &scale);
 
 		/**
 		 Escala la entidad.
 
 		 @param scale Valor de la escala para los 3 ejes.
 		 */
-		void setScale(float scale);
+		virtual void setScale(float scale);
 
 		/**
 		 Devuelve el valor de la escala de la entidad.
@@ -161,9 +161,9 @@ namespace Graphics
 
 		@return puntero a la entidad de Ogre.
 		*/
-		Ogre::Entity* getEntity() {return _entity;}
+		virtual Ogre::Entity* getEntity() {return _entity;}
 
-		void attachBillboardSet(CBillboard* b);
+		virtual void attachBillboardSet(CBillboard* b);
 
 	protected:
 
@@ -181,7 +181,7 @@ namespace Graphics
 		la entidad.
 		@return true si la entidad se pudo cargar y añadir a la escena.
 		*/
-		bool attachToScene(CScene *scene);
+		virtual bool attachToScene(CScene *scene);
 
 		/**
 		Descarga una entidad de la escena en la que se encuentra cargada.
@@ -189,7 +189,7 @@ namespace Graphics
 		@return true si la entidad se descargo y eliminó de la escena
 		correctamente. Si la entidad no estaba cargada se devuelve false.
 		*/
-		bool deattachFromScene();
+		virtual bool deattachFromScene();
 		
 		/**
 		Carga la entidad gráfica correspondiente al nombre _mesh. No hace 
@@ -199,14 +199,14 @@ namespace Graphics
 		@return true si la entidad pudo crear los objetos necesarios en Ogre
 		o si la entidad ya estaba cargada.
 		*/
-		bool load();
+		virtual bool load();
 
 		/**
 		Elimina las estructuras creadas en Ogre mediante load(). No hace 
 		comprobaciónes de si la entidad está o no cargada o de si pertenece
 		a una escena. Esto se debe hacer de manera externa.
 		*/
-		void unload();
+		virtual void unload();
 		
 		/**
 		Actualiza el estado de la entidad cada ciclo. En esta clase no se

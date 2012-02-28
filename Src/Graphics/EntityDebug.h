@@ -25,6 +25,7 @@ namespace Ogre
 {
 	class Entity;
 	class SceneNode;
+	class Material;
 }
 
 namespace Graphics 
@@ -81,8 +82,10 @@ namespace Graphics
 		@param prefab de ogre que va a ser dibujado. 
 
 		@param dimensions dimensiones del prefab (cubo)
+
+		@material meterial del prefab
 		*/
-		CEntityDebug(const std::string &name, const Graphics::TOgrePrefab &prefab,const Vector3 &dimensions);
+		CEntityDebug(const std::string &name, const Graphics::TOgrePrefab &prefab,const Vector3 &dimensions, const std::string &material);
 
 		/**
 		Constructor de la clase. (Capsula)
@@ -96,8 +99,10 @@ namespace Graphics
 		@param height altura de la cápsula
 
 		@param radius radio de la cápsula
+
+		@param material material del prefab
 		*/
-		CEntityDebug(const std::string &name, const Graphics::TOgrePrefab &prefab,const float &height, const float &radius);
+		CEntityDebug(const std::string &name, const Graphics::TOgrePrefab &prefab,const float &height, const float &radius, const std::string &material);
 
 
 		//CEntity(const std::string &name, const 
@@ -112,7 +117,7 @@ namespace Graphics
 		@param transform Referencia a la matriz de transformación con la 
 		que debe posicionarse y orientarse la entidad.
 		*/
-		void setTransform(const Matrix4 &transform);
+		virtual void setTransform(const Matrix4 &transform);
 
 		/**
 		Cambia la posición de la entidad.
@@ -120,7 +125,7 @@ namespace Graphics
 		@param position Nueva posición para el nodo que contiene la entidad 
 		de Ogre.
 		*/
-		void setPosition(const Vector3& position);
+		virtual void setPosition(const Vector3& position);
 
 		/**
 		Cambia la orientación de la entidad.
@@ -128,7 +133,7 @@ namespace Graphics
 		@param orientation Referencia a la matriz de rotación con la que debe 
 		orientarse la entidad.
 		*/
-		void setOrientation(const Matrix3 &orientation);
+		virtual void setOrientation(const Matrix3 &orientation);
 
 		/**
 		 Establece la propiedad visible de la entidad. Si
@@ -142,7 +147,7 @@ namespace Graphics
 
 		 @param visible Nuevo valor de la propiedad visible.
 		 */
-		void setVisible(bool visible);
+		virtual void setVisible(bool visible);
 
 		/**
 		 Devuelve el valor de la propiedad visible.
@@ -153,7 +158,7 @@ namespace Graphics
 		 @return Cierto si la entidad es visible (está activa 
 		 para ser reenderizada).
 		*/
-		const bool getVisible();
+		virtual const bool getVisible();
 
 		/**
 		 Escala la entidad.
@@ -221,15 +226,20 @@ namespace Graphics
 		*/
 		float &getHeight();
 
+		/**
+		Devuelve el metarial de Ogre
+		*/
+		std::string getMaterial(){return _material;}
+
 
 		/**
 		Devuelve la entidad de Ogre.
 
 		@return puntero a la entidad de Ogre.
 		*/
-		Ogre::Entity* getEntity() {return _entity;}
+		virtual Ogre::Entity* getEntity() {return _entity;}
 
-		void attachBillboardSet(Ogre::BillboardSet* b);
+		virtual void attachBillboardSet(CBillboard* b);
 
 	protected:
 
@@ -247,7 +257,7 @@ namespace Graphics
 		la entidad.
 		@return true si la entidad se pudo cargar y añadir a la escena.
 		*/
-		bool attachToScene(CScene *scene);
+		virtual bool attachToScene(CScene *scene);
 
 		/**
 		Descarga una entidad de la escena en la que se encuentra cargada.
@@ -255,7 +265,7 @@ namespace Graphics
 		@return true si la entidad se descargo y eliminó de la escena
 		correctamente. Si la entidad no estaba cargada se devuelve false.
 		*/
-		bool deattachFromScene();
+		virtual bool deattachFromScene();
 		
 		/**
 		Carga la entidad gráfica correspondiente al nombre _mesh. No hace 
@@ -265,14 +275,14 @@ namespace Graphics
 		@return true si la entidad pudo crear los objetos necesarios en Ogre
 		o si la entidad ya estaba cargada.
 		*/
-		bool load();
+		virtual bool load();
 
 		/**
 		Elimina las estructuras creadas en Ogre mediante load(). No hace 
 		comprobaciónes de si la entidad está o no cargada o de si pertenece
 		a una escena. Esto se debe hacer de manera externa.
 		*/
-		void unload();
+		virtual void unload();
 		
 		/**
 		Actualiza el estado de la entidad cada ciclo. En esta clase no se
@@ -327,13 +337,21 @@ namespace Graphics
 		Vector3 _dimensions;
 
 		/**
-		Indicn el tamaño de las cápsulas
+		Indica el tamaño de las cápsulas
 		*/
 		float _radius;
 		float _height;
 
-		
+		/**
+		Indica el material del prefab
+		*/
+		//Ogre::Material *_material;
 
+		/**
+		Indica el material del prefab
+		*/
+		std::string _material;
+		
 	}; // class CEntity
 
 } // namespace Graphics

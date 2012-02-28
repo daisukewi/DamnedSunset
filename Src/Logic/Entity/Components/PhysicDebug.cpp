@@ -80,16 +80,17 @@ namespace Logic
 			float auxRadius;
 			
 			Graphics::TOgrePrefab prefab;
-			if (auxStr.compare("box")){
+			if (!auxStr.compare("box")){
 				prefab = Graphics::TOgrePrefab::PT_CUBE;
 
 				if (entityInfo->hasAttribute("physic_dimensions")){
 					auxDimensions = entityInfo->getVector3Attribute("physic_dimensions");
 				}
 				
-				_graphicsEntity = new Graphics::CEntityDebug(_entity->getName() + "_Debug",prefab, auxDimensions);
-			
-			}else if (auxStr.compare("capsule")){
+				_graphicsEntity = new Graphics::CEntityDebug(_entity->getName() + "_Debug",prefab, auxDimensions, _redMaterial);
+				
+
+			}else if (!auxStr.compare("capsule")){
 				prefab = Graphics::TOgrePrefab::PT_CUBE;
 				
 				if (entityInfo->hasAttribute("physic_height")){
@@ -100,10 +101,12 @@ namespace Logic
 					auxRadius = entityInfo->getFloatAttribute("physic_radius");
 				}
 
-				_graphicsEntity = new Graphics::CEntityDebug(_entity->getName() + "_Debug",prefab,auxHeight,auxRadius);
-	
+				_graphicsEntity = new Graphics::CEntityDebug(_entity->getName() + "_Debug",prefab,auxHeight,auxRadius, _blueMaterial);
 			}
-			
+		//TODO cuando se unifique cada trigger en su entidada correspondiente
+			//habrá que añadir el código necesario
+		}else if (entityInfo->hasAttribute("trigger")){
+		
 		}
 
 			
@@ -112,7 +115,7 @@ namespace Logic
 
 		_graphicsEntity->setScale(scale);
 		_graphicsEntity->setTransform(_entity->getTransform());
-		
+
 		return _graphicsEntity;
 
 	} // createGraphicsEntity
