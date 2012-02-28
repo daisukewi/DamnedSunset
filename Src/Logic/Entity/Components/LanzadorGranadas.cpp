@@ -82,16 +82,34 @@ namespace Logic
 			}
 			else if (m->getOrden() == lanzar)
 			{
+				//LANZAMOS LA GRANADA
+
+				//Ocultamos el billboard del alcance de la granada
+				_billboard->setVisible(false);
+
+				//Posicion destino solo con X, Y.
+				Vector2 posDestino = *m->getPosition();
+				//Posicion destino solo con X, Y, Z.
+				Vector3 posDestino3 = Vector3(posDestino.x,4,posDestino.y);
+
 				//Lanzamos la granada a dicha posicion
-				Map::CEntity * mapEntity = Map::CMapParser::getSingletonPtr()->getEntityInfo("Granada");
-				mapEntity->setName("granada" + rand() );
+				Map::CEntity * entityInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Granada");
+				entityInfo->setName("granada" + rand() );
 
+				//Ponemos la posicion de la granada en el mismo sitio que la entidad
+				//std::stringstream pos;
+				//pos << _entity->getPosition().x << ' ' << _entity->getPosition().y << ' ' << _entity->getPosition().z;
+				//entityInfo->setAttribute("position", pos.str());
+
+				//Ponemos la posicion de la granada en el destino
 				std::stringstream pos;
-				pos << _entity->getPosition().x << ' ' << _entity->getPosition().y << ' ' << _entity->getPosition().z;
-				mapEntity->setAttribute("position", pos.str());
+				pos << posDestino3.x << ' ' << posDestino3.y << ' ' << posDestino3.z;
+				entityInfo->setAttribute("position", pos.str());
+
+				Logic::CEntity *entityGranada = CEntityFactory::getSingletonPtr()->createEntity(entityInfo,Logic::CServer::getSingletonPtr()->getMap());
 
 
-				Logic::CEntity *entity = CEntityFactory::getSingletonPtr()->createEntity(mapEntity,Logic::CServer::getSingletonPtr()->getMap());
+				//entityGranada->setPosition(posDestino3);
 			}
 		}
 	} // process

@@ -28,14 +28,23 @@ namespace Logic
 		{
 			Logic::MLanzarGranada *mLanzarGranada = new Logic::MLanzarGranada();
 			mLanzarGranada->setOrdenGranada(ocultar);
-			//_entity->emitMessage(mLanzarGranada);
+
+			_selectionController->getSelectedEntity()->emitMessage(mLanzarGranada);
 
 			_selectionController->changeState(State::PLAYER_SELECTED);
 
 		}	
 		if (button == TMouseAction::RIGHT_CLICK)
 		{
+			//Mandamos un mensaje para que lance la granada
+			Logic::MLanzarGranada *mLanzarGranada = new Logic::MLanzarGranada();
+			mLanzarGranada->setOrdenGranada(lanzar);
+			mLanzarGranada->setPosition(Vector2(point.x,point.z));
+			_selectionController->getSelectedEntity()->emitMessage(mLanzarGranada);
+			mLanzarGranada = new Logic::MLanzarGranada();
 
+			//Salimos del estado de lanzar granada
+			_selectionController->changeState(State::PLAYER_SELECTED);
 		}
 	}
 
