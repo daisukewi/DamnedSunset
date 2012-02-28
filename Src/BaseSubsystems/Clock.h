@@ -107,7 +107,7 @@ namespace BaseSubsystems
 		@param clock tiempo tras el cual el oyente quiere ser avisado (en milisegundos).
 		@param listener oyente del temporizador.
 		*/
-		void addListener(unsigned int clock, IClockListener* listener);
+		void addListener(int clock, IClockListener* listener);
 
 	protected:
 
@@ -146,7 +146,7 @@ namespace BaseSubsystems
 		/**
 		Tipo Lista de oyentes del temporizador
 		*/
-		typedef std::list<std::pair<unsigned int, IClockListener*>> TListenersList;
+		typedef std::list<std::pair<int, IClockListener*>> TListenersList;
 
 		/**
 		Lista de todos los oyentes del temporizador.

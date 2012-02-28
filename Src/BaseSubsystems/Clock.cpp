@@ -28,9 +28,9 @@ namespace BaseSubsystems {
 
 	//--------------------------------------------------------
 
-	void IClock::addListener(unsigned int clock, IClockListener* listener)
+	void IClock::addListener(int clock, IClockListener* listener)
 	{
-		_listeners.push_front(std::pair<unsigned int, IClockListener*> (clock, listener));
+		_listeners.push_front(std::pair<int, IClockListener*> (clock, listener));
 
 	} // addListener
 
@@ -45,7 +45,7 @@ namespace BaseSubsystems {
 		for (; it != end; it++)
 		{
 			// Actualizo el cronómetro del listener con el tiempo transcurrido.
-			it->first = it->first - _lastFrameDuration;
+			it->first -= _lastFrameDuration;
 
 			// Si el cronómetro ha llegado a cero o menos, notifico al listener y lo anoto para borrarlo de la lista.
 			if (it->first <= 0)

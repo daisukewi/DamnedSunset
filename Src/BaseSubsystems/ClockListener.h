@@ -27,14 +27,14 @@ namespace BaseSubsystems
 	public:
 
 		/**
-		Constructor por defecto de la clase
+		Constructor por defecto de la clase. En la clase base no hace nada.
 		*/
-		IClockListener();
+		IClockListener() {}
 
 		/**
-		Destructor
+		Destructor por defecto. En la clase base no hace nada.
 		*/
-		virtual ~IClockListener();
+		virtual ~IClockListener() {}
 
 		/**
 		Método que será llamado por el temporizador de la aplicación
