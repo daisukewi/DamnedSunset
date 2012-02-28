@@ -278,6 +278,33 @@ namespace Logic
 			_activeState = _godStates[state];
 	}
 
+	//---------------------------------------------------------
+
+	void CSelectionController::changeLife(CEntity* entity, bool change){
+
+		MAttackEntity *m = new MAttackEntity();
+		if (change)
+		{
+			m->setEntity(entity);
+			m->setAttack(true);
+		}
+		else
+			m->setAttack(false);
+		_selectedEntity->emitMessage(m);
+
+	}
+
+	//---------------------------------------------------------
+
+	void CSelectionController::moveAStar(CEntity* entity, Vector3 point){
+
+		MAStarRoute *m_movement = new MAStarRoute();
+		m_movement->setAction(RouteAction::START_ROUTE);
+		m_movement->setRouteDestination(point);
+		_selectedEntity->emitMessage(m_movement, NULL);
+
+	}
+
 	void CSelectionController::processEntity( Vector3 colPoint, CEntity* colEntity )
 	{
 		// Hack para cancelar la orden mientras se está construyendo.

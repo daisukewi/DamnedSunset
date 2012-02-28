@@ -23,6 +23,7 @@ namespace Physics {
 
 namespace Logic {
 	class CPhysicEntity;
+	class CTriggerEntity;
 	class CEntity;
 };
 
@@ -229,6 +230,20 @@ namespace Physics {
 		IPhysicObj* createObject(Logic::CPhysicEntity *component, TPhysicMode mode, 
 			                     const Vector3 &position, const Matrix3 &orientation, 
 								 const IPhysicModel *model); 
+
+		/**
+		Crea un nuevo objeto físico y lo activa.
+
+		@param component Componente lógico asociado a la nueva entidad física.
+		@param mode Indica si el objeto es estático, dinámico o kinemático.
+		@param position Posicion inicial del objeto.
+		@param orientation Orientación inicial del objeto.
+		@param model Modelo que describe el tipo de objeto físico a crear.
+		@return Nuevo objeto físico creado o NULL si hubo algún problema.
+		*/
+		IPhysicObj* createTrigger(Logic::CTriggerEntity *component, TPhysicMode mode, 
+			                     const Vector3 &position, const Matrix3 &orientation, 
+								 const IPhysicModel *model);
 
 		/**
 		Destruye un objeto físico.

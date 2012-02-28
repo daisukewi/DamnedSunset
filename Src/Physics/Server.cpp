@@ -336,6 +336,35 @@ IPhysicObj* CServer::createObject(CPhysicEntity *component, TPhysicMode mode,
 
 //--------------------------------------------------------
 
+IPhysicObj* CServer::createTrigger(CTriggerEntity *component, TPhysicMode mode, 
+								  const Vector3 &position, const Matrix3 &orientation, 
+								  const IPhysicModel *model)
+{
+	assert(component && model);
+	assert(model->GetType() == IPhysicModel::MODEL_SIMPLE ||
+		   model->GetType() == IPhysicModel::MODEL_GENERIC ||
+		   model->GetType() == IPhysicModel::MODEL_CHARACTER);
+	
+	// Crear la entidad física 
+	IPhysicObj::TInitInfo initInfo;
+	initInfo.ePhysicMode = getPhysicMode(mode);
+	initInfo.vWorldPose.t = Vector3ToNxVec3(position);
+	initInfo.vWorldPose.M = Matrix3ToNxMat33(orientation);
+	initInfo.pPhysicModel = model;
+	CPhysicObj *obj = dynamic_cast<CPhysicObj *> (getScene()->CreatePhysicObj(initInfo));
+	
+	// Vincular la entidad física con el componente lógico para recibir notificaciones
+	// de colisiones
+	obj->userData = component;
+
+	// Activar la entidad física
+	obj->Activate();
+
+	return obj;
+}
+
+//--------------------------------------------------------
+
 void CServer::destroyObject(IPhysicObj *obj)
 {
 	assert(obj);

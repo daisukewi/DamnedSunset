@@ -15,7 +15,7 @@ basadas en Ogre. Esta clase maneja la ejecución de todo el juego.
 @date Julio, 2010
 */
 
-#include "OgreClock.h"
+#include "BaseSubsystems/OgreClock.h"
 #include "3DApplication.h"
 
 #include "Graphics/Server.h"

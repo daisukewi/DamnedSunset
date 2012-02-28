@@ -101,6 +101,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SunController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchPosition.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\TriggerEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\TurretController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\Building.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\BuildSelected.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SunController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchPosition.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\TriggerEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\TurretController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Healing.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\LanzandoGranada.h" />

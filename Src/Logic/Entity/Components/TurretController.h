@@ -103,9 +103,14 @@ namespace Logic
 		float _precision;
 
 		/**
-		Entidad objetivo a atacar.
+		Tipos para la lista de entidades.
 		*/
-		CEntity* _enemy;
+		typedef std::list<CEntity*> TEntityList;
+
+		/**
+		Entidades objetivo a atacar.
+		*/
+		TEntityList* _enemies;
 
 	}; // class CTurretController
 

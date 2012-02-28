@@ -47,7 +47,6 @@ namespace Logic
 	const std::string STR_BOX = "box";
 	const std::string STR_PHYSIC_DIMENSIONS = "physic_dimensions";
 	const std::string STR_PHYSIC_MASS = "physic_mass";
-	const std::string STR_PHYSIC_TRIGGER = "physic_trigger";
 	const std::string STR_PHYSIC_COLLISION_GROUP = "physic_collision_group";
 
 	/**
@@ -135,21 +134,6 @@ namespace Logic
 		@param otherEntity La otra entidad involucrada en el choque.
 		 */
 		virtual void onEntityHit(const CEntity *otherEntity);
-
-		/**
-		Este método se invoca cada vez que la entidad física asociada a este 
-		componente interactúa con otra, siendo alguna de ellas un trigger. Debemos 
-		tener en cuenta que las dos entidades involucradas serán notificadas a 
-		través de este método. Por tanto, el parámetro "otherEntity" puede representar
-		tanto una entidad asociada a un trigger (cuando se notifica a la otra entidad)
-		como una entidad física de cualquier tipo (cuando se notifica al trigger).
-
-		@param otherEntity La otra entidad involucrada.
-		@param enter Indica si una entidad física ha entrado en el trigger.
-		@param leave Indica si una entidad física ha salido del trigger.
-		@param stay Indica si una entidad física permanece dentro del trigger.
-		*/
-		virtual void onEntityTrigger(const CEntity *otherEntity, bool enter, bool leave, bool stay);
 
 	protected:
 

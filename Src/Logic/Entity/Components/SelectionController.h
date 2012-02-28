@@ -124,6 +124,22 @@ namespace Logic
 		*/
 		void changeSelectedEntity(CEntity* entity);
 
+		/**
+		Método usado para cambiar la vida de la entidad sobre la que recae la acción o para dejar de cambiarla
+
+		@param entity  entidad a la que se le modifica la vida
+		@param change  booleano que nos indica si modificar la vida o parar de modificarla
+		*/
+		void changeLife(CEntity* entity, bool change);
+
+		/**
+		Método usado para mover la entidad sobre la que recae la acción
+
+		@param entity  entidad a la que se mueve
+		@param point   punto al que se mueve
+		*/
+		void moveAStar(CEntity* entity, Vector3 point);
+
 	protected:
 
 		void processEntity( Vector3 colPoint, CEntity* colEntity );

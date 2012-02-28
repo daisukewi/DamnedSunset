@@ -124,31 +124,6 @@ void CPhysicEntity::onEntityHit(const CEntity *otherEntity)
 
 //---------------------------------------------------------
 
-void CPhysicEntity::onEntityTrigger(const CEntity *otherEntity, bool enter, bool leave, bool stay)
-{
-	// Sólo tenemos en cuenta los eventos de entrada y salida del trigger
-	if (stay)
-		return;
-
-	// Construimos un mensaje de tipo TOUCHED o UNTOUCHED y lo enviamos a todos los
-	// componentes de la entidad. 
-	MIsTouched *m = new MIsTouched();
-	if (enter)
-	{
-		m->setTouched(true);
-	}
-	else
-	{
-		m->setTouched(false);
-	}
-
-	m->setEntity(const_cast<CEntity *> (otherEntity));
-
-	_entity->emitMessage(m);
-}
-
-//---------------------------------------------------------
-
 IPhysicObj* CPhysicEntity::createPhysicEntity(const Map::CEntity *entityInfo)
 {
 	// Obtenemos el modelo físico que describe el tipo de entidad física
@@ -221,27 +196,6 @@ CPhysicModelSimple* CPhysicEntity::createPhysicModelSimple(const Map::CEntity *e
 
 	// Creamos el volumen de colisión adecuado
 	createPhysicShape(entityInfo, model, 1.0f);
-
-	// Comprobamos si estamos definiendo un trigger
-	if (entityInfo->hasAttribute(STR_PHYSIC_TRIGGER) && 
-		entityInfo->getBoolAttribute(STR_PHYSIC_TRIGGER)) {
-			
-			// Marcamos el volumen de colisión como trigger
-			_physicServer->setTrigger(model, 0, true);
-
-			// Las entidades físicas dinámicas y kinemáticas deben tener al menos un
-			// volumen de colisión que no sea un trigger. Intuitivamente este volumen
-			// de colisión es el que contiene la masa de la entidad.
-			// 
-			// En este juego usaremos el grupo de colisión 0 para los triggers kinemáticos.
-			// Para que todo funcione correctamente debemos configurar los character controller
-			// para que no choquen contra el grupo 0 (método move). Además desactivamos las
-			// colisiones de otros grupos contra el 0 al crear la escena.
-			std::string type = entityInfo->getStringAttribute(STR_PHYSIC_TYPE);
-			if ((type == STR_DYNAMIC) || (type == STR_KINEMATIC)) {
-				createPhysicShape(entityInfo, model, 1.0f);
-			}
-	}
 
 	// Si estamos definiendo un objeto dinámico anotamos su masa.
 	if (entityInfo->hasAttribute(STR_PHYSIC_MASS)) {

@@ -35,17 +35,9 @@ Map = {
 		physic_height = 2,
 		physic_radius = 15,
 		physic_collision_group = 2,
-	},
-
-	TorretaTrigger = {
-		type = "TurretTrigger",
-		position = {0, 0, 0},
-		physic_entity = "simple",
-		physic_type = "static",
-		physic_trigger = true,
-		physic_shape = "box",
-		physic_dimensions = { 20, 2.5, 20 },
-		physic_collision_group = 5,
+		trigger_shape = "trigger_box",
+		trigger = true,
+		trigger_dimensions = { 0.1, 0.1, 0.1 },
 		precision = 0.1,
 	},
 	

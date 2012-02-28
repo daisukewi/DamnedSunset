@@ -13,6 +13,7 @@ de notificar las colisiones a las entidades lógicas que lo requieran.
 
 #include "CollisionMng.h"
 #include "Logic/Entity/Components/PhysicEntity.h"
+#include "Logic/Entity/Components/TriggerEntity.h"
 
 #include <NxActor.h>
 
@@ -70,11 +71,11 @@ void  CCollisionMng::onTrigger (const TActorInfo &triggerInfo, const TActorInfo 
 	bool stay =  (status & NX_TRIGGER_ON_STAY) > 0;  // Un cuerpo permanece en el trigger
 	
 	// Obtener el componente y la entidad asociados al trigger
-	CPhysicEntity *triggerComponent = reinterpret_cast<CPhysicEntity*> (triggerInfo.pPhysicObj->userData);
+	CTriggerEntity *triggerComponent = reinterpret_cast<CTriggerEntity*> (triggerInfo.pPhysicObj->userData);
 	CEntity *triggerEntity = triggerComponent->getEntity();
 
 	// Obtener el componente y la entidad asociados al otro actor
-	CPhysicEntity *otherComponent = reinterpret_cast<CPhysicEntity*> (otherInfo.pPhysicObj->userData);
+	CTriggerEntity *otherComponent = reinterpret_cast<CTriggerEntity*> (otherInfo.pPhysicObj->userData);
 	CEntity *otherEntity = otherComponent->getEntity();
 
 	// Notificar a ambos componentes la colision

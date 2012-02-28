@@ -38,6 +38,8 @@ namespace Logic
 		if(entityInfo->hasAttribute("precision"))
 			_precision = entityInfo->getFloatAttribute("precision");
 
+		_enemies = new TEntityList();
+
 		return true;
 
 	} // spawn
@@ -74,7 +76,7 @@ namespace Logic
 
 			if (m->getTouched() && !m->getEntity()->getType().compare("Enemy"))
 			{
-				_enemy = m->getEntity();
+				_enemies->push_back(m->getEntity());
 				_attacking = true;
 				/*
 				// Orientamos la torreta hacia el enemigo al que dispara
@@ -85,13 +87,25 @@ namespace Logic
 				*/
 			}
 			else if (!m->getTouched())
-				_attacking = false;
+			{
+				if (_enemies != NULL)
+				{
+					_enemies->push_back(m->getEntity());
+					assert(_enemies->size());
+					_enemies->remove(m->getEntity());
+					_attacking = !(_enemies->empty());
+				}
+			}
 		}
 		else if (!message->getType().compare("MAttackEntity"))
 		{
 			MAttackEntity *m_attack = static_cast <MAttackEntity*> (message);
 			if (!m_attack->getAttack())
+			{
 				_attacking =false;
+				assert(m_attack->getEntity());
+				_enemies->remove(m_attack->getEntity());
+			}
 		}
 
 	} // process
@@ -102,15 +116,16 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 		
-		if (_attacking && _enemy != NULL)
+		if (_attacking)
 		{
 			MDamaged *m_dam = new MDamaged();
-			assert(_enemy);
+			assert(_enemies->back());
 
-			m_dam->setHurt(40 * _precision / ((_entity->getPosition() - _enemy->getPosition()).length() + 0.1));
+			m_dam->setHurt(40 * _precision / ((_entity->getPosition() - _enemies->back()->getPosition()).length() + 0.1));
 			m_dam->setKiller(_entity);
 
-			_enemy->emitMessage(m_dam, this);
+			assert(_enemies->back());
+			_enemies->back()->emitMessage(m_dam, this);
 		}
 
 

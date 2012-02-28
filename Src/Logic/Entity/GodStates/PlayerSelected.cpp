@@ -40,17 +40,10 @@ namespace Logic
 		
 			if (!entity->getType().compare("World") || !entity->getType().compare("TurretTrigger"))
 			{
-				CEntity* selectedEntity = _selectionController->getSelectedEntity();
 
 				// Dejamos de atacar o de curar
-				MAttackEntity *m = new MAttackEntity();
-				m->setAttack(false);
-				selectedEntity->emitMessage(m);
-				
-				MAStarRoute *m_movement = new MAStarRoute();
-				m_movement->setAction(RouteAction::START_ROUTE);
-				m_movement->setRouteDestination(point);
-				selectedEntity->emitMessage(m_movement, NULL);
+				_selectionController->changeLife(entity, false);
+				_selectionController->moveAStar(entity, point);
 
 				//Mensaje para que se cree el billboard de movimiento en el mundo
 				Logic::MCrearBillboardMovimiento *mCrearBillboardMovimiento = new Logic::MCrearBillboardMovimiento();
@@ -63,14 +56,9 @@ namespace Logic
 
 			if (!entity->getType().compare("Enemy"))
 			{
-				
-				CEntity* selectedEntity = _selectionController->getSelectedEntity();
 
 				// Enviamos una orden de ataque al enemigo
-				MAttackEntity *m = new MAttackEntity();
-				m->setEntity(entity);
-				m->setAttack(true);
-				selectedEntity->emitMessage(m);
+				_selectionController->changeLife(entity, true);
 
 			}
 	
