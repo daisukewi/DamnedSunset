@@ -6,6 +6,8 @@
 #include "AI/Server.h"
 #include "AI/Movement.h"
 
+#include "Physics/Server.h"
+
 #include "Logic/Entity/Messages/MoveSteering.h"
 #include "Logic/Entity/Messages/AStarRoute.h"
 
@@ -88,11 +90,13 @@ namespace Logic
 				m->setRouteFailed(true);
 				_entity->emitMessage(m, this);
 			} else {
-				_currentNode = 0;
+				_currentNode = 0; //Indicamos que vamos a empezar en el primer nodo.
+				_currentNode = getNextRoutePoint(); //Nos devuelve el siguiente nodo al que debemos viajar.
 				_arrived = false;
+				_nextWaypoint = false;
 				// Si hay ruta hacemos que vaya al primer punto
 				//sendMoveMessage((*_currentRoute)[0], AI::IMovement::MOVEMENT_KINEMATIC_SEEK);
-				sendMoveMessage((*_currentRoute)[0], AI::IMovement::MOVEMENT_DYNAMIC_SEEK);
+				sendMoveMessage((*_currentRoute)[_currentNode], AI::IMovement::MOVEMENT_DYNAMIC_SEEK);
 			}
 		}
 
@@ -100,7 +104,7 @@ namespace Logic
 			if (_nextWaypoint) {
 				_nextWaypoint = false;
 				// Pasamos al siguiente nodo
-				_currentNode++;
+				_currentNode = getNextRoutePoint();
 				if (_currentNode >= _currentRoute->size()) {
 					// Era el último nodo ==> parar
 					_arrived = true;
@@ -200,5 +204,38 @@ namespace Logic
 		message->removePtr();
 
 	} // process
+
+	int CRouteTo::getNextRoutePoint()
+	{
+		// Si hemos llegado al último nodo, salimos.
+		if (_currentNode >= _currentRoute->size() - 1)
+			return _currentRoute->size();
+
+		// Guardamos la posición actual y el índice del último nodo.
+		Vector3 from = _entity->getPosition();
+		int next_node = _currentRoute->size() - 1;
+
+		bool found = false;
+		while (!found && next_node > _currentNode + 1)
+		{
+			Vector3 direction = (*_currentRoute)[next_node] - from;
+			direction.y = 0;
+			// Lanzamos un rayo desde nuestra posición hasta el siguiente nodo
+			// y comprobamos si colisiona con algún objeto.
+			CEntity *col = Physics::CServer::getSingletonPtr()->raycastClosest( Ray( from, direction.normalisedCopy() ), direction.length() );
+
+			// TODO: Cambiar el raycast cuando se implementen los raycast por grupos de colisión.
+			// HACK: Mientras tanto, se comprueba que la colisión no sea con una torreta.
+			found = (col == NULL) || (col->getType() != "Turret");
+
+			// Si hay un objeto entre el siguiente nodo y nosotros,
+			// probamos con el nodo inferior.
+			if (!found)
+				--next_node;
+		}
+
+		return next_node;
+
+	} // optimizeRoute
 
 } //namespace Logic 

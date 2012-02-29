@@ -110,6 +110,15 @@ namespace Logic
 		@movementType Tipo de movimiento.
 		*/
 		void sendMoveMessage(Vector3 target, int movementType);
+
+		/**
+		Devuelve el siguiente punto de la ruta al que se tiene que viajar.
+		Optimiza la ruta generada por el A* eliminando nodos innecesarios.
+
+		@return entero que contiene el siguiente nodo de la ruta por el
+		        que se tiene que pasar.
+		*/
+		int getNextRoutePoint();
 	};
 
 	REG_FACTORY(CRouteTo);
