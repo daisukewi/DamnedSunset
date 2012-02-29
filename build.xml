@@ -333,7 +333,7 @@ Parametros:
 
 <target name="CruiseControl"
         description="Compilacion para CruiseControl."
-        depends="build">
+        depends="rebuild">
 </target>
 
 </project>
