@@ -112,6 +112,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\PlayerSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Message.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntityDeath.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntityDeathListener.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttackEntity.cpp" />
@@ -123,6 +124,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\Damaged.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EmplaceBuilding.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntitySelected.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\Healed.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\IsTouched.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\LanzarGranada.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MouseEvent.cpp" />
@@ -183,6 +185,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\LanzandoGranada.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Building.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntityDeath.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntityDeathListener.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttackEntity.h" />
@@ -198,6 +201,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\Damaged.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EmplaceBuilding.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntitySelected.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\Healed.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\IsTouched.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\LanzarGranada.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MouseEvent.h" />

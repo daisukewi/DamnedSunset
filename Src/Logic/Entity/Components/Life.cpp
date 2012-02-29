@@ -29,8 +29,11 @@ Contiene la implementación del componente que controla la vida de una entidad.
 
 //Mensajes
 #include "Logic/Entity/Messages/Damaged.h"
+#include "Logic/Entity/Messages/Healed.h"
 #include "Logic/Entity/Messages/AttackEntity.h"
+#include "Logic/Entity/Messages/CureEntity.h"
 #include "Logic/Entity/Messages/EntityDeathListener.h"
+#include "Logic/Entity/Messages/EntityDeath.h"
 
 #include "GUI/Server.h"
 #include "GUI/InterfazController.h"
@@ -80,7 +83,8 @@ namespace Logic
 
 	bool CLife::accept(IMessage *message)
 	{
-		return (message->getType().compare("MDamaged") == 0) || !message->getType().compare("MSendBillboard") || !message->getType().compare("MEntityDeathListener");
+		return (message->getType().compare("MDamaged") == 0) || !message->getType().compare("MSendBillboard")
+			   || !message->getType().compare("MHealed") || !message->getType().compare("MEntityDeathListener");
 
 	} // accept
 	
@@ -104,9 +108,9 @@ namespace Logic
 					else if (!_entity->getType().compare("Enemy"))
 					{
 						// @TODO @ENTITYDEATH Habrá que borrar este bloque de código cuando la notificación de la muerte de la entidad funcione bien.
-						/*MAttackEntity *m = new MAttackEntity();
+						MAttackEntity *m = new MAttackEntity();
 						m->setAttack(false);
-						md->getKiller()->emitMessage(m, this);*/
+						md->getKiller()->emitMessage(m, this);
 
 						// Notifico a todos mis oyentes de que la entidad ha muerto.
 						notifyDeathListeners();
@@ -123,10 +127,13 @@ namespace Logic
 						muertoInfo->setAttribute("orientation", "90");
 						muertoInfo->setAttribute("model", "loco.mesh");
 
-						Logic::CEntity *muerto = Logic::CEntityFactory::getSingletonPtr()->createEntity(muertoInfo, _entity->getMap());
+						//Logic::CEntity *muerto = Logic::CEntityFactory::getSingletonPtr()->createEntity(muertoInfo, _entity->getMap());
+						MEntityDeath *m_death = new MEntityDeath();
+						m_death->setEntityDeath(_entity);
+						_entity->emitMessage(m_death);
 
-						if (_entity != NULL)
-							CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
+						//if (_entity != NULL)
+						//	CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 					}
 				}
 				// @todo Poner la animación de herido.
@@ -151,15 +158,6 @@ namespace Logic
 					//Actualizamos la vida en la interfaz
 					GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('3',_life/_maxLife);
 				}
-
-				// Si la entidad se ha curado paramos
-				if (_life >= _maxLife)
-				{
-					_life = _maxLife;
-					MAttackEntity *m = new MAttackEntity();
-					m->setAttack(false);
-					md->getKiller()->emitMessage(m, this);
-				}
 		} else if (!message->getType().compare("MEntityDeathListener")) {
 			// Si en un mensaje de listener se mira si hay que añadirlo o borrarlo y se hace.
 
@@ -170,7 +168,21 @@ namespace Logic
 			else
 				removeListener(m->getListener());
 			
+		} else if (!message->getType().compare("MHealed"))
+		{
+			MHealed *mh = static_cast <MHealed*> (message);
+			// Aumentar la vida de la entidad
+			_life += mh->getHeal();
+			// Si la entidad se ha curado del todo paramos
+			if (_life >= _maxLife)
+			{
+				_life = _maxLife;
+				MCureEntity *m = new MCureEntity();
+				m->setCure(false);
+				mh->getHealer()->emitMessage(m, this);
+			}
 		}
+
 	} // process
 
 	//---------------------------------------------------------

@@ -67,7 +67,7 @@ namespace Logic
 
 	bool CTriggerEntity::accept(IMessage *message)
 	{
-		return (message->getType().compare("MSetTransform") == 0);
+		return false;
 	}
 
 	//---------------------------------------------------------
@@ -81,7 +81,7 @@ namespace Logic
 
 	void CTriggerEntity::tick(unsigned int msecs) 
 	{
-		// Invocar al método de la clase padre (IMPORTANTE)
+		// Invocar al método de la clase padre
 		IComponent::tick(msecs);
 	}
 

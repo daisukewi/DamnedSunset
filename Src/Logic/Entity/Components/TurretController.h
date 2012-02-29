@@ -15,6 +15,7 @@ Contiene la declaración del componente que controla lo que debe hacer una torret
 #include "Logic/Entity/Component.h"
 
 #include "BaseSubsystems/Math.h"
+#include "Logic/Entity/DeathListener.h"
 
 //declaración de la clase
 namespace Logic 
@@ -27,7 +28,7 @@ namespace Logic
 	@author Luis Mendoza
 	@date Febrero, 2012
 */
-	class CTurretController : public IComponent
+	class CTurretController : public IComponent, public IDeathListener
 	{
 		DEC_FACTORY(CTurretController);
 	public:
@@ -36,7 +37,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CTurretController() : IComponent(), _attacking(false), _precision(50) {}
+		CTurretController() : IComponent(), IDeathListener(), _attacking(false), _precision(50) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -89,6 +90,12 @@ namespace Logic
 		@param message Mensaje a procesar.
 		*/
 		virtual void process(IMessage *message);
+
+		/**
+		Método heredado de la interfaz IDeathListener que será llamado
+		cuando la entidad muera.
+		*/
+		virtual void entityDeath(CEntity* entity);
 
 	protected:
 

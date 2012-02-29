@@ -24,7 +24,6 @@ entidades que no son character controllers.
 #include "Physics/IPhysicObj.h"
 
 #include "Logic/Entity/Messages/SetTransform.h"
-#include "Logic/Entity/Messages/IsTouched.h"
 
 using namespace Logic;
 using namespace Physics;

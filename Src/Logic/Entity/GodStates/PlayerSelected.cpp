@@ -41,8 +41,8 @@ namespace Logic
 			if (!entity->getType().compare("World") || !entity->getType().compare("TurretTrigger"))
 			{
 
-				// Dejamos de atacar o de curar
-				_selectionController->changeLife(entity, false);
+				// Dejamos de atacar
+				_selectionController->sendAttackMsg(entity, false);
 				_selectionController->moveAStar(entity, point);
 
 				//Mensaje para que se cree el billboard de movimiento en el mundo
@@ -58,7 +58,7 @@ namespace Logic
 			{
 
 				// Enviamos una orden de ataque al enemigo
-				_selectionController->changeLife(entity, true);
+				_selectionController->sendAttackMsg(entity, true);
 
 			}
 	

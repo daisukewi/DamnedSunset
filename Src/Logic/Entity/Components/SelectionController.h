@@ -125,12 +125,20 @@ namespace Logic
 		void changeSelectedEntity(CEntity* entity);
 
 		/**
-		Método usado para cambiar la vida de la entidad sobre la que recae la acción o para dejar de cambiarla
+		Método usado para atacar a la entidad sobre la que recae la acción o para dejar de atacarla
 
 		@param entity  entidad a la que se le modifica la vida
-		@param change  booleano que nos indica si modificar la vida o parar de modificarla
+		@param attack  booleano que nos indica si atacar o parar de atacar
 		*/
-		void changeLife(CEntity* entity, bool change);
+		void sendAttackMsg(CEntity* entity, bool attack);
+
+		/**
+		Método usado para curar a la entidad sobre la que recae la acción o para dejar de curarla
+
+		@param entity  entidad a la que se le modifica la vida
+		@param heal    booleano que nos indica si curar o parar de curar
+		*/
+		void sendHealerMsg(CEntity* entity, bool heal);
 
 		/**
 		Método usado para mover la entidad sobre la que recae la acción

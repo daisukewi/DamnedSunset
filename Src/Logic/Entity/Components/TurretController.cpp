@@ -62,7 +62,7 @@ namespace Logic
 
 	bool CTurretController::accept(IMessage *message)
 	{
-		return !message->getType().compare("MIsTouched") || !message->getType().compare("MAttackEntity");
+		return !message->getType().compare("MIsTouched") /*|| !message->getType().compare("MAttackEntity")*/;
 
 	} // accept
 	
@@ -79,6 +79,10 @@ namespace Logic
 				_enemies->push_back(m->getEntity());
 				_attacking = true;
 				/*
+				Apunto a la torreta a la muerte del enemigo que acaba de llegar.
+				*/
+				_enemies->back()->addDeathListener(this);
+				/*
 				// Orientamos la torreta hacia el enemigo al que dispara
 				float yaw = atan((_enemy->getPosition().x - _entity->getPosition().x) / (_enemy->getPosition().z - _entity->getPosition().z));
 				if ((_enemy->getPosition().z - _entity->getPosition().z) >= 0)
@@ -90,13 +94,12 @@ namespace Logic
 			{
 				if (_enemies != NULL)
 				{
-					_enemies->push_back(m->getEntity());
-					assert(_enemies->size());
 					_enemies->remove(m->getEntity());
 					_attacking = !(_enemies->empty());
 				}
 			}
 		}
+		/*
 		else if (!message->getType().compare("MAttackEntity"))
 		{
 			MAttackEntity *m_attack = static_cast <MAttackEntity*> (message);
@@ -107,6 +110,7 @@ namespace Logic
 				_enemies->remove(m_attack->getEntity());
 			}
 		}
+		*/
 
 	} // process
 	
@@ -130,6 +134,19 @@ namespace Logic
 
 
 	} // tick
+
+	//---------------------------------------------------------
+
+	void CTurretController::entityDeath(CEntity* entity)
+	{
+		/* 
+		Implementación del método que va a ser llamado cuando muera la entidad.
+		*/
+		_enemies->remove(entity);
+		_attacking = !(_enemies->empty());
+		entity->removeDeathListener(this);
+
+	} // entityDeath
 
 	//---------------------------------------------------------
 

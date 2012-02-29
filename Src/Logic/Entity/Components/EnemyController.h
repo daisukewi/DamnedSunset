@@ -14,6 +14,7 @@ del enemigo.
 #define __Logic_EnemyController_H
 
 #include "Logic/Entity/Component.h"
+#include "BaseSubsystems/ClockListener.h"
 
 //declaración de la clase
 namespace Logic 
@@ -26,7 +27,7 @@ namespace Logic
 	@author Luis Mendoza
 	@date Enero, 2012
 */
-	class CEnemyController : public IComponent
+	class CEnemyController : public IComponent, public BaseSubsystems::IClockListener
 	{
 		DEC_FACTORY(CEnemyController);
 	public:
@@ -35,7 +36,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CEnemyController() : IComponent(), _moving(false) {}
+		CEnemyController() : IComponent(), BaseSubsystems::IClockListener(), _moving(false) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -65,6 +66,10 @@ namespace Logic
 		componente. Se invocará siempre, independientemente de si estamos
 		activados o no.
 		<p>
+
+		Cuando el enemigo pierde toda su vida se llama a este método.
+		El enemigo se deja de mover y pone su animación de muerte.
+		A los 10 secs desaparece.
 		*/
 		virtual void deactivate();
 
@@ -92,6 +97,13 @@ namespace Logic
 		@param message Mensaje a procesar.
 		*/
 		virtual void process(IMessage *message);
+
+		/**
+		Método heredado de la interfaz IClockListener que será llamado
+		por el temporizador cuando se acabe el tiempo de espera
+		especificado.
+		*/
+		virtual void timeElapsed();
 
 	protected:
 

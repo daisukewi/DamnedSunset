@@ -19,6 +19,7 @@
 #include "Logic/Entity/Messages/IsSelectable.h"
 #include "Logic/Entity/Messages/ActivateSkill.h"
 #include "Logic/Entity/Messages/LanzarGranada.h"
+#include "Logic/Entity/Messages/CureEntity.h"
 
 #include "Logic/Entity/GodStates/Free.h"
 #include "Logic/Entity/GodStates/BuildSelected.h"
@@ -280,16 +281,32 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CSelectionController::changeLife(CEntity* entity, bool change){
+	void CSelectionController::sendAttackMsg(CEntity* entity, bool attack){
 
 		MAttackEntity *m = new MAttackEntity();
-		if (change)
+		if (attack)
 		{
 			m->setEntity(entity);
 			m->setAttack(true);
 		}
 		else
 			m->setAttack(false);
+		_selectedEntity->emitMessage(m);
+
+	}
+
+	//---------------------------------------------------------
+
+	void CSelectionController::sendHealerMsg(CEntity* entity, bool heal){
+
+		MCureEntity *m = new MCureEntity();
+		if (heal)
+		{
+			m->setEntity(entity);
+			m->setCure(true);
+		}
+		else
+			m->setCure(false);
 		_selectedEntity->emitMessage(m);
 
 	}

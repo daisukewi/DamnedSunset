@@ -37,24 +37,23 @@ namespace Logic
 			selectedEntity->emitMessage(m);*/
 
 			// Enviamos una orden de curación al jugador
-			_selectionController->changeLife(entity, true);
+			_selectionController->sendHealerMsg(entity, true);
 
 			}
 			else
 			{
 				_selectionController->changeState(State::PLAYER_SELECTED);
+				_selectionController->sendHealerMsg(entity, false);
 
 				if (!entity->getType().compare("Enemy"))
 				{
 					// Dejamos de curar y enviamos una orden de ataque al enemigo
 					std::cout << "Dejamos de curar y atacamos a: " << entity->getName() << '\n';
-					_selectionController->changeLife(entity, true);
+					_selectionController->sendAttackMsg(entity, true);
 				}
 				else if (!entity->getType().compare("World") || !entity->getType().compare("TurretTrigger"))
 				{
 					std::cout << "Dejamos de curar y vamos al punto: " << point << '\n';
-				
-					_selectionController->changeLife(entity, false);
 					_selectionController->moveAStar(entity, point);
 				}
 			}

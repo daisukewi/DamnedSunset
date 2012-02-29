@@ -37,7 +37,7 @@ Map = {
 		physic_collision_group = 2,
 		trigger_shape = "trigger_box",
 		trigger = true,
-		trigger_dimensions = { 0.1, 0.1, 0.1 },
+		trigger_dimensions = { 10, 10, 10 },
 		precision = 0.1,
 	},
 	

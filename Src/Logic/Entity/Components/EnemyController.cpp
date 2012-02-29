@@ -14,6 +14,7 @@ del enemigo.
 #include "EnemyController.h"
 
 #include "Logic/Entity/Entity.h"
+#include "Logic/Maps/EntityFactory.h"
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
 
@@ -22,11 +23,15 @@ del enemigo.
 
 #include "BaseSubsystems/Math.h"
 
+#include "BaseSubsystems/Server.h"
+
 // Includes para pruebas de paso de mensajes a componentes de IA
 #include "AI/Server.h"
 #include "AI/Movement.h"
 
 #include "Logic/Entity/Messages/AStarRoute.h"
+#include "Logic/Entity/Messages/SetAnimation.h"
+#include "Logic/Entity/Messages/EntityDeath.h"
 
 
 namespace Logic
@@ -66,6 +71,7 @@ namespace Logic
 	{
 		bool accepted = !message->getType().compare("MAStarRoute");
 		if (accepted) message->addPtr();
+		accepted |= !message->getType().compare("MEntityDeath");
 
 		return accepted;
 
@@ -75,16 +81,36 @@ namespace Logic
 
 	void CEnemyController::process(IMessage *message)
 	{
-		MAStarRoute *m_route = static_cast <MAStarRoute*> (message);
-		switch (m_route->getAction())
+		if (!message->getType().compare("MAStarRoute"))
 		{
-		case RouteAction::FINISHED_ROUTE:
-			// Hemos terminado el movimiento actual así que tenemos que
-			// calcular una nueva ruta.
-			_moving = false;
-			break;
+			MAStarRoute *m_route = static_cast <MAStarRoute*> (message);
+			switch (m_route->getAction())
+			{
+			case RouteAction::FINISHED_ROUTE:
+				// Hemos terminado el movimiento actual así que tenemos que
+				// calcular una nueva ruta.
+				_moving = false;
+				break;
+			}
+			message->removePtr();
 		}
-		message->removePtr();
+		else if (!message->getType().compare("MEntityDeath"))
+		{
+			MAStarRoute *m_stop = new MAStarRoute();
+			m_stop->setAction(RouteAction::STOP_ROUTE);
+			_entity->emitMessage(m_stop, this);
+
+			MSetAnimation *m_anim = new MSetAnimation();
+			m_anim->setAnimationName("Death");
+			m_anim->setLoop(false);
+			_entity->emitMessage(m_anim, this);
+
+			/*
+			Aviso al reloj con el tiempo de temporizador.
+			El reloj empezará a contar a partir del frame siguiente a esta instrucción.
+			*/
+			BaseSubsystems::CServer::getSingletonPtr()->addClockListener(5000, this);
+		}
 	} // process
 	
 	//---------------------------------------------------------
@@ -108,6 +134,19 @@ namespace Logic
 		}
 
 	} // tick
+
+	//---------------------------------------------------------
+
+	void CEnemyController::timeElapsed()
+	{
+		/* 
+		Implementación del método de la interfaz que va a ser llamado cuando se acabe el tiempo.
+		Se elimina al enemigo.
+		*/
+
+		CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
+
+	} // timeElapsed
 
 } // namespace Logic
 

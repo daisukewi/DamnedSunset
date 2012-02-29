@@ -42,7 +42,7 @@ namespace Logic
 		defecto.
 		*/
 		CAvatarController() : IComponent(), _walking(false), _walkingBack(false), 
-			_strafingLeft(false), _strafingRight(false), _attack(false), _speed(0.05f) {}
+			_strafingLeft(false), _strafingRight(false), _attack(false), _cure(false), _speed(0.05f) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -179,9 +179,14 @@ namespace Logic
 		bool _attack;
 
 		/**
-		Atributo para saber la entidad que hay que atacar.
+		Atributo para saber si la entidad tiene que curar.
 		*/
-		CEntity* _enemy;
+		bool _cure;
+
+		/**
+		Atributo para saber la entidad que hay que atacar o curar.
+		*/
+		CEntity* _targetEntity;
 
 		/**
 		Atributo que indica la magnitud de velocidad de la entidad.

@@ -25,7 +25,9 @@ de la entidad.
 #include "Logic/Entity/Messages/MoveSteering.h"
 #include "Logic/Entity/Messages/AStarRoute.h"
 #include "Logic/Entity/Messages/Damaged.h"
+#include "Logic/Entity/Messages/Healed.h"
 #include "Logic/Entity/Messages/AttackEntity.h"
+#include "Logic/Entity/Messages/CureEntity.h"
 
 namespace Logic 
 {
@@ -63,7 +65,7 @@ namespace Logic
 
 	bool CAvatarController::accept(IMessage *message)
 	{
-		return (!message->getType().compare("MAttackEntity"));
+		return (!message->getType().compare("MAttackEntity") || !message->getType().compare("MCureEntity"));
 
 	} // accept
 	
@@ -80,7 +82,7 @@ namespace Logic
 			m_anim->setLoop(true);
 			if (_attack)
 			{
-				_enemy = m->getEntity();
+				_targetEntity = m->getEntity();
 				m_anim->setAnimationName("Walk");
 			}
 			else
@@ -88,6 +90,14 @@ namespace Logic
 				m_anim->setAnimationName("Idle");
 			}
 			_entity->emitMessage(m_anim, this);
+		} else if (!message->getType().compare("MCureEntity"))
+		{
+			MCureEntity *m_cure = static_cast <MCureEntity*> (message);
+			_cure = m_cure->getCure();
+			if (_cure)
+			{
+				_targetEntity = m_cure->getEntity();
+			}
 		}
 
 	} // process
@@ -263,14 +273,14 @@ namespace Logic
 			//_entity->setPosition(newPosition);
 		}
 
-		if (_attack)
+		if (_attack || _cure)
 		{
-			// Llevamos al jugador hasta donde está el enemigo
-			if ((_enemy->getPosition() - _entity->getPosition()).length() >= 10)
+			// Llevamos al jugador hasta donde está la entidad objetivo
+			if ((_targetEntity->getPosition() - _entity->getPosition()).length() >= 10)
 			{
 				MMoveSteering *m = new MMoveSteering();
 				m->setMovementType(AI::IMovement::MOVEMENT_KINEMATIC_ARRIVE);
-				m->setTarget(_enemy->getPosition());
+				m->setTarget(_targetEntity->getPosition());
 				_entity->emitMessage(m, this);
 				/*MAStarRoute *m_movement = new MAStarRoute();
 				m_movement->setAction(RouteAction::START_ROUTE);
@@ -280,17 +290,22 @@ namespace Logic
 			
 			else
 			{
-				MDamaged *m_damage = new MDamaged();
-
-				if (!_enemy->getType().compare("Enemy"))
+				if (_attack)
+				{
+					MDamaged *m_damage = new MDamaged();
 					// Quitamos 1 punto de vida al enemigo
 					m_damage->setHurt(1.0f);
+					m_damage->setKiller(_entity);
+					_targetEntity->emitMessage(m_damage, this);
+				}
 				else
+				{
+					MHealed *m_heal = new MHealed();
 					// Curamos 1 punto de vida al compañero
-					m_damage->setHurt(-1.0f);
-
-				m_damage->setKiller(_entity);
-				_enemy->emitMessage(m_damage, this);
+					m_heal->setHeal(1.0f);
+					m_heal->setHealer(_entity);
+					_targetEntity->emitMessage(m_heal, this);
+				}
 			}
 		}
 
