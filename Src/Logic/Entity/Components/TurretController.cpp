@@ -22,6 +22,7 @@ Contiene la implementación del componente que controla lo que debe hacer una tor
 #include "Logic/Entity/Messages/IsTouched.h"
 #include "Logic/Entity/Messages/Damaged.h"
 #include "Logic/Entity/Messages/AttackEntity.h"
+#include "Logic/Entity/Messages/SetAnimation.h"
 
 
 namespace Logic
@@ -89,6 +90,10 @@ namespace Logic
 					yaw += Math::PI;
 				_entity->setYaw(yaw);
 				*/
+				MSetAnimation *m_anim = new MSetAnimation();
+				m_anim->setAnimationName("torreta");
+				m_anim->setLoop(true);
+				_entity->emitMessage(m_anim);
 			}
 			else if (!m->getTouched())
 			{

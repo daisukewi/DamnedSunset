@@ -105,6 +105,8 @@ namespace Logic
 			m_anim->setLoop(false);
 			_entity->emitMessage(m_anim, this);
 
+			_moving = true;
+
 			/*
 			Aviso al reloj con el tiempo de temporizador.
 			El reloj empezará a contar a partir del frame siguiente a esta instrucción.

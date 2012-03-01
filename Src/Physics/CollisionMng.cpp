@@ -80,7 +80,7 @@ void  CCollisionMng::onTrigger (const TActorInfo &triggerInfo, const TActorInfo 
 
 	// Notificar a ambos componentes la colision
 	triggerComponent->onEntityTrigger(otherEntity, enter, leave, stay);
-	otherComponent->onEntityTrigger(triggerEntity, enter, leave, stay);
+	//otherComponent->onEntityTrigger(triggerEntity, enter, leave, stay);
 }
 
 //--------------------------------------------------
