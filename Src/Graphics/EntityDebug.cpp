@@ -47,6 +47,8 @@ namespace Graphics
         
 		//_material = new Ogre::Material(String& group, bool isManual = false, ManualResourceLoader* loader = 0);
 		_material = material;
+
+		_useRadiusHeight = false;
 		
 		
 	} // CEntity
@@ -58,6 +60,9 @@ namespace Graphics
 		_prefab = prefab;
 		_height = height;
 		_radius = radius;
+		_material = material;
+
+		_useRadiusHeight = true;
 	} // CEntity
 
 	//--------------------------------------------------------
@@ -112,30 +117,25 @@ namespace Graphics
 		
 	bool CEntityDebug::load()
 	{
+		Ogre::SceneManager::PrefabType auxPrefab;
+		Ogre::AxisAlignedBox auxBBox;
 		try
 		{
 			//Creación de los prefabs
 			
-			Ogre::SceneManager::PrefabType auxPrefab;
-			switch (_prefab){
-				case TOgrePrefab::PT_CUBE:{
-					auxPrefab = Ogre::SceneManager::PrefabType::PT_CUBE;
-				break;
-				}
+			
+			if (_useRadiusHeight){
+					
 
-				case TOgrePrefab::PT_PLANE:{
-					auxPrefab = Ogre::SceneManager::PrefabType::PT_PLANE;
-				break;
-				}
-
-				case TOgrePrefab::PT_SPHERE:{
 					auxPrefab = Ogre::SceneManager::PrefabType::PT_SPHERE;
-				break;
-				}		
+	
 
+			}else{
+
+					auxPrefab = Ogre::SceneManager::PrefabType::PT_CUBE;
 			}
 			_entity = _scene->getSceneMgr()->createEntity(_name,auxPrefab);
-			
+			auxBBox = _entity->getBoundingBox();
 			
 			
 		}
@@ -143,18 +143,34 @@ namespace Graphics
 		{
 			return false;
 		}
+
+
 		_entityNode = _scene->getSceneMgr()->getRootSceneNode()->
 								createChildSceneNode(_name + "_node");
+
 		_entityNode->attachObject(_entity);
 		_loaded = true;
+
 
 		//Añadir el material
 		_entity->setMaterialName(_material);
 
-		//Reescalar el prefab
+		//Reescalar el prefab 
 		Ogre::Node *node = _entity->getParentNode();
-			node->scale(0.2,0.2,0.2);
 
+		Vector3 vector = auxBBox.getSize();
+		
+		if (_useRadiusHeight){
+
+			node->scale(_radius / vector.x * 2,
+			_height / vector.y * 2,
+			_radius / vector.z * 2);
+		}else{
+		node->scale(_dimensions.x / vector.x * 2,
+			_dimensions.y / vector.y * 2,
+			_dimensions.z / vector.z * 2);
+		}
+		
 		return true;
 
 	} // load
@@ -192,7 +208,24 @@ namespace Graphics
 		if(_entityNode)
 		{
 			_entityNode->setPosition(transform.getTrans());
+
 			_entityNode->setOrientation(transform.extractQuaternion());
+
+			//Hay que mover el dibujado de los prefabs para que encaje con la física
+			if (_useRadiusHeight){
+				_entityNode->setPosition(_entityNode->getPosition().x,
+				_entityNode->getPosition().y + _height,
+				_entityNode->getPosition().z);
+
+			}else{
+				Vector3 auxVector = _entityNode->convertWorldToLocalPosition(_entityNode->getPosition());
+				auxVector.y +100;
+
+				_entityNode->setPosition(_entityNode->convertLocalToWorldPosition(auxVector));
+					/*_entityNode->setPosition(_entityNode->getPosition().x,
+				_entityNode->getPosition().y +  _dimensions.y,
+				_entityNode->getPosition().z);*/
+			}
 		}
 
 	} // setTransform
@@ -233,8 +266,25 @@ namespace Graphics
 	void CEntityDebug::setPosition(const Vector3 &position)
 	{
 		assert(_entityNode && "La entidad no ha sido cargada");
-		if(_entityNode)
+		if(_entityNode){
 			_entityNode->setPosition(position);
+			//Hay que mover el dibujado de los prefabs para que encaje con la física
+			if (_useRadiusHeight){
+				_entityNode->setPosition(_entityNode->getPosition().x,
+				_entityNode->getPosition().y + _height,
+				_entityNode->getPosition().z);
+
+			}else{
+				Vector3 auxVector = _entityNode->convertWorldToLocalPosition(_entityNode->getPosition());
+				auxVector.y += _dimensions.y;
+
+				_entityNode->setPosition(_entityNode->convertLocalToWorldPosition(auxVector));
+					/*_entityNode->setPosition(_entityNode->getPosition().x,
+				_entityNode->getPosition().y +  _dimensions.y,
+				_entityNode->getPosition().z);*/
+			}
+		}
+			
 
 	} // setPosition
 	

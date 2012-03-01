@@ -345,12 +345,9 @@ namespace Graphics
 		/**
 		Indica el material del prefab
 		*/
-		//Ogre::Material *_material;
-
-		/**
-		Indica el material del prefab
-		*/
 		std::string _material;
+
+		bool _useRadiusHeight;
 		
 	}; // class CEntity
 

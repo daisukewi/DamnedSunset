@@ -362,7 +362,7 @@ namespace Physics {
 		@param entity parámetro donde se alamcenará el punto de la entidada en el que ha chocado
 		@return Primera entidad lógica alcanzada o NULL.
 		*/
-		Logic::CEntity* CServer::raycastAdvanced (const Ray& ray, Vector3* point) const;
+		Logic::CEntity* raycastAdvanced (const Ray& ray, Vector3* point) const;
 
 
 	private:

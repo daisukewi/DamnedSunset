@@ -101,7 +101,7 @@ namespace Logic
 					auxRadius = entityInfo->getFloatAttribute("physic_radius");
 				}
 
-				_graphicsEntity = new Graphics::CEntityDebug(_entity->getName() + "_Debug",prefab,auxHeight,auxRadius, _blueMaterial);
+				_graphicsEntity = new Graphics::CEntityDebug(_entity->getName() + "_Debug",prefab,auxHeight,auxRadius, _greenMaterial);
 			}
 		//TODO cuando se unifique cada trigger en su entidada correspondiente
 			//habrá que añadir el código necesario
@@ -114,6 +114,7 @@ namespace Logic
 			return 0;
 
 		_graphicsEntity->setScale(scale);
+	
 		_graphicsEntity->setTransform(_entity->getTransform());
 
 		return _graphicsEntity;

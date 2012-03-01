@@ -497,3 +497,4 @@ Logic::CEntity* CServer::raycastAdvanced (const Ray& ray, Vector3* point) const
 	// Devuelve la entidad que ha colisionado con el rayo
 	return physicEntity->getEntity();
 }
+
