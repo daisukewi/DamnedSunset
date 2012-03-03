@@ -1,48 +1,46 @@
 /**
-@file EnemyController.h
+@file Attack.h
 
-Contiene la declaración del componente que controla el movimiento 
-del enemigo.
+Contiene la declaración del componente de ataque de una entidad.
 
-@see Logic::CEnemyController
+@see Logic::CAttack
 @see Logic::IComponent
 
 @author Luis Mendoza
-@date Enero, 2012
+@date Marzo, 2012
 */
-#ifndef __Logic_EnemyController_H
-#define __Logic_EnemyController_H
+#ifndef __Logic_Attack_H
+#define __Logic_Attack_H
 
 #include "Logic/Entity/Component.h"
-#include "BaseSubsystems/ClockListener.h"
 #include "Logic/Entity/DeathListener.h"
 
 //declaración de la clase
 namespace Logic 
 {
 /**
-	Este componente es el encargado de mover al enemigo.
+	Este componente es el encargado de controlar el ataque de una entidad.
 	
     @ingroup logicGroup
 
 	@author Luis Mendoza
-	@date Enero, 2012
+	@date Marzo, 2012
 */
-	class CEnemyController : public IComponent, public BaseSubsystems::IClockListener, public IDeathListener
+	class CAttack : public IComponent, public IDeathListener
 	{
-		DEC_FACTORY(CEnemyController);
+		DEC_FACTORY(CAttack);
 	public:
 
 		/**
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CEnemyController() : IComponent(), BaseSubsystems::IClockListener(), IDeathListener(), _moving(false) {}
+		CAttack() : IComponent(), IDeathListener(), _attack(false) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
 		la entidad leída del mapa (Maps::CEntity). Toma del mapa el atributo
-		speed que indica a la velocidad a la que se moverá el enemigo.
+		speed que indica a la velocidad a la que se moverá el jugador.
 
 		@param entity Entidad a la que pertenece el componente.
 		@param map Mapa Lógico en el que se registrará el objeto.
@@ -55,7 +53,6 @@ namespace Logic
 		/**
 		Método que activa el componente; invocado cuando se activa
 		el mapa donde está la entidad a la que pertenece el componente.
-		<p>
 
 		@return true si todo ha ido correctamente.
 		*/
@@ -66,19 +63,11 @@ namespace Logic
 		desactiva el mapa donde está la entidad a la que pertenece el
 		componente. Se invocará siempre, independientemente de si estamos
 		activados o no.
-		<p>
-
-		Cuando el enemigo pierde toda su vida se llama a este método.
-		El enemigo se deja de mover y pone su animación de muerte.
-		A los 10 secs desaparece.
 		*/
 		virtual void deactivate();
 
 		/**
 		Método llamado en cada frame que actualiza el estado del componente.
-		<p>
-		Se encarga de mover la entidad en cada vuelta de ciclo cuando es
-		necesario.
 
 		@param msecs Milisegundos transcurridos desde el último tick.
 		*/
@@ -86,6 +75,7 @@ namespace Logic
 
 		/**
 		Método virtual que elige que mensajes son aceptados.
+		Son válidos MAttackEntity.
 
 		@param message Mensaje a chequear.
 		@return true si el mensaje es aceptado.
@@ -100,13 +90,6 @@ namespace Logic
 		virtual void process(IMessage *message);
 
 		/**
-		Método heredado de la interfaz IClockListener que será llamado
-		por el temporizador cuando se acabe el tiempo de espera
-		especificado.
-		*/
-		virtual void timeElapsed();
-
-		/**
 		Método heredado de la interfaz IDeathListener que será llamado
 		cuando la entidad muera.
 		*/
@@ -115,19 +98,19 @@ namespace Logic
 	protected:
 
 		/**
-		Atributo para saber si el enemigo está en movimiento.
+		Atributo para saber si la entidad tiene que atacar.
 		*/
-		bool _moving;
+		bool _attack;
 
 		/**
-		Atributo para saber si el enemigo está atacando.
+		Atributo para saber a la entidad que hay que atacar.
 		*/
-		bool _attacking;
+		CEntity* _targetEntity;
 
-	}; // class CEnemyController
+	}; // class CAttack
 
-	REG_FACTORY(CEnemyController);
+	REG_FACTORY(CAttack);
 
 } // namespace Logic
 
-#endif // __Logic_EnemyController_H
+#endif // __Logic_Attack_H

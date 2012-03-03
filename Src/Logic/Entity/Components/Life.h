@@ -96,10 +96,16 @@ namespace Logic
 		Vida de la entidad
 		*/
 		float _life;
+
 		/**
 		Vida maxima de la entidad
 		*/
 		float _maxLife;
+
+		/**
+		Booleano que indica si la entidad está muerta.
+		*/
+		float _death;
 
 		/*
 		Billboard que muestra la vida

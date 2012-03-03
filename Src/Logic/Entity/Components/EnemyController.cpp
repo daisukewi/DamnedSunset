@@ -13,6 +13,7 @@ del enemigo.
 
 #include "EnemyController.h"
 
+#include "Logic/Server.h"
 #include "Logic/Entity/Entity.h"
 #include "Logic/Maps/EntityFactory.h"
 #include "Logic/Maps/Map.h"
@@ -32,6 +33,7 @@ del enemigo.
 #include "Logic/Entity/Messages/AStarRoute.h"
 #include "Logic/Entity/Messages/SetAnimation.h"
 #include "Logic/Entity/Messages/EntityDeath.h"
+#include "Logic/Entity/Messages/AttackEntity.h"
 
 
 namespace Logic
@@ -45,7 +47,7 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 		
-		_moving = false;
+		_attacking = _moving = !(rand() % 2);
 
 		return true;
 
@@ -113,6 +115,7 @@ namespace Logic
 			*/
 			BaseSubsystems::CServer::getSingletonPtr()->addClockListener(5000, this);
 		}
+
 	} // process
 	
 	//---------------------------------------------------------
@@ -134,6 +137,29 @@ namespace Logic
 
 			_moving = true;
 		}
+		else if (_attacking)
+		{
+			MAttackEntity *m_at = new MAttackEntity();
+			m_at->setAttack(true);
+			unsigned int p = rand() % 3;
+			CEntity* player;
+			switch (p)
+			{
+				case 0:
+					player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack");
+					break;
+				case 1:
+					player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick");
+					break;
+				case 2:
+					player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor");
+					break;
+			}
+			m_at->setEntity(player);
+			_entity->emitMessage(m_at, this);
+			_attacking = false;
+			player->addDeathListener(this);
+		}
 
 	} // tick
 
@@ -149,6 +175,18 @@ namespace Logic
 		CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 
 	} // timeElapsed
+
+	//---------------------------------------------------------
+
+	void CEnemyController::entityDeath(CEntity* entity)
+	{
+		/* 
+		Implementación del método que va a ser llamado cuando muera la entidad.
+		*/
+		_attacking = _moving = false;
+		entity->removeDeathListener(this);
+
+	} // entityDeath
 
 } // namespace Logic
 

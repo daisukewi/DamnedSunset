@@ -77,10 +77,12 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Attack.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BillboardIndicacionMover.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BillboardSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BuilderController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DetonadorGranada.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Heal.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LanzadorGranadas.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\MapBuilding.cpp" />
@@ -153,6 +155,7 @@
     <ClCompile Include="..\..\Src\Logic\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Attack.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\BillboardIndicacionMover.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\BillboardSelected.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\BuilderController.h" />
@@ -160,6 +163,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DamageTrigger.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DetonadorGranada.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemiesGenerator.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Heal.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LanzadorGranadas.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemyController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Life.h" />

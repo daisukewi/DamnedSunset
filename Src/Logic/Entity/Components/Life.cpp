@@ -44,7 +44,7 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	CLife::CLife() : IComponent(), _life(100.f), _maxLife(100.0f) {
+	CLife::CLife() : IComponent(), _life(100.f), _maxLife(100.0f), _death(false) {
 	}
 
 	CLife::~CLife() {
@@ -114,7 +114,8 @@ namespace Logic
 
 						// Notifico a todos mis oyentes de que la entidad ha muerto.
 						notifyDeathListeners();
-					
+
+						/*
 						Map::CEntity * muertoInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Entity");
 
 						std::stringstream name;
@@ -127,13 +128,20 @@ namespace Logic
 						muertoInfo->setAttribute("orientation", "90");
 						muertoInfo->setAttribute("model", "loco.mesh");
 
-						//Logic::CEntity *muerto = Logic::CEntityFactory::getSingletonPtr()->createEntity(muertoInfo, _entity->getMap());
-						MEntityDeath *m_death = new MEntityDeath();
-						m_death->setEntityDeath(_entity);
-						_entity->emitMessage(m_death);
-
-						//if (_entity != NULL)
-						//	CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
+						Logic::CEntity *muerto = Logic::CEntityFactory::getSingletonPtr()->createEntity(muertoInfo, _entity->getMap());
+						*/
+						if (!_death)
+						{
+							_death = true;
+							MEntityDeath *m_death = new MEntityDeath();
+							m_death->setEntityDeath(_entity);
+							_entity->emitMessage(m_death);
+						}
+					}
+					else if (!_entity->getName().compare("Jack") || !_entity->getName().compare("Erick")
+						      || !_entity->getName().compare("Amor"))
+					{
+						notifyDeathListeners();
 					}
 				}
 				// @todo Poner la animación de herido.
