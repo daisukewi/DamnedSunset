@@ -97,9 +97,6 @@ namespace GUI
 
 
 
-
-		unsigned int _time;
-
 		CEGUI::Window* _interfazWindow;
 
 		enum Estado {normal , construir};
@@ -128,6 +125,23 @@ namespace GUI
 		void CInterfazController::sendClickMessage(std::string name);
 
 		Logic::CEntity *_entidadDios;
+
+		/**
+		Ventana que muestra los FPS transcurridos cada medio segundo.
+		*/
+		CEGUI::Window *_fpsWindow;
+
+		/**
+		Lleva la cuenta de los milisegundos que han transcurrido
+		desde la última vez que se calcularon los FPS.
+		*/
+		unsigned int _time;
+
+		/**
+		Lleva la cuenta del numero de frames que se han renderizado
+		desde la última vez que se calcularon los FPS.
+		*/
+		unsigned int _nFrames;
 
 	};
 

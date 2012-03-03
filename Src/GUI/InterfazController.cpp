@@ -59,6 +59,10 @@ namespace GUI {
 		_interfazWindow = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
 		this->ocultarBotones();
 
+		// Cargamos la ventana que muestra los FPS
+		CEGUI::WindowManager::getSingletonPtr()->loadWindowLayout("Time.layout");
+		_fpsWindow = CEGUI::WindowManager::getSingleton().getWindow("Time");
+
 		// Asociamos los botones del menú con las funciones que se deben ejecutar.
 		CEGUI::WindowManager::getSingleton().getWindow("Interfaz/bPersonaje1")->
 			subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::SubscriberSlot(&GUI::CInterfazController::clickPersonaje1, this));
@@ -78,9 +82,8 @@ namespace GUI {
 		CEGUI::WindowManager::getSingleton().getWindow("Interfaz/Menu/b4")->
 			subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::SubscriberSlot(&GUI::CInterfazController::clickB4, this));
 
-
-
 		_time = 0;
+		_nFrames = 0;
 		return true;
 	}
 	//--------------------------------------------------------
@@ -95,6 +98,11 @@ namespace GUI {
 		CEGUI::System::getSingletonPtr()->setGUISheet(_interfazWindow);
 		_interfazWindow->setVisible(true);
 		_interfazWindow->activate();
+		
+		// Activamos la ventana que muestra los FPS
+		_interfazWindow->addChildWindow(_fpsWindow);
+		_fpsWindow->setVisible(true);
+		_fpsWindow->activate();
 	}
 
 	//--------------------------------------------------------
@@ -103,12 +111,27 @@ namespace GUI {
 	{
 		CInputManager::getSingletonPtr()->removeKeyListener(this);
 
+		_fpsWindow->deactivate();
+		_fpsWindow->setVisible(false);
+
 		_interfazWindow->deactivate();
 		_interfazWindow->setVisible(false);
 	} // deactivate
 
 	void CInterfazController::tick(unsigned int msecs)
 	{
+		// Actualizamos el conteo de FPS
+		_time += msecs;
+		++_nFrames;
+		if (_time > 500)
+		{
+			std::stringstream text;
+			text << "FPS: " << (_nFrames*1000)/_time;
+			_fpsWindow->setText(text.str());
+			_time = 0;
+			_nFrames = 0;
+		}
+
 		Logic::MDamaged *m = new Logic::MDamaged();
 		m->setHurt(msecs/1000.0f);
 

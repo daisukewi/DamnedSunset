@@ -2,9 +2,9 @@ Map = {
 
 	Grid = {
 		type = "Grid",
-		width = 80,
-		height = 80,
-		grid_size = 4,
+		width = 20,
+		height = 20,
+		grid_size = 8,
 	},
 
 	World = {

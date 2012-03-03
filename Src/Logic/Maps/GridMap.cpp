@@ -202,7 +202,8 @@ namespace Logic {
 		printf("Grids: %d, %d\n\n", _nMapCols, _nMapRows);
 		for (int i = _nMapRows - 1; i >= 0; --i)
 		{
-			printf("%3d |", getIndexTileFromCoord(i, _nMapCols - 1));
+			//printf("%3d |", getIndexTileFromCoord(i, _nMapCols - 1));
+			printf("|");
 			for (int j = _nMapCols - 1; j >= 0; --j)
 			{
 				char empty = getTileFromCoord(i, j)->IsPopulated() ? 'i' : '-';
@@ -213,7 +214,8 @@ namespace Logic {
 				}
 				printf(" %c", empty);
 			}
-			printf("| %d\n", getIndexTileFromCoord(i, 0));
+			//printf("| %d\n", getIndexTileFromCoord(i, 0));
+			printf(" |\n");
 		}
 	}
 
