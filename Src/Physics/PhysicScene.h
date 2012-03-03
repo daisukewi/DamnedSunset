@@ -94,7 +94,7 @@ public:
     NxScene*        GetNxScene          (void)  { return m_pScene; }
 
     // Raycasting
-    bool            CalcIntersection    (const NxRay& ray, TIntersectInfo& result, NxShapesType eShapeType = NX_ALL_SHAPES, NxU32 groups = 0xffffffff) const; 
+    bool            CalcIntersection    (const NxRay& ray, TIntersectInfo& result, NxReal maxDist=NX_MAX_F32, NxU32 groups = 0xffffffff, NxShapesType eShapeType = NX_ALL_SHAPES) const; 
 
     // Creacion de objetos simples
     NxActor*        CreateGroundPlane   (void);

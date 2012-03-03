@@ -95,6 +95,22 @@ namespace Logic
 		*/
 		CEntity* getCollisionEntity();
 
+		/**
+		Método que establece los grupos de colisión con los que puede
+		intersecar el rayo.
+
+		@param groups Flags con los grupos de colisión.
+		*/
+		void setCollisionGroups(unsigned int groups);
+
+		/**
+		Método que devuelve los grupos de colisión con los que puede
+		intersecar el rayo.
+
+		@return flags con los grupos de colisión.
+		*/
+		unsigned int getCollisionGroups();
+
 	protected:
 
 		/**
@@ -112,6 +128,12 @@ namespace Logic
 		el rayo.
 		*/
 		CEntity *_collisionEntity;
+
+		/**
+		Atributo que contiene los grupos de colisión con los que puede
+		intersecar el rayo que se lanza.
+		*/
+		unsigned int _collisionGroups;
 
 	}; // class MControlRaycast
 

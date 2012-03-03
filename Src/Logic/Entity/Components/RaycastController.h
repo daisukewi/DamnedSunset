@@ -109,6 +109,12 @@ namespace Logic
 		*/
 		bool _makeRaycast;
 
+		/**
+		Atributo que indica los grupos de colisión con los que
+		puede intersecar el rayo.
+		*/
+		unsigned int _collisionGroup;
+
 	}; // class CAvatarController
 
 	REG_FACTORY(CRaycastController);

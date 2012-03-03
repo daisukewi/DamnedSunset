@@ -149,6 +149,7 @@ namespace Logic
 
 		MControlRaycast *rc_message = new MControlRaycast();
 		rc_message->setAction(RaycastMessage::START_RAYCAST);
+		rc_message->setCollisionGroups(Physics::TPhysicGroup::PG_WORLD);
 		_entity->emitMessage(rc_message);
 
 	} //startBuilding

@@ -470,6 +470,24 @@ Logic::CEntity* CServer::raycastClosest (const Ray& ray, float maxDist) const
 	return physicEntity->getEntity();
 }
 
+Logic::CEntity* CServer::raycastGroup (const Ray& ray, Vector3* point, TPhysicGroup groups, float maxDist) const
+{
+	// Calcular primera intersección. Si no hay devolvemos NULL.
+	TIntersectInfo info;
+	if (!getScene()->CalcIntersection(RayToNxRay(ray), info, maxDist, groups)) 
+		return NULL;
+
+	// Recuperar el punto de intersección
+	Vector3 pointAux = NxVec3ToVector3(info.vImpact);
+	point->x = pointAux.x;
+	point->y = pointAux.y;
+	point->z = pointAux.z;
+
+	// Recuperar la entidad lógica intersecada
+	CPhysicEntity *physicEntity = reinterpret_cast<CPhysicEntity*> (info.pPhysicObj->userData);
+	return physicEntity->getEntity();
+}
+
 //--------------------------------------------------------
 
 Logic::CEntity* CServer::raycastAdvanced (const Ray& ray, Vector3* point) const

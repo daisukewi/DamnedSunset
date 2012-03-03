@@ -8,6 +8,7 @@ Contiene la implementación del mensaje para controlar el lanzamiento de raycasts
 */
 
 #include "ControlRaycast.h"
+#include "Physics/Server.h"
 
 namespace Logic
 {
@@ -17,6 +18,7 @@ namespace Logic
 		IMessage(); 
 		
 		_type = "MControlRaycast";
+		_collisionGroups = Physics::TPhysicGroup::PG_ALL;
 
 	} // MControlRaycast
 
@@ -67,5 +69,21 @@ namespace Logic
 		return _collisionEntity;
 
 	} // getCollisionEntity
+
+	//---------------------------------------------------------
+
+	void MControlRaycast::setCollisionGroups(unsigned int groups)
+	{
+		_collisionGroups = groups;
+
+	} // setCollisionGroups
+
+	//---------------------------------------------------------
+
+	unsigned int MControlRaycast::getCollisionGroups()
+	{
+		return _collisionGroups;
+
+	} // getCollisionGroups
 
 } // namespace Logic

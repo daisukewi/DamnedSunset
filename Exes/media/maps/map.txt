@@ -20,7 +20,6 @@ Map = {
 		physic_dimensions = { 160.0, 0.5, 160.0 },
 		physic_height = 1,
 		physic_radius = 1,
-		physic_collision_group = 2,
 	},
 
 	Jack = {

@@ -2,6 +2,7 @@ Map = {
 	World = {
 		type = "World",
 		
+		physic_collision_group = 1,
 		billboardMoverMaterial = "circuloSeleccion",
 		billboardMoverDimension = 10.0,
 		billboardMoverTime = 2.0,
@@ -39,6 +40,7 @@ Map = {
 		trigger_shape = "trigger_box",
 		trigger = true,
 		trigger_dimensions = { 10, 10, 10 },
+		trigger_collision_group = 3,
 		precision = 0.1,
 	},
 	
@@ -54,7 +56,7 @@ Map = {
 		physic_height = 2,
 		physic_radius = 0.5,
 		physic_mass = 1,
-		physic_collision_group = 2,
+		physic_collision_group = 6,
 	},
 	
 	Enemies = {
@@ -76,6 +78,7 @@ Map = {
 		physic_shape = "capsule",
 		physic_radius = 4,
 		physic_height = 6,
+		physic_collision_group = 5,
 		speed = 0.02,
 		angularSpeed = 0.003,
 		accel = 0.001,
@@ -98,6 +101,7 @@ Map = {
 		physic_shape = "capsule",
 		physic_radius = 6,
 		physic_height = 9,
+		physic_collision_group = 5,
 	},
 	
 	Granada = {
@@ -112,7 +116,7 @@ Map = {
 		physic_height = 2.0,
 		physic_radius = 0.5,
 		physic_mass = 1,
-		physic_collision_group = 2,
+		physic_collision_group = 6,
 	},
 	
 	Player = {
@@ -129,6 +133,7 @@ Map = {
 		physic_shape = "capsule",
 		physic_radius = 3,
 		physic_height = 6,
+		physic_collision_group = 4,
 		speed = 0.05,
 		angularSpeed = 0.003,
 		accel = 0.001,

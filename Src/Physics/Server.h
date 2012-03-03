@@ -53,6 +53,19 @@ namespace Physics {
         PM_KINEMATIC,
         PM_DYNAMIC
     };
+
+	enum TPhysicGroup
+	{
+		PG_NONE			= 0x00000000,
+		PG_RESERVED		= 1 << 0, //0x00000001
+		PG_WORLD		= 1 << 1, //0x00000002
+		PG_BUILDING		= 1 << 2, //0x00000004
+		PG_TRIGGER		= 1 << 3, //0x00000008
+		PG_HERO			= 1 << 4, //0x00000010
+		PG_ENEMY		= 1 << 5, //0x00000020
+		PG_OTHER		= 1 << 6, //0x00000040
+		PG_ALL			= 0xffffffff
+	};
 	
 	/**
 	Clase central del subistema físico. Se encarga de gestionar las entidades físicas
@@ -353,7 +366,18 @@ namespace Physics {
 
 
 		/**
-			
+		 Lanza un rayo y devuelve la primera entidad lógica contra la que interseca. Si el rayo
+		 no choca contra ninguna entidad devuelve NULL.
+		 
+		 @param ray Rayo lanzado.
+		 @param point Vector3 que devuelve la posición donde ha intersecado el rayo.
+		 @param maxDist distancia máxima a la que se debe encontrar intersección
+		 @param groups Mascara de grupos con los que se busca intersecar.
+		 @return Primera entidad lógica alcanzada o NULL.
+		 */
+		Logic::CEntity* raycastGroup (const Ray& ray, Vector3* point, TPhysicGroup groups = PG_ALL, float maxDist = FLT_MAX ) const; 
+
+		/**
 		Lanza un rayo y devuelve la primera entidad lógica contra la que interseca y el punto que en que ha intersecado.
 		Si el rayo
 		no choca contra ninguna entidad devuelve NULL.

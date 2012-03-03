@@ -67,6 +67,7 @@ namespace Logic
 			{
 			case RaycastMessage::START_RAYCAST:
 				_makeRaycast = true;
+				_collisionGroup = m_building->getCollisionGroups();
 				break;
 			case RaycastMessage::STOP_RAYCAST:
 				_makeRaycast = false;
@@ -88,7 +89,7 @@ namespace Logic
 		// Lanzar un rayo desde la camara hasta el plano del escenario.
 		Ray mouseRay = Graphics::CServer::getSingletonPtr()->getCameraToViewportRay(_mouseRelPosX, _mouseRelPosY);
 
-		Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastAdvanced(mouseRay, &point);
+		Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastGroup(mouseRay, &point, (Physics::TPhysicGroup)_collisionGroup);
 
 		if (entity == NULL) return;
 

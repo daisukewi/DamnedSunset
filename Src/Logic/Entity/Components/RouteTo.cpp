@@ -220,13 +220,16 @@ namespace Logic
 		{
 			Vector3 direction = (*_currentRoute)[next_node] - from;
 			direction.y = 0;
-			// Lanzamos un rayo desde nuestra posición hasta el siguiente nodo
-			// y comprobamos si colisiona con algún objeto.
-			CEntity *col = Physics::CServer::getSingletonPtr()->raycastClosest( Ray( from, direction.normalisedCopy() ), direction.length() );
 
-			// TODO: Cambiar el raycast cuando se implementen los raycast por grupos de colisión.
-			// HACK: Mientras tanto, se comprueba que la colisión no sea con una torreta.
-			found = (col == NULL) || (col->getType() != "Turret");
+			// Lanzamos un rayo desde nuestra posición hasta el siguiente nodo
+			// y comprobamos si colisiona con algún edificio.
+			Vector3 colPoint;
+			found = ( Physics::CServer::getSingletonPtr()->raycastGroup(
+								Ray( from, direction.normalisedCopy() ),
+								&colPoint,
+								Physics::TPhysicGroup::PG_BUILDING,
+								direction.length() )
+						== NULL);
 
 			// Si hay un objeto entre el siguiente nodo y nosotros,
 			// probamos con el nodo inferior.

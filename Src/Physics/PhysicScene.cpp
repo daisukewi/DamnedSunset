@@ -416,10 +416,10 @@ bool    CPhysicScene::CheckExplosionOclusion (const NxVec3& expPos, IPhysicObj* 
 //-----------------------------------------------------------------------------
 //  CalcIntersection
 //-----------------------------------------------------------------------------
-bool    CPhysicScene::CalcIntersection (const NxRay& worldRay, TIntersectInfo& result, NxShapesType eShapeType, NxU32 groups) const
+bool    CPhysicScene::CalcIntersection (const NxRay& worldRay, TIntersectInfo& result, NxReal maxDist, NxU32 groups, NxShapesType eShapeType) const
 {
     NxRaycastHit    hit;
-    bool            bHayHit = (m_pScene->raycastClosestShape (worldRay, eShapeType, hit, groups) != NULL);
+    bool            bHayHit = (m_pScene->raycastClosestShape (worldRay, eShapeType, hit, groups, maxDist) != NULL);
     if ( bHayHit )
     {
         TActorInfo* pActorInfo = (TActorInfo*) hit.shape->getActor().userData;
