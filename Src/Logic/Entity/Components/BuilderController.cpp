@@ -177,7 +177,17 @@ namespace Logic
 	void CBuilderController::emplaceBuilding()
 	{
 		if (!_building || _buildingEntity == NULL) return;
-		if (!CheckBuildingCanEmplace()) return;
+		if (!CheckBuildingCanEmplace())
+		{
+			// Si no se puede construir, volvemos a activar el Raycast
+			// y continuamos como estabamos.
+			MControlRaycast *rc_message = new MControlRaycast();
+			rc_message->setAction(RaycastMessage::START_RAYCAST);
+			rc_message->setCollisionGroups(Physics::TPhysicGroup::PG_WORLD);
+			_entity->emitMessage(rc_message);
+
+			return;
+		}
 
 		Vector3 pos = _buildingEntity->getPosition();
 		std::stringstream vecPos, buildingName;

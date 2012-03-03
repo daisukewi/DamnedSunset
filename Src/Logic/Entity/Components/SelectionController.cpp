@@ -167,7 +167,6 @@ namespace Logic
 
 		if (!message->getType().compare("MMouseEvent"))
 		{
-			
 			MMouseEvent *m_mouse = static_cast <MMouseEvent*> (message);
 
 			//Almacenar el botón que ha sido pulsado del ratón
@@ -176,9 +175,10 @@ namespace Logic
 			//Pedir al componente de lanzar rayos que empiece a hacerlo
 			MControlRaycast *rc_message = new MControlRaycast();
 			rc_message->setAction(RaycastMessage::START_RAYCAST);
+			rc_message->setCollisionGroups(Physics::TPhysicGroup::PG_ALL & ~Physics::TPhysicGroup::PG_TRIGGER);
 			_entity->emitMessage(rc_message, this);
 			_raycastStart = true;
-			std::cout << "MOUSE_EVENT" << "\n";
+			//std::cout << "MOUSE_EVENT" << "\n";
 			
 		}else if (!message->getType().compare("MEmplaceBuilding"))
 		{
@@ -187,7 +187,7 @@ namespace Logic
 			{
 				case BuildingMessage::START_BUILDING:
 					changeState(State::BUILDING);
-					std::cout << "MEmplaceBuilding \n";
+					//std::cout << "MEmplaceBuilding \n";
 					break;
 				case BuildingMessage::FINISH_BUILDING:
 				case BuildingMessage::CANCEL_BUILDING:
@@ -200,6 +200,7 @@ namespace Logic
 		{
 			MControlRaycast *m_raycast = static_cast <MControlRaycast*> (message);
 			if (_raycastStart){
+				_raycastStart = false;
 				switch (m_raycast->getAction())
 				{
 				case RaycastMessage::HIT_RAYCAST:
@@ -217,22 +218,19 @@ namespace Logic
 						message->setPoint(m_raycast->getCollisionPoint());
 						col_entity->emitMessage(message);
 
-						std::cout << "CONTROL_RAYCAST" << "\n";
+						//std::cout << "CONTROL_RAYCAST" << "\n";
 
 						break;
-			
-					}	
-					
+					}
 				}
 			}
-			_raycastStart = false;
 
 		} else if (!message->getType().compare("MEntitySelected"))
 		{
 				MEntitySelected *m_selection = static_cast <MEntitySelected*> (message);
 				//Enviar un mensaje al estado correspondiente
 
-				std::cout << "click al estado: " << _activeState;
+				//std::cout << "click al estado: " << _activeState;
 				//Si el mensaje ha sido enviado desde la interfaz, asignamos
 				//a la variable _button el valor TMouseAction::LEFT_CLICK, para que el estado
 				//sepa que hacer
@@ -240,7 +238,7 @@ namespace Logic
 					_button = TMouseAction::LEFT_CLICK;
 
 				_activeState->click(m_selection->getSelectedEntity(), m_selection->getPoint(),_button);
-				std::cout << "ENTITY_SELECTED" << "\n";
+				//std::cout << "ENTITY_SELECTED" << "\n";
 
 
 		} else if (!message->getType().compare("MActivateSkill"))
@@ -408,6 +406,7 @@ namespace Logic
 
 		MControlRaycast *rc_message = new MControlRaycast();
 		rc_message->setAction(RaycastMessage::START_RAYCAST);
+		rc_message->setCollisionGroups(Physics::TPhysicGroup::PG_ALL & ~Physics::TPhysicGroup::PG_TRIGGER);
 		_entity->emitMessage(rc_message, this);
 
 	} // startSelection
@@ -420,6 +419,7 @@ namespace Logic
 
 		MControlRaycast *rc_message = new MControlRaycast();
 		rc_message->setAction(RaycastMessage::START_RAYCAST);
+		rc_message->setCollisionGroups(Physics::TPhysicGroup::PG_ALL & ~Physics::TPhysicGroup::PG_TRIGGER);
 		_entity->emitMessage(rc_message, this);
 
 	} // startAction

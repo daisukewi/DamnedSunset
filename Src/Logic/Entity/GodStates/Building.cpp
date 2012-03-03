@@ -20,9 +20,8 @@ cuando se está construyendo.
 namespace Logic
 {
 
-
 	void CBuilding::click(CEntity* entity, Vector3 point, int button){
-		std::cout << "ESTADO BUILDING" << "\n";
+		//std::cout << "ESTADO BUILDING" << "\n";
 		if (button == TMouseAction::LEFT_CLICK){
 			MEmplaceBuilding *m_emplace = new MEmplaceBuilding();
 			m_emplace->setAction(BuildingMessage::EMPLACE_BUILDING);
