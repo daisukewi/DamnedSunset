@@ -93,9 +93,9 @@ namespace ScriptManager {
 		luaopen_base(_lua);
 
 		// Activamos luabind en el intérprete
-		luabind::open(_lua);
+		luabind::open(_lua);*/
 
-		return true;*/
+		return true;
 
 	} // open
 
