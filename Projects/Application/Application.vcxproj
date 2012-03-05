@@ -88,7 +88,7 @@
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
     </ProjectReference>
     <Link>
-      <AdditionalDependencies>OgreMain.lib;OIS.lib;CEGUIBase.lib;CEGUIOgreRenderer.lib;PhysXCooking.lib;PhysXCore.lib;PhysXLoader.lib;NxCharacter.lib;%(AdditionalDependencies);lua52.lib;luabindd.lib</AdditionalDependencies>
+      <AdditionalDependencies>OgreMain.lib;OIS.lib;CEGUIBase.lib;CEGUIOgreRenderer.lib;PhysXCooking.lib;PhysXCore.lib;PhysXLoader.lib;NxCharacter.lib;%(AdditionalDependencies);lua52.lib;luabind.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>..\..\dependencies\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
