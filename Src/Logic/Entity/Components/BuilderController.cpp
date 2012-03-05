@@ -41,6 +41,8 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 
+		_gridSize = map->getGridMap()->GetGridSize();
+
 		_OkBuildMaterial = new Graphics::CMaterial("BuildingCanEmplace");
 		_NokBuildMaterial = new Graphics::CMaterial("BuildingCannotEmplace");
 
@@ -146,7 +148,8 @@ namespace Logic
 
 		_buildingEntity = Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap());
 
-		_plane = new Graphics::CBasicShapeEntity(Graphics::ShapeType::ST_Plane, Vector2(_buildingWidth * 8, _buildingHeight * 8));
+		_plane = new Graphics::CBasicShapeEntity(Graphics::ShapeType::ST_Plane,
+			Vector2(_buildingWidth * _gridSize, _buildingHeight * _gridSize));
 		_entity->getMap()->getScene()->addEntity(_plane);
 
 		if (!_buildingEntity)

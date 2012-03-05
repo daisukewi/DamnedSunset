@@ -179,9 +179,22 @@ namespace Logic
 		*/
 		unsigned int _buildingHeight, _buildingWidth;
 
+		/**
+		Almacena el tamaño de las casillas del mapa.
+		*/
+		unsigned int _gridSize;
+
+		/**
+		Guarda los materiales que se asignan al construir,
+		para indicar si se puede construir en esa posición o no.
+		*/
 		Graphics::CMaterial* _OkBuildMaterial;
 		Graphics::CMaterial* _NokBuildMaterial;
 
+		/**
+		Plano que se crea al construir, y contiene los materiales
+		que indican si se puede construir en esa posición o no.
+		*/
 		Graphics::CBasicShapeEntity* _plane;
 
 	}; // class CBuilderController

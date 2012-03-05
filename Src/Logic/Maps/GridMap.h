@@ -171,6 +171,11 @@ namespace Logic
 		void initMap(int width, int height, int gridSize);
 
 		/**
+		Devuelve el tamaño de las casillas del mapa.
+		*/
+		unsigned int GetGridSize();
+
+		/**
 		Devuelve la posición modulada en el grid del mapa, de las
 		coordenadas pasadas por argumento.
 		*/

@@ -61,6 +61,14 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
+	unsigned int CGridMap::GetGridSize()
+	{
+		return _gridSize * _gridSize;
+
+	} // GetGridSize
+
+	//--------------------------------------------------------
+
 	const Vector2 CGridMap::getAbsoluteGridPos(const Vector2 pos)
 	{
 		TGridTile tile = getTileFromPosition(pos.x, pos.y);
