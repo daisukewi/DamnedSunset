@@ -18,8 +18,10 @@ de los edificios sobre el escenario, cuando se van a construir.
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
 
-#include "Graphics/Server.h"
 #include "Graphics/Scene.h"
+#include "Graphics/Entity.h"
+#include "Graphics/Material.h"
+#include "Graphics/BasicShapeEntity.h"
 
 #include "Physics/Server.h"
 
@@ -38,6 +40,9 @@ namespace Logic
 	{
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
+
+		_OkBuildMaterial = new Graphics::CMaterial("BuildingCanEmplace");
+		_NokBuildMaterial = new Graphics::CMaterial("BuildingCannotEmplace");
 
 		return true;
 
@@ -141,6 +146,9 @@ namespace Logic
 
 		_buildingEntity = Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap());
 
+		_plane = new Graphics::CBasicShapeEntity(Graphics::ShapeType::ST_Plane, Vector2(_buildingWidth * 8, _buildingHeight * 8));
+		_entity->getMap()->getScene()->addEntity(_plane);
+
 		if (!_buildingEntity)
 		{
 			_building = false;
@@ -162,6 +170,8 @@ namespace Logic
 
 		// Borrar la entidad que se estaba construyendo antes
 		Logic::CEntityFactory::getSingletonPtr()->deleteEntity(_buildingEntity);
+		_entity->getMap()->getScene()->removeEntity(_plane);
+		delete(_plane);
 
 		// Mandamos un mensaje para dejar de lanzar raycasts
 		MControlRaycast *rc_message = new MControlRaycast();
@@ -207,6 +217,8 @@ namespace Logic
 		buildInfo->setName(buildingName.str());
 		buildInfo->setAttribute("position", vecPos.str());
 		
+		_entity->getMap()->getScene()->removeEntity(_plane);
+		delete(_plane);
 		Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap());
 
 		// Mandamos un mensaje para dejar de lanzar raycasts.
@@ -220,8 +232,6 @@ namespace Logic
 
 		_building = false;
 
-
-
 	} // emplaceBuilding
 
 	//---------------------------------------------------------
@@ -233,6 +243,9 @@ namespace Logic
 		// Ponemos la nueva posición del edificio en el centro de la casilla que le corresponda.
 		Vector2 newPos = _entity->getMap()->getGridMap()->getAbsoluteGridPos(pos);
 		_buildingEntity->setPosition(Vector3(newPos.x, 1.0f, newPos.y));
+		_plane->setPosition(Vector3(newPos.x, 1.0f, newPos.y));
+
+		CheckBuildingCanEmplace();
 
 	} // moveBuilding
 
@@ -251,6 +264,8 @@ namespace Logic
 
 		bool canEmplace = true;
 
+		_plane->SetMaterial(*_OkBuildMaterial);
+
 		for (int row = _startRow; row < _endRow; row ++)
 			for (int col = _startCol; col < _endCol; col++)
 			{
@@ -258,6 +273,10 @@ namespace Logic
 				// el edificio en rojo, amarillo o verde.
 				canEmplace &= !_entity->getMap()->getGridMap()->getTileFromCoord(row, col)->IsPopulated();
 			}
+		if (!canEmplace)
+		{
+			_plane->SetMaterial(*_NokBuildMaterial);
+		}
 
 		return canEmplace;
 

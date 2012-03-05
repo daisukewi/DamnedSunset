@@ -18,6 +18,11 @@ de los edificios.
 #include "BaseSubsystems/Math.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
+namespace Graphics
+{
+	class CMaterial;
+	class CBasicShapeEntity;
+}
 namespace Logic 
 {
 	class CEntity;
@@ -173,6 +178,11 @@ namespace Logic
 		edificio en el mapa lógico.
 		*/
 		unsigned int _buildingHeight, _buildingWidth;
+
+		Graphics::CMaterial* _OkBuildMaterial;
+		Graphics::CMaterial* _NokBuildMaterial;
+
+		Graphics::CBasicShapeEntity* _plane;
 
 	}; // class CBuilderController
 
