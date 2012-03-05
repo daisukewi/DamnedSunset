@@ -24,6 +24,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AI", "Projects\AI\AI.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sound", "Projects\Sound\Sound.vcxproj", "{E667483D-AA8E-4E75-8B33-142C3F8811DD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScriptManager", "Projects\ScriptManager\ScriptManager.vcxproj", "{7E599FAA-E0E5-41B0-AD2A-B0C63742CD30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -70,6 +72,10 @@ Global
 		{E667483D-AA8E-4E75-8B33-142C3F8811DD}.Debug|Win32.Build.0 = Debug|Win32
 		{E667483D-AA8E-4E75-8B33-142C3F8811DD}.Release|Win32.ActiveCfg = Release|Win32
 		{E667483D-AA8E-4E75-8B33-142C3F8811DD}.Release|Win32.Build.0 = Release|Win32
+		{7E599FAA-E0E5-41B0-AD2A-B0C63742CD30}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7E599FAA-E0E5-41B0-AD2A-B0C63742CD30}.Debug|Win32.Build.0 = Debug|Win32
+		{7E599FAA-E0E5-41B0-AD2A-B0C63742CD30}.Release|Win32.ActiveCfg = Release|Win32
+		{7E599FAA-E0E5-41B0-AD2A-B0C63742CD30}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
