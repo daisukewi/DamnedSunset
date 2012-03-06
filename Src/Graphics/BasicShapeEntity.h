@@ -73,7 +73,7 @@ namespace Graphics
 		/**
 		Destructor de la clase.
 		*/
-		virtual ~CBasicShapeEntity() {}
+		virtual ~CBasicShapeEntity();
 
 		/**
 		Asigna un material al objeto.

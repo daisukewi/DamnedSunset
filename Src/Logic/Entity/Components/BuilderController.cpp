@@ -167,14 +167,22 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CBuilderController::cancelBuilding()
+	void CBuilderController::FreeResources()
 	{
-		if (!_building) return;
-
 		// Borrar la entidad que se estaba construyendo antes
 		Logic::CEntityFactory::getSingletonPtr()->deleteEntity(_buildingEntity);
 		_entity->getMap()->getScene()->removeEntity(_plane);
 		delete(_plane);
+
+	} // FreeResources
+
+	//---------------------------------------------------------
+
+	void CBuilderController::cancelBuilding()
+	{
+		if (!_building) return;
+
+		FreeResources();
 
 		// Mandamos un mensaje para dejar de lanzar raycasts
 		MControlRaycast *rc_message = new MControlRaycast();
@@ -210,8 +218,9 @@ namespace Logic
 		buildingName << _buildingEntity->getName() << ++_buildingNumber;
 		buildingType = _buildingEntity->getType();
 
-		// Borrar la entidad sin física
-		Logic::CEntityFactory::getSingletonPtr()->deleteEntity(_buildingEntity);
+		// Liberamos los recursos utilizados para pintar el edificio fantasma
+		// y el plano que indica si se puede construir o no
+		FreeResources();
 
 		// Creamos una nueva entidad con su entidad trigger sacada de los arquetipos
 		Map::CEntity * buildInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Turret");
@@ -219,9 +228,7 @@ namespace Logic
 		// Le ponemos un nuevo nombre para poder hacer spawn y la posición del edificio fantasma
 		buildInfo->setName(buildingName.str());
 		buildInfo->setAttribute("position", vecPos.str());
-		
-		_entity->getMap()->getScene()->removeEntity(_plane);
-		delete(_plane);
+
 		Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap());
 
 		// Mandamos un mensaje para dejar de lanzar raycasts.

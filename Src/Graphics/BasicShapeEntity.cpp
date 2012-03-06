@@ -37,13 +37,14 @@ namespace Graphics
 	{
 		std::stringstream name;
 		name << "BasicShape_" << _nextID++;
+		_mesh = name.str();
 
 		MeshPtr shapeMesh;
 
 		switch (shape)
 		{
 		case ShapeType::ST_Plane:
-			shapeMesh = CreatePlane(name.str(), dimensions.x, dimensions.y);
+			shapeMesh = CreatePlane(_mesh, dimensions.x, dimensions.y);
 			break;
 
 		case ShapeType::ST_Cube:
@@ -53,11 +54,18 @@ namespace Graphics
 		}
 
 		std::stringstream entityName;
-		entityName << "Entity" << name.str();
+		entityName << "Entity" << _mesh;
 		_name = entityName.str();
-		_mesh = name.str();
 
 	} // CBasicShapeEntity
+
+	// ------------------------------------------------
+
+	CBasicShapeEntity::~CBasicShapeEntity()
+	{
+		MeshManager::getSingleton().unload(_mesh);
+
+	} // ~CBasicShapeEntity
 
 	// ------------------------------------------------
 
@@ -83,7 +91,7 @@ namespace Graphics
 			1,					// numTexCordsets
 			1, 1,				// uTile, vTile
 			Ogre::Vector3::UNIT_Z);	// UpVector
-
+		
 	} // CreatePlane
 
 } // namespace Graphics

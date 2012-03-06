@@ -157,6 +157,15 @@ namespace Logic
 		bool CheckBuildingCanEmplace();
 
 		/**
+		Libera los recursos utilizados mientras se estaba construyendo un edificio.
+		<p>
+		Lo que hace es llamar a las factorías correspondientes para
+		liberar los objetos de escena que se hayan creado en el proceso
+		de construcción.
+		*/
+		void FreeResources();
+
+		/**
 		Atributo que controla que está construyendo un edificio.
 		*/
 		bool _building;
