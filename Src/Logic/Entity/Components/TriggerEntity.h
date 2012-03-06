@@ -28,12 +28,16 @@ namespace Logic
 	// fichero de mapa.
 	const std::string STR_TRIGGER_SHAPE = "trigger_shape";
 	const std::string STR_TRIGGER_TYPE = "trigger_type";
+	const std::string STR_TRIGGER_STATIC = "trigger_static";
+	const std::string STR_TRIGGER_DYNAMIC = "trigger_dynamic";
+	const std::string STR_TRIGGER_KINEMATIC = "trigger_kinematic";
 	const std::string STR_TRIGGER_CAPSULE = "trigger_capsule";
 	const std::string STR_TRIGGER_RADIUS = "trigger_radius";
 	const std::string STR_TRIGGER_HEIGHT = "trigger_height";
 	const std::string STR_TRIGGER_PLANE = "trigger_plane";
 	const std::string STR_TRIGGER_NORMAL = "trigger_normal";
 	const std::string STR_TRIGGER_BOX = "trigger_box";
+	const std::string STR_TRIGGER_SPHERE = "trigger_sphere";
 	const std::string STR_TRIGGER_DIMENSIONS = "trigger_dimensions";
 	const std::string STR_TRIGGER = "trigger";
 	const std::string STR_TRIGGER_COLLISION_GROUP = "trigger_collision_group";
@@ -120,6 +124,15 @@ namespace Logic
 		IPhysicObj *_physicObj;
 
 	private:
+
+		/**
+		Este método indica el tipo de trigger que debemos crear (estática, dinámica o 
+		kinemática) a partir de la descripción de la entidad en el fichero de mapa.
+
+		@param entityInfo Descripción de la entidad en el fichero de mapa.
+		@return Tipo de entidad física: estática, dinámica o kinemática.
+		*/
+		Physics::TPhysicMode getTriggerMode(const Map::CEntity *entityInfo);
 
 		/**
 		Este método construye y devuelve un modelo que describe un tipo de entidad física simple.

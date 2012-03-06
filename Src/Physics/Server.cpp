@@ -246,6 +246,27 @@ void CServer::createCapsuleShape(CPhysicModelSimple *model, float radius, float 
 
 //--------------------------------------------------------
 
+void CServer::createSphereShape(CPhysicModelSimple *model, float radius, int group)
+{
+	assert((radius > 0) && (group >= 0));
+	
+	// Nota: la lógica asume que el origen del sistema de coordenadas local (SCL)
+	// asociado a la entidad está colocado en la parte inferior (los pies) de la 
+	// entidad. En PhysX, sin embargo, el origen del SCL se coloca por defecto en el centro
+	// de la entidad. Para que ambos sistemas concuerden trasladamos el de PhysX la
+	// mitad de la altura del volumen de colisión elegido.	
+	
+	int shapeIdx = model->CreateShape(NX_SHAPE_SPHERE);
+	NxSphereShapeDesc &desc = dynamic_cast<NxSphereShapeDesc &> (model->EditShape(shapeIdx));
+	desc.radius = radius;
+	desc.group = group;
+
+	// El origen de la esfera se sitúa en el plano.
+	desc.localPose.t.y = 0;
+}
+
+//--------------------------------------------------------
+
 void CServer::createBoxShape(CPhysicModelSimple *model, const Vector3 &dimensions, int group)
 {
 	assert(model && (group >= 0));

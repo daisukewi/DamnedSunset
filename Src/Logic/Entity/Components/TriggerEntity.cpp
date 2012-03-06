@@ -120,12 +120,29 @@ namespace Logic
 
 		// Obtenemos el tipo de entidad física (estática, dinámica, kinemática)
 		// particular que queremos crear y su posición en el mundo
-		TPhysicMode mode = PM_STATIC;
+		TPhysicMode mode = getTriggerMode(entityInfo);
 		Vector3 position = _entity->getPosition();
 		Matrix3 orientation = _entity->getOrientation();
 
 		// Creamos la nueva entidad física
 		return _physicServer->createTrigger(this, mode, position, orientation, model); 
+	}
+
+	//---------------------------------------------------------
+
+	TPhysicMode CTriggerEntity::getTriggerMode(const Map::CEntity *entityInfo) 
+	{
+		std::string type = entityInfo->getStringAttribute(STR_TRIGGER_TYPE);
+		assert(((type == STR_TRIGGER_STATIC) || (type == STR_TRIGGER_DYNAMIC) || (type == STR_TRIGGER_KINEMATIC)) &&
+				"Trigger type no permitido");
+
+		if (type == STR_TRIGGER_STATIC) {
+			return PM_STATIC;
+		} else if (type == STR_TRIGGER_DYNAMIC) {
+			return PM_DYNAMIC;
+		} else {
+			return PM_KINEMATIC;
+		} 
 	}
 
 	//---------------------------------------------------------
@@ -176,8 +193,8 @@ namespace Logic
 	
 		// Crear el volumen de colisión adecuado
 		const std::string shape = entityInfo->getStringAttribute(STR_TRIGGER_SHAPE);
-		assert(((shape == STR_TRIGGER_CAPSULE) || (shape == STR_TRIGGER_PLANE) || (shape == STR_TRIGGER_BOX)) &&
-				"Tipo de shape no permitida en un objeto físico simple");
+		assert(((shape == STR_TRIGGER_CAPSULE) || (shape == STR_TRIGGER_PLANE) || (shape == STR_TRIGGER_BOX) 
+			|| (shape == STR_TRIGGER_SPHERE)) && "Tipo de shape no permitida en un objeto físico simple");
 
 		// Usar una capsula?
 		if (shape == STR_TRIGGER_CAPSULE) {
@@ -189,6 +206,11 @@ namespace Logic
 		} else if (shape == STR_TRIGGER_PLANE) {
 			Vector3 normal = entityInfo->getVector3Attribute(STR_TRIGGER_NORMAL);
 			_physicServer->createPlaneShape(model, normal, group);
+
+		// Usar una esfera?
+		} else if (shape == STR_TRIGGER_SPHERE) {
+			float radius = entityInfo->getFloatAttribute(STR_TRIGGER_RADIUS);
+			_physicServer->createSphereShape(model, radius * scale, group);
 	
 		// Usar una caja?
 		} else if (shape == STR_TRIGGER_BOX) {

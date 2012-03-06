@@ -189,6 +189,15 @@ namespace Physics {
 		void createCapsuleShape(CPhysicModelSimple *model, float radius, float height, int group);
 
 		/**
+		Añade un volumen de colisión (shape) con forma de esfera a un modelo simple.
+
+		@param model Modelo simple al que vamos a añadir la shape.
+		@param radius Radio de la esfera.
+		@param group Grupo de colisión al que pertenecerá la shape.
+		*/
+		void createSphereShape(CPhysicModelSimple *model, float radius, int group);
+
+		/**
 		Añade un volumen de colisión (shape) con forma de caja a un modelo simple.
 
 		@param model Modelo simple al que vamos a añadir la shape.
