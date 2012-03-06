@@ -26,6 +26,7 @@ basadas en Ogre. Esta clase maneja la ejecución de todo el juego.
 #include "Logic/Maps/ComponentFactory.h"
 #include "Physics/Server.h"
 #include "AI/Server.h"
+#include "ScriptManager/Server.h"
 
 #include <cassert>
 
@@ -86,6 +87,10 @@ namespace Application {
 		if (!AI::CServer::Init())
 			return false;
 
+		// Inicializamos el script manager
+		if (!ScriptManager::CServer::Init())
+			return false;
+
 		return true;
 
 	} // init
@@ -94,6 +99,14 @@ namespace Application {
 
 	void C3DApplication::release()
 	{
+		// Liberar el script manager
+		if (ScriptManager::CServer::getSingletonPtr())
+			ScriptManager::CServer::Release();
+		
+		// Liberar servidor de IA 
+		if (AI::CServer::getSingletonPtr())
+			AI::CServer::Release();
+		
 		// Destruimos la factoría de componentes. La factoría
 		// de componentes no es de construcción y destrucción explícita
 		// debido a como se registran los componentes. Por ello Init y
@@ -103,10 +116,6 @@ namespace Application {
 
 		if(Logic::CServer::getSingletonPtr())
 			Logic::CServer::Release();
-		
-		// Liberar servidor de IA 
-		if (AI::CServer::getSingletonPtr())
-			AI::CServer::Release();
 
 		// Liberar los recursos del servidor de física
 		if (Physics::CServer::getSingletonPtr())

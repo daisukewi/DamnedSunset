@@ -36,6 +36,7 @@ namespace ScriptManager {
 	CServer::CServer()
 	{
 		_instance = this;
+		_lua = NULL;
 
 	} // CServer
 
@@ -51,7 +52,7 @@ namespace ScriptManager {
 
 	bool CServer::Init()
 	{
-		assert(!_instance && "Segunda inicialización de Logic::CServer no permitida!");
+		assert(!_instance && "Segunda inicialización de ScriptManager::CServer no permitida!");
 
 		new CServer();
 
@@ -69,7 +70,7 @@ namespace ScriptManager {
 
 	void CServer::Release()
 	{
-		assert(_instance && "Logic::CServer no está inicializado!");
+		assert(_instance && "ScriptManager::CServer no está inicializado!");
 
 		if(_instance)
 		{
@@ -83,7 +84,7 @@ namespace ScriptManager {
 
 	bool CServer::open()
 	{
-		/*_lua = lua_open();
+		_lua = luaL_newstate();
 
 		if (!_lua)
 			return false;
@@ -93,7 +94,7 @@ namespace ScriptManager {
 		luaopen_base(_lua);
 
 		// Activamos luabind en el intérprete
-		luabind::open(_lua);*/
+		luabind::open(_lua);
 
 		return true;
 
@@ -103,6 +104,8 @@ namespace ScriptManager {
 
 	void CServer::close() 
 	{
+		if (_lua)
+			lua_close(_lua);
 
 	} // close
 
