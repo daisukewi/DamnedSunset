@@ -12,6 +12,8 @@ la gestión de los scripts del juego.
 #ifndef __ScriptManager_Server_H
 #define __ScriptManager_Server_H
 
+#include <list>
+
 // Estructura con el contexto (estado) del intérprete de Lua.
 struct lua_State;
 
@@ -58,6 +60,14 @@ namespace ScriptManager
 		*/
 		static void Release();
 
+		/**
+		Carga un fichero de script en lua y lo ejecuta.
+
+		@param script nombre del fichero a cargar y ejecutar.
+		@return true si todo fue bien y false en caso contrario.
+		*/
+		bool loadScript(const char *script);
+
 	protected:
 		/**
 		Constructor.
@@ -95,6 +105,16 @@ namespace ScriptManager
 		Atributo que representa la comunicación con lua desde el código C++.
 		*/
 		lua_State *_lua;
+
+		/**
+		Tipo lista de scripts cargados en el manager de scripts.
+		*/
+		typedef std::list<const char*> TScriptList;
+
+		/**
+		Lista de scripts cargados.
+		*/
+		TScriptList _scriptList;
 
 	}; // class CServer
 

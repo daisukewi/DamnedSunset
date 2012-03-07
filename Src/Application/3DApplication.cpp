@@ -59,6 +59,10 @@ namespace Application {
 		if (!BaseSubsystems::CServer::Init())
 			return false;
 
+		// Inicializamos el script manager
+		if (!ScriptManager::CServer::Init())
+			return false;
+
 		// Inicializamos el servidor gráfico.
 		if (!Graphics::CServer::Init())
 			return false;
@@ -87,10 +91,6 @@ namespace Application {
 		if (!AI::CServer::Init())
 			return false;
 
-		// Inicializamos el script manager
-		if (!ScriptManager::CServer::Init())
-			return false;
-
 		return true;
 
 	} // init
@@ -99,9 +99,6 @@ namespace Application {
 
 	void C3DApplication::release()
 	{
-		// Liberar el script manager
-		if (ScriptManager::CServer::getSingletonPtr())
-			ScriptManager::CServer::Release();
 		
 		// Liberar servidor de IA 
 		if (AI::CServer::getSingletonPtr())
@@ -135,6 +132,10 @@ namespace Application {
 		
 		if(Graphics::CServer::getSingletonPtr())
 			Graphics::CServer::Release();
+
+		// Liberar el script manager
+		if (ScriptManager::CServer::getSingletonPtr())
+			ScriptManager::CServer::Release();
 
 		if(BaseSubsystems::CServer::getSingletonPtr())
 			BaseSubsystems::CServer::Release();

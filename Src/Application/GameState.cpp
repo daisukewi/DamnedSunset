@@ -27,6 +27,8 @@ Contiene la implementación del estado de juego.
 
 #include "Physics/Server.h"
 
+#include "ScriptManager/Server.h"
+
 #include "GUI/Server.h"
 #include <CEGUISystem.h>
 #include <CEGUIWindowManager.h>
@@ -101,6 +103,8 @@ namespace Application {
 		const OIS::MouseState state = GUI::CInputManager::getSingletonPtr()->getMouseState();
 		CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();  
 		CEGUI::System::getSingleton().injectMouseMove(state.X.abs-mousePos.d_x,state.Y.abs-mousePos.d_y);
+
+		ScriptManager::CServer::getSingletonPtr()->loadScript("prueba");
 
 	} // activate
 
