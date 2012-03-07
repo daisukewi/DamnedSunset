@@ -110,7 +110,9 @@ namespace Logic
 						// @TODO @ENTITYDEATH Habrá que borrar este bloque de código cuando la notificación de la muerte de la entidad funcione bien.
 						MAttackEntity *m = new MAttackEntity();
 						m->setAttack(false);
-						md->getKiller()->emitMessage(m, this);
+
+						if (md->getKiller())
+							md->getKiller()->emitMessage(m, this);
 
 						// Notifico a todos mis oyentes de que la entidad ha muerto.
 						notifyDeathListeners();

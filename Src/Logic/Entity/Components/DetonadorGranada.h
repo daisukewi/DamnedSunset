@@ -2,13 +2,17 @@
 #define __Logic_DetonadorGranada_H
 
 #include "Logic/Entity/Component.h"
+#include "Logic/Entity/DeathListener.h"
+
+#include "BaseSubsystems/Math.h"
+
 #include "BaseSubsystems/ClockListener.h"
 
 // Los componentes pertenecen al namespace Logic
 namespace Logic 
 {
 
-	class CDetonadorGranada: public IComponent, public BaseSubsystems::IClockListener
+	class CDetonadorGranada: public IComponent, public BaseSubsystems::IClockListener, public IDeathListener
 	{
 		DEC_FACTORY(CDetonadorGranada);
 	public:
@@ -26,6 +30,12 @@ namespace Logic
 		virtual bool activate();
 
 		/**
+		Método heredado de la interfaz IDeathListener que será llamado
+		cuando una entidad muera.
+		*/
+		virtual void entityDeath(CEntity* entity);
+
+		/**
 		Método heredado de la interfaz IClockListener que será llamado
 		por el temporizador cuando se acabe el tiempo de espera
 		especificado.
@@ -33,6 +43,10 @@ namespace Logic
 		virtual void timeElapsed(); // @TEMPORIZADOR Declaración del método de la interfaz que va a ser llamado cuando se acabe el tiempo.
 	protected:
 
+		/**
+		Entidades que estan en el rango de la granada
+		*/
+		std::list<CEntity*> _entidades;
 	};
 
 	REG_FACTORY(CDetonadorGranada);
