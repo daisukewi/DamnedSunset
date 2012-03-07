@@ -37,7 +37,6 @@ namespace Logic
 			_buildingWidth = size.x;
 			_buildingHeight = size.y;
 
-			//map->getGridMap()->PrintMap();
 		}
 
 		if(entityInfo->hasAttribute("grid_position"))
@@ -45,28 +44,6 @@ namespace Logic
 			Vector2 currentTilePos = entityInfo->getVector2Attribute("grid_position");
 			_startRow = currentTilePos.y;
 			_startCol = currentTilePos.x;
-
-			_endRow = _startRow + _buildingHeight;
-			_endCol = _startCol + _buildingWidth;
-
-			Vector2 relativePosition = map->getGridMap()->getRelativeMapPos(_startRow, _startCol);
-			Vector2 diagonalSize = map->getGridMap()->getRelativeMapPos(_endRow, _endCol) - relativePosition;
-
-			relativePosition += diagonalSize / diagonalSize.length();
-
-			_entity->setPosition(Vector3(relativePosition.x, 0.0f, relativePosition.y), true);
-
-		}
-		else if(entityInfo->hasAttribute("position"))
-		{
-			// Ponemos la nueva posición del edificio en el centro de la casilla que le corresponda.
-			Vector3 oldpos = entityInfo->getVector3Attribute("position");
-			Vector2 newPos = map->getGridMap()->getAbsoluteGridPos(Vector2 (oldpos.x, oldpos.z));
-			_entity->setPosition(Vector3(newPos.x, oldpos.y, newPos.y), true);
-
-			TGridTile currentTile = map->getGridMap()->getTileFromPosition(newPos.x, newPos.y);
-			_startRow = currentTile->GetRow() - _buildingHeight / 2;
-			_startCol = currentTile->GetCol() - _buildingWidth / 2;
 
 			_endRow = _startRow + _buildingHeight;
 			_endCol = _startCol + _buildingWidth;

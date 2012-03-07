@@ -54,14 +54,49 @@ namespace Logic
 		_map = map;
 		_type = entityInfo->getType();
 
+		Vector3 position = Vector3::ZERO;
+
 		if(entityInfo->hasAttribute("name"))
 			_name = entityInfo->getStringAttribute("name");
 
 		if(entityInfo->hasAttribute("position"))
 		{
-			Vector3 position = entityInfo->getVector3Attribute("position");
-			_transform.setTrans(position);
+			position = entityInfo->getVector3Attribute("position");
+			// Ponemos a la entidad en el centro de la casilla que le corresponda.
+			Vector2 newPos = map->getGridMap()->getAbsoluteGridPos(Vector2 (position.x, position.z));
+			position.x = newPos.x;
+			position.z = newPos.y;
 		}
+
+		if(entityInfo->hasAttribute("grid_position"))
+		{
+			Vector2 currentTilePos = entityInfo->getVector2Attribute("grid_position");
+			Vector2 relativePosition = map->getGridMap()->getRelativeMapPos(currentTilePos.y, currentTilePos.x);
+
+			position.x = relativePosition.x;
+			position.z = relativePosition.y;
+		}
+
+		if(entityInfo->hasAttribute("building_size"))
+		{
+			Vector2 size = entityInfo->getVector2Attribute("building_size");
+			//Width = size.x;
+			//Height = size.y;
+
+			TGridTile cornerTile = map->getGridMap()->getTileFromPosition(position.x, position.z);
+
+			unsigned int endRow = cornerTile->GetRow() + size.y;
+			unsigned int endCol = cornerTile->GetCol() + size.x;
+
+			Vector2 currentPos = Vector2(position.x, position.z);
+			Vector2 diagonalVector = currentPos - map->getGridMap()->getRelativeMapPos(endRow, endCol);
+			currentPos += diagonalVector / 2;
+			
+			position.x = currentPos.x;
+			position.z = currentPos.y;
+		}
+
+		_transform.setTrans(position);
 
 		// Por comodidad en el mapa escribimos los ángulos en grados.
 		if(entityInfo->hasAttribute("orientation"))

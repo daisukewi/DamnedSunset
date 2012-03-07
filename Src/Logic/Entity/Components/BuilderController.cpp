@@ -41,7 +41,8 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 
-		_gridSize = map->getGridMap()->GetGridSize();
+		_gridMap = map->getGridMap();
+		_gridSize = _gridMap->GetGridSize();
 
 		_OkBuildMaterial = new Graphics::CMaterial("BuildingCanEmplace");
 		_NokBuildMaterial = new Graphics::CMaterial("BuildingCannotEmplace");
@@ -142,22 +143,28 @@ namespace Logic
 		Map::CEntity * buildInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("PhantomTurret");
 		buildInfo->setName("PhantomBuilding");
 
+		// Obtenemos el tamaño que ocupa el edificio a construir de los arquetipos.
 		Vector2 size = buildInfo->getVector2Attribute("building_size");
 		_buildingWidth = size.x;
 		_buildingHeight = size.y;
 
 		_buildingEntity = Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap());
-
-		_plane = new Graphics::CBasicShapeEntity(Graphics::ShapeType::ST_Plane,
-			Vector2(_buildingWidth * _gridSize, _buildingHeight * _gridSize));
-		_entity->getMap()->getScene()->addEntity(_plane);
-
 		if (!_buildingEntity)
 		{
 			_building = false;
 			return;
 		}
 
+		// Calculamos el vector que tenemos que sumar al cursor para pintar bien el edificio.
+		Vector2 lastCornerPos = _gridMap->getRelativeMapPos(_buildingHeight, _buildingWidth);
+		_halfDiagonal = ( lastCornerPos - _gridMap->getRelativeMapPos(0, 0) ) / 2;
+
+		// Pintamos un plano bajo el cursor que indicará si se puede construir o no.
+		_plane = new Graphics::CBasicShapeEntity(Graphics::ShapeType::ST_Plane,
+			Vector2(_buildingWidth * _gridSize, _buildingHeight * _gridSize));
+		_entity->getMap()->getScene()->addEntity(_plane);
+
+		// Solicitamos que empiecen a lanzar Raycast desde el viewport.
 		MControlRaycast *rc_message = new MControlRaycast();
 		rc_message->setAction(RaycastMessage::START_RAYCAST);
 		rc_message->setCollisionGroups(Physics::TPhysicGroup::PG_WORLD);
@@ -211,10 +218,12 @@ namespace Logic
 		}
 
 		Vector3 pos = _buildingEntity->getPosition();
-		std::stringstream vecPos, buildingName;
+		TGridTile cornerTile = _gridMap->getTileFromPosition(pos.x + _halfDiagonal.x, pos.z + _halfDiagonal.y);
+		std::stringstream vecPos, gridPos, buildingName;
 		std::string	buildingType;
 
 		vecPos << pos.x << " 0.0 " << pos.z;
+		gridPos << cornerTile->GetCol() << " " << cornerTile->GetRow();
 		buildingName << _buildingEntity->getName() << ++_buildingNumber;
 		buildingType = _buildingEntity->getType();
 
@@ -228,6 +237,7 @@ namespace Logic
 		// Le ponemos un nuevo nombre para poder hacer spawn y la posición del edificio fantasma
 		buildInfo->setName(buildingName.str());
 		buildInfo->setAttribute("position", vecPos.str());
+		buildInfo->setAttribute("grid_position", gridPos.str());
 
 		Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap());
 
@@ -251,7 +261,8 @@ namespace Logic
 		if (_buildingEntity == NULL) return;
 
 		// Ponemos la nueva posición del edificio en el centro de la casilla que le corresponda.
-		Vector2 newPos = _entity->getMap()->getGridMap()->getAbsoluteGridPos(pos);
+		Vector2 cornerPos = _gridMap->getAbsoluteGridPos(pos + _halfDiagonal);
+		Vector2 newPos = cornerPos - _halfDiagonal;
 		_buildingEntity->setPosition(Vector3(newPos.x, 1.0f, newPos.y));
 		_plane->setPosition(Vector3(newPos.x, 1.0f, newPos.y));
 
@@ -264,10 +275,10 @@ namespace Logic
 	bool CBuilderController::CheckBuildingCanEmplace()
 	{
 		Vector3 pos = _buildingEntity->getPosition();
+		TGridTile cornerTile = _gridMap->getTileFromPosition(pos.x + _halfDiagonal.x, pos.z + _halfDiagonal.y);
 
-		TGridTile current_tile = _entity->getMap()->getGridMap()->getTileFromPosition(pos.x, pos.z);
-		int _startRow = current_tile->GetRow() - _buildingHeight / 2;
-		int _startCol = current_tile->GetCol() - _buildingWidth / 2;
+		int _startRow = cornerTile->GetRow();
+		int _startCol = cornerTile->GetCol();
 
 		int _endRow = _startRow + _buildingHeight;
 		int _endCol = _startCol + _buildingWidth;
@@ -276,12 +287,12 @@ namespace Logic
 
 		_plane->SetMaterial(*_OkBuildMaterial);
 
-		for (int row = _startRow; row < _endRow; row ++)
-			for (int col = _startCol; col < _endCol; col++)
+		for (int row = _startRow; row < _endRow; ++row)
+			for (int col = _startCol; col < _endCol; ++col)
 			{
 				//TODO: Comprobar cada casilla y mandar al pixel shader un color para mostrar
 				// el edificio en rojo, amarillo o verde.
-				canEmplace &= !_entity->getMap()->getGridMap()->getTileFromCoord(row, col)->IsPopulated();
+				canEmplace &= !_gridMap->getTileFromCoord(row, col)->IsPopulated();
 			}
 		if (!canEmplace)
 		{

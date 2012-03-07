@@ -25,6 +25,7 @@ namespace Graphics
 }
 namespace Logic 
 {
+	class CGridMap;
 	class CEntity;
 }
 
@@ -189,9 +190,21 @@ namespace Logic
 		unsigned int _buildingHeight, _buildingWidth;
 
 		/**
+		Contiene el vector que hay que sumar a la posición del cursor
+		para obtener la esquina superior izquierda del edificio que se
+		está construyendo.
+		*/
+		Vector2 _halfDiagonal;
+
+		/**
 		Almacena el tamaño de las casillas del mapa.
 		*/
 		unsigned int _gridSize;
+
+		/**
+		Puntero que referencia al mapa lógico de la escena.
+		*/
+		CGridMap* _gridMap;
 
 		/**
 		Guarda los materiales que se asignan al construir,

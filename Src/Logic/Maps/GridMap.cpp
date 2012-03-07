@@ -192,14 +192,14 @@ namespace Logic {
 		printf("--------Map Dump ---------\n");
 		printf("Size: %f, %f\n", _mapWidth, _mapHeight);
 		printf("Grids: %d, %d\n\n", _nMapCols, _nMapRows);
-		for (int i = 0; i < _nMapRows; ++i)
+		for (int i = _nMapRows - 1; i >= 0; --i)
 		{
 			printf("|");
-			for (int j = 0; j < _nMapCols; ++j)
+			for (int j = _nMapCols - 1; j >= 0; --j)
 			{
-				printf(" %s", getTileFromCoord(i, j)->IsPopulated() ? "i" : "-");
+				printf(" %c", getTileFromCoord(i, j)->IsPopulated() ? 'i' : '-');
 			}
-			printf("|\n");
+			printf(" |\n");
 		}
 	}
 
