@@ -19,25 +19,7 @@ namespace Logic
 
 	CDetonadorGranada::~CDetonadorGranada() {
 
-		std::list<CEntity*>::const_iterator it, end;
-		it = _entidades.begin();
-		end = _entidades.end();
-
-		for(; it != end; it++) {
-			//Entidad que daña la granada
-			CEntity * entidad = *it;
-
-			//Le decimos a la entidad que no nos avise cuando muera
-			entidad->removeDeathListener(this);
-
-			//Enviamos mensaje de daño a la entidad
-			MDamaged *mDamaged = new MDamaged();
-			mDamaged->setHurt(100.0f);
-			mDamaged->setKiller(0);
-			entidad->emitMessage(mDamaged, this);
-
-			printf("DAÑO GRANADA");
-		}
+		
 	}
 
 	bool CDetonadorGranada::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
@@ -46,7 +28,7 @@ namespace Logic
 			return false;
 
 
-		BaseSubsystems::CServer::getSingletonPtr()->addClockListener(500, this);
+		BaseSubsystems::CServer::getSingletonPtr()->addClockListener(3000, this);
 
 		return true;
 	} // spawn
@@ -102,7 +84,28 @@ namespace Logic
 		Aquí irá el código que queréis que se ejecute cuando el temporizador llegue a cero.
 		*/
 
-		int a = 5;
+		//Recorremos la lista de entidades dentro del trigger y les hacemos daño
+		std::list<CEntity*>::const_iterator it, end;
+		it = _entidades.begin();
+		end = _entidades.end();
+
+		for(; it != end; it++) {
+			//Entidad que daña la granada
+			CEntity * entidad = *it;
+
+			//Le decimos a la entidad que no nos avise cuando muera
+			entidad->removeDeathListener(this);
+
+			//Enviamos mensaje de daño a la entidad
+			MDamaged *mDamaged = new MDamaged();
+			mDamaged->setHurt(100.0f);
+			mDamaged->setKiller(0);
+			entidad->emitMessage(mDamaged, this);
+
+			printf("DAÑO GRANADA");
+		}
+
+		//Eliminamos la entidad en el siguiente tick
 		CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 		
 

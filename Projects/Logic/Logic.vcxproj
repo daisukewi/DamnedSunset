@@ -114,6 +114,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\PlayerSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Message.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\AplicarFuerza.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntityDeath.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntityDeathListener.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\LanzandoGranada.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Building.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\AplicarFuerza.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntityDeath.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntityDeathListener.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.h" />

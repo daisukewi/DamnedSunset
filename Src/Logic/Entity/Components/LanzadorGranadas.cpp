@@ -12,6 +12,7 @@
 #include "Logic/Entity/Entity.h"
 #include "Logic/Maps/Map.h"
 #include "Logic/Entity/Messages/LanzarGranada.h"
+#include "Logic/Entity/Messages/AplicarFuerza.h"
 
 #include "Logic/Maps/EntityFactory.h"
 
@@ -97,19 +98,29 @@ namespace Logic
 				entityInfo->setName("granada" + rand() );
 
 				//Ponemos la posicion de la granada en el mismo sitio que la entidad
-				//std::stringstream pos;
-				//pos << _entity->getPosition().x << ' ' << _entity->getPosition().y << ' ' << _entity->getPosition().z;
-				//entityInfo->setAttribute("position", pos.str());
-
-				//Ponemos la posicion de la granada en el destino
 				std::stringstream pos;
-				pos << posDestino3.x << ' ' << posDestino3.y << ' ' << posDestino3.z;
+				pos << _entity->getPosition().x << ' ' << _entity->getPosition().y + 10 << ' ' << (_entity->getPosition().z);
 				entityInfo->setAttribute("position", pos.str());
+
+				////Ponemos la posicion de la granada en el destino
+				//std::stringstream pos;
+				//pos << posDestino3.x << ' ' << posDestino3.y << ' ' << posDestino3.z;
+				//entityInfo->setAttribute("position", pos.str());
 
 				Logic::CEntity *entityGranada = CEntityFactory::getSingletonPtr()->createEntity(entityInfo,Logic::CServer::getSingletonPtr()->getMap());
 
 
-				//entityGranada->setPosition(posDestino3);
+				//Calculamos el vector de direccion a la que tiene que ir la granada
+				Vector3 v = Vector3(posDestino3.x - _entity->getPosition().x,0,posDestino3.z - _entity->getPosition().z);
+				v.normalise();
+
+				//Aplicamos la fuerza para lanzar la granada
+				MAplicarFuerza * mf = new MAplicarFuerza();
+				mf->setForce(v.x * 1000, 300, v.z*1000);
+				mf->setPos(0,0,0);
+				entityGranada->emitMessage(mf);
+
+				entityGranada->setPosition(posDestino3);
 			}
 		}
 	} // process
