@@ -83,8 +83,9 @@
     <ClCompile Include="..\..\Src\Graphics\Camera.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Entity.cpp" />
     <ClCompile Include="..\..\Src\Graphics\EntityDebug.cpp" />
-    <ClCompile Include="..\..\Src\Graphics\EntityRaycastDebug.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Material.cpp" />
+    <ClCompile Include="..\..\Src\Graphics\ModelFactory.cpp" />
+    <ClCompile Include="..\..\Src\Graphics\Prefabs\PlaneModel.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Scene.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Server.cpp" />
     <ClCompile Include="..\..\Src\Graphics\StaticEntity.cpp" />
@@ -97,8 +98,9 @@
     <ClInclude Include="..\..\Src\Graphics\Documentation.h" />
     <ClInclude Include="..\..\Src\Graphics\Entity.h" />
     <ClInclude Include="..\..\Src\Graphics\EntityDebug.h" />
-    <ClInclude Include="..\..\Src\Graphics\EntityRaycastDebug.h" />
     <ClInclude Include="..\..\Src\Graphics\Material.h" />
+    <ClInclude Include="..\..\Src\Graphics\ModelFactory.h" />
+    <ClInclude Include="..\..\Src\Graphics\Prefabs\PlaneModel.h" />
     <ClInclude Include="..\..\Src\Graphics\Scene.h" />
     <ClInclude Include="..\..\Src\Graphics\Server.h" />
     <ClInclude Include="..\..\Src\Graphics\StaticEntity.h" />

@@ -9,6 +9,15 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Prefabs">
+      <UniqueIdentifier>{168ac7ca-e0ea-4409-a2cf-1ca3a9a616f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Prefabs\Header Files">
+      <UniqueIdentifier>{dd329a50-939b-4abb-8ba3-d7f24e16d099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Prefabs\Source Files">
+      <UniqueIdentifier>{04b0a2a5-8f3c-45d7-9511-ef37c636155b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Graphics\AnimatedEntity.cpp">
@@ -35,14 +44,17 @@
     <ClCompile Include="..\..\Src\Graphics\EntityDebug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Graphics\EntityRaycastDebug.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\Graphics\BasicShapeEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Graphics\Material.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Graphics\ModelFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Graphics\Prefabs\PlaneModel.cpp">
+      <Filter>Prefabs\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,14 +85,17 @@
     <ClInclude Include="..\..\Src\Graphics\EntityDebug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Graphics\EntityRaycastDebug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Src\Graphics\BasicShapeEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Graphics\Material.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Graphics\ModelFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Graphics\Prefabs\PlaneModel.h">
+      <Filter>Prefabs\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
