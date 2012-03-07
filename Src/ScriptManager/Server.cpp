@@ -84,10 +84,14 @@ namespace ScriptManager {
 
 	bool CServer::open()
 	{
+		// Obtengo el estado de lua (inicialización de lua)
 		_lua = luaL_newstate();
 
 		if (!_lua)
 			return false;
+
+		// Abro las librerías de lua (segunda parte de la inicialización)
+		luaL_openlibs(_lua);
 
 		// Abrimos la librería base para hacer disponible
 		// print() en Lua.
