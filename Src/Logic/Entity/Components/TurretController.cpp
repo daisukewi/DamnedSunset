@@ -132,8 +132,10 @@ namespace Logic
 			Vector3 origen = _entity->getPosition();
 			Vector3 destino = _enemies->back()->getPosition();
 			destino.y = 3.0f;
-	
 			Vector3 direction = destino - origen;
+			direction.x *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
+			direction.y *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
+			direction.z *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
 			/*
 			std::cout << _enemies->back()->getPosition() << '\n';
 			std::cout << origen << '\n';
@@ -142,17 +144,18 @@ namespace Logic
 			direction.normalise();
 			Vector3 impact;
 			Ray disparo = Ray(origen, direction);
-			Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastGroup(disparo, &impact, (Physics::TPhysicGroup::PG_ENEMY));
+			Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastGroup(disparo, &impact,
+				(Physics::TPhysicGroup)(Physics::TPhysicGroup::PG_ALL & ~Physics::TPhysicGroup::PG_TRIGGER));
 			if (entity == _enemies->back())
 			{
 				MDamaged *m_dam = new MDamaged();
-				assert(_enemies->back());
-
 				m_dam->setHurt(40 * _precision / ((_entity->getPosition() - _enemies->back()->getPosition()).length() + 0.1));
 				m_dam->setKiller(_entity);
-
-				assert(_enemies->back());
 				_enemies->back()->emitMessage(m_dam, this);
+			}
+			else
+			{
+				std::cout << "Fallo!!!\n";
 			}
 		}
 
