@@ -218,13 +218,13 @@ namespace Graphics
 				_entityNode->getPosition().z);
 
 			}else{
-				Vector3 auxVector = _entityNode->convertWorldToLocalPosition(_entityNode->getPosition());
+				/*Vector3 auxVector = _entityNode->convertWorldToLocalPosition(_entityNode->getPosition());
 				auxVector.y +100;
 
-				_entityNode->setPosition(_entityNode->convertLocalToWorldPosition(auxVector));
-					/*_entityNode->setPosition(_entityNode->getPosition().x,
+				_entityNode->setPosition(_entityNode->convertLocalToWorldPosition(auxVector));*/
+					_entityNode->setPosition(_entityNode->getPosition().x,
 				_entityNode->getPosition().y +  _dimensions.y,
-				_entityNode->getPosition().z);*/
+				_entityNode->getPosition().z);
 			}
 		}
 
@@ -275,13 +275,13 @@ namespace Graphics
 				_entityNode->getPosition().z);
 
 			}else{
-				Vector3 auxVector = _entityNode->convertWorldToLocalPosition(_entityNode->getPosition());
+				/*Vector3 auxVector = _entityNode->convertWorldToLocalPosition(_entityNode->getPosition());
 				auxVector.y += _dimensions.y;
 
-				_entityNode->setPosition(_entityNode->convertLocalToWorldPosition(auxVector));
-					/*_entityNode->setPosition(_entityNode->getPosition().x,
+				_entityNode->setPosition(_entityNode->convertLocalToWorldPosition(auxVector));*/
+					_entityNode->setPosition(_entityNode->getPosition().x,
 				_entityNode->getPosition().y +  _dimensions.y,
-				_entityNode->getPosition().z);*/
+				_entityNode->getPosition().z);
 			}
 		}
 			

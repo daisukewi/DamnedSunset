@@ -35,6 +35,9 @@
     <ClCompile Include="..\..\Src\Graphics\EntityDebug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Graphics\EntityRaycastDebug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Src\Graphics\BasicShapeEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -68,6 +71,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Graphics\EntityDebug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Graphics\EntityRaycastDebug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Graphics\BasicShapeEntity.h">

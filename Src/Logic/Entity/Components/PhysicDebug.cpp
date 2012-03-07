@@ -33,13 +33,27 @@ namespace Logic
 
 	CPhysicDebug::~CPhysicDebug() 
 	{
+
 		if(_graphicsEntity)
 		{
+			
 			_scene->removeEntity(_graphicsEntity);
 			delete _graphicsEntity;
+			
 			_graphicsEntity = 0;
+			
 		}
 
+		if(_triggerEntity){
+			_scene->removeEntity(_triggerEntity);
+			delete _triggerEntity;
+
+			_triggerEntity = 0;
+		}
+
+		
+
+	
 
 	} // ~CGraphics
 	
@@ -91,7 +105,7 @@ namespace Logic
 				
 
 			}else if (!auxStr.compare("capsule")){
-				prefab = Graphics::TOgrePrefab::PT_CUBE;
+				prefab = Graphics::TOgrePrefab::PT_SPHERE;
 				
 				if (entityInfo->hasAttribute("physic_height")){
 					auxHeight = entityInfo->getFloatAttribute("physic_height");
@@ -103,10 +117,38 @@ namespace Logic
 
 				_graphicsEntity = new Graphics::CEntityDebug(_entity->getName() + "_Debug",prefab,auxHeight,auxRadius, _greenMaterial);
 			}
-		//TODO cuando se unifique cada trigger en su entidada correspondiente
-			//habrá que añadir el código necesario
-		}else if (entityInfo->hasAttribute("trigger")){
+		}
 		
+		if (entityInfo->hasAttribute("trigger_shape")){
+			std::string auxStr = entityInfo->getStringAttribute("trigger_shape"); 
+			Vector3 auxDimensions;
+			float auxHeight;
+			float auxRadius;
+			
+			Graphics::TOgrePrefab prefab;
+			if (!auxStr.compare("trigger_box")){
+				prefab = Graphics::TOgrePrefab::PT_CUBE;
+
+				if (entityInfo->hasAttribute("trigger_dimensions")){
+					auxDimensions = entityInfo->getVector3Attribute("trigger_dimensions");
+				}
+				
+				_triggerEntity = new Graphics::CEntityDebug(_entity->getName() + "_TDebug",prefab, auxDimensions, _blueMaterial);
+				
+
+			}else if (!auxStr.compare("trigger_sphere")){
+				prefab = Graphics::TOgrePrefab::PT_SPHERE;
+				
+				if (entityInfo->hasAttribute("physic_height")){
+					auxHeight = entityInfo->getFloatAttribute("physic_height");
+				}
+				
+				if (entityInfo->hasAttribute("physic_radius")){
+					auxRadius = entityInfo->getFloatAttribute("physic_radius");
+				}
+
+				_triggerEntity = new Graphics::CEntityDebug(_entity->getName() + "_TDebug",prefab,auxHeight,auxRadius, _blueMaterial);
+			}
 		}
 
 			
@@ -117,6 +159,18 @@ namespace Logic
 	
 		_graphicsEntity->setTransform(_entity->getTransform());
 
+
+		if(_triggerEntity){
+
+			if (!_scene->addEntity(_triggerEntity))
+			return 0;
+
+			_triggerEntity->setScale(scale);
+	
+			_triggerEntity->setTransform(_entity->getTransform());
+		}
+		
+		
 		return _graphicsEntity;
 
 	} // createGraphicsEntity
@@ -141,6 +195,9 @@ namespace Logic
 			MSetTransform *m = static_cast <MSetTransform*> (message);
 
 			_graphicsEntity->setTransform(m->getTransform());
+
+			if(_triggerEntity)
+				_triggerEntity->setTransform(m->getTransform());
 		} 
 
 		message->removePtr();

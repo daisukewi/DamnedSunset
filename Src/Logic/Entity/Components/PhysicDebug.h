@@ -14,7 +14,7 @@ gráfica de la entida física
 #define __Logic_PhysicDebug_H
 
 #include "Logic/Entity/Component.h"
-
+#include <list>
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Graphics 
 {
@@ -43,8 +43,8 @@ namespace Logic
 		/**
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
-		*/
-		CPhysicDebug() : IComponent(), _graphicsEntity(0) , _redMaterial("physic_debug_red50"), _blueMaterial("physic_debug_blue50"), _greenMaterial("physic_debug_green50") {}
+		*/				
+		CPhysicDebug() : IComponent(), _graphicsEntity(0) , _triggerEntity(0), _redMaterial("physic_debug_red50"), _blueMaterial("physic_debug_blue50"), _greenMaterial("physic_debug_green50") {}
 
 		/**
 		Destructor (virtual); Quita de la escena y destruye la entidad gráfica.
@@ -100,9 +100,14 @@ namespace Logic
 		std::string _model;
 		
 		/**
-		Entidad gráfica.
+		Entidad gráfica del prefab
 		*/
 		Graphics::CEntityDebug *_graphicsEntity;
+
+		/**
+		Entidad gráfica del trigger
+		*/
+		Graphics::CEntityDebug *_triggerEntity;
 
 		/**
 		Escena gráfica donde se encontrarán las representaciones gráficas de
