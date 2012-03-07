@@ -5,7 +5,7 @@ Contiene el tipo de datos de un mensaje.
 
 @see Logic::TMessage
 
-@author David Llansó García
+@author Alberto Plaza
 */
 #ifndef __Logic_Message_H
 #define __Logic_Message_H

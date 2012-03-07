@@ -87,9 +87,9 @@ namespace Application {
 		if (!AI::CServer::Init())
 			return false;
 
-		// Inicializamos el script manager
+		/*// Inicializamos el script manager
 		if (!ScriptManager::CServer::Init())
-			return false;
+			return false;*/
 
 		return true;
 
@@ -99,9 +99,9 @@ namespace Application {
 
 	void C3DApplication::release()
 	{
-		// Liberar el script manager
+		/*// Liberar el script manager
 		if (ScriptManager::CServer::getSingletonPtr())
-			ScriptManager::CServer::Release();
+			ScriptManager::CServer::Release();*/
 		
 		// Liberar servidor de IA 
 		if (AI::CServer::getSingletonPtr())

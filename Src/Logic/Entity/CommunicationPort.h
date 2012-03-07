@@ -6,8 +6,8 @@ de los mensajes.
 
 @see Logic::CCommunicationPort
 
-@author David Llansó García
-@date Julio, 2010
+@author Alberto Plaza
+@date Enero, 2012
 */
 
 #ifndef __Logic_CommunicationPort_H
