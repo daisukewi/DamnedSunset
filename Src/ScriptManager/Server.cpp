@@ -118,7 +118,7 @@ namespace ScriptManager {
 
 	//---------------------------------------------------------
 
-	bool CServer::loadScript(const char *script)
+	bool CServer::loadExeScript(const char *script)
 	{
 		assert(_lua && "No se ha hecho la inicialización de lua");
 
@@ -128,17 +128,99 @@ namespace ScriptManager {
 		for (TScriptList::iterator it = _scriptList.begin(); it != _scriptList.end(); it++)
 			exists = exists || (script == it._Ptr->_Myval);
 
-		// Si ya lo he cargado salgo y devuelvo false.
+		// Si ya lo he cargado muestro un mensaje de error, salgo y devuelvo false.
 		if (exists)
+		{
+			std::cout << "ERROR DE LUA! - Error al cargar el fichero de script \"" << script << "\". Este fichero ya se ha cargado anteriormente." << std::endl;
+
+			return false;
+		}
+
+		// Cargo el script. Si la carga ha ido bien, me lo guardo.
+		if (loadScript(script, false))
+			_scriptList.push_back(script);
+		else
 			return false;
 
+		// Ejecuto el script
+		if (!executeLastLoadScript(script))
+			return false;
+
+		return true;
+
+	} // loadExeScript
+
+	//---------------------------------------------------------
+
+	bool CServer::executeScript(const char *script)
+	{
+		assert(_lua && "No se ha hecho la inicialización de lua");
+
+		// Cargo el script en modo inmediato.
+		if (!loadScript(script, true))
+			return false;
+
+		// Ejecuto el script
+		if (!executeLastLoadScript(script))
+			return false;
+
+		return true;
+	
+	} // executeScript
+
+	//---------------------------------------------------------
+
+	bool CServer::loadScript(const char *script, bool inmediate)
+	{
+		// Completo la ruta del script.
 		std::stringstream filename;
 		filename << "media\\scripts\\" << script << ".lua";
 
-		// Si he llegado aquí sin salir es que el script no lo he cargado aún. Lo cargo.
-		if (luaL_loadfile(_lua, filename.str().c_str()) != 0)
-			return false;
+		// Cargo el fichero de script dependiendo del parámetro booleano.
+		int errorType = 0;
 
+		if (inmediate)
+			errorType = luaL_loadstring(_lua, script);
+		else
+			errorType = luaL_loadfile(_lua, filename.str().c_str());
+
+		// Error al cargar el fichero de script
+		if (errorType == LUA_ERRFILE)
+		{
+			std::cout << "ERROR DE LUA! - Error al cargar el fichero de script \"" << script << "\". Comprueba que está bien escrito el nombre y que el fichero existe." << std::endl;
+
+			return false;
+		}
+		// Error de sintaxis de lua
+		else if (errorType == LUA_ERRSYNTAX)
+		{
+			std::cout << "ERROR DE LUA! - Error de sintaxis de lua al cargar el script \"" << script << "\". Comprueba que no hay errores en el fichero de script." << std::endl;
+
+			return false;
+		}
+		// Memory allocation error
+		else if (errorType == LUA_ERRMEM)
+		{
+			std::cout << "ERROR DE LUA! - Error chungo de lua al cargar el script \"" << script << "\" : Memory allocation error." << std::endl;
+
+			return false;
+		}
+		// Error chungo de no se qué de metamethod
+		else if (errorType == LUA_ERRGCMM)
+		{
+			std::cout << "ERROR DE LUA! - Error chungo de lua al cargar el script \"" << script << "\" : Error chungo de no se qué de metamethod." << std::endl;
+
+			return false;
+		}
+
+		return true;
+		
+	} // loadScript
+
+	//---------------------------------------------------------
+
+	bool CServer::executeLastLoadScript(const char *script)
+	{
 		// Ejecuto el script y hago el manejo de errores.
 		int msgHandler = 0;
 		int errorType = lua_pcall(_lua, 0, 0, msgHandler);
@@ -150,42 +232,39 @@ namespace ScriptManager {
 			if (msgHandler != 0)
 			{
 				const char* error = lua_tostring(_lua, msgHandler);
-				std::cout << "Error de runtime de lua al ejecutar el script " << script << ": " << error;
+				std::cout << "ERROR DE LUA! - Error de runtime de lua al ejecutar el script \"" << script << "\": " << error << std::endl;
 			}
 			else
 				// En teoría esta situación no debería darse nunca, pero no está de más hacer la comprobación.
-				std::cout << "Error desconocido de runtime de lua al ejecutar el script " << script;
+				std::cout << "ERROR DE LUA! - Error desconocido de runtime de lua al ejecutar el script \"" << script << "\"" << std::endl;
 
 			return false;
 		}
 		// Memory allocation error
 		else if (errorType == LUA_ERRMEM)
 		{
-			std::cout << "Error chungo de lua al ejecutar el script " << script << " : Memory allocation error.";
+			std::cout << "ERROR DE LUA! - Error chungo de lua al ejecutar el script \"" << script << "\" : Memory allocation error." << std::endl;
 
 			return false;
 		}
 		// Error ejecutando el message handler
 		else if (errorType == LUA_ERRERR)
 		{
-			std::cout << "Error chungo de lua al ejecutar el script " << script << " : Error ejecutando el message handler.";
+			std::cout << "ERROR DE LUA! - Error chungo de lua al ejecutar el script \"" << script << "\" : Error ejecutando el message handler." << std::endl;
 
 			return false;
 		}
 		// Error chungo de no se qué de metamethod
 		else if (errorType == LUA_ERRGCMM)
 		{
-			std::cout << "Error chungo de lua al ejecutar el script " << script << " : Error chungo de no se qué de metamethod.";
+			std::cout << "ERROR DE LUA! - Error chungo de lua al ejecutar el script \"" << script << "\" : Error chungo de no se qué de metamethod." << std::endl;
 
 			return false;
 		}
 
-		// Si he llegado aquí es que el script no lo había cargado aún y tanto la carga como la ejecución han ido bien.
-		_scriptList.push_back(script);
-
 		return true;
 
-	} // loadScript
+	} // executeLastLoadScript
 
 	//---------------------------------------------------------
 

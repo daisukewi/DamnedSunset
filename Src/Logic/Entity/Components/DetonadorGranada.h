@@ -40,7 +40,7 @@ namespace Logic
 		por el temporizador cuando se acabe el tiempo de espera
 		especificado.
 		*/
-		virtual void timeElapsed(); // @TEMPORIZADOR Declaración del método de la interfaz que va a ser llamado cuando se acabe el tiempo.
+		virtual void timeElapsed();
 	protected:
 
 		/**

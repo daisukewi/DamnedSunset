@@ -75,15 +75,6 @@ namespace Logic
 
 	void CDetonadorGranada::timeElapsed()
 	{
-		/* 
-		@TEMPORIZADOR Implementación del método de la interfaz que va a ser llamado cuando se acabe el tiempo.
-		Aunque parezca que el método es asíncrono en realidad no lo es. Está enganchado al tick del reloj
-		que se ejecuta al final de cada frame. Por lo tanto esta llamada se ejecutará al final del frame
-		en el que se termine el temporizador. Ahora mismo no creo que haya mucha diferencia pero está bien
-		que lo sepáis por si en un futuro ocurren cosas raras.
-		Aquí irá el código que queréis que se ejecute cuando el temporizador llegue a cero.
-		*/
-
 		//Recorremos la lista de entidades dentro del trigger y les hacemos daño
 		std::list<CEntity*>::const_iterator it, end;
 		it = _entidades.begin();

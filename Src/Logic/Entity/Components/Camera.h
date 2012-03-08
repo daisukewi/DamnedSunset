@@ -14,7 +14,6 @@ de una escena.
 #define __Logic_Camera_H
 
 #include "Logic/Entity/Component.h"
-#include "BaseSubsystems/ClockListener.h" // @TEMPORIZADOR Include de los ficheros necesarios
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Graphics 
@@ -44,7 +43,7 @@ namespace Logic
 	@author David Llansó García
 	@date Septiembre, 2010
 */
-	class CCamera : public IComponent, public BaseSubsystems::IClockListener // @TEMPORIZADOR Heredo de la interfaz
+	class CCamera : public IComponent
 	{
 		DEC_FACTORY(CCamera);
 	public:
@@ -52,7 +51,7 @@ namespace Logic
 		/**
 		Constructor por defecto; en la clase base no hace nada.
 		*/
-		CCamera() : IComponent(), BaseSubsystems::IClockListener(), /* @TEMPORIZADOR llamada al constructor de la interfaz*/ _graphicsCamera(0), _distance(10), _height(7),
+		CCamera() : IComponent(), _graphicsCamera(0), _distance(10), _height(7),
 			_targetDistance(7), _targetHeight(3) {}
 		
 		/**
@@ -96,13 +95,6 @@ namespace Logic
 		@param msecs Milisegundos transcurridos desde el último tick.
 		*/
 		virtual void tick(unsigned int msecs);
-
-		/**
-		Método heredado de la interfaz IClockListener que será llamado
-		por el temporizador cuando se acabe el tiempo de espera
-		especificado.
-		*/
-		virtual void timeElapsed(); // @TEMPORIZADOR Declaración del método de la interfaz que va a ser llamado cuando se acabe el tiempo.
 
 	protected:
 		

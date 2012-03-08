@@ -61,12 +61,24 @@ namespace ScriptManager
 		static void Release();
 
 		/**
-		Carga un fichero de script en lua y lo ejecuta.
+		Carga un fichero de script en lua y lo ejecuta. Lo guarda
+		en la lista de scripts cargados para no cargarlo una segunda vez
+		y para poder recargarlo "en caliente".
 
 		@param script nombre del fichero a cargar y ejecutar.
 		@return true si todo fue bien y false en caso contrario.
 		*/
-		bool loadScript(const char *script);
+		bool loadExeScript(const char *script);
+
+		/**
+		Ejecuta una línea de texto como script de lua. La línea de
+		texto puede ser una sentencia de lua o una función de un
+		fichero anteriormente cargado.
+
+		@param script línea de texto a ejecutar.
+		@return true si todo fue bien y false en caso contrario.
+		*/
+		bool executeScript(const char *script);
 
 	protected:
 		/**
@@ -96,6 +108,30 @@ namespace ScriptManager
 		void close();
 
 	private:
+
+		/**
+		Carga un fichero de script haciendo todo el manejo de errores y
+		mostrando por consola los mensajes pertinentes.
+
+		@param script nombre del script a cargar.
+		@param inmediate true si queremos cargar y ejecutar el script en modo inmediato y false en caso contrario.
+		@return true si la carga fue bien y false en caso contrario.
+
+		@note Esta función no ejecuta el script, solo lo carga y lo deja preparado
+		para su ejecución. Tampoco hace la gestión de qué scripts se han cargado ya
+		o guardar los nuevos.
+		*/
+		bool loadScript(const char *script, bool inmediate);
+
+		/**
+		Ejecuta el último script cargado y hace el manejo de errores,
+		mostrando por consola los mensajes pertinentes.
+
+		@param script nombre del último script cargado (se utiliza para mostrar los mensajes de error).
+		@return true si la ejecución fue bien y false en caso contrario.
+		*/
+		bool executeLastLoadScript(const char *script);
+
 		/**
 		Única instancia de la clase.
 		*/

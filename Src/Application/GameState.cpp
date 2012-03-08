@@ -104,7 +104,9 @@ namespace Application {
 		CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();  
 		CEGUI::System::getSingleton().injectMouseMove(state.X.abs-mousePos.d_x,state.Y.abs-mousePos.d_y);
 
-		ScriptManager::CServer::getSingletonPtr()->loadScript("prueba");
+		ScriptManager::CServer::getSingletonPtr()->loadExeScript("prueba");
+		ScriptManager::CServer::getSingletonPtr()->executeScript("print(\"Hello world ejecutando a pelo\")");
+		ScriptManager::CServer::getSingletonPtr()->executeScript("helloWorld()");
 
 	} // activate
 
