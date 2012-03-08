@@ -184,6 +184,11 @@ namespace Logic
 		*/
 		float _speed;
 
+		/**
+		Entidad a la que debemos mirar siempre.
+		*/
+		CEntity* _bossEntity;
+
 	}; // class CCameraController
 
 	REG_FACTORY(CCameraController);

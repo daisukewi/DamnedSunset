@@ -117,7 +117,7 @@ namespace Logic
 		/**
 		Entidades objetivo a atacar.
 		*/
-		TEntityList* _enemies;
+		TEntityList _enemies;
 
 	}; // class CTurretController
 

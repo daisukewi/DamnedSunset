@@ -1,5 +1,5 @@
 /**
-@file CameraControl.cpp
+@file UbicarCamara.cpp
 
 Contiene la implementación del mensaje de control de la cámara.
 

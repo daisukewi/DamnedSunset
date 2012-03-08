@@ -41,8 +41,6 @@ namespace Logic
 		if(entityInfo->hasAttribute("precision"))
 			_precision = entityInfo->getFloatAttribute("precision");
 
-		_enemies = new TEntityList();
-
 		return true;
 
 	} // spawn
@@ -79,12 +77,12 @@ namespace Logic
 
 			if (m->getTouched() && !m->getEntity()->getType().compare("Enemy"))
 			{
-				_enemies->push_back(m->getEntity());
+				_enemies.push_back(m->getEntity());
 				_attacking = true;
 				/*
 				Apunto a la torreta a la muerte del enemigo que acaba de llegar.
 				*/
-				_enemies->back()->addDeathListener(this);
+				_enemies.back()->addDeathListener(this);
 				/*
 				// Orientamos la torreta hacia el enemigo al que dispara
 				float yaw = atan((_enemy->getPosition().x - _entity->getPosition().x) / (_enemy->getPosition().z - _entity->getPosition().z));
@@ -99,10 +97,11 @@ namespace Logic
 			}
 			else if (!m->getTouched())
 			{
-				if (_enemies != NULL)
+				if (!(_enemies.empty()))
 				{
-					_enemies->remove(m->getEntity());
-					_attacking = !(_enemies->empty());
+					_enemies.remove(m->getEntity());
+					_attacking = !(_enemies.empty());
+					m->getEntity()->removeDeathListener(this);
 				}
 			}
 		}
@@ -130,7 +129,7 @@ namespace Logic
 		if (_attacking)
 		{
 			Vector3 origen = _entity->getPosition();
-			Vector3 destino = _enemies->back()->getPosition();
+			Vector3 destino = _enemies.back()->getPosition();
 			destino.y = 3.0f;
 			Vector3 direction = destino - origen;
 			direction.x *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
@@ -146,12 +145,12 @@ namespace Logic
 			Ray disparo = Ray(origen, direction);
 			Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastGroup(disparo, &impact,
 				(Physics::TPhysicGroup)(Physics::TPhysicGroup::PG_ALL & ~Physics::TPhysicGroup::PG_TRIGGER));
-			if (entity == _enemies->back())
+			if (entity == _enemies.back())
 			{
 				MDamaged *m_dam = new MDamaged();
-				m_dam->setHurt(40 * _precision / ((_entity->getPosition() - _enemies->back()->getPosition()).length() + 0.1));
+				m_dam->setHurt(40 * _precision / ((_entity->getPosition() - _enemies.back()->getPosition()).length() + 0.1));
 				m_dam->setKiller(_entity);
-				_enemies->back()->emitMessage(m_dam, this);
+				_enemies.back()->emitMessage(m_dam, this);
 			}
 			else
 			{
@@ -169,8 +168,8 @@ namespace Logic
 		/* 
 		Implementación del método que va a ser llamado cuando muera la entidad.
 		*/
-		_enemies->remove(entity);
-		_attacking = !(_enemies->empty());
+		_enemies.remove(entity);
+		_attacking = !(_enemies.empty());
 		entity->removeDeathListener(this);
 
 	} // entityDeath

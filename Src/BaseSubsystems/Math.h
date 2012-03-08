@@ -225,6 +225,20 @@ namespace Math
 	} // Lerp
 
 	/**
+	Proyección de un vector sobre otro.
+
+	@param v1 Vector que se proyecta.
+	@param v2 Vector sobre el que se proyecta.
+	@return float proyección.
+	*/
+	static float Proy(const Vector3 v1, const Vector3 v2)
+	{
+
+		return (v1.length()*v1.length() + v2.length()*v2.length() - (v1 - v2).length()*(v1 - v2).length())
+				/ (2 * v2.length());
+	} // Proy
+
+	/**
 	Potencia de un número.
 
 	@param base Base de la potencia.

@@ -436,7 +436,7 @@ namespace Logic
 
 		//Mandamos un mensaje a la camara para que se centre en el jugador
 		MUbicarCamara *m_ubicar = new MUbicarCamara();
-		m_ubicar->setPosition(_selectedEntity->getPosition());
+		m_ubicar->setEntity(_selectedEntity);
 		_entity->emitMessage(m_ubicar, this);
 
 	} // saveSelectedEntity
@@ -475,7 +475,7 @@ namespace Logic
 
 		//Mandamos un mensaje a la camara para que se centre en el jugador
 		MUbicarCamara *m_ubicar = new MUbicarCamara();
-		m_ubicar->setPosition(_selectedEntity->getPosition());
+		m_ubicar->setEntity(_selectedEntity);
 		_entity->emitMessage(m_ubicar, this);
 
 	}

@@ -2,8 +2,7 @@
 #define __Logic_UbicarCamara_H
 
 #include "Logic/Entity/Message.h"
-
-#include "BaseSubsystems/Math.h"
+#include "Logic/Entity/Entity.h"
 
 namespace Logic 
 {
@@ -13,14 +12,14 @@ namespace Logic
 	public:
 		MUbicarCamara();
 
-		void setPosition(Vector3 pos) {_position = pos;}
-		Vector3 getPosition() {return _position;}
+		void setEntity(CEntity* entity) {_center = entity;}
+		CEntity *getEntity() {return _center;}
 	protected:
 
 		/**
-		Posicion que indicara a donde se tiene que mover la camara.
+		Entidad a la que tiene que seguir la camara.
 		*/
-		Vector3 _position;
+		CEntity* _center;
 	};
 }
 #endif

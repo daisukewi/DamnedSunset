@@ -14,6 +14,9 @@ Contiene la implementación del componente que controla el movimiento de la cámar
 #include "Logic/Entity/Entity.h"
 #include "Map/MapEntity.h"
 
+#include "Logic/Server.h"
+#include "Logic/Maps/Map.h"
+
 #include "Logic/Entity/Messages/UbicarCamara.h"
 #include "Logic/Entity/Messages/CameraControl.h"
 
@@ -28,6 +31,8 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 
+		_bossEntity = NULL;
+
 		return true;
 
 	} // spawn
@@ -36,6 +41,8 @@ namespace Logic
 
 	bool CCameraController::activate()
 	{
+		_bossEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack");
+
 		return true;
 	} // activate
 	
@@ -61,7 +68,6 @@ namespace Logic
 		if (!message->getType().compare("MCameraControl"))
 		{
 			MCameraControl *m = static_cast <MCameraControl*> (message);
-
 			_mouse = m->getMouse();
 
 			if(!m->getMovement().compare("up"))
@@ -81,7 +87,9 @@ namespace Logic
 		{
 			MUbicarCamara *m = static_cast <MUbicarCamara*> (message);
 
-			_entity->setPosition(m->getPosition());
+			_bossEntity = m->getEntity();
+
+			_entity->setPosition(_bossEntity->getPosition());
 		}
 
 	} // process
@@ -170,29 +178,41 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
-		// Si nos estamos desplazando calculamos la próxima posición
+		// Si nos estamos desplazando y tenemos a la vista nuestra entidad
+		// de referencia calculamos la próxima posición
 		// Calculamos si hay vectores de dirección de avance y strafe,
 		// hayamos la dirección de la suma y escalamos según la
 		// velocidad y el tiempo transcurrido.
+		Vector3 direction(Vector3::ZERO);
+		Vector3 directionStrafe(Vector3::ZERO);
+
+		if (_bossEntity != NULL)
+		{
+			Vector3 cuerda = _entity->getPosition() - _bossEntity->getPosition();
+			direction = Math::getDirection(_entity->getYaw());
+			directionStrafe = Math::getDirection(_entity->getYaw() + Math::PI/2);
+
+			_up &= Math::Proy(cuerda, direction) <= 10;
+			_down &= Math::Proy(cuerda, direction * (-1)) <= 10;
+			_right &= Math::Proy(cuerda, directionStrafe * (-1)) <= 10;
+			_left &= Math::Proy(cuerda, directionStrafe) <= 10;
+			_upMouse &= Math::Proy(cuerda, direction) <= 10;
+			_downMouse &= Math::Proy(cuerda, direction * (-1)) <= 10;
+			_rightMouse &= Math::Proy(cuerda, directionStrafe * (-1)) <= 10;
+			_leftMouse &= Math::Proy(cuerda, directionStrafe) <= 10;
+		}
+
 		if(_up || _down || _left || _right || _upMouse || _downMouse || _leftMouse || _rightMouse)
 		{
-			Vector3 direction(Vector3::ZERO);
-			Vector3 directionStrafe(Vector3::ZERO);
+			if (!(_up || _down || _upMouse || _downMouse))
+				direction = Vector3::ZERO;
+			else if(_down || _downMouse)
+				direction *= -1;
 
-			if(_up || _down || _upMouse || _downMouse)
-			{
-				direction = Math::getDirection(_entity->getYaw());
-				if(_down || _downMouse)
-					direction *= -1;
-			}
-
-			if(_left || _right || _leftMouse || _rightMouse)
-			{
-				directionStrafe = 
-						Math::getDirection(_entity->getYaw() + Math::PI/2);
-				if(_right || _rightMouse)
-					directionStrafe *= -1;
-			}
+			if (!(_left || _right || _leftMouse || _rightMouse))
+				directionStrafe = Vector3::ZERO;
+			else if(_right || _rightMouse)
+				directionStrafe *= -1;
 
 			direction += directionStrafe;
 			direction.normalise();
