@@ -1,3 +1,11 @@
+/**
+@file CameraController.h
+
+Contiene la declaración del controlador de teclas de la cámara.
+
+@author Alberto Plaza
+@date Enero, 2012
+*/
 #ifndef __GUI_CameraController_H
 #define __GUI_CameraController_H
 

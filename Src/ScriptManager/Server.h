@@ -67,6 +67,11 @@ namespace ScriptManager
 
 		@param script nombre del fichero a cargar y ejecutar.
 		@return true si todo fue bien y false en caso contrario.
+
+		@note Hay que tener en cuenta que aunque la ejecución no haya ido
+		bien, si la carga se ha realizado con éxito, el script queda guardado,
+		por lo que para volver a probarlo no haría falta volver a cargarlo, sino
+		llamar a la función de recarga.
 		*/
 		bool loadExeScript(const char *script);
 
@@ -79,6 +84,13 @@ namespace ScriptManager
 		@return true si todo fue bien y false en caso contrario.
 		*/
 		bool executeScript(const char *script);
+
+		/**
+		Recarga y ejecuta todos los ficheros de script almacenados. Por
+		cada uno muestra un mensaje indicando que se ha cargado y ejecutado
+		correctamente o un mensaje de error en caso de que algo haya ido mal.
+		*/
+		void reloadScripts();
 
 	protected:
 		/**

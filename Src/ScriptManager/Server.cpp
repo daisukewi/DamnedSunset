@@ -170,6 +170,23 @@ namespace ScriptManager {
 
 	//---------------------------------------------------------
 
+	void CServer::reloadScripts()
+	{
+		for (TScriptList::iterator it = _scriptList.begin(); it != _scriptList.end(); it++)
+		{
+			if (loadScript(it._Ptr->_Myval, false))
+				if (executeLastLoadScript(it._Ptr->_Myval))
+				{
+					std::cout << std::endl;
+					std::cout << "Fichero \"" << it._Ptr->_Myval << "\" cargado y ejecutado correctamente" << std::endl;
+					std::cout << std::endl;
+				}
+		}
+	
+	} // reloadScripts
+
+	//---------------------------------------------------------
+
 	bool CServer::loadScript(const char *script, bool inmediate)
 	{
 		// Completo la ruta del script.

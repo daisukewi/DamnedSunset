@@ -1,3 +1,11 @@
+/**
+@file CameraController.cpp
+
+Contiene la implementación del controlador de teclas de la cámara.
+
+@author Alberto Plaza
+@date Enero, 2012
+*/
 #include "CameraController.h"
 #include "InputManager.h"
 
@@ -9,6 +17,8 @@
 
 #include "GUI\Server.h"
 #include "GUI\InterfazController.h"
+
+#include "ScriptManager\Server.h"
 
 #include <cassert>
 
@@ -71,6 +81,9 @@ namespace GUI {
 				break;
 			case GUI::Key::RIGHTARROW:
 				m->setMovement("right");
+				break;
+			case GUI::Key::R:
+				ScriptManager::CServer::getSingletonPtr()->reloadScripts();
 				break;
 			}
 			_controlledTarget->emitMessage(m);
