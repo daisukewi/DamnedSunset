@@ -257,6 +257,108 @@ namespace ScriptManager {
 
 	//---------------------------------------------------------
 
+	int CServer::getField(const char *table, const char *field, int defaultValue)
+	{
+		assert(_lua && "No se ha hecho la inicialización de lua");
+
+		// Obtengo la tabla.
+		luabind::object tabla = luabind::globals(_lua)[table];
+
+		// Compruebo que la tabla existe y es del tipo correcto.
+		if (!tabla.is_valid() || (luabind::type(tabla) != LUA_TTABLE))
+		{
+			std::cout << "ERROR DE LUA! - La tabla \"" << table << "\" a la que se está intentando acceder no existe o no es de tipo tabla." << std::endl;
+			
+			return defaultValue;
+		}
+
+		// Obtengo el campo de la tabla.
+		luabind::object valor = tabla[field];
+
+		// Compruebo que el campo de la tabla existe y es del tipo correcto.
+		if (!valor.is_valid() || (luabind::type(valor) != LUA_TNUMBER))
+		{
+			std::cout << "ERROR DE LUA! - No existe ningún campo \"" << field << "\" en la tabla \"" << table << "\" o no es de tipo entero." << std::endl;
+			
+			return defaultValue;
+		}
+
+		// Devuelvo la variable haciendo casting de tipo para adecuar la variable de lua a nuestro C++.
+		return luabind::object_cast<int>(valor);
+		
+	} // getField(int)
+
+	//---------------------------------------------------------
+
+	bool CServer::getField(const char *table, const char *field, bool &error)
+	{
+		assert(_lua && "No se ha hecho la inicialización de lua");
+
+		// Obtengo la tabla.
+		luabind::object tabla = luabind::globals(_lua)[table];
+
+		// Compruebo que la tabla existe y es del tipo correcto.
+		if (!tabla.is_valid() || (luabind::type(tabla) != LUA_TTABLE))
+		{
+			std::cout << "ERROR DE LUA! - La tabla \"" << table << "\" a la que se está intentando acceder no existe o no es de tipo tabla." << std::endl;
+			
+			error = true;
+			return false;
+		}
+
+		// Obtengo el campo de la tabla.
+		luabind::object valor = tabla[field];
+
+		// Compruebo que el campo de la tabla existe y es del tipo correcto.
+		if (!valor.is_valid() || (luabind::type(valor) != LUA_TBOOLEAN))
+		{
+			std::cout << "ERROR DE LUA! - No existe ningún campo \"" << field << "\" en la tabla \"" << table << "\" o no es de tipo booleano." << std::endl;
+			
+			error = true;
+			return false;;
+		}
+
+		// Devuelvo la variable haciendo casting de tipo para adecuar la variable de lua a nuestro C++.
+		error = false;
+		return luabind::object_cast<bool>(valor);
+		
+	} // getField(bool)
+
+	//---------------------------------------------------------
+
+	const char *CServer::getField(const char *table, const char *field, const char *defaultValue)
+	{
+		assert(_lua && "No se ha hecho la inicialización de lua");
+
+		// Obtengo la tabla.
+		luabind::object tabla = luabind::globals(_lua)[table];
+
+		// Compruebo que la tabla existe y es del tipo correcto.
+		if (!tabla.is_valid() || (luabind::type(tabla) != LUA_TTABLE))
+		{
+			std::cout << "ERROR DE LUA! - La tabla \"" << table << "\" a la que se está intentando acceder no existe o no es de tipo tabla." << std::endl;
+			
+			return defaultValue;
+		}
+
+		// Obtengo el campo de la tabla.
+		luabind::object valor = tabla[field];
+
+		// Compruebo que el campo de la tabla existe y es del tipo correcto.
+		if (!valor.is_valid() || (luabind::type(valor) != LUA_TSTRING))
+		{
+			std::cout << "ERROR DE LUA! - No existe ningún campo \"" << field << "\" en la tabla \"" << table << "\" o no es de tipo cadena." << std::endl;
+			
+			return defaultValue;
+		}
+
+		// Devuelvo la variable haciendo casting de tipo para adecuar la variable de lua a nuestro C++.
+		return luabind::object_cast<const char*>(valor);
+		
+	} //getField(char*)
+
+	//---------------------------------------------------------
+
 	bool CServer::loadScript(const char *script, bool inmediate)
 	{
 		// Completo la ruta del script.

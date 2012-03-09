@@ -84,6 +84,47 @@ namespace GUI {
 				break;
 			case GUI::Key::R:
 				ScriptManager::CServer::getSingletonPtr()->reloadScripts();
+
+				int n = ScriptManager::CServer::getSingletonPtr()->getGlobal("numero", 200);
+				bool error = true;
+				bool b = ScriptManager::CServer::getSingletonPtr()->getGlobal("booleano", error);
+				std::string s = ScriptManager::CServer::getSingletonPtr()->getGlobal("cadena", "error");
+
+				if (n != 200)
+					std::cout << "Variable numérica recuperada desde lua. Valor: " << n << std::endl;
+				else
+					std::cout << "Algo raro ha pasado al recuperar la variable numérica" << std::endl;
+
+				if (!error)
+					std::cout << "Variable booleana recuperada desde lua. Valor: " << b << std::endl;
+				else
+					std::cout << "Algo raro ha pasado al recuperar la variable booleana" << std::endl;
+
+				if (s != "error")
+					std::cout << "Variable cadena recuperada desde lua. Valor: " << s << std::endl;
+				else
+					std::cout << "Algo raro ha pasado al recuperar la variable cadena" << std::endl;
+
+				int n2 = ScriptManager::CServer::getSingletonPtr()->getField("tabla", "numero", 200);
+				bool error2 = true;
+				bool b2 = ScriptManager::CServer::getSingletonPtr()->getField("tabla", "booleano", error2);
+				std::string s2 = ScriptManager::CServer::getSingletonPtr()->getField("tabla", "cadena", "error");
+
+				if (n2 != 200)
+					std::cout << "Variable numérica recuperada desde una tabla en lua. Valor: " << n2 << std::endl;
+				else
+					std::cout << "Algo raro ha pasado al recuperar la variable numérica desde una tabla" << std::endl;
+
+				if (!error2)
+					std::cout << "Variable booleana recuperada desde una tabla en lua. Valor: " << b2 << std::endl;
+				else
+					std::cout << "Algo raro ha pasado al recuperar la variable booleana desde una tabla" << std::endl;
+
+				if (s2 != "error")
+					std::cout << "Variable cadena recuperada desde una tabla en lua lua. Valor: " << s2 << std::endl;
+				else
+					std::cout << "Algo raro ha pasado al recuperar la variable cadena desde una tabla" << std::endl;
+
 				break;
 			}
 			_controlledTarget->emitMessage(m);

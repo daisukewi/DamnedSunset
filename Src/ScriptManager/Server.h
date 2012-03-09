@@ -118,7 +118,7 @@ namespace ScriptManager
 		se quiere obtener.
 		@param error Variable booleana que indica si
 		ha habido un error accediendo a la variable. Es true
-		si hahabido algún error y false en caso contrario.
+		si ha habido algún error y false en caso contrario.
 		 
 		@return Valor de la variable global de Lua, 
 		o false si no existía.
@@ -151,6 +151,74 @@ namespace ScriptManager
 		fin de cadena por simplicidad.
 		*/
 		const char *getGlobal(const char *name, const char *defaultValue);
+
+		/**
+		Obtiene el valor de un campo de tipo numérico de
+		una tabla global.
+	 
+		@param table Nombre de la tabla (global) a la que
+		se quiere acceder.
+		@param field Nombre del campo (índice) cuyo valor se
+		desea obtener.
+		@param defaultValue Valor que se devolverá 
+		si no existe la tabla o ese campo (índice) no
+		es de tipo numérico (o no hay una conversión posible).
+	 
+		@return Valor del campo solicitado, 
+		o <tt>defaultValue</tt> si no existía.
+	 
+		@note En Lua el tipo numérico es en principio
+		<tt>double</tt>. Aquí sin embargo devolvemos
+		un entero.
+		*/
+		int getField(const char *table, const char *field, int defaultValue);
+
+		/**
+		Obtiene el valor de un campo de tipo booleano de
+		una tabla global.
+	 
+		@param table Nombre de la tabla (global) a la que
+		se quiere acceder.
+		@param field Nombre del campo (índice) cuyo valor se
+		desea obtener.
+		@param error Variable booleana que indica si
+		ha habido un error accediendo a la variable de la tabla. Es true
+		si ha habido algún error y false en caso contrario.
+	 
+		@return Valor del campo solicitado, 
+		o false si no existía.
+		*/
+		bool getField(const char *table, const char *field, bool &error);
+
+		/**
+		Obtiene el valor de un campo de tipo cadena de
+		una tabla global.
+	 
+		@param table Nombre de la tabla (global) a la que
+		se quiere acceder.
+		@param field Nombre del campo (índice) cuyo valor se
+		desea obtener.
+		@param defaultValue Valor que se devolverá 
+		si no existe la tabla o ese campo (índice) no
+		es de tipo cadena (o no hay una conversión posible).
+	 
+		@return Valor del campo solicitado, 
+		o <tt>defaultValue</tt> si no existía.
+	 
+		@note El invocante asume la posesión del puntero
+		devuelto, que tendrá que ser liberado con
+		<tt>free</tt>. Esta liberación es necesaria
+		<em>incluso aunque se haya devuelto
+		<tt>defaultValue</tt></em> (se habrá hecho una
+		copia).
+	 
+		@note Esta función tiene un peligro potencial;
+		Lua soporta cadenas con <tt>'\\0'</tt> en su
+		interior. Aquí <em>asumiremos que no lo tienen</em>
+		porque usamos el <tt>'\\0'</tt> como marca de
+		fin de cadena por simplicidad.
+		*/
+		const char *getField(const char *table, const char *field, const char *defaultValue);
 
 	protected:
 		/**
