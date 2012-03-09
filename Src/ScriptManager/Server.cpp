@@ -172,6 +172,8 @@ namespace ScriptManager {
 
 	void CServer::reloadScripts()
 	{
+		assert(_lua && "No se ha hecho la inicialización de lua");
+
 		for (TScriptList::iterator it = _scriptList.begin(); it != _scriptList.end(); it++)
 		{
 			if (loadScript(it._Ptr->_Myval, false))
@@ -184,6 +186,74 @@ namespace ScriptManager {
 		}
 	
 	} // reloadScripts
+
+	//---------------------------------------------------------
+
+	int CServer::getGlobal(const char *name, int defaultValue)
+	{
+		assert(_lua && "No se ha hecho la inicialización de lua");
+
+		// Obtengo la variable global por el nombre.
+		luabind::object obj = luabind::globals(_lua)[name];
+
+		// Hago gestión de errores para asegurarme de que la variable existe y es del tipo correcto.
+		if (!obj.is_valid() || (luabind::type(obj) != LUA_TNUMBER))
+		{
+			std::cout << "ERROR DE LUA! - La variable numérica \"" << name << "\" a la que se está intentando acceder no existe en ningún script de lua o no es de tipo numérico." << std::endl;
+
+			return defaultValue;
+		}
+
+		// Devuelvo la variable haciendo casting de tipo para adecuar la variable de lua a nuestro C++.
+		return luabind::object_cast<int>(obj);
+
+	} // getGlobal(int)
+
+	//---------------------------------------------------------
+
+	bool CServer::getGlobal(const char *name, bool &error)
+	{
+		assert(_lua && "No se ha hecho la inicialización de lua");
+
+		// Obtengo la variable global por el nombre.
+		luabind::object obj = luabind::globals(_lua)[name];
+
+		// Hago gestión de errores para asegurarme de que la variable existe y es del tipo correcto.
+		if (!obj.is_valid() || (luabind::type(obj) != LUA_TBOOLEAN))
+		{
+			std::cout << "ERROR DE LUA! - La variable booleana \"" << name << "\" a la que se está intentando acceder no existe en ningún script de lua o no es de tipo booleana." << std::endl;
+
+			error = true;
+			return false;
+		}
+
+		// Devuelvo la variable haciendo casting de tipo para adecuar la variable de lua a nuestro C++. Y actualizo la variable de error.
+		error = false;
+		return luabind::object_cast<bool>(obj);
+		
+	} // getGlobal(bool)
+
+	//---------------------------------------------------------
+
+	const char *CServer::getGlobal(const char *name, const char *defaultValue)
+	{
+		assert(_lua && "No se ha hecho la inicialización de lua");
+
+		// Obtengo la variable global por el nombre.
+		luabind::object obj = luabind::globals(_lua)[name];
+
+		// Hago gestión de errores para asegurarme de que la variable existe y es del tipo correcto.
+		if (!obj.is_valid() || (luabind::type(obj) != LUA_TSTRING))
+		{
+			std::cout << "ERROR DE LUA! - La variable de tipo cadena \"" << name << "\" a la que se está intentando acceder no existe en ningún script de lua o no es de tipo cadena." << std::endl;
+
+			return defaultValue;
+		}
+
+		// Devuelvo la variable haciendo casting de tipo para adecuar la variable de lua a nuestro C++.
+		return luabind::object_cast<const char*>(obj);
+		
+	} // getGlobal(char*)
 
 	//---------------------------------------------------------
 

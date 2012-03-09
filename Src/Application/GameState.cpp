@@ -35,6 +35,9 @@ Contiene la implementación del estado de juego.
 #include <CEGUIWindow.h>
 #include <elements/CEGUIPushButton.h>
 
+#include <stdio.h>
+#include <string.h>
+
 namespace GUI 
 {
 	class CInterfazController;
@@ -108,6 +111,25 @@ namespace Application {
 		ScriptManager::CServer::getSingletonPtr()->loadExeScript("prueba2");
 		ScriptManager::CServer::getSingletonPtr()->executeScript("print(\"Hello world ejecutando a pelo\")");
 		ScriptManager::CServer::getSingletonPtr()->executeScript("helloWorld()");
+		int n = ScriptManager::CServer::getSingletonPtr()->getGlobal("numero", 200);
+		bool error = true;
+		bool b = ScriptManager::CServer::getSingletonPtr()->getGlobal("booleano", error);
+		std::string s = ScriptManager::CServer::getSingletonPtr()->getGlobal("cadena", "error");
+
+		if (n != 200)
+			std::cout << "Variable numérica recuperada desde lua. Valor: " << n << std::endl;
+		else
+			std::cout << "Algo raro ha pasado al recuperar la variable numérica" << std::endl;
+
+		if (!error)
+			std::cout << "Variable booleana recuperada desde lua. Valor: " << b << std::endl;
+		else
+			std::cout << "Algo raro ha pasado al recuperar la variable booleana" << std::endl;
+
+		if (s != "error")
+			std::cout << "Variable cadena recuperada desde lua. Valor: " << s << std::endl;
+		else
+			std::cout << "Algo raro ha pasado al recuperar la variable cadena" << std::endl;
 
 	} // activate
 

@@ -92,6 +92,66 @@ namespace ScriptManager
 		*/
 		void reloadScripts();
 
+		/**
+		Obtiene el valor de una variable global en Lua
+		de tipo numérico entero a partir de su nombre.
+		 
+		@param name Nombre de la variable global que
+		se quiere obtener.
+		@param defaultValue Valor que se devolverá 
+		si no existe esa variable global en Lua.
+		 
+		@return Valor de la variable global de Lua, 
+		o <tt>defaultValue</tt> si no existía.
+		 
+		@note En Lua el tipo numérico es en principio
+		<tt>double</tt>. Aquí sin embargo devolvemos
+		un entero.
+		*/
+		int getGlobal(const char *name, int defaultValue);
+
+		/**
+		Obtiene el valor de una variable global en Lua
+		de tipo bool a partir de su nombre.
+		 
+		@param name Nombre de la variable global que
+		se quiere obtener.
+		@param error Variable booleana que indica si
+		ha habido un error accediendo a la variable. Es true
+		si hahabido algún error y false en caso contrario.
+		 
+		@return Valor de la variable global de Lua, 
+		o false si no existía.
+		*/
+		bool getGlobal(const char *name, bool &error);
+
+		/**
+		Obtiene el valor de una variable global en Lua
+		de tipo cadena a partir de su nombre.
+	 
+		@param name Nombre de la variable global que
+		se quiere obtener.
+		@param defaultValue Valor que se devolverá 
+		si no existe esa variable global en Lua.
+	 
+		@return Valor de la variable global de Lua, 
+		o <tt>defaultValue</tt> si no existía.
+	 
+		@note El invocante asume la posesión del puntero
+		devuelto, que tendrá que ser liberado con
+		<tt>free</tt>. Esta liberación es necesaria
+		<em>incluso aunque se haya devuelto
+		<tt>defaultValue</tt></em> (se habrá hecho una
+		copia).
+	 
+		@note Esta función tiene un peligro potencial;
+		Lua soporta cadenas con <tt>'\\0'</tt> en su
+		interior. Aquí <em>asumiremos que no lo tienen</em>
+		porque usamos el <tt>'\\0'</tt> como marca de
+		fin de cadena por simplicidad.
+		*/
+		const char *getGlobal(const char *name, const char *defaultValue);
+
 	protected:
 		/**
 		Constructor.
