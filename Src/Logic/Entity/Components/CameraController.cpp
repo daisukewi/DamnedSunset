@@ -185,6 +185,7 @@ namespace Logic
 		// velocidad y el tiempo transcurrido.
 		Vector3 direction(Vector3::ZERO);
 		Vector3 directionStrafe(Vector3::ZERO);
+		bool south, north, east, west;
 
 		if (_bossEntity != NULL)
 		{
@@ -192,26 +193,33 @@ namespace Logic
 			direction = Math::getDirection(_entity->getYaw());
 			directionStrafe = Math::getDirection(_entity->getYaw() + Math::PI/2);
 
-			_up &= Math::Proy(cuerda, direction) <= 10;
-			_down &= Math::Proy(cuerda, direction * (-1)) <= 10;
-			_right &= Math::Proy(cuerda, directionStrafe * (-1)) <= 10;
-			_left &= Math::Proy(cuerda, directionStrafe) <= 10;
-			_upMouse &= Math::Proy(cuerda, direction) <= 10;
-			_downMouse &= Math::Proy(cuerda, direction * (-1)) <= 10;
-			_rightMouse &= Math::Proy(cuerda, directionStrafe * (-1)) <= 10;
-			_leftMouse &= Math::Proy(cuerda, directionStrafe) <= 10;
+			_up &= Math::Proy(cuerda, direction) <= 15;
+			_down &= Math::Proy(cuerda, direction * (-1)) <= 20;
+			_right &= Math::Proy(cuerda, directionStrafe * (-1)) <= 15;
+			_left &= Math::Proy(cuerda, directionStrafe) <= 15;
+			_upMouse &= Math::Proy(cuerda, direction) <= 15;
+			_downMouse &= Math::Proy(cuerda, direction * (-1)) <= 20;
+			_rightMouse &= Math::Proy(cuerda, directionStrafe * (-1)) <= 15;
+			_leftMouse &= Math::Proy(cuerda, directionStrafe) <= 15;
+
+			south = Math::Proy(cuerda, direction) > 17;
+			north = Math::Proy(cuerda, direction * (-1)) > 22;
+			east = Math::Proy(cuerda, directionStrafe) > 17;
+			west = Math::Proy(cuerda, directionStrafe * (-1)) > 17;
+
 		}
 
-		if(_up || _down || _left || _right || _upMouse || _downMouse || _leftMouse || _rightMouse)
+		if(_up || _down || _left || _right || _upMouse || _downMouse || _leftMouse || _rightMouse 
+			|| north || south || east || west)
 		{
-			if (!(_up || _down || _upMouse || _downMouse))
+			if (!(_up || _down || _upMouse || _downMouse || north || south))
 				direction = Vector3::ZERO;
-			else if(_down || _downMouse)
+			else if(_down || _downMouse || south)
 				direction *= -1;
 
-			if (!(_left || _right || _leftMouse || _rightMouse))
+			if (!(_left || _right || _leftMouse || _rightMouse || east || west))
 				directionStrafe = Vector3::ZERO;
-			else if(_right || _rightMouse)
+			else if(_right || _rightMouse || east)
 				directionStrafe *= -1;
 
 			direction += directionStrafe;
