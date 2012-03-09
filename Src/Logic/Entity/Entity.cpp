@@ -27,6 +27,10 @@ de juego. Es una colección de componentes.
 #include "Logic/Entity/Messages/SetTransform.h"
 #include "Logic/Entity/Messages/EntityDeathListener.h"
 
+#include <vector>
+#include <string>
+#include <sstream>
+
 namespace Logic 
 {
 	CEntity::CEntity(TEntityID entityID) : _entityID(entityID), 
@@ -116,9 +120,40 @@ namespace Logic
 
 		bool correct = true;
 
+		//Marcamos como desactivados los componentes
+		int desactivar = -1;
+		
+		std::vector<int> componentsADesactivar;
+		if(entityInfo->hasAttribute("deActive"))
+		{
+
+			//desactivar = entityInfo->getIntAttribute("deActive");
+			std::string s = entityInfo->getStringAttribute("deActive");
+
+			std::string buf; // Have a buffer string
+			std::stringstream ss(s); // Insert the string into a stream
+
+			 // Create vector to hold our words
+
+			while (ss >> buf)
+				componentsADesactivar.push_back(atoi(buf.c_str()));
+		}
+
+		std::vector<int>::const_iterator itDe = componentsADesactivar.begin();
+
+		int cont = 0;
 		for( it = _components.begin(); it != _components.end() && correct; ++it )
+		{
 			correct = (*it)->spawn(this,map,entityInfo) && correct;
 
+			if (itDe != componentsADesactivar.end() && cont == (*itDe) )
+			{
+				//Si el contador de componente es igual al componente a desactivar, lo desactivamos y avanzamos itDe al siguiente a desactivar
+				(*it)->setActive(false);
+				++itDe;
+			}
+			++cont;
+		}
 		return correct;
 
 	} // spawn
@@ -152,7 +187,12 @@ namespace Logic
 		_activated = true;
 
 		for( it = _components.begin(); it != _components.end(); ++it )
-			_activated = (*it)->activate() && _activated;
+		{
+			//Solo activamos los componentes que esten esten inicialmente activados
+			if ((*it)->isActive())
+				_activated = (*it)->activate() && _activated;
+		}
+			
 
 
 		return _activated;

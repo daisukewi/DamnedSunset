@@ -147,6 +147,17 @@ namespace Logic
 		*/
 		CEntity *getEntity() const { return _entity; }
 
+		/**
+		Método que devuelve si el componente esta activo o no
+
+		@return si el componente esta activo o no.
+		*/
+		bool isActive() {return _active;}
+
+		/**
+		@param active indica si el componente esta activo y inactivo
+		*/
+		void setActive(bool active) {_active = active;}
 	protected:
 
 		/**
@@ -166,6 +177,11 @@ namespace Logic
 		los otros componentes
 		*/
 		CEntity *_entity;
+
+		/**
+		Indica se el componente esta activo o no
+		**/
+		bool _active;
 
 	}; // class IComponent
 
