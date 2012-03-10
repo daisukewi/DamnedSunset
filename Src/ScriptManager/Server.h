@@ -13,6 +13,7 @@ la gestión de los scripts del juego.
 #define __ScriptManager_Server_H
 
 #include <list>
+#include <string>
 
 // Estructura con el contexto (estado) del intérprete de Lua.
 struct lua_State;
@@ -220,6 +221,42 @@ namespace ScriptManager
 		*/
 		const char *getField(const char *table, const char *field, const char *defaultValue);
 
+		/**
+		Ejecuta un procedimiento de lua sin parámetros y sin
+		valores de vuelta.
+
+		@param subroutineName Nombre del procedimiento.
+
+		@return true si la ejecución del procedimiento fue bien
+		y false en caso contrario.
+		*/
+		bool executeProcedure(const char *subroutineName);
+
+		/**
+		Ejecuta un procedimiento de lua con un parámetro 
+		de entrada y sin valor de vuelta
+
+		@param subroutineName Nombre del procedimiento.
+		@param param1 parámetro del procedimiento.
+
+		@return true si la ejecución del procedimiento fue bien
+		y false en caso contrario.
+		*/
+		bool executeProcedure(const char *subroutineName, int param1);
+
+		/**
+		Ejecuta una función de lua con un parámetro 
+		de entrada y con un valor de vuelta de tipo entero.
+
+		@param subroutineName Nombre de la función.
+		@param param1 parámetro de la función.
+		@param result valor devuelto por la función de lua.
+
+		@return true si la ejecución de la función fue bien
+		y false en caso contrario.
+		*/
+		bool executeFunction(const char *subroutineName, int param1, int &result);
+
 	protected:
 		/**
 		Constructor.
@@ -271,6 +308,13 @@ namespace ScriptManager
 		@return true si la ejecución fue bien y false en caso contrario.
 		*/
 		bool executeLastLoadScript(const char *script);
+
+		/**
+		Muestra un mensaje por consola.
+
+		@param message Mensaje a mostrar.
+		*/
+		void showMessage(std::string message);
 
 		/**
 		Única instancia de la clase.

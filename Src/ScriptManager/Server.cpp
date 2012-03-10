@@ -131,20 +131,22 @@ namespace ScriptManager {
 		// Si ya lo he cargado muestro un mensaje de error, salgo y devuelvo false.
 		if (exists)
 		{
-			std::cout << "ERROR DE LUA! - Error al cargar el fichero de script \"" << script << "\". Este fichero ya se ha cargado anteriormente." << std::endl;
+			showMessage("ERROR DE LUA! - Error al cargar el fichero de script \"" + std::string(script) + "\". Este fichero ya se ha cargado anteriormente.");
 
 			return false;
 		}
 
-		// Cargo el script. Si la carga ha ido bien, me lo guardo.
-		if (loadScript(script, false))
-			_scriptList.push_back(script);
-		else
+		// Cargo el script.
+		if (!loadScript(script, false))
 			return false;
 
-		// Ejecuto el script
+		// Ejecuto el script.
 		if (!executeLastLoadScript(script))
 			return false;
+
+		// Si he llegado aquí es que todo ha ido bien, por lo tanto me guardo el script y muestro un mensaje de confirmación.
+		_scriptList.push_back(script);
+		showMessage("Fichero \"" + std::string(script) + "\" cargado y ejecutado correctamente");
 
 		return true;
 
@@ -176,13 +178,8 @@ namespace ScriptManager {
 
 		for (TScriptList::iterator it = _scriptList.begin(); it != _scriptList.end(); it++)
 		{
-			if (loadScript(it._Ptr->_Myval, false))
-				if (executeLastLoadScript(it._Ptr->_Myval))
-				{
-					std::cout << std::endl;
-					std::cout << "Fichero \"" << it._Ptr->_Myval << "\" cargado y ejecutado correctamente" << std::endl;
-					std::cout << std::endl;
-				}
+			if (loadScript(it._Ptr->_Myval, false) && executeLastLoadScript(it._Ptr->_Myval))
+				showMessage("Fichero \"" + std::string(it._Ptr->_Myval) + "\" cargado y ejecutado correctamente");
 		}
 	
 	} // reloadScripts
@@ -199,7 +196,7 @@ namespace ScriptManager {
 		// Hago gestión de errores para asegurarme de que la variable existe y es del tipo correcto.
 		if (!obj.is_valid() || (luabind::type(obj) != LUA_TNUMBER))
 		{
-			std::cout << "ERROR DE LUA! - La variable numérica \"" << name << "\" a la que se está intentando acceder no existe en ningún script de lua o no es de tipo numérico." << std::endl;
+			showMessage("ERROR DE LUA! - La variable numérica \"" + std::string(name) + "\" a la que se está intentando acceder no existe en ningún script de lua o no es de tipo numérico.");
 
 			return defaultValue;
 		}
@@ -221,7 +218,7 @@ namespace ScriptManager {
 		// Hago gestión de errores para asegurarme de que la variable existe y es del tipo correcto.
 		if (!obj.is_valid() || (luabind::type(obj) != LUA_TBOOLEAN))
 		{
-			std::cout << "ERROR DE LUA! - La variable booleana \"" << name << "\" a la que se está intentando acceder no existe en ningún script de lua o no es de tipo booleana." << std::endl;
+			showMessage("ERROR DE LUA! - La variable booleana \"" + std::string(name) + "\" a la que se está intentando acceder no existe en ningún script de lua o no es de tipo booleana.");
 
 			error = true;
 			return false;
@@ -245,7 +242,7 @@ namespace ScriptManager {
 		// Hago gestión de errores para asegurarme de que la variable existe y es del tipo correcto.
 		if (!obj.is_valid() || (luabind::type(obj) != LUA_TSTRING))
 		{
-			std::cout << "ERROR DE LUA! - La variable de tipo cadena \"" << name << "\" a la que se está intentando acceder no existe en ningún script de lua o no es de tipo cadena." << std::endl;
+			showMessage("ERROR DE LUA! - La variable de tipo cadena \"" + std::string(name) + "\" a la que se está intentando acceder no existe en ningún script de lua o no es de tipo cadena.");
 
 			return defaultValue;
 		}
@@ -267,7 +264,7 @@ namespace ScriptManager {
 		// Compruebo que la tabla existe y es del tipo correcto.
 		if (!tabla.is_valid() || (luabind::type(tabla) != LUA_TTABLE))
 		{
-			std::cout << "ERROR DE LUA! - La tabla \"" << table << "\" a la que se está intentando acceder no existe o no es de tipo tabla." << std::endl;
+			showMessage("ERROR DE LUA! - La tabla \"" + std::string(table) + "\" a la que se está intentando acceder no existe o no es de tipo tabla.");
 			
 			return defaultValue;
 		}
@@ -278,7 +275,7 @@ namespace ScriptManager {
 		// Compruebo que el campo de la tabla existe y es del tipo correcto.
 		if (!valor.is_valid() || (luabind::type(valor) != LUA_TNUMBER))
 		{
-			std::cout << "ERROR DE LUA! - No existe ningún campo \"" << field << "\" en la tabla \"" << table << "\" o no es de tipo entero." << std::endl;
+			showMessage("ERROR DE LUA! - No existe ningún campo \"" + std::string(field) + "\" en la tabla \"" + std::string(table) + "\" o no es de tipo entero.");
 			
 			return defaultValue;
 		}
@@ -300,7 +297,7 @@ namespace ScriptManager {
 		// Compruebo que la tabla existe y es del tipo correcto.
 		if (!tabla.is_valid() || (luabind::type(tabla) != LUA_TTABLE))
 		{
-			std::cout << "ERROR DE LUA! - La tabla \"" << table << "\" a la que se está intentando acceder no existe o no es de tipo tabla." << std::endl;
+			showMessage("ERROR DE LUA! - La tabla \"" + std::string(table) + "\" a la que se está intentando acceder no existe o no es de tipo tabla.");
 			
 			error = true;
 			return false;
@@ -312,7 +309,7 @@ namespace ScriptManager {
 		// Compruebo que el campo de la tabla existe y es del tipo correcto.
 		if (!valor.is_valid() || (luabind::type(valor) != LUA_TBOOLEAN))
 		{
-			std::cout << "ERROR DE LUA! - No existe ningún campo \"" << field << "\" en la tabla \"" << table << "\" o no es de tipo booleano." << std::endl;
+			showMessage("ERROR DE LUA! - No existe ningún campo \"" + std::string(field) + "\" en la tabla \"" + std::string(table) + "\" o no es de tipo booleano.");
 			
 			error = true;
 			return false;;
@@ -336,7 +333,7 @@ namespace ScriptManager {
 		// Compruebo que la tabla existe y es del tipo correcto.
 		if (!tabla.is_valid() || (luabind::type(tabla) != LUA_TTABLE))
 		{
-			std::cout << "ERROR DE LUA! - La tabla \"" << table << "\" a la que se está intentando acceder no existe o no es de tipo tabla." << std::endl;
+			showMessage("ERROR DE LUA! - La tabla \"" + std::string(table) + "\" a la que se está intentando acceder no existe o no es de tipo tabla.");
 			
 			return defaultValue;
 		}
@@ -347,7 +344,7 @@ namespace ScriptManager {
 		// Compruebo que el campo de la tabla existe y es del tipo correcto.
 		if (!valor.is_valid() || (luabind::type(valor) != LUA_TSTRING))
 		{
-			std::cout << "ERROR DE LUA! - No existe ningún campo \"" << field << "\" en la tabla \"" << table << "\" o no es de tipo cadena." << std::endl;
+			showMessage("ERROR DE LUA! - No existe ningún campo \"" + std::string(field) + "\" en la tabla \"" + std::string(table) + "\" o no es de tipo cadena.");
 			
 			return defaultValue;
 		}
@@ -356,6 +353,108 @@ namespace ScriptManager {
 		return luabind::object_cast<const char*>(valor);
 		
 	} //getField(char*)
+
+	//---------------------------------------------------------
+
+	bool CServer::executeProcedure(const char *subroutineName)
+	{
+		assert(_lua && "No se ha hecho la inicialización de lua");
+
+		// Obtengo el procedimiento definido en lua
+		luabind::object proc = luabind::globals(_lua)[subroutineName];
+
+		// Compruebo que el procedimiento existe y es un procedimiento.
+		if (!proc.is_valid() || (luabind::type(proc) != LUA_TFUNCTION))
+		{
+			showMessage("ERROR DE LUA! - El procedimiento \"" + std::string(subroutineName) + "\" que se está intentando ejecutar no existe o es un procedimiento.");
+
+			return false;
+		}
+
+		// Lo ejecuto y hago comprobación de errores.
+		try {
+			proc();
+		} catch (luabind::error &ex) {
+			showMessage("ERROR DE LUA! - Error al ejecutar el procedimiento \"" + std::string(subroutineName) + "\". Tipo de error: " + std::string(ex.what()));
+
+			return false;
+		}
+
+		return true;
+		
+	} // executeProcedure
+
+	//---------------------------------------------------------
+
+	bool CServer::executeProcedure(const char *subroutineName, int param1)
+	{
+		assert(_lua && "No se ha hecho la inicialización de lua");
+
+		// Obtengo el procedimiento definido en lua
+		luabind::object proc = luabind::globals(_lua)[subroutineName];
+
+		// Compruebo que el procedimiento existe y es un procedimiento.
+		if (!proc.is_valid() || (luabind::type(proc) != LUA_TFUNCTION))
+		{
+			showMessage("ERROR DE LUA! - El procedimiento \"" + std::string(subroutineName) + "\" que se está intentando ejecutar no existe o es un procedimiento.");
+
+			return false;
+		}
+
+		// Lo ejecuto y hago comprobación de errores.
+		try {
+			proc(param1);
+		} catch (luabind::error &ex) {
+			showMessage("ERROR DE LUA! - Error al ejecutar el procedimiento \"" + std::string(subroutineName) + "\". Tipo de error: " + std::string(ex.what()));
+
+			return false;
+		}
+
+		return true;
+		
+	} // executeProcedure(1 param)
+
+	//---------------------------------------------------------
+
+	bool CServer::executeFunction(const char *subroutineName, int param1, int &result)
+	{
+		assert(_lua && "No se ha hecho la inicialización de lua");
+
+		// Obtengo la función definida en lua
+		luabind::object func = luabind::globals(_lua)[subroutineName];
+
+		// Compruebo que la función existe y es una función.
+		if (!func.is_valid() || (luabind::type(func) != LUA_TFUNCTION))
+		{
+			showMessage("ERROR DE LUA! - La función \"" + std::string(subroutineName) + "\" que se está intentando ejecutar no existe o es una función.");
+
+			return false;
+		}
+
+		try {
+			// Intento ejecutar la función
+			luabind::object res = func(param1);
+
+			// Hago comprobación de errores para asegurarme de que lo que me ha devuelto la función es correcto.
+			if (!res.is_valid() || (luabind::type(res) != LUA_TNUMBER))
+			{
+				showMessage("ERROR DE LUA! - La función \"" + std::string(subroutineName) + "\" no ha devuelto ningún valor o el valor devuelto no es de tipo entero.");
+
+				return false;
+			}
+
+			result = luabind::object_cast<int>(res);
+			return true;
+
+		} catch (luabind::error &ex) {
+			showMessage("ERROR DE LUA! - Error al ejecutar la función \"" + std::string(subroutineName) + "\". Tipo de error: " + std::string(ex.what()));
+
+			return false;
+		}
+
+		return true;
+		
+	} // executeFunction
 
 	//---------------------------------------------------------
 
@@ -376,28 +475,28 @@ namespace ScriptManager {
 		// Error al cargar el fichero de script
 		if (errorType == LUA_ERRFILE)
 		{
-			std::cout << "ERROR DE LUA! - Error al cargar el fichero de script \"" << script << "\". Comprueba que está bien escrito el nombre y que el fichero existe." << std::endl;
+			showMessage("ERROR DE LUA! - Error al cargar el fichero de script \"" + std::string(script) + "\". Comprueba que está bien escrito el nombre y que el fichero existe.");
 
 			return false;
 		}
 		// Error de sintaxis de lua
 		else if (errorType == LUA_ERRSYNTAX)
 		{
-			std::cout << "ERROR DE LUA! - Error de sintaxis de lua al cargar el script \"" << script << "\". Comprueba que no hay errores en el fichero de script." << std::endl;
+			showMessage("ERROR DE LUA! - Error de sintaxis de lua al cargar el script \"" + std::string(script) + "\". Comprueba que no hay errores en el fichero de script.");
 
 			return false;
 		}
 		// Memory allocation error
 		else if (errorType == LUA_ERRMEM)
 		{
-			std::cout << "ERROR DE LUA! - Error chungo de lua al cargar el script \"" << script << "\" : Memory allocation error." << std::endl;
+			showMessage("ERROR DE LUA! - Error chungo de lua al cargar el script \"" + std::string(script) + "\" : Memory allocation error.");
 
 			return false;
 		}
 		// Error chungo de no se qué de metamethod
 		else if (errorType == LUA_ERRGCMM)
 		{
-			std::cout << "ERROR DE LUA! - Error chungo de lua al cargar el script \"" << script << "\" : Error chungo de no se qué de metamethod." << std::endl;
+			showMessage("ERROR DE LUA! - Error chungo de lua al cargar el script \"" + std::string(script) + "\" : Error chungo de no se qué de metamethod.");
 
 			return false;
 		}
@@ -421,32 +520,32 @@ namespace ScriptManager {
 			if (msgHandler != 0)
 			{
 				const char* error = lua_tostring(_lua, msgHandler);
-				std::cout << "ERROR DE LUA! - Error de runtime de lua al ejecutar el script \"" << script << "\": " << error << std::endl;
+				showMessage("ERROR DE LUA! - Error de runtime de lua al ejecutar el script \"" + std::string(script) + "\": " + std::string(error));
 			}
 			else
 				// En teoría esta situación no debería darse nunca, pero no está de más hacer la comprobación.
-				std::cout << "ERROR DE LUA! - Error desconocido de runtime de lua al ejecutar el script \"" << script << "\"" << std::endl;
+				showMessage("ERROR DE LUA! - Error desconocido de runtime de lua al ejecutar el script \"" + std::string(script) + "\"");
 
 			return false;
 		}
 		// Memory allocation error
 		else if (errorType == LUA_ERRMEM)
 		{
-			std::cout << "ERROR DE LUA! - Error chungo de lua al ejecutar el script \"" << script << "\" : Memory allocation error." << std::endl;
+			showMessage("ERROR DE LUA! - Error chungo de lua al ejecutar el script \"" + std::string(script) + "\" : Memory allocation error.");
 
 			return false;
 		}
 		// Error ejecutando el message handler
 		else if (errorType == LUA_ERRERR)
 		{
-			std::cout << "ERROR DE LUA! - Error chungo de lua al ejecutar el script \"" << script << "\" : Error ejecutando el message handler." << std::endl;
+			showMessage("ERROR DE LUA! - Error chungo de lua al ejecutar el script \"" + std::string(script) + "\" : Error ejecutando el message handler.");
 
 			return false;
 		}
 		// Error chungo de no se qué de metamethod
 		else if (errorType == LUA_ERRGCMM)
 		{
-			std::cout << "ERROR DE LUA! - Error chungo de lua al ejecutar el script \"" << script << "\" : Error chungo de no se qué de metamethod." << std::endl;
+			showMessage("ERROR DE LUA! - Error chungo de lua al ejecutar el script \"" + std::string(script) + "\" : Error chungo de no se qué de metamethod.");
 
 			return false;
 		}
@@ -454,6 +553,16 @@ namespace ScriptManager {
 		return true;
 
 	} // executeLastLoadScript
+
+	//---------------------------------------------------------
+
+	void CServer::showMessage(std::string message)
+	{
+		std::cout << std::endl;
+		std::cout << message;
+		std::cout << std::endl;
+		
+	} // showMessage
 
 	//---------------------------------------------------------
 

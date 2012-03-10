@@ -152,6 +152,18 @@ namespace Application {
 		else
 			std::cout << "Algo raro ha pasado al recuperar la variable cadena desde una tabla" << std::endl;
 
+		if (!ScriptManager::CServer::getSingletonPtr()->executeProcedure("proc1"))
+			std::cout << "Algo raro ha pasado al ejecutar el procedimiento \"proc1\"" << std::endl;
+
+		if (!ScriptManager::CServer::getSingletonPtr()->executeProcedure("proc2", 40))
+			std::cout << "Algo raro ha pasado al ejecutar el procedimiento \"proc2\"" << std::endl;
+
+		int result = 0;
+		if (!ScriptManager::CServer::getSingletonPtr()->executeFunction("funcion", 30, result))
+			std::cout << "Algo raro ha pasado al ejecutar la función \"funcion\"" << std::endl;
+		else
+			std::cout << "Parámetro devuelto por la función \"funcion\": " << result << std::endl;
+
 	} // activate
 
 	//--------------------------------------------------------
