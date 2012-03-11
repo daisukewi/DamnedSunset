@@ -27,20 +27,26 @@ Contiene la implementación del estado de juego.
 
 #include "Physics/Server.h"
 
-#include "ScriptManager/Server.h"
-
 #include "GUI/Server.h"
 #include <CEGUISystem.h>
 #include <CEGUIWindowManager.h>
 #include <CEGUIWindow.h>
 #include <elements/CEGUIPushButton.h>
 
+// @SCRIPT
+#include "ScriptManager/Server.h"
 #include <stdio.h>
 #include <string.h>
 
 namespace GUI 
 {
 	class CInterfazController;
+}
+
+// @SCRIPT
+void funcion()
+{
+	std::cout << "Función en C++ llamada desde lua." << std::endl;
 }
 
 namespace Application {
@@ -107,6 +113,7 @@ namespace Application {
 		CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();  
 		CEGUI::System::getSingleton().injectMouseMove(state.X.abs-mousePos.d_x,state.Y.abs-mousePos.d_y);
 
+		// @SCRIPT
 		ScriptManager::CServer::getSingletonPtr()->loadExeScript("prueba1");
 		ScriptManager::CServer::getSingletonPtr()->loadExeScript("prueba2");
 		ScriptManager::CServer::getSingletonPtr()->executeScript("print(\"Hello world ejecutando a pelo\")");
@@ -159,10 +166,13 @@ namespace Application {
 			std::cout << "Algo raro ha pasado al ejecutar el procedimiento \"proc2\"" << std::endl;
 
 		int result = 0;
-		if (!ScriptManager::CServer::getSingletonPtr()->executeFunction("funcion", 30, result))
+		if (!ScriptManager::CServer::getSingletonPtr()->executeFunction("funcionLUA", 30, result))
 			std::cout << "Algo raro ha pasado al ejecutar la función \"funcion\"" << std::endl;
 		else
-			std::cout << "Parámetro devuelto por la función \"funcion\": " << result << std::endl;
+			std::cout << "Parámetro devuelto por la función \"funcionLUA\": " << result << std::endl;
+
+		ScriptManager::CServer::getSingletonPtr()->registerFunction("funcion", funcion);
+		ScriptManager::CServer::getSingletonPtr()->executeScript("callfunction()");
 
 	} // activate
 

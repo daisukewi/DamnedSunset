@@ -18,7 +18,7 @@ Contiene la implementación del controlador de teclas de la cámara.
 #include "GUI\Server.h"
 #include "GUI\InterfazController.h"
 
-#include "ScriptManager\Server.h"
+//#include "ScriptManager\Server.h"
 
 #include <cassert>
 
@@ -82,9 +82,10 @@ namespace GUI {
 			case GUI::Key::RIGHTARROW:
 				m->setMovement("right");
 				break;
-			case GUI::Key::R:
+			/*case GUI::Key::R:
 				ScriptManager::CServer::getSingletonPtr()->reloadScripts();
 
+				// @SCRIPT
 				int n = ScriptManager::CServer::getSingletonPtr()->getGlobal("numero", 200);
 				bool error = true;
 				bool b = ScriptManager::CServer::getSingletonPtr()->getGlobal("booleano", error);
@@ -137,7 +138,7 @@ namespace GUI {
 				else
 					std::cout << "Parámetro devuelto por la función \"funcion\": " << result << std::endl;
 
-				break;
+				break;*/
 			}
 			_controlledTarget->emitMessage(m);
 		}

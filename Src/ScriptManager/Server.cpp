@@ -16,10 +16,11 @@ la gestión de los scripts del juego.
 // Como es código C (no C++), hay que indicarselo al
 // compilador para que asuma el convenio de nombres
 // de C en el código objeto.
-extern "C" {
-#include <lua.h>
-#include <lauxlib.h>
-#include <lualib.h>  // Para inicializar la librería base de Lua
+extern "C" 
+{
+	#include <lua.h>
+	#include <lauxlib.h>
+	#include <lualib.h>  // Para inicializar la librería base de Lua
 }
 
 #pragma warning( disable: 4251 )
@@ -30,7 +31,8 @@ extern "C" {
 #include <iostream>
 #include <sstream>
 
-namespace ScriptManager {
+namespace ScriptManager
+{
 
 	CServer* CServer::_instance = 0;
 
@@ -50,7 +52,7 @@ namespace ScriptManager {
 		_instance = 0;
 
 	} // ~CServer
-	
+
 	//--------------------------------------------------------
 
 	bool CServer::Init()
@@ -386,7 +388,8 @@ namespace ScriptManager {
 
 	//---------------------------------------------------------
 
-	bool CServer::executeProcedure(const char *subroutineName, int param1)
+	template <class T>
+	bool CServer::executeProcedure(const char *subroutineName, const T& param1)
 	{
 		assert(_lua && "No se ha hecho la inicialización de lua");
 
@@ -416,7 +419,8 @@ namespace ScriptManager {
 
 	//---------------------------------------------------------
 
-	bool CServer::executeFunction(const char *subroutineName, int param1, int &result)
+	template <class T>
+	bool CServer::executeFunction(const char *subroutineName, const T& param1, int &result)
 	{
 		assert(_lua && "No se ha hecho la inicialización de lua");
 
@@ -454,7 +458,19 @@ namespace ScriptManager {
 
 		return true;
 		
-	} // executeFunction
+	} // executeFunction(1 param, 1 result)
+
+	//---------------------------------------------------------
+
+	template <class F>
+	void CServer::registerFunction(const char *name, F f)
+	{
+		luabind::module(_lua)
+		[
+			luabind::def(name, f)
+		];
+		
+	} // registerFunction
 
 	//---------------------------------------------------------
 
@@ -565,5 +581,14 @@ namespace ScriptManager {
 	} // showMessage
 
 	//---------------------------------------------------------
+
+	//------------------------------------------------------//
+	//				DEFINICIONES DE PLANTILLAS				//
+	//------------------------------------------------------//
+
+	template bool CServer::executeProcedure<int>(const char *subroutineName, const int& param1);
+	template bool CServer::executeFunction<int>(const char *subroutineName, const int& param1, int &result);
+
+	template void CServer::registerFunction<void(*)()>(const char *name, void (*f)());
 
 } // namespace ScriptManager

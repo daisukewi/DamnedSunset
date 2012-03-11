@@ -7,7 +7,7 @@ function proc1()
 end
 
 function proc2(param)
-	print("Ejecución de un procedimiento desde lua con un parámetro y sin valor devuelto. Parámetro: ", param)
+	print("Ejecución de un procedimiento desde lua con un parámetro y sin valor devuelto. Parámetro: " .. param)
 end
 
 print("Hello world desde lua en prueba 1")

@@ -9,6 +9,7 @@ la gestión de los scripts del juego.
 @author Alberto Plaza
 @date Marzo, 2012
 */
+
 #ifndef __ScriptManager_Server_H
 #define __ScriptManager_Server_H
 
@@ -17,8 +18,6 @@ la gestión de los scripts del juego.
 
 // Estructura con el contexto (estado) del intérprete de Lua.
 struct lua_State;
-
-typedef int (*lua_CFunction) (lua_State *L);
 
 /**
 Namespace para la gestión de los scripts del juego. Se encarga
@@ -233,20 +232,32 @@ namespace ScriptManager
 		bool executeProcedure(const char *subroutineName);
 
 		/**
-		Ejecuta un procedimiento de lua con un parámetro 
-		de entrada y sin valor de vuelta
+		Método templatizado que ejecuta un procedimiento de 
+		lua con un parámetro de entrada y sin valor de vuelta
 
 		@param subroutineName Nombre del procedimiento.
 		@param param1 parámetro del procedimiento.
 
 		@return true si la ejecución del procedimiento fue bien
 		y false en caso contrario.
+
+		@note Esta es una plantilla definida en el fichero .cpp
+		de la clase, por tanto la definición de la misma no puede
+		quedarse como genérica ya que el compilador no lo acepta.
+		Para instanciar la plantilla y que pueda compilar pero que
+		al mismo tiempo la definición del método quede lo suficientemente
+		genérica, se han definido instancias concretas al final del
+		fichero .cpp. Para cualquier instancia nueva que se necesite
+		de la plantilla basta con definir una nueva línea con el
+		tipo deseado en la sección concreta del fichero .cpp.
 		*/
-		bool executeProcedure(const char *subroutineName, int param1);
+		template <class T>
+		bool executeProcedure(const char *subroutineName, const T& param1);
 
 		/**
-		Ejecuta una función de lua con un parámetro 
-		de entrada y con un valor de vuelta de tipo entero.
+		Método templatizado que ejecuta una función de lua 
+		con un parámetro de entrada y con un valor de vuelta 
+		de tipo entero.
 
 		@param subroutineName Nombre de la función.
 		@param param1 parámetro de la función.
@@ -254,14 +265,47 @@ namespace ScriptManager
 
 		@return true si la ejecución de la función fue bien
 		y false en caso contrario.
+
+		@note Esta es una plantilla definida en el fichero .cpp
+		de la clase, por tanto la definición de la misma no puede
+		quedarse como genérica ya que el compilador no lo acepta.
+		Para instanciar la plantilla y que pueda compilar pero que
+		al mismo tiempo la definición del método quede lo suficientemente
+		genérica, se han definido instancias concretas al final del
+		fichero .cpp. Para cualquier instancia nueva que se necesite
+		de la plantilla basta con definir una nueva línea con el
+		tipo deseado en la sección concreta del fichero .cpp.
 		*/
-		bool executeFunction(const char *subroutineName, int param1, int &result);
+		template <class T>
+		bool executeFunction(const char *subroutineName, const T& param1, int &result);
+
+		/**
+		Método templatizado que registra una función de C++ en el 
+		contexto de lua. La función a registrar no debe ser miembro 
+		de ninguna clase ni estar incluida en ningún espacio de nombres.
+
+		@param name Nombre que tendrá la función en el contexto de lua.
+		@param f Puntero a la función de C++.
+
+		@note Esta es una plantilla definida en el fichero .cpp
+		de la clase, por tanto la definición de la misma no puede
+		quedarse como genérica ya que el compilador no lo acepta.
+		Para instanciar la plantilla y que pueda compilar pero que
+		al mismo tiempo la definición del método quede lo suficientemente
+		genérica, se han definido instancias concretas al final del
+		fichero .cpp. Para cualquier instancia nueva que se necesite
+		de la plantilla basta con definir una nueva línea con el
+		tipo deseado en la sección concreta del fichero .cpp.
+		*/
+		template <class F>
+		void registerFunction(const char *name, F f);
 
 	protected:
+
 		/**
 		Constructor.
 		*/
-		CServer ();
+		CServer();
 
 		/**
 		Destructor.
