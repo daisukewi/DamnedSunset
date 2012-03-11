@@ -54,16 +54,19 @@ namespace Physics {
         PM_DYNAMIC
     };
 
+	/**
+	Collision groups of physic objects.
+	*/
 	enum TPhysicGroup
 	{
-		PG_NONE			= 0x00000000,
-		PG_RESERVED		= 1 << 0, //0x00000001
-		PG_WORLD		= 1 << 1, //0x00000002
-		PG_BUILDING		= 1 << 2, //0x00000004
-		PG_TRIGGER		= 1 << 3, //0x00000008
-		PG_HERO			= 1 << 4, //0x00000010
-		PG_ENEMY		= 1 << 5, //0x00000020
-		PG_OTHER		= 1 << 6, //0x00000040
+		PG_NONE			= 0x00000000, //Group:
+		PG_RESERVED		= 1 << 0, //0
+		PG_WORLD		= 1 << 1, //1
+		PG_BUILDING		= 1 << 2, //2
+		PG_TRIGGER		= 1 << 3, //3
+		PG_HERO			= 1 << 4, //4
+		PG_ENEMY		= 1 << 5, //5
+		PG_OTHER		= 1 << 6, //6
 		PG_ALL			= 0xffffffff
 	};
 	

@@ -139,11 +139,6 @@ namespace Logic
 				_arrived = false;
 				_currentMovement->setEntity(_entity);
 				_currentMovement->setTarget(_currentTarget);
-				// Y la animación
-				sendAnimationMessage("Walk");
-			} else {
-				// Si no hay movimiento paramos la animación
-				sendAnimationMessage("Idle");
 			}
 		}
 
@@ -167,6 +162,12 @@ namespace Logic
 			Logic::MAvatarWalk *m = new Logic::MAvatarWalk();
 			m->setMovement(_currentProperties.linearSpeed * msecs);
 			_entity->emitMessage(m);
+
+			// Orientamos al personaje según nos haya dicho el steering.
+			_entity->setYaw(_entity->getYaw() + _currentProperties.angularSpeed * msecs);
+
+			// Poner la animación de andar
+			sendAnimationMessage("Walk");
 			
 			// Acelerar
 			_currentProperties.linearSpeed += _currentProperties.linearAccel * msecs;
@@ -180,10 +181,6 @@ namespace Logic
 			if (_currentProperties.angularSpeed > _maxAngularSpeed) 
 				_currentProperties.angularSpeed = Ogre::Math::Sign(_currentProperties.angularSpeed) * _maxAngularSpeed;
 
-		}
-		else {
-			// Si no hay movimiento paramos la animación
-			sendAnimationMessage("Idle");
 		}
 
 	} // tick
@@ -229,11 +226,16 @@ namespace Logic
 			_target = m->getTarget();
 			_movType = m->getMovementType();
 
-			// Orientamos la entidad hacia el punto de destino
-			float yaw = atan((_target.x - _entity->getPosition().x) / (_target.z - _entity->getPosition().z));
-			if ((_target.z - _entity->getPosition().z) >= 0)
-				yaw += Math::PI;
-			_entity->setYaw(yaw);
+			if(m->isFirstMoveOfRoute())
+			{
+				// Orientamos la entidad hacia el punto de destino si es el primer
+				// punto de una ruta. Con el resto, el personaje gira suavemente
+				// con el steering CKinematicAlignToSpeed.
+				float yaw = atan((_target.x - _entity->getPosition().x) / (_target.z - _entity->getPosition().z));
+				if ((_target.z - _entity->getPosition().z) >= 0)
+					yaw += Math::PI;
+				_entity->setYaw(yaw);
+			}
 		}
 
 	} // process

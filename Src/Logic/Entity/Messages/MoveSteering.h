@@ -61,6 +61,18 @@ namespace Logic
 		*/
 		Vector3 getTarget();
 
+		/**
+		Devuelve true, si este mensaje es el primer movimiento de una
+		ruta a seguir.
+		*/
+		bool isFirstMoveOfRoute();
+
+		/**
+		Si firstMove es true, indica que este mensaje contiene
+		el primer movimiento de una ruta a seguir.
+		*/
+		void setFirstMoveOfRoute(bool firstMove);
+
 	protected:
 
 		/**
@@ -72,6 +84,12 @@ namespace Logic
 		Atributo que indica el destino del movimiento.
 		*/
 		Vector3 _target;
+
+		/**
+		Atributo que indica si el mensaje es el primer movimiento
+		de una ruta	a seguir.
+		*/
+		bool _firstMoveOfRoute;
 
 	}; // class MMoveSteering
 

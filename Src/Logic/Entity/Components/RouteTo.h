@@ -107,9 +107,18 @@ namespace Logic
 		Envía un mensaje MMoveSteering.
 
 		@param target Destino.
-		@movementType Tipo de movimiento.
+		@param movementType Tipo de movimiento.
+		@param isFirstMove Indica si el mensaje contiene el
+		primer movimiento de una ruta.
 		*/
-		void sendMoveMessage(Vector3 target, int movementType);
+		void sendMoveMessage(Vector3 target, int movementType, bool isFirstMove = false);
+
+		/**
+		Envía un mensaje para cambiar la animación actual.
+
+		@param animation Nueva animación.
+		*/
+		void sendAnimationMessage(std::string animation);
 
 		/**
 		Devuelve el siguiente punto de la ruta al que se tiene que viajar.

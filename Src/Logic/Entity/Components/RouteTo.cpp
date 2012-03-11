@@ -10,6 +10,7 @@
 
 #include "Logic/Entity/Messages/MoveSteering.h"
 #include "Logic/Entity/Messages/AStarRoute.h"
+#include "Logic/Entity/Messages/SetAnimation.h"
 
 namespace Logic 
 {
@@ -83,12 +84,12 @@ namespace Logic
 			// Si no se puede calcular la ruta enviamos un mensaje de fallo
 			if (_currentRoute == 0) {
 				_arrived = true;
-				/*message._type = Message::FINISHED_ROUTE;
-				message._bool = false;*/
 				MAStarRoute *m = new MAStarRoute();
 				m->setAction(RouteAction::FINISHED_ROUTE);
 				m->setRouteFailed(true);
 				_entity->emitMessage(m, this);
+				// Paramos la animación
+				sendAnimationMessage("Idle");
 			} else {
 				_currentNode = 0; //Indicamos que vamos a empezar en el primer nodo.
 				_currentNode = getNextRoutePoint(); //Nos devuelve el siguiente nodo al que debemos viajar.
@@ -96,7 +97,7 @@ namespace Logic
 				_nextWaypoint = false;
 				// Si hay ruta hacemos que vaya al primer punto
 				//sendMoveMessage((*_currentRoute)[0], AI::IMovement::MOVEMENT_KINEMATIC_SEEK);
-				sendMoveMessage((*_currentRoute)[_currentNode], AI::IMovement::MOVEMENT_DYNAMIC_SEEK);
+				sendMoveMessage((*_currentRoute)[_currentNode], AI::IMovement::MOVEMENT_DYNAMIC_SEEK, true);
 			}
 		}
 
@@ -109,11 +110,13 @@ namespace Logic
 					// Era el último nodo ==> parar
 					_arrived = true;
 					sendMoveMessage(_target, AI::IMovement::MOVEMENT_NONE);
-					// Enviar un mensaje para notificar que hemos llegado la destino
+					// Enviar un mensaje para notificar que hemos llegado al destino
 					MAStarRoute *m = new MAStarRoute();
 					m->setAction(RouteAction::FINISHED_ROUTE);
 					m->setRouteFailed(false);
 					_entity->emitMessage(m, this);
+					// Paramos la animación
+					sendAnimationMessage("Idle");
 
 				} else if (_currentNode == _currentRoute->size() - 1) {
 					// Es el penúltimo nodo. Nos acercamos con Arrive
@@ -136,12 +139,25 @@ namespace Logic
 	@param target Destino.
 	@movementType Tipo de movimiento.
 	*/
-	void CRouteTo::sendMoveMessage(Vector3 target, int movementType)
+	void CRouteTo::sendMoveMessage(Vector3 target, int movementType, bool isFirstMove)
 	{
 		MMoveSteering *m = new MMoveSteering();
 
 		m->setTarget(Vector3(target.x, 0.0, target.z));
 		m->setMovementType(movementType);
+		m->setFirstMoveOfRoute(isFirstMove);
+
+		_entity->emitMessage(m, this);
+	}
+
+	//---------------------------------------------------------
+
+	void CRouteTo::sendAnimationMessage(std::string animation)
+	{
+		MSetAnimation *m = new MSetAnimation();
+
+		m->setAnimationName(animation);
+		m->setLoop(true);
 
 		_entity->emitMessage(m, this);
 	}
