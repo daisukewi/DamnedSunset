@@ -11,7 +11,11 @@ import java.util.Vector;
  */
 public interface ExportableData {
 	
-	public void exportData(int type);
+	public String getGridAttributes();
+	
+	public String getAllEntitiesAttributes();
+	
+	public String getCellAttributes(CellType cell);
 	
 	public void importData(String data, int type, Vector<CellType> cells, Vector<ColorEntity> entities);
 

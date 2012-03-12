@@ -4,7 +4,6 @@
 package mapeditor.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.Vector;
@@ -13,7 +12,6 @@ import mapeditor.util.CellType;
 import mapeditor.util.ColorEntity;
 import mapeditor.util.EntityType;
 import mapeditor.util.ExportableData;
-import mapeditor.util.ModelExportListener;
 import mapeditor.util.Position;
 
 /**
@@ -51,7 +49,7 @@ public class Map implements Serializable, ExportableData {
 	
 	private int _entityID;
 	
-	private ArrayList<ModelExportListener> _listeners;
+	private HashMap<String, String> _paramList;
 	
 	private boolean _importing;
 	
@@ -90,7 +88,7 @@ public class Map implements Serializable, ExportableData {
 		_entityList = new HashMap<Integer, Entity>();
 		_entityID = 0;
 		
-		_listeners = new ArrayList<ModelExportListener>();
+		_paramList = new HashMap<String, String>();
 		
 		_mapWidth = MAX_WIDTH;
 		_mapHeight = MAX_HEIGHT;
@@ -123,7 +121,7 @@ public class Map implements Serializable, ExportableData {
 		_entityList = new HashMap<Integer, Entity>();
 		_entityID = 0;
 		
-		_listeners = new ArrayList<ModelExportListener>();
+		_paramList = new HashMap<String, String>();
 		
 		_mapWidth = width;
 		_mapHeight = height;
@@ -150,20 +148,6 @@ public class Map implements Serializable, ExportableData {
 		}
 		
 		return !full;
-		
-	}
-	
-	private void notifyDataToExport(String data) {
-		
-		for (ModelExportListener listener : _listeners)
-			listener.dataToExport(data);
-		
-	}
-	
-	private void notifyFinishExport() {
-		
-		for (ModelExportListener listener : _listeners)
-			listener.finishExport();
 		
 	}
 	
@@ -307,18 +291,6 @@ public class Map implements Serializable, ExportableData {
 		
 	}
 	
-	public void addListener(ModelExportListener listener) {
-		
-		_listeners.add(listener);
-		
-	}
-	
-	public void removeAllListeners() {
-		
-		_listeners.clear();
-		
-	}
-	
 	public boolean newEntity(Position[] posList, Entity entity, int height, int width) {
 		
 		if (checkPositions(posList)) {
@@ -333,7 +305,7 @@ public class Map implements Serializable, ExportableData {
 			
 			_entityList.get(_entityID).newParameter(ENTITY_DIMENSION, "{ " + height + ", " + width + " }");
 			
-			_entityList.get(_entityID).newParameter(ENTITY_POSITION, "{ " + posList[0].getX() + ", " + posList[0].getY() + ", 0 }");
+			_entityList.get(_entityID).newParameter(ENTITY_POSITION, "{ " + posList[0].getX() + ", " + posList[0].getY() + " }");
 			
 			for (int i = 0; i < posList.length; i++) {
 				
@@ -424,6 +396,18 @@ public class Map implements Serializable, ExportableData {
 		
 	}
 	
+	public HashMap<String, String> getParameters() {
+		
+		return _paramList;
+		
+	}
+	
+	public void setParameters(HashMap<String, String> parameters) {
+		
+		_paramList = parameters;
+		
+	}
+	
 	public int getMapWidth() {
 		
 		return _mapWidth;
@@ -435,7 +419,7 @@ public class Map implements Serializable, ExportableData {
 		return _mapHeight;
 		
 	}
-
+/*
 	@Override
 	public void exportData(int type) {
 		
@@ -482,7 +466,54 @@ public class Map implements Serializable, ExportableData {
 		notifyFinishExport();
 
 	}
-
+*/
+	@Override
+	public String getGridAttributes() {
+		
+		String s = "\tGrid = {\n";
+		
+		for (String name : _paramList.keySet())
+			s = s + "\t\t" + name + " = " + _paramList.get(name) + ",\n";
+		
+		s = s + "\t\twidth = " + _mapWidth + ",\n";
+		s = s + "\t\theight = " + _mapHeight + ",\n";
+		
+		s = s + "\t},\n\n";
+		
+		return s;
+	}
+	
+	@Override
+	public String getAllEntitiesAttributes() {
+		
+		String s = "";
+		
+		for (int entityID : _entityList.keySet()) {
+			
+			Entity entity = _entityList.get(entityID);
+			
+			s = s + "\t" + entity.getParameter(ENTITY_NAME) + " = {\n";
+			
+			for (String name : entity.getParamNames()) {
+				
+				if (!name.equals(ENTITY_DIMENSION) && !name.equals(ENTITY_NAME))
+					s = s + "\t\t" + name + " = " + entity.getParameter(name) + ",\n";
+				
+			}
+			
+			s = s + "\t},\n\n";
+			
+		}
+		
+		return s;
+	}
+	
+	@Override
+	public String getCellAttributes(CellType cell) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public void importData(String data, int type, Vector<CellType> cells, Vector<ColorEntity> entities) {
 		

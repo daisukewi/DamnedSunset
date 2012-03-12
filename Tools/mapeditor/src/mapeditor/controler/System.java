@@ -21,14 +21,13 @@ import mapeditor.util.ColorEntity;
 import mapeditor.util.ControllerListener;
 import mapeditor.util.ElementType;
 import mapeditor.util.EntityType;
-import mapeditor.util.ModelExportListener;
 import mapeditor.util.Position;
 
 /**
  * @author Guibrush
  *
  */
-public class System implements ModelExportListener {
+public class System {
 	
 	private Position _posSelected;
 	
@@ -44,8 +43,6 @@ public class System implements ModelExportListener {
 	
 	private ElementType _elementSelected;
 	
-	private boolean _exporting;
-	
 	public System() {
 		
 		_elementSelected = null;
@@ -55,7 +52,6 @@ public class System implements ModelExportListener {
 		_preferences = null;
 		_listeners = new ArrayList<ControllerListener>();
 		_fileHandler = new FileHandler();
-		_exporting = false;
 		
 	}
 	
@@ -225,8 +221,6 @@ public class System implements ModelExportListener {
 				
 			}
 		
-		_map.addListener(this);
-		
 	}
 	
 	private void changeCellType(CellType newType) {
@@ -305,7 +299,6 @@ public class System implements ModelExportListener {
 	public void newMap(int width, int height, CellType basicCell) {
 		
 		_map = new Map(width, height, basicCell);
-		_map.addListener(this);
 		
 	}
 	
@@ -368,7 +361,6 @@ public class System implements ModelExportListener {
 	public void initializePreferences() {
 		
 		_preferences = new Preferences();
-		_preferences.addListener(this);
 		
 	}
 	
@@ -488,18 +480,25 @@ public class System implements ModelExportListener {
 		
 	}
 	
+	public HashMap<String, String> getMapParameters() {
+		
+		return _map.getParameters();
+		
+	}
+	
+	public void setMapParameters(HashMap<String, String> parameters) {
+		
+		_map.setParameters(parameters);
+		
+	}
+	
 	public void saveMap(File file) {
 		
 		if (_map != null)
 			try {
 				file.createNewFile();
-				if (file.canWrite()) {
-					
-					_map.removeAllListeners();
+				if (file.canWrite())
 					_fileHandler.saveData(file, _map);
-					_map.addListener(this);
-					
-				}
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -524,13 +523,8 @@ public class System implements ModelExportListener {
 		if (_preferences != null) {
 			try {
 				file.createNewFile();
-				if (file.canWrite()) {
-				
-					_preferences.removeAllListeners();
+				if (file.canWrite())
 					_fileHandler.saveData(file, _preferences);
-					_preferences.addListener(this);
-					
-				}
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -542,12 +536,8 @@ public class System implements ModelExportListener {
 	
 	public void openPreferences(File file) {
 		
-		if (file.exists() && file.canRead()) {
-			
+		if (file.exists() && file.canRead())
 			_preferences = (Preferences) _fileHandler.openData(file);
-			_preferences.addListener(this);
-			
-		}
 		
 	}
 	
@@ -558,11 +548,34 @@ public class System implements ModelExportListener {
 				file.createNewFile();
 				if (file.canWrite()) {
 					
-					_exporting = true;
 					_fileHandler.initExportData(file);
-					_preferences.exportData(0);
-					_exporting = false;
-					_map.exportData(0);
+					
+					_fileHandler.exportData("Map = {\n\n");
+					
+					_fileHandler.exportData(_map.getGridAttributes());
+					
+					int width = _map.getMapWidth();
+					int height = _map.getMapHeight();
+					String s = "";
+					
+					for (int x = 0; x < width; x++)
+						for (int y = 0; y < height; y++) {
+							
+							CellType cell = _map.getCell(new Position(x, y)).getType();
+							s = "\t" + cell.getType() + x + "_" + y + " = {\n";
+							s = s + "\t\ttype = \"" + cell.getType() + "\",\n";
+							s = s + "\t\t" + Map.CELL_POSITION + " = { " + x + ", " + y + " },\n";
+							s = s + _preferences.getCellAttributes(cell);
+							s = s + "\t},\n\n";
+							_fileHandler.exportData(s);
+							
+						}
+					
+					_fileHandler.exportData(_map.getAllEntitiesAttributes());
+					
+					_fileHandler.exportData("}");
+					
+					_fileHandler.closeExportFile();
 					
 				}
 				
@@ -596,21 +609,6 @@ public class System implements ModelExportListener {
 			notifyNewMapLoaded();
 			
 		}
-		
-	}
-
-	@Override
-	public void dataToExport(String data) {
-		
-		_fileHandler.exportData(data);
-		
-	}
-
-	@Override
-	public void finishExport() {
-		
-		if (!_exporting)
-			_fileHandler.closeExportFile();
 		
 	}
 

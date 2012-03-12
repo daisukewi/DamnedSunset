@@ -41,7 +41,7 @@ public class MainWindow implements ComponentListener, WindowListener, Controller
 	private JScrollPane _mapPanelWrapper;
 	private JMenuBar _menu;
 	private JMenu _menuMap, _menuCell, _menuEntity;
-	private JMenuItem _menuNewMap, _menuSaveMap, _menuOpenMap, _menuExportMap, _menuImportMap, _menuNewCellType, _menuNewEntityType, _menuChangeCellParameters;
+	private JMenuItem _menuNewMap, _menuSaveMap, _menuOpenMap, _menuExportMap, _menuImportMap, _menuNewCellType, _menuNewEntityType, _menuChangeCellParameters, _menuChangeMapParameters;
 	private JFileChooser _fileChooser;
 	private PalettePanel _palettePanel;
 	private MapPanel _mapPanel;
@@ -109,6 +109,12 @@ public class MainWindow implements ComponentListener, WindowListener, Controller
 		_menuImportMap = new JMenuItem("Importar Mapa");
 		_menuImportMap.addActionListener(new ImportMapMenuListener());
 		_menuMap.add(_menuImportMap);
+		
+		_menuMap.addSeparator();
+		
+		_menuChangeMapParameters = new JMenuItem("Cambiar parámetros del mapa");
+		_menuChangeMapParameters.addActionListener(new ChangeMapParameters());
+		_menuMap.add(_menuChangeMapParameters);
 		
 		_menuCell = new JMenu("Celda");
 		_menu.add(_menuCell);
@@ -481,6 +487,22 @@ public class MainWindow implements ComponentListener, WindowListener, Controller
 			
 			if (val == JOptionPane.OK_OPTION)
 				_system.setCellParameters(changeCellParametersPanel.getParameters());
+			
+		}
+		
+	}
+	
+	class ChangeMapParameters implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			ChangeParametersPanel changeMapParametersPanel = new ChangeParametersPanel(_system.getMapParameters());
+			
+			int val = JOptionPane.showConfirmDialog(_window, changeMapParametersPanel, "Parámetros del mapa", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			
+			if (val == JOptionPane.OK_OPTION)
+				_system.setMapParameters(changeMapParametersPanel.getParameters());
 			
 		}
 		

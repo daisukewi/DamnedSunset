@@ -5,7 +5,6 @@ package mapeditor.model;
 
 import java.awt.Color;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.Vector;
 
@@ -14,7 +13,6 @@ import mapeditor.util.ColorCell;
 import mapeditor.util.ColorEntity;
 import mapeditor.util.EntityType;
 import mapeditor.util.ExportableData;
-import mapeditor.util.ModelExportListener;
 
 /**
  * @author Guibrush
@@ -31,8 +29,6 @@ public class Preferences implements Serializable, ExportableData {
 	
 	private Vector<ColorEntity> _entityTypes;
 	
-	private ArrayList<ModelExportListener> _listeners;
-	
 	private boolean _importing;
 	
 	private String _importingCell;
@@ -42,37 +38,9 @@ public class Preferences implements Serializable, ExportableData {
 		_cellTypes = new Vector<ColorCell>();
 		_entityTypes = new Vector<ColorEntity>();
 		
-		_listeners = new ArrayList<ModelExportListener>();
-		
 		_importing = true;
 		
 		_importingCell = null;
-		
-	}
-	
-	private void notifyDataToExport(String data) {
-		
-		for (ModelExportListener listener : _listeners)
-			listener.dataToExport(data);
-		
-	}
-	
-	private void notifyFinishExport() {
-		
-		for (ModelExportListener listener : _listeners)
-			listener.finishExport();
-		
-	}
-	
-	public void addListener(ModelExportListener listener) {
-		
-		_listeners.add(listener);
-		
-	}
-	
-	public void removeAllListeners() {
-		
-		_listeners.clear();
 		
 	}
 	
@@ -183,7 +151,7 @@ public class Preferences implements Serializable, ExportableData {
 		return _entityTypes;
 		
 	}
-
+/*
 	@Override
 	public void exportData(int type) {
 		
@@ -215,7 +183,30 @@ public class Preferences implements Serializable, ExportableData {
 		}
 		
 	}
-
+*/
+	@Override
+	public String getGridAttributes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public String getAllEntitiesAttributes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public String getCellAttributes(CellType cell) {
+		
+		String s = "";
+		
+		for (String name : _cellTypes.get(_cellTypes.indexOf(new ColorCell(null, cell))).getParamNames())
+			s = s + "\t\t" + name + " = " + _cellTypes.get(_cellTypes.indexOf(new ColorCell(null, cell))).getParameter(name) + ",\n";
+		
+		return s;
+	}
+	
 	@Override
 	public void importData(String data, int type, Vector<CellType> cells, Vector<ColorEntity> entities) {
 		

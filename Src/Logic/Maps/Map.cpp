@@ -23,6 +23,8 @@ Contiene la implementación de la clase CMap, Un mapa lógico.
 
 #include "AI/Server.h"
 
+#include "ScriptManager/Server.h"
+
 
 #include <cassert>
 
@@ -58,6 +60,16 @@ namespace Logic {
 	
 	CMap* CMap::createMapFromFile(const std::string &filename)
 	{
+		//----------------------------------------------------
+
+		ScriptManager::CServer::getSingletonPtr()->loadExeScript("map");
+		ScriptManager::CServer::getSingletonPtr()->loadExeScript("mapParser");
+
+		if (ScriptManager::CServer::getSingletonPtr()->executeScript("processMap(Map)"))
+			int n = 0;
+
+		//----------------------------------------------------
+
 		// Completamos la ruta con el nombre proporcionado
 		std::string completePath(MAP_FILE_PATH);
 		completePath = completePath + filename;
