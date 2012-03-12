@@ -35,13 +35,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CParticleController() : IComponent() {}
-
-		/**
-		Destructor. Tiene que liberar las casillas ocupadas por el edificio
-		en el mapa lógico.
-		*/
-		~CParticleController();
+		CParticleController() : IComponent() {};
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
