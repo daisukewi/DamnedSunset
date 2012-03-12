@@ -20,6 +20,10 @@ Contiene la implementación de la clase que permite crear modelos básicos de Ogre
 #include "Graphics\Material.h"
 #include "Graphics\ModelFactory.h"
 #include "Graphics\Prefabs\PlaneModel.h"
+#include "Graphics\Scene.h"
+#include "OgreSceneManager.h"
+#include "Graphics\Entity.h"
+#include "Graphics\Server.h"
 #include <assert.h>
 
 
@@ -47,7 +51,7 @@ namespace Graphics
 		return 0;
 	}
 
-	CEntity * CModelFactory::CreatePlane(const std::string &name, CMaterial material, Vector2 dimensions, Vector3 position){
+	CEntity * CModelFactory::CreatePlane(Graphics::CScene *scene, const std::string &name, std::string materialName, Vector2 dimensions, Vector3 position){
 		
 		std::stringstream auxName;
 		if ((!name.compare("")) || (name.length() == 0)){
@@ -55,7 +59,12 @@ namespace Graphics
 		}else{
 			auxName << name;
 		}
-		return new CPlaneModel(auxName.str(), material, dimensions, position);
+		CPlaneModel *model = new CPlaneModel(auxName.str(),materialName, dimensions, position);
+		
+		if (!scene->addEntity(model))
+				return 0;
+
+		return model;
 	
 	}
 

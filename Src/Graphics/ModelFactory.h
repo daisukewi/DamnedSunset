@@ -90,7 +90,7 @@ namespace Graphics
 		/*
 		Función que devuelve una entidada gráfica (CEntity) que representa un PLANO
 		*/
-		CEntity * CreatePlane(const std::string &name, CMaterial material, Vector2 dimensions, Vector3 position);
+		CEntity * CreatePlane(Graphics::CScene *scene, const std::string &name,std::string materialName, Vector2 dimensions, Vector3 position);
 		
 		/*
 		Función que devuelve una entidada gráfica (CEntity) que representa una LÍNEA

@@ -204,6 +204,13 @@ namespace Graphics
 		*/
 
 		Ray getCameraToViewportRay(float screenx, float screeny);
+
+		/**
+		Crear un efecto de partículas en la posición de la entidad que se el envía
+
+
+		*/
+		void createParticleEffect();
 		
 
 	protected:

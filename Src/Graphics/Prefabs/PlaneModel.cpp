@@ -28,42 +28,77 @@ Contiene la implemtación de la clase que representa una línea
 namespace Graphics
 {
 	
-	CPlaneModel::CPlaneModel(const std::string &name, CMaterial material, Vector2 dimensions, Vector3 position)
+	CPlaneModel::CPlaneModel(const std::string &name, std::string materialName,Vector2 dimensions,Vector3 position)
 		: CEntity("", "")
 	{
-		Ogre::AxisAlignedBox auxBBox;
-
-
-		//Crear un nuevo nodo
-		_entityNode = _scene->getSceneMgr()->getRootSceneNode()->
-								createChildSceneNode(name + "_node");
-
-								
-		//Añadirle la entidad del plano
-		_entityNode->attachObject(_entity);
+		_name = name;
+		_dimensions = dimensions;
+		_position = position;
+		_material = materialName;
 		
-		
-		//Asignar el material
-		
-		_entity->setMaterial(material.GetMaterial());
-		
-		
-		//Reescalar el prefab 
-		Ogre::Node *node = _entity->getParentNode();
-		auxBBox = _entity->getBoundingBox();
-		Vector3 vector = auxBBox.getSize();
-		
-		node->scale(dimensions.x / vector.x * 2,
-			1,
-			dimensions.y / vector.y * 2);
-			
-		_entityNode->setPosition(position.x,
-			position.y,
-			position.z);
 		
 	} // CPlaneModel
+
+	bool CPlaneModel::load(){
+		
+		try{
+		
+		_entity = _scene->getSceneMgr()->createEntity(_name,Ogre::SceneManager::PrefabType::PT_PLANE);
+
+		}catch(std::exception e)
+		{
+			return false;
+		}
+		
+		
+		Ogre::AxisAlignedBox auxBBox = _entity->getBoundingBox();
+
+		_entityNode = _scene->getSceneMgr()->getRootSceneNode()->
+								createChildSceneNode(_name + "_node");
+
+		_entityNode->attachObject(_entity);
+		
+
+		//Añadir el material
+		_entity->setMaterialName(_material);
+
+		//Reescalar el prefab 
+		Ogre::Node *node = _entity->getParentNode();
+
+		Vector3 vector = auxBBox.getSize();
+
+
+
+		node->scale(_dimensions.x / vector.x * 2,
+			1.0,
+			_dimensions.y / vector.z * 2);
+
+		//Modificar la posición
+		this->setPosition(_position);
+
+		_loaded = true;
+
+		return _loaded;
+	}
 	
-	
+	bool CPlaneModel::attachToScene(CScene *scene)
+	{
+		assert(scene && "¡¡La entidad debe asociarse a una escena!!");
+		// Si la entidad está cargada por otro gestor de escena.
+		if(_loaded && (_scene != scene))
+			return false;
+
+		// Si no está cargada forzamos su carga.
+		if (!_loaded)
+		{
+			_scene = scene;
+			return load();
+		}
+
+		// Si ya estaba cargada en la escena se devuelve cierto.
+		return true;
+	} // attachToScene
+
 	CPlaneModel::~CPlaneModel()
 	{
 		//MeshManager::getSingleton().unload(_mesh);

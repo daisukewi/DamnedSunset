@@ -481,6 +481,10 @@
       <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+    <ClInclude Include="ParticleEffectController.h">
+      <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
   <ItemGroup>
     <Filter Include="Entity">
       <UniqueIdentifier>{063426d2-2f19-43b7-8c81-a9d6543e3042}</UniqueIdentifier>

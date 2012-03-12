@@ -18,6 +18,7 @@ Contiene la declaración de la clase que representa una línea
 #define __Graphics_PlaneModel_H
 
 #include "Graphics\Entity.h"
+#include "Graphics\Server.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Ogre 
@@ -58,7 +59,7 @@ namespace Graphics
 		@param dimensions Vector3 que contiene las dimensiones del
 		objeto que se quiere crear.
 		*/
-		CPlaneModel(const std::string &name, CMaterial material, Vector2 dimensions, Vector3 position);
+		CPlaneModel(const std::string &name, std::string materialName,Vector2 dimensions,Vector3 position);
 
 		/**
 		Destructor de la clase.
@@ -72,6 +73,32 @@ namespace Graphics
 		*/
 		void SetMaterial(CMaterial material);
 
+		
+
+		
+	protected:
+
+		/**
+		Clase amiga. Solo la escena puede mandar a la entidad que pase a formar
+		parte de la geometría estática.
+		*/
+		friend class CScene;
+
+		
+		/**
+		Sobreescribir el método load de CEntity
+		*/
+		bool load();
+		/**
+		Sobreescribir el método attachToScene de CEntity
+		*/
+		bool attachToScene(CScene *scene);
+		
+
+
+		Vector2 _dimensions;
+		Vector3 _position;
+		std::string _material;
 
 	}; // class CBasicShapeEntity
 
