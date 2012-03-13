@@ -20,6 +20,7 @@ namespace Logic
 {
 	IMP_FACTORY(CLanzadorGranadas);
 	//---------------------------------------------------------
+	static int numGranada = 0;
 
 	CLanzadorGranadas::CLanzadorGranadas() : IComponent() {
 	}
@@ -94,11 +95,16 @@ namespace Logic
 
 				//Lanzamos la granada a dicha posicion
 				Map::CEntity * entityInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Granada");
-				entityInfo->setName("granada" + rand() );
+
+				std::stringstream sstm;
+				sstm << "granada" << numGranada;
+
+				entityInfo->setName(sstm.str());
+				++numGranada;
 
 				//Ponemos la posicion de la granada en el mismo sitio que la entidad
 				std::stringstream pos;
-				pos << _entity->getPosition().x << ' ' << _entity->getPosition().y + 10 << ' ' << (_entity->getPosition().z);
+				pos << _entity->getPosition().x << ' ' << _entity->getPosition().y + 15 << ' ' << (_entity->getPosition().z);
 				entityInfo->setAttribute("position", pos.str());
 
 				////Ponemos la posicion de la granada en el destino
@@ -115,7 +121,7 @@ namespace Logic
 
 				//Aplicamos la fuerza para lanzar la granada
 				MAplicarFuerza * mf = new MAplicarFuerza();
-				mf->setForce(v.x * 1000, 300, v.z*1000);
+				mf->setForce(v.x * 1000, 1000, v.z*1000);
 				mf->setPos(0,0,0);
 				entityGranada->emitMessage(mf);
 

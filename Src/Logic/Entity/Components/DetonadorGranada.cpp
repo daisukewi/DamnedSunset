@@ -19,24 +19,19 @@ namespace Logic
 	}
 
 	CDetonadorGranada::~CDetonadorGranada() {
-
-		
 	}
 
 	bool CDetonadorGranada::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
 	{
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
-
-
-		BaseSubsystems::CServer::getSingletonPtr()->addClockListener(3000, this);
-
+		BaseSubsystems::CServer::getSingletonPtr()->addClockListener(2000, this);
 		return true;
 	} // spawn
 
 
 	bool CDetonadorGranada::activate()
-	{
+	{	
 		return true;
 	} // activate
 	//---------------------------------------------------------
@@ -61,6 +56,7 @@ namespace Logic
 			} else if (!m->getTouched())
 			{
 				_entidades.remove(m->getEntity());
+				m->getEntity()->removeDeathListener(this);
 			}
 		}
 	} // process
@@ -72,7 +68,6 @@ namespace Logic
 		*/
 		_entidades.remove(entity);
 		entity->removeDeathListener(this);
-
 	}
 
 	void CDetonadorGranada::timeElapsed()
@@ -87,7 +82,7 @@ namespace Logic
 		rc_message->setPoint(_entity->getPosition());
 		_entity->emitMessage(rc_message,this);
 
-		for(; it != end; it++) {
+		for(; it != end; ++it) {
 			//Entidad que daña la granada
 			CEntity * entidad = *it;
 
@@ -98,15 +93,22 @@ namespace Logic
 			MDamaged *mDamaged = new MDamaged();
 			mDamaged->setHurt(100.0f);
 			mDamaged->setKiller(0);
+			entidad->removeDeathListener(this);
 			entidad->emitMessage(mDamaged, this);
 
 			printf("DAÑO GRANADA");
 		}
 
-		//Se desactiva le entidad. No se destruye para que si es necesario realizar alguna acción que depende de
-		//otro componente, pueda hacerlo. Se destruirá en el componente ParticleController, en caso de que la entidad esté
-		//desactivada.
-		_entity->deactivate();
+
+
+
+		////Se desactiva le entidad. No se destruye para que si es necesario realizar alguna acción que depende de
+		////otro componente, pueda hacerlo. Se destruirá en el componente ParticleController, en caso de que la entidad esté
+		////desactivada.
+		//_entity->deactivate();
+
+		//Eliminamos la entidad en el siguiente tick
+		CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 
 	} // timeElapsed
 
