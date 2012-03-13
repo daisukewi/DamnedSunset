@@ -56,6 +56,9 @@
     <ClCompile Include="..\..\Src\Graphics\Prefabs\PlaneModel.cpp">
       <Filter>Prefabs\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Graphics\Prefabs\CubeModel.cpp">
+      <Filter>Prefabs\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Graphics\AnimatedEntity.h">
@@ -95,6 +98,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Graphics\Prefabs\PlaneModel.h">
+      <Filter>Prefabs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Graphics\Prefabs\CubeModel.h">
       <Filter>Prefabs\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -22,6 +22,8 @@ namespace Graphics
 {
 	class CMaterial;
 	class CBasicShapeEntity;
+	class CEntity;
+
 }
 namespace Logic 
 {
@@ -217,7 +219,8 @@ namespace Logic
 		Plano que se crea al construir, y contiene los materiales
 		que indican si se puede construir en esa posición o no.
 		*/
-		Graphics::CBasicShapeEntity* _plane;
+		//Graphics::CBasicShapeEntity* _plane;
+		Graphics::CEntity *_plane;
 
 	}; // class CBuilderController
 

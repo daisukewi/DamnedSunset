@@ -95,6 +95,10 @@ namespace Logic
 		/**
 		Método virtual que procesa un mensaje.
 
+		----------------------IMPORTANTE-----------------------
+
+		En caso de que la entidad a la que pertenece, está desactivada, la destruirá
+
 		@param message Mensaje a procesar.
 		*/
 		virtual void process(IMessage *message);

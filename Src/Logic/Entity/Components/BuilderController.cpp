@@ -29,6 +29,8 @@ de los edificios sobre el escenario, cuando se van a construir.
 #include "Logic/Entity/Messages/ControlRaycast.h"
 #include "Logic/Entity/Messages/MouseEvent.h"
 
+#include "Graphics/ModelFactory.h"
+
 
 namespace Logic 
 {
@@ -160,9 +162,18 @@ namespace Logic
 		_halfDiagonal = ( lastCornerPos - _gridMap->getRelativeMapPos(0, 0) ) / 2;
 
 		// Pintamos un plano bajo el cursor que indicará si se puede construir o no.
+		
+		/*
 		_plane = new Graphics::CBasicShapeEntity(Graphics::ShapeType::ST_Plane,
 			Vector2(_buildingWidth * _gridSize, _buildingHeight * _gridSize));
-		_entity->getMap()->getScene()->addEntity(_plane);
+		*/
+		//_entity->getMap()->getScene()->addEntity(_plane);
+		
+		
+		
+		_plane = Graphics::CModelFactory::getSingletonPtr()->CreatePlane(_entity->getMap()->getScene(),"","physic_debug_blue50",Vector2(_buildingWidth * _gridSize, _buildingHeight * _gridSize),Vector3(0,0,0));
+		//BORRAR _plane = Graphics::CModelFactory::getSingletonPtr()->CreateCube(_entity->getMap()->getScene(),"","physic_debug_blue50",Vector3(_buildingWidth * _gridSize, _buildingHeight * _gridSize,0),Vector3(0,0,0));
+
 
 		// Solicitamos que empiecen a lanzar Raycast desde el viewport.
 		MControlRaycast *rc_message = new MControlRaycast();
@@ -264,6 +275,7 @@ namespace Logic
 		Vector2 cornerPos = _gridMap->getRelativeMapPos(pos + _halfDiagonal);
 		Vector2 newPos = cornerPos - _halfDiagonal;
 		_buildingEntity->setPosition(Vector3(newPos.x, 1.0f, newPos.y));
+		
 		_plane->setPosition(Vector3(newPos.x, 1.0f, newPos.y));
 
 		CheckBuildingCanEmplace();

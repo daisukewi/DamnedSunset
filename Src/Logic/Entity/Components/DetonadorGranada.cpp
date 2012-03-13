@@ -6,6 +6,7 @@
 
 #include "Logic/Entity/Messages/IsTouched.h"
 #include "Logic/Entity/Messages/Damaged.h"
+#include "Logic/Entity/Messages/ParticleEffect.h"
 
 namespace Logic 
 {
@@ -80,6 +81,11 @@ namespace Logic
 		it = _entidades.begin();
 		end = _entidades.end();
 
+		//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
+		MParticleEffect *rc_message = new MParticleEffect();
+		rc_message->setPoint(_entity->getPosition());
+		_entity->emitMessage(rc_message,this);
+
 		for(; it != end; it++) {
 			//Entidad que daña la granada
 			CEntity * entidad = *it;
@@ -96,9 +102,10 @@ namespace Logic
 			printf("DAÑO GRANADA");
 		}
 
-		//Eliminamos la entidad en el siguiente tick
-		CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
-		
+		//Se desactiva le entidad. No se destruye para que si es necesario realizar alguna acción que depende de
+		//otro componente, pueda hacerlo. Se destruirá en el componente ParticleController, en caso de que la entidad esté
+		//desactivada.
+		_entity->deactivate();
 
 	} // timeElapsed
 

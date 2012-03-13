@@ -30,6 +30,9 @@ la ventana, etc.
 #include <OgreRenderWindow.h>
 #include <OgreWindowEventUtilities.h>
 
+#include "OgreParticleSystem.h"
+#include "OgreSceneNode.h"
+
 namespace Graphics 
 {
 	CServer *CServer::_instance = 0;
@@ -241,5 +244,15 @@ namespace Graphics
 		
 	} //getCameraToViewportRay
 
+	void CServer::createParticleEffect(std::string &effect, Vector3 &point){
+
+		Ogre::ParticleSystem* particle = _activeScene->getSceneMgr()->createParticleSystem(effect + "_name", effect);
+		Ogre::SceneNode* particleNode = _activeScene->getSceneMgr()->getRootSceneNode()->createChildSceneNode(effect + "_node");
+		
+		particleNode->setPosition(point);
+		particleNode->attachObject(particle);
+
+
+	}
 
 } // namespace Graphics

@@ -210,7 +210,7 @@ namespace Graphics
 
 
 		*/
-		void createParticleEffect();
+		void createParticleEffect(std::string &effect, Vector3 &point);
 		
 
 	protected:

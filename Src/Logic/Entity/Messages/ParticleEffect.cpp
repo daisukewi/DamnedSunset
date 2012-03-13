@@ -15,7 +15,7 @@ namespace Logic
 	{
 		IMessage();
 
-		_type = "MIsSelectable";
+		_type = "MParticleEffect";
 	
 	} // MIsSelectable
 

@@ -63,19 +63,18 @@ namespace Graphics
 		_entity->setMaterialName(_material);
 
 		//Reescalar el prefab 
-		Ogre::Node *node = _entity->getParentNode();
-
 		Vector3 vector = auxBBox.getSize();
 
 
 
-		node->scale(_dimensions.x / vector.x * 2,
-			1.0,
-			_dimensions.y / vector.z * 2);
+		/*_entityNode->scale(_dimensions.x / vector.x * 2,
+			0.0,
+			_dimensions.y / vector.z * 2);*/
 
-		//Modificar la posición
-		this->setPosition(_position);
-
+		_entityNode->scale(_dimensions.x/vector.x*2,_dimensions.y / vector.y * 2,1.0);
+		//Girarlo 90 grados porque aparece prependicular al mapa
+		_entityNode->setOrientation(-90.0,90.0,0.0,0.0);
+		
 		_loaded = true;
 
 		return _loaded;

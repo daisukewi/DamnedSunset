@@ -165,10 +165,13 @@ namespace Graphics
 			node->scale(_radius / vector.x * 2,
 			_height / vector.y * 2,
 			_radius / vector.z * 2);
+
 		}else{
+
 		node->scale(_dimensions.x / vector.x * 2,
 			_dimensions.y / vector.y * 2,
 			_dimensions.z / vector.z * 2);
+		
 		}
 		
 		return true;

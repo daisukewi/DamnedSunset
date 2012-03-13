@@ -5,9 +5,9 @@
 /**
 @file PlaneModel.h
 
-Contiene la declaración de la clase que representa una línea
+Contiene la declaración de la clase que representa un plano
 
-@see Graphics::CBasicShapeEntity
+@see Graphics::ModelFactory
 @see Graphics::CEntity
 
 @author Alberto Ortega
@@ -37,7 +37,7 @@ namespace Graphics
 
 
 	/**
-	Clase que representa una entidada gráfica (LÍNEA). Especializa la clase
+	Clase que representa una entidada gráfica (PLANO). Especializa la clase
 	Graphics::CEntity por lo que contiene una referencia a una entidad de 
 	Ogre y al Nodo que la contiene.
 	<p>
@@ -100,7 +100,7 @@ namespace Graphics
 		Vector3 _position;
 		std::string _material;
 
-	}; // class CBasicShapeEntity
+	}; // class CPlaneModel
 
 } // namespace Graphics
 

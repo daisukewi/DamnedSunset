@@ -85,7 +85,7 @@ namespace Graphics
 		/*
 		Función que devuelve una entidada gráfica (CEntity) que representa un CUBO
 		*/
-		CEntity * CreateCube();
+		CEntity * CreateCube(Graphics::CScene *scene, const std::string &name, std::string materialName, Vector3 dimensions, Vector3 position);
 		
 		/*
 		Función que devuelve una entidada gráfica (CEntity) que representa un PLANO

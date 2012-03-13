@@ -29,6 +29,7 @@ Contiene la implementación de la clase que representa una entidad gráfica.
 #include <OgreBillboardSet.h>
 
 #include "Billboard.h"
+#include "Material.h"
 
 namespace Graphics 
 {
@@ -214,5 +215,11 @@ namespace Graphics
 	{
 		_entityNode->attachObject(b->getBillboarset());
 	}
+
+	void CEntity::SetMaterial(CMaterial material)
+	{
+		_entity->setMaterial(material.GetMaterial());
+
+	} // SetMaterial
 
 } // namespace Graphics

@@ -29,6 +29,7 @@ namespace Graphics
 {
 	class CScene;
 	class CBillboard;
+	class CMaterial;
 }
 
 namespace Graphics 
@@ -164,6 +165,14 @@ namespace Graphics
 		virtual Ogre::Entity* getEntity() {return _entity;}
 
 		virtual void attachBillboardSet(CBillboard* b);
+
+		/**
+		Asigna un material al objeto.
+
+		@param material Material que se quiere asignar al objeto.
+		*/
+		virtual void SetMaterial(CMaterial material);
+
 
 	protected:
 
