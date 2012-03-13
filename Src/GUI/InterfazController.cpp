@@ -19,7 +19,7 @@
 
 //Mensajes
 #include "Logic/Entity/Messages/UbicarCamara.h"
-
+#include "Logic/Entity/Messages/ActivarComponente.h"
 
 //Includes para crear entidades dinamicamente
 #include "Map/MapEntity.h"
@@ -192,6 +192,7 @@ namespace GUI {
 		_jugadorSel = 1;
 		this->ocultarBotones();
 		this->cargarBoton('1', "martillo");
+		this->cargarBoton('2',"granada");
 		this->cargarBoton('3',"granada");
 		this->cargarBoton('4',"granada");
 	}
@@ -263,14 +264,23 @@ namespace GUI {
 	}
 	bool CInterfazController::clickB3(const CEGUI::EventArgs& e)
 	{
-		/** PRUBA PARA VER QUE FUNCIONA sacar los valores del arquetipo*/
-		Map::CEntity * mapEntity = Map::CMapParser::getSingletonPtr()->getEntityInfo("Barril");
-		//Hay que cambiarle el nombre xq sino solo se crearia el primero (coja la vida1 x coger cualquier cosa)
-		std::stringstream ss;
-		ss << _vida1;
-		mapEntity->setName(ss.str());
-		Logic::CEntity *entity = Logic::CEntityFactory::getSingletonPtr()->createEntity(mapEntity,Logic::CServer::getSingletonPtr()->getMap());
-		/* FIN PRUEBA */
+		///** PRUBA PARA VER QUE FUNCIONA sacar los valores del arquetipo*/
+		//Map::CEntity * mapEntity = Map::CMapParser::getSingletonPtr()->getEntityInfo("Barril");
+		////Hay que cambiarle el nombre xq sino solo se crearia el primero (coja la vida1 x coger cualquier cosa)
+		//std::stringstream ss;
+		//ss << _vida1;
+		//mapEntity->setName(ss.str());
+		//Logic::CEntity *entity = Logic::CEntityFactory::getSingletonPtr()->createEntity(mapEntity,Logic::CServer::getSingletonPtr()->getMap());
+		///* FIN PRUEBA */
+
+		/** PRUEBA QUE MANDA MENSAJES DE ACTIVAR COMPONENTES **/
+		Logic::MActivarComponente * m = new Logic::MActivarComponente();
+		bool activar = false;
+		m->setActivar(activar);
+		m->setNombreComponente("CSunController");
+		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Sol")->emitMessage(m);
+
+		/** FIN PRUEBA **/
 
 		return true;
 	}

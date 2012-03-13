@@ -16,7 +16,7 @@ namespace Logic
 	{
 		DEC_FACTORY(CLanzadorGranadas);
 	public:
-
+		
 		/**
 		Constructor por defecto.
 		*/

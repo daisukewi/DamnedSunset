@@ -26,6 +26,7 @@ de juego. Es una colección de componentes.
 
 #include "Logic/Entity/Messages/SetTransform.h"
 #include "Logic/Entity/Messages/EntityDeathListener.h"
+#include "Messages/ActivarComponente.h"
 
 #include <vector>
 #include <string>
@@ -120,40 +121,33 @@ namespace Logic
 
 		bool correct = true;
 
-		//Marcamos como desactivados los componentes
-		int desactivar = -1;
-		
-		std::vector<int> componentsADesactivar;
-		if(entityInfo->hasAttribute("deActive"))
+		for( it = _components.begin(); it != _components.end() && correct; ++it )
 		{
+			correct = (*it)->spawn(this,map,entityInfo) && correct;
+		}
 
-			//desactivar = entityInfo->getIntAttribute("deActive");
-			std::string s = entityInfo->getStringAttribute("deActive");
+		//Atributo para desactivar componentes
+		if(entityInfo->hasAttribute("disableComponent"))
+		{
+			std::string s = entityInfo->getStringAttribute("disableComponent");
 
 			std::string buf; // Have a buffer string
 			std::stringstream ss(s); // Insert the string into a stream
 
-			 // Create vector to hold our words
-
-			while (ss >> buf)
-				componentsADesactivar.push_back(atoi(buf.c_str()));
-		}
-
-		std::vector<int>::const_iterator itDe = componentsADesactivar.begin();
-
-		int cont = 0;
-		for( it = _components.begin(); it != _components.end() && correct; ++it )
-		{
-			correct = (*it)->spawn(this,map,entityInfo) && correct;
-
-			if (itDe != componentsADesactivar.end() && cont == (*itDe) )
-			{
-				//Si el contador de componente es igual al componente a desactivar, lo desactivamos y avanzamos itDe al siguiente a desactivar
-				(*it)->setActive(false);
-				++itDe;
+			while (ss >> buf) {
+				MActivarComponente * m = new MActivarComponente();
+				m->setNombreComponente(buf);
+				m->setActivar(false);
+				this->emitMessage(m);
 			}
-			++cont;
+			//Hacemos que los componentes procesen los mensajes para que se desactiven directamente
+			for( it = _components.begin(); it != _components.end(); ++it )
+			{
+				(*it)->processMessages();
+			}
 		}
+
+
 		return correct;
 
 	} // spawn
@@ -230,8 +224,12 @@ namespace Logic
 		TComponentList::const_iterator it;
 
 		for( it = _components.begin(); it != _components.end(); ++it )
-			(*it)->tick(msecs);
-
+		{
+			if ((*it)->isActive())
+				(*it)->tick(msecs); //Tambien se procesan los mensajes dentro del tick
+			else
+				(*it)->processMessages();
+		}
 	} // tick
 
 	//---------------------------------------------------------

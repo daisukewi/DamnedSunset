@@ -108,6 +108,7 @@ Map = {
 	},
 	
 	Granada = {
+		disableComponent = "CTriggerEntity",
 		type = "Granada",
 		position = {0, 3, 0},
 		orientation = 0,
@@ -119,7 +120,7 @@ Map = {
 		physic_height = 2.0,
 		physic_radius = 0.5,
 		physic_mass = 1,
-		physic_collision_group = 10,
+		physic_collision_group = 6,
 		
 		trigger_shape = "trigger_sphere",
 		trigger_type = "trigger_static",

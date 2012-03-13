@@ -19,11 +19,9 @@
 namespace Logic 
 {
 	IMP_FACTORY(CLanzadorGranadas);
-	
 	//---------------------------------------------------------
 
 	CLanzadorGranadas::CLanzadorGranadas() : IComponent() {
-
 	}
 
 	CLanzadorGranadas::~CLanzadorGranadas() {
@@ -63,13 +61,14 @@ namespace Logic
 
 	bool CLanzadorGranadas::accept(IMessage *message)
 	{
-		return !message->getType().compare("MLanzarGranada");
+		return IComponent::accept(message) || !message->getType().compare("MLanzarGranada");
 	} // accept
 	
 	//---------------------------------------------------------
 
 	void CLanzadorGranadas::process(IMessage *message)
 	{
+		IComponent::process(message);
 		if (!message->getType().compare("MLanzarGranada"))
 		{
 			MLanzarGranada *m = static_cast <MLanzarGranada*> (message);

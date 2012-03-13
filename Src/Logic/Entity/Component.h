@@ -81,7 +81,6 @@ namespace Logic
 	class IComponent : public CCommunicationPort 
 	{
 	public:
-
 		/**
 		Constructor por defecto; en la clase base no hace nada.
 		*/
@@ -158,6 +157,18 @@ namespace Logic
 		@param active indica si el componente esta activo y inactivo
 		*/
 		void setActive(bool active) {_active = active;}
+
+		/**
+		Método virtual que elige que mensajes son aceptados.
+
+		@param message Mensaje a chequear.
+		@return true si el mensaje es aceptado.
+		*/
+		virtual bool accept(IMessage *message);
+
+		virtual void process(IMessage *message);
+
+		virtual std::string getType() {return "";}
 	protected:
 
 		/**
@@ -206,16 +217,18 @@ public: \
 	Registra el componente de la clase en la factoría. \
 	*/ \
 	static bool regist(); \
-
+	std::string getType(); \
 /** 
 Macro para la implementación de los métodos necesarios para que
 la factoria cree nuevas instancias del tipo de componentes y 
 para que el componente se registre en la factoría.
 */
 #define IMP_FACTORY(Class) \
+static std::string _type; \
 IComponent* Class::create() \
 { \
 	IComponent* res = new Class(); \
+	_type = #Class;\
 	return res; \
 } \
 bool Class::regist() \
@@ -225,8 +238,11 @@ bool Class::regist() \
 		CComponentFactory::getSingletonPtr()->add(Class::create, #Class); \
 	} \
 	return true; \
+} \
+std::string Class::getType() \
+{ \
+	return _type; \
 }
-
 /** 
 Macro que invoca al método que registra la clase en la factoría.
 */

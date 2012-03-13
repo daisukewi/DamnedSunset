@@ -29,7 +29,6 @@ Map = {
 	},
 	
 	Erick = {
-		deActive = 0,
 		type = "Player",
 		position = {20, 5, 0},
 		orientation = 90,

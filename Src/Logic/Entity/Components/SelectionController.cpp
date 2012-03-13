@@ -81,7 +81,8 @@ namespace Logic
 
 	bool CSelectionController::accept(IMessage *message)
 	{
-		bool accepted = !message->getType().compare("MMouseEvent")
+		bool accepted = IComponent::accept(message)
+			|| !message->getType().compare("MMouseEvent")
 			|| !message->getType().compare("MControlRaycast")
 			|| !message->getType().compare("MEntitySelected")
 			|| !message->getType().compare("MEmplaceBuilding")
@@ -97,7 +98,7 @@ namespace Logic
 
 	void CSelectionController::process(IMessage *message)
 	{
-		
+		IComponent::process(message);
 		/*if (!message->getType().compare("MMouseEvent"))
 		{
 			if (_canSelect)
