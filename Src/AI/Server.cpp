@@ -97,7 +97,7 @@ namespace AI {
 			out->push_back(_navMap->getNodePosition((int)(*it)));
 		}
 		// Añadimos el punto final si no coincide con el último nodo
-		if (!to.positionEquals(_navMap->getNodePosition((int)((*path)[path->size() - 1])), 5.0))
+		if (!to.positionEquals(_navMap->getNodePosition((int)((*path)[path->size() - 1])), 0.0))
 			out->push_back(to);
 		delete path;
 		return out;

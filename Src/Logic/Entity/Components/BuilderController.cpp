@@ -156,7 +156,7 @@ namespace Logic
 		}
 
 		// Calculamos el vector que tenemos que sumar al cursor para pintar bien el edificio.
-		Vector2 lastCornerPos = _gridMap->getRelativeMapPos(_buildingHeight, _buildingWidth);
+		Vector2 lastCornerPos = _gridMap->getRelativeMapPos(_buildingHeight - 1, _buildingWidth - 1);
 		_halfDiagonal = ( lastCornerPos - _gridMap->getRelativeMapPos(0, 0) ) / 2;
 
 		// Pintamos un plano bajo el cursor que indicará si se puede construir o no.
@@ -261,7 +261,7 @@ namespace Logic
 		if (_buildingEntity == NULL) return;
 
 		// Ponemos la nueva posición del edificio en el centro de la casilla que le corresponda.
-		Vector2 cornerPos = _gridMap->getAbsoluteGridPos(pos + _halfDiagonal);
+		Vector2 cornerPos = _gridMap->getRelativeMapPos(pos + _halfDiagonal);
 		Vector2 newPos = cornerPos - _halfDiagonal;
 		_buildingEntity->setPosition(Vector3(newPos.x, 1.0f, newPos.y));
 		_plane->setPosition(Vector3(newPos.x, 1.0f, newPos.y));

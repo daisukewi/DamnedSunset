@@ -109,6 +109,8 @@ namespace Logic {
 
 		if(_map = CMap::createMapFromFile(filename))
 		{
+			_map->getGridMap()->ShowDebugTiles(_map);
+
 			return true;
 		}
 

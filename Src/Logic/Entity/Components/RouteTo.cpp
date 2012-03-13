@@ -2,6 +2,9 @@
 
 #include "Map/MapEntity.h"
 #include "Logic/Entity/Entity.h"
+#include "Logic/Server.h"
+#include "Logic/Maps/Map.h"
+#include "Logic/Maps/GridMap.h"
 
 #include "AI/Server.h"
 #include "AI/Movement.h"
@@ -118,10 +121,10 @@ namespace Logic
 					// Paramos la animación
 					sendAnimationMessage("Idle");
 
-				} else if (_currentNode == _currentRoute->size() - 1) {
-					// Es el penúltimo nodo. Nos acercamos con Arrive
-					//sendMoveMessage((*_currentRoute)[_currentNode], AI::IMovement::MOVEMENT_KINEMATIC_ARRIVE);
-					sendMoveMessage((*_currentRoute)[_currentNode], AI::IMovement::MOVEMENT_DYNAMIC_ARRIVE);
+				//} else if (_currentNode == _currentRoute->size() - 1) {
+				//	// Es el penúltimo nodo. Nos acercamos con Arrive
+				//	//sendMoveMessage((*_currentRoute)[_currentNode], AI::IMovement::MOVEMENT_KINEMATIC_ARRIVE);
+				//	sendMoveMessage((*_currentRoute)[_currentNode], AI::IMovement::MOVEMENT_DYNAMIC_ARRIVE);
 
 				} else {
 					// Nos movemos al siguiente
@@ -228,25 +231,46 @@ namespace Logic
 			return _currentRoute->size();
 
 		// Guardamos la posición actual y el índice del último nodo.
+		float dist;
+		Vector3 direction, colPoint;
 		Vector3 from = _entity->getPosition();
 		int next_node = _currentRoute->size() - 1;
+
+		TGridTile tile = _entity->getMap()->getGridMap()->getTileFromPosition(from.z, from.x);
+
+		std::cout << "\n>> I'm in " << tile->GetRow() << ", " << tile->GetCol() << "\n";
 
 		bool found = false;
 		while (!found && next_node > _currentNode + 1)
 		{
-			Vector3 direction = (*_currentRoute)[next_node] - from;
+			Vector3 tilePos = (*_currentRoute)[next_node];
+			direction = tilePos - from;
 			direction.y = 0;
+			dist = direction.length();
+
+			tile = _entity->getMap()->getGridMap()->getTileFromPosition(tilePos.z, tilePos.x);
+
+			std::cout << "\n>> Travelling to " << tile->GetRow() << ", " << tile->GetCol() << "\n";
 
 			// Lanzamos un rayo desde nuestra posición hasta el siguiente nodo
 			// y comprobamos si colisiona con algún edificio.
-			Vector3 colPoint;
-			found = ( Physics::CServer::getSingletonPtr()->raycastGroup(
-								Ray( from, direction.normalisedCopy() ),
-								&colPoint,
-								Physics::TPhysicGroup::PG_BUILDING,
-								direction.length() )
-						== NULL);
+			CEntity *colisionEnt = Physics::CServer::getSingletonPtr()->raycastGroup(
+				Ray( from, direction / dist ),
+				&colPoint,
+				Physics::TPhysicGroup::PG_BUILDING,
+				dist );
+			found = colisionEnt == NULL;
 
+			if (!found)
+			{
+				tile = _entity->getMap()->getGridMap()->getTileFromPosition(colPoint.z, colPoint.x);
+				std::cout << ">>>> Found Building in " << tile->GetRow() << ", " << tile->GetCol() << " --> Avoiding it.\n";
+			}
+			else
+			{
+				std::cout << ">>>> Empty node in (" << tilePos.x << ", 0, " <<tilePos.z << ")\n";
+			}
+			
 			// Si hay un objeto entre el siguiente nodo y nosotros,
 			// probamos con el nodo inferior.
 			if (!found)

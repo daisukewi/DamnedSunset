@@ -19,7 +19,7 @@ Map = {
 		type = "PhantomTurret",
 		position = {0, -50, 0},
 		orientation = 0,
-		building_size = "2 2",
+		building_size = "1 1",
 		model = "torreta_pie.mesh",
 	},
 	
@@ -28,7 +28,7 @@ Map = {
 		defaultAnimation = "torreta",
 		position = {0, 0, 0},
 		orientation = 0,
-		building_size = "2 2",
+		building_size = "1 1",
 		model = "torreta_pie.mesh",
 		physic_entity = "simple",
 		physic_type = "static",
@@ -146,10 +146,10 @@ Map = {
 		physic_height = 6,
 		physic_collision_group = 4,
 		speed = 0.05,
-		angularSpeed = 0.005,
+		angularSpeed = 50.0,
 		accel = 0.001,
-		angularAccel = 0.0001,
-		movementTolerance = 7.0,
+		angularAccel = 11.0,
+		movementTolerance = 3.0,
 		
 		billboardLifeMaterial = "barraVida",
 		billboardLifeWith = 8.0,
@@ -163,5 +163,13 @@ Map = {
 		billboardLanzamientoMaterial = "circuloSeleccion",
 		billboardLanzamientoWith = 150.0,
 		billboardLanzamientoHeight = 150.0,
+	},
+	
+	Waypoint = {
+		type = "Waypoint",
+		position = {0, 0, 0},
+		orientation = 0,
+		model = "Esfera.mesh",
+		scale = 8.0,
 	};
 }

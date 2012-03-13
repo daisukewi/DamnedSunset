@@ -179,7 +179,7 @@ namespace Logic
 		Devuelve la posición modulada en el grid del mapa, de las
 		coordenadas pasadas por argumento.
 		*/
-		const Vector2 getAbsoluteGridPos(const Vector2 pos);
+		const Vector2 getRelativeMapPos(const Vector2 pos);
 
 		/**
 		De vuelve un Vector2 con las coordenadas del centro de
@@ -235,13 +235,19 @@ namespace Logic
 		*/
 		void PrintMapWithRoute( std::vector<void*>* path );
 
+		/**
+		Añade una entidad de tipo Waypoint encima de cada casilla
+		del mapa lógico.
+		*/
+		void ShowDebugTiles( CMap * _map );
+
 	private:
 
 		/*
 		Devuelve el índice de una casilla que se encuentra en las coordenadas dadas.
 		*/
 		int getIndexTileFromCoord( const int row, const int col );
-		
+
 		typedef TGridTile** TGridMap;
 
 		/**

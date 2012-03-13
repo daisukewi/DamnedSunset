@@ -67,7 +67,7 @@ namespace Logic
 		{
 			position = entityInfo->getVector3Attribute("position");
 			// Ponemos a la entidad en el centro de la casilla que le corresponda.
-			Vector2 newPos = map->getGridMap()->getAbsoluteGridPos(Vector2 (position.x, position.z));
+			Vector2 newPos = map->getGridMap()->getRelativeMapPos(Vector2 (position.x, position.z));
 			position.x = newPos.x;
 			position.z = newPos.y;
 		}
@@ -89,8 +89,8 @@ namespace Logic
 
 			TGridTile cornerTile = map->getGridMap()->getTileFromPosition(position.x, position.z);
 
-			unsigned int endRow = cornerTile->GetRow() + size.y;
-			unsigned int endCol = cornerTile->GetCol() + size.x;
+			unsigned int endRow = cornerTile->GetRow() + size.y - 1;
+			unsigned int endCol = cornerTile->GetCol() + size.x - 1;
 
 			Vector2 currentPos = Vector2(position.x, position.z);
 			Vector2 diagonalVector = currentPos - map->getGridMap()->getRelativeMapPos(endRow, endCol);
