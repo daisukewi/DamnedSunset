@@ -137,6 +137,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\IsSelectable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AStarRoute.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MoveTo.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\ParticleEffect.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetTransform.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\StopAnimation.cpp" />
@@ -172,7 +173,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MapBuilding.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MapUnit.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Move.h" />
-    <ClInclude Include="..\..\Src\Logic\Entity\Components\ParticleController .h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\ParticleController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicCharacter.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicDebug.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicEntity.h" />
@@ -218,6 +219,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\IsSelectable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AStarRoute.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MoveTo.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\ParticleEffect.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetTransform.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\StopAnimation.h" />
