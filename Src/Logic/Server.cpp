@@ -109,7 +109,7 @@ namespace Logic {
 
 		if(_map = CMap::createMapFromFile(mapFilename, archFilename))
 		{
-			_map->getGridMap()->ShowDebugTiles(_map);
+			//_map->getGridMap()->ShowDebugTiles(_map);
 
 			return true;
 		}

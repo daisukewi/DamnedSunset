@@ -236,10 +236,6 @@ namespace Logic
 		Vector3 from = _entity->getPosition();
 		int next_node = _currentRoute->size() - 1;
 
-		TGridTile tile = _entity->getMap()->getGridMap()->getTileFromPosition(from.z, from.x);
-
-		std::cout << "\n>> I'm in " << tile->GetRow() << ", " << tile->GetCol() << "\n";
-
 		bool found = false;
 		while (!found && next_node > _currentNode + 1)
 		{
@@ -248,10 +244,6 @@ namespace Logic
 			direction.y = 0;
 			dist = direction.length();
 
-			tile = _entity->getMap()->getGridMap()->getTileFromPosition(tilePos.z, tilePos.x);
-
-			std::cout << "\n>> Travelling to " << tile->GetRow() << ", " << tile->GetCol() << "\n";
-
 			// Lanzamos un rayo desde nuestra posición hasta el siguiente nodo
 			// y comprobamos si colisiona con algún edificio.
 			CEntity *colisionEnt = Physics::CServer::getSingletonPtr()->raycastGroup(
@@ -259,17 +251,8 @@ namespace Logic
 				&colPoint,
 				Physics::TPhysicGroup::PG_BUILDING,
 				dist );
-			found = colisionEnt == NULL;
 
-			if (!found)
-			{
-				tile = _entity->getMap()->getGridMap()->getTileFromPosition(colPoint.z, colPoint.x);
-				std::cout << ">>>> Found Building in " << tile->GetRow() << ", " << tile->GetCol() << " --> Avoiding it.\n";
-			}
-			else
-			{
-				std::cout << ">>>> Empty node in (" << tilePos.x << ", 0, " <<tilePos.z << ")\n";
-			}
+			found = colisionEnt == NULL;
 			
 			// Si hay un objeto entre el siguiente nodo y nosotros,
 			// probamos con el nodo inferior.
