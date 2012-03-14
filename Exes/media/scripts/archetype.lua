@@ -1,4 +1,5 @@
-Map = {
+Archetype = {
+
 	World = {
 		type = "World",
 		
@@ -172,5 +173,21 @@ Map = {
 		orientation = 0,
 		model = "Esfera.mesh",
 		scale = 8.0,
-	};
+	},
+	
+	Road = {
+		type = "Road",
+		position = { 0, 0 },
+		model = "road.mesh",
+		terrain = 0,
+	},
+	
+	Sand = {
+		type = "Sand",
+		position = { 0, 0 },
+		model = "sand.mesh",
+		coste = 20,
+		terrain = 1,
+	},
+	
 }

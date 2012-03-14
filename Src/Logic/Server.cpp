@@ -101,13 +101,13 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	bool CServer::loadLevel(const std::string &filename)
+	bool CServer::loadLevel(const std::string &mapFilename, const std::string &archFilename)
 	{
 		// solo admitimos un mapa cargado, si iniciamos un nuevo nivel 
 		// se borra el mapa anterior.
 		unLoadLevel();
 
-		if(_map = CMap::createMapFromFile(filename))
+		if(_map = CMap::createMapFromFile(mapFilename, archFilename))
 		{
 			_map->getGridMap()->ShowDebugTiles(_map);
 

@@ -166,7 +166,13 @@ namespace Map
 		*/
 		typedef std::map<std::string, std::string> TAttrList;
 
+		/**
+		Devuelve la lista de atributos de la entidad.
+
+		@return La lista de atributos de la entidad.
+		*/
 		TAttrList getAttributes() {return _attributes;}
+		
 	protected:
 		/**
 		Atributos de la entidad.

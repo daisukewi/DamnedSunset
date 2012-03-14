@@ -1,12 +1,103 @@
 Map = {
 
 	Grid = {
-		grid_size = 8,
 		type = "Grid",
 		width = 20,
 		height = 20,
+		grid_size = 16,
 	},
 
+	World = {
+		type = "World",
+		position = {0,0,0},
+		orientation = 0,
+		model = "plane.mesh",
+		static = true,
+		physic_entity = "simple",
+		physic_type = "static",
+		physic_shape = "box",
+		physic_normal = { 0, 1, 0 },
+		physic_dimensions = { 160.0, 0.5, 160.0 },
+		physic_height = 1,
+		physic_radius = 1,
+	},
+
+	Jack = {
+		type = "Player",
+		position = {0, 5, 0},
+		life = 100.0,
+	},
+	
+	Erick = {
+		type = "Player",
+		position = {20, 5, 0},
+		orientation = 90,
+		life = 80.0,
+	},
+	
+	Amor = {
+		type = "Player",
+		position = {40, 5, 0},
+		life = 10.0,
+	},
+
+	Enemy = {
+		type = "Enemy",
+		position = {20, 5, 49},
+	},
+
+	EnemiesGenerator = {
+		type = "Enemies",
+		model = "torreta_pie.mesh",
+	},
+	
+	Camera = {
+		type = "Camera",
+		distance = 60,
+		height = 100,
+		targetName = "PlayerGod",
+		targetDistance = 10,
+		targetHeight = 7,
+	},
+	
+	PlayerGod = {
+		type = "PlayerGod",
+		isPlayer = true,
+		position = {0, 0, 0},
+		orientation = 225,
+		isTargetCamera = true,
+	},
+	
+	Sol = {
+		type = "Sun",
+		position = {0, 10, -100},
+		orientation = 0,
+		model = "esfera.mesh",
+		scale = 30.0,
+		speed = 5.0,
+		inclination = 120.0,
+	},
+	
+	Torreta1 = {
+		type = "Turret",
+		grid_position = "10 10",
+		position = {15, 0, 5},	
+	},
+	
+	Barril1 = {
+		type = "Barril",
+	},	
+	
+	Barril2 = {
+		type = "Barril",
+		position = {5, 10, 15},
+	},	
+	
+	Barril3 = {
+		type = "Barril",
+		position = {-5, 1, 15},
+	},
+	
 	Road0_0 = {
 		type = "Road",
 		position = { 0, 0 },
@@ -2732,30 +2823,5 @@ Map = {
 		position = { 19, 19 },
 		model = "road.mesh",
 	},
-
-	Entity1 = {
-		position = { 13, 2 },
-		type = "Centro Informático",
-	},
-
-	Entity2 = {
-		position = { 10, 2 },
-		type = "Torreta",
-	},
-
-	Entity3 = {
-		position = { 10, 5 },
-		type = "Torreta",
-	},
-
-	Entity4 = {
-		position = { 13, 8 },
-		type = "Torreta",
-	},
-
-	Entity5 = {
-		position = { 16, 8 },
-		type = "Torreta",
-	},
-
+	
 }

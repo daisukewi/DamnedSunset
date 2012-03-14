@@ -115,10 +115,11 @@ namespace Logic
 		desea cargar. Si ya existía un mapa este se borra, solo
 		permitimos un nivel activo.
 
-		@param filename Fichero que se desea cargar.
+		@param mapFilename Fichero de mapa que se desea cargar.
+		@param archFilename Fichero de arquetipos de las entidades que se desea cargar.
 		@return true si la carga fue correcta.
 		*/
-		bool loadLevel(const std::string &filename);
+		bool loadLevel(const std::string &mapFilename, const std::string &archFilename);
 
 		/**
 		Si hay un nivel cargado lo descarga  destruye.

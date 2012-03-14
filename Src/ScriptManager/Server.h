@@ -19,6 +19,12 @@ la gestión de los scripts del juego.
 // Estructura con el contexto (estado) del intérprete de Lua.
 struct lua_State;
 
+// Predeclaración de clases
+namespace ScriptManager
+{
+	class ILUAClass;
+}
+
 /**
 Namespace para la gestión de los scripts del juego. Se encarga
 de la carga y lectura de los mismos.
@@ -300,6 +306,14 @@ namespace ScriptManager
 		template <class F>
 		void registerFunction(const char *name, F f);
 
+		/**
+		Devuelve el estado de lua, que es la variable representativa
+		de lua en C++.
+
+		@return El estado de lua.
+		*/
+		lua_State *getLuaState() {return _lua;}
+
 	protected:
 
 		/**
@@ -358,7 +372,7 @@ namespace ScriptManager
 
 		@param message Mensaje a mostrar.
 		*/
-		void showMessage(std::string message);
+		void showMessage(std::string &message);
 
 		/**
 		Única instancia de la clase.

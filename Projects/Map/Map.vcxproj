@@ -73,22 +73,10 @@
   <ItemGroup>
     <ClCompile Include="..\..\Src\Map\MapEntity.cpp" />
     <ClCompile Include="..\..\Src\Map\MapParser.cpp" />
-    <ClCompile Include="..\..\Src\Map\Parser.cpp" />
-    <ClCompile Include="..\..\Src\Map\Scanner.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Src\Map\Documentation.h" />
-    <ClInclude Include="..\..\Src\Map\FlexLexer.h" />
     <ClInclude Include="..\..\Src\Map\MapEntity.h" />
     <ClInclude Include="..\..\Src\Map\MapParser.h" />
-    <ClInclude Include="..\..\Src\Map\Parser.h" />
-    <ClInclude Include="..\..\Src\Map\Scanner.h" />
-    <ClInclude Include="..\..\Src\Map\y.tab.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\Src\Map\location.hh" />
-    <None Include="..\..\Src\Map\position.hh" />
-    <None Include="..\..\Src\Map\stack.hh" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseSubsystems\BaseSubsystems.vcxproj">

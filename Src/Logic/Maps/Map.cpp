@@ -28,81 +28,42 @@ Contiene la implementación de la clase CMap, Un mapa lógico.
 
 #include <cassert>
 
-// HACK. Debería leerse de algún fichero de configuración
-#define MAP_FILE_PATH "./media/maps/"
-
 namespace Logic {
-		
-
-	void CMap::setAtributosArquetipos(Map::CEntity* entidad, Map::CMapParser::TEntityList & entityList) {
-		Map::CMapParser::TEntityList::const_iterator it, end;
-		it = entityList.begin();
-		end = entityList.end();
-
-		for(; it != end; it++)
-		{
-			if ((*it)->getType() == entidad->getType()) {	
-				std::map<std::string, std::string> tAttrList = (*it)->getAttributes();
-
-				std::map<std::string, std::string>::const_iterator it2, end2;
-				it2 = tAttrList.begin();
-				end2 = tAttrList.end();
-				// Creamos todas las entidades lógicas.
-				for(; it2 != end2; it2++) {
-					if (!entidad->hasAttribute((*it2).first)) {
-						entidad->setAttribute((*it2).first,(*it2).second);
-					}
-				}
-
-			}
-		}
-	}
 	
-	CMap* CMap::createMapFromFile(const std::string &filename)
+	CMap* CMap::createMapFromFile(const std::string &mapFilename, const std::string &archFilename)
 	{
-		//----------------------------------------------------
-
-		ScriptManager::CServer::getSingletonPtr()->loadExeScript("map");
-		ScriptManager::CServer::getSingletonPtr()->loadExeScript("mapParser");
-
-		if (ScriptManager::CServer::getSingletonPtr()->executeScript("processMap(Map)"))
-			int n = 0;
-
-		//----------------------------------------------------
-
-		// Completamos la ruta con el nombre proporcionado
-		std::string completePath(MAP_FILE_PATH);
-		completePath = completePath + filename;
 		// Parseamos el fichero
-		if(!Map::CMapParser::getSingletonPtr()->parseFile(completePath))
+		if(!Map::CMapParser::getSingletonPtr()->parseFile(mapFilename, archFilename))
 		{
 			assert(!"No se ha podido parsear el mapa.");
 			return false;
 		}
 
 		// Si se ha realizado con éxito el parseo creamos el mapa.
-		//TODO: (LUA) Incluir el tamaño del mapa cuando se parsee del nuevo archivo map.lua
-		CMap *map = new CMap(filename);
+		CMap *map = new CMap(mapFilename);
 
 		// Extraemos las entidades del parseo.
 		Map::CMapParser::TEntityList entityList = Map::CMapParser::getSingletonPtr()->getEntityList();
-		// Transformamos sus posiciones del editor a posiciones del juego.
+		// Obtenemos la factoría.
 		CEntityFactory* entityFactory = CEntityFactory::getSingletonPtr();
 
-		//** PARSEMOS EL ARCHIVO DE ARQUETIPOS**/
-		// Cambiamos el nombre del fichero txt para que en "entityListArquetipos" guarde la información de "arquetipos.txt""
-		std::string completePath2(MAP_FILE_PATH);
-		completePath2.append("arquetipos.txt");
-		if(!Map::CMapParser::getSingletonPtr()->parseFile(completePath2))
+		// Obtengo la entidad de tipo "Grid" para poder inicializar el mapa antes de empezar a poner entidades.
+		Map::CEntity *gridEntity = Map::CMapParser::getSingletonPtr()->getEntity("Grid");
+		if (!gridEntity)
 		{
-			assert(!"No se ha podido parsear el mapa de arquetipos.");
+			assert(!"No se ha podido inicializar el mapa porque no se han podido obtener sus atributos.");
 			return false;
 		}
-		// Completamos la ruta con el nombre proporcionado
 
-		// Guardamos la información de las entidades leídas de los arquetipos.
-		// En el MapParser ahora estará la información de arquetipos.txt, ya que lo hemos cambiado anteriormente.
-		Map::CMapParser::TEntityList entityListArquetipos = Map::CMapParser::getSingletonPtr()->getEntityList();
+		// Con la entidad de tipo "Grid" inicializo el mapa pasándole las dimensiones y el tamaño de celda.
+		if ((gridEntity->hasAttribute("width")) && (gridEntity->hasAttribute("height")) && (gridEntity->hasAttribute("grid_size")))
+		{
+			map->getGridMap()->initMap(gridEntity->getIntAttribute("width"), gridEntity->getIntAttribute("height"), gridEntity->getIntAttribute("grid_size"));
+		} else {
+			assert(!"No se han encontrado dimensiones y/o tamaño del grid del mapa.");
+			return false;
+		}
+
 
 		Map::CMapParser::TEntityList::const_iterator it, end;
 		it = entityList.begin();
@@ -111,38 +72,17 @@ namespace Logic {
 		// Creamos todas las entidades lógicas.
 		for(; it != end; it++)
 		{
-			if ((*it)->getType() == "Waypoint") {
-				// Procesar waypoint del grafo de navegación
-				//AI::CServer::getSingletonPtr()->addWaypoint((*it)->getVector3Attribute("position"));
-				// Descomentar la siguiente línea para dibujar los nodos del grafo de navegación
-				entityFactory->createEntity((*it), map);
-			} else {
-				if ((*it)->getType() == "Grid") {
-
-					// Recupero las dimensiones y el tamaño del grid del mapa y lo inicializo.
-					if (((*it)->hasAttribute("width")) && ((*it)->hasAttribute("height")) && ((*it)->hasAttribute("grid_size"))) {
-						map->getGridMap()->initMap((*it)->getIntAttribute("width"), (*it)->getIntAttribute("height"), (*it)->getIntAttribute("grid_size"));
-
-					} else {
-						assert(!"No se han encontrado dimensiones y/o tamaño del grid del mapa.");
-						return false;
-					}
-				} else {
-
-					// La propia factoría se encarga de añadir la entidad al mapa.
-					setAtributosArquetipos(*it, entityListArquetipos);
-
-					if (!entityFactory->createEntity((*it),map)) {
-						// @TODO @GRID Cuando sepamos qué hacer con cada casilla aquí habrá que hacer algo mas complejo que simplemente poner el tipo.
-						// Por ahora lo hago "a pelo" pero igual vendría bien una factoría de casillas o algo así.
-						map->getGridMap()->getTileFromCoord((*it)->getVector2Attribute("position").x, (*it)->getVector2Attribute("position").y)->SetTerrain((*it)->getIntAttribute("terrain"));
-					}
+			// Me salto la entidad de tipo "Grid" porque ya la he procesado anteriormente para hacer la inicialización del mapa.
+			if (!((*it)->getType() == "Grid"))
+			{
+				if (!entityFactory->createEntity((*it),map)) 
+				{
+					// @TODO @GRID Cuando sepamos qué hacer con cada casilla aquí habrá que hacer algo mas complejo que simplemente poner el tipo.
+					// Por ahora lo hago "a pelo" pero igual vendría bien una factoría de casillas o algo así.
+					map->getGridMap()->getTileFromCoord((*it)->getVector2Attribute("position").x, (*it)->getVector2Attribute("position").y)->SetTerrain((*it)->getIntAttribute("terrain"));
 				}
 			}
 		}
-		Map::CMapParser::releaseEntityList(entityList);
-		//Map::CMapParser::releaseEntityList(entityList2);
-		Map::CMapParser::getSingletonPtr()->setEntityList(entityListArquetipos);
 
 		return map;
 

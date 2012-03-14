@@ -55,10 +55,11 @@ namespace Logic
 		todas las entidades del mapa mediante CMapParser, genera todas las
 		entidades con CEntityFactory.
 
-		@param filename Nombre del archivo a cargar.
+		@param mapFilename Nombre del archivo de mapa a cargar.
+		@param archFilename Nombre del archivo de arquetipos de las entidades a cargar.
 		@return Mapa generado.
 		*/
-		static CMap *createMapFromFile(const std::string &filename);
+		static CMap *createMapFromFile(const std::string &mapFilename, const std::string &archFilename);
 
 		/**
 		Constructor.
@@ -168,8 +169,6 @@ namespace Logic
 		@return Escena con las entidades gráficas.
 		*/
 		CGridMap *getGridMap() { return _gridMap; }
-
-		static void setAtributosArquetipos(Map::CEntity* entidad, Map::CMapParser::TEntityList & entityList);
 		
 	private:
 		

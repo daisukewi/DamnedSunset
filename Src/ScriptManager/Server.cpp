@@ -572,7 +572,7 @@ namespace ScriptManager
 
 	//---------------------------------------------------------
 
-	void CServer::showMessage(std::string message)
+	void CServer::showMessage(std::string &message)
 	{
 		std::cout << std::endl;
 		std::cout << message;
