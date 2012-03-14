@@ -375,6 +375,13 @@ namespace ScriptManager
 		void showMessage(std::string &message);
 
 		/**
+		Muestra un mensaje de error por consola y salta un assert.
+
+		@param message Mensaje de error a mostrar.
+		*/
+		void showErrorMessage(std::string &message);
+
+		/**
 		Única instancia de la clase.
 		*/
 		static CServer* _instance;
