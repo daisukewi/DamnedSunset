@@ -1,11 +1,11 @@
 //---------------------------------------------------------------------------
-// PlaneModel.h
+// SphereModel.cpp
 //---------------------------------------------------------------------------
 
 /**
-@file PlaneModel.cpp
+@file SphereModel.cpp
 
-Contiene la implemtación de la clase que representa una línea
+Contiene la implemtación de la clase que representa una esfera
 
 @see Graphics::CModelFactory
 @see Graphics::CEntity
@@ -14,7 +14,7 @@ Contiene la implemtación de la clase que representa una línea
 @date Marzo, 2012
 */
 
-#include "Graphics\Prefabs\PlaneModel.h"
+#include "Graphics\Prefabs\SphereModel.h"
 #include "BaseSubsystems/Math.h"
 #include "Graphics\Material.h"
 #include "Graphics\Entity.h"
@@ -28,22 +28,22 @@ Contiene la implemtación de la clase que representa una línea
 namespace Graphics
 {
 	
-	CPlaneModel::CPlaneModel(const std::string &name, std::string materialName,Vector2 dimensions,Vector3 position)
+	CSphereModel::CSphereModel(const std::string &name, std::string materialName,float radio,Vector3 position)
 		: CEntity("", "")
 	{
 		_name = name;
-		_dimensions = dimensions;
+		_radio = radio;
 		_position = position;
 		_material = materialName;
 		
 		
-	} // CPlaneModel
+	} // CSphereModel
 
-	bool CPlaneModel::load(){
+	bool CSphereModel::load(){
 		
 		try{
 		
-		_entity = _scene->getSceneMgr()->createEntity(_name,Ogre::SceneManager::PrefabType::PT_PLANE);
+			_entity = _scene->getSceneMgr()->createEntity(_name,Ogre::SceneManager::PrefabType::PT_SPHERE);
 
 		}catch(std::exception e)
 		{
@@ -60,25 +60,29 @@ namespace Graphics
 		
 
 		//Añadir el material
-		_entity->setMaterialName(_material);
+		//_entity->setMaterialName(_material);
 
 		//Reescalar el prefab 
+		Ogre::Node *node = _entity->getParentNode();
+
 		Vector3 vector = auxBBox.getSize();
 
 
-		_entityNode->scale(_dimensions.x/vector.x*2,_dimensions.y / vector.y * 2,1.0);
-		//Girarlo 90 grados porque aparece prependicular al mapa
-		_entityNode->setOrientation(-90.0,90.0,0.0,0.0);
+
+		_entityNode->scale(_radio / vector.x * 2,
+			_radio / vector.y * 2,
+			_radio / vector.z * 2);
 
 		//Modificar la posición
+
 		this->setPosition(_position);
-		
+
 		_loaded = true;
 
 		return _loaded;
 	}
 	
-	bool CPlaneModel::attachToScene(CScene *scene)
+	bool CSphereModel::attachToScene(CScene *scene)
 	{
 		assert(scene && "¡¡La entidad debe asociarse a una escena!!");
 		// Si la entidad está cargada por otro gestor de escena.
@@ -96,15 +100,15 @@ namespace Graphics
 		return true;
 	} // attachToScene
 
-	CPlaneModel::~CPlaneModel()
+	CSphereModel::~CSphereModel()
 	{
 		//MeshManager::getSingleton().unload(_mesh);
 
-	} // ~CPlaneModel
+	} // ~CSphereModel
 
 	// ------------------------------------------------
 
-	void CPlaneModel::SetMaterial(CMaterial material)
+	void CSphereModel::SetMaterial(CMaterial material)
 	{
 		_entity->setMaterial(material.GetMaterial());
 

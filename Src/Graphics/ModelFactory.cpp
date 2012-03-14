@@ -21,6 +21,7 @@ Contiene la implementación de la clase que permite crear modelos básicos de Ogre
 #include "Graphics\ModelFactory.h"
 #include "Graphics\Prefabs\PlaneModel.h"
 #include "Graphics\Prefabs\CubeModel.h"
+#include "Graphics\Prefabs\SphereModel.h"
 #include "Graphics\Scene.h"
 #include "OgreSceneManager.h"
 #include "Graphics\Entity.h"
@@ -86,8 +87,20 @@ namespace Graphics
 		return 0;
 	}
 
-	CEntity * CModelFactory::CreateSphere(){
-		return 0;
+	CEntity * CModelFactory::CreateSphere(Graphics::CScene *scene, const std::string &name, std::string materialName, float radio, Vector3 position){
+		std::stringstream auxName;
+		if ((!name.compare("")) || (name.length() == 0)){
+			auxName << "BasicShape_" << _nextID++;
+		}else{
+			auxName << name;
+		}
+		
+		CSphereModel *model = new CSphereModel(auxName.str(),materialName, radio, position);
+		
+		if (!scene->addEntity(model))
+				return 0;
+
+		return model;
 	}
 		
 } // namespace Graphics

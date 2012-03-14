@@ -217,7 +217,7 @@ namespace Graphics
 		friend class CEntityDebug;
 		friend class CPlaneModel;
 		friend class CCubeModel;
-
+		friend class CSphereModel;
 		/**
 		Devuelve el gestor de la escena de Ogre
 

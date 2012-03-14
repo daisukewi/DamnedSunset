@@ -62,20 +62,20 @@ namespace Graphics
 		//Añadir el material
 		//_entity->setMaterialName(_material);
 
-/*		//Reescalar el prefab 
+		//Reescalar el prefab 
 		Ogre::Node *node = _entity->getParentNode();
 
 		Vector3 vector = auxBBox.getSize();
 
 
 
-		node->scale(_dimensions.x / vector.x * 2,
-			1.0,
-			_dimensions.y / vector.z * 2);
+		_entityNode->scale(_dimensions.x / vector.x * 2,
+			_dimensions.y / vector.y * 2,
+			_dimensions.z / vector.z * 2);
 
-		//Modificar la posición*/
+		//Modificar la posición
 
-		//this->setPosition(_position);
+		this->setPosition(_position);
 
 		_loaded = true;
 

@@ -101,7 +101,7 @@ namespace Graphics
 		/*
 		Función que devuelve una entidada gráfica (CEntity) que representa un ESFERA
 		*/
-		CEntity * CreateSphere();
+		CEntity * CreateSphere(Graphics::CScene * scene, const std::string &name, std::string materialName, float radio, Vector3 position);
 		
 	private:
 	

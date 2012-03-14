@@ -162,17 +162,7 @@ namespace Logic
 		_halfDiagonal = ( lastCornerPos - _gridMap->getRelativeMapPos(0, 0) ) / 2;
 
 		// Pintamos un plano bajo el cursor que indicará si se puede construir o no.
-		
-		/*
-		_plane = new Graphics::CBasicShapeEntity(Graphics::ShapeType::ST_Plane,
-			Vector2(_buildingWidth * _gridSize, _buildingHeight * _gridSize));
-		*/
-		//_entity->getMap()->getScene()->addEntity(_plane);
-		
-		
-		
 		_plane = Graphics::CModelFactory::getSingletonPtr()->CreatePlane(_entity->getMap()->getScene(),"","physic_debug_blue50",Vector2(_buildingWidth * _gridSize, _buildingHeight * _gridSize),Vector3(0,0,0));
-		//BORRAR _plane = Graphics::CModelFactory::getSingletonPtr()->CreateCube(_entity->getMap()->getScene(),"","physic_debug_blue50",Vector3(_buildingWidth * _gridSize, _buildingHeight * _gridSize,0),Vector3(0,0,0));
 
 
 		// Solicitamos que empiecen a lanzar Raycast desde el viewport.
