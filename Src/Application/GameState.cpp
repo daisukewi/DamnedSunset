@@ -33,20 +33,9 @@ Contiene la implementación del estado de juego.
 #include <CEGUIWindow.h>
 #include <elements/CEGUIPushButton.h>
 
-// @SCRIPT
-#include "ScriptManager/Server.h"
-#include <stdio.h>
-#include <string.h>
-
 namespace GUI 
 {
 	class CInterfazController;
-}
-
-// @SCRIPT
-void funcion()
-{
-	std::cout << "Función en C++ llamada desde lua." << std::endl;
 }
 
 namespace Application {
@@ -112,67 +101,6 @@ namespace Application {
 		const OIS::MouseState state = GUI::CInputManager::getSingletonPtr()->getMouseState();
 		CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();  
 		CEGUI::System::getSingleton().injectMouseMove(state.X.abs-mousePos.d_x,state.Y.abs-mousePos.d_y);
-
-		// @SCRIPT
-		ScriptManager::CServer::getSingletonPtr()->loadExeScript("prueba1");
-		ScriptManager::CServer::getSingletonPtr()->loadExeScript("prueba2");
-		ScriptManager::CServer::getSingletonPtr()->executeScript("print(\"Hello world ejecutando a pelo\")");
-		ScriptManager::CServer::getSingletonPtr()->executeScript("helloWorld()");
-
-		int n = ScriptManager::CServer::getSingletonPtr()->getGlobal("numero", 200);
-		bool error = true;
-		bool b = ScriptManager::CServer::getSingletonPtr()->getGlobal("booleano", error);
-		std::string s = ScriptManager::CServer::getSingletonPtr()->getGlobal("cadena", "error");
-
-		if (n != 200)
-			std::cout << "Variable numérica recuperada desde lua. Valor: " << n << std::endl;
-		else
-			std::cout << "Algo raro ha pasado al recuperar la variable numérica" << std::endl;
-
-		if (!error)
-			std::cout << "Variable booleana recuperada desde lua. Valor: " << b << std::endl;
-		else
-			std::cout << "Algo raro ha pasado al recuperar la variable booleana" << std::endl;
-
-		if (s != "error")
-			std::cout << "Variable cadena recuperada desde lua. Valor: " << s << std::endl;
-		else
-			std::cout << "Algo raro ha pasado al recuperar la variable cadena" << std::endl;
-
-		int n2 = ScriptManager::CServer::getSingletonPtr()->getField("tabla", "numero", 200);
-		bool error2 = true;
-		bool b2 = ScriptManager::CServer::getSingletonPtr()->getField("tabla", "booleano", error2);
-		std::string s2 = ScriptManager::CServer::getSingletonPtr()->getField("tabla", "cadena", "error");
-
-		if (n2 != 200)
-			std::cout << "Variable numérica recuperada desde una tabla en lua. Valor: " << n2 << std::endl;
-		else
-			std::cout << "Algo raro ha pasado al recuperar la variable numérica desde una tabla" << std::endl;
-
-		if (!error2)
-			std::cout << "Variable booleana recuperada desde una tabla en lua. Valor: " << b2 << std::endl;
-		else
-			std::cout << "Algo raro ha pasado al recuperar la variable booleana desde una tabla" << std::endl;
-
-		if (s2 != "error")
-			std::cout << "Variable cadena recuperada desde una tabla en lua lua. Valor: " << s2 << std::endl;
-		else
-			std::cout << "Algo raro ha pasado al recuperar la variable cadena desde una tabla" << std::endl;
-
-		if (!ScriptManager::CServer::getSingletonPtr()->executeProcedure("proc1"))
-			std::cout << "Algo raro ha pasado al ejecutar el procedimiento \"proc1\"" << std::endl;
-
-		if (!ScriptManager::CServer::getSingletonPtr()->executeProcedure("proc2", 40))
-			std::cout << "Algo raro ha pasado al ejecutar el procedimiento \"proc2\"" << std::endl;
-
-		int result = 0;
-		if (!ScriptManager::CServer::getSingletonPtr()->executeFunction("funcionLUA", 30, result))
-			std::cout << "Algo raro ha pasado al ejecutar la función \"funcion\"" << std::endl;
-		else
-			std::cout << "Parámetro devuelto por la función \"funcionLUA\": " << result << std::endl;
-
-		ScriptManager::CServer::getSingletonPtr()->registerFunction("funcion", funcion);
-		ScriptManager::CServer::getSingletonPtr()->executeScript("callfunction()");
 
 	} // activate
 

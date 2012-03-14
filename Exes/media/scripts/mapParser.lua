@@ -4,8 +4,6 @@ function processMap(map)
 	-- Me recorro toda la tabla de entidades anteriormente cargada
 	for key, value in pairs(map) do
 	
-		print("Parseando entidad: "..key)
-	
 		-- Aviso al parser de que empieza la definición de una nueva entidad
 		cParser:beginEntity(key)
 			
