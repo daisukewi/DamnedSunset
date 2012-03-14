@@ -33,7 +33,6 @@ namespace Map {
 
 	CMapParser::~CMapParser()
 	{
-		//Ya me he encargado de eliminar la entityList manualmente mucho antes
 		releaseEntityList();
 		_instance = 0;
 
@@ -99,8 +98,18 @@ namespace Map {
 		
 	void CMapParser::releaseEntityList()
 	{
+		// Libero la lista de entidades del mapa.
 		while(!_entityList.empty())
 			_entityList.pop_back();
+
+		// Libero la lista de entidades de los arquetipos.
+		while(!_entityArchetypesList.empty())
+			_entityArchetypesList.pop_back();
+
+		// Borro la entidad en progreso por si acaso se ha quedado con algún valor.
+		// En teoría la entidad en progreso en este punto debería ser nula.
+		if (_entityInProgress)
+			delete _entityInProgress;
 
 	} // releaseEntityList
 
@@ -224,19 +233,6 @@ namespace Map {
 		_entityInProgress = 0;
 		
 	} // endEntity
-
-	//--------------------------------------------------------
-
-	void CMapParser::releaseEntityList(TEntityList list)
-	{
-		while(!list.empty())
-		{
-			Map::CEntity * entityInProgress = list.back();
-			list.pop_back();
-			delete entityInProgress;
-		}
-
-	} // releaseEntityList(list)
 
 	//--------------------------------------------------------
 

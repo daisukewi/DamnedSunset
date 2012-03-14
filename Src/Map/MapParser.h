@@ -137,8 +137,6 @@ namespace Map {
 		*/
 		void endEntity();
 
-		static void CMapParser::releaseEntityList(TEntityList list);
-
 		/**
 		Obtiene la información de una entidad parseada al cargar el mapa, ya
 		esté en el mapa o en los arquetipos.
