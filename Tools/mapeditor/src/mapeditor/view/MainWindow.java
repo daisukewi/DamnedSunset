@@ -52,7 +52,7 @@ public class MainWindow implements ComponentListener, WindowListener, Controller
 		
 		_fileChooser = new JFileChooser(java.lang.System.getProperty("user.dir"));
 		_fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Archivos de mapa", "map"));
-		_fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Archivos de texto", "txt"));
+		_fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Archivos de mapa en lua", "lua"));
 		
 		_system = system;
 		
@@ -387,7 +387,7 @@ public class MainWindow implements ComponentListener, WindowListener, Controller
 				int val = _fileChooser.showSaveDialog(_window);
 				
 				if (val == JFileChooser.APPROVE_OPTION)
-					_system.exportMap(new File(_fileChooser.getSelectedFile().getName() + ".txt"));
+					_system.exportMap(new File(_fileChooser.getSelectedFile().getName() + ".lua"));
 			}
 			else
 				JOptionPane.showMessageDialog(_window, "No hay ningún mapa cargado, crea uno nuevo o abre uno existente.");

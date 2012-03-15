@@ -29,7 +29,7 @@ public class Map implements Serializable, ExportableData {
 	
 	public static final String ENTITY_TYPE = "type";
 	
-	public static final String ENTITY_POSITION = "position";
+	public static final String ENTITY_POSITION = "grid_position";
 	
 	public static final String ENTITY_DIMENSION = "dimension";
 	
