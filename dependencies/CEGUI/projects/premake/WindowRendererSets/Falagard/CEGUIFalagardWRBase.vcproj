@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="CEGUIFalagardWRBase"
-	ProjectGUID="{49AE18DB-8446-AB48-989A-A72C8E6DB1F4}"
+	ProjectGUID="{0EFB3A2B-E8F4-6D4E-993A-FA8D9CE419C1}"
 	RootNamespace="CEGUIFalagardWRBase"
 	Keyword="Win32Proj"
 	>

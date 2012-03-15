@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="CEGUIOgreRenderer"
-	ProjectGUID="{D3EBC3B0-E86A-8C48-98A6-43BF9E4E31BA}"
+	ProjectGUID="{F051C3F2-B3A6-104D-8AA9-241846773503}"
 	RootNamespace="CEGUIOgreRenderer"
 	Keyword="Win32Proj"
 	>
@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../../cegui/include;../../../../dependencies/include;../../../../cegui/include/RendererModules/Ogre/;../../../../;../../../../../include/OGRE"
+				AdditionalIncludeDirectories="../../../../cegui/include;../../../../dependencies/include;../../../../../include;../../../../cegui/include/RendererModules/Ogre/;../../../../;../../../../../include/OGRE"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_H;OGRE_GUIRENDERER_EXPORTS;_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -56,7 +56,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_H;OGRE_GUIRENDERER_EXPORTS;_DEBUG"
-				AdditionalIncludeDirectories="../../../../cegui/include;../../../../dependencies/include;../../../../cegui/include/RendererModules/Ogre/;../../../../;../../../../../include/OGRE"
+				AdditionalIncludeDirectories="../../../../cegui/include;../../../../dependencies/include;../../../../../include;../../../../cegui/include/RendererModules/Ogre/;../../../../;../../../../../include/OGRE"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -66,7 +66,7 @@
 				AdditionalDependencies="../../../../lib/CEGUIBase_d.lib OgreMain_d.lib"
 				OutputFile="$(OutDir)/CEGUIOgreRenderer_d.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="../../../../lib;../../../../../lib;../../../../../lib/debug;../../../../../lib/release;../../../../dependencies/lib/dynamic"
+				AdditionalLibraryDirectories="../../../../lib;../../../../../;../../../../..//debug;../../../../..//release;../../../../../lib;../../../../../lib/debug;../../../../../lib/release;../../../../dependencies/lib/dynamic"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/CEGUIOgreRenderer_d.pdb"
 				SubSystem="2"
@@ -124,7 +124,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="../../../../cegui/include;../../../../dependencies/include;../../../../cegui/include/RendererModules/Ogre/;../../../../;../../../../../include/OGRE"
+				AdditionalIncludeDirectories="../../../../cegui/include;../../../../dependencies/include;../../../../../include;../../../../cegui/include/RendererModules/Ogre/;../../../../;../../../../../include/OGRE"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_H;OGRE_GUIRENDERER_EXPORTS"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -139,7 +139,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_H;OGRE_GUIRENDERER_EXPORTS"
-				AdditionalIncludeDirectories="../../../../cegui/include;../../../../dependencies/include;../../../../cegui/include/RendererModules/Ogre/;../../../../;../../../../../include/OGRE"
+				AdditionalIncludeDirectories="../../../../cegui/include;../../../../dependencies/include;../../../../../include;../../../../cegui/include/RendererModules/Ogre/;../../../../;../../../../../include/OGRE"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -149,7 +149,7 @@
 				AdditionalDependencies="../../../../lib/CEGUIBase.lib OgreMain.lib"
 				OutputFile="$(OutDir)/CEGUIOgreRenderer.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="../../../../lib;../../../../../lib;../../../../../lib/debug;../../../../../lib/release;../../../../dependencies/lib/dynamic"
+				AdditionalLibraryDirectories="../../../../lib;../../../../../;../../../../..//debug;../../../../..//release;../../../../../lib;../../../../../lib/debug;../../../../../lib/release;../../../../dependencies/lib/dynamic"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
