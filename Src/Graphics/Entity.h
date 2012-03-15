@@ -166,13 +166,6 @@ namespace Graphics
 
 		virtual void attachBillboardSet(CBillboard* b);
 
-		/**
-		Asigna un material al objeto.
-
-		@param material Material que se quiere asignar al objeto.
-		*/
-		virtual void SetMaterial(CMaterial material);
-
 
 	protected:
 

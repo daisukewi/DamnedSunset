@@ -141,7 +141,7 @@ namespace Graphics
 		assert(_entityNode && "La entidad no ha sido cargada");
 		if(_entityNode)
 		{
-			_entityNode->setPosition(transform.getTrans());
+			this->setPosition(transform.getTrans());
 			_entityNode->setOrientation(transform.extractQuaternion());
 		}
 
@@ -216,10 +216,6 @@ namespace Graphics
 		_entityNode->attachObject(b->getBillboarset());
 	}
 
-	void CEntity::SetMaterial(CMaterial material)
-	{
-		_entity->setMaterial(material.GetMaterial());
-
-	} // SetMaterial
+	
 
 } // namespace Graphics

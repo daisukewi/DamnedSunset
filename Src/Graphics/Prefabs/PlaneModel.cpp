@@ -29,7 +29,7 @@ namespace Graphics
 {
 	
 	CPlaneModel::CPlaneModel(const std::string &name, std::string materialName,Vector2 dimensions,Vector3 position)
-		: CEntity("", "")
+		: CSimpleModel()
 	{
 		_name = name;
 		_dimensions = dimensions;
@@ -66,7 +66,7 @@ namespace Graphics
 		Vector3 vector = auxBBox.getSize();
 
 
-		_entityNode->scale(_dimensions.x/vector.x*2,_dimensions.y / vector.y * 2,1.0);
+		_entityNode->scale(_dimensions.x/vector.x,_dimensions.y / vector.y,1.0);
 		//Girarlo 90 grados porque aparece prependicular al mapa
 		_entityNode->setOrientation(-90.0,90.0,0.0,0.0);
 
@@ -77,24 +77,6 @@ namespace Graphics
 
 		return _loaded;
 	}
-	
-	bool CPlaneModel::attachToScene(CScene *scene)
-	{
-		assert(scene && "¡¡La entidad debe asociarse a una escena!!");
-		// Si la entidad está cargada por otro gestor de escena.
-		if(_loaded && (_scene != scene))
-			return false;
-
-		// Si no está cargada forzamos su carga.
-		if (!_loaded)
-		{
-			_scene = scene;
-			return load();
-		}
-
-		// Si ya estaba cargada en la escena se devuelve cierto.
-		return true;
-	} // attachToScene
 
 	CPlaneModel::~CPlaneModel()
 	{
@@ -102,13 +84,6 @@ namespace Graphics
 
 	} // ~CPlaneModel
 
-	// ------------------------------------------------
-
-	void CPlaneModel::SetMaterial(CMaterial material)
-	{
-		_entity->setMaterial(material.GetMaterial());
-
-	} // SetMaterial
 
 } // namespace Graphics
 

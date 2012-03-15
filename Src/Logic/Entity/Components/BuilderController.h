@@ -23,6 +23,7 @@ namespace Graphics
 	class CMaterial;
 	class CBasicShapeEntity;
 	class CEntity;
+	class CSimpleModel;
 
 }
 namespace Logic 
@@ -220,7 +221,7 @@ namespace Logic
 		que indican si se puede construir en esa posición o no.
 		*/
 		//Graphics::CBasicShapeEntity* _plane;
-		Graphics::CEntity *_plane;
+		Graphics::CSimpleModel *_plane;
 
 	}; // class CBuilderController
 

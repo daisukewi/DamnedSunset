@@ -19,11 +19,13 @@ gráfica de la entida física
 
 #include "Graphics/Scene.h"
 #include "Graphics/Server.h"
-#include "Graphics/EntityDebug.h"
 #include "Graphics/StaticEntity.h"
 
 #include "Logic/Entity/Messages/SetTransform.h"
 #include "Logic/Entity/Messages/AttachBillboard.h"
+
+#include "Graphics/ModelFactory.h"
+#include "Graphics/Prefabs/SimpleModel.h"
 
 namespace Logic 
 {
@@ -79,7 +81,7 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	Graphics::CEntityDebug* CPhysicDebug::createGraphicsEntity(const Map::CEntity *entityInfo)
+	Graphics::CSimpleModel* CPhysicDebug::createGraphicsEntity(const Map::CEntity *entityInfo)
 	{
 		bool isStatic = false;
 
@@ -101,8 +103,8 @@ namespace Logic
 					auxDimensions = entityInfo->getVector3Attribute("physic_dimensions");
 				}
 				
-				_graphicsEntity = new Graphics::CEntityDebug(_entity->getName() + "_Debug",prefab, auxDimensions, _redMaterial);
-				
+				_graphicsEntity = Graphics::CModelFactory::getSingletonPtr()->CreateCube(_scene,_entity->getName(), _redMaterial, auxDimensions,_entity->getPosition());
+				_graphicsEntity->SetDefPosY(auxDimensions.y);
 
 			}else if (!auxStr.compare("capsule")){
 				prefab = Graphics::TOgrePrefab::PT_SPHERE;
@@ -115,7 +117,9 @@ namespace Logic
 					auxRadius = entityInfo->getFloatAttribute("physic_radius");
 				}
 
-				_graphicsEntity = new Graphics::CEntityDebug(_entity->getName() + "_Debug",prefab,auxHeight,auxRadius, _greenMaterial);
+				_graphicsEntity = Graphics::CModelFactory::getSingletonPtr()->CreateCapsule(_scene,_entity->getName(), _greenMaterial, auxRadius,_entity->getPosition(),auxHeight);
+				_graphicsEntity->SetDefPosY(auxHeight);
+
 			}
 		}
 		
@@ -133,43 +137,23 @@ namespace Logic
 					auxDimensions = entityInfo->getVector3Attribute("trigger_dimensions");
 				}
 				
-				_triggerEntity = new Graphics::CEntityDebug(_entity->getName() + "_TDebug",prefab, auxDimensions, _blueMaterial);
+				_triggerEntity = Graphics::CModelFactory::getSingletonPtr()->CreateCube(_scene,_entity->getName()+"_trigger", _blueMaterial, auxDimensions,_entity->getPosition());
 				
 
 			}else if (!auxStr.compare("trigger_sphere")){
 				prefab = Graphics::TOgrePrefab::PT_SPHERE;
 				
-				if (entityInfo->hasAttribute("physic_height")){
-					auxHeight = entityInfo->getFloatAttribute("physic_height");
+				if (entityInfo->hasAttribute("trigger_height")){
+					auxHeight = entityInfo->getFloatAttribute("trigger_height");
 				}
 				
-				if (entityInfo->hasAttribute("physic_radius")){
-					auxRadius = entityInfo->getFloatAttribute("physic_radius");
+				if (entityInfo->hasAttribute("trigger_radius")){
+					auxRadius = entityInfo->getFloatAttribute("trigger_radius");
 				}
 
-				_triggerEntity = new Graphics::CEntityDebug(_entity->getName() + "_TDebug",prefab,auxHeight,auxRadius, _blueMaterial);
+				_triggerEntity = Graphics::CModelFactory::getSingletonPtr()->CreateCapsule(_scene,_entity->getName()+"_trigger", _blueMaterial, auxRadius,_entity->getPosition(),auxHeight);
 			}
 		}
-
-			
-		if (!_scene->addEntity(_graphicsEntity))
-			return 0;
-
-		_graphicsEntity->setScale(scale);
-	
-		_graphicsEntity->setTransform(_entity->getTransform());
-
-
-		if(_triggerEntity){
-
-			if (!_scene->addEntity(_triggerEntity))
-			return 0;
-
-			_triggerEntity->setScale(scale);
-	
-			_triggerEntity->setTransform(_entity->getTransform());
-		}
-		
 		
 		return _graphicsEntity;
 

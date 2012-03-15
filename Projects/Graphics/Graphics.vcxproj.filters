@@ -41,9 +41,6 @@
     <ClCompile Include="..\..\Src\Graphics\Billboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Graphics\EntityDebug.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\Graphics\BasicShapeEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,6 +57,12 @@
       <Filter>Prefabs\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Graphics\Prefabs\SphereModel.cpp">
+      <Filter>Prefabs\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Graphics\Prefabs\SimpleModel.cpp">
+      <Filter>Prefabs\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Graphics\Prefabs\CapsuleModel.cpp">
       <Filter>Prefabs\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -88,9 +91,6 @@
     <ClInclude Include="..\..\Src\Graphics\Billboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Graphics\EntityDebug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Src\Graphics\BasicShapeEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -107,6 +107,12 @@
       <Filter>Prefabs\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Graphics\Prefabs\SphereModel.h">
+      <Filter>Prefabs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Graphics\Prefabs\SimpleModel.h">
+      <Filter>Prefabs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Graphics\Prefabs\CapsuleModel.h">
       <Filter>Prefabs\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

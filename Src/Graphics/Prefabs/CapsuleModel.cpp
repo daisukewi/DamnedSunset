@@ -1,9 +1,9 @@
 //---------------------------------------------------------------------------
-// SphereModel.cpp
+// CapsuleModel.cpp
 //---------------------------------------------------------------------------
 
 /**
-@file SphereModel.cpp
+@file CapsuleModel.cpp
 
 Contiene la implemtación de la clase que representa una esfera
 
@@ -14,7 +14,7 @@ Contiene la implemtación de la clase que representa una esfera
 @date Marzo, 2012
 */
 
-#include "Graphics\Prefabs\SphereModel.h"
+#include "Graphics\Prefabs\CapsuleModel.h"
 #include "BaseSubsystems/Math.h"
 #include "Graphics\Material.h"
 #include "Graphics\Entity.h"
@@ -28,18 +28,18 @@ Contiene la implemtación de la clase que representa una esfera
 namespace Graphics
 {
 	
-	CSphereModel::CSphereModel(const std::string &name, std::string materialName,float radio,Vector3 position)
+	CCapsuleModel::CCapsuleModel(const std::string &name, std::string materialName,float radio,Vector3 position, float height)
 		: CSimpleModel()
 	{
 		_name = name;
 		_radio = radio;
 		_position = position;
 		_material = materialName;
+		_height = height;
 		
-		
-	} // CSphereModel
+	} // CCapsuleModel
 
-	bool CSphereModel::load(){
+	bool CCapsuleModel::load(){
 		
 		try{
 		
@@ -70,7 +70,7 @@ namespace Graphics
 
 
 		_entityNode->scale(_radio / vector.x * 2,
-			_radio / vector.y * 2,
+			_height / vector.y * 2,
 			_radio / vector.z * 2);
 
 		//Modificar la posición
@@ -82,11 +82,11 @@ namespace Graphics
 		return _loaded;
 	}
 
-	CSphereModel::~CSphereModel()
+	CCapsuleModel::~CCapsuleModel()
 	{
 		//MeshManager::getSingleton().unload(_mesh);
 
-	} // ~CSphereModel
+	} // ~CCapsuleModel
 
 
 } // namespace Graphics

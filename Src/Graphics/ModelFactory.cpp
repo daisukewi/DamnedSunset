@@ -22,6 +22,8 @@ Contiene la implementación de la clase que permite crear modelos básicos de Ogre
 #include "Graphics\Prefabs\PlaneModel.h"
 #include "Graphics\Prefabs\CubeModel.h"
 #include "Graphics\Prefabs\SphereModel.h"
+#include "Graphics\Prefabs\SimpleModel.h"
+#include "Graphics\Prefabs\CapsuleModel.h"
 #include "Graphics\Scene.h"
 #include "OgreSceneManager.h"
 #include "Graphics\Entity.h"
@@ -49,12 +51,12 @@ namespace Graphics
 		_instance = 0;
 	}	
 
-	CEntity * CModelFactory::CreateCube(Graphics::CScene *scene, const std::string &name, std::string materialName, Vector3 dimensions, Vector3 position){
+	CSimpleModel * CModelFactory::CreateCube(Graphics::CScene *scene, const std::string &name, std::string materialName, Vector3 dimensions, Vector3 position){
 		std::stringstream auxName;
 		if ((!name.compare("")) || (name.length() == 0)){
-			auxName << "BasicShape_" << _nextID++;
+			auxName << "SimpleModel_" << _nextID++;
 		}else{
-			auxName << name;
+			auxName << name << "_SimpleModel";
 		}
 		
 		CCubeModel *model = new CCubeModel(auxName.str(),materialName, dimensions, position);
@@ -65,13 +67,13 @@ namespace Graphics
 		return model;
 	}
 
-	CEntity * CModelFactory::CreatePlane(Graphics::CScene *scene, const std::string &name, std::string materialName, Vector2 dimensions, Vector3 position){
+	CSimpleModel * CModelFactory::CreatePlane(Graphics::CScene *scene, const std::string &name, std::string materialName, Vector2 dimensions, Vector3 position){
 		
 		std::stringstream auxName;
 		if ((!name.compare("")) || (name.length() == 0)){
 			auxName << "BasicShape_" << _nextID++;
 		}else{
-			auxName << name;
+			auxName << name << "_SimpleModel";
 		}
 		
 		CPlaneModel *model = new CPlaneModel(auxName.str(),materialName, dimensions, position);
@@ -83,16 +85,16 @@ namespace Graphics
 	
 	}
 
-	CEntity * CModelFactory::CreateLine(){
+	CSimpleModel * CModelFactory::CreateLine(){
 		return 0;
 	}
 
-	CEntity * CModelFactory::CreateSphere(Graphics::CScene *scene, const std::string &name, std::string materialName, float radio, Vector3 position){
+	CSimpleModel * CModelFactory::CreateSphere(Graphics::CScene *scene, const std::string &name, std::string materialName, float radio, Vector3 position){
 		std::stringstream auxName;
 		if ((!name.compare("")) || (name.length() == 0)){
 			auxName << "BasicShape_" << _nextID++;
 		}else{
-			auxName << name;
+			auxName << name << "_SimpleModel";
 		}
 		
 		CSphereModel *model = new CSphereModel(auxName.str(),materialName, radio, position);
@@ -102,6 +104,23 @@ namespace Graphics
 
 		return model;
 	}
+
+	CSimpleModel * CModelFactory::CreateCapsule(Graphics::CScene *scene, const std::string &name, std::string materialName, float radio, Vector3 position, float height){
+		std::stringstream auxName;
+		if ((!name.compare("")) || (name.length() == 0)){
+			auxName << "BasicShape_" << _nextID++;
+		}else{
+			auxName << name << "_SimpleModel";
+		}
+		
+		CCapsuleModel *model = new CCapsuleModel(auxName.str(),materialName, radio, position, height);
+		
+		if (!scene->addEntity(model))
+				return 0;
+
+		return model;
+	}
+		
 		
 } // namespace Graphics
 

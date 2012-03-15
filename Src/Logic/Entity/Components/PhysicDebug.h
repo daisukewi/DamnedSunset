@@ -18,8 +18,8 @@ gráfica de la entida física
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Graphics 
 {
-	class CEntityDebug;
 	class CScene;
+	class CSimpleModel;
 }
 
 //declaración de la clase
@@ -92,7 +92,7 @@ namespace Logic
 			fichero de disco.
 		@return Entidad gráfica creada, NULL si hubo algún problema.
 		*/
-		virtual Graphics::CEntityDebug* createGraphicsEntity(const Map::CEntity *entityInfo);
+		virtual Graphics::CSimpleModel* createGraphicsEntity(const Map::CEntity *entityInfo);
 
 		/**
 		Atributo con el nombre del modelo gráfico de la entidad. (prefab)
@@ -102,12 +102,12 @@ namespace Logic
 		/**
 		Entidad gráfica del prefab
 		*/
-		Graphics::CEntityDebug *_graphicsEntity;
+		Graphics::CSimpleModel *_graphicsEntity;
 
 		/**
 		Entidad gráfica del trigger
 		*/
-		Graphics::CEntityDebug *_triggerEntity;
+		Graphics::CSimpleModel *_triggerEntity;
 
 		/**
 		Escena gráfica donde se encontrarán las representaciones gráficas de

@@ -22,6 +22,7 @@ de los edificios sobre el escenario, cuando se van a construir.
 #include "Graphics/Entity.h"
 #include "Graphics/Material.h"
 #include "Graphics/BasicShapeEntity.h"
+#include "Graphics/Prefabs/SimpleModel.h"
 
 #include "Physics/Server.h"
 
@@ -162,8 +163,7 @@ namespace Logic
 		_halfDiagonal = ( lastCornerPos - _gridMap->getRelativeMapPos(0, 0) ) / 2;
 
 		// Pintamos un plano bajo el cursor que indicará si se puede construir o no.
-		_plane = Graphics::CModelFactory::getSingletonPtr()->CreatePlane(_entity->getMap()->getScene(),"","physic_debug_blue50",Vector2(_buildingWidth * _gridSize, _buildingHeight * _gridSize),Vector3(0,0,0));
-
+		_plane = Graphics::CModelFactory::getSingletonPtr()->CreatePlane(_entity->getMap()->getScene(),"","",Vector2(_buildingWidth * _gridSize, _buildingHeight * _gridSize),Vector3(0,0,0));
 
 		// Solicitamos que empiecen a lanzar Raycast desde el viewport.
 		MControlRaycast *rc_message = new MControlRaycast();

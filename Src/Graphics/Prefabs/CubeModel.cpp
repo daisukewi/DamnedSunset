@@ -29,7 +29,7 @@ namespace Graphics
 {
 	
 	CCubeModel::CCubeModel(const std::string &name, std::string materialName,Vector3 dimensions,Vector3 position)
-		: CEntity("", "")
+		: CSimpleModel()
 	{
 		_name = name;
 		_dimensions = dimensions;
@@ -60,14 +60,14 @@ namespace Graphics
 		
 
 		//Añadir el material
-		//_entity->setMaterialName(_material);
+		_entity->setMaterialName(_material);
 
 		//Reescalar el prefab 
 		Ogre::Node *node = _entity->getParentNode();
 
 		Vector3 vector = auxBBox.getSize();
 
-
+		
 
 		_entityNode->scale(_dimensions.x / vector.x * 2,
 			_dimensions.y / vector.y * 2,
@@ -81,38 +81,12 @@ namespace Graphics
 
 		return _loaded;
 	}
-	
-	bool CCubeModel::attachToScene(CScene *scene)
-	{
-		assert(scene && "¡¡La entidad debe asociarse a una escena!!");
-		// Si la entidad está cargada por otro gestor de escena.
-		if(_loaded && (_scene != scene))
-			return false;
-
-		// Si no está cargada forzamos su carga.
-		if (!_loaded)
-		{
-			_scene = scene;
-			return load();
-		}
-
-		// Si ya estaba cargada en la escena se devuelve cierto.
-		return true;
-	} // attachToScene
 
 	CCubeModel::~CCubeModel()
 	{
 		//MeshManager::getSingleton().unload(_mesh);
 
 	} // ~CCubeModel
-
-	// ------------------------------------------------
-
-	void CCubeModel::SetMaterial(CMaterial material)
-	{
-		_entity->setMaterial(material.GetMaterial());
-
-	} // SetMaterial
 
 } // namespace Graphics
 

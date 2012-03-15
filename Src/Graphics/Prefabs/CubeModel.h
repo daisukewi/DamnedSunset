@@ -19,6 +19,7 @@ Contiene la declaración de la clase que representa un cubo
 
 #include "Graphics\Entity.h"
 #include "Graphics\Server.h"
+#include "Graphics\Prefabs\SimpleModel.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Ogre 
@@ -30,6 +31,7 @@ namespace Graphics
 {
 	class CMaterial;
 	class CEntity;
+	class CSimpleModel;
 }
 
 namespace Graphics 
@@ -48,7 +50,7 @@ namespace Graphics
 	@author Alberto Ortega
 	@date Marzo, 2012
 	*/
-	class CCubeModel : public CEntity
+	class CCubeModel : public CSimpleModel
 	{
 	public:
 
@@ -65,14 +67,6 @@ namespace Graphics
 		Destructor de la clase.
 		*/
 		virtual ~CCubeModel();
-
-		/**
-		Asigna un material al objeto.
-
-		@param material Material que se quiere asignar al objeto.
-		*/
-		void SetMaterial(CMaterial material);
-
 		
 
 		
@@ -89,16 +83,8 @@ namespace Graphics
 		Sobreescribir el método load de CEntity
 		*/
 		bool load();
-		/**
-		Sobreescribir el método attachToScene de CEntity
-		*/
-		bool attachToScene(CScene *scene);
-		
-
 
 		Vector3 _dimensions;
-		Vector3 _position;
-		std::string _material;
 
 	}; // class CCubeModel
 

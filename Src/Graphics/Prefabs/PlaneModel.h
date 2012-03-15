@@ -8,7 +8,7 @@
 Contiene la declaración de la clase que representa un plano
 
 @see Graphics::ModelFactory
-@see Graphics::CEntity
+@see Graphics::CSimpleModel
 
 @author Alberto Ortega
 @date Marzo, 2012
@@ -19,6 +19,7 @@ Contiene la declaración de la clase que representa un plano
 
 #include "Graphics\Entity.h"
 #include "Graphics\Server.h"
+#include "Graphics\Prefabs\SimpleModel.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Ogre 
@@ -30,6 +31,7 @@ namespace Graphics
 {
 	class CMaterial;
 	class CEntity;
+	class CSimpleModel;
 }
 
 namespace Graphics 
@@ -38,8 +40,7 @@ namespace Graphics
 
 	/**
 	Clase que representa una entidada gráfica (PLANO). Especializa la clase
-	Graphics::CEntity por lo que contiene una referencia a una entidad de 
-	Ogre y al Nodo que la contiene.
+	Graphics::CSimpleModel
 	<p>
 	Oculta los detalles escabrosos del motor gráfico.
 	
@@ -48,7 +49,7 @@ namespace Graphics
 	@author Alberto Ortega
 	@date Marzo, 2012
 	*/
-	class CPlaneModel : public CEntity
+	class CPlaneModel : public CSimpleModel
 	{
 	public:
 
@@ -66,16 +67,6 @@ namespace Graphics
 		*/
 		virtual ~CPlaneModel();
 
-		/**
-		Asigna un material al objeto.
-
-		@param material Material que se quiere asignar al objeto.
-		*/
-		void SetMaterial(CMaterial material);
-
-		
-
-		
 	protected:
 
 		/**
@@ -89,16 +80,8 @@ namespace Graphics
 		Sobreescribir el método load de CEntity
 		*/
 		bool load();
-		/**
-		Sobreescribir el método attachToScene de CEntity
-		*/
-		bool attachToScene(CScene *scene);
-		
-
 
 		Vector2 _dimensions;
-		Vector3 _position;
-		std::string _material;
 
 	}; // class CPlaneModel
 

@@ -32,6 +32,7 @@ namespace Graphics
 	class CScene;
 	class CEntity;
 	class CMaterial;
+	class CSimpleModel;
 }
 
 /**
@@ -83,25 +84,30 @@ namespace Graphics
 		virtual ~CModelFactory();
 		
 		/*
-		Función que devuelve una entidada gráfica (CEntity) que representa un CUBO
+		Función que devuelve un modelo Simple (CSimpleModel) que representa un CUBO
 		*/
-		CEntity * CreateCube(Graphics::CScene *scene, const std::string &name, std::string materialName, Vector3 dimensions, Vector3 position);
+		CSimpleModel * CreateCube(Graphics::CScene *scene, const std::string &name, std::string materialName, Vector3 dimensions, Vector3 position);
 		
 		/*
-		Función que devuelve una entidada gráfica (CEntity) que representa un PLANO
+		Función que devuelve un modelo Simple (CSimpleModel) que representa un PLANO
 		*/
-		CEntity * CreatePlane(Graphics::CScene *scene, const std::string &name,std::string materialName, Vector2 dimensions, Vector3 position);
+		CSimpleModel * CreatePlane(Graphics::CScene *scene, const std::string &name,std::string materialName, Vector2 dimensions, Vector3 position);
 		
 		/*
-		Función que devuelve una entidada gráfica (CEntity) que representa una LÍNEA
+		Función que devuelve un modelo Simple (CSimpleModel) que representa una LÍNEA
 		*/
-		CEntity * CreateLine();
+		CSimpleModel * CreateLine();
 		
 		
 		/*
-		Función que devuelve una entidada gráfica (CEntity) que representa un ESFERA
+		Función que devuelve un modelo Simple (CSimpleModel) que representa un ESFERA
 		*/
-		CEntity * CreateSphere(Graphics::CScene * scene, const std::string &name, std::string materialName, float radio, Vector3 position);
+		CSimpleModel * CreateSphere(Graphics::CScene * scene, const std::string &name, std::string materialName, float radio, Vector3 position);
+
+		/*
+		Función que devuelve un modelo Simple (CSimpleModel) que representa una CÁPSULA
+		*/
+		CSimpleModel * CModelFactory::CreateCapsule(Graphics::CScene *scene, const std::string &name, std::string materialName, float radio, Vector3 position, float height);
 		
 	private:
 	

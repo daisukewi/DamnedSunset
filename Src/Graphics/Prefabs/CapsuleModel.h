@@ -1,9 +1,9 @@
 //---------------------------------------------------------------------------
-// SphereModel.h
+// CapsuleModel.h
 //---------------------------------------------------------------------------
 
 /**
-@file SphereModel.h
+@file CapsuleModel.h
 
 Contiene la declaración de la clase que representa una esfera
 
@@ -14,8 +14,8 @@ Contiene la declaración de la clase que representa una esfera
 @date Marzo, 2012
 */
 
-#ifndef __Graphics_SphereModel_H
-#define __Graphics_SphereModel_H
+#ifndef __Graphics_CapsuleModel_H
+#define __Graphics_CapsuleModel_H
 
 #include "Graphics\Entity.h"
 #include "Graphics\Server.h"
@@ -50,7 +50,7 @@ namespace Graphics
 	@author Alberto Ortega
 	@date Marzo, 2012
 	*/
-	class CSphereModel : public CSimpleModel
+	class CCapsuleModel : public CSimpleModel
 	{
 	public:
 
@@ -61,12 +61,12 @@ namespace Graphics
 		@param dimensions Vector3 que contiene las dimensiones del
 		objeto que se quiere crear.
 		*/
-		CSphereModel(const std::string &name, std::string materialName,float radio,Vector3 position);
+		CCapsuleModel(const std::string &name, std::string materialName,float radio,Vector3 position, float height);
 
 		/**
 		Destructor de la clase.
 		*/
-		virtual ~CSphereModel();
+		virtual ~CCapsuleModel();
 
 		
 
@@ -86,9 +86,10 @@ namespace Graphics
 		bool load();
 	
 		float _radio;
+		float _height;
 
-	}; // class CSphereModel
+	}; // class CCapsuleModel
 
 } // namespace Graphics
 
-#endif // __Graphics_SphereModel_H
+#endif // __Graphics_CapsuleModel_H
