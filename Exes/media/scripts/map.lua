@@ -66,6 +66,14 @@ Map = {
 		position = {0, 0, 0},
 		orientation = 225,
 		isTargetCamera = true,
+		northVision = 15,
+		southVision = 20,
+		eastVision = 15,
+		westVision = 15,
+		northEntity = 22,
+		southEntity = 17,
+		eastEntity = 17,
+		westEntity = 17,
 	},
 	
 	Sol = {

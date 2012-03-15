@@ -42,8 +42,7 @@ Archetype = {
 		trigger_type = "trigger_static",
 		trigger = true,
 		trigger_radius = 25,
-		trigger_height = 8,
-		trigger_dimensions = { 25, 8, 25 },
+		trigger_height = 1,
 		trigger_collision_group = 3,
 		precision = 0.1,
 	},
@@ -98,15 +97,6 @@ Archetype = {
 		billboardSeleccionWith = 15.0,
 		billboardSeleccionHeight = 15.0,
 	},
-
-	SelectionEnemy = {
-		type = "SelectionEnemy",
-		physic_entity = "controller",
-		physic_shape = "capsule",
-		physic_radius = 6,
-		physic_height = 9,
-		physic_collision_group = 5,
-	},
 	
 	Granada = {
 		type = "Granada",
@@ -124,11 +114,9 @@ Archetype = {
 		physic_collision_group = 6,
 		
 		trigger_shape = "trigger_sphere",
-		trigger_type = "trigger_static",
+		trigger_type = "trigger_dynamic",
 		trigger = true,
 		trigger_radius = 25,
-		trigger_height = 8,
-		trigger_dimensions = { 25, 8, 25 },
 		trigger_collision_group = 3,
 	},
 	

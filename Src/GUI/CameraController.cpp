@@ -86,6 +86,7 @@ namespace GUI {
 				ScriptManager::CServer::getSingletonPtr()->reloadScripts();
 				break;
 			}
+			m->setScroll(0);
 			_controlledTarget->emitMessage(m);
 		}
 		return false;
@@ -115,7 +116,7 @@ namespace GUI {
 				m->setMovement("stopLeftRight");
 				break;
 			}
-
+			m->setScroll(0);
 			_controlledTarget->emitMessage(m);
 		}
 		return false;
@@ -139,13 +140,14 @@ namespace GUI {
 				m1->setMovement("right");
 			else if ((mouseState.posRelX > 0) && (mouseState.posRelX < 1))
 				m1->setMovement("stopLeftRight");
-
+			m1->setScroll(0);
 			_controlledTarget->emitMessage(m1);
 
 			Logic::MCameraControl *m2 = new Logic::MCameraControl();
 
 			// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
 			m2->setMouse(true);
+			m2->setScroll(0);
 
 			if (mouseState.posRelY <= 0)
 				m2->setMovement("up");
@@ -155,6 +157,17 @@ namespace GUI {
 				m2->setMovement("stopUpDown");
 
 			_controlledTarget->emitMessage(m2);
+
+			if (mouseState.scroll != 0)
+			{
+				Logic::MCameraControl *m_wheel = new Logic::MCameraControl();
+
+				// Atributo del mensaje que va a indicar si se está moviendo la cámara con el ratón o no.
+				m_wheel->setMouse(true);
+			
+				m_wheel->setScroll(mouseState.scroll);
+				_controlledTarget->emitMessage(m_wheel);
+			}
 		}
 		return false;
 
@@ -188,13 +201,11 @@ namespace GUI {
 			else if (mouseState.button == Button::MIDDLE)
 				m_message->setAction(Logic::TMouseAction::MIDDLE_CLICK);
 
-
 			_controlledTarget->emitMessage(m_message);
 			}
 
 		}
 		return false;
-
 
 	} // mouseReleased
 

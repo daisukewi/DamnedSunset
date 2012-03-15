@@ -14,6 +14,10 @@ Contiene la implementación del componente que controla el movimiento de la cámar
 #include "Logic/Entity/Entity.h"
 #include "Map/MapEntity.h"
 
+#include "Graphics.h"
+#include "Graphics/Scene.h"
+#include "Graphics/Camera.h"
+
 #include "Logic/Server.h"
 #include "Logic/Maps/Map.h"
 
@@ -30,6 +34,30 @@ namespace Logic
 	{
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
+
+		if(entityInfo->hasAttribute("northVision"))
+			_northVision = entityInfo->getIntAttribute("northVision");
+
+		if(entityInfo->hasAttribute("southVision"))
+			_southVision = entityInfo->getIntAttribute("southVision");
+
+		if(entityInfo->hasAttribute("westVision"))
+			_westVision = entityInfo->getIntAttribute("westVision");
+
+		if(entityInfo->hasAttribute("eastVision"))
+			_eastVision = entityInfo->getIntAttribute("eastVision");
+
+		if(entityInfo->hasAttribute("northEntity"))
+			_northEntity = entityInfo->getIntAttribute("northEntity");
+
+		if(entityInfo->hasAttribute("southEntity"))
+			_southEntity = entityInfo->getIntAttribute("southEntity");
+
+		if(entityInfo->hasAttribute("westEntity"))
+			_westEntity = entityInfo->getIntAttribute("westEntity");
+
+		if(entityInfo->hasAttribute("eastEntity"))
+			_eastEntity = entityInfo->getIntAttribute("eastEntity");
 
 		_bossEntity = NULL;
 
@@ -82,6 +110,8 @@ namespace Logic
 				stopUpDown();
 			else if(!m->getMovement().compare("stopLeftRight"))
 				stopLeftRight();
+			if(m->getScroll()!=0)
+				zoom(m->getScroll());
 		}
 		else if (!message->getType().compare("MUbicarCamara"))
 		{
@@ -174,6 +204,23 @@ namespace Logic
 
 	//---------------------------------------------------------
 
+	void CCameraController::zoom(int wheel)
+	{
+		if (wheel > 0)
+		{
+			_entity->setPosition(0.1 * ((_bossEntity->getPosition() - _entity->getPosition()).normalise()) + _entity->getPosition());
+			std::cout << "wheel: " << wheel << '\n';
+		}
+		else if (wheel < 0)
+		{
+			_entity->setPosition(-0.1 * ((_bossEntity->getPosition() - _entity->getPosition()).normalise()) + _entity->getPosition());
+			std::cout << "wheel: " << wheel << '\n';
+		}
+
+	} // zoom
+
+	//---------------------------------------------------------
+
 	void CCameraController::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
@@ -193,19 +240,19 @@ namespace Logic
 			direction = Math::getDirection(_entity->getYaw());
 			directionStrafe = Math::getDirection(_entity->getYaw() + Math::PI/2);
 
-			_up &= Math::Proy(cuerda, direction) <= 15;
-			_down &= Math::Proy(cuerda, direction * (-1)) <= 20;
-			_right &= Math::Proy(cuerda, directionStrafe * (-1)) <= 15;
-			_left &= Math::Proy(cuerda, directionStrafe) <= 15;
-			_upMouse &= Math::Proy(cuerda, direction) <= 15;
-			_downMouse &= Math::Proy(cuerda, direction * (-1)) <= 20;
-			_rightMouse &= Math::Proy(cuerda, directionStrafe * (-1)) <= 15;
-			_leftMouse &= Math::Proy(cuerda, directionStrafe) <= 15;
+			_up &= Math::Proy(cuerda, direction) <= _northVision;
+			_down &= Math::Proy(cuerda, direction * (-1)) <= _southVision;
+			_right &= Math::Proy(cuerda, directionStrafe * (-1)) <= _eastVision;
+			_left &= Math::Proy(cuerda, directionStrafe) <= _westVision;
+			_upMouse &= Math::Proy(cuerda, direction) <= _northVision;
+			_downMouse &= Math::Proy(cuerda, direction * (-1)) <= _southVision;
+			_rightMouse &= Math::Proy(cuerda, directionStrafe * (-1)) <= _eastVision;
+			_leftMouse &= Math::Proy(cuerda, directionStrafe) <= _westVision;
 
-			south = Math::Proy(cuerda, direction) > 17;
-			north = Math::Proy(cuerda, direction * (-1)) > 22;
-			east = Math::Proy(cuerda, directionStrafe) > 17;
-			west = Math::Proy(cuerda, directionStrafe * (-1)) > 17;
+			south = Math::Proy(cuerda, direction) > _southEntity;
+			north = Math::Proy(cuerda, direction * (-1)) > _northEntity;
+			east = Math::Proy(cuerda, directionStrafe) > _eastEntity;
+			west = Math::Proy(cuerda, directionStrafe * (-1)) > _westEntity;
 
 		}
 

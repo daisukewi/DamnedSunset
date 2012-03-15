@@ -301,7 +301,7 @@ namespace GUI{
 			_mouseState.setPosition(e.state.X.abs,e.state.Y.abs);
 			_mouseState.movX = e.state.X.rel;
 			_mouseState.movY = e.state.Y.rel;
-			_mouseState.scrool = e.state.Z.rel;
+			_mouseState.scroll = e.state.Z.rel;
 			_mouseState.button = Button::UNASSIGNED;
 
 			std::list<CMouseListener*>::const_iterator it;
@@ -328,7 +328,7 @@ namespace GUI{
 			_mouseState.setPosition(e.state.X.abs,e.state.Y.abs);
 			_mouseState.movX = e.state.X.rel;
 			_mouseState.movY = e.state.Y.rel;
-			_mouseState.scrool = e.state.Z.rel;
+			_mouseState.scroll = e.state.Z.rel;
 			_mouseState.button = (TButton)button;
 
 			std::list<CMouseListener*>::const_iterator it;
@@ -355,7 +355,7 @@ namespace GUI{
 			_mouseState.setPosition(e.state.X.abs,e.state.Y.abs);
 			_mouseState.movX = e.state.X.rel;
 			_mouseState.movY = e.state.Y.rel;
-			_mouseState.scrool = e.state.Z.rel;
+			_mouseState.scroll = e.state.Z.rel;
 			_mouseState.button = (TButton)button;
 
 			std::list<CMouseListener*>::const_iterator it;

@@ -161,7 +161,7 @@ namespace Logic
 			
 				// Marcamos el volumen de colisión como trigger
 				_physicServer->setTrigger(model, 0, true);
-				/*
+				
 				// Las entidades físicas dinámicas y kinemáticas deben tener al menos un
 				// volumen de colisión que no sea un trigger. Intuitivamente este volumen
 				// de colisión es el que contiene la masa de la entidad.
@@ -171,10 +171,10 @@ namespace Logic
 				// para que no choquen contra el grupo 0 (método move). Además desactivamos las
 				// colisiones de otros grupos contra el 0 al crear la escena.
 				std::string type = entityInfo->getStringAttribute(STR_TRIGGER_TYPE);
-				if ((type == STR_DYNAMIC) || (type == STR_KINEMATIC)) {
+				if ((type == STR_TRIGGER_DYNAMIC) || (type == STR_TRIGGER_KINEMATIC)) {
 					createTriggerShape(entityInfo, model, 1.0f);
 				}
-				*/
+				
 		}
 
 		// Devolvemos el modelo resultante

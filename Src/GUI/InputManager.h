@@ -339,7 +339,7 @@ namespace GUI
 			posRelY = 0;
 			movX = 0;
 			movY = 0;
-			scrool = 0;
+			scroll = 0;
 			button =  Button::UNASSIGNED;
 		}
 
@@ -360,7 +360,7 @@ namespace GUI
 			setPosition(posAbsX,posAbsY);
 			movX = 0;
 			movY = 0;
-			scrool = 0;
+			scroll = 0;
 			button = (TButton)-1; // Button::UNASSIGNED
 		}
 
@@ -426,7 +426,7 @@ namespace GUI
 		/**
 		Movimiento de la rueda del ratón respecto del último evento.
 		*/
-		int scrool;
+		int scroll;
 
 		/**
 		Indica que botón ha sido el último en producir un evento.

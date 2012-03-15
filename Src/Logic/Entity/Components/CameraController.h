@@ -34,7 +34,9 @@ namespace Logic
 		defecto.
 		*/
 		CCameraController() : IComponent(), _up(false), _upMouse(false), _down(false), _downMouse(false), 
-			_left(false), _leftMouse(false), _right(false), _rightMouse(false), _mouse(false), _speed(0.05f) {}
+			_left(false), _leftMouse(false), _right(false), _rightMouse(false), _mouse(false), _speed(0.05f),
+		_northVision(0), _southVision(0), _westVision(0), _eastVision(0),
+		_northEntity(0), _southEntity(0), _westEntity(0), _eastEntity(0) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -128,6 +130,13 @@ namespace Logic
 		*/
 		void stopLeftRight();
 
+		/**
+		Provoca que la entidad se acerque o se aleje al personaje.
+
+		@param wheel entero que indica el giro de la rueda del ratón.
+		*/
+		void zoom(int wheel);
+
 	protected:
 
 		/**
@@ -188,6 +197,50 @@ namespace Logic
 		Entidad a la que debemos mirar siempre.
 		*/
 		CEntity* _bossEntity;
+
+		/**
+		Atributo para saber hasta dónde puede subir la cámara.
+		*/
+		int _northVision;
+
+		/**
+		Atributo para saber hasta dónde puede bajar la cámara.
+		*/
+		int _southVision;
+
+		/**
+		Atributo para saber hasta dónde puede ir a la derecha la cámara.
+		*/
+		int _eastVision;
+
+		/**
+		Atributo para saber hasta dónde puede ir a la izquierda la cámara.
+		*/
+		int _westVision;
+
+		/**
+		Atributo para saber cuándo se tiene que mover la cámara para arriba
+		por el movimiento del personaje.
+		*/
+		int _northEntity;
+
+		/**
+		Atributo para saber cuándo se tiene que mover la cámara para abajo
+		por el movimiento del personaje.
+		*/
+		int _southEntity;
+
+		/**
+		Atributo para saber cuándo se tiene que mover la cámara para la derecha
+		por el movimiento del personaje.
+		*/
+		int _eastEntity;
+
+		/**
+		Atributo para saber cuándo se tiene que mover la cámara para la izquierda
+		por el movimiento del personaje.
+		*/
+		int _westEntity;
 
 	}; // class CCameraController
 

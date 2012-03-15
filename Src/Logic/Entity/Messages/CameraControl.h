@@ -59,6 +59,20 @@ namespace Logic
 		*/
 		void setMovement(std::string movement);
 
+		/**
+		Método que devuelve el giro de la rueda del ratón.
+
+		@return int con el giro de la rueda.
+		*/
+		int getScroll();
+
+		/**
+		Método que establece el el giro de la rueda del ratón.
+
+		@param scroll Giro
+		*/
+		void setScroll(int scroll);
+
 	protected:
 
 		/**
@@ -70,6 +84,11 @@ namespace Logic
 		Atributo que indica el tipo de movimiento que hay que notificar y la dirección.
 		*/
 		std::string _movement;
+
+		/**
+		Atributo que indica el giro de la rueda del ratón.
+		*/
+		int _scroll;
 
 	}; // class MCameraControl
 

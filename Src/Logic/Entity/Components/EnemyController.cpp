@@ -34,6 +34,7 @@ del enemigo.
 #include "Logic/Entity/Messages/SetAnimation.h"
 #include "Logic/Entity/Messages/EntityDeath.h"
 #include "Logic/Entity/Messages/AttackEntity.h"
+#include "Logic/Entity/Messages/ActivarComponente.h"
 
 
 namespace Logic
@@ -101,6 +102,46 @@ namespace Logic
 			MAStarRoute *m_stop = new MAStarRoute();
 			m_stop->setAction(RouteAction::STOP_ROUTE);
 			_entity->emitMessage(m_stop, this);
+
+			MActivarComponente *m_deactComp = new MActivarComponente();
+			m_deactComp->setActivar(false);
+			m_deactComp->setNombreComponente("CAttack");
+			_entity->emitMessage(m_deactComp, this);
+
+			MActivarComponente *m_deactComp1 = new MActivarComponente();
+			m_deactComp1->setActivar(false);
+			m_deactComp1->setNombreComponente("CLife");
+			_entity->emitMessage(m_deactComp1, this);
+
+			MActivarComponente *m_deactComp2 = new MActivarComponente();
+			m_deactComp2->setActivar(false);
+			m_deactComp2->setNombreComponente("CBillboardSelected");
+			_entity->emitMessage(m_deactComp2, this);
+
+			MActivarComponente *m_deactComp3 = new MActivarComponente();
+			m_deactComp3->setActivar(false);
+			m_deactComp3->setNombreComponente("CPhysicCharacter");
+			_entity->emitMessage(m_deactComp3, this);
+
+			MActivarComponente *m_deactComp4 = new MActivarComponente();
+			m_deactComp4->setActivar(false);
+			m_deactComp4->setNombreComponente("CSteeringMovement");
+			_entity->emitMessage(m_deactComp4, this);
+
+			MActivarComponente *m_deactComp5 = new MActivarComponente();
+			m_deactComp5->setActivar(false);
+			m_deactComp5->setNombreComponente("CRouteTo");
+			_entity->emitMessage(m_deactComp5, this);
+
+			MActivarComponente *m_deactComp6 = new MActivarComponente();
+			m_deactComp6->setActivar(false);
+			m_deactComp6->setNombreComponente("CSelectable");
+			_entity->emitMessage(m_deactComp6, this);
+
+			MActivarComponente *m_deactComp7 = new MActivarComponente();
+			m_deactComp7->setActivar(false);
+			m_deactComp7->setNombreComponente("CEnemyController");
+			_entity->emitMessage(m_deactComp7, this);
 
 			MSetAnimation *m_anim = new MSetAnimation();
 			m_anim->setAnimationName("Death");

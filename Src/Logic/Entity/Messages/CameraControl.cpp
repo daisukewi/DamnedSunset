@@ -54,4 +54,20 @@ namespace Logic
 
 	//---------------------------------------------------------
 
+	int MCameraControl::getScroll()
+	{
+		return _scroll;
+
+	} // getScroll
+
+	//---------------------------------------------------------
+
+	void MCameraControl::setScroll(int scroll)
+	{
+		_scroll = scroll;
+
+	} // setScroll
+
+	//---------------------------------------------------------
+
 } // namespace Logic
