@@ -114,9 +114,10 @@ Archetype = {
 		physic_collision_group = 6,
 		
 		trigger_shape = "trigger_sphere",
-		trigger_type = "trigger_dynamic",
+		trigger_type = "trigger_static",
 		trigger = true,
 		trigger_radius = 25,
+		trigger_height = 1,
 		trigger_collision_group = 3,
 	},
 	
