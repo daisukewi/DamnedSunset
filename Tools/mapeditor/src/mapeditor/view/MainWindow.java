@@ -343,7 +343,7 @@ public class MainWindow implements ComponentListener, WindowListener, Controller
 				int val = _fileChooser.showSaveDialog(_window);
 				
 				if (val == JFileChooser.APPROVE_OPTION)
-					_system.saveMap(new File(_fileChooser.getSelectedFile().getName() + ".map"));
+					_system.saveMap(new File(_fileChooser.getSelectedFile().getPath() + ".map"));
 			}
 			else
 				JOptionPane.showMessageDialog(_window, "No hay ningún mapa cargado, crea uno nuevo o abre uno existente.");
@@ -387,7 +387,7 @@ public class MainWindow implements ComponentListener, WindowListener, Controller
 				int val = _fileChooser.showSaveDialog(_window);
 				
 				if (val == JFileChooser.APPROVE_OPTION)
-					_system.exportMap(new File(_fileChooser.getSelectedFile().getName() + ".lua"));
+					_system.exportMap(new File(_fileChooser.getSelectedFile().getPath() + ".lua"));
 			}
 			else
 				JOptionPane.showMessageDialog(_window, "No hay ningún mapa cargado, crea uno nuevo o abre uno existente.");

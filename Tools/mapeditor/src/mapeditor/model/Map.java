@@ -305,7 +305,8 @@ public class Map implements Serializable, ExportableData {
 			
 			_entityList.get(_entityID).newParameter(ENTITY_DIMENSION, "{ " + height + ", " + width + " }");
 			
-			_entityList.get(_entityID).newParameter(ENTITY_POSITION, "{ " + posList[0].getX() + ", " + posList[0].getY() + " }");
+			// La resta chunga de la altura y la anchura del mapa es para adecuarlo a las coordenadas del mapa del juego.
+			_entityList.get(_entityID).newParameter(ENTITY_POSITION, "{ " + ((_mapWidth - 1) - posList[0].getX()) + ", " + ((_mapHeight - 1) - posList[0].getY()) + " }");
 			
 			for (int i = 0; i < posList.length; i++) {
 				
@@ -419,54 +420,7 @@ public class Map implements Serializable, ExportableData {
 		return _mapHeight;
 		
 	}
-/*
-	@Override
-	public void exportData(int type) {
-		
-		notifyDataToExport("Map = {\n\n");
-		
-		for (int x = 0; x < _mapWidth; x++)
-			for (int y = 0; y < _mapHeight; y++) {
-				
-				String s1 = "";
-				
-				s1 = s1 + "\t" + _map[x][y].getType().getType() + " = {\n";
-				
-				s1 = s1 + "\t\t" + CELL_POSITION + " = { " + x + ", " + y + " },\n";
-				
-				s1 = s1 + "\t}\n\n";
-				
-				notifyDataToExport(s1);
-				
-			}
-		
-		for (int entityID : _entityList.keySet()) {
-			
-			Entity entity = _entityList.get(entityID);
-			
-			String s2 = "";
-			
-			s2 = s2 + "\t" + entity.getParameter(ENTITY_NAME) + " = {\n";
-			
-			for (String name : entity.getParamNames()) {
-				
-				if (!name.equals(ENTITY_DIMENSION) && !name.equals(ENTITY_NAME))
-					s2 = s2 + "\t\t" + name + " = " + entity.getParameter(name) + ",\n";
-				
-			}
-			
-			s2 = s2 + "\t}\n\n";
-			
-			notifyDataToExport(s2);
-			
-		}
-		
-		notifyDataToExport("}\n\n");
-		
-		notifyFinishExport();
-
-	}
-*/
+	
 	@Override
 	public String getGridAttributes() {
 		
@@ -496,8 +450,13 @@ public class Map implements Serializable, ExportableData {
 			
 			for (String name : entity.getParamNames()) {
 				
-				if (!name.equals(ENTITY_DIMENSION) && !name.equals(ENTITY_NAME))
-					s = s + "\t\t" + name + " = " + entity.getParameter(name) + ",\n";
+				// HACK - Provisional de cara al hito 2. En un futuro habrá que cambiarlo y pensarlo bien.
+				if (name.equals(ENTITY_POSITION) && entity.getParameter(ENTITY_NAME).equals("World")) {
+					
+				}
+				else
+					if (!name.equals(ENTITY_DIMENSION) && !name.equals(ENTITY_NAME))
+						s = s + "\t\t" + name + " = " + entity.getParameter(name) + ",\n";
 				
 			}
 			

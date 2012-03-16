@@ -151,39 +151,7 @@ public class Preferences implements Serializable, ExportableData {
 		return _entityTypes;
 		
 	}
-/*
-	@Override
-	public void exportData(int type) {
-		
-		String s = null;
-		
-		if (type == 0) {
-			
-			s = "Grid = {\n\n";
-			
-			for (ColorCell colorCell : _cellTypes) {
-				
-				s = s + "\t" + colorCell.getType().getType() + " = {\n";
-				
-				for (String name : colorCell.getParamNames()) {
-					
-					s = s + "\t\t" + name + " = " + colorCell.getParameter(name) + ",\n";
-					
-				}
-				
-				s = s + "\t},\n\n";
-				
-			}
-			
-			s = s + "}\n\n";
-			
-			notifyDataToExport(s);
-			notifyFinishExport();
-			
-		}
-		
-	}
-*/
+
 	@Override
 	public String getGridAttributes() {
 		// TODO Auto-generated method stub
