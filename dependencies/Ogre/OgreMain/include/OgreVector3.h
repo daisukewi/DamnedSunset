@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -444,7 +444,9 @@ namespace Ogre
             Real fLength = Math::Sqrt( x * x + y * y + z * z );
 
             // Will also work for zero-sized vectors, but will change nothing
-            if ( fLength > 1e-08 )
+			// We're not using epsilons because we don't need to.
+            // Read http://www.ogre3d.org/forums/viewtopic.php?f=4&t=61259
+            if ( fLength > Real(0.0f) )
             {
                 Real fInvLength = 1.0f / fLength;
                 x *= fInvLength;
@@ -624,7 +626,7 @@ namespace Ogre
 		@remarks
 			Vectors do not have to be unit-length but must represent directions.
 		*/
-		inline Radian angleBetween(const Vector3& dest)
+		inline Radian angleBetween(const Vector3& dest) const
 		{
 			Real lenProduct = length() * dest.length();
 
@@ -768,6 +770,26 @@ namespace Ogre
 		inline bool isNaN() const
 		{
 			return Math::isNaN(x) || Math::isNaN(y) || Math::isNaN(z);
+		}
+
+		/// Extract the primary (dominant) axis from this direction vector
+		inline Vector3 primaryAxis() const
+		{
+			Real absx = Math::Abs(x);
+			Real absy = Math::Abs(y);
+			Real absz = Math::Abs(z);
+			if (absx > absy)
+				if (absx > absz)
+					return x > 0 ? Vector3::UNIT_X : Vector3::NEGATIVE_UNIT_X;
+				else
+					return z > 0 ? Vector3::UNIT_Z : Vector3::NEGATIVE_UNIT_Z;
+			else // absx <= absy
+				if (absy > absz)
+					return y > 0 ? Vector3::UNIT_Y : Vector3::NEGATIVE_UNIT_Y;
+				else
+					return z > 0 ? Vector3::UNIT_Z : Vector3::NEGATIVE_UNIT_Z;
+
+
 		}
 
 		// special points

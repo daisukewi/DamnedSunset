@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -414,7 +414,7 @@ namespace Ogre {
         @param offset If supplied, this is the target point in local space of the target node
         instead of the origin of the target node. Good for fine tuning the look at point.
         */
-        virtual void setAutoTracking(bool enabled, SceneNode* target = 0, 
+        virtual void setAutoTracking(bool enabled, SceneNode* const target = 0, 
             const Vector3& localDirectionVector = Vector3::NEGATIVE_UNIT_Z,
             const Vector3& offset = Vector3::ZERO);
 		/** Get the auto tracking target for this node, if any. */

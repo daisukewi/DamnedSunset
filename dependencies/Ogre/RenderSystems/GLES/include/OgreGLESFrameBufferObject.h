@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -59,12 +59,21 @@ namespace Ogre {
 		/** Swap buffers - only useful when using multisample buffers.
 		*/
 		void swapBuffers();
-        
+
+        /** This function acts very similar to @see GLESFBORenderTexture::attachDepthBuffer
+			The difference between D3D & OGL is that D3D setups the DepthBuffer before rendering,
+			while OGL setups the DepthBuffer per FBO. So the DepthBuffer (RenderBuffer) needs to
+			be attached for OGL.
+		*/
+		void attachDepthBuffer( DepthBuffer *depthBuffer );
+		void detachDepthBuffer();
+
         /// Accessors
         size_t getWidth();
         size_t getHeight();
         PixelFormat getFormat();
-        
+		GLsizei getFSAA();
+
         GLESFBOManager *getManager() { return mManager; }
 		const GLESSurfaceDesc &getSurface(size_t attachment) { return mColour[attachment]; }
     private:

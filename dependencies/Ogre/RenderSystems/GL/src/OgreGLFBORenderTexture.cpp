@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -51,7 +51,7 @@ namespace Ogre {
 
     void GLFBORenderTexture::getCustomAttribute(const String& name, void* pData)
     {
-        if(name=="FBO")
+        if( name == GLRenderTexture::CustomAttributeString_FBO )
         {
             *static_cast<GLFrameBufferObject **>(pData) = &mFB;
         }
@@ -68,6 +68,27 @@ namespace Ogre {
 	void GLFBORenderTexture::swapBuffers(bool waitForVSync)
 	{
 		mFB.swapBuffers();
+	}
+	//-----------------------------------------------------------------------------
+	bool GLFBORenderTexture::attachDepthBuffer( DepthBuffer *depthBuffer )
+	{
+		bool result;
+		if( (result = GLRenderTexture::attachDepthBuffer( depthBuffer )) )
+			mFB.attachDepthBuffer( depthBuffer );
+
+		return result;
+	}
+	//-----------------------------------------------------------------------------
+	void GLFBORenderTexture::detachDepthBuffer()
+	{
+		mFB.detachDepthBuffer();
+		GLRenderTexture::detachDepthBuffer();
+	}
+	//-----------------------------------------------------------------------------
+	void GLFBORenderTexture::_detachDepthBuffer()
+	{
+		mFB.detachDepthBuffer();
+		GLRenderTexture::_detachDepthBuffer();
 	}
    
 /// Size of probe texture
@@ -429,12 +450,12 @@ static const size_t depthBits[] =
 	{
 		return new GLFBOMultiRenderTarget(this, name);
 	}
-
+	//---------------------------------------------------------------------
     void GLFBOManager::bind(RenderTarget *target)
     {
         /// Check if the render target is in the rendertarget->FBO map
         GLFrameBufferObject *fbo = 0;
-        target->getCustomAttribute("FBO", &fbo);
+        target->getCustomAttribute(GLRenderTexture::CustomAttributeString_FBO, &fbo);
         if(fbo)
             fbo->bind();
         else

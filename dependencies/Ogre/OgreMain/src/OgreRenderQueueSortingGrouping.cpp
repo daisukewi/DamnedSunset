@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -102,7 +102,7 @@ namespace Ogre {
             if (mSplitNoShadowPasses &&
                 mParent->getShadowsEnabled() &&
 				(!pTech->getParent()->getReceiveShadows() ||
-				rend->getCastsShadows() && mShadowCastersNotReceivers))
+				(rend->getCastsShadows() && mShadowCastersNotReceivers)))
             {
                 // Add solid renderable and add passes to no-shadow group
                 addSolidRenderable(pTech, rend, true);
@@ -326,7 +326,7 @@ namespace Ogre {
 	void QueuedRenderableCollection::sort(const Camera* cam)
     {
 		// ascending and descending sort both set bit 1
-		// We always sort descending, becuase the only difference is in the
+		// We always sort descending, because the only difference is in the
 		// acceptVisitor method, where we iterate in reverse in ascending mode
 		if (mOrganisationMode & OM_SORT_DESCENDING)
 		{

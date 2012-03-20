@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,7 @@ namespace Ogre {
         // Actual dimensions will update later
         , mZOrder(ZOrder)
         , mBackColour(ColourValue::Black)
+		, mDepthClearValue(1)
         , mClearEveryFrame(true)
 		, mClearBuffers(FBT_COLOUR | FBT_DEPTH)
         , mUpdated(false)
@@ -60,8 +61,8 @@ namespace Ogre {
 		, mRQSequence(0)
 		, mMaterialSchemeName(MaterialManager::DEFAULT_SCHEME_NAME)
 		, mIsAutoUpdated(true)
-    {
-#if OGRE_COMPILER != OGRE_COMPILER_GCCE
+    {			
+#if OGRE_COMPILER != OGRE_COMPILER_GCCE && OGRE_PLATFORM != OGRE_PLATFORM_ANDROID
 		LogManager::getSingleton().stream(LML_TRIVIAL)
 			<< "Creating viewport on target '" << target->getName() << "'"
 			<< ", rendering from camera '" << (cam != 0 ? cam->getName() : "NULL") << "'"
@@ -71,8 +72,12 @@ namespace Ogre {
 #endif
 
         // Set the default orientation mode
-        mOrientationMode = mDefaultOrientationMode;     
-
+        mOrientationMode = mDefaultOrientationMode;
+			
+        // Set the default material scheme
+        RenderSystem* rs = Root::getSingleton().getRenderSystem();
+        mMaterialSchemeName = rs->_getDefaultViewportMaterialScheme();
+        
         // Calculate actual dimensions
         _updateDimensions();
 
@@ -82,7 +87,11 @@ namespace Ogre {
     //---------------------------------------------------------------------
     Viewport::~Viewport()
     {
-
+		RenderSystem* rs = Root::getSingleton().getRenderSystem();
+		if ((rs) && (rs->_getViewport() == this))
+		{
+			rs->_setViewport(NULL);
+		}
     }
     //---------------------------------------------------------------------
     bool Viewport::_isUpdated(void) const
@@ -128,8 +137,13 @@ namespace Ogre {
 			<< "L: " << mActLeft << " T: " << mActTop << " W: " << mActWidth << " H: " << mActHeight;
 #endif
 
-        mUpdated = true;
-    }
+		 mUpdated = true;
+
+		for (ListenerList::iterator i = mListeners.begin(); i != mListeners.end(); ++i)
+		{
+			(*i)->viewportDimensionsChanged(this);
+		}
+	}
 	//---------------------------------------------------------------------
 	int Viewport::getZOrder(void) const
 	{
@@ -224,6 +238,7 @@ namespace Ogre {
         }
 
 	// Update the render system config
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
         if(mOrientationMode == OR_LANDSCAPELEFT)
             rs->setConfigOption("Orientation", "Landscape Left");
@@ -231,6 +246,7 @@ namespace Ogre {
             rs->setConfigOption("Orientation", "Landscape Right");
         else if(mOrientationMode == OR_PORTRAIT)
             rs->setConfigOption("Orientation", "Portrait");
+#endif
     }
     //---------------------------------------------------------------------
     OrientationMode Viewport::getOrientationMode() const
@@ -273,6 +289,16 @@ namespace Ogre {
         return mBackColour;
     }
     //---------------------------------------------------------------------
+	void Viewport::setDepthClear( Real depth )
+    {
+        mDepthClearValue = depth;
+    }
+    //---------------------------------------------------------------------
+    Real Viewport::getDepthClear(void) const
+    {
+        return mDepthClearValue;
+    }
+	//---------------------------------------------------------------------
     void Viewport::setClearEveryFrame(bool inClear, unsigned int inBuffers)
     {
         mClearEveryFrame = inClear;
@@ -325,9 +351,9 @@ namespace Ogre {
     {
 		return mCamera ? mCamera->_getNumRenderedBatches() : 0;
     }
-    //---------------------------------------------------------------------
-    void Viewport::setCamera(Camera* cam)
-    {
+	//---------------------------------------------------------------------
+	void Viewport::setCamera(Camera* cam)
+	{
 		if(mCamera)
 		{
 			if(mCamera->getViewport() == this)
@@ -335,9 +361,25 @@ namespace Ogre {
 				mCamera->_notifyViewport(0);
 			}
 		}
-        mCamera = cam;
-		_updateDimensions();
-		if(cam) mCamera->_notifyViewport(this);
+
+		mCamera = cam;
+		if (cam)
+		{
+			// update aspect ratio of new camera if needed.
+			if (cam->getAutoAspectRatio())
+			{
+				cam->setAspectRatio((Real) mActWidth / (Real) mActHeight);
+			}
+#if OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
+			cam->setOrientationMode(mOrientationMode);
+#endif
+			cam->_notifyViewport(this);
+		}
+
+		for (ListenerList::iterator i = mListeners.begin(); i != mListeners.end(); ++i)
+		{
+			(*i)->viewportCameraChanged(this);
+		}
     }
     //---------------------------------------------------------------------
 	void Viewport::setAutoUpdated(bool inAutoUpdated)
@@ -435,4 +477,17 @@ namespace Ogre {
         }
     }
 	//-----------------------------------------------------------------------
+	void Viewport::addListener(Listener* l)
+	{
+		if (std::find(mListeners.begin(), mListeners.end(), l) == mListeners.end())
+			mListeners.push_back(l);
+	}
+	//-----------------------------------------------------------------------
+	void Viewport::removeListener(Listener* l)
+	{
+		ListenerList::iterator i = std::find(mListeners.begin(), mListeners.end(), l);
+		if (i != mListeners.end())
+			mListeners.erase(i);
+	}
+
 }

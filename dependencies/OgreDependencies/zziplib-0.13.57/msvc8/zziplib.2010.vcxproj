@@ -110,6 +110,7 @@
       <Command>copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)..\lib\$(Configuration)\" /y
 mkdir "$(SolutionDir)..\include\zzip"
 copy "$(ProjectDir)..\zzip\zzip.h" "$(SolutionDir)..\include\zzip" /y
+copy "$(ProjectDir)..\zzip\plugin.h" "$(SolutionDir)..\include\zzip" /y
 copy "$(ProjectDir)..\zzip\types.h" "$(SolutionDir)..\include\zzip" /y
 copy "$(ProjectDir)..\zzip\conf.h" "$(SolutionDir)..\include\zzip" /y
 copy "$(ProjectDir)..\zzip\_msvc.h" "$(SolutionDir)..\include\zzip" /y
@@ -139,6 +140,7 @@ copy "$(ProjectDir)..\zzip\_msvc.h" "$(SolutionDir)..\include\zzip" /y
       <Command>copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)..\lib\$(Configuration)\" /y
 mkdir "$(SolutionDir)..\include\zzip"
 copy "$(ProjectDir)..\zzip\zzip.h" "$(SolutionDir)..\include\zzip" /y
+copy "$(ProjectDir)..\zzip\plugin.h" "$(SolutionDir)..\include\zzip" /y
 copy "$(ProjectDir)..\zzip\types.h" "$(SolutionDir)..\include\zzip" /y
 copy "$(ProjectDir)..\zzip\conf.h" "$(SolutionDir)..\include\zzip" /y
 copy "$(ProjectDir)..\zzip\_msvc.h" "$(SolutionDir)..\include\zzip" /y

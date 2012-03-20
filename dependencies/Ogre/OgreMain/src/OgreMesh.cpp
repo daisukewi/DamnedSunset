@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -112,7 +112,9 @@ namespace Ogre {
         mEdgeListsBuilt(false),
         mAutoBuildEdgeLists(true), // will be set to false by serializers of 1.30 and above
 		mSharedVertexDataAnimationType(VAT_NONE),
+		mSharedVertexDataAnimationIncludesNormals(false),
 		mAnimationTypesDirty(true),
+		mPosesIncludeNormals(false),
 		sharedVertexData(0)
     {
 
@@ -391,7 +393,7 @@ namespace Ogre {
 
             // Copy lod face lists
             newSub->mLodFaceList.reserve((*subi)->mLodFaceList.size());
-            ProgressiveMesh::LODFaceList::const_iterator facei;
+            SubMesh::LODFaceList::const_iterator facei;
             for (facei = (*subi)->mLodFaceList.begin(); facei != (*subi)->mLodFaceList.end(); ++facei) {
                 IndexData* newIndexData = (*facei)->clone();
                 newSub->mLodFaceList.push_back(newIndexData);
@@ -473,24 +475,22 @@ namespace Ogre {
     void Mesh::_setBounds(const AxisAlignedBox& bounds, bool pad)
     {
         mAABB = bounds;
-        Vector3 max = mAABB.getMaximum();
-        Vector3 min = mAABB.getMinimum();
 		mBoundRadius = Math::boundingRadiusFromAABB(mAABB);
 
-        if (pad)
-        {
-            // Pad out the AABB a little, helps with most bounds tests
-            Vector3 scaler = (max - min) * MeshManager::getSingleton().getBoundsPaddingFactor();
-            mAABB.setExtents(min  - scaler, max + scaler);
-            // Pad out the sphere a little too
-            mBoundRadius = mBoundRadius + (mBoundRadius * MeshManager::getSingleton().getBoundsPaddingFactor());
-        }
-        else
-        {
-            mAABB.setExtents(min, max);
-            mBoundRadius = mBoundRadius;
-        }
+		if( mAABB.isFinite() )
+		{
+			Vector3 max = mAABB.getMaximum();
+			Vector3 min = mAABB.getMinimum();
 
+			if (pad)
+			{
+				// Pad out the AABB a little, helps with most bounds tests
+				Vector3 scaler = (max - min) * MeshManager::getSingleton().getBoundsPaddingFactor();
+				mAABB.setExtents(min  - scaler, max + scaler);
+				// Pad out the sphere a little too
+				mBoundRadius = mBoundRadius + (mBoundRadius * MeshManager::getSingleton().getBoundsPaddingFactor());
+			}
+		}
     }
     //-----------------------------------------------------------------------
     void Mesh::_setBoundingSphereRadius(Real radius)
@@ -887,8 +887,9 @@ namespace Ogre {
                 }
                 else
                 {
-                    // Ran out of assignments for this vertex, use weight 0 to indicate empty
-                    *pWeight++ = 0.0f;
+                    // Ran out of assignments for this vertex, use weight 0 to indicate empty.
+					// If no bones are defined (an error in itself) set bone 0 as the assigned bone. 
+                    *pWeight++ = (bone == 0) ? 1.0f : 0.0f;
                     *pIndex++ = 0;
                 }
             }
@@ -914,63 +915,6 @@ namespace Ogre {
     const String& Mesh::getSkeletonName(void) const
     {
         return mSkeletonName;
-    }
-    //---------------------------------------------------------------------
-    void Mesh::generateLodLevels(const LodValueList& lodValues,
-        ProgressiveMesh::VertexReductionQuota reductionMethod, Real reductionValue)
-    {
-#if OGRE_DEBUG_MODE
-        mLodStrategy->assertSorted(lodValues);
-#endif
-
-        removeLodLevels();
-
-		LogManager::getSingleton().stream()
-			<< "Generating " << lodValues.size()
-			<< " lower LODs for mesh " << mName;
-
-        SubMeshList::iterator isub, isubend;
-        isubend = mSubMeshList.end();
-        for (isub = mSubMeshList.begin(); isub != isubend; ++isub)
-        {
-            // check if triangles are present
-            if ((*isub)->indexData->indexCount > 0)
-            {
-                // Set up data for reduction
-                VertexData* pVertexData = (*isub)->useSharedVertices ? sharedVertexData : (*isub)->vertexData;
-
-                ProgressiveMesh pm(pVertexData, (*isub)->indexData);
-                pm.build(
-                static_cast<ushort>(lodValues.size()),
-                    &((*isub)->mLodFaceList),
-                    reductionMethod, reductionValue);
-
-            }
-            else
-            {
-                // create empty index data for each lod
-                for (size_t i = 0; i < lodValues.size(); ++i)
-                {
-                    (*isub)->mLodFaceList.push_back(OGRE_NEW IndexData);
-                }
-            }
-        }
-
-        // Iterate over the lods and record usage
-        LodValueList::const_iterator ivalue, ivalueend;
-        ivalueend = lodValues.end();
-        mMeshLodUsageList.resize(lodValues.size() + 1);
-        MeshLodUsageList::iterator ilod = mMeshLodUsageList.begin();
-        for (ivalue = lodValues.begin(); ivalue != ivalueend; ++ivalue)
-        {
-            // Record usage
-            MeshLodUsage& lod = *++ilod;
-            lod.userValue = (*ivalue);
-            lod.value = mLodStrategy->transformUserValue(lod.userValue);
-            lod.edgeData = 0;
-            lod.manualMesh.setNull();
-        }
-        mNumLods = static_cast<ushort>(lodValues.size() + 1);
     }
     //---------------------------------------------------------------------
     ushort Mesh::getNumLodLevels(void) const
@@ -1358,7 +1302,6 @@ namespace Ogre {
         // Go through all the vertex data and locate source and dest (must agree)
         bool sharedGeometryDone = false;
         bool foundExisting = false;
-		VertexElementSemantic foundSemantic = VES_TEXTURE_COORDINATES;
         bool firstOne = true;
         SubMeshList::iterator i, iend;
         iend = mSubMeshList.end();
@@ -1407,7 +1350,6 @@ namespace Ogre {
                     {
                         // This is a 3D set, might be tangents
                         foundExisting = true;
-						foundSemantic = VES_TEXTURE_COORDINATES;
                     }
 
                 }
@@ -1424,7 +1366,6 @@ namespace Ogre {
 				if (testElem)
 				{
 					foundExisting = true;
-					foundSemantic = targetSemantic;
 				}
 
 			}
@@ -1819,17 +1760,28 @@ namespace Ogre {
 		const VertexElement* posElem =
 			targetVertexData->vertexDeclaration->findElementBySemantic(VES_POSITION);
 		assert(posElem);
+		const VertexElement* normElem =
+			targetVertexData->vertexDeclaration->findElementBySemantic(VES_NORMAL);
+		
+		bool morphNormals = false;
+		if (normElem && normElem->getSource() == posElem->getSource() &&
+			b1->getVertexSize() == 24 && b2->getVertexSize() == 24)
+			morphNormals = true;
+		
 		HardwareVertexBufferSharedPtr destBuf =
 			targetVertexData->vertexBufferBinding->getBuffer(
 				posElem->getSource());
-		assert(posElem->getSize() == destBuf->getVertexSize() &&
-			"Positions must be in a buffer on their own for morphing");
+		assert((posElem->getSize() == destBuf->getVertexSize()
+				|| (morphNormals && posElem->getSize() + normElem->getSize() == destBuf->getVertexSize())) &&
+			"Positions (or positions & normals) must be in a buffer on their own for morphing");
 		float* pdst = static_cast<float*>(
 			destBuf->lock(HardwareBuffer::HBL_DISCARD));
 
         OptimisedUtil::getImplementation()->softwareVertexMorph(
             t, pb1, pb2, pdst,
-            targetVertexData->vertexCount);
+			b1->getVertexSize(), b2->getVertexSize(), destBuf->getVertexSize(),
+            targetVertexData->vertexCount,
+			morphNormals);
 
 		destBuf->unlock();
 		b1->unlock();
@@ -1839,6 +1791,7 @@ namespace Ogre {
 	//---------------------------------------------------------------------
 	void Mesh::softwareVertexPoseBlend(Real weight,
 		const map<size_t, Vector3>::type& vertexOffsetMap,
+		const map<size_t, Vector3>::type& normalsMap,
 		VertexData* targetVertexData)
 	{
 		// Do nothing if no weight
@@ -1847,23 +1800,27 @@ namespace Ogre {
 
 		const VertexElement* posElem =
 			targetVertexData->vertexDeclaration->findElementBySemantic(VES_POSITION);
+		const VertexElement* normElem =
+			targetVertexData->vertexDeclaration->findElementBySemantic(VES_NORMAL);
 		assert(posElem);
+		// Support normals if they're in the same buffer as positions and pose includes them
+		bool normals = normElem && !normalsMap.empty() && posElem->getSource() == normElem->getSource();
 		HardwareVertexBufferSharedPtr destBuf =
 			targetVertexData->vertexBufferBinding->getBuffer(
 			posElem->getSource());
-		assert(posElem->getSize() == destBuf->getVertexSize() &&
-			"Positions must be in a buffer on their own for pose blending");
+
+		size_t elemsPerVertex = destBuf->getVertexSize()/sizeof(float);
 
 		// Have to lock in normal mode since this is incremental
 		float* pBase = static_cast<float*>(
 			destBuf->lock(HardwareBuffer::HBL_NORMAL));
-
+				
 		// Iterate over affected vertices
 		for (map<size_t, Vector3>::type::const_iterator i = vertexOffsetMap.begin();
 			i != vertexOffsetMap.end(); ++i)
 		{
 			// Adjust pointer
-			float *pdst = pBase + i->first*3;
+			float *pdst = pBase + i->first*elemsPerVertex;
 
 			*pdst = *pdst + (i->second.x * weight);
 			++pdst;
@@ -1871,9 +1828,28 @@ namespace Ogre {
 			++pdst;
 			*pdst = *pdst + (i->second.z * weight);
 			++pdst;
-
+			
 		}
+		
+		if (normals)
+		{
+			float* pNormBase;
+			normElem->baseVertexPointerToElement((void*)pBase, &pNormBase);
+			for (map<size_t, Vector3>::type::const_iterator i = normalsMap.begin();
+				i != normalsMap.end(); ++i)
+			{
+				// Adjust pointer
+				float *pdst = pNormBase + i->first*elemsPerVertex;
 
+				*pdst = *pdst + (i->second.x * weight);
+				++pdst;
+				*pdst = *pdst + (i->second.y * weight);
+				++pdst;
+				*pdst = *pdst + (i->second.z * weight);
+				++pdst;				
+				
+			}
+		}
 		destBuf->unlock();
 	}
     //---------------------------------------------------------------------
@@ -1940,10 +1916,22 @@ namespace Ogre {
 
 		// Initialise all types to nothing
 		mSharedVertexDataAnimationType = VAT_NONE;
+		mSharedVertexDataAnimationIncludesNormals = false;
 		for (SubMeshList::const_iterator i = mSubMeshList.begin();
 			i != mSubMeshList.end(); ++i)
 		{
 			(*i)->mVertexAnimationType = VAT_NONE;
+			(*i)->mVertexAnimationIncludesNormals = false;
+		}
+		
+		mPosesIncludeNormals = false;
+		for (PoseList::const_iterator i = mPoseList.begin(); i != mPoseList.end(); ++i)
+		{
+			if (i == mPoseList.begin())
+				mPosesIncludeNormals = (*i)->getIncludesNormals();
+			else if (mPosesIncludeNormals != (*i)->getIncludesNormals())
+				// only support normals if consistently included
+				mPosesIncludeNormals = mPosesIncludeNormals && (*i)->getIncludesNormals();
 		}
 
 		// Scan all animations and determine the type of animation tracks
@@ -1971,6 +1959,11 @@ namespace Ogre {
 							"Mesh::_determineAnimationTypes");
 					}
 					mSharedVertexDataAnimationType = track->getAnimationType();
+					if (track->getAnimationType() == VAT_MORPH)
+						mSharedVertexDataAnimationIncludesNormals = track->getVertexAnimationIncludesNormals();
+					else 
+						mSharedVertexDataAnimationIncludesNormals = mPosesIncludeNormals;
+
 				}
 				else
 				{
@@ -1988,6 +1981,10 @@ namespace Ogre {
 							"Mesh::_determineAnimationTypes");
 					}
 					sm->mVertexAnimationType = track->getAnimationType();
+					if (track->getAnimationType() == VAT_MORPH)
+						sm->mVertexAnimationIncludesNormals = track->getVertexAnimationIncludesNormals();
+					else 
+						sm->mVertexAnimationIncludesNormals = mPosesIncludeNormals;
 
 				}
 			}
@@ -2008,6 +2005,7 @@ namespace Ogre {
 		}
 
 		Animation* ret = OGRE_NEW Animation(name, length);
+		ret->_notifyContainer(this);
 
 		// Add to list
 		mAnimationsList[name] = ret;
@@ -2050,7 +2048,7 @@ namespace Ogre {
 		return static_cast<unsigned short>(mAnimationsList.size());
 	}
 	//---------------------------------------------------------------------
-	bool Mesh::hasAnimation(const String& name)
+	bool Mesh::hasAnimation(const String& name) const
 	{
 		return _getAnimationImpl(name) != 0;
 	}

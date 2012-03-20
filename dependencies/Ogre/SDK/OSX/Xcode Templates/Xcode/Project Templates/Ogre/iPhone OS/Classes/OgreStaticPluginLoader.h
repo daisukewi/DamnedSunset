@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 Also see acknowledgements in Readme.html
 
 You may use this sample code for anything you like, it is not covered by the
@@ -45,8 +45,8 @@ Description: Utility class to load plugins statically
 #ifdef OGRE_STATIC_Direct3D9
 #  include "OgreD3D9Plugin.h"
 #endif
-#ifdef OGRE_STATIC_Direct3D10
-#  include "OgreD3D10Plugin.h"
+#ifdef OGRE_STATIC_Direct3D11
+#  include "OgreD3D11Plugin.h"
 #endif
 #ifdef OGRE_STATIC_PCZSceneManager
 #  include "OgrePCZPlugin.h"
@@ -96,8 +96,8 @@ namespace Ogre
 #ifdef OGRE_STATIC_Direct3D9
 		D3D9Plugin* mD3D9Plugin;
 #endif
-#ifdef OGRE_STATIC_Direct3D10
-		D3D10Plugin* mD3D10Plugin;
+#ifdef OGRE_STATIC_Direct3D11
+		D3D11Plugin* mD3D11Plugin;
 #endif
 	public:
 		StaticPluginLoader() {}
@@ -118,9 +118,9 @@ namespace Ogre
 			mD3D9Plugin = OGRE_NEW D3D9Plugin();
 			root.installPlugin(mD3D9Plugin);
 #endif
-#ifdef OGRE_STATIC_Direct3D10
-			mD3D10Plugin = OGRE_NEW D3D10Plugin();
-			root.installPlugin(mD3D10Plugin);
+#ifdef OGRE_STATIC_Direct3D11
+			mD3D11Plugin = OGRE_NEW D3D11Plugin();
+			root.installPlugin(mD3D11Plugin);
 #endif
 #ifdef OGRE_STATIC_CgProgramManager
 			mCgPlugin = OGRE_NEW CgPlugin();
@@ -172,8 +172,8 @@ namespace Ogre
 #ifdef OGRE_STATIC_Direct3D9
 			OGRE_DELETE mD3D9Plugin;
 #endif
-#ifdef OGRE_STATIC_Direct3D10
-			OGRE_DELETE mD3D10Plugin;
+#ifdef OGRE_STATIC_Direct3D11
+			OGRE_DELETE mD3D11Plugin;
 #endif
 #ifdef OGRE_STATIC_GL
 			OGRE_DELETE mGLPlugin;

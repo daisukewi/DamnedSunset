@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -35,18 +35,18 @@ THE SOFTWARE.
 namespace Ogre {
 
 	//-----------------------------------------------------------------------
-	template<> GLSLLinkProgramManager* Singleton<GLSLLinkProgramManager>::ms_Singleton = 0;
+	template<> GLSLLinkProgramManager* Singleton<GLSLLinkProgramManager>::msSingleton = 0;
 
 	//-----------------------------------------------------------------------
     GLSLLinkProgramManager* GLSLLinkProgramManager::getSingletonPtr(void)
     {
-        return ms_Singleton;
+        return msSingleton;
     }
 
 	//-----------------------------------------------------------------------
     GLSLLinkProgramManager& GLSLLinkProgramManager::getSingleton(void)
     {  
-        assert( ms_Singleton );  return ( *ms_Singleton );  
+        assert( msSingleton );  return ( *msSingleton );  
     }
 
 	//-----------------------------------------------------------------------
@@ -435,7 +435,7 @@ namespace Ogre {
 				line = src.substr(currPos, endPos - currPos);
 
 				// Remove spaces before opening square braces, otherwise
-				// the following split() can split the line at inappropiate
+				// the following split() can split the line at inappropriate
 				// places (e.g. "vec3 something [3]" won't work).
 				for (String::size_type sqp = line.find (" ["); sqp != String::npos;
 					 sqp = line.find (" ["))

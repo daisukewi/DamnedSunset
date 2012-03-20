@@ -68,9 +68,9 @@ namespace Ogre {
         mPixelRightBorderSize(0),
         mPixelTopBorderSize(0),
         mPixelBottomBorderSize(0),
-        mpBorderMaterial(0),
+        mBorderMaterial(0),
         mBorderRenderable(0)
-    {
+    {   
         if (createParamDictionary("BorderPanelOverlayElement"))
         {
             addBaseParameters();
@@ -132,6 +132,7 @@ namespace Ogre {
 			mRenderOp2.indexData = OGRE_NEW IndexData();
 			mRenderOp2.indexData->indexCount = 8 * 6;
 			mRenderOp2.indexData->indexStart = 0;
+            mRenderOp2.useGlobalInstancingVertexBufferIsAvailable = false;
 
 			/* Each cell is
 				0-----2
@@ -487,14 +488,14 @@ namespace Ogre {
     void BorderPanelOverlayElement::setBorderMaterialName(const String& name)
     {
         mBorderMaterialName = name;
-        mpBorderMaterial = MaterialManager::getSingleton().getByName(name);
-        if (mpBorderMaterial.isNull())
+        mBorderMaterial = MaterialManager::getSingleton().getByName(name);
+        if (mBorderMaterial.isNull())
 			OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, "Could not find material " + name,
 				"BorderPanelOverlayElement::setBorderMaterialName" );
-        mpBorderMaterial->load();
+        mBorderMaterial->load();
         // Set some prerequisites to be sure
-        mpBorderMaterial->setLightingEnabled(false);
-        mpBorderMaterial->setDepthCheckEnabled(false);
+        mBorderMaterial->setLightingEnabled(false);
+        mBorderMaterial->setDepthCheckEnabled(false);
 
     }
     //---------------------------------------------------------------------

@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 Copyright (c) 2006 Matthias Fink, netAllied GmbH <matthias.fink@web.de>								
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -495,7 +495,7 @@ namespace Ogre
 	void ConvexBody::mergePolygons( void )
 	{
 		// Merge all polygons that lay in the same plane as one big polygon.
-		// A convex body does not have two seperate regions (seperated by polygons
+		// A convex body does not have two separate regions (separated by polygons
 		// with different normals) where the same normal occurs, so we can simply
 		// search all similar normals of a polygon. Two different options are 
 		// possible when the normals fit:

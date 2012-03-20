@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -44,7 +44,7 @@ void UseCustomCapabilitiesTests::setUp()
 {
     using namespace Ogre;
 
-	// set up silent logging to not polute output
+	// set up silent logging to not pollute output
 	if(LogManager::getSingletonPtr())
 		OGRE_DELETE Ogre::LogManager::getSingletonPtr();
 	
@@ -67,7 +67,7 @@ void UseCustomCapabilitiesTests::setUp()
 	if(Ogre::ResourceGroupManager::getSingletonPtr())
 		OGRE_DELETE Ogre::ResourceGroupManager::getSingletonPtr();
 
-	// set up silent logging to not polute output
+	// set up silent logging to not pollute output
 	if(LogManager::getSingletonPtr())
 		OGRE_DELETE Ogre::LogManager::getSingletonPtr();
 }
@@ -75,7 +75,7 @@ void UseCustomCapabilitiesTests::setUp()
 void UseCustomCapabilitiesTests::tearDown()
 {
 	using namespace Ogre;
-	// set up silent logging to not polute output
+	// set up silent logging to not pollute output
 	if(LogManager::getSingletonPtr())
 		OGRE_DELETE Ogre::LogManager::getSingletonPtr();
 
@@ -184,7 +184,7 @@ void UseCustomCapabilitiesTests::testCustomCapabilitiesGL()
 {
     using namespace Ogre;
 
-	// set up silent logging to not polute output
+	// set up silent logging to not pollute output
 	if(LogManager::getSingletonPtr())
 		OGRE_DELETE Ogre::LogManager::getSingletonPtr();
 	
@@ -239,7 +239,7 @@ void setUpD3D9RenderSystemOptions(Ogre::RenderSystem* rs)
 
 void UseCustomCapabilitiesTests::testCustomCapabilitiesD3D9()
 {
-	// set up silent logging to not polute output
+	// set up silent logging to not pollute output
 	if(LogManager::getSingletonPtr())
 		OGRE_DELETE Ogre::LogManager::getSingletonPtr();
 	

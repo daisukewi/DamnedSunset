@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -68,7 +68,7 @@ bool _OgrePrivate __gtk_init_once ()
     char **argv = NULL;
     // Avoid gtk calling setlocale() otherwise
     // scanf("%f") won't work on some locales etc.
-    // Leave this on application developer's responsability.
+    // Leave this on application developer's responsibility.
     gtk_disable_setlocale ();
     return gtk_init_check (&argc, &argv);
 }

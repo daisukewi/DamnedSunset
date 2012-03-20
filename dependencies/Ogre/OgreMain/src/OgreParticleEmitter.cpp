@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,7 @@ namespace Ogre
     EmitterCommands::CmdColourRangeStart ParticleEmitter::msColourRangeStartCmd;
     EmitterCommands::CmdColourRangeEnd ParticleEmitter::msColourRangeEndCmd;
     EmitterCommands::CmdDirection ParticleEmitter::msDirectionCmd;
+    EmitterCommands::CmdUp ParticleEmitter::msUpCmd;    
     EmitterCommands::CmdEmissionRate ParticleEmitter::msEmissionRateCmd;
     EmitterCommands::CmdMaxTTL ParticleEmitter::msMaxTTLCmd;
     EmitterCommands::CmdMaxVelocity ParticleEmitter::msMaxVelocityCmd;
@@ -101,7 +102,7 @@ namespace Ogre
     { 
         mDirection = inDirection; 
         mDirection.normalise();
-        // Generate an up vector (any will do)
+        // Generate a default up vector.
         mUp = mDirection.perpendicular();
         mUp.normalise();
     }
@@ -109,6 +110,17 @@ namespace Ogre
     const Vector3& ParticleEmitter::getDirection(void) const
     { 
         return mDirection; 
+    }
+    //-----------------------------------------------------------------------
+    void ParticleEmitter::setUp(const Vector3& inUp) 
+    {
+        mUp = inUp; 
+        mUp.normalise();
+    }
+    //-----------------------------------------------------------------------
+    const Vector3& ParticleEmitter::getUp(void) const
+    { 
+        return mUp; 
     }
     //-----------------------------------------------------------------------
     void ParticleEmitter::setAngle(const Radian& angle)
@@ -333,6 +345,10 @@ namespace Ogre
         dict->addParameter(ParameterDef("direction", 
             "The base direction of the emitter." , PT_VECTOR3),
             &msDirectionCmd);
+
+        dict->addParameter(ParameterDef("up", 
+            "The up vector of the emitter." , PT_VECTOR3),
+            &msUpCmd);            
 
         dict->addParameter(ParameterDef("emission_rate", 
             "The number of particles emitted per second." , PT_REAL),

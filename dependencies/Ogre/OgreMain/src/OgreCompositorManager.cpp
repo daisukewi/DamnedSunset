@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -38,14 +38,14 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-template<> CompositorManager* Singleton<CompositorManager>::ms_Singleton = 0;
+template<> CompositorManager* Singleton<CompositorManager>::msSingleton = 0;
 CompositorManager* CompositorManager::getSingletonPtr(void)
 {
-	return ms_Singleton;
+	return msSingleton;
 }
 CompositorManager& CompositorManager::getSingleton(void)
 {  
-	assert( ms_Singleton );  return ( *ms_Singleton );  
+	assert( msSingleton );  return ( *msSingleton );  
 }//-----------------------------------------------------------------------
 CompositorManager::CompositorManager():
 	mRectangle(0)
@@ -84,44 +84,6 @@ Resource* CompositorManager::createImpl(const String& name, ResourceHandle handl
 //-----------------------------------------------------------------------
 void CompositorManager::initialise(void)
 {
-    /// Create "default" compositor
-    /** Compositor that is used to implicitly represent the original
-        render in the chain. This is an identity compositor with only an output pass:
-    compositor Ogre/Scene
-    {
-        technique
-        {
-            target_output
-            {
-				pass clear
-				{
-					/// Clear frame
-				}
-                pass render_scene
-                {
-					visibility_mask FFFFFFFF
-					render_queues SKIES_EARLY SKIES_LATE
-                }
-            }
-        }
-    };
-    */
-    CompositorPtr scene = create("Ogre/Scene", ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
-    CompositionTechnique *t = scene->createTechnique();
-    CompositionTargetPass *tp = t->getOutputTargetPass();
-    tp->setVisibilityMask(0xFFFFFFFF);
-	{
-		CompositionPass *pass = tp->createPass();
-		pass->setType(CompositionPass::PT_CLEAR);
-	}
-	{
-		CompositionPass *pass = tp->createPass();
-		pass->setType(CompositionPass::PT_RENDERSCENE);
-		/// Render everything, including skies
-		pass->setFirstRenderQueue(RENDER_QUEUE_BACKGROUND);
-		pass->setLastRenderQueue(RENDER_QUEUE_SKIES_LATE);
-	}
-
 }
 //-----------------------------------------------------------------------
 void CompositorManager::parseScript(DataStreamPtr& stream, const String& groupName)
@@ -134,10 +96,6 @@ CompositorChain *CompositorManager::getCompositorChain(Viewport *vp)
     Chains::iterator i=mChains.find(vp);
     if(i != mChains.end())
     {
-		// Make sure we have the right viewport
-		// It's possible that this chain may have outlived a viewport and another
-		// viewport was created at the same physical address, meaning we find it again but the viewport is gone
-		i->second->_notifyViewport(vp);
         return i->second;
     }
     else
@@ -253,6 +211,10 @@ void CompositorManager::_reconstructAllCompositorResources()
 			}
 		}
 	}
+
+	//UVs are lost, and will never be reconstructed unless we do them again, now
+	if( mRectangle )
+		mRectangle->setDefaultUVs();
 
 	for (InstVec::iterator i = instancesToReenable.begin(); i != instancesToReenable.end(); ++i)
 	{
@@ -509,6 +471,19 @@ void CompositorManager::registerCompositorLogic(const String& name, CompositorLo
 	mCompositorLogics[name] = logic;
 }
 //---------------------------------------------------------------------
+void CompositorManager::unregisterCompositorLogic(const String& name)
+{
+	CompositorLogicMap::iterator itor = mCompositorLogics.find(name);
+	if( itor == mCompositorLogics.end() )
+	{
+		OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+			"Compositor logic '" + name + "' not registered.",
+			"CompositorManager::unregisterCompositorLogic");
+	}
+
+	mCompositorLogics.erase( itor );
+}
+//---------------------------------------------------------------------
 CompositorLogic* CompositorManager::getCompositorLogic(const String& name)
 {
 	CompositorLogicMap::iterator it = mCompositorLogics.find(name);
@@ -548,24 +523,6 @@ CustomCompositionPass* CompositorManager::getCustomCompositionPass(const String&
 			"CompositorManager::getCustomCompositionPass");
 	}
 	return it->second;
-}
-//---------------------------------------------------------------------
-void CompositorManager::_relocateChain( Viewport* sourceVP, Viewport* destVP )
-{
-	if (sourceVP != destVP)
-	{
-		CompositorChain *chain = getCompositorChain(sourceVP);
-		Ogre::RenderTarget *srcTarget = sourceVP->getTarget();
-		Ogre::RenderTarget *dstTarget = destVP->getTarget();
-		if (srcTarget != dstTarget)
-		{
-			srcTarget->removeListener(chain);
-			dstTarget->addListener(chain);
-		}
-		chain->_notifyViewport(destVP);
-		mChains.erase(sourceVP);
-		mChains[destVP] = chain;
-	}
 }
 //-----------------------------------------------------------------------
 }

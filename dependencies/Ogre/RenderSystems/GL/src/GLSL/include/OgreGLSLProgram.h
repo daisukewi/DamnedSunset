@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -50,7 +50,7 @@ namespace Ogre {
 		GLSL supports multiple modular shader objects that can be attached to one program
 		object to form a single shader.  This is supported through the "attach" material script
 		command.  All the modules to be attached are listed on the same line as the attach command
-		seperated by white space.
+		separated by white space.
         
     */
     class _OgreGLExport GLSLProgram : public HighLevelGpuProgram
@@ -117,6 +117,9 @@ namespace Ogre {
 		virtual void setMaxOutputVertices(int maxOutputVertices) 
 		{ mMaxOutputVertices = maxOutputVertices; }
 
+		/// compile source into shader object
+		bool compile( const bool checkErrors = true);
+
 		/// Command object for setting macro defines
 		class CmdPreprocessorDefines : public ParamCommand
 		{
@@ -170,8 +173,6 @@ namespace Ogre {
         void populateParameterNames(GpuProgramParametersSharedPtr params);
         /// Populate the passed parameters with name->index map, must be overridden
         void buildConstantDefinitions() const;
-		/// compile source into shader object
-		bool compile( const bool checkErrors = true);
 
 	private:
 		/// GL handle for shader object

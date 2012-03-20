@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,39 +43,55 @@ THE SOFTWARE.
 
 namespace Ogre {
     /// stream overhead = ID + size
-    const long STREAM_OVERHEAD_SIZE = sizeof(uint16) + sizeof(uint32);
-    //---------------------------------------------------------------------
+    const long SSTREAM_OVERHEAD_SIZE = sizeof(uint16) + sizeof(uint32);
+	const uint16 HEADER_STREAM_ID_EXT = 0x1000;
+	//---------------------------------------------------------------------
     SkeletonSerializer::SkeletonSerializer()
     {
         // Version number
         // NB changed to include bone names in 1.1
-        mVersion = "[Serializer_v1.10]";
+        mVersion = "[Unknown]";
     }
     //---------------------------------------------------------------------
     SkeletonSerializer::~SkeletonSerializer()
     {
     }
+
+	//---------------------------------------------------------------------
+	void SkeletonSerializer::exportSkeleton(const Skeleton* pSkeleton, 
+		const String& filename, SkeletonVersion ver, Endian endianMode)
+	{
+		std::fstream *f = OGRE_NEW_T(std::fstream, MEMCATEGORY_GENERAL)();
+		f->open(filename.c_str(), std::ios::binary | std::ios::out);
+		DataStreamPtr stream(OGRE_NEW FileStreamDataStream(f));
+
+		exportSkeleton(pSkeleton, stream, ver, endianMode);
+
+		stream->close();
+	}
     //---------------------------------------------------------------------
     void SkeletonSerializer::exportSkeleton(const Skeleton* pSkeleton, 
-		const String& filename, Endian endianMode)
+		DataStreamPtr stream, SkeletonVersion ver, Endian endianMode)
     {
+		setWorkingVersion(ver);
 		// Decide on endian mode
 		determineEndianness(endianMode);
 
         String msg;
-        mpfFile = fopen(filename.c_str(), "wb");
-		if (!mpfFile)
+        mStream = stream; 
+		if (!stream->isWriteable())
 		{
 			OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE,
-				"Unable to open file " + filename + " for writing",
+				"Unable to write to stream " + stream->getName(),
 				"SkeletonSerializer::exportSkeleton");
 		}
+
 
         writeFileHeader();
 
         // Write main skeleton data
         LogManager::getSingleton().logMessage("Exporting bones..");
-        writeSkeleton(pSkeleton);
+        writeSkeleton(pSkeleton, ver);
         LogManager::getSingleton().logMessage("Bones exported.");
 
         // Write all animations
@@ -87,7 +103,7 @@ namespace Ogre {
             Animation* pAnim = pSkeleton->getAnimation(i);
 			LogManager::getSingleton().stream()
 				<< "Exporting animation: " << pAnim->getName();
-            writeAnimation(pSkeleton, pAnim);
+            writeAnimation(pSkeleton, pAnim, ver);
             LogManager::getSingleton().logMessage("Animation exported.");
 
         }
@@ -99,9 +115,7 @@ namespace Ogre {
 		{
 			const LinkedSkeletonAnimationSource& link = linkIt.getNext();
 			writeSkeletonAnimationLink(pSkeleton, link);
-		}
-
-        fclose(mpfFile);
+		}       
 
     }
     //---------------------------------------------------------------------
@@ -119,6 +133,14 @@ namespace Ogre {
             streamID = readChunk(stream);
             switch (streamID)
             {
+			case SKELETON_BLENDMODE:
+			{
+				// Optional blend mode
+				uint16 blendMode;
+				readShorts(stream, &blendMode, 1);
+				pSkel->setBlendMode(static_cast<SkeletonAnimationBlendMode>(blendMode));
+				break;
+			}
             case SKELETON_BONE:
                 readBone(stream, pSkel);
                 break;
@@ -134,14 +156,30 @@ namespace Ogre {
             }
         }
 
-        // Assume bones are stored in the binding pose
+		// Assume bones are stored in the binding pose
         pSkel->setBindingPose();
 
 
     }
-    //---------------------------------------------------------------------
-    void SkeletonSerializer::writeSkeleton(const Skeleton* pSkel)
+	
+	//---------------------------------------------------------------------
+	void SkeletonSerializer::setWorkingVersion(SkeletonVersion ver)
+	{
+		if (ver == SKELETON_VERSION_1_0)
+			mVersion = "[Serializer_v1.10]";
+		else mVersion = "[Serializer_v1.80]";
+	}
+	//---------------------------------------------------------------------
+    void SkeletonSerializer::writeSkeleton(const Skeleton* pSkel, SkeletonVersion ver)
     {
+		// Write blend mode
+		if ((int)ver > (int)SKELETON_VERSION_1_0)
+		{
+			writeChunkHeader(SKELETON_BLENDMODE, SSTREAM_OVERHEAD_SIZE + sizeof(unsigned short));
+			uint16 blendMode = static_cast<uint16>(pSkel->getBlendMode());
+			writeShorts(&blendMode, 1);
+		}
+		
         // Write each bone
         unsigned short numBones = pSkel->getNumBones();
         unsigned short i;
@@ -196,7 +234,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     void SkeletonSerializer::writeAnimation(const Skeleton* pSkel, 
-        const Animation* anim)
+        const Animation* anim, SkeletonVersion ver)
     {
         writeChunkHeader(SKELETON_ANIMATION, calcAnimationSize(pSkel, anim));
 
@@ -205,6 +243,27 @@ namespace Ogre {
         // float length                      : Length of the animation in seconds
         float len = anim->getLength();
         writeFloats(&len, 1);
+		
+		if ((int)ver > (int)SKELETON_VERSION_1_0)
+		{
+			if (anim->getUseBaseKeyFrame())
+			{
+				size_t size = SSTREAM_OVERHEAD_SIZE;
+				// char* baseAnimationName (including terminator)
+				size += anim->getBaseKeyFrameAnimationName().length() + 1;
+				// float baseKeyFrameTime
+				size += sizeof(float);
+				
+				writeChunkHeader(SKELETON_ANIMATION_BASEINFO, size);
+				
+				// char* baseAnimationName (blank for self)
+				writeString(anim->getBaseKeyFrameAnimationName());
+				
+				// float baseKeyFrameTime
+				float t = (float)anim->getBaseKeyFrameTime();
+				writeFloats(&t, 1);
+			}
+		}
 
         // Write all tracks
         Animation::NodeTrackIterator trackIt = anim->getNodeTrackIterator();
@@ -257,7 +316,7 @@ namespace Ogre {
     size_t SkeletonSerializer::calcBoneSize(const Skeleton* pSkel, 
         const Bone* pBone)
     {
-        size_t size = STREAM_OVERHEAD_SIZE;
+        size_t size = SSTREAM_OVERHEAD_SIZE;
 
         // handle
         size += sizeof(unsigned short);
@@ -280,7 +339,7 @@ namespace Ogre {
     size_t SkeletonSerializer::calcBoneSizeWithoutScale(const Skeleton* pSkel, 
         const Bone* pBone)
     {
-        size_t size = STREAM_OVERHEAD_SIZE;
+        size_t size = SSTREAM_OVERHEAD_SIZE;
 
         // handle
         size += sizeof(unsigned short);
@@ -296,7 +355,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     size_t SkeletonSerializer::calcBoneParentSize(const Skeleton* pSkel)
     {
-        size_t size = STREAM_OVERHEAD_SIZE;
+        size_t size = SSTREAM_OVERHEAD_SIZE;
 
         // handle
         size += sizeof(unsigned short);
@@ -310,7 +369,7 @@ namespace Ogre {
     size_t SkeletonSerializer::calcAnimationSize(const Skeleton* pSkel, 
         const Animation* pAnim)
     {
-        size_t size = STREAM_OVERHEAD_SIZE;
+        size_t size = SSTREAM_OVERHEAD_SIZE;
 
         // Name, including terminator
         size += pAnim->getName().length() + 1;
@@ -330,7 +389,7 @@ namespace Ogre {
     size_t SkeletonSerializer::calcAnimationTrackSize(const Skeleton* pSkel, 
         const NodeAnimationTrack* pTrack)
     {
-        size_t size = STREAM_OVERHEAD_SIZE;
+        size_t size = SSTREAM_OVERHEAD_SIZE;
 
         // unsigned short boneIndex     : Index of bone to apply to
         size += sizeof(unsigned short);
@@ -347,7 +406,7 @@ namespace Ogre {
     size_t SkeletonSerializer::calcKeyFrameSize(const Skeleton* pSkel, 
         const TransformKeyFrame* pKey)
     {
-        size_t size = STREAM_OVERHEAD_SIZE;
+        size_t size = SSTREAM_OVERHEAD_SIZE;
 
         // float time                    : The time position (seconds)
         size += sizeof(float);
@@ -367,7 +426,7 @@ namespace Ogre {
     size_t SkeletonSerializer::calcKeyFrameSizeWithoutScale(const Skeleton* pSkel, 
         const TransformKeyFrame* pKey)
     {
-        size_t size = STREAM_OVERHEAD_SIZE;
+        size_t size = SSTREAM_OVERHEAD_SIZE;
 
         // float time                    : The time position (seconds)
         size += sizeof(float);
@@ -378,7 +437,34 @@ namespace Ogre {
 
         return size;
     }
-    //---------------------------------------------------------------------
+	//---------------------------------------------------------------------
+	void SkeletonSerializer::readFileHeader(DataStreamPtr& stream)
+	{
+		unsigned short headerID;
+
+		// Read header ID
+		readShorts(stream, &headerID, 1);
+
+		if (headerID == HEADER_STREAM_ID_EXT)
+		{
+			// Read version
+			String ver = readString(stream);
+			if ((ver != "[Serializer_v1.10]") &&
+				(ver != "[Serializer_v1.80]"))
+			{
+				OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
+					"Invalid file: version incompatible, file reports " + String(ver),
+					"Serializer::readFileHeader");
+			}
+			mVersion = ver;
+		}
+		else
+		{
+			OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Invalid file: no header", 
+				"Serializer::readFileHeader");
+		}
+	}
+	//---------------------------------------------------------------------
     void SkeletonSerializer::readBone(DataStreamPtr& stream, Skeleton* pSkel)
     {
         // char* name
@@ -437,11 +523,29 @@ namespace Ogre {
         readFloats(stream, &len, 1);
 
         Animation *pAnim = pSkel->createAnimation(name, len);
-
+		
         // Read all tracks
         if (!stream->eof())
         {
             unsigned short streamID = readChunk(stream);
+			// Optional base info is possible
+			if (streamID == SKELETON_ANIMATION_BASEINFO)
+			{
+				// char baseAnimationName
+				String baseAnimName = readString(stream);
+				// float baseKeyFrameTime
+				float baseKeyTime;
+				readFloats(stream, &baseKeyTime, 1);
+				
+				pAnim->setUseBaseKeyFrame(true, baseKeyTime, baseAnimName);
+				
+                if (!stream->eof())
+                {
+                    // Get next stream
+                    streamID = readChunk(stream);
+                }
+			}
+			
             while(streamID == SKELETON_ANIMATION_TRACK && !stream->eof())
             {
                 readAnimationTrack(stream, pAnim, pSkel);
@@ -455,7 +559,7 @@ namespace Ogre {
             if (!stream->eof())
             {
                 // Backpedal back to start of this stream if we've found a non-track
-                stream->skip(-STREAM_OVERHEAD_SIZE);
+                stream->skip(-SSTREAM_OVERHEAD_SIZE);
             }
 
         }
@@ -494,7 +598,7 @@ namespace Ogre {
             if (!stream->eof())
             {
                 // Backpedal back to start of this stream if we've found a non-keyframe
-                stream->skip(-STREAM_OVERHEAD_SIZE);
+                stream->skip(-SSTREAM_OVERHEAD_SIZE);
             }
 
         }
@@ -544,7 +648,7 @@ namespace Ogre {
 	size_t SkeletonSerializer::calcSkeletonAnimationLinkSize(const Skeleton* pSkel, 
 		const LinkedSkeletonAnimationSource& link)
 	{
-		size_t size = STREAM_OVERHEAD_SIZE;
+		size_t size = SSTREAM_OVERHEAD_SIZE;
 
 		// char* skeletonName
 		size += link.skeletonName.length() + 1;

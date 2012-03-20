@@ -5,7 +5,7 @@ This source file is part of OGRE
 For the latest info, see http://www.ogre3d.org
 
 Copyright (c) 2008 Renato Araujo Oliveira Filho <renatox@gmail.com>
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,6 @@ THE SOFTWARE.
 
 #include "OgreRenderSystem.h"
 
-
 namespace Ogre {
     class GLESContext;
     class GLESSupport;
@@ -48,6 +47,14 @@ namespace Ogre {
     class _OgreGLESExport GLESRenderSystem : public RenderSystem
     {
         private:
+            typedef HashMap<GLenum, GLint>              TexEnviMap;
+            typedef HashMap<GLenum, GLfloat>            TexEnvfMap;
+            typedef HashMap<GLenum, const GLfloat *>    TexEnvfvMap;
+            typedef HashMap<GLenum, GLfloat>            PointParamfMap;
+            typedef HashMap<GLenum, const GLfloat *>    PointParamfvMap;
+            typedef HashMap<GLenum, const GLfloat *>    MaterialfvMap;
+            typedef HashMap<GLenum, GLfloat>            LightfMap;
+            typedef HashMap<GLenum, const GLfloat *>    LightfvMap;
 
             /** Array of up to 8 lights, indexed as per API
                 Note that a null value indicates a free slot
@@ -82,7 +89,7 @@ namespace Ogre {
             bool mColourWrite[4];
 
             /// Store last depth write state
-            bool mDepthWrite;
+            GLboolean mDepthWrite;
 
             /// Store last stencil mask state
             uint32 mStencilMask;
@@ -116,10 +123,35 @@ namespace Ogre {
                 which is especially important on mobile or embedded systems.
              */
             ushort mActiveTextureUnit;
+            ushort mActiveClientTextureUnit;
+            TexEnviMap mActiveTexEnviMap;
+            TexEnvfMap mActiveTexEnvfMap;
+            TexEnvfvMap mActiveTexEnvfvMap;
+            PointParamfMap mActivePointParamfMap;
+            PointParamfvMap mActivePointParamfvMap;
+            MaterialfvMap mActiveMaterialfvMap;
+            LightfMap mActiveLightfMap;
+            LightfvMap mActiveLightfvMap;
+            GLint mActiveSourceBlend;
+            GLint mActiveDestBlend;
+            GLint mActiveDepthFunc;
+            GLenum mActiveShadeModel;
+            GLenum mActiveMatrixMode;
+            GLfloat mActivePointSize;
+            GLenum mActiveCullFaceMode;
+            GLfloat mTexMaxAnisotropy;
+            GLfloat mMaxTexMaxAnisotropy;
+            GLclampf mActiveClearDepth;
+            ColourValue mActiveClearColor;
+            GLenum mActiveAlphaFunc;
+            GLclampf mActiveAlphaFuncValue;
 
             /// Check if the GL system has already been initialised
             bool mGLInitialised;
-        
+
+            /// Mask of buffers who contents can be discarded if GL_EXT_discard_framebuffer is supported
+            unsigned int mDiscardBuffers;
+
             /** OpenGL ES doesn't support setting the PolygonMode like desktop GL
                 So we will cache the value and set it manually
              */
@@ -137,6 +169,19 @@ namespace Ogre {
             void setLights();
 
             bool activateGLTextureUnit(size_t unit);
+            bool activateGLClientTextureUnit(size_t unit);
+            void setGLTexEnvi(GLenum target, GLenum name, GLint param);
+            void setGLTexEnvf(GLenum target, GLenum name, GLfloat param);
+            void setGLTexEnvfv(GLenum target, GLenum name, const GLfloat *param);
+            void setGLPointParamf(GLenum name, GLfloat param);
+            void setGLPointParamfv(GLenum name, const GLfloat *param);
+            void setGLMaterialfv(GLenum face, GLenum name, const GLfloat *param);
+            void setGLMatrixMode(GLenum mode);
+            void setGLDepthMask(GLboolean flag);
+            void setGLClearDepthf(GLclampf depth);
+            void setGLColorMask(bool red, bool green, bool blue, bool alpha);
+            void setGLLightf(GLenum light, GLenum name, GLfloat param);
+            void setGLLightfv(GLenum light, GLenum name, const GLfloat *param);
 
         public:
             // Default constructor / destructor
@@ -198,6 +243,13 @@ namespace Ogre {
             /// @copydoc RenderSystem::_createRenderWindow
             RenderWindow* _createRenderWindow(const String &name, unsigned int width, unsigned int height, 
                 bool fullScreen, const NameValuePairList *miscParams = 0);
+
+            /// @copydoc RenderSystem::_createDepthBufferFor
+            DepthBuffer* _createDepthBufferFor( RenderTarget *renderTarget );
+
+            /// Mimics D3D9RenderSystem::_getDepthStencilFormatFor, if no FBO RTT manager, outputs GL_NONE
+            void _getDepthStencilFormatFor( GLenum internalColourFormat, GLenum *depthFormat,
+                                            GLenum *stencilFormat );
 
             /// @copydoc RenderSystem::createMultiRenderTarget
             virtual MultiRenderTarget * createMultiRenderTarget(const String & name);
@@ -410,7 +462,9 @@ namespace Ogre {
              */
             void setScissorTest(bool enabled, size_t left = 0, size_t top = 0, size_t right = 800, size_t bottom = 600);
         
-        
+            void _setDiscardBuffers(unsigned int flags) { mDiscardBuffers = flags; }
+            unsigned int getDiscardBuffers(void) { return mDiscardBuffers; }
+
             void clearFrameBuffer(unsigned int buffers,
                 const ColourValue& colour = ColourValue::Black,
                 Real depth = 1.0f, unsigned short stencil = 0);

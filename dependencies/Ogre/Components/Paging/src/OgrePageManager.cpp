@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,7 @@ THE SOFTWARE.
 #include "OgrePagedWorldSection.h"
 #include "OgrePagedWorld.h"
 #include "OgreGrid2DPageStrategy.h"
+#include "OgreGrid3DPageStrategy.h"
 #include "OgreSimplePageContentCollection.h"
 #include "OgreStreamSerialiser.h"
 #include "OgreRoot.h"
@@ -51,6 +52,7 @@ namespace Ogre
 		, mDebugDisplayLvl(0)
 		, mPagingEnabled(true)
 		, mGrid2DPageStrategy(0)
+		, mGrid3DPageStrategy(0)
 		, mSimpleCollectionFactory(0)
 	{
 
@@ -69,6 +71,7 @@ namespace Ogre
 	{
 		Root::getSingleton().removeFrameListener(&mEventRouter);
 
+		OGRE_DELETE mGrid3DPageStrategy;
 		OGRE_DELETE mGrid2DPageStrategy;
 		OGRE_DELETE mSimpleCollectionFactory;
 	}
@@ -78,6 +81,8 @@ namespace Ogre
 		mGrid2DPageStrategy = OGRE_NEW Grid2DPageStrategy(this);
 		addStrategy(mGrid2DPageStrategy);
 
+		mGrid3DPageStrategy = OGRE_NEW Grid3DPageStrategy(this);
+		addStrategy(mGrid3DPageStrategy);
 	}
 	//---------------------------------------------------------------------
 	void PageManager::createStandardContentFactories()

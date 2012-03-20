@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,7 @@ namespace Ogre {
 		  mSpotOuter(Degree(40.0f)),
           mSpotInner(Degree(30.0f)),
           mSpotFalloff(1.0f),
+          mSpotNearClip(0.0f),
 		  mRange(100000),
 		  mAttenuationConst(1.0f),
 		  mAttenuationLinear(0.0f),
@@ -63,6 +64,8 @@ namespace Ogre {
           mDerivedTransformDirty(false),
 		  mCustomShadowCameraSetup()
     {
+		//mMinPixelSize should always be zero for lights otherwise lights will disapear
+    	mMinPixelSize = 0;
     }
     //-----------------------------------------------------------------------
 	Light::Light(const String& name) : MovableObject(name),
@@ -74,6 +77,7 @@ namespace Ogre {
 		mSpotOuter(Degree(40.0f)),
         mSpotInner(Degree(30.0f)),
         mSpotFalloff(1.0f),
+        mSpotNearClip(0.0f),
 		mRange(100000),
 		mAttenuationConst(1.0f),
 		mAttenuationLinear(0.0f),
@@ -92,6 +96,8 @@ namespace Ogre {
         mDerivedTransformDirty(false),
 		mCustomShadowCameraSetup()
     {
+		//mMinPixelSize should always be zero for lights otherwise lights will disapear
+    	mMinPixelSize = 0;
     }
     //-----------------------------------------------------------------------
     Light::~Light()
@@ -151,13 +157,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Light::setSpotlightRange(const Radian& innerAngle, const Radian& outerAngle, Real falloff)
     {
-
-        if (mLightType != LT_SPOTLIGHT)
-			OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                "setSpotlightRange is only valid for spotlights.",
-                "Light::setSpotlightRange");
-
-        mSpotInner =innerAngle;
+        mSpotInner = innerAngle;
         mSpotOuter = outerAngle;
         mSpotFalloff = falloff;
     }

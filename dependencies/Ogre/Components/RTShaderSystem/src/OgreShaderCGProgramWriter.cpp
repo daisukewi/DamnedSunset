@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -116,11 +116,10 @@ void CGProgramWriter::writeSourceCode(std::ostream& os, Program* program)
 	for (itFunction=functionList.begin(); itFunction != functionList.end(); ++itFunction)
 	{
 		Function* curFunction = *itFunction;
-		bool needToTranslateHlsl4Color = false;
 		ParameterPtr colorParameter;
 
 		writeFunctionTitle(os, curFunction);
-		writeFunctionDeclaration(os, curFunction, needToTranslateHlsl4Color, colorParameter);
+		writeFunctionDeclaration(os, curFunction, colorParameter);
 
 		os << "{" << std::endl;
 
@@ -134,17 +133,6 @@ void CGProgramWriter::writeSourceCode(std::ostream& os, Program* program)
 			writeLocalParameter(os, *itParam);			
 			os << ";" << std::endl;						
 		}
-
-		//  translate hlsl 4 color parameter if needed
-		if(needToTranslateHlsl4Color)
-		{
-			os << "\t";
-			writeLocalParameter(os, colorParameter);			
-			os << ";" << std::endl;						
-			os << std::endl <<"\tFFP_Assign(iHlsl4Color_0, " << colorParameter->getName() << ");" << std::endl;
-		}
-
-
 
 		// Sort and write function atoms.
 		curFunction->sortAtomInstances();
@@ -187,7 +175,11 @@ void CGProgramWriter::writeUniformParameter(std::ostream& os, UniformParameterPt
 	os << mGpuConstTypeMap[parameter->getType()];
 	os << "\t";	
 	os << parameter->getName();	
-
+	if (parameter->isArray() == true)
+	{
+		os << "[" << parameter->getSize() << "]";	
+	}
+	
 	if (parameter->isSampler())
 	{
 		os << " : register(s" << parameter->getIndex() << ")";		
@@ -202,7 +194,11 @@ void CGProgramWriter::writeFunctionParameter(std::ostream& os, ParameterPtr para
 
 	os << "\t";	
 	os << parameter->getName();	
-
+	if (parameter->isArray() == true)
+	{
+		os << "[" << parameter->getSize() << "]";	
+	}
+	
 	if (parameter->getSemantic() != Parameter::SPS_UNKNOWN)
 	{
 		os << " : ";
@@ -210,6 +206,9 @@ void CGProgramWriter::writeFunctionParameter(std::ostream& os, ParameterPtr para
 
 		if (parameter->getSemantic() != Parameter::SPS_POSITION && 
 			parameter->getSemantic() != Parameter::SPS_NORMAL &&
+			parameter->getSemantic() != Parameter::SPS_TANGENT &&
+			parameter->getSemantic() != Parameter::SPS_BLEND_INDICES &&
+			parameter->getSemantic() != Parameter::SPS_BLEND_WEIGHTS &&
 			(!(parameter->getSemantic() == Parameter::SPS_COLOR && parameter->getIndex() == 0)) &&
 			parameter->getIndex() >= 0)
 		{			
@@ -224,10 +223,14 @@ void CGProgramWriter::writeLocalParameter(std::ostream& os, ParameterPtr paramet
 	os << mGpuConstTypeMap[parameter->getType()];
 	os << "\t";	
 	os << parameter->getName();		
+	if (parameter->isArray() == true)
+	{
+		os << "[" << parameter->getSize() << "]";	
+	}
 }
 
 //-----------------------------------------------------------------------
-void CGProgramWriter::writeFunctionDeclaration(std::ostream& os, Function* function, bool & needToTranslateHlsl4Color, ParameterPtr & colorParameter)
+void CGProgramWriter::writeFunctionDeclaration(std::ostream& os, Function* function, ParameterPtr & colorParameter)
 {
 	const ShaderParameterList& inParams  = function->getInputParameters();
 	const ShaderParameterList& outParams = function->getOutputParameters();
@@ -243,27 +246,12 @@ void CGProgramWriter::writeFunctionDeclaration(std::ostream& os, Function* funct
 	size_t paramsCount = inParams.size() + outParams.size();
 	size_t curParamIndex = 0;
 
-	// for shader model 4 - we need to get the color as unsigned int
-	bool isVs4 = GpuProgramManager::getSingleton().isSyntaxSupported("vs_4_0");
-
 	// Write input parameters.
 	for (it=inParams.begin(); it != inParams.end(); ++it)
 	{					
 		os << "\t in ";
 
-		if (isVs4 &&
-			function->getFunctionType() == Function::FFT_VS_MAIN &&
-			(*it)->getSemantic() == Parameter::SPS_COLOR 
-			)
-		{
-			os << "unsigned int iHlsl4Color_0 : COLOR";
-			needToTranslateHlsl4Color = true;
-			colorParameter = *it;
-		}
-		else
-		{
-			writeFunctionParameter(os, *it);
-		}
+		writeFunctionParameter(os, *it);
 
 		if (curParamIndex + 1 != paramsCount)		
 			os << ", " << std::endl;

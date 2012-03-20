@@ -13,6 +13,7 @@ set(HEADER_FILES
   include/OgreGLATIFSInit.h
   include/OgreGLContext.h
   include/OgreGLDefaultHardwareBufferManager.h
+  include/OgreGLDepthBuffer.h
   include/OgreGLFBOMultiRenderTarget.h
   include/OgreGLFBORenderTexture.h
   include/OgreGLFrameBufferObject.h
@@ -39,10 +40,10 @@ set(HEADER_FILES
 
 
 set(SOURCE_FILES
-  src/glew.cpp
   src/OgreGLATIFSInit.cpp
   src/OgreGLContext.cpp
   src/OgreGLDefaultHardwareBufferManager.cpp
+  src/OgreGLDepthBuffer.cpp
   src/OgreGLEngineDll.cpp
   src/OgreGLFBOMultiRenderTarget.cpp
   src/OgreGLFBORenderTexture.cpp
@@ -64,6 +65,7 @@ set(SOURCE_FILES
   src/OgreGLSupport.cpp
   src/OgreGLTexture.cpp
   src/OgreGLTextureManager.cpp
+  src/glew.cpp
 )
 
 set(NVPARSE_FILES
@@ -217,7 +219,7 @@ include_directories(
   ${OPENGL_INCLUDE_DIR}
 )
 
-add_library(RenderSystem_GL ${OGRE_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES} ${GLSL_FILES} ${ATIFS_FILES} ${NVPARSE_FILES} ${PLATFORM_HEADERS} ${PLATFORM_SOURCES})
+ogre_add_library(RenderSystem_GL ${OGRE_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES} ${GLSL_FILES} ${ATIFS_FILES} ${NVPARSE_FILES} ${PLATFORM_HEADERS} ${PLATFORM_SOURCES})
 target_link_libraries(RenderSystem_GL OgreMain ${OPENGL_LIBRARIES} ${PLATFORM_LIBS})
 
 if (NOT OGRE_STATIC)
@@ -229,7 +231,7 @@ if (OGRE_CONFIG_THREADS)
   target_link_libraries(RenderSystem_GL ${Boost_LIBRARIES})
 endif ()
 
-if (APPLE AND NOT OGRE_BUILD_PLATFORM_IPHONE)
+if (APPLE AND NOT OGRE_BUILD_PLATFORM_APPLE_IOS)
     # Set the INSTALL_PATH so that Plugins can be installed in the application package
     set_target_properties(RenderSystem_GL
        PROPERTIES BUILD_WITH_INSTALL_RPATH 1

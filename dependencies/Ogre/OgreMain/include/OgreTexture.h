@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -73,7 +73,9 @@ namespace Ogre {
         /// 3D volume texture, used in combination with 3D texture coordinates
         TEX_TYPE_3D = 3,
         /// 3D cube map, used in combination with 3D texture coordinates
-        TEX_TYPE_CUBE_MAP = 4
+        TEX_TYPE_CUBE_MAP = 4,
+        /// 2D texture array
+        TEX_TYPE_2D_ARRAY = 5
     };
 
 	/** Enum identifying special mipmap numbers
@@ -300,7 +302,7 @@ namespace Ogre {
         }
 
         /** Returns the pixel format of the original input texture (may differ due to
-            hardware requirements and pixel format convertion).
+            hardware requirements and pixel format conversion).
         */
         virtual PixelFormat getSrcFormat(void) const
         {

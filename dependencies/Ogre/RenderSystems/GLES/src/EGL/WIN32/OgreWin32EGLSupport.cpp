@@ -5,7 +5,7 @@ This source file is part of OGRE
 For the latest info, see http://www.ogre3d.org/
 
 Copyright (c) 2008 Renato Araujo Oliveira Filho <renatox@gmail.com>
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -51,11 +51,21 @@ namespace Ogre {
 		//GetClientRect(mNativeDisplay, &windowRect);
 		mNativeDisplay = getNativeDisplay();
 		mGLDisplay = getGLDisplay();
-		mCurrentMode.first.first = 555; // todo
-		mCurrentMode.first.second = 555; // todo
-		mCurrentMode.second = 0;
-		mOriginalMode = mCurrentMode;
-		mVideoModes.push_back(mCurrentMode);
+
+		// Video mode possibilities
+		DEVMODE DevMode;
+		DevMode.dmSize = sizeof(DEVMODE);
+		for (DWORD i = 0; EnumDisplaySettings(NULL, i, &DevMode); ++i)
+		{
+			if (DevMode.dmBitsPerPel < 16)
+				continue;
+
+			mCurrentMode.first.first = DevMode.dmPelsWidth; 
+			mCurrentMode.first.second = DevMode.dmPelsHeight; 
+			mCurrentMode.second = 0;
+			mOriginalMode = mCurrentMode;
+			mVideoModes.push_back(mCurrentMode);
+		}
 
 		EGLConfig *glConfigs;
 		int config, nConfigs = 0;

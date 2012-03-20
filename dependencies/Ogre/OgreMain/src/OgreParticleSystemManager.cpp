@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -46,14 +46,14 @@ namespace Ogre {
     // Shortcut to set up billboard particle renderer
     BillboardParticleRendererFactory* mBillboardRendererFactory = 0;
     //-----------------------------------------------------------------------
-    template<> ParticleSystemManager* Singleton<ParticleSystemManager>::ms_Singleton = 0;
+    template<> ParticleSystemManager* Singleton<ParticleSystemManager>::msSingleton = 0;
     ParticleSystemManager* ParticleSystemManager::getSingletonPtr(void)
     {
-        return ms_Singleton;
+        return msSingleton;
     }
     ParticleSystemManager& ParticleSystemManager::getSingleton(void)
     {  
-        assert( ms_Singleton );  return ( *ms_Singleton );  
+        assert( msSingleton );  return ( *msSingleton );  
     }
     //-----------------------------------------------------------------------
     ParticleSystemManager::ParticleSystemManager()

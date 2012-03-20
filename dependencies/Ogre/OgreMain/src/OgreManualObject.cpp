@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -501,6 +501,34 @@ namespace Ogre {
 		triangle(i3, i4, i1);
 	}
 	//-----------------------------------------------------------------------------
+	size_t ManualObject::getCurrentVertexCount() const
+	{
+		if (!mCurrentSection)
+			return 0;
+		
+		RenderOperation* rop = mCurrentSection->getRenderOperation();
+
+		// There's an unfinished vertex being defined, so include it in count
+		if (mTempVertexPending)
+			return rop->vertexData->vertexCount + 1;
+		else
+			return rop->vertexData->vertexCount;
+		
+	}
+	//-----------------------------------------------------------------------------
+	size_t ManualObject::getCurrentIndexCount() const
+	{
+		if (!mCurrentSection)
+			return 0;
+
+		RenderOperation* rop = mCurrentSection->getRenderOperation();
+		if (rop->indexData)
+			return rop->indexData->indexCount;
+		else
+			return 0;
+
+	}
+	//-----------------------------------------------------------------------------
 	void ManualObject::copyTempVertexToBuffer(void)
 	{
 		mTempVertexPending = false;
@@ -510,7 +538,7 @@ namespace Ogre {
 			// first vertex, autoorganise decl
 			VertexDeclaration* oldDcl = rop->vertexData->vertexDeclaration;
 			rop->vertexData->vertexDeclaration =
-				oldDcl->getAutoOrganisedDeclaration(false, false);
+				oldDcl->getAutoOrganisedDeclaration(false, false, false);
 			HardwareBufferManager::getSingleton().destroyVertexDeclaration(oldDcl);
 		}
 		resizeTempVertexBufferIfNeeded(++rop->vertexData->vertexCount);
@@ -1011,6 +1039,7 @@ namespace Ogre {
 		mRenderOperation.operationType = opType;
 		// default to no indexes unless we're told
 		mRenderOperation.useIndexes = false;
+        mRenderOperation.useGlobalInstancingVertexBufferIsAvailable = false;
 		mRenderOperation.vertexData = OGRE_NEW VertexData();
 		mRenderOperation.vertexData->vertexCount = 0;
 
@@ -1133,6 +1162,12 @@ namespace Ogre {
 	{
 		// pretransformed
 		*xform = mParent->_getParentNodeFullTransform();
+	}
+	//-----------------------------------------------------------------------
+	void ManualObject::ManualObjectSectionShadowRenderable::rebindIndexBuffer(const HardwareIndexBufferSharedPtr& indexBuffer)
+	{
+		mRenderOp.indexData->indexBuffer = indexBuffer;
+		if (mLightCap) mLightCap->rebindIndexBuffer(indexBuffer);
 	}
 	//-----------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------

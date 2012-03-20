@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -2491,7 +2491,8 @@ namespace Ogre
             context.pass->setVertexProgram(params);
         }
 
-        context.isProgramShadowCaster = false;
+        context.isVertexProgramShadowCaster = false;
+        context.isFragmentProgramShadowCaster = false;
         context.isVertexProgramShadowReceiver = false;
         context.isFragmentProgramShadowReceiver = false;
 
@@ -2539,7 +2540,8 @@ namespace Ogre
             context.pass->setGeometryProgram(params);
         }
 
-        context.isProgramShadowCaster = false;
+        context.isVertexProgramShadowCaster = false;
+        context.isFragmentProgramShadowCaster = false;
         context.isVertexProgramShadowReceiver = false;
         context.isFragmentProgramShadowReceiver = false;
 
@@ -2568,7 +2570,8 @@ namespace Ogre
             return true;
         }
 
-        context.isProgramShadowCaster = true;
+        context.isVertexProgramShadowCaster = true;
+        context.isFragmentProgramShadowCaster = false;
         context.isVertexProgramShadowReceiver = false;
 		context.isFragmentProgramShadowReceiver = false;
 
@@ -2579,6 +2582,39 @@ namespace Ogre
         if (context.program->isSupported())
         {
             context.programParams = context.pass->getShadowCasterVertexProgramParameters();
+			context.numAnimationParametrics = 0;
+        }
+
+        // Return TRUE because this must be followed by a {
+        return true;
+    }
+    //-----------------------------------------------------------------------
+    bool parseShadowCasterFragmentProgramRef(String& params, MaterialScriptContext& context)
+    {
+        // update section
+        context.section = MSS_PROGRAM_REF;
+
+        context.program = GpuProgramManager::getSingleton().getByName(params);
+        if (context.program.isNull())
+        {
+            // Unknown program
+            logParseError("Invalid shadow_caster_fragment_program_ref entry - fragment program "
+                + params + " has not been defined.", context);
+            return true;
+        }
+
+        context.isVertexProgramShadowCaster = false;
+        context.isFragmentProgramShadowCaster = true;
+        context.isVertexProgramShadowReceiver = false;
+		context.isFragmentProgramShadowReceiver = false;
+
+        // Set the vertex program for this pass
+        context.pass->setShadowCasterFragmentProgram(params);
+
+        // Create params? Skip this if program is not supported
+        if (context.program->isSupported())
+        {
+            context.programParams = context.pass->getShadowCasterFragmentProgramParameters();
 			context.numAnimationParametrics = 0;
         }
 
@@ -2601,7 +2637,8 @@ namespace Ogre
         }
 
 
-        context.isProgramShadowCaster = false;
+        context.isVertexProgramShadowCaster = false;
+        context.isFragmentProgramShadowCaster = false;
         context.isVertexProgramShadowReceiver = true;
 		context.isFragmentProgramShadowReceiver = false;
 
@@ -2634,7 +2671,8 @@ namespace Ogre
 		}
 
 
-		context.isProgramShadowCaster = false;
+        context.isVertexProgramShadowCaster = false;
+        context.isFragmentProgramShadowCaster = false;
 		context.isVertexProgramShadowReceiver = false;
 		context.isFragmentProgramShadowReceiver = true;
 
@@ -3042,6 +3080,7 @@ namespace Ogre
         mPassAttribParsers.insert(AttribParserList::value_type("vertex_program_ref", (ATTRIBUTE_PARSER)parseVertexProgramRef));
 		mPassAttribParsers.insert(AttribParserList::value_type("geometry_program_ref", (ATTRIBUTE_PARSER)parseGeometryProgramRef));
         mPassAttribParsers.insert(AttribParserList::value_type("shadow_caster_vertex_program_ref", (ATTRIBUTE_PARSER)parseShadowCasterVertexProgramRef));
+        mPassAttribParsers.insert(AttribParserList::value_type("shadow_caster_fragment_program_ref", (ATTRIBUTE_PARSER)parseShadowCasterFragmentProgramRef));
         mPassAttribParsers.insert(AttribParserList::value_type("shadow_receiver_vertex_program_ref", (ATTRIBUTE_PARSER)parseShadowReceiverVertexProgramRef));
 		mPassAttribParsers.insert(AttribParserList::value_type("shadow_receiver_fragment_program_ref", (ATTRIBUTE_PARSER)parseShadowReceiverFragmentProgramRef));
         mPassAttribParsers.insert(AttribParserList::value_type("fragment_program_ref", (ATTRIBUTE_PARSER)parseFragmentProgramRef));
@@ -3172,7 +3211,7 @@ namespace Ogre
             logParseError("Unexpected end of file.", mScriptContext);
         }
 
-		// Make sure we invalidate our context shared pointer (don't wanna hold on)
+		// Make sure we invalidate our context shared pointer (don't want to hold on)
 		mScriptContext.material.setNull();
 
     }
@@ -3577,14 +3616,16 @@ namespace Ogre
 			return;		
 
         // Material name
-		writeAttribute(0, "material " + outMaterialName);
+		writeAttribute(0, "material");
+		writeValue(quoteWord(outMaterialName));
+		
         beginSection(0);
         {
 			// Fire write begin event.
 			fireMaterialEvent(MSE_WRITE_BEGIN, skipWriting, pMat.get());
 
             // Write LOD information
-            Material::LodValueIterator valueIt = pMat->getLodValueIterator();
+            Material::LodValueIterator valueIt = pMat->getUserLodValueIterator();
             // Skip zero value
             if (valueIt.hasMoreElements())
                 valueIt.getNext();
@@ -3649,7 +3690,7 @@ namespace Ogre
         writeAttribute(1, "technique");
         // only output technique name if it exists.
         if (!pTech->getName().empty())
-            writeValue(pTech->getName());
+            writeValue(quoteWord(pTech->getName()));
 
         beginSection(1);
         {
@@ -3669,20 +3710,20 @@ namespace Ogre
 				pTech->getSchemeName() != MaterialManager::DEFAULT_SCHEME_NAME)
 			{
 				writeAttribute(2, "scheme");
-				writeValue(pTech->getSchemeName());
+				writeValue(quoteWord(pTech->getSchemeName()));
 			}
 
 			// ShadowCasterMaterial name
 			if (!pTech->getShadowCasterMaterial().isNull())
 			{
 				writeAttribute(2, "shadow_caster_material");
-				writeValue(pTech->getShadowCasterMaterial()->getName());
+				writeValue(quoteWord(pTech->getShadowCasterMaterial()->getName()));
 			}
 			// ShadowReceiverMaterial name
 			if (!pTech->getShadowReceiverMaterial().isNull())
 			{
 				writeAttribute(2, "shadow_receiver_material");
-				writeValue(pTech->getShadowReceiverMaterial()->getName());
+				writeValue(quoteWord(pTech->getShadowReceiverMaterial()->getName()));
 			}
 			// GPU vendor rules
 			Technique::GPUVendorRuleIterator vrit = pTech->getGPUVendorRuleIterator();
@@ -3694,7 +3735,7 @@ namespace Ogre
 					writeValue("include");
 				else
 					writeValue("exclude");
-				writeValue(RenderSystemCapabilities::vendorToString(rule.vendor));
+				writeValue(quoteWord(RenderSystemCapabilities::vendorToString(rule.vendor)));
 			}
 			// GPU device rules
 			Technique::GPUDeviceNameRuleIterator dnit = pTech->getGPUDeviceNameRuleIterator();
@@ -3706,7 +3747,7 @@ namespace Ogre
 					writeValue("include");
 				else
 					writeValue("exclude");
-				writeValue(rule.devicePattern);
+				writeValue(quoteWord(rule.devicePattern));
 				writeValue(StringConverter::toString(rule.caseSensitive));
 			}
             // Iterate over passes
@@ -3739,7 +3780,7 @@ namespace Ogre
         writeAttribute(2, "pass");
         // only output pass name if its not the default name
         if (pPass->getName() != StringConverter::toString(pPass->getIndex()))
-            writeValue(pPass->getName());
+            writeValue(quoteWord(pPass->getName()));
 
         beginSection(2);
         {
@@ -3812,6 +3853,11 @@ namespace Ogre
                 }
             }
 
+			if(mDefaults || pPass->getLightMask() != 0xFFFFFFFF)
+			{
+				writeAttribute(3, "light_mask");
+				writeValue(StringConverter::toString(pPass->getLightMask()));
+			}
 
             if (pPass->getLightingEnabled())
             {
@@ -4281,7 +4327,7 @@ namespace Ogre
         writeAttribute(3, "texture_unit");
         // only write out name if its not equal to the default name
         if (pTex->getName() != StringConverter::toString(pTex->getParent()->getTextureUnitStateIndex(pTex)))
-            writeValue(pTex->getName());
+            writeValue(quoteWord(pTex->getName()));
 
         beginSection(3);
         {
@@ -4292,14 +4338,14 @@ namespace Ogre
             if (!pTex->getTextureNameAlias().empty())
             {
                 writeAttribute(4, "texture_alias");
-                writeValue(pTex->getTextureNameAlias());
+                writeValue(quoteWord(pTex->getTextureNameAlias()));
             }
 
             //texture name
             if (pTex->getNumFrames() == 1 && !pTex->getTextureName().empty() && !pTex->isCubic())
             {
                 writeAttribute(4, "texture");
-                writeValue(pTex->getTextureName());
+                writeValue(quoteWord(pTex->getTextureName()));
 
                 switch (pTex->getTextureType())
                 {
@@ -4340,7 +4386,7 @@ namespace Ogre
             {
                 writeAttribute(4, "anim_texture");
                 for (unsigned int n = 0; n < pTex->getNumFrames(); n++)
-                    writeValue(pTex->getFrameTextureName(n));
+                    writeValue(quoteWord(pTex->getFrameTextureName(n)));
                 writeValue(StringConverter::toString(pTex->getAnimationDuration()));
             }
 
@@ -4349,7 +4395,7 @@ namespace Ogre
             {
                 writeAttribute(4, "cubic_texture");
                 for (unsigned int n = 0; n < pTex->getNumFrames(); n++)
-                    writeValue(pTex->getFrameTextureName(n));
+                    writeValue(quoteWord(pTex->getFrameTextureName(n)));
 
                 //combinedUVW/separateUW
                 if (pTex->getTextureType() == TEX_TYPE_CUBE_MAP)
@@ -4524,11 +4570,11 @@ namespace Ogre
 			float scrollAnimU = 0;
 			float scrollAnimV = 0;
 
-            EffectMap m_ef = pTex->getEffects();
-            if (!m_ef.empty())
+            EffectMap effMap = pTex->getEffects();
+            if (!effMap.empty())
             {
                 EffectMap::const_iterator it;
-                for (it = m_ef.begin(); it != m_ef.end(); ++it)
+                for (it = effMap.begin(); it != effMap.end(); ++it)
                 {
                     const TextureUnitState::TextureEffect& ef = it->second;
                     switch (ef.type)
@@ -4597,8 +4643,8 @@ namespace Ogre
 					break;
 				case TextureUnitState::CONTENT_COMPOSITOR:
 					writeValue("compositor");
-					writeValue(pTex->getReferencedCompositorName());
-					writeValue(pTex->getReferencedTextureName());
+					writeValue(quoteWord(pTex->getReferencedCompositorName()));
+					writeValue(quoteWord(pTex->getReferencedTextureName()));
 					writeValue(StringConverter::toString(pTex->getReferencedMRTIndex()));
 					break;
 				};
@@ -4895,6 +4941,12 @@ namespace Ogre
             pPass->getShadowCasterVertexProgram(), pPass->getShadowCasterVertexProgramParameters());
     }
     //-----------------------------------------------------------------------
+    void MaterialSerializer::writeShadowCasterFragmentProgramRef(const Pass* pPass)
+    {
+        writeGpuProgramRef("shadow_caster_fragment_program_ref",
+            pPass->getShadowCasterFragmentProgram(), pPass->getShadowCasterFragmentProgramParameters());
+    }
+    //-----------------------------------------------------------------------
     void MaterialSerializer::writeShadowReceiverVertexProgramRef(const Pass* pPass)
     {
         writeGpuProgramRef("shadow_receiver_vertex_program_ref",
@@ -4925,7 +4977,7 @@ namespace Ogre
 
         mBuffer += "\n";
         writeAttribute(3, attrib);
-        writeValue(program->getName());
+        writeValue(quoteWord(program->getName()));
         beginSection(3);
         {
             // write out paramters
@@ -5008,6 +5060,7 @@ namespace Ogre
 
 		// float params
 		GpuLogicalBufferStructPtr floatLogical = params->getFloatLogicalBufferStruct();
+        if( !floatLogical.isNull() )
 		{
 			OGRE_LOCK_MUTEX(floatLogical->mutex)
 
@@ -5035,6 +5088,7 @@ namespace Ogre
 
 		// int params
 		GpuLogicalBufferStructPtr intLogical = params->getIntLogicalBufferStruct();
+        if( !intLogical.isNull() )
 		{
 			OGRE_LOCK_MUTEX(intLogical->mutex)
 
@@ -5128,7 +5182,7 @@ namespace Ogre
 
 			writeAttribute(level, label, useMainBuffer);
 			// output param index / name
-			writeValue(identifier, useMainBuffer);
+			writeValue(quoteWord(identifier), useMainBuffer);
 
 			// if auto output auto type name and data if needed
 			if (autoEntry)
@@ -5138,7 +5192,7 @@ namespace Ogre
 
 				assert(autoConstDef && "Bad auto constant Definition Table");
 				// output auto constant name
-				writeValue(autoConstDef->name, useMainBuffer);
+				writeValue(quoteWord(autoConstDef->name), useMainBuffer);
 				// output data if it uses it
 				switch(autoConstDef->dataType)
 				{
@@ -5211,7 +5265,7 @@ namespace Ogre
             writeAttribute(0, program->getParameter("type"), false);
 
             // write program name
-            writeValue( program->getName(), false);
+            writeValue( quoteWord(program->getName()), false);
             // write program language
             const String language = program->getLanguage();
             writeValue( language, false );
@@ -5220,7 +5274,7 @@ namespace Ogre
             {
                 // write program source + filename
                 writeAttribute(1, "source", false);
-                writeValue(program->getSourceFile(), false);
+                writeValue(quoteWord(program->getSourceFile()), false);
                 // write special parameters based on language
                 const ParameterList& params = program->getParameters();
                 ParameterList::const_iterator currentParam = params.begin();

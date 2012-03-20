@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -575,7 +575,7 @@ namespace Ogre
 		template <typename T>
 		static T Clamp(T val, T minval, T maxval)
 		{
-			assert (minval < maxval && "Invalid clamp range");
+			assert (minval <= maxval && "Invalid clamp range");
 			return std::max(std::min(val, maxval), minval);
 		}
 

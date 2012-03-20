@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,15 +47,13 @@ namespace Ogre
 
         initialiaseDispatchTables();
     }
+	
+	//-----------------------------------------------------------------------
+	static void write(const RenderSystemCapabilities* caps, String name, std::ostream &file)
+	{
+		using namespace std;
 
-    //-----------------------------------------------------------------------
-    void RenderSystemCapabilitiesSerializer::writeScript(const RenderSystemCapabilities* caps, String name, String filename)
-    {
-        using namespace std;
-
-		ofstream file(filename.c_str());
-
-        file << "render_system_capabilities \"" << name << "\"" << endl;
+		file << "render_system_capabilities \"" << name << "\"" << endl;
         file << "{" << endl;
 
         file << "\t" << "render_system_name " << caps->getRenderSystemName() << endl;
@@ -64,7 +62,7 @@ namespace Ogre
 
 		file << "\t" << "device_name " << caps->getDeviceName() << endl;
 		const DriverVersion& driverVer = caps->getDriverVersion();
-		file << "\t" << "driver_version " << driverVer.toString();
+		file << "\t" << "driver_version " << driverVer.toString() << endl;
 		file << "\t" << "vendor " << caps->vendorToString(caps->getVendor());
 
 		file << endl;
@@ -106,6 +104,7 @@ namespace Ogre
         file << "\t" << "pbuffer " << StringConverter::toString(caps->hasCapability(RSC_PBUFFER)) << endl;
         file << "\t" << "gl1_5_nohwocclusion " << StringConverter::toString(caps->hasCapability(RSC_GL1_5_NOHWOCCLUSION)) << endl;
         file << "\t" << "perstageconstant " << StringConverter::toString(caps->hasCapability(RSC_PERSTAGECONSTANT)) << endl;
+        file << "\t" << "separate_shader_objects " << StringConverter::toString(caps->hasCapability(RSC_SEPARATE_SHADER_OBJECTS)) << endl;
         file << endl;
 
         RenderSystemCapabilities::ShaderProfiles profiles = caps->getSupportedShaderProfiles();
@@ -142,9 +141,31 @@ namespace Ogre
         file << endl;
 
         file << "}" << endl;
+	}
+
+    //-----------------------------------------------------------------------
+    void RenderSystemCapabilitiesSerializer::writeScript(const RenderSystemCapabilities* caps, String name, String filename)
+    {
+        using namespace std;
+
+		ofstream file(filename.c_str());
+
+        write(caps, name, file);
 
         file.close();
     }
+	
+	//-----------------------------------------------------------------------
+	String RenderSystemCapabilitiesSerializer::writeString(const RenderSystemCapabilities* caps, String name)
+	{
+		using namespace std;
+		
+		stringstream stream;
+		
+		write(caps, name, stream);
+		
+		return stream.str();
+	}
 
     //-----------------------------------------------------------------------
     void RenderSystemCapabilitiesSerializer::parseScript(DataStreamPtr& stream)
@@ -396,6 +417,7 @@ namespace Ogre
         addKeywordType("pbuffer", SET_CAPABILITY_ENUM_BOOL);
         addKeywordType("gl1_5_nohwocclusion", SET_CAPABILITY_ENUM_BOOL);
         addKeywordType("perstageconstant", SET_CAPABILITY_ENUM_BOOL);
+        addKeywordType("separate_shader_objects", SET_CAPABILITY_ENUM_BOOL);
 
 		addCapabilitiesMapping("fixed_function", RSC_FIXED_FUNCTION);
         addCapabilitiesMapping("automipmap", RSC_AUTOMIPMAP);

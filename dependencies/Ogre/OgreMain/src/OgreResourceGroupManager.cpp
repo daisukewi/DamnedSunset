@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -37,14 +37,14 @@ THE SOFTWARE.
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    template<> ResourceGroupManager* Singleton<ResourceGroupManager>::ms_Singleton = 0;
+    template<> ResourceGroupManager* Singleton<ResourceGroupManager>::msSingleton = 0;
     ResourceGroupManager* ResourceGroupManager::getSingletonPtr(void)
     {
-        return ms_Singleton;
+        return msSingleton;
     }
     ResourceGroupManager& ResourceGroupManager::getSingleton(void)
     {  
-        assert( ms_Singleton );  return ( *ms_Singleton );  
+        assert( msSingleton );  return ( *msSingleton );  
     }
 	String ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME = "General";
 	String ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME = "Internal";
@@ -119,9 +119,10 @@ namespace Ogre {
 			// Set current group
 			parseResourceGroupScripts(grp);
 			mCurrentGroup = grp;
+			LogManager::getSingleton().logMessage("Creating resources for group " + name);
 			createDeclaredResources(grp);
 			grp->groupStatus = ResourceGroup::INITIALISED;
-
+			LogManager::getSingleton().logMessage("All done");
 			// Reset current group
 			mCurrentGroup = 0;
 		}
@@ -145,8 +146,10 @@ namespace Ogre {
 				// Set current group
 				mCurrentGroup = grp;
 				parseResourceGroupScripts(grp);
+				LogManager::getSingleton().logMessage("Creating resources for group " + i->first);
 				createDeclaredResources(grp);
 				grp->groupStatus = ResourceGroup::INITIALISED;
+				LogManager::getSingleton().logMessage("All done");
 				// Reset current group
 				mCurrentGroup = 0;
 			}

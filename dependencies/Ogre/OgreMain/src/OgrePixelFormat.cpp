@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -630,7 +630,35 @@ namespace Ogre {
         /* Masks and shifts */
         0, 0, 0, 0, 0, 0, 0, 0
         },
-        
+    //-----------------------------------------------------------------------
+        {"PF_R8",
+        /* Bytes per element */
+        1,
+        /* Flags */
+        PFF_NATIVEENDIAN,
+        /* Component type and count */
+        PCT_BYTE, 1,
+        /* rbits, gbits, bbits, abits */
+        8, 0, 0, 0,
+        /* Masks and shifts */
+        0xFF0000, 0, 0, 0,
+        0, 0, 0, 0
+        },
+    //-----------------------------------------------------------------------
+        {"PF_RG8",
+        /* Bytes per element */
+        2,
+        /* Flags */
+        PFF_NATIVEENDIAN,
+        /* Component type and count */
+        PCT_BYTE, 2,
+        /* rbits, gbits, bbits, abits */
+        8, 8, 0, 0,
+        /* Masks and shifts */
+        0xFF0000, 0x00FF00, 0, 0,
+        8, 0, 0, 0
+        },
+
     };
     //-----------------------------------------------------------------------
 	size_t PixelBox::getConsecutiveSize() const

@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -34,6 +34,10 @@ THE SOFTWARE.
 #include "OgreShaderParameter.h"
 #include "OgreShaderFunction.h"
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+#include "OgreStringSerialiser.h"
+#endif
+
 namespace Ogre {
 namespace RTShader {
 
@@ -62,7 +66,11 @@ public:
 	@param os The output stream to write to code into.
 	@param program The source CPU program for the GPU program code.
 	*/
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	virtual void				writeSourceCode			(StringSerialiser& os, Program* program) = 0;
+#else
 	virtual void				writeSourceCode			(std::ostream& os, Program* program) = 0;
+#endif
 
 	/** Return the target language of this writer. */
 	virtual const String&		getTargetLanguage	() const = 0;
@@ -70,13 +78,25 @@ public:
 // Protected methods.
 protected:
 	/** Write the program title. */
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	void				writeProgramTitle			(StringSerialiser& os, Program* program);
+#else
 	void				writeProgramTitle			(std::ostream& os, Program* program);
+#endif
 
 	/** Write the uniform parameters title. */
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	void				writeUniformParametersTitle	(StringSerialiser& os, Program* program);
+#else
 	void				writeUniformParametersTitle	(std::ostream& os, Program* program);
+#endif
 
 	/** Write a function title. */
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	void				writeFunctionTitle			(StringSerialiser& os, Function* function);
+#else
 	void				writeFunctionTitle			(std::ostream& os, Function* function);
+#endif
 };
 
 /** @} */

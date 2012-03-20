@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,19 @@ namespace Ogre {
 #define NORMAL_BINDING 1
 #define TEXCOORD_BINDING 2
 
-	Rectangle2D::Rectangle2D(bool includeTextureCoords, Ogre::HardwareBuffer::Usage vBufUsage) 
+	Rectangle2D::Rectangle2D(bool includeTextureCoords, Ogre::HardwareBuffer::Usage vBufUsage)
+	: SimpleRenderable()
+	{
+		_initRectangle2D(includeTextureCoords, vBufUsage);
+	}
+
+	Rectangle2D::Rectangle2D(const String& name, bool includeTextureCoords, Ogre::HardwareBuffer::Usage vBufUsage)
+	: SimpleRenderable(name)
+	{
+		_initRectangle2D(includeTextureCoords, vBufUsage);
+	}
+
+	void Rectangle2D::_initRectangle2D(bool includeTextureCoords, Ogre::HardwareBuffer::Usage vBufUsage) 
     {
         // use identity projection and view matrices
         mUseIdentityProjection = true;
@@ -50,6 +62,7 @@ namespace Ogre {
         mRenderOp.vertexData->vertexStart = 0; 
         mRenderOp.operationType = RenderOperation::OT_TRIANGLE_STRIP; 
         mRenderOp.useIndexes = false; 
+        mRenderOp.useGlobalInstancingVertexBufferIsAvailable = false;
 
         VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
         VertexBufferBinding* bind = mRenderOp.vertexData->vertexBufferBinding;
@@ -110,17 +123,7 @@ namespace Ogre {
             bind->setBinding(TEXCOORD_BINDING, tvbuf);
 
             // Set up basic tex coordinates
-            float* pTex = static_cast<float*>(
-                tvbuf->lock(HardwareBuffer::HBL_DISCARD));
-            *pTex++ = 0.0f;
-            *pTex++ = 0.0f;
-            *pTex++ = 0.0f;
-            *pTex++ = 1.0f;
-            *pTex++ = 1.0f;
-            *pTex++ = 0.0f;
-            *pTex++ = 1.0f;
-            *pTex++ = 1.0f;
-            tvbuf->unlock();
+            setDefaultUVs();
         }
 
         // set basic white material
@@ -187,6 +190,36 @@ namespace Ogre {
         *pFloat++ = bottomRight.z;
 
         vbuf->unlock();
+	}
+
+	void Rectangle2D::setUVs( const Ogre::Vector2 &topLeft, const Ogre::Vector2 &bottomLeft,
+								const Ogre::Vector2 &topRight, const Ogre::Vector2 &bottomRight)
+	{
+		if( mRenderOp.vertexData->vertexDeclaration->getElementCount() <= TEXCOORD_BINDING )
+			return; //Vertex data wasn't built with UV buffer
+
+		HardwareVertexBufferSharedPtr vbuf = 
+            mRenderOp.vertexData->vertexBufferBinding->getBuffer(TEXCOORD_BINDING);
+        float* pFloat = static_cast<float*>(vbuf->lock(HardwareBuffer::HBL_DISCARD));
+
+        *pFloat++ = topLeft.x;
+        *pFloat++ = topLeft.y;
+
+        *pFloat++ = bottomLeft.x;
+        *pFloat++ = bottomLeft.y;
+
+        *pFloat++ = topRight.x;
+        *pFloat++ = topRight.y;
+
+        *pFloat++ = bottomRight.x;
+        *pFloat++ = bottomRight.y;
+
+        vbuf->unlock();
+	}
+
+	void Rectangle2D::setDefaultUVs()
+	{
+		setUVs( Vector2::ZERO, Vector2::UNIT_Y, Vector2::UNIT_X, Vector2::UNIT_SCALE );
 	}
 
     // Override this method to prevent parent transforms (rotation,translation,scale)

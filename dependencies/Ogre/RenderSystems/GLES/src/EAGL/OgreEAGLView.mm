@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,22 +31,15 @@ THE SOFTWARE.
 
 #include "OgreRoot.h"
 #include "OgreRenderWindow.h"
+#include "OgreGLESRenderSystem.h"
+
+#import <QuartzCore/QuartzCore.h>
+
+using namespace Ogre;
 
 @implementation EAGLView
 
-- (id)initWithFrame:(CGRect)frame
-{
-	if((self = [super initWithFrame:frame]))
-	{
-        mInitialised = false;
-	}
-	return self;
-}
-
-+ (Class)layerClass
-{
-    return [CAEAGLLayer class];
-}
+@synthesize mWindowName;
 
 - (NSString *)description
 {
@@ -57,71 +50,56 @@ THE SOFTWARE.
             [self frame].size.height];
 }
 
++ (Class)layerClass
+{
+    return [CAEAGLLayer class];
+}
+
 - (void)layoutSubviews
 {
-    // On most devices, the first time this is called, the orientation is always reported
-    // as portrait regardless of how the device is actually oriented.  So we just skip it.
-    if(!mInitialised)
-    {
-        mInitialised = true;
-        return;
-    }
-
     // Change the viewport orientation based upon the current device orientation.
     // Note: This only operates on the main viewport, usually the main view.
 
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
 
     // Return if the orientation is not a valid interface orientation(face up, face down)
     if(!UIDeviceOrientationIsValidInterfaceOrientation(deviceOrientation))
         return;
 
-    // Get the window size and initialize temp variables
-    unsigned int w = 0, h = 0;
-    unsigned int width  = Ogre::Root::getSingleton().getAutoCreatedWindow()->getWidth();
-    unsigned int height = Ogre::Root::getSingleton().getAutoCreatedWindow()->getHeight();
+    // Get the window using the name that we saved
+    RenderWindow *window = static_cast<RenderWindow *>(Root::getSingleton().getRenderSystem()->getRenderTarget(mWindowName));
 
-    Ogre::Viewport *viewPort = Ogre::Root::getSingleton().getAutoCreatedWindow()->getViewport(0);
+    if(window != NULL)
+    {
+        // Get the window size and initialize temp variables
+        unsigned int w = 0, h = 0;
+        unsigned int width = self.bounds.size.width;
+        unsigned int height = self.bounds.size.height;
 
-    if (UIDeviceOrientationIsLandscape(deviceOrientation))
-    {
-        w = std::max(width, height);
-        h = std::min(width, height);
-    }
-    else
-    {
-        h = std::max(width, height);
-        w = std::min(width, height);
-    }
+        Ogre::Viewport *viewPort = window->getViewport(0);
 
-    width = w;
-    height = h;
-
-    if (deviceOrientation == UIDeviceOrientationLandscapeLeft)
-    {
-        [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight animated:NO];
-        viewPort->setOrientationMode(Ogre::OR_LANDSCAPELEFT);
-    }
-    else if (deviceOrientation == UIDeviceOrientationLandscapeRight)
-    {
-        [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeLeft animated:NO];
-        viewPort->setOrientationMode(Ogre::OR_LANDSCAPERIGHT);
-    }
-    else if (UIDeviceOrientationIsPortrait(deviceOrientation))
-    {
-        if(deviceOrientation == UIDeviceOrientationPortrait)
-            [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
+        if (UIDeviceOrientationIsLandscape(deviceOrientation))
+        {
+            w = std::max(width, height);
+            h = std::min(width, height);
+        }
         else
-            [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortraitUpsideDown animated:NO];
+        {
+            h = std::max(width, height);
+            w = std::min(width, height);
+        }
 
-        viewPort->setOrientationMode(Ogre::OR_PORTRAIT);
+        width = w;
+        height = h;
+
+        // Resize the window
+        window->resize(width, height);
+
+        // After rotation the aspect ratio of the viewport has changed, update that as well.
+        viewPort->getCamera()->setAspectRatio((Real) width / (Real) height);
     }
-
-    // Resize the window
-    Ogre::Root::getSingleton().getAutoCreatedWindow()->resize(width, height);
-
-    // After rotation the aspect ratio of the viewport has changed, update that as well.
-    viewPort->getCamera()->setAspectRatio((Ogre::Real) width / (Ogre::Real) height);
 }
 
 @end

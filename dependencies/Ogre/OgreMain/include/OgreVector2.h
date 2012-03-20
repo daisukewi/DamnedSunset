@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -247,6 +247,7 @@ namespace Ogre
                 lhs - rhs.x,
                 lhs - rhs.y);
         }
+
         // arithmetic updates
         inline Vector2& operator += ( const Vector2& rkVector )
         {
@@ -342,6 +343,7 @@ namespace Ogre
         {
             return x * x + y * y;
         }
+
         /** Returns the distance to another vector.
             @warning
                 This operation requires a square root and is expensive in
@@ -397,12 +399,15 @@ namespace Ogre
                 will be no changes made to their components.
             @returns The previous length of the vector.
         */
+
         inline Real normalise()
         {
             Real fLength = Math::Sqrt( x * x + y * y);
 
             // Will also work for zero-sized vectors, but will change nothing
-            if ( fLength > 1e-08 )
+			// We're not using epsilons because we don't need to.
+            // Read http://www.ogre3d.org/forums/viewtopic.php?f=4&t=61259
+            if ( fLength > Real(0.0f) )
             {
                 Real fInvLength = 1.0f / fLength;
                 x *= fInvLength;
@@ -411,8 +416,6 @@ namespace Ogre
 
             return fLength;
         }
-
-
 
         /** Returns a vector at a point half way between this and the passed
             in vector.
@@ -481,6 +484,7 @@ namespace Ogre
         {
             return Vector2 (-y, x);
         }
+
         /** Calculates the 2 dimensional cross-product of 2 vectors, which results
 			in a single floating point value which is 2 times the area of the triangle.
         */
@@ -488,6 +492,7 @@ namespace Ogre
         {
             return x * rkVector.y - y * rkVector.x;
         }
+
         /** Generates a new random vector which deviates from this vector by a
             given angle in a random direction.
             @remarks
@@ -507,8 +512,7 @@ namespace Ogre
                 vector will not be normalised, normalise it if you wish
                 afterwards.
         */
-        inline Vector2 randomDeviant(
-            Real angle) const
+        inline Vector2 randomDeviant(Real angle) const
         {
 
             angle *=  Math::UnitRandom() * Math::TWO_PI;
@@ -542,10 +546,43 @@ namespace Ogre
         {
             return Vector2( *this - ( 2 * this->dotProduct(normal) * normal ) );
         }
+
 		/// Check whether this vector contains valid values
 		inline bool isNaN() const
 		{
 			return Math::isNaN(x) || Math::isNaN(y);
+		}
+
+		/**	 Gets the angle between 2 vectors.
+		@remarks
+			Vectors do not have to be unit-length but must represent directions.
+		*/
+		inline Ogre::Radian angleBetween(const Ogre::Vector2& other) const
+		{		
+			Ogre::Real lenProduct = length() * other.length();
+			// Divide by zero check
+			if(lenProduct < 1e-6f)
+				lenProduct = 1e-6f;
+		
+			Ogre::Real f = dotProduct(other) / lenProduct;
+	
+			f = Ogre::Math::Clamp(f, (Ogre::Real)-1.0, (Ogre::Real)1.0);
+			return Ogre::Math::ACos(f);
+		}
+
+		/**	 Gets the oriented angle between 2 vectors.
+		@remarks
+			Vectors do not have to be unit-length but must represent directions.
+			The angle is comprised between 0 and 2 PI.
+		*/
+		inline Ogre::Radian angleTo(const Ogre::Vector2& other) const
+		{
+			Ogre::Radian angle = angleBetween(other);
+		
+			if (crossProduct(other)<0)			
+				angle = (Ogre::Radian)Ogre::Math::TWO_PI - angle;		
+
+			return angle;
 		}
 
         // special points
@@ -564,7 +601,6 @@ namespace Ogre
             o << "Vector2(" << v.x << ", " << v.y <<  ")";
             return o;
         }
-
     };
 	/** @} */
 	/** @} */

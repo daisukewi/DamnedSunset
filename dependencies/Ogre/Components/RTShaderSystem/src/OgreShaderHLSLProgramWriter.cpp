@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -186,7 +186,10 @@ void HLSLProgramWriter::writeUniformParameter(std::ostream& os, UniformParameter
 	os << mGpuConstTypeMap[parameter->getType()];
 	os << "\t";	
 	os << parameter->getName();	
-
+	if (parameter->isArray() == true)
+	{
+		os << "[" << parameter->getSize() << "]";	
+	}
 	if (parameter->isSampler())
 	{
 		os << " : register(s" << parameter->getIndex() << ")";		
@@ -202,6 +205,10 @@ void HLSLProgramWriter::writeFunctionParameter(std::ostream& os, ParameterPtr pa
 	
 	os << "\t";	
 	os << parameter->getName();	
+	if (parameter->isArray() == true)
+	{
+		os << "[" << parameter->getSize() << "]";	
+	}
 
 	if (parameter->getSemantic() != Parameter::SPS_UNKNOWN)
 	{
@@ -211,6 +218,8 @@ void HLSLProgramWriter::writeFunctionParameter(std::ostream& os, ParameterPtr pa
 
 		if (parameter->getSemantic() != Parameter::SPS_POSITION && 
 			parameter->getSemantic() != Parameter::SPS_NORMAL &&
+			parameter->getSemantic() != Parameter::SPS_BLEND_INDICES &&
+			parameter->getSemantic() != Parameter::SPS_BLEND_WEIGHTS &&
 			(!(parameter->getSemantic() == Parameter::SPS_COLOR && parameter->getIndex() == 0)) &&
 			parameter->getIndex() >= 0)
 		{			
@@ -225,6 +234,10 @@ void HLSLProgramWriter::writeLocalParameter(std::ostream& os, ParameterPtr param
 	os << mGpuConstTypeMap[parameter->getType()];
 	os << "\t";	
 	os << parameter->getName();		
+	if (parameter->isArray() == true)
+	{
+		os << "[" << parameter->getSize() << "]";	
+	}
 }
 
 //-----------------------------------------------------------------------

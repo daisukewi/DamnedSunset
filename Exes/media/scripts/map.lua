@@ -91,21 +91,7 @@ Map = {
 		grid_position = "10 10",
 		position = {15, 0, 5},	
 	},
-	
-	Barril1 = {
-		type = "Barril",
-	},	
-	
-	Barril2 = {
-		type = "Barril",
-		position = {5, 10, 15},
-	},	
-	
-	Barril3 = {
-		type = "Barril",
-		position = {-5, 1, 15},
-	},
-	
+
 	Road0_0 = {
 		type = "Road",
 		position = { 0, 0 },

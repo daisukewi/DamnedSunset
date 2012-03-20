@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -48,14 +48,14 @@ THE SOFTWARE.
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    template<> MaterialManager* Singleton<MaterialManager>::ms_Singleton = 0;
+    template<> MaterialManager* Singleton<MaterialManager>::msSingleton = 0;
     MaterialManager* MaterialManager::getSingletonPtr(void)
     {
-        return ms_Singleton;
+        return msSingleton;
     }
     MaterialManager& MaterialManager::getSingleton(void)
     {
-        assert( ms_Singleton );  return ( *ms_Singleton );
+        assert( msSingleton );  return ( *msSingleton );
     }
 	String MaterialManager::DEFAULT_SCHEME_NAME = "Default";
     //-----------------------------------------------------------------------
@@ -259,10 +259,13 @@ namespace Ogre {
     //-----------------------------------------------------------------------
 	void MaterialManager::setActiveScheme(const String& schemeName)
 	{
-		// Allow the creation of new scheme indexes on demand
-		// even if they're not specified in any Technique
-		mActiveSchemeIndex = _getSchemeIndex(schemeName);
-		mActiveSchemeName = schemeName;
+		if (mActiveSchemeName != schemeName)
+		{	
+			// Allow the creation of new scheme indexes on demand
+			// even if they're not specified in any Technique
+			mActiveSchemeIndex = _getSchemeIndex(schemeName);
+			mActiveSchemeName = schemeName;
+		}
 	}
     //-----------------------------------------------------------------------
 	void MaterialManager::addListener(Listener* l, const Ogre::String& schemeName)

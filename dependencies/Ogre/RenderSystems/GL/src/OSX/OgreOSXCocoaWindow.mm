@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -97,7 +97,8 @@ namespace Ogre {
 
 		BOOL hasDepthBuffer = YES;
 		int fsaa_samples = 0;
-		NSString *windowTitle = [NSString stringWithCString:name.c_str() encoding:NSUTF8StringEncoding];
+        bool hidden = false;
+        NSString *windowTitle = [NSString stringWithCString:name.c_str() encoding:NSUTF8StringEncoding];
 		int winx = 0, winy = 0;
 		int depth = 32;
         NameValuePairList::const_iterator opt(NULL);
@@ -116,6 +117,10 @@ namespace Ogre {
 			if(opt != miscParams->end())
 				winy = (int)NSHeight([[NSScreen mainScreen] frame]) - StringConverter::parseUnsignedInt(opt->second) - height;
 
+            opt = miscParams->find("hidden");
+            if (opt != miscParams->end())
+                hidden = StringConverter::parseBool(opt->second);
+
 			opt = miscParams->find("depthBuffer");
 			if(opt != miscParams->end())
 				hasDepthBuffer = StringConverter::parseBool(opt->second);
@@ -124,6 +129,10 @@ namespace Ogre {
 			if(opt != miscParams->end())
 				fsaa_samples = StringConverter::parseUnsignedInt(opt->second);
 			
+            opt = miscParams->find("gamma");
+			if(opt != miscParams->end())
+				mHwGamma = StringConverter::parseBool(opt->second);
+
 			opt = miscParams->find("colourDepth");
 			if(opt != miscParams->end())
 				depth = StringConverter::parseUnsignedInt(opt->second);
@@ -168,7 +177,6 @@ namespace Ogre {
 			attribs[i++] = NSOpenGLPFAScreenMask;
 			attribs[i++] = (NSOpenGLPixelFormatAttribute)CGDisplayIDToOpenGLDisplayMask(CGMainDisplayID());
 
-            
             // Specifying "NoRecovery" gives us a context that cannot fall back to the software renderer.
             // This makes the View-based context a compatible with the fullscreen context, enabling us to use
             // the "shareContext" feature to share textures, display lists, and other OpenGL objects between the two.
@@ -204,10 +212,22 @@ namespace Ogre {
 			OSXCocoaContext *mainContext = (OSXCocoaContext*)rs->_getMainContext();
 			NSOpenGLContext *shareContext = mainContext == 0? nil : mainContext->getContext();
             mGLContext = [[NSOpenGLContext alloc] initWithFormat:mGLPixelFormat shareContext:shareContext];
+            GLint swapInterval = 1;
+            [mGLContext setValues:&swapInterval forParameter:NSOpenGLCPSwapInterval];
 
             if(miscParams)
                 opt = miscParams->find("externalWindowHandle");
-            
+
+            // Make active
+            mActive = true;
+            mClosed = false;
+            mName = [windowTitle cStringUsingEncoding:NSUTF8StringEncoding];
+            mWidth = width;
+            mHeight = height;
+            mColourDepth = depth;
+            mFSAA = fsaa_samples;
+            mIsFullScreen = fullScreen;
+
             if(!miscParams || opt == miscParams->end())
             {
                 createNewWindow(width, height, [windowTitle cStringUsingEncoding:NSUTF8StringEncoding]);
@@ -249,18 +269,11 @@ namespace Ogre {
             // Create register the context with the rendersystem and associate it with this window
             mContext = OGRE_NEW OSXCocoaContext(mGLContext, mGLPixelFormat);
         }
-		// make active
-		mActive = true;
-        mClosed = false;
-        mName = [windowTitle cStringUsingEncoding:NSUTF8StringEncoding];
-        mWidth = width;
-        mHeight = height;
-        mColourDepth = depth;
-        mFSAA = fsaa_samples;
-        mIsFullScreen = fullScreen;
-		
+
 		// Create the window delegate instance to handle window resizing and other window events
         mWindowDelegate = [[OSXCocoaWindowDelegate alloc] initWithNSWindow:mWindow ogreWindow:this];
+
+        setHidden(hidden);
 
         [pool drain];
     }
@@ -321,6 +334,45 @@ namespace Ogre {
     {
         return false;
     }
+
+    void OSXCocoaWindow::setHidden(bool hidden)
+    {
+        mHidden = hidden;
+        if (!mIsExternal)
+        {
+            if (hidden)
+                [mWindow orderOut:nil];
+            else
+                [mWindow makeKeyAndOrderFront:nil];
+        }
+    }
+
+	void OSXCocoaWindow::setVSyncEnabled(bool vsync)
+	{
+        mVSync = vsync;
+        mContext->setCurrent();
+        
+        GLint vsyncInterval = mVSync ? 1 : 0;
+        [mGLContext setValues:&vsyncInterval forParameter:NSOpenGLCPSwapInterval];
+
+        mContext->endCurrent();
+        
+        if(!mIsFullScreen)
+        {
+            if(mGLContext != [NSOpenGLContext currentContext])
+                [mGLContext makeCurrentContext];
+        }
+        else
+        {
+            if([mGLContext CGLContextObj] != CGLGetCurrentContext())
+                CGLSetCurrentContext((CGLContextObj)[mGLContext CGLContextObj]);
+        }
+	}
+    
+	bool OSXCocoaWindow::isVSyncEnabled() const
+	{
+        return mVSync;
+	}
 
     void OSXCocoaWindow::reposition(int left, int top)
     {
@@ -473,7 +525,7 @@ namespace Ogre {
     void OSXCocoaWindow::createNewWindow(unsigned int width, unsigned int height, String title)
     {
         mWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, width, height)
-                                              styleMask:NSResizableWindowMask
+                                              styleMask:NSResizableWindowMask|NSTitledWindowMask
                                                 backing:NSBackingStoreBuffered
                                                   defer:NO];
         [mWindow setTitle:[NSString stringWithCString:title.c_str() encoding:NSUTF8StringEncoding]];

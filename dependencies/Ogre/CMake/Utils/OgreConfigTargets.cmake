@@ -43,16 +43,26 @@ elseif (UNIX)
   set(OGRE_LIB_RELWDBG_PATH "")
   set(OGRE_LIB_MINSIZE_PATH "")
   set(OGRE_LIB_DEBUG_PATH "")
-  if(APPLE AND OGRE_BUILD_PLATFORM_IPHONE)
-    set(OGRE_RELEASE_PATH "/release")
-    set(OGRE_LIB_RELEASE_PATH "/release")
-  endif(APPLE AND OGRE_BUILD_PLATFORM_IPHONE)
+  if(APPLE AND OGRE_BUILD_PLATFORM_APPLE_IOS)
+    set(OGRE_LIB_RELEASE_PATH "/Release")
+  endif(APPLE AND OGRE_BUILD_PLATFORM_APPLE_IOS)
   if (APPLE)
     set(OGRE_PLUGIN_PATH "/")
   else()
     set(OGRE_PLUGIN_PATH "/OGRE")
   endif(APPLE)
   set(OGRE_SAMPLE_PATH "/OGRE/Samples")
+elseif (SYMBIAN)
+  set(OGRE_RELEASE_PATH ".")
+  set(OGRE_RELWDBG_PATH ".")
+  set(OGRE_MINSIZE_PATH ".")
+  set(OGRE_DEBUG_PATH ".")
+  set(OGRE_LIB_RELEASE_PATH ".")
+  set(OGRE_LIB_RELWDBG_PATH ".")
+  set(OGRE_LIB_MINSIZE_PATH ".")
+  set(OGRE_LIB_DEBUG_PATH ".")
+  set(OGRE_PLUGIN_PATH ".")
+  set(OGRE_SAMPLE_PATH ".")
 endif ()
 
 # create vcproj.user file for Visual Studio to set debug working directory
@@ -148,12 +158,12 @@ function(ogre_config_common TARGETNAME)
     LIBRARY_OUTPUT_DIRECTORY ${OGRE_LIBRARY_OUTPUT}
     RUNTIME_OUTPUT_DIRECTORY ${OGRE_RUNTIME_OUTPUT}
   )
-  if(OGRE_BUILD_PLATFORM_IPHONE)
+  if(OGRE_BUILD_PLATFORM_APPLE_IOS)
     set_target_properties(${TARGETNAME} PROPERTIES XCODE_ATTRIBUTE_GCC_THUMB_SUPPORT "NO")
     set_target_properties(${TARGETNAME} PROPERTIES XCODE_ATTRIBUTE_GCC_UNROLL_LOOPS "YES")
     set_target_properties(${TARGETNAME} PROPERTIES XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer")
     set_target_properties(${TARGETNAME} PROPERTIES XCODE_ATTRIBUTE_GCC_PRECOMPILE_PREFIX_HEADER "YES")
-  endif(OGRE_BUILD_PLATFORM_IPHONE)
+  endif(OGRE_BUILD_PLATFORM_APPLE_IOS)
 
   ogre_create_vcproj_userfile(${TARGETNAME})
 endfunction(ogre_config_common)
@@ -210,15 +220,16 @@ endfunction(ogre_config_component)
 # setup plugin build
 function(ogre_config_plugin PLUGINNAME)
   ogre_config_common(${PLUGINNAME})
+  set_target_properties(${PLUGINNAME} PROPERTIES VERSION ${OGRE_SOVERSION})
   if (OGRE_STATIC)
     # add static prefix, if compiling static version
     set_target_properties(${PLUGINNAME} PROPERTIES OUTPUT_NAME ${PLUGINNAME}Static)
 
-    if(OGRE_BUILD_PLATFORM_IPHONE)
+    if(OGRE_BUILD_PLATFORM_APPLE_IOS)
       set_target_properties(${PLUGINNAME} PROPERTIES XCODE_ATTRIBUTE_GCC_THUMB_SUPPORT "NO")
       set_target_properties(${PLUGINNAME} PROPERTIES XCODE_ATTRIBUTE_GCC_UNROLL_LOOPS "YES")
       set_target_properties(${PLUGINNAME} PROPERTIES XCODE_ATTRIBUTE_GCC_PRECOMPILE_PREFIX_HEADER "YES")
-    endif(OGRE_BUILD_PLATFORM_IPHONE)
+    endif(OGRE_BUILD_PLATFORM_APPLE_IOS)
   else (OGRE_STATIC)
     if (CMAKE_COMPILER_IS_GNUCXX)
       # add GCC visibility flags to shared library build
@@ -258,12 +269,6 @@ endfunction(ogre_config_plugin)
 
 # setup Ogre sample build
 function(ogre_config_sample_common SAMPLENAME)
-  # The PRODUCT_NAME target setting cannot contain underscores.  Just remove them
-  # Known bug in Xcode CFBundleIdentifier processing rdar://6187020
-  # Can cause an instant App Store rejection. Also, code signing will fail. 
-  #if (OGRE_BUILD_PLATFORM_IPHONE)
-#    string (REPLACE "_" "" SAMPLENAME ${SAMPLENAME})
-  #endif()
   ogre_config_common(${SAMPLENAME})
 
   # set install RPATH for Unix systems
@@ -276,7 +281,7 @@ function(ogre_config_sample_common SAMPLENAME)
   if (APPLE)
     # On OS X, create .app bundle
     set_property(TARGET ${SAMPLENAME} PROPERTY MACOSX_BUNDLE TRUE)
-    if (NOT OGRE_BUILD_PLATFORM_IPHONE)
+    if (NOT OGRE_BUILD_PLATFORM_APPLE_IOS)
       # Add the path where the Ogre framework was found
       if(${OGRE_FRAMEWORK_PATH})
         set_target_properties(${SAMPLENAME} PROPERTIES
@@ -284,9 +289,9 @@ function(ogre_config_sample_common SAMPLENAME)
           LINK_FLAGS "-F${OGRE_FRAMEWORK_PATH}"
         )
       endif()
-    endif(NOT OGRE_BUILD_PLATFORM_IPHONE)
+    endif(NOT OGRE_BUILD_PLATFORM_APPLE_IOS)
   endif (APPLE)
-  if(NOT OGRE_STATIC)
+  if (NOT OGRE_STATIC)
     if (CMAKE_COMPILER_IS_GNUCXX)
       # add GCC visibility flags to shared library build
       set_target_properties(${SAMPLENAME} PROPERTIES COMPILE_FLAGS "${OGRE_GCC_VISIBILITY_FLAGS}")
@@ -294,8 +299,9 @@ function(ogre_config_sample_common SAMPLENAME)
       set_target_properties(${SAMPLENAME} PROPERTIES XCODE_ATTRIBUTE_GCC_INLINES_ARE_PRIVATE_EXTERN "${XCODE_ATTRIBUTE_GCC_INLINES_ARE_PRIVATE_EXTERN}")
       # disable "lib" prefix on Unix
       set_target_properties(${SAMPLENAME} PROPERTIES PREFIX "")
-    endif (CMAKE_COMPILER_IS_GNUCXX)	
+    endif (CMAKE_COMPILER_IS_GNUCXX)
   endif()
+
   if (OGRE_INSTALL_SAMPLES)
 	ogre_install_target(${SAMPLENAME} ${OGRE_SAMPLE_PATH} FALSE)
   endif()
@@ -316,7 +322,7 @@ function(ogre_config_sample_exe SAMPLENAME)
 		  )
   endif ()
 
-  if (APPLE AND NOT OGRE_BUILD_PLATFORM_IPHONE AND OGRE_SDK_BUILD)
+  if (APPLE AND NOT OGRE_BUILD_PLATFORM_APPLE_IOS AND OGRE_SDK_BUILD)
     # Add the path where the Ogre framework was found
     if(NOT ${OGRE_FRAMEWORK_PATH} STREQUAL "")
       set_target_properties(${SAMPLENAME} PROPERTIES
@@ -324,7 +330,7 @@ function(ogre_config_sample_exe SAMPLENAME)
         LINK_FLAGS "-F${OGRE_FRAMEWORK_PATH}"
       )
     endif()
-  endif(APPLE AND NOT OGRE_BUILD_PLATFORM_IPHONE AND OGRE_SDK_BUILD)
+  endif(APPLE AND NOT OGRE_BUILD_PLATFORM_APPLE_IOS AND OGRE_SDK_BUILD)
 endfunction(ogre_config_sample_exe)
 
 function(ogre_config_sample_lib SAMPLENAME)
@@ -341,7 +347,7 @@ function(ogre_config_sample_lib SAMPLENAME)
 		  )
   endif ()
 
-  if (APPLE AND NOT OGRE_BUILD_PLATFORM_IPHONE AND OGRE_SDK_BUILD)
+  if (APPLE AND NOT OGRE_BUILD_PLATFORM_APPLE_IOS AND OGRE_SDK_BUILD)
     # Add the path where the Ogre framework was found
     if(NOT ${OGRE_FRAMEWORK_PATH} STREQUAL "")
       set_target_properties(${SAMPLENAME} PROPERTIES
@@ -349,7 +355,7 @@ function(ogre_config_sample_lib SAMPLENAME)
         LINK_FLAGS "-F${OGRE_FRAMEWORK_PATH}"
       )
     endif()
-  endif(APPLE AND NOT OGRE_BUILD_PLATFORM_IPHONE AND OGRE_SDK_BUILD)
+  endif(APPLE AND NOT OGRE_BUILD_PLATFORM_APPLE_IOS AND OGRE_SDK_BUILD)
 
   # Add sample to the list of link targets
   # Global property so that we can build this up across entire sample tree

@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -744,7 +744,7 @@ namespace Ogre {
             ParamDictionary* dict = getParamDictionary();
 
             dict->addParameter(ParameterDef("quota", 
-                "The maximum number of particle allowed at once in this system.",
+                "The maximum number of particles allowed at once in this system.",
                 PT_UNSIGNED_INT),
                 &msQuotaCmd);
 

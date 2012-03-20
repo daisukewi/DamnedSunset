@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -96,6 +96,7 @@ namespace Ogre
         OverlayManager* mOverlayManager;
         FontManager* mFontManager;
         ArchiveFactory *mZipArchiveFactory;
+        ArchiveFactory *mEmbeddedZipArchiveFactory;
         ArchiveFactory *mFileSystemArchiveFactory;
 		ResourceGroupManager* mResourceGroupManager;
 		ResourceBackgroundQueue* mResourceBackgroundQueue;
@@ -113,6 +114,7 @@ namespace Ogre
         unsigned long mNextFrame;
 		Real mFrameSmoothingTime;
 		bool mRemoveQueueStructuresOnClear;
+		Real mDefaultMinPixelSize;
 
 	public:
 		typedef vector<DynLib*>::type PluginLibList;
@@ -141,6 +143,11 @@ namespace Ogre
 		bool mIsInitialised;
 
 		WorkQueue* mWorkQueue;
+
+		///Tells whether blend indices information needs to be passed to the GPU
+		bool mIsBlendIndicesGpuRedundant;
+		///Tells whether blend weights information needs to be passed to the GPU
+		bool mIsBlendWeightsGpuRedundant;
 
         /** Method reads a plugins configuration file and instantiates all
             plugins.
@@ -655,13 +662,19 @@ namespace Ogre
 		bool createRenderWindows(const RenderWindowDescriptionList& renderWindowDescriptions,
 			RenderWindowList& createdWindows);
 	
-        /** Detaches a RenderTarget from the active render system.
+        /** Detaches a RenderTarget from the active render system
+        and returns a pointer to it.
+        @note
+        If the render target cannot be found, NULL is returned.
         */
-        void detachRenderTarget( RenderTarget* pWin );
+        RenderTarget* detachRenderTarget( RenderTarget* pWin );
 
-        /** Detaches a named RenderTarget from the active render system.
+        /** Detaches a named RenderTarget from the active render system
+        and returns a pointer to it.
+        @note
+        If the render target cannot be found, NULL is returned.
         */
-        void detachRenderTarget( const String & name );
+        RenderTarget* detachRenderTarget( const String & name );
 
         /** Destroys the given RenderTarget.
         */
@@ -671,7 +684,7 @@ namespace Ogre
         */
         void destroyRenderTarget(const String &name);
 
-        /** Retrieves a pointer to the a named render window.
+        /** Retrieves a pointer to a named render target.
         */
         RenderTarget * getRenderTarget(const String &name);
 
@@ -1020,6 +1033,41 @@ namespace Ogre
 		*/
 		void setWorkQueue(WorkQueue* queue);
 			
+		/** Sets whether blend indices information needs to be passed to the GPU.
+			When entities use software animation they remove blend information such as
+			indices and weights from the vertex buffers sent to the graphic card. This function
+			can be used to limit which information is removed.
+		@param redundant Set to true to remove blend indices information.
+		*/
+		void setBlendIndicesGpuRedundant(bool redundant) {	mIsBlendIndicesGpuRedundant = redundant; }
+		/** Returns whether blend indices information needs to be passed to the GPU
+		see setBlendIndicesGpuRedundant() for more information
+		*/
+		bool isBlendIndicesGpuRedundant() const { return mIsBlendIndicesGpuRedundant; }
+
+		/** Sets whether blend weights information needs to be passed to the GPU.
+		When entities use software animation they remove blend information such as
+		indices and weights from the vertex buffers sent to the graphic card. This function
+		can be used to limit which information is removed.
+		@param redundant Set to true to remove blend weights information.
+		*/
+		void setBlendWeightsGpuRedundant(bool redundant) {	mIsBlendWeightsGpuRedundant = redundant; }
+		/** Returns whether blend weights information needs to be passed to the GPU
+		see setBlendWeightsGpuRedundant() for more information
+		*/
+		bool isBlendWeightsGpuRedundant() const { return mIsBlendWeightsGpuRedundant; }
+	
+		/** Set the default minimum pixel size for object to be rendered by
+		@note
+			To use this feature see Camera::setUseMinPixelSize()
+		*/
+		void setDefaultMinPixelSize(Real pixelSize) { mDefaultMinPixelSize = pixelSize; }
+
+		/** Get the default minimum pixel size for object to be rendered by
+		*/
+		Real getDefaultMinPixelSize() { return mDefaultMinPixelSize; }
+	
+
     };
 	/** @} */
 	/** @} */

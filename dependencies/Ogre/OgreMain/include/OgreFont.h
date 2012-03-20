@@ -4,7 +4,7 @@ This source file is a part of OGRE
 
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -149,7 +149,7 @@ namespace Ogre
 		CodePointMap mCodePointMap;
 
         /// The material which is generated for this font
-        MaterialPtr mpMaterial;
+        MaterialPtr mMaterial;
 
 		/// Texture pointer
 		TexturePtr mTexture;
@@ -352,7 +352,7 @@ namespace Ogre
         */
         inline const MaterialPtr& getMaterial() const
         {
-            return mpMaterial;
+            return mMaterial;
         }
         /** Gets the material generated for this font, as a weak reference. 
         @remarks
@@ -360,7 +360,7 @@ namespace Ogre
         */
         inline const MaterialPtr& getMaterial()
         {
-            return mpMaterial;
+            return mMaterial;
         }
         /** Sets whether or not the colour of this font is antialiased as it is generated
             from a true type font.

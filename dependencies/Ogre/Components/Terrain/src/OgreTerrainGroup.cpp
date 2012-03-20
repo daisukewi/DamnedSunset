@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -66,6 +66,7 @@ namespace Ogre
 		, mAlignment(Terrain::ALIGN_X_Z)
 		, mTerrainSize(0)
 		, mTerrainWorldSize(0)
+		, mOrigin(Vector3::ZERO)
 		, mFilenamePrefix("terrain")
 		, mFilenameExtension("dat")
 		, mResourceGroup(ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME)
@@ -495,7 +496,6 @@ namespace Ogre
 					result.hit = true;
 					result.terrain = slot->instance;
 					result.position = raypair.second;
-					break;
 				}
 				else
 				{
@@ -877,6 +877,37 @@ namespace Ogre
 
 
 	}
+	//---------------------------------------------------------------------
+    void TerrainGroup::setTerrainWorldSize(Real newWorldSize)
+    {
+		if (newWorldSize != mTerrainWorldSize)
+		{
+			mTerrainWorldSize = newWorldSize;
+			for (TerrainSlotMap::iterator i = mTerrainSlots.begin(); i != mTerrainSlots.end(); ++i)
+			{
+				if (i->second->instance)
+				{
+					i->second->instance->setWorldSize(newWorldSize);
+					i->second->instance->setPosition(getTerrainSlotPosition(i->second->x, i->second->y));
+				}
+			}
+		}
+    }
+	//---------------------------------------------------------------------
+    void TerrainGroup::setTerrainSize(uint16 newTerrainSize)
+    {
+		if (newTerrainSize != mTerrainSize)
+		{
+			mTerrainSize = newTerrainSize;
+			for (TerrainSlotMap::iterator i = mTerrainSlots.begin(); i != mTerrainSlots.end(); ++i)
+			{
+				if (i->second->instance)
+				{
+					i->second->instance->setSize(newTerrainSize);
+				}
+			}
+		}
+    }
 	//---------------------------------------------------------------------
 	//---------------------------------------------------------------------
 	TerrainGroup::TerrainSlotDefinition::~TerrainSlotDefinition()

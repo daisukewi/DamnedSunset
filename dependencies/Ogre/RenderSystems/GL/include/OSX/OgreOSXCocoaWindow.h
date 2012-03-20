@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -40,7 +40,7 @@ THE SOFTWARE.
 @class OSXCocoaWindowDelegate;
 
 namespace Ogre {
-    class OSXCocoaWindow : public OSXWindow
+    class _OgreGLExport OSXCocoaWindow : public OSXWindow
     {
     private:
         NSWindow *mWindow;
@@ -52,6 +52,8 @@ namespace Ogre {
 
         bool mActive;
         bool mClosed;
+        bool mHidden;
+        bool mVSync;
 		bool mHasResized;
         bool mIsExternal;
         String mWindowTitle;
@@ -64,6 +66,7 @@ namespace Ogre {
 		NSView* ogreView() const { return mView; };
 		NSWindow* ogreWindow() const { return mWindow; };
 		NSOpenGLContext* nsopenGLContext() const { return mGLContext; };
+		NSOpenGLPixelFormat* nsopenGLPixelFormat() const { return mGLPixelFormat; };
 		void createWithView(OgreView *view);
 
 		void create(const String& name, unsigned int width, unsigned int height,
@@ -74,6 +77,14 @@ namespace Ogre {
         bool isActive(void) const;
         /** Overridden - see RenderWindow */
         bool isClosed(void) const;
+        /** @copydoc see RenderWindow::isHidden */
+        bool isHidden(void) const { return mHidden; }
+        /** @copydoc see RenderWindow::setHidden */
+        void setHidden(bool hidden);
+        /** @copydoc see RenderWindow::setVSyncEnabled */
+        void setVSyncEnabled(bool vsync);
+        /** @copydoc see RenderWindow::isVSyncEnabled */
+        bool isVSyncEnabled() const;
         /** Overridden - see RenderWindow */
         void reposition(int left, int top);
         /** Overridden - see RenderWindow */

@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include "OgreOverlayElementCommands.h"
 #include "OgreOverlayElement.h"
 #include "OgreStringConverter.h"
+#include "OgreLogManager.h"
 
 
 namespace Ogre {
@@ -43,7 +44,8 @@ namespace Ogre {
         }
         void CmdLeft::doSet(void* target, const String& val)
         {
-            static_cast<OverlayElement*>(target)->setLeft(StringConverter::parseReal(val));
+			Real r = StringConverter::parseReal(val);
+            static_cast<OverlayElement*>(target)->setLeft(r);
         }
         //-----------------------------------------------------------------------
         String CmdTop::doGet(const void* target) const
@@ -53,7 +55,8 @@ namespace Ogre {
         }
         void CmdTop::doSet(void* target, const String& val)
         {
-            static_cast<OverlayElement*>(target)->setTop(StringConverter::parseReal(val));
+			Real r = StringConverter::parseReal(val);
+            static_cast<OverlayElement*>(target)->setTop(r);
         }
         //-----------------------------------------------------------------------
         String CmdWidth::doGet(const void* target) const
@@ -63,7 +66,8 @@ namespace Ogre {
         }
         void CmdWidth::doSet(void* target, const String& val)
         {
-            static_cast<OverlayElement*>(target)->setWidth(StringConverter::parseReal(val));
+			Real r = StringConverter::parseReal(val);
+            static_cast<OverlayElement*>(target)->setWidth(r);
         }
         //-----------------------------------------------------------------------
         String CmdHeight::doGet(const void* target) const
@@ -73,7 +77,8 @@ namespace Ogre {
         }
         void CmdHeight::doSet(void* target, const String& val)
         {
-            static_cast<OverlayElement*>(target)->setHeight(StringConverter::parseReal(val));
+			Real r = StringConverter::parseReal(val);
+            static_cast<OverlayElement*>(target)->setHeight(r);
         }
         //-----------------------------------------------------------------------
         String CmdMaterial::doGet(const void* target) const

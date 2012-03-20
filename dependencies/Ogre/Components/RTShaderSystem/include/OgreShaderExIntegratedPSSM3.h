@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,11 @@ namespace RTShader {
 *  @{
 */
 
+#define SGX_LIB_INTEGRATEDPSSM						"SGXLib_IntegratedPSSM"
+#define SGX_FUNC_COMPUTE_SHADOW_COLOUR3				"SGX_ComputeShadowFactor_PSSM3"
+#define SGX_FUNC_APPLYSHADOWFACTOR_DIFFUSE			"SGX_ApplyShadowFactor_Diffuse"
+#define SGX_FUNC_MODULATE_SCALAR					"SGX_ModulateScalar"
+
 /** Integrated PSSM shadow receiver with 3 splits sub render state implementation.
 Derives from SubRenderState class.
 */
@@ -83,7 +88,7 @@ public:
 	/** 
 	@see SubRenderState::preAddToRenderState.
 	*/
-	virtual bool			preAddToRenderState		(RenderState* renderState, Pass* srcPass, Pass* dstPass);
+	virtual bool			preAddToRenderState		(const RenderState* renderState, Pass* srcPass, Pass* dstPass);
 
 
 	
@@ -184,7 +189,7 @@ public:
 	/** 
 	@see SubRenderStateFactory::createInstance.
 	*/
-	virtual SubRenderState*	createInstance		(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass);
+	virtual SubRenderState*	createInstance		(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator);
 
 
 protected:

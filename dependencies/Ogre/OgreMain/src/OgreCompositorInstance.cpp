@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -53,7 +53,8 @@ namespace Ogre {
 CompositorInstance::CompositorInstance(CompositionTechnique *technique,
     CompositorChain *chain):
     mCompositor(technique->getParent()), mTechnique(technique), mChain(chain),
-		mEnabled(false)
+		mEnabled(false),
+		mAlive(false)
 {
 	const String& logicName = mTechnique->getCompositorLogicName();
 	if (!logicName.empty())
@@ -77,9 +78,24 @@ CompositorInstance::~CompositorInstance()
 //-----------------------------------------------------------------------
 void CompositorInstance::setEnabled(bool value)
 {
-    if (mEnabled != value)
+	if (mEnabled != value)
     {
         mEnabled = value;
+
+	    //Probably first time enabling, create resources.
+	    if( mEnabled && !mAlive )
+    		setAlive( true );
+
+		/// Notify chain state needs recompile.
+        mChain->_markDirty();
+	}
+}
+//-----------------------------------------------------------------------
+void CompositorInstance::setAlive(bool value)
+{
+    if (mAlive != value)
+    {
+        mAlive = value;
 
         // Create of free resource.
         if (value)
@@ -89,16 +105,12 @@ void CompositorInstance::setEnabled(bool value)
         else
         {
             freeResources(false, true);
+			setEnabled(false);
         }
 
 		/// Notify chain state needs recompile.
         mChain->_markDirty();
     }
-}
-//-----------------------------------------------------------------------
-bool CompositorInstance::getEnabled()
-{
-    return mEnabled;
 }
 //-----------------------------------------------------------------------
 
@@ -439,7 +451,7 @@ void CompositorInstance::_compileTargetOperations(CompiledState &compiledState)
         if(target->getInputMode() == CompositionTargetPass::IM_PREVIOUS)
         {
             /// Collect target state for previous compositor
-            /// The TargetOperation for the final target is collected seperately as it is merged
+            /// The TargetOperation for the final target is collected separately as it is merged
             /// with later operations
             mPreviousInstance->_compileOutputOperation(ts);
         }
@@ -463,7 +475,7 @@ void CompositorInstance::_compileOutputOperation(TargetOperation &finalState)
     if(tpass->getInputMode() == CompositionTargetPass::IM_PREVIOUS)
     {
         /// Collect target state for previous compositor
-        /// The TargetOperation for the final target is collected seperately as it is merged
+        /// The TargetOperation for the final target is collected separately as it is merged
         /// with later operations
         mPreviousInstance->_compileOutputOperation(finalState);
     }
@@ -510,7 +522,7 @@ void CompositorInstance::setTechnique(CompositionTechnique* tech, bool reuseText
 		// replace technique
 		mTechnique = tech;
 
-		if (mEnabled)
+		if (mAlive)
 		{
 			// free up resources, but keep reserves if reusing
 			freeResources(false, !reuseTextures);
@@ -528,7 +540,6 @@ void CompositorInstance::setScheme(const String& schemeName, bool reuseTextures)
 	if (tech)
 	{
 		setTechnique(tech, reuseTextures);
-		mActiveScheme = tech->getSchemeName();
 	}
 }
 //-----------------------------------------------------------------------
@@ -735,7 +746,9 @@ void CompositorInstance::createResources(bool forResizeOnly)
 			rendTarget = tex->getBuffer()->getRenderTarget();
 			mLocalTextures[def->name] = tex;
 		}
-        
+
+		//Set DepthBuffer pool for sharing
+		rendTarget->setDepthBufferPool( def->depthBufferId );
         
         /// Set up viewport over entire texture
         rendTarget->setAutoUpdated( false );
@@ -743,23 +756,31 @@ void CompositorInstance::createResources(bool forResizeOnly)
 		// We may be sharing / reusing this texture, so test before adding viewport
 		if (rendTarget->getNumViewports() == 0)
 		{
+			Viewport* v;
 			Camera* camera = mChain->getViewport()->getCamera();
+			if (!camera)
+			{
+				v = rendTarget->addViewport( camera );
+			}
+			else
+			{
+				// Save last viewport and current aspect ratio
+				Viewport* oldViewport = camera->getViewport();
+				Real aspectRatio = camera->getAspectRatio();
 
-			// Save last viewport and current aspect ratio
-			Viewport* oldViewport = camera->getViewport();
-			Real aspectRatio = camera->getAspectRatio();
+				v = rendTarget->addViewport( camera );
 
-			Viewport* v = rendTarget->addViewport( camera );
+				// Should restore aspect ratio, in case of auto aspect ratio
+				// enabled, it'll changed when add new viewport.
+				camera->setAspectRatio(aspectRatio);
+				// Should restore last viewport, i.e. never disturb user code
+				// which might based on that.
+				camera->_notifyViewport(oldViewport);
+			}
+
 			v->setClearEveryFrame( false );
 			v->setOverlaysEnabled( false );
 			v->setBackgroundColour( ColourValue( 0, 0, 0, 0 ) );
-
-			// Should restore aspect ratio, in case of auto aspect ratio
-			// enabled, it'll changed when add new viewport.
-			camera->setAspectRatio(aspectRatio);
-			// Should restore last viewport, i.e. never disturb user code
-			// which might based on that.
-			camera->_notifyViewport(oldViewport);
 		}
     }
 
@@ -1151,6 +1172,33 @@ void CompositorInstance::_fireNotifyResourcesCreated(bool forResizeOnly)
 	Listeners::iterator i, iend=mListeners.end();
 	for(i=mListeners.begin(); i!=iend; ++i)
 		(*i)->notifyResourcesCreated(forResizeOnly);
+}
+//-----------------------------------------------------------------------
+void CompositorInstance::notifyCameraChanged(Camera* camera)
+{
+	// update local texture's viewports.
+	LocalTextureMap::iterator localTexIter = mLocalTextures.begin();
+	LocalTextureMap::iterator localTexIterEnd = mLocalTextures.end();
+	while (localTexIter != localTexIterEnd)
+	{
+		RenderTexture* target = localTexIter->second->getBuffer()->getRenderTarget();
+		// skip target that has no viewport (this means texture is under MRT)
+		if (target->getNumViewports() == 1)
+		{
+			target->getViewport(0)->setCamera(camera);
+		}
+		++localTexIter;
+	}
+
+	// update MRT's viewports.
+	LocalMRTMap::iterator localMRTIter = mLocalMRTs.begin();
+	LocalMRTMap::iterator localMRTIterEnd = mLocalMRTs.end();
+	while (localMRTIter != localMRTIterEnd)
+	{
+		MultiRenderTarget* target = localMRTIter->second;
+		target->getViewport(0)->setCamera(camera);
+		++localMRTIter;
+	}
 }
 //-----------------------------------------------------------------------
 CompositorInstance::RenderSystemOperation::~RenderSystemOperation()

@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include "OgreRoot.h"
 #include "OgreGLESHardwarePixelBuffer.h"
 #include "OgreGLESFBORenderTexture.h"
+#include "OgreGLESDepthBuffer.h"
 
 namespace Ogre {
 
@@ -131,7 +132,6 @@ namespace Ogre {
         size_t width = mColour[0].buffer->getWidth();
         size_t height = mColour[0].buffer->getHeight();
         GLuint format = mColour[0].buffer->getGLFormat();
-        PixelFormat ogreFormat = mColour[0].buffer->getFormat();
 
 		// Bind simple buffer to add colour attachments
 		glBindFramebufferOES(GL_FRAMEBUFFER_OES, mFB);
@@ -189,57 +189,17 @@ namespace Ogre {
 			// depth & stencil will be dealt with below
 		}
 
-        /// Find suitable depth and stencil format that is compatible with colour format
-        GLenum depthFormat, stencilFormat;
-        mManager->getBestDepthStencil(ogreFormat, &depthFormat, &stencilFormat);
-        
-        /// Request surfaces
-        mDepth = mManager->requestRenderBuffer(depthFormat, width, height, mNumSamples);
-		if (depthFormat == GL_DEPTH24_STENCIL8_OES)
-		{
-			// bind same buffer to depth and stencil attachments
-            mManager->requestRenderBuffer(mDepth);
-			mStencil = mDepth;
-		}
-		else
-		{
-			// separate stencil
-			mStencil = mManager->requestRenderBuffer(stencilFormat, width, height, mNumSamples);
-		}
-        
-        /// Attach/detach surfaces
-        if(mDepth.buffer)
-        {
-            mDepth.buffer->bindToFramebuffer(GL_DEPTH_ATTACHMENT_OES, mDepth.zoffset);
-        }
-        else
-        {
-            glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_DEPTH_ATTACHMENT_OES,
-                GL_RENDERBUFFER_OES, 0);
-            GL_CHECK_ERROR;
-        }
-        if(mStencil.buffer)
-        {
-            mStencil.buffer->bindToFramebuffer(GL_STENCIL_ATTACHMENT_OES, mStencil.zoffset);
-        }
-        else
-        {
-            glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_STENCIL_ATTACHMENT_OES,
-                GL_RENDERBUFFER_OES, 0);
-            GL_CHECK_ERROR;
-        }
+        /// Depth buffer is not handled here anymore.
+		/// See GLESFrameBufferObject::attachDepthBuffer() & RenderSystem::setDepthBufferFor()
 
 		/// Do glDrawBuffer calls
 		GLenum bufs[OGRE_MAX_MULTIPLE_RENDER_TARGETS];
-		GLsizei n=0;
 		for(size_t x=0; x<OGRE_MAX_MULTIPLE_RENDER_TARGETS; ++x)
 		{
 			// Fill attached colour buffers
 			if(mColour[x].buffer)
 			{
 				bufs[x] = GL_COLOR_ATTACHMENT0_OES + x;
-				// Keep highest used buffer + 1
-				n = x+1;
 			}
 			else
 			{
@@ -253,7 +213,7 @@ namespace Ogre {
         GL_CHECK_ERROR;
 
         /// Bind main buffer
-#if OGRE_PLATFORM == OGRE_PLATFORM_IPHONE
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
         // The screen buffer is 1 on iPhone
         glBindFramebufferOES(GL_FRAMEBUFFER_OES, 1);
 #else
@@ -281,10 +241,8 @@ namespace Ogre {
     void GLESFrameBufferObject::bind()
     {
         /// Bind it to FBO
-		if (mMultisampleFB)
-			glBindFramebufferOES(GL_FRAMEBUFFER_OES, mMultisampleFB);
-		else
-			glBindFramebufferOES(GL_FRAMEBUFFER_OES, mFB);
+		const GLuint fb = mMultisampleFB ? mMultisampleFB : mFB;
+		glBindFramebufferOES(GL_FRAMEBUFFER_OES, fb);
         GL_CHECK_ERROR;
     }
 
@@ -305,6 +263,42 @@ namespace Ogre {
 #endif
 	}
 
+	void GLESFrameBufferObject::attachDepthBuffer( DepthBuffer *depthBuffer )
+	{
+		GLESDepthBuffer *glDepthBuffer = static_cast<GLESDepthBuffer*>(depthBuffer);
+
+		glBindFramebufferOES(GL_FRAMEBUFFER_OES, mMultisampleFB ? mMultisampleFB : mFB );
+
+		if( glDepthBuffer )
+		{
+			GLESRenderBuffer *depthBuf   = glDepthBuffer->getDepthBuffer();
+			GLESRenderBuffer *stencilBuf = glDepthBuffer->getStencilBuffer();
+
+			//Attach depth buffer, if it has one.
+			if( depthBuf )
+				depthBuf->bindToFramebuffer( GL_DEPTH_ATTACHMENT_OES, 0 );
+
+			//Attach stencil buffer, if it has one.
+			if( stencilBuf )
+				stencilBuf->bindToFramebuffer( GL_STENCIL_ATTACHMENT_OES, 0 );
+		}
+		else
+		{
+			glFramebufferRenderbufferOES( GL_FRAMEBUFFER_OES, GL_DEPTH_ATTACHMENT_OES,
+										  GL_RENDERBUFFER_OES, 0);
+			glFramebufferRenderbufferOES( GL_FRAMEBUFFER_OES, GL_STENCIL_ATTACHMENT_OES,
+										  GL_RENDERBUFFER_OES, 0);
+		}
+	}
+	//-----------------------------------------------------------------------------
+	void GLESFrameBufferObject::detachDepthBuffer()
+	{
+		glBindFramebufferOES(GL_FRAMEBUFFER_OES, mMultisampleFB ? mMultisampleFB : mFB );
+		glFramebufferRenderbufferOES( GL_FRAMEBUFFER_OES, GL_DEPTH_ATTACHMENT_OES, GL_RENDERBUFFER_OES, 0 );
+		glFramebufferRenderbufferOES( GL_FRAMEBUFFER_OES, GL_STENCIL_ATTACHMENT_OES,
+									  GL_RENDERBUFFER_OES, 0 );
+	}
+
     size_t GLESFrameBufferObject::getWidth()
     {
         assert(mColour[0].buffer);
@@ -319,6 +313,10 @@ namespace Ogre {
     {
         assert(mColour[0].buffer);
         return mColour[0].buffer->getFormat();
+    }
+	GLsizei GLESFrameBufferObject::getFSAA()
+    {
+        return mNumSamples;
     }
 //-----------------------------------------------------------------------------
 }

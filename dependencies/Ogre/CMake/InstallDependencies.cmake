@@ -114,9 +114,19 @@ if (OGRE_INSTALL_DEPENDENCIES)
     # copy the dependency DLLs to the right places
     install_debug(OIS_d.dll)
     install_release(OIS.dll)
+
     if (OGRE_BUILD_PLUGIN_CG)
-      install_debug(cg.dll)
-	  install_release(cg.dll)
+	  # if MinGW or NMake, the release/debug cg.dll's would conflict, so just pick one
+	  if (MINGW OR (CMAKE_GENERATOR STREQUAL "NMake Makefiles"))
+        if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+          install_debug(cg.dll)
+		else ()
+	      install_release(cg.dll)
+		endif ()
+	  else ()
+        install_debug(cg.dll)
+	    install_release(cg.dll)
+	  endif ()
     endif ()
 
     # install GLES dlls
@@ -194,7 +204,7 @@ if (OGRE_INSTALL_DEPENDENCIES)
 		PATTERN "xpressive" EXCLUDE
 	  )
 	  # License
-	  install(FILES "${Boost_INCLUDE_DIR}/LICENSE_1_0.txt" DESTINATION "boost_${Boost_LIB_VERSION}")
+	  install(FILES "${Boost_INCLUDE_DIR}/../LICENSE_1_0.txt" DESTINATION "boost_${Boost_LIB_VERSION}")
 	  # libraries
 	  if (Boost_THREAD_FOUND)
 	    install(FILES ${Boost_THREAD_LIBRARY_DEBUG} DESTINATION "boost_${Boost_LIB_VERSION}/lib" CONFIGURATIONS Debug)
@@ -208,6 +218,15 @@ if (OGRE_INSTALL_DEPENDENCIES)
 	endif()
   endif()
   
+  
+  # install GLES2 dlls
+  if (OGRE_BUILD_RENDERSYSTEM_GLES2)
+    install_debug(libEGL.dll)
+    install_debug(libGLESv2.dll)
+	install_release(libEGL.dll)
+	install_release(libGLESv2.dll)
+  endif ()
+  
 endif ()
 
 if (OGRE_COPY_DEPENDENCIES)
@@ -218,8 +237,17 @@ if (OGRE_COPY_DEPENDENCIES)
     copy_release(OIS.dll)
 
     if (OGRE_BUILD_PLUGIN_CG)
-      copy_debug(cg.dll)
-      copy_release(cg.dll)
+	  # if MinGW or NMake, the release/debug cg.dll's would conflict, so just pick one
+	  if (MINGW OR (CMAKE_GENERATOR STREQUAL "NMake Makefiles"))
+        if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+          copy_debug(cg.dll)
+		else ()
+	      copy_release(cg.dll)
+		endif ()
+	  else ()
+        copy_debug(cg.dll)
+	    copy_release(cg.dll)
+	  endif ()
     endif ()
 
     if (OGRE_BUILD_RENDERSYSTEM_GLES)
@@ -236,4 +264,11 @@ if (OGRE_COPY_DEPENDENCIES)
       copy_release(Cg.framework)
     endif ()
   endif ()
+  if (OGRE_BUILD_RENDERSYSTEM_GLES2)	
+	copy_debug(libEGL.dll)
+    copy_debug(libGLESv2.dll)
+	copy_release(libEGL.dll)
+	copy_release(libGLESv2.dll)
+  endif ()
+
 endif ()

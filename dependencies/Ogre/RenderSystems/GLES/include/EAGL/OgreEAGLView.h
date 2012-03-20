@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -29,14 +29,19 @@ THE SOFTWARE.
 #ifndef __EAGLView_H__
 #define __EAGLView_H__
 
+#include "OgreString.h"
+
+using namespace Ogre;
+
 #ifdef __OBJC__
 
 #import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
 
 @interface EAGLView : UIView {
-    bool mInitialised;
+    String mWindowName;
 }
+
+@property (atomic, assign) String mWindowName;
 
 @end
 

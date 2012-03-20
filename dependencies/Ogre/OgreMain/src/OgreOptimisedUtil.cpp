@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -58,7 +58,7 @@ namespace Ogre {
     static FORCEINLINE uint64 getCpuTimestamp(void)
     {
         __asm rdtsc
-        // Return values in edx:eax, No return statment requirement here for VC.
+        // Return values in edx:eax, No return statement requirement here for VC.
     }
 #pragma warning(pop)
 
@@ -185,7 +185,9 @@ namespace Ogre {
             Real t,
             const float *srcPos1, const float *srcPos2,
             float *dstPos,
-            size_t numVertices)
+			size_t pos1VSize, size_t pos2VSize, size_t dstVSize, 
+            size_t numVertices,
+			bool morphNormals)
         {
             static ProfileItems results;
             static size_t index;
@@ -198,7 +200,9 @@ namespace Ogre {
                 t,
                 srcPos1, srcPos2,
                 dstPos,
-                numVertices);
+				pos1VSize, pos2VSize, dstVSize,
+                numVertices,
+				morphNormals);
             profile.end();
 
             // You can put break point here while running test application, to

@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,10 @@ namespace Ogre {
 #define OGRE_PLATFORM_LINUX 2
 #define OGRE_PLATFORM_APPLE 3
 #define OGRE_PLATFORM_SYMBIAN 4
-#define OGRE_PLATFORM_IPHONE 5
+#define OGRE_PLATFORM_APPLE_IOS 5
+#define OGRE_PLATFORM_ANDROID 6
+#define OGRE_PLATFORM_TEGRA2 7
+#define OGRE_PLATFORM_NACL 8
 
 #define OGRE_COMPILER_MSVC 1
 #define OGRE_COMPILER_GNUC 2
@@ -99,11 +102,31 @@ namespace Ogre {
 #   define OGRE_PLATFORM OGRE_PLATFORM_WIN32
 #elif defined( __APPLE_CC__)
     // Device                                                     Simulator
-    // Both requiring OS version 3.0 or greater
-#   if __ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__ >= 30000 || __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
-#       define OGRE_PLATFORM OGRE_PLATFORM_IPHONE
+    // Both requiring OS version 4.0 or greater
+#   if __ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__ >= 40000 || __IPHONE_OS_VERSION_MIN_REQUIRED >= 40000
+#       define OGRE_PLATFORM OGRE_PLATFORM_APPLE_IOS
 #   else
 #       define OGRE_PLATFORM OGRE_PLATFORM_APPLE
+#   endif
+#elif defined(linux) && defined(__arm__)
+// TODO: This is NOT the correct way to detect the Tegra 2 platform but it works for now.
+// It doesn't appear that GCC defines any platform specific macros.
+#   define OGRE_PLATFORM OGRE_PLATFORM_TEGRA2
+#elif defined(__ANDROID__)
+#	define OGRE_PLATFORM OGRE_PLATFORM_ANDROID
+#elif defined( __native_client__ ) 
+#   define OGRE_PLATFORM OGRE_PLATFORM_NACL
+#   ifndef OGRE_STATIC_LIB
+#       error OGRE must be built as static for NaCl (OGRE_STATIC=true in cmake)
+#   endif
+#   ifdef OGRE_BUILD_RENDERSYSTEM_D3D9
+#       error d3d9 is nor supported on NaCl (OOGRE_BUILD_RENDERSYSTEM_D3D9 false in cmake)
+#   endif
+#   ifdef OGRE_BUILD_RENDERSYSTEM_GL
+#       error gl is nor supported on NaCl (OOGRE_BUILD_RENDERSYSTEM_GL=false in cmake)
+#   endif
+#   ifndef OGRE_BUILD_RENDERSYSTEM_GLES2
+#       error GLES2 render system is needed for NaCl (OOGRE_BUILD_RENDERSYSTEM_GLES2=false in cmake)
 #   endif
 #else
 #   define OGRE_PLATFORM OGRE_PLATFORM_LINUX
@@ -181,19 +204,49 @@ namespace Ogre {
 //----------------------------------------------------------------------------
 // Symbian Settings
 #if OGRE_PLATFORM == OGRE_PLATFORM_SYMBIAN
+#   define _OgreExport 
 #	define OGRE_UNICODE_SUPPORT 1
 #   define OGRE_DEBUG_MODE 0
-#   define _OgreExport
 #   define _OgrePrivate
-#	define CLOCKS_PER_SEC  1000
-// pragma def were found here: http://www.inf.pucrs.br/~eduardob/disciplinas/SistEmbarcados/Mobile/Nokia/Tools/Carbide_vs/WINSCW/Help/PDF/C_Compilers_Reference_3.2.pdf
-#	pragma warn_unusedarg off
-#	pragma warn_emptydecl off
-#	pragma warn_possunwant off
+#	  define CLOCKS_PER_SEC  1000
+//  pragma def were found here: http://www.inf.pucrs.br/~eduardob/disciplinas/SistEmbarcados/Mobile/Nokia/Tools/Carbide_vs/WINSCW/Help/PDF/C_Compilers_Reference_3.2.pdf
+#	  pragma warn_unusedarg off
+#	  pragma warn_emptydecl off
+#	  pragma warn_possunwant off
+// A quick define to overcome different names for the same function
+#   define stricmp strcasecmp
+#   ifdef DEBUG
+#       define OGRE_DEBUG_MODE 1
+#   else
+#       define OGRE_DEBUG_MODE 0
+#   endif
 #endif
 //----------------------------------------------------------------------------
-// Linux/Apple/Symbian Settings
-#if OGRE_PLATFORM == OGRE_PLATFORM_LINUX || OGRE_PLATFORM == OGRE_PLATFORM_APPLE || OGRE_PLATFORM == OGRE_PLATFORM_IPHONE || OGRE_PLATFORM == OGRE_PLATFORM_SYMBIAN
+// Android Settings
+/*
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+#   define _OgreExport 
+#	define OGRE_UNICODE_SUPPORT 1
+#   define OGRE_DEBUG_MODE 0
+#   define _OgrePrivate
+#	  define CLOCKS_PER_SEC  1000
+//  pragma def were found here: http://www.inf.pucrs.br/~eduardob/disciplinas/SistEmbarcados/Mobile/Nokia/Tools/Carbide_vs/WINSCW/Help/PDF/C_Compilers_Reference_3.2.pdf
+#	  pragma warn_unusedarg off
+#	  pragma warn_emptydecl off
+#	  pragma warn_possunwant off
+// A quick define to overcome different names for the same function
+#   define stricmp strcasecmp
+#   ifdef DEBUG
+#       define OGRE_DEBUG_MODE 1
+#   else
+#       define OGRE_DEBUG_MODE 0
+#   endif
+#endif
+*/
+//----------------------------------------------------------------------------
+// Linux/Apple/iOs/Android/Symbian/Tegra2/NaCl Settings
+#if OGRE_PLATFORM == OGRE_PLATFORM_LINUX || OGRE_PLATFORM == OGRE_PLATFORM_APPLE || OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS || \
+    OGRE_PLATFORM == OGRE_PLATFORM_ANDROID || OGRE_PLATFORM == OGRE_PLATFORM_TEGRA2 || OGRE_PLATFORM == OGRE_PLATFORM_NACL
 
 // Enable GCC symbol visibility
 #   if defined( OGRE_GCC_VISIBILITY )
@@ -219,7 +272,7 @@ namespace Ogre {
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
     #define OGRE_PLATFORM_LIB "OgrePlatform.bundle"
-#elif OGRE_PLATFORM == OGRE_PLATFORM_IPHONE
+#elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
     #define OGRE_PLATFORM_LIB "OgrePlatform.a"
 #else //OGRE_PLATFORM_LINUX
     #define OGRE_PLATFORM_LIB "libOgrePlatform.so"
@@ -230,8 +283,6 @@ namespace Ogre {
 #define OGRE_UNICODE_SUPPORT 1
 
 #endif
-
-//----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
 // Endian Settings

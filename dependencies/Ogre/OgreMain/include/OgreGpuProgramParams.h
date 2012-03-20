@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -77,7 +77,7 @@ namespace Ogre {
 		GCT_UNKNOWN = 99
 	};
 
-	/** The variability of a GPU parameter, as derived from auto-params targetting it.
+	/** The variability of a GPU parameter, as derived from auto-params targeting it.
 	These values must be powers of two since they are used in masks.
 	*/
 	enum GpuParamVariability
@@ -324,6 +324,8 @@ namespace Ogre {
 		GpuNamedConstantsSerializer();
 		virtual ~GpuNamedConstantsSerializer();
 		void exportNamedConstants(const GpuNamedConstants* pConsts, const String& filename,
+			Endian endianMode = ENDIAN_NATIVE);
+		void exportNamedConstants(const GpuNamedConstants* pConsts, DataStreamPtr stream,
 			Endian endianMode = ENDIAN_NATIVE);
 		void importNamedConstants(DataStreamPtr& stream, GpuNamedConstants* pDest);
 	};
@@ -600,12 +602,15 @@ namespace Ogre {
 			/// The current world matrix, inverted & transposed
 			ACT_INVERSE_TRANSPOSE_WORLD_MATRIX,
 
-
 			/// The current array of world matrices, as a 3x4 matrix, used for blending
 			ACT_WORLD_MATRIX_ARRAY_3x4,
 			/// The current array of world matrices, used for blending
 			ACT_WORLD_MATRIX_ARRAY,
-
+			/// The current array of world matrices transformed to an array of dual quaternions, represented as a 2x4 matrix
+			ACT_WORLD_DUALQUATERNION_ARRAY_2x4,
+			/// The scale and shear components of the current array of world matrices
+			ACT_WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4,
+			
 			/// The current view matrix
 			ACT_VIEW_MATRIX,
 			/// The current view matrix, inverted

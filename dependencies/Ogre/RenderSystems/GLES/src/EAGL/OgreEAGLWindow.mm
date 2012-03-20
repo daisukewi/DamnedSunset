@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,26 +27,34 @@ THE SOFTWARE.
 
 #include "OgreEAGLWindow.h"
 
+#include "OgreEAGLSupport.h"
+#include "OgreEAGLESContext.h"
+
 #include "OgreRoot.h"
 #include "OgreWindowEventUtilities.h"
 
-#include "OgreGLESRenderSystem.h"
 #include "OgreGLESPixelFormat.h"
+#include "OgreGLESRenderSystem.h"
 
 namespace Ogre {
     EAGLWindow::EAGLWindow(EAGLSupport *glsupport)
         :   mClosed(false),
             mVisible(false),
-            mIsExternalGLControl(false),
+            mIsExternal(false),
+            mUsingExternalView(false),
+            mUsingExternalViewController(false),
             mIsContentScalingSupported(false),
             mContentScalingFactor(1.0),
             mCurrentOSVersion(0.0),
-            mGLSupport(glsupport)
+            mGLSupport(glsupport),
+            mContext(NULL),
+            mWindow(nil),
+            mView(nil),
+            mViewController(nil)
     {
         mIsFullScreen = true;
         mActive = true;
-        mWindow = nil;
-        mContext = NULL;
+        mHwGamma = false;
 
         // Check for content scaling.  iOS 4 or later
         mCurrentOSVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
@@ -79,6 +87,9 @@ namespace Ogre {
         if (!mIsExternal)
         {
             WindowEventUtilities::_removeRenderWindow(this);
+
+            [mWindow release];
+            mWindow = nil;
         }
 
         if (mIsFullScreen)
@@ -86,8 +97,11 @@ namespace Ogre {
             switchFullScreen(false);
         }
         
-        [mWindow release];
-        mWindow = nil;
+        if(!mUsingExternalView)
+            [mView release];
+
+        if(!mUsingExternalViewController)
+            [mViewController release];
     }
 
     void EAGLWindow::setFullscreen(bool fullscreen, uint width, uint height)
@@ -101,32 +115,51 @@ namespace Ogre {
 	void EAGLWindow::resize(unsigned int width, unsigned int height)
 	{
         if(!mWindow) return;
-
-        mWidth = width;
-        mHeight = height;
-
+        
+        Real w = mContentScalingFactor, h = mContentScalingFactor;
+        
+        // Check the orientation of the view controller and adjust dimensions
+        if (UIInterfaceOrientationIsPortrait(mViewController.interfaceOrientation))
+        {
+            h *= std::max(width, height);
+            w *= std::min(width, height);
+        }
+        else
+        {
+            w *= std::max(width, height);
+            h *= std::min(width, height);
+        }
+        
+        // Check if the window size really changed
+        if(mWidth == w && mHeight == h)
+            return;
+        
+        // Destroy and recreate the framebuffer with new dimensions 
+        mContext->destroyFramebuffer();
+        
+        mWidth = w;
+        mHeight = h;
+        
+        mContext->createFramebuffer();
+        
         for (ViewportList::iterator it = mViewportList.begin(); it != mViewportList.end(); ++it)
         {
             (*it).second->_updateDimensions();
         }
 	}
-       
+
 	void EAGLWindow::windowMovedOrResized()
 	{
 		CGRect frame = [mView frame];
 		mWidth = (unsigned int)frame.size.width;
 		mHeight = (unsigned int)frame.size.height;
         mLeft = (int)frame.origin.x;
-        mTop = (int)frame.origin.y+(unsigned int)frame.size.height;
+        mTop = (int)frame.origin.y+(int)frame.size.height;
 
         for (ViewportList::iterator it = mViewportList.begin(); it != mViewportList.end(); ++it)
         {
             (*it).second->_updateDimensions();
         }
-	}
-
-	void EAGLWindow::switchFullScreen( bool fullscreen )
-	{
 	}
 
     void EAGLWindow::_beginUpdate(void)
@@ -134,29 +167,28 @@ namespace Ogre {
         // Call the base class method first
         RenderTarget::_beginUpdate();
 
-#if __IPHONE_4_0
-        if(mCurrentOSVersion >= 4.0)
+        if(mContext->mIsMultiSampleSupported && mContext->mNumSamples > 0)
         {
-            if(mContext->mIsMultiSampleSupported && mContext->mNumSamples > 0)
-            {
-                // Bind the FSAA buffer if we're doing multisampling
-                glBindFramebufferOES(GL_FRAMEBUFFER_OES, mContext->mFSAAFramebuffer);
-                GL_CHECK_ERROR
-            }
+            // Bind the FSAA buffer if we're doing multisampling
+            glBindFramebufferOES(GL_FRAMEBUFFER_OES, mContext->mFSAAFramebuffer);
+            GL_CHECK_ERROR
         }
-#endif
     }
 
     void EAGLWindow::initNativeCreatedWindow(const NameValuePairList *miscParams)
     {
+        // This method is called from within create() and after parameters have been parsed.
+        // If the window, view or view controller objects are nil at this point, it is safe
+        // to assume that external handles are either not being used or are invalid and
+        // we can create our own.
         NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-        CAEAGLLayer *eaglLayer = nil;
 
         uint w = 0, h = 0;
-        
+
         ConfigOptionMap::const_iterator opt;
         ConfigOptionMap::const_iterator end = mGLSupport->getConfigOptions().end();
-        
+        NameValuePairList::const_iterator param;
+
         if ((opt = mGLSupport->getConfigOptions().find("Video Mode")) != end)
         {
             String val = opt->second.currentValue;
@@ -169,76 +201,94 @@ namespace Ogre {
             }
         }
 
-        mWindow = [[[UIWindow alloc] initWithFrame:CGRectMake(0, 0, w, h)] retain];
-        if(mWindow == nil)
+        // Set us up with an external window, or create our own.
+        if(!mIsExternal)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALID_STATE,
-                        "Failed to create native window",
-                        __FUNCTION__);
+            mWindow = [[[UIWindow alloc] initWithFrame:CGRectMake(0, 0, w, h)] retain];
         }
 
-        mView = [[EAGLView alloc] initWithFrame:CGRectMake(0, 0, w, h)];
+        OgreAssert(mWindow != nil, "EAGLWindow: Failed to create native window");
 
-        if(mView == nil)
+        // Set up the view
+        if(!mUsingExternalView)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALID_STATE,
-                        "Failed to create view",
-                        __FUNCTION__);
-        }
+            mView = [[EAGLView alloc] initWithFrame:CGRectMake(0, 0, w, h)];
+            mView.opaque = YES;
 
-        mView.opaque = YES;
-        // Use the default scale factor of the screen
-        // See Apple's documentation on supporting high resolution devices for more info
-#if __IPHONE_4_0
-        if(mIsContentScalingSupported)
+            // Use the default scale factor of the screen
+            // See Apple's documentation on supporting high resolution devices for more info
             mView.contentScaleFactor = mContentScalingFactor;
-#endif
+        }
 
-        eaglLayer = (CAEAGLLayer *)mView.layer;
+        OgreAssert(mView != nil, "EAGLWindow: Failed to create view");
+
+        [mView setMWindowName:mName];
+
+        OgreAssert([mView.layer isKindOfClass:[CAEAGLLayer class]], "EAGLWindow: View's Core Animation layer is not a CAEAGLLayer. This is a requirement for using OpenGL ES for drawing.");
+        
+        CAEAGLLayer *eaglLayer = (CAEAGLLayer *)mView.layer;
+        OgreAssert(eaglLayer != nil, "EAGLWindow: Failed to retrieve a pointer to the view's Core Animation layer");
 
         eaglLayer.opaque = YES;
         eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-                                            [NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking,
-                                            kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
+                                        [NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking,
+                                        kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
+        // Set up the view controller
+        if(!mUsingExternalViewController)
+        {
+            mViewController = [[EAGLViewController alloc] init];
+        }
+
+        OgreAssert(mViewController != nil, "EAGLWindow: Failed to create view controller");
+        
+        if(mViewController.view != mView)
+            mViewController.view = mView;
 
         CFDictionaryRef dict;   // TODO: Dummy dictionary for now
         if(eaglLayer)
         {
-            mContext = mGLSupport->createNewContext(dict, eaglLayer);
+            EAGLSharegroup *group = nil;
+            NameValuePairList::const_iterator option;
 
-#if __IPHONE_4_0
-            // MSAA is only supported on devices running iOS 4+
-            if(mCurrentOSVersion >= 4.0)
+            if ((option = miscParams->find("externalSharegroup")) != miscParams->end())
             {
-                mContext->mIsMultiSampleSupported = true;
-                mContext->mNumSamples = mFSAA;
+                group = (EAGLSharegroup *)StringConverter::parseUnsignedLong(option->second);
+                LogManager::getSingleton().logMessage("iOS: Using an external EAGLSharegroup");
             }
-#endif
+
+            mContext = mGLSupport->createNewContext(dict, eaglLayer, group);
+
+            mContext->mIsMultiSampleSupported = true;
+            mContext->mNumSamples = mFSAA;
         }
         
-        if(mContext == nil)
-        {
-            OGRE_EXCEPT(Exception::ERR_INVALID_STATE,
-                        "Fail to create OpenGL ES context",
-                        __FUNCTION__);
-        }
+        OgreAssert(mContext != nil, "EAGLWindow: Failed to create OpenGL ES context");
 
-        [mWindow addSubview:mView];
+        [mWindow addSubview:mViewController.view];
+
+        mViewController.mGLSupport = mGLSupport;
+
+        if(!mUsingExternalViewController)
+            mWindow.rootViewController = mViewController;
+
+        if(!mUsingExternalView)
+            [mView release];
+
         [mWindow makeKeyAndVisible];
+
         mContext->createFramebuffer();
 
         // If content scaling is supported, the window size will be smaller than the GL pixel buffer
         // used to render.  Report the buffer size for reference.
+        StringStream ss;
+    
+        ss  << "iOS: Window created " << w << " x " << h
+            << " with backing store size " << mContext->mBackingWidth << " x " << mContext->mBackingHeight;
         if(mIsContentScalingSupported)
         {
-            StringStream ss;
-            
-            ss << "iOS: Window created " << w << " x " << h
-            << " with backing store size " << mContext->mBackingWidth << " x " << mContext->mBackingHeight
-            << " using content scaling factor " << std::fixed << std::setprecision(1) << mContentScalingFactor;
-
-            LogManager::getSingleton().logMessage(ss.str());
+            ss << " using content scaling factor " << std::fixed << std::setprecision(1) << mContentScalingFactor;
         }
+        LogManager::getSingleton().logMessage(ss.str());
 
         [pool release];
     }
@@ -246,15 +296,15 @@ namespace Ogre {
     void EAGLWindow::create(const String& name, uint width, uint height,
                                 bool fullScreen, const NameValuePairList *miscParams)
     {
-        String title = name;
-        String orientation = "Landscape Right";
-        int gamma;
         short frequency = 0;
         bool vsync = false;
 		int left = 0;
 		int top  = 0;
         
         mIsFullScreen = fullScreen;
+        mName = name;
+        mWidth = width;
+        mHeight = height;
 
         if (miscParams)
         {
@@ -281,12 +331,7 @@ namespace Ogre {
             {
                 vsync = StringConverter::parseBool(opt->second);
             }
-            
-            if ((opt = miscParams->find("gamma")) != end)
-            {
-                gamma = StringConverter::parseBool(opt->second);
-            }
-            
+
             if ((opt = miscParams->find("left")) != end)
             {
                 left = StringConverter::parseInt(opt->second);
@@ -299,117 +344,102 @@ namespace Ogre {
             
             if ((opt = miscParams->find("title")) != end)
             {
-                title = opt->second;
+                mName = opt->second;
             }
 
-            if ((opt = miscParams->find("orientation")) != end)
+            if ((opt = miscParams->find("externalWindowHandle")) != end)
             {
-                orientation = opt->second;
+                mWindow = (UIWindow *)StringConverter::parseUnsignedLong(opt->second);
+                mIsExternal = true;
+                LogManager::getSingleton().logMessage("iOS: Using an external window handle");
             }
-            
-            if ((opt = miscParams->find("externalGLControl")) != end)
+
+            if ((opt = miscParams->find("externalViewHandle")) != end)
             {
-                mIsExternalGLControl = StringConverter::parseBool(opt->second);
+                mView = (EAGLView *)StringConverter::parseUnsignedLong(opt->second);
+                CGRect b = [mView bounds];
+                mWidth = b.size.width;
+                mHeight = b.size.height;
+                mUsingExternalView = true;
+                LogManager::getSingleton().logMessage("iOS: Using an external view handle");
+            }
+
+            if ((opt = miscParams->find("externalViewControllerHandle")) != end)
+            {
+                mViewController = (EAGLViewController *)StringConverter::parseUnsignedLong(opt->second);
+                if(mViewController.view != nil)
+                    mView = (EAGLView *)mViewController.view;
+                mUsingExternalViewController = true;
+                LogManager::getSingleton().logMessage("iOS: Using an external view controller handle");
             }
 		}
 
         initNativeCreatedWindow(miscParams);
 
-        // Set viewport's default orientation mode
-		if (orientation == "Landscape Left")
-        {
-            [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight animated:NO];
-			Viewport::setDefaultOrientationMode(OR_LANDSCAPELEFT);
-        }
-		else if (orientation == "Landscape Right")
-        {
-            [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeLeft animated:NO];
-			Viewport::setDefaultOrientationMode(OR_LANDSCAPERIGHT);
-        }
-		else if (orientation == "Portrait")
-        {
-            [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
-			Viewport::setDefaultOrientationMode(OR_PORTRAIT);
-        }
-
-        mIsExternal = false;
-        mHwGamma = false;
-
-		mName = name;
+        left = top = 0;
 		mLeft = left;
 		mTop = top;
-        if (orientation == "Portrait")
-        {
-            resize(width * mContentScalingFactor, height * mContentScalingFactor);
-        }
-        else
-        {
-            resize(height * mContentScalingFactor, width * mContentScalingFactor);
-        }
+
+        // Resize, taking content scaling factor into account
+        resize(mWidth * mContentScalingFactor, mHeight * mContentScalingFactor);
 
 		mActive = true;
 		mVisible = true;
 		mClosed = false;
     }
-    
-    bool EAGLWindow::isClosed() const
-    {
-        return mClosed;
-    }
-
-    bool EAGLWindow::isVisible() const
-    {
-        return mVisible;
-    }
-
-    void EAGLWindow::setVisible(bool visible)
-    {
-        mVisible = visible;
-    }
-
-    void EAGLWindow::setClosed(bool closed)
-    {
-        mClosed = closed;
-    }
 
     void EAGLWindow::swapBuffers(bool waitForVSync)
     {
-        if (mClosed || mIsExternalGLControl)
+        if (mClosed)
         {
             return;
         }
 
-#if __IPHONE_4_0
-        if(mCurrentOSVersion >= 4.0)
+        unsigned int attachmentCount = 0;
+        GLenum attachments[3];
+        GLESRenderSystem *rs =
+            static_cast<GLESRenderSystem*>(Root::getSingleton().getRenderSystem());
+        unsigned int buffers = rs->getDiscardBuffers();
+        
+        if(buffers & FBT_COLOUR)
         {
-            if(mContext->mIsMultiSampleSupported && mContext->mNumSamples > 0)
-            {
-                glDisable(GL_SCISSOR_TEST);     
-                glBindFramebufferOES(GL_READ_FRAMEBUFFER_APPLE, mContext->mFSAAFramebuffer);
-                GL_CHECK_ERROR
-                glBindFramebufferOES(GL_DRAW_FRAMEBUFFER_APPLE, mContext->mViewFramebuffer);
-                GL_CHECK_ERROR
-                glResolveMultisampleFramebufferAPPLE();
-                GL_CHECK_ERROR
-
-                GLenum attachments[] = { GL_COLOR_ATTACHMENT0_OES, GL_DEPTH_ATTACHMENT_OES, GL_STENCIL_ATTACHMENT_OES };
-                glDiscardFramebufferEXT(GL_READ_FRAMEBUFFER_APPLE, 3, attachments);
-                GL_CHECK_ERROR
-            }
-            else
-            {
-                GLenum attachments[] = { GL_COLOR_ATTACHMENT0_OES, GL_DEPTH_ATTACHMENT_OES };
-                glDiscardFramebufferEXT(GL_READ_FRAMEBUFFER_APPLE, 2, attachments);
-                GL_CHECK_ERROR
-            }
+            attachments[attachmentCount++] = GL_COLOR_ATTACHMENT0;
         }
-#endif
-        glBindFramebufferOES(GL_FRAMEBUFFER_OES, mContext->mViewFramebuffer);
+        if(buffers & FBT_DEPTH)
+        {
+            attachments[attachmentCount++] = GL_DEPTH_ATTACHMENT;
+        }
+        if(buffers & FBT_STENCIL)
+        {
+            attachments[attachmentCount++] = GL_STENCIL_ATTACHMENT;
+        }
+        
+        if(mContext->mIsMultiSampleSupported && mContext->mNumSamples > 0)
+        {
+            glDisable(GL_SCISSOR_TEST);     
+            glBindFramebuffer(GL_READ_FRAMEBUFFER_APPLE, mContext->mFSAAFramebuffer);
+            GL_CHECK_ERROR
+            glBindFramebuffer(GL_DRAW_FRAMEBUFFER_APPLE, mContext->mViewFramebuffer);
+            GL_CHECK_ERROR
+            glResolveMultisampleFramebufferAPPLE();
+            GL_CHECK_ERROR
+            glDiscardFramebufferEXT(GL_READ_FRAMEBUFFER_APPLE, attachmentCount, attachments);
+            GL_CHECK_ERROR
+            
+            glBindFramebuffer(GL_FRAMEBUFFER, mContext->mViewFramebuffer);
+            GL_CHECK_ERROR
+        }
+        else
+        {
+            glBindFramebuffer(GL_FRAMEBUFFER, mContext->mViewFramebuffer);
+            GL_CHECK_ERROR
+            glDiscardFramebufferEXT(GL_FRAMEBUFFER, attachmentCount, attachments);
+            GL_CHECK_ERROR
+        }
+        
+        glBindRenderbuffer(GL_RENDERBUFFER, mContext->mViewRenderbuffer);
         GL_CHECK_ERROR
-
-        glBindRenderbufferOES(GL_RENDERBUFFER_OES, mContext->mViewRenderbuffer);
-        GL_CHECK_ERROR
-        if ([mContext->getContext() presentRenderbuffer:GL_RENDERBUFFER_OES] == NO)
+        if ([mContext->getContext() presentRenderbuffer:GL_RENDERBUFFER] == NO)
         {
             GL_CHECK_ERROR
             OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR,
@@ -426,84 +456,100 @@ namespace Ogre {
 			return;
 		}
 
+        if( name == "SHAREGROUP" )
+		{
+            *(void**)(pData) = mContext->getContext().sharegroup;
+            return;
+		}
+
 		if( name == "WINDOW" )
 		{
-			*(void**)pData = mWindow;
+			*(void**)(pData) = mWindow;
 			return;
 		}
         
 		if( name == "VIEW" )
 		{
-			*(void**)(pData) = mView;
+			*(void**)(pData) = mViewController.view;
 			return;
+		}
+
+        if( name == "VIEWCONTROLLER" )
+		{
+            *(void**)(pData) = mViewController;
+            return;
 		}
 	}
 
     void EAGLWindow::copyContentsToMemory(const PixelBox &dst, FrameBuffer buffer)
     {
+        if(dst.format != PF_A8R8G8B8)
+            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Only PF_A8R8G8B8 is a supported format for OpenGL ES", __FUNCTION__);
+
         if ((dst.left < 0) || (dst.right > mWidth) ||
 			(dst.top < 0) || (dst.bottom > mHeight) ||
 			(dst.front != 0) || (dst.back != 1))
 		{
 			OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-				"Invalid box.",
-				__FUNCTION__ );
+                        "Invalid box.",
+                        __FUNCTION__ );
 		}
 
 		if (buffer == FB_AUTO)
 		{
-			buffer = mIsFullScreen? FB_FRONT : FB_BACK;
-		}
-
-		GLenum format = GLESPixelUtil::getGLOriginFormat(dst.format);
-		GLenum type = GLESPixelUtil::getGLOriginDataType(dst.format);
-
-		if ((format == 0) || (type == 0))
-		{
-			OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-				"Unsupported format.",
-				__FUNCTION__ );
+			buffer = mIsFullScreen ? FB_FRONT : FB_BACK;
 		}
 
 		// Switch context if different from current one
 		RenderSystem* rsys = Root::getSingleton().getRenderSystem();
 		rsys->_setViewport(this->getViewport(0));
 
-        if((dst.getWidth() * Ogre::PixelUtil::getNumElemBytes(dst.format)) & 3)
-        {
-            // Standard alignment of 4 is not right
-            glPixelStorei(GL_PACK_ALIGNMENT, 1);
-        }
+        // The following code is adapted from Apple Technical Q & A QA1704
+        // http://developer.apple.com/library/ios/#qa/qa1704/_index.html
+        NSInteger width = dst.getWidth(), height = dst.getHeight();
+        NSInteger dataLength = width * height * 4;
+        GLubyte *data = (GLubyte*)malloc(dataLength * sizeof(GLubyte));
 
+        // Read pixel data from the framebuffer
+        glPixelStorei(GL_PACK_ALIGNMENT, 4);
+        GL_CHECK_ERROR
 		glReadPixels((GLint)dst.left, (GLint)dst.top,
-			(GLsizei)dst.getWidth(), (GLsizei)dst.getHeight(),
-			format, type, dst.data);
+                     (GLsizei)dst.getWidth(), (GLsizei)dst.getHeight(),
+                     GL_RGBA, GL_UNSIGNED_BYTE, data);
+        GL_CHECK_ERROR
 
-		// Restore default alignment
-		glPixelStorei(GL_PACK_ALIGNMENT, 4);
+        // Create a CGImage with the pixel data
+        // If your OpenGL ES content is opaque, use kCGImageAlphaNoneSkipLast to ignore the alpha channel
+        // otherwise, use kCGImageAlphaPremultipliedLast
+        CGDataProviderRef ref = CGDataProviderCreateWithData(NULL, data, dataLength, NULL);
+        CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
+        CGImageRef iref = CGImageCreate(width, height, 8, 32, width * 4, colorspace,
+                                        kCGBitmapByteOrder32Big | kCGImageAlphaPremultipliedLast,
+                                        ref, NULL, true, kCGRenderingIntentDefault);
 
-		// Vertical flip
-		{
-			size_t rowSpan = dst.getWidth() * PixelUtil::getNumElemBytes(dst.format);
-			size_t height = dst.getHeight();
-			uchar *tmpData = OGRE_NEW uchar[rowSpan * height];
-			uchar *srcRow = (uchar *)dst.data, *tmpRow = tmpData + (height - 1) * rowSpan;
+        // OpenGL ES measures data in PIXELS
+        // Create a graphics context with the target size measured in POINTS
+        NSInteger widthInPoints = 0, heightInPoints = 0;
 
-			while (tmpRow >= tmpData)
-			{
-				memcpy(tmpRow, srcRow, rowSpan);
-				srcRow += rowSpan;
-				tmpRow -= rowSpan;
-			}
-			memcpy(dst.data, tmpData, rowSpan * height);
+        // Set the scale parameter to your OpenGL ES view's contentScaleFactor
+        // so that you get a high-resolution snapshot when its value is greater than 1.0
+        CGFloat scale = mView.contentScaleFactor;
+        widthInPoints = width / scale;
+        heightInPoints = height / scale;
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(widthInPoints, heightInPoints), NO, scale);
 
-			OGRE_DELETE [] tmpData;
-		}
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextDrawImage(context, CGRectMake(0.0, 0.0, widthInPoints, heightInPoints), iref);
 
+        // Retrieve the UIImage from the current context
+        size_t rowSpan = dst.getWidth() * PixelUtil::getNumElemBytes(dst.format);
+        memcpy(dst.data, CGBitmapContextGetData(context), rowSpan * dst.getHeight());
+        UIGraphicsEndImageContext();
+
+        // Clean up
+        free(data);
+        CFRelease(ref);
+        CFRelease(colorspace);
+        CGImageRelease(iref);
     }
-
-	bool EAGLWindow::requiresTextureFlipping() const
-	{
-        return false;
-	}
 }

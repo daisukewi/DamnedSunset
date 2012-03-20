@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -204,9 +204,12 @@ namespace Ogre {
 		pLog->logMessage(
 			" * Extended point parameters: "
 			+ StringConverter::toString(hasCapability(RSC_POINT_EXTENDED_PARAMETERS), true));
-		pLog->logMessage(
-			" * Max Point Size: "
-			+ StringConverter::toString(mMaxPointSize));
+		if(hasCapability(RSC_POINT_SPRITES))
+		{
+			pLog->logMessage(
+				" * Max Point Size: "
+				+ StringConverter::toString(mMaxPointSize));
+		}
 		pLog->logMessage(
 			" * Vertex texture fetch: "
 			+ StringConverter::toString(hasCapability(RSC_VERTEX_TEXTURE_FETCH), true));
@@ -257,6 +260,9 @@ namespace Ogre {
 			pLog->logMessage(
 				" * GL 1.5 without HW-occlusion workaround: "
 				+ StringConverter::toString(hasCapability(RSC_GL1_5_NOHWOCCLUSION), true));
+			pLog->logMessage(
+                " * Separate shader objects: "
+                + StringConverter::toString(hasCapability(RSC_SEPARATE_SHADER_OBJECTS), true));
 		}
 
 		if (mCategoryRelevant[CAPS_CATEGORY_D3D9])

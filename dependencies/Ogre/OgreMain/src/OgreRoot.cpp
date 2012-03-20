@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -93,7 +93,7 @@ THE SOFTWARE.
 
 #include "OgreWindowEventUtilities.h"
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_IPHONE
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
 #  include "macUtils.h"
 #endif
 #if OGRE_NO_PVRTC_CODEC == 0
@@ -102,18 +102,20 @@ THE SOFTWARE.
 
 namespace Ogre {
     //-----------------------------------------------------------------------
-    template<> Root* Singleton<Root>::ms_Singleton = 0;
+    template<> Root* Singleton<Root>::msSingleton = 0;
     Root* Root::getSingletonPtr(void)
     {
-        return ms_Singleton;
+        return msSingleton;
     }
     Root& Root::getSingleton(void)
     {
-        assert( ms_Singleton );  return ( *ms_Singleton );
+        assert( msSingleton );  return ( *msSingleton );
     }
 
+#if OGRE_PLATFORM != OGRE_PLATFORM_NACL
     typedef void (*DLL_START_PLUGIN)(void);
     typedef void (*DLL_STOP_PLUGIN)(void);
+#endif
 
     //-----------------------------------------------------------------------
     Root::Root(const String& pluginFileName, const String& configFileName, 
@@ -123,8 +125,11 @@ namespace Ogre {
 	  , mNextFrame(0)
 	  , mFrameSmoothingTime(0.0f)
 	  , mRemoveQueueStructuresOnClear(false)
+	  , mDefaultMinPixelSize(0)
 	  , mNextMovableObjectTypeFlag(1)
 	  , mIsInitialised(false)
+	  , mIsBlendIndicesGpuRedundant(true)
+	  , mIsBlendWeightsGpuRedundant(true)
     {
         // superclass will do singleton checking
         String msg;
@@ -226,6 +231,8 @@ namespace Ogre {
 #if OGRE_NO_ZIP_ARCHIVE == 0
         mZipArchiveFactory = OGRE_NEW ZipArchiveFactory();
         ArchiveManager::getSingleton().addArchiveFactory( mZipArchiveFactory );
+        mEmbeddedZipArchiveFactory = OGRE_NEW EmbeddedZipArchiveFactory();
+        ArchiveManager::getSingleton().addArchiveFactory( mEmbeddedZipArchiveFactory );
 #endif
 #if OGRE_NO_DDS_CODEC == 0
 		// Register image codecs
@@ -314,6 +321,7 @@ namespace Ogre {
         OGRE_DELETE mArchiveManager;
 #if OGRE_NO_ZIP_ARCHIVE == 0
         OGRE_DELETE mZipArchiveFactory;
+        OGRE_DELETE mEmbeddedZipArchiveFactory;
 #endif
         OGRE_DELETE mFileSystemArchiveFactory;
         OGRE_DELETE mSkeletonManager;
@@ -361,7 +369,11 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Root::saveConfig(void)
     {
-#if OGRE_PLATFORM == OGRE_PLATFORM_IPHONE
+#if OGRE_PLATFORM == OGRE_PLATFORM_NACL
+        OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE, "saveConfig is not supported on NaCl",
+            "Root::saveConfig");
+#endif
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
         // Check the Documents directory within the application sandbox
         Ogre::String outBaseName, extension, configFileName;
         Ogre::StringUtil::splitFilename(mConfigFileName, outBaseName, extension);
@@ -408,7 +420,12 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     bool Root::restoreConfig(void)
     {
-#if OGRE_PLATFORM == OGRE_PLATFORM_IPHONE
+#if OGRE_PLATFORM == OGRE_PLATFORM_NACL
+        OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE, "restoreConfig is not supported on NaCl",
+            "Root::restoreConfig");
+#endif
+
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
         // Read the config from Documents first(user config) if it exists on iPhone.
         // If it doesn't exist or is invalid then use mConfigFileName
 
@@ -520,6 +537,11 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     bool Root::showConfigDialog(void)
     {
+#if OGRE_PLATFORM == OGRE_PLATFORM_NACL
+        OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE, "showConfigDialog is not supported on NaCl",
+            "Root::showConfigDialog");
+#endif
+
         // Displays the standard config dialog
         // Will use stored defaults if available
         ConfigDialog* dlg;
@@ -1029,16 +1051,7 @@ namespace Ogre {
         pluginDir = cfg.getSetting("PluginFolder"); // Ignored on Mac OS X, uses Resources/ directory
         pluginList = cfg.getMultiSetting("Plugin");
 
-#if OGRE_PLATFORM != OGRE_PLATFORM_APPLE && OGRE_PLATFORM != OGRE_PLATFORM_IPHONE
-		if (pluginDir.empty())
-		{
-			// User didn't specify plugins folder, try current one
-			pluginDir = ".";
-		}
-#endif
-
-        char last_char = pluginDir[pluginDir.length()-1];
-        if (last_char != '/' && last_char != '\\')
+        if (!pluginDir.empty() && *pluginDir.rbegin() != '/' && *pluginDir.rbegin() != '\\')
         {
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
             pluginDir += "\\";
@@ -1073,6 +1086,7 @@ namespace Ogre {
 	//-----------------------------------------------------------------------
 	void Root::unloadPlugins(void)
     {
+#if OGRE_PLATFORM != OGRE_PLATFORM_NACL
 		// unload dynamic libs first
         for (PluginLibList::reverse_iterator i = mPluginLibs.rbegin(); i != mPluginLibs.rend(); ++i)
         {
@@ -1094,7 +1108,7 @@ namespace Ogre {
 			(*i)->uninstall();
 		}
 		mPlugins.clear();
-
+#endif
     }
     //-----------------------------------------------------------------------
     void Root::addResourceLocation(const String& name, const String& locType,
@@ -1231,7 +1245,7 @@ namespace Ogre {
 		return success;
 	}	
     //-----------------------------------------------------------------------
-    void Root::detachRenderTarget(RenderTarget* target)
+    RenderTarget* Root::detachRenderTarget(RenderTarget* target)
     {
         if (!mActiveRenderer)
         {
@@ -1240,10 +1254,10 @@ namespace Ogre {
             "system has been selected.", "Root::detachRenderTarget");
         }
 
-        mActiveRenderer->detachRenderTarget( target->getName() );
+        return mActiveRenderer->detachRenderTarget( target->getName() );
     }
     //-----------------------------------------------------------------------
-    void Root::detachRenderTarget(const String &name)
+    RenderTarget* Root::detachRenderTarget(const String &name)
     {
         if (!mActiveRenderer)
         {
@@ -1252,7 +1266,7 @@ namespace Ogre {
             "system has been selected.", "Root::detachRenderTarget");
         }
 
-        mActiveRenderer->detachRenderTarget( name );
+        return mActiveRenderer->detachRenderTarget( name );
     }
     //-----------------------------------------------------------------------
     void Root::destroyRenderTarget(RenderTarget* target)
@@ -1313,6 +1327,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
 	void Root::loadPlugin(const String& pluginName)
 	{
+#if OGRE_PLATFORM != OGRE_PLATFORM_NACL
 		// Load plugin library
         DynLib* lib = DynLibManager::getSingleton().load( pluginName );
 		// Store for later unload
@@ -1331,11 +1346,12 @@ namespace Ogre {
 			// This must call installPlugin
 			pFunc();
 		}
-
+#endif
 	}
     //-----------------------------------------------------------------------
 	void Root::unloadPlugin(const String& pluginName)
 	{
+#if OGRE_PLATFORM != OGRE_PLATFORM_NACL
         PluginLibList::iterator i;
 
         for (i = mPluginLibs.begin(); i != mPluginLibs.end(); ++i)
@@ -1353,7 +1369,8 @@ namespace Ogre {
 			}
 
         }
-	}
+#endif
+    }
     //-----------------------------------------------------------------------
     Timer* Root::getTimer(void)
     {

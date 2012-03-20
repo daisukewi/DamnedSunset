@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -373,7 +373,8 @@ namespace Ogre
 				D3D9Device* currDevice = mRenderDevices[i];
 
 				if (currDevice->getAdapterNumber() == nAdapterOrdinal &&
-					currDevice->getDeviceType() == devType)
+					currDevice->getDeviceType() == devType &&
+					currDevice->isFullScreen() == renderWindow->isFullScreen())
 				{
 					renderDevice = currDevice;
 					break;
@@ -403,7 +404,7 @@ namespace Ogre
 		// No matching device found -> create new one.
 		if (renderDevice == NULL)
 		{
-			renderDevice = new D3D9Device(this, nAdapterOrdinal, direct3D9->GetAdapterMonitor(nAdapterOrdinal), devType, extraFlags);
+			renderDevice = OGRE_NEW D3D9Device(this, nAdapterOrdinal, direct3D9->GetAdapterMonitor(nAdapterOrdinal), devType, extraFlags);
 			mRenderDevices.push_back(renderDevice);
 			if (mActiveDevice == NULL)			
 				setActiveDevice(renderDevice);											
@@ -453,7 +454,7 @@ namespace Ogre
 			{			
 				if (*itDevice == device)
 				{					
-					SAFE_DELETE(device);
+					OGRE_DELETE device;
 					mRenderDevices.erase(itDevice);
 					break;
 				}												

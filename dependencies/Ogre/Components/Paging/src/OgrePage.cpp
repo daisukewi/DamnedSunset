@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@ THE SOFTWARE.
 #include "OgrePageContentCollectionFactory.h"
 #include "OgrePageContentCollection.h"
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_IPHONE
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
     #include "macUtils.h"
 #endif
 
@@ -452,7 +452,7 @@ namespace Ogre
 
 		str	<< std::setw(8) << std::setfill('0') << std::hex << mID << ".page";
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_IPHONE
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
         // For the iPhone we need to prefix the file name with the path to the Caches folder
         String cacheStr(Ogre::macCachePath() + str.str());
         return cacheStr;

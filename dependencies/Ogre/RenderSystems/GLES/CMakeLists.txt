@@ -12,6 +12,7 @@
 set(HEADER_FILES
   include/OgreGLESContext.h
   include/OgreGLESDefaultHardwareBufferManager.h
+  include/OgreGLESDepthBuffer.h
   include/OgreGLESFBOMultiRenderTarget.h
   include/OgreGLESFBORenderTexture.h
   include/OgreGLESFrameBufferObject.h
@@ -36,6 +37,7 @@ set(HEADER_FILES
 set(SOURCE_FILES
   src/OgreGLESContext.cpp
   src/OgreGLESDefaultHardwareBufferManager.cpp
+  src/OgreGLESDepthBuffer.cpp
   src/OgreGLESEngineDll.cpp
   src/OgreGLESFBOMultiRenderTarget.cpp
   src/OgreGLESFBORenderTexture.cpp
@@ -81,12 +83,39 @@ if (WIN32)
   include_directories(src/EGL/WIN32 include/EGL/WIN32)
   link_directories(${OPENGLES_LIBRARY_PATH})
   set(PLATFORM_HEADER_INSTALL "WIN32")
+# Add system specific settings
+elseif (SYMBIAN)
+  set(PLATFORM_HEADERS 
+    include/EGL/SYMBIAN/OgreSYMBIANEGLContext.h
+    include/EGL/SYMBIAN/OgreSYMBIANEGLSupport.h
+    include/EGL/SYMBIAN/OgreSYMBIANEGLRenderTexture.h
+    include/EGL/SYMBIAN/OgreSYMBIANEGLWindow.h
+    include/EGL/SYMBIAN/OgreGLESUtil.h
+    include/EGL/OgreEGLContext.h
+    include/EGL/OgreEGLRenderTexture.h
+    include/EGL/OgreEGLSupport.h
+    include/EGL/OgreEGLWindow.h
+  )
+  set(PLATFORM_SOURCES
+    src/EGL/SYMBIAN/OgreSYMBIANEGLSupport.cpp
+    src/EGL/SYMBIAN/OgreSYMBIANEGLRenderTexture.cpp
+    src/EGL/SYMBIAN/OgreSYMBIANEGLWindow.cpp
+    src/EGL/SYMBIAN/OgreSYMBIANEGLContext.cpp
+    src/EGL/OgreEGLContext.cpp
+    src/EGL/OgreEGLRenderTexture.cpp
+    src/EGL/OgreEGLSupport.cpp
+    src/EGL/OgreEGLWindow.cpp
+  )
+  include_directories(src/EGL/SYMBIAN include/EGL/SYMBIAN)
+  link_directories(${OPENGLES_LIBRARY_PATH})
+  set(PLATFORM_HEADER_INSTALL "SYMBIAN")
 elseif (APPLE)
   set(PLATFORM_HEADERS 
     include/EAGL/OgreEAGLESContext.h
     include/EAGL/OgreEAGLSupport.h
     include/EAGL/OgreEAGLRenderTexture.h
     include/EAGL/OgreEAGLView.h
+    include/EAGL/OgreEAGLViewController.h
     include/EAGL/OgreEAGLWindow.h
     include/EAGL/OgreGLESUtil.h
   )
@@ -94,6 +123,7 @@ elseif (APPLE)
     src/EAGL/OgreEAGLSupport.mm
     src/EAGL/OgreEAGLRenderTexture.mm
     src/EAGL/OgreEAGLView.mm
+    src/EAGL/OgreEAGLViewController.mm
     src/EAGL/OgreEAGLWindow.mm
     src/EAGL/OgreEAGLESContext.mm
   )
@@ -102,28 +132,28 @@ elseif (APPLE)
   set(PLATFORM_HEADER_INSTALL "APPLE")
 elseif (UNIX)
   set(PLATFORM_HEADERS
-    include/EGL/GTK/OgreGtkEGLContext.h
-    include/EGL/GTK/OgreGtkEGLSupport.h
-    include/EGL/GTK/OgreGtkEGLRenderTexture.h
-    include/EGL/GTK/OgreGtkEGLWindow.h
-    include/EGL/GTK/OgreGLESUtil.h
+    include/EGL/X11/OgreX11EGLContext.h
+    include/EGL/X11/OgreX11EGLSupport.h
+    include/EGL/X11/OgreX11EGLRenderTexture.h
+    include/EGL/X11/OgreX11EGLWindow.h
+    include/EGL/X11/OgreGLESUtil.h
     include/EGL/OgreEGLContext.h
     include/EGL/OgreEGLRenderTexture.h
     include/EGL/OgreEGLSupport.h
     include/EGL/OgreEGLWindow.h
   )
   set(PLATFORM_SOURCES
-    src/EGL/GTK/OgreGtkEGLContext.cpp
-    src/EGL/GTK/OgreGtkEGLSupport.cpp
-    src/EGL/GTK/OgreGtkEGLRenderTexture.cpp
-    src/EGL/GTK/OgreGtkEGLWindow.cpp
+    src/EGL/X11/OgreX11EGLContext.cpp
+    src/EGL/X11/OgreX11EGLSupport.cpp
+    src/EGL/X11/OgreX11EGLRenderTexture.cpp
+    src/EGL/X11/OgreX11EGLWindow.cpp
     src/EGL/OgreEGLContext.cpp
     src/EGL/OgreEGLRenderTexture.cpp
     src/EGL/OgreEGLSupport.cpp
     src/EGL/OgreEGLWindow.cpp
   )
-  include_directories(src/EGL/GTK include/EGL/GTK)
-  set(PLATFORM_HEADER_INSTALL "GTK")
+  include_directories(src/EGL/X11 include/EGL/X11)
+  set(PLATFORM_HEADER_INSTALL "X11")
   set(PLATFORM_LIBS ${X11_LIBRARIES} ${X11_Xrandr_LIB})
 endif ()
 
@@ -134,7 +164,7 @@ include_directories(
   ${OPENGLES_INCLUDE_DIR}
 )
 
-add_library(RenderSystem_GLES ${OGRE_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES} ${PLATFORM_HEADERS} ${PLATFORM_SOURCES})
+ogre_add_library(RenderSystem_GLES ${OGRE_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES} ${PLATFORM_HEADERS} ${PLATFORM_SOURCES})
 target_link_libraries(RenderSystem_GLES OgreMain ${OPENGLES_LIBRARIES} ${PLATFORM_LIBS})
 
 if (NOT OGRE_STATIC)

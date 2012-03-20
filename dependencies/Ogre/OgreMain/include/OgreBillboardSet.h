@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -131,7 +131,7 @@ namespace Ogre {
         /// Name of the material to use
         String mMaterialName;
         /// Pointer to the material to use
-        MaterialPtr mpMaterial;
+        MaterialPtr mMaterial;
 
         /// True if no billboards in this set have been resized - greater efficiency.
         bool mAllDefaultSize;
@@ -201,7 +201,7 @@ namespace Ogre {
         Vector3 mCamPos;
 
         /// The vertex index data for all billboards in this set (1 set only)
-        //unsigned short* mpIndexes;
+        //unsigned short* mIndexes;
         IndexData* mIndexData;
 
         /// Flag indicating whether each billboard should be culled separately (default: false)
@@ -639,7 +639,7 @@ namespace Ogre {
             smoke, anything which is symmetrical about a central point) but does not look good for
             billboards which have an orientation (e.g. an elongated raindrop). In this case, the
             oriented billboards are more suitable (BBT_ORIENTED_COMMON or BBT_ORIENTED_SELF) since
-            they retain an independant Y axis and only the X axis is generated, perpendicular to both
+            they retain an independent Y axis and only the X axis is generated, perpendicular to both
             the local Y and the camera Z.
         @par
             In some case you might want the billboard has fixed Z axis and doesn't need to face to

@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,10 +43,10 @@ namespace Ogre {
     {
         /// Unknown pixel format.
         PF_UNKNOWN = 0,
-        /// 8-bit pixel format, all bits luminace.
+        /// 8-bit pixel format, all bits luminance.
         PF_L8 = 1,
 		PF_BYTE_L = PF_L8,
-        /// 16-bit pixel format, all bits luminace.
+        /// 16-bit pixel format, all bits luminance.
         PF_L16 = 2,
 		PF_SHORT_L = PF_L16,
         /// 8-bit pixel format, all bits alpha.
@@ -149,8 +149,12 @@ namespace Ogre {
         PF_PVRTC_RGB4 = 40,
         /// PVRTC (PowerVR) RGBA 4 bpp
         PF_PVRTC_RGBA4 = 41,
+        /// 8-bit pixel format, all bits red.
+        PF_R8 = 42,
+        /// 16-bit pixel format, 8 bits red, 8 bits green.
+        PF_RG8 = 43,
 		// Number of pixel formats currently defined
-        PF_COUNT = 42
+        PF_COUNT = 44
     };
 	typedef vector<PixelFormat>::type PixelFormatList;
 
@@ -340,7 +344,7 @@ namespace Ogre {
                A bitfield combination of PFF_HASALPHA, PFF_ISCOMPRESSED,
                PFF_FLOAT, PFF_DEPTH, PFF_NATIVEENDIAN, PFF_LUMINANCE
           @remarks
-               This replaces the seperate functions for formatHasAlpha, formatIsFloat, ...
+               This replaces the separate functions for formatHasAlpha, formatIsFloat, ...
         */
         static unsigned int getFlags( PixelFormat format );
 
@@ -420,7 +424,7 @@ namespace Ogre {
         static PixelFormat getFormatFromName(const String& name, bool accessibleOnly = false, bool caseSensitive = false);
 
         /** Gets the BNF expression of the pixel-formats.
-            @note                   The string returned by this function is intented to use as a BNF expression
+            @note                   The string returned by this function is intended to be used as a BNF expression
                                     to work with Compiler2Pass.
             @param  accessibleOnly  If true, only accessible pixel format will take into account, otherwise all
                                     pixel formats list in PixelFormat enumeration will being returned.
@@ -435,7 +439,7 @@ namespace Ogre {
             @param floatBits Preferred bit depth (channel bits) for float pixel format.
                             Available values: 0, 16 and 32, where 0 (the default) means as it is.
             @returns        The format that similar original format with bit depth according
-                            with preferred bit depth, or original format if no convertion occuring.
+                            with preferred bit depth, or original format if no conversion occurring.
         */
         static PixelFormat getFormatForBitDepths(PixelFormat fmt, ushort integerBits, ushort floatBits);
 

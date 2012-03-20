@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -40,14 +40,14 @@ THE SOFTWARE.
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    template<> SceneManagerEnumerator* Singleton<SceneManagerEnumerator>::ms_Singleton = 0;
+    template<> SceneManagerEnumerator* Singleton<SceneManagerEnumerator>::msSingleton = 0;
     SceneManagerEnumerator* SceneManagerEnumerator::getSingletonPtr(void)
     {
-        return ms_Singleton;
+        return msSingleton;
     }
     SceneManagerEnumerator& SceneManagerEnumerator::getSingleton(void)
     {  
-        assert( ms_Singleton );  return ( *ms_Singleton );  
+        assert( msSingleton );  return ( *msSingleton );  
     }
 
     //-----------------------------------------------------------------------
@@ -62,7 +62,8 @@ namespace Ogre {
     {
 		// Destroy all remaining instances
 		// Really should have shutdown and unregistered by now, but catch here in case
-		for (Instances::iterator i = mInstances.begin(); i != mInstances.end(); ++i)
+		Instances instancesCopy = mInstances;
+		for (Instances::iterator i = instancesCopy.begin(); i != instancesCopy.end(); ++i)
 		{
 			// destroy instances
 			for(Factories::iterator f = mFactories.begin(); f != mFactories.end(); ++f)
@@ -70,6 +71,7 @@ namespace Ogre {
 				if ((*f)->getMetaData().typeName == i->second->getTypeName())
 				{
 					(*f)->destroyInstance(i->second);
+					mInstances.erase(i->first);
 					break;
 				}
 			}

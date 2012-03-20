@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -706,7 +706,7 @@ namespace Ogre {
         virtual const Vector3& getInitialScale(void) const;
 
         /** Helper function, get the squared view depth.  */
-        Real getSquaredViewDepth(const Camera* cam) const;
+        virtual Real getSquaredViewDepth(const Camera* cam) const;
 
         /** To be called in the event of transform changes to this node that require it's recalculation.
         @remarks

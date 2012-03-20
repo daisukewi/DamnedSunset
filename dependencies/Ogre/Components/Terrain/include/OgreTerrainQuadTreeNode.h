@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -257,7 +257,8 @@ namespace Ogre
 		/// Buffer binding used for holding delta values
 		static unsigned short DELTA_BUFFER;
 
-
+		/// Returns the internal renderable object for this node
+		Renderable *_getRenderable();
 	protected:
 		Terrain* mTerrain;
 		TerrainQuadTreeNode* mParent;
@@ -398,6 +399,8 @@ namespace Ogre
 		void destroyGpuIndexData();
 
 		void populateIndexData(uint16 batchSize, IndexData* destData);
+		void writePosVertex(bool compress, uint16 x, uint16 y, float height, const Vector3& pos, float uvScale, float** ppPos);
+		void writeDeltaVertex(bool compress, uint16 x, uint16 y, float delta, float deltaThresh, float** ppDelta);
 		
 		uint16 calcSkirtVertexIndex(uint16 mainIndex, bool isCol);
 

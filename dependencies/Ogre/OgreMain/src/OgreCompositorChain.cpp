@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include "OgreCompositorInstance.h"
 #include "OgreCompositionTargetPass.h"
 #include "OgreCompositionPass.h"
-#include "OgreViewport.h"
 #include "OgreCamera.h"
 #include "OgreRenderTarget.h"
 #include "OgreLogManager.h"
@@ -47,8 +46,12 @@ CompositorChain::CompositorChain(Viewport *vp):
     mDirty(true),
 	mAnyCompositorsEnabled(false)
 {
-	mOldClearEveryFrameBuffers = mViewport->getClearBuffers();
-    assert(mViewport);
+	assert(vp);
+	mOldClearEveryFrameBuffers = vp->getClearBuffers();
+	vp->addListener(this);
+
+	createOriginalScene();
+	vp->getTarget()->addListener(this);
 }
 //-----------------------------------------------------------------------
 CompositorChain::~CompositorChain()
@@ -62,30 +65,86 @@ void CompositorChain::destroyResources(void)
 
 	if (mViewport)
 	{
+		mViewport->getTarget()->removeListener(this);
+		mViewport->removeListener(this);
 		removeAllCompositors();
-		/// Destroy "original scene" compositor instance
-		if (mOriginalScene)
-		{
-			mViewport->getTarget()->removeListener(this);
-			OGRE_DELETE mOriginalScene;
-			mOriginalScene = 0;
-		}
+		destroyOriginalScene();
+
 		mViewport = 0;
 	}
 }
 //-----------------------------------------------------------------------
+void CompositorChain::createOriginalScene()
+{
+    /// Create "default" compositor
+    /** Compositor that is used to implicitly represent the original
+        render in the chain. This is an identity compositor with only an output pass:
+    compositor Ogre/Scene
+    {
+        technique
+        {
+            target_output
+            {
+				pass clear
+				{
+					/// Clear frame
+				}
+                pass render_scene
+                {
+					visibility_mask FFFFFFFF
+					render_queues SKIES_EARLY SKIES_LATE
+                }
+            }
+        }
+    };
+    */
+
+	mOriginalSceneScheme = mViewport->getMaterialScheme();
+	String compName = "Ogre/Scene/" + mOriginalSceneScheme;
+	CompositorPtr scene = CompositorManager::getSingleton().getByName(compName, ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
+	if (scene.isNull())
+	{
+		scene = CompositorManager::getSingleton().create(compName, ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
+		CompositionTechnique *t = scene->createTechnique();
+		t->setSchemeName(StringUtil::BLANK);
+		CompositionTargetPass *tp = t->getOutputTargetPass();
+		tp->setVisibilityMask(0xFFFFFFFF);
+		{
+			CompositionPass *pass = tp->createPass();
+			pass->setType(CompositionPass::PT_CLEAR);
+		}
+		{
+			CompositionPass *pass = tp->createPass();
+			pass->setType(CompositionPass::PT_RENDERSCENE);
+			/// Render everything, including skies
+			pass->setFirstRenderQueue(RENDER_QUEUE_BACKGROUND);
+			pass->setLastRenderQueue(RENDER_QUEUE_SKIES_LATE);
+		}
+
+
+		/// Create base "original scene" compositor
+		scene = CompositorManager::getSingleton().load(compName,
+			ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
+
+
+
+	}
+	mOriginalScene = OGRE_NEW CompositorInstance(scene->getSupportedTechnique(), this);
+}
+//-----------------------------------------------------------------------
+void CompositorChain::destroyOriginalScene()
+{
+	/// Destroy "original scene" compositor instance
+	if (mOriginalScene)
+	{
+		OGRE_DELETE mOriginalScene;
+		mOriginalScene = 0;
+	}
+}
+
+//-----------------------------------------------------------------------
 CompositorInstance* CompositorChain::addCompositor(CompositorPtr filter, size_t addPosition, const String& scheme)
 {
-	// Init on demand
-	if (!mOriginalScene)
-	{
-		mViewport->getTarget()->addListener(this);
-		
-		/// Create base "original scene" compositor
-		CompositorPtr base = CompositorManager::getSingleton().load("Ogre/Scene",
-			ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
-		mOriginalScene = OGRE_NEW CompositorInstance(base->getSupportedTechnique(), this);
-	}
 
 
 	filter->touch();
@@ -224,12 +283,11 @@ void CompositorChain::preRenderTargetUpdate(const RenderTargetEvent& evt)
 	/// target Rendertarget will not yet have been set as current. 
 	/// ( RenderSystem::setViewport(...) ) if it would have been, the rendering
 	/// order would be screwed up and problems would arise with copying rendertextures.
-    Camera *cam = mViewport->getCamera();
-	if (!cam)
+	Camera *cam = mViewport->getCamera();
+	if (cam)
 	{
-		return;
+		cam->getSceneManager()->_setActiveCompositorChain(this);
 	}
-	cam->getSceneManager()->_setActiveCompositorChain(this);
 
     /// Iterate over compiled state
     CompositorInstance::CompiledState::iterator i;
@@ -266,6 +324,7 @@ void CompositorChain::preViewportUpdate(const RenderTargetViewportEvent& evt)
 	CompositionTargetPass* passParent = pass->getParent();
 	if (pass->getClearBuffers() != mViewport->getClearBuffers() ||
 		pass->getClearColour() != mViewport->getBackgroundColour() ||
+		pass->getClearDepth() != mViewport->getDepthClear() ||
 		passParent->getVisibilityMask() != mViewport->getVisibilityMask() ||
 		passParent->getMaterialScheme() != mViewport->getMaterialScheme() ||
 		passParent->getShadowsEnabled() != mViewport->getShadowsEnabled())
@@ -273,6 +332,7 @@ void CompositorChain::preViewportUpdate(const RenderTargetViewportEvent& evt)
 		// recompile if viewport settings are different
 		pass->setClearBuffers(mViewport->getClearBuffers());
 		pass->setClearColour(mViewport->getBackgroundColour());
+		pass->setClearDepth(mViewport->getDepthClear());
 		passParent->setVisibilityMask(mViewport->getVisibilityMask());
 		passParent->setMaterialScheme(mViewport->getMaterialScheme());
 		passParent->setShadowsEnabled(mViewport->getShadowsEnabled());
@@ -289,21 +349,25 @@ void CompositorChain::preViewportUpdate(const RenderTargetViewportEvent& evt)
 //-----------------------------------------------------------------------
 void CompositorChain::preTargetOperation(CompositorInstance::TargetOperation &op, Viewport *vp, Camera *cam)
 {
-    SceneManager *sm = cam->getSceneManager();
-	/// Set up render target listener
-	mOurListener.setOperation(&op, sm, sm->getDestinationRenderSystem());
-	mOurListener.notifyViewport(vp);
-	/// Register it
-	sm->addRenderQueueListener(&mOurListener);
-	/// Set visiblity mask
-	mOldVisibilityMask = sm->getVisibilityMask();
-	sm->setVisibilityMask(op.visibilityMask);
-	/// Set whether we find visibles
-	mOldFindVisibleObjects = sm->getFindVisibleObjects();
-	sm->setFindVisibleObjects(op.findVisibleObjects);
-    /// Set LOD bias level
-    mOldLodBias = cam->getLodBias();
-    cam->setLodBias(cam->getLodBias() * op.lodBias);
+	if (cam)
+	{
+		SceneManager *sm = cam->getSceneManager();
+		/// Set up render target listener
+		mOurListener.setOperation(&op, sm, sm->getDestinationRenderSystem());
+		mOurListener.notifyViewport(vp);
+		/// Register it
+		sm->addRenderQueueListener(&mOurListener);
+		/// Set visiblity mask
+		mOldVisibilityMask = sm->getVisibilityMask();
+		sm->setVisibilityMask(op.visibilityMask);
+		/// Set whether we find visibles
+		mOldFindVisibleObjects = sm->getFindVisibleObjects();
+		sm->setFindVisibleObjects(op.findVisibleObjects);
+		/// Set LOD bias level
+		mOldLodBias = cam->getLodBias();
+		cam->setLodBias(cam->getLodBias() * op.lodBias);
+	}
+
 	/// Set material scheme 
 	mOldMaterialScheme = vp->getMaterialScheme();
 	vp->setMaterialScheme(op.materialScheme);
@@ -318,13 +382,17 @@ void CompositorChain::preTargetOperation(CompositorInstance::TargetOperation &op
 //-----------------------------------------------------------------------
 void CompositorChain::postTargetOperation(CompositorInstance::TargetOperation &op, Viewport *vp, Camera *cam)
 {
-    SceneManager *sm = cam->getSceneManager();
-	/// Unregister our listener
-	sm->removeRenderQueueListener(&mOurListener);
-	/// Restore default scene and camera settings
-	sm->setVisibilityMask(mOldVisibilityMask);
-	sm->setFindVisibleObjects(mOldFindVisibleObjects);
-    cam->setLodBias(mOldLodBias);
+	if (cam)
+	{
+		SceneManager *sm = cam->getSceneManager();
+		/// Unregister our listener
+		sm->removeRenderQueueListener(&mOurListener);
+		/// Restore default scene and camera settings
+		sm->setVisibilityMask(mOldVisibilityMask);
+		sm->setFindVisibleObjects(mOldFindVisibleObjects);
+		cam->setLodBias(mOldLodBias);
+	}
+
 	vp->setMaterialScheme(mOldMaterialScheme);
 	vp->setShadowsEnabled(mOldShadowsEnabled);
 }
@@ -336,22 +404,32 @@ void CompositorChain::postViewportUpdate(const RenderTargetViewportEvent& evt)
         return;
 
 	Camera *cam = mViewport->getCamera();
-	if (cam)
+	postTargetOperation(mOutputOperation, mViewport, cam);
+}
+//-----------------------------------------------------------------------
+void CompositorChain::viewportCameraChanged(Viewport* viewport)
+{
+	Camera* camera = viewport->getCamera();
+	size_t count = mInstances.size();
+	for (size_t i = 0; i < count; ++i)
 	{
-		postTargetOperation(mOutputOperation, mViewport, cam);
+		mInstances[i]->notifyCameraChanged(camera);
 	}
 }
 //-----------------------------------------------------------------------
-void CompositorChain::viewportRemoved(const RenderTargetViewportEvent& evt)
+void CompositorChain::viewportDimensionsChanged(Viewport* viewport)
 {
-	// check this is the viewport we're attached to (multi-viewport targets)
-	if (evt.source == mViewport) 
+	size_t count = mInstances.size();
+	for (size_t i = 0; i < count; ++i)
 	{
-		// this chain is now orphaned
-		// can't delete it since held from outside, but release all resources being used
-		destroyResources();
+		mInstances[i]->notifyResized();
 	}
-
+}
+//-----------------------------------------------------------------------
+void CompositorChain::viewportDestroyed(Viewport* viewport)
+{
+	// this chain is now orphaned. tell compositor manager to delete it.
+	CompositorManager::getSingleton().removeCompositorChain(viewport);
 }
 //-----------------------------------------------------------------------
 void CompositorChain::clearCompiledState()
@@ -371,6 +449,13 @@ void CompositorChain::clearCompiledState()
 //-----------------------------------------------------------------------
 void CompositorChain::_compile()
 {
+	// remove original scene if it has the wrong material scheme
+	if( mOriginalSceneScheme != mViewport->getMaterialScheme() )
+	{
+		destroyOriginalScene();
+		createOriginalScene();
+	}
+
 	clearCompiledState();
 
 	bool compositorsEnabled = false;
@@ -386,6 +471,7 @@ void CompositorChain::_compile()
 	CompositionPass* pass = mOriginalScene->getTechnique()->getOutputTargetPass()->getPass(0);
 	pass->setClearBuffers(mViewport->getClearBuffers());
 	pass->setClearColour(mViewport->getBackgroundColour());
+	pass->setClearDepth(mViewport->getDepthClear());
     for(Instances::iterator i=mInstances.begin(); i!=mInstances.end(); ++i)
     {
         if((*i)->getEnabled())
@@ -439,11 +525,6 @@ Viewport *CompositorChain::getViewport()
 {
     return mViewport;
 }
-//---------------------------------------------------------------------
-void CompositorChain::_notifyViewport(Viewport* vp)
-{
-	mViewport = vp;
-}
 //-----------------------------------------------------------------------
 void CompositorChain::RQListener::renderQueueStarted(uint8 id, 
 	const String& invocation, bool& skipThisQueue)
@@ -454,8 +535,8 @@ void CompositorChain::RQListener::renderQueueStarted(uint8 id,
 		return;
 
 	flushUpTo(id);
-	/// If noone wants to render this queue, skip it
-	/// Don't skip the OVERLAY queue because that's handled seperately
+	/// If no one wants to render this queue, skip it
+	/// Don't skip the OVERLAY queue because that's handled separately
 	if(!mOperation->renderQueues.test(id) && id!=RENDER_QUEUE_OVERLAY)
 	{
 		skipThisQueue = true;

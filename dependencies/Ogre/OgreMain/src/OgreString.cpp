@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -67,7 +67,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    StringVector StringUtil::split( const String& str, const String& delims, unsigned int maxSplits)
+    StringVector StringUtil::split( const String& str, const String& delims, unsigned int maxSplits, bool preserveDelims)
     {
         StringVector ret;
         // Pre-allocate some space for performance
@@ -96,6 +96,24 @@ namespace Ogre {
             {
                 // Copy up to delimiter
                 ret.push_back( str.substr(start, pos - start) );
+
+                if(preserveDelims)
+                {
+                    // Sometimes there could be more than one delimiter in a row.
+                    // Loop until we don't find any more delims
+                    size_t delimStart = pos, delimPos;
+                    delimPos = str.find_first_not_of(delims, delimStart);
+                    if (delimPos == String::npos)
+                    {
+                        // Copy the rest of the string
+                        ret.push_back( str.substr(delimStart) );
+                    }
+                    else
+                    {
+                        ret.push_back( str.substr(delimStart, delimPos - delimStart) );
+                    }
+                }
+
                 start = pos + 1;
             }
             // parse up to next real data
@@ -234,6 +252,91 @@ namespace Ogre {
 
         return path;
     }
+	//-----------------------------------------------------------------------
+	String StringUtil::normalizeFilePath(const String& init, bool makeLowerCase)
+	{
+		const char* bufferSrc = init.c_str();
+		int pathLen = (int)init.size();
+		int indexSrc = 0;
+		int indexDst = 0;
+		int metaPathArea = 0;
+
+		char reservedBuf[1024];
+		char* bufferDst = reservedBuf;
+		bool isDestAllocated = false;
+		if (pathLen > 1023)
+		{
+			//if source path is to long ensure we don't do a buffer overrun by allocating some
+			//new memory
+			isDestAllocated = true;
+			bufferDst = new char[pathLen + 1];
+		}
+
+		//The outer loop loops over directories
+		while (indexSrc < pathLen)
+		{		
+			if ((bufferSrc[indexSrc] == '\\') || (bufferSrc[indexSrc] == '/'))
+			{
+				//check if we have a directory delimiter if so skip it (we should already
+				//have written such a delimiter by this point
+				++indexSrc;
+				continue;
+			}
+			else
+			{
+				//check if there is a directory to skip of type ".\"
+				if ((bufferSrc[indexSrc] == '.') && 
+					((bufferSrc[indexSrc + 1] == '\\') || (bufferSrc[indexSrc + 1] == '/')))
+				{
+					indexSrc += 2;
+					continue;			
+				}
+
+				//check if there is a directory to skip of type "..\"
+				else if ((bufferSrc[indexSrc] == '.') && (bufferSrc[indexSrc + 1] == '.') &&
+					((bufferSrc[indexSrc + 2] == '\\') || (bufferSrc[indexSrc + 2] == '/')))
+				{
+					if (indexDst > metaPathArea)
+					{
+						//skip a directory backward in the destination path
+						do {
+							--indexDst;
+						}
+						while ((indexDst > metaPathArea) && (bufferDst[indexDst - 1] != '\\'));
+						indexSrc += 3;
+						continue;
+					}
+					else
+					{
+						//we are about to write "..\" to the destination buffer
+						//ensure we will not remove this in future "skip directories"
+						metaPathArea += 3;
+					}
+				}
+			}
+
+			//transfer the current directory name from the source to the destination
+			while (indexSrc < pathLen)
+			{
+				char curChar = bufferSrc[indexSrc];
+				if (makeLowerCase) curChar = tolower(curChar);
+				if (curChar == '\\') curChar = '/';
+				bufferDst[indexDst] = curChar;
+				++indexDst;
+				++indexSrc;
+				if (curChar == '/') break;
+			}
+		}
+		bufferDst[indexDst] = 0;
+
+		String normalized(bufferDst); 
+		if (isDestAllocated)
+		{
+			delete[] bufferDst;
+		}
+
+		return normalized;		
+	}
     //-----------------------------------------------------------------------
     void StringUtil::splitFilename(const String& qualifiedName, 
         String& outBasename, String& outPath)

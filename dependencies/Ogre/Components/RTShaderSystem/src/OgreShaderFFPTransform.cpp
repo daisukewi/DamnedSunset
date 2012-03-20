@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -86,7 +86,7 @@ bool FFPTransform::createCpuSubPrograms(ProgramSet* programSet)
 	transformFunc->pushOperand(positionIn, Operand::OPS_IN);
 	transformFunc->pushOperand(positionOut, Operand::OPS_OUT);
 
-	vsEntry->addAtomInstace(transformFunc);
+	vsEntry->addAtomInstance(transformFunc);
 
 	return true;
 }
@@ -106,7 +106,7 @@ const String& FFPTransformFactory::getType() const
 
 //-----------------------------------------------------------------------
 SubRenderState*	FFPTransformFactory::createInstance(ScriptCompiler* compiler, 
-												   PropertyAbstractNode* prop, Pass* pass)
+												   PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
 {
 	if (prop->name == "transform_stage")
 	{
@@ -122,7 +122,7 @@ SubRenderState*	FFPTransformFactory::createInstance(ScriptCompiler* compiler,
 
 			if (modelType == "ffp")
 			{
-				return SubRenderStateFactory::createInstance();
+				return createOrRetrieveInstance(translator);
 			}
 		}		
 	}

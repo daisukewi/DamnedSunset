@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -365,13 +365,14 @@ namespace Ogre
 		// Allows early bail-out through the listener
 		if(mListener && !mListener->postConversion(this, ast))
 			return mErrors.empty();
-
+		
 		// Translate the nodes
 		for(AbstractNodeList::iterator i = ast->begin(); i != ast->end(); ++i)
 		{
 			//logAST(0, *i);
 			if((*i)->type == ANT_OBJECT && reinterpret_cast<ObjectAbstractNode*>((*i).get())->abstract)
 				continue;
+			//LogManager::getSingleton().logMessage(reinterpret_cast<ObjectAbstractNode*>((*i).get())->name);
 			ScriptTranslator *translator = ScriptCompilerManager::getSingleton().getTranslator(*i);
 			if(translator)
 				translator->translate(this, *i);
@@ -999,6 +1000,7 @@ namespace Ogre
 		mIds["geometry_program_ref"] = ID_GEOMETRY_PROGRAM_REF;
 		mIds["fragment_program_ref"] = ID_FRAGMENT_PROGRAM_REF;
 		mIds["shadow_caster_vertex_program_ref"] = ID_SHADOW_CASTER_VERTEX_PROGRAM_REF;
+		mIds["shadow_caster_fragment_program_ref"] = ID_SHADOW_CASTER_FRAGMENT_PROGRAM_REF;
 		mIds["shadow_receiver_vertex_program_ref"] = ID_SHADOW_RECEIVER_VERTEX_PROGRAM_REF;
 		mIds["shadow_receiver_fragment_program_ref"] = ID_SHADOW_RECEIVER_FRAGMENT_PROGRAM_REF;
 
@@ -1104,6 +1106,7 @@ namespace Ogre
 			mIds["point"] = ID_POINT;
 			mIds["spot"] = ID_SPOT;
 			mIds["directional"] = ID_DIRECTIONAL;
+		mIds["light_mask"] = ID_LIGHT_MASK;
 		mIds["point_size"] = ID_POINT_SIZE;
 		mIds["point_sprites"] = ID_POINT_SPRITES;
 		mIds["point_size_min"] = ID_POINT_SIZE_MIN;
@@ -1217,6 +1220,7 @@ namespace Ogre
 			mIds["pooled"] = ID_POOLED;
 			//mIds["gamma"] = ID_GAMMA; - already registered
 			mIds["no_fsaa"] = ID_NO_FSAA;
+			mIds["depth_pool"] = ID_DEPTH_POOL;
 
 		mIds["texture_ref"] = ID_TEXTURE_REF;
 		mIds["local_scope"] = ID_SCOPE_LOCAL;
@@ -1262,6 +1266,9 @@ namespace Ogre
 		mIds["depth_fail_op"] = ID_DEPTH_FAIL_OP;
 		mIds["pass_op"] = ID_PASS_OP;
 		mIds["two_sided"] = ID_TWO_SIDED;
+#ifdef RTSHADER_SYSTEM_BUILD_CORE_SHADERS
+		mIds["rtshader_system"] = ID_RT_SHADER_SYSTEM;
+#endif
 	}
 
 	// AbstractTreeeBuilder
@@ -1450,7 +1457,13 @@ namespace Ogre
 				// Finally try to map the cls to an id
 				ScriptCompiler::IdMap::const_iterator iter2 = mCompiler->mIds.find(impl->cls);
 				if(iter2 != mCompiler->mIds.end())
+                {
 					impl->id = iter2->second;
+                }
+                else
+                {
+                    mCompiler->addError(CE_UNEXPECTEDTOKEN, impl->file, impl->line, "token class, " + impl->cls + ", unrecognized.");
+                }
 
 				asn = AbstractNodePtr(impl);
 				mCurrent = impl;
@@ -1529,16 +1542,16 @@ namespace Ogre
 	
 
 	// ScriptCompilerManager
-	template<> ScriptCompilerManager *Singleton<ScriptCompilerManager>::ms_Singleton = 0;
+	template<> ScriptCompilerManager *Singleton<ScriptCompilerManager>::msSingleton = 0;
 	
 	ScriptCompilerManager* ScriptCompilerManager::getSingletonPtr(void)
     {
-        return ms_Singleton;
+        return msSingleton;
     }
 	//-----------------------------------------------------------------------
     ScriptCompilerManager& ScriptCompilerManager::getSingleton(void)
     {  
-        assert( ms_Singleton );  return ( *ms_Singleton );  
+        assert( msSingleton );  return ( *msSingleton );  
     }
 	//-----------------------------------------------------------------------
 	ScriptCompilerManager::ScriptCompilerManager()

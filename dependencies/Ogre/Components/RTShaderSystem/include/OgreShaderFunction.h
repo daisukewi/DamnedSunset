@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -54,14 +54,14 @@ public:
 		// Vertex program main
 		FFT_VS_MAIN,
 		// Pixel shader main
-		FFT_PS_MAIN,
+		FFT_PS_MAIN
 	};
 
 	/** Get the name of this function */
-	const String&				getName					() const { return m_name; }
+	const String&				getName					() const { return mName; }
 
 	/** Get the description of this function */
-	const String&				getDescription			() const { return m_description; }
+	const String&				getDescription			() const { return mDescription; }
 
 	/** Resolve input parameter of this function
 	@param semantic The desired parameter semantic.
@@ -142,7 +142,7 @@ public:
 	/** Add a function atom instance to this function. 
 	@param atomInstance The atom instance to add.
 	*/
-	void							addAtomInstace			(FunctionAtom* atomInstance);
+	void							addAtomInstance			(FunctionAtom* atomInstance);
 
 	/** Delete a function atom instance from this function. 
 	@param atomInstance The atom instance to OGRE_DELETE.
@@ -202,13 +202,13 @@ protected:
 	static int					sAtomInstanceCompare		(const void * p0, const void *p1);
 
 protected:
-	String						m_name;						// Function name.
-	String						m_description;				// Function description.
+	String						mName;						// Function name.
+	String						mDescription;				// Function description.
 	ShaderParameterList			mInputParameters;			// Input parameters.
 	ShaderParameterList			mOutputParameters;			// Output parameters.
 	ShaderParameterList			mLocalParameters;			// Local parameters.
 	FunctionAtomInstanceList	mAtomInstances;				// Atom instances composing this function.
-	FunctionType				m_functionType;				// Function type
+	FunctionType				mFunctionType;				// Function type
 	
 private:
 	friend class Program;

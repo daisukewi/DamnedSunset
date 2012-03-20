@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1724,11 +1724,50 @@ namespace Ogre {
 	InstancedGeometry::GeometryBucket::GeometryBucket(MaterialBucket* parent,
 		const String& formatString, const VertexData* vData,
 		const IndexData* iData)
-		: SimpleRenderable(),
-		 mParent(parent), 
-		 mFormatString(formatString),
-		 mVertexData(0),
-		 mIndexData(0)
+	: SimpleRenderable()
+	, mParent(parent)
+	, mFormatString(formatString)
+	, mVertexData(0)
+	, mIndexData(0)
+	{
+		_initGeometryBucket(vData, iData);
+	}
+	//--------------------------------------------------------------------------
+	InstancedGeometry::GeometryBucket::GeometryBucket(const String& name, MaterialBucket* parent,
+		const String& formatString, const VertexData* vData,
+		const IndexData* iData)
+	: SimpleRenderable(name)
+	, mParent(parent)
+	, mFormatString(formatString)
+	, mVertexData(0)
+	, mIndexData(0)
+	{
+		_initGeometryBucket(vData, iData);
+	}
+	//--------------------------------------------------------------------------
+	InstancedGeometry::GeometryBucket::GeometryBucket(MaterialBucket* parent,
+		const String& formatString,GeometryBucket* bucket)
+	: SimpleRenderable()
+	, mParent(parent)
+	, mFormatString(formatString)
+	, mVertexData(0)
+	, mIndexData(0)
+	{
+		_initGeometryBucket(bucket);
+	}
+	//--------------------------------------------------------------------------
+	InstancedGeometry::GeometryBucket::GeometryBucket(const String& name, MaterialBucket* parent,
+		const String& formatString,GeometryBucket* bucket)
+	: SimpleRenderable(name)
+	, mParent(parent)
+	, mFormatString(formatString)
+	, mVertexData(0)
+	, mIndexData(0)
+	{
+		_initGeometryBucket(bucket);
+	}
+	//--------------------------------------------------------------------------
+	void InstancedGeometry::GeometryBucket::_initGeometryBucket(const VertexData* vData, const IndexData* iData)
 	{
 	   	mBatch=mParent->getParent()->getParent()->getParent();
 		if(!mBatch->getBaseSkeleton().isNull())
@@ -1745,6 +1784,9 @@ namespace Ogre {
 		mRenderOp.vertexData = OGRE_NEW VertexData();
 		mRenderOp.vertexData->vertexCount = 0;
 
+        // VertexData constructor creates vertexDeclaration; must release to avoid 
+        // memory leak
+        HardwareBufferManager::getSingleton().destroyVertexDeclaration(mRenderOp.vertexData->vertexDeclaration);
 		mRenderOp.vertexData->vertexDeclaration = vData->vertexDeclaration->clone();
 		mIndexType = iData->indexBuffer->getType();
 		// Derive the max vertices
@@ -1786,13 +1828,7 @@ namespace Ogre {
 
 	}
 	//--------------------------------------------------------------------------
-	InstancedGeometry::GeometryBucket::GeometryBucket(MaterialBucket* parent,
-		const String& formatString,GeometryBucket* bucket)
-		: SimpleRenderable(),
-		 mParent(parent),
-		  mFormatString(formatString),
-		  mVertexData(0),
-		  mIndexData(0)
+	void InstancedGeometry::GeometryBucket::_initGeometryBucket(GeometryBucket* bucket)
 	{
 
 	   	mBatch=mParent->getParent()->getParent()->getParent();

@@ -5,7 +5,7 @@
     #define __STD_ALGORITHM
 #endif
 
-#if defined ( OGRE_GCC_VISIBILITY ) && (OGRE_PLATFORM != OGRE_PLATFORM_APPLE && OGRE_PLATFORM != OGRE_PLATFORM_IPHONE)
+#if defined ( OGRE_GCC_VISIBILITY ) && (OGRE_PLATFORM != OGRE_PLATFORM_APPLE && OGRE_PLATFORM != OGRE_PLATFORM_APPLE_IOS)
 /* Until libstdc++ for gcc 4.2 is released, we have to declare all
  * symbols in libstdc++.so externally visible, otherwise we end up
  * with them marked as hidden by -fvisible=hidden.
@@ -90,7 +90,7 @@ extern "C" {
 #  endif
 #endif
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+#if OGRE_PLATFORM == OGRE_PLATFORM_LINUX || OGRE_PLATFORM == OGRE_PLATFORM_ANDROID || OGRE_PLATFORM == OGRE_PLATFORM_TEGRA2
 extern "C" {
 
 #   include <unistd.h>
@@ -99,7 +99,7 @@ extern "C" {
 }
 #endif
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE || OGRE_PLATFORM == OGRE_PLATFORM_IPHONE
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE || OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
 extern "C" {
 #   include <unistd.h>
 #   include <sys/param.h>
@@ -114,7 +114,7 @@ extern "C" {
 #   include "Threading/OgreThreadHeaders.h"
 #endif
 
-#if defined ( OGRE_GCC_VISIBILITY ) && (OGRE_PLATFORM != OGRE_PLATFORM_APPLE && OGRE_PLATFORM != OGRE_PLATFORM_IPHONE)
+#if defined ( OGRE_GCC_VISIBILITY ) && (OGRE_PLATFORM != OGRE_PLATFORM_APPLE && OGRE_PLATFORM != OGRE_PLATFORM_APPLE_IOS)
 #   pragma GCC visibility pop
 #endif
 #endif

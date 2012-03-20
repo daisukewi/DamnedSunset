@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2011 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -40,7 +40,7 @@ namespace Ogre {
 		and provide an interface for GLRenderSystem calls.  GLSL does not provide access to the
 		low level code of the shader so this class is really just a dummy place holder.
 		GLSL uses a program object to represent the active vertex and fragment programs used
-		but Ogre materials maintain seperate instances of the active vertex and fragment programs
+		but Ogre materials maintain separate instances of the active vertex and fragment programs
 		which creates a small problem for GLSL integration.  The GLSLGpuProgram class provides the
 		interface between the GLSLLinkProgramManager , GLRenderSystem, and the active GLSLProgram
 		instances.

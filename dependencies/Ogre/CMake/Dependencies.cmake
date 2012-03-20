@@ -16,7 +16,7 @@
 set(OGRE_DEPENDENCIES_DIR "" CACHE PATH "Path to prebuilt OGRE dependencies")
 include(FindPkgMacros)
 getenv_path(OGRE_DEPENDENCIES_DIR)
-if(OGRE_BUILD_PLATFORM_IPHONE)
+if(OGRE_BUILD_PLATFORM_APPLE_IOS)
   set(OGRE_DEP_SEARCH_PATH 
     ${OGRE_DEPENDENCIES_DIR}
     ${ENV_OGRE_DEPENDENCIES_DIR}
@@ -24,6 +24,15 @@ if(OGRE_BUILD_PLATFORM_IPHONE)
     "${OGRE_SOURCE_DIR}/iPhoneDependencies"
     "${OGRE_BINARY_DIR}/../iPhoneDependencies"
     "${OGRE_SOURCE_DIR}/../iPhoneDependencies"
+  )
+elseif(OGRE_BUILD_PLATFORM_TEGRA2)
+  set(OGRE_DEP_SEARCH_PATH 
+    ${OGRE_DEPENDENCIES_DIR}
+    ${ENV_OGRE_DEPENDENCIES_DIR}
+    "${OGRE_BINARY_DIR}/Tegra2Dependencies"
+    "${OGRE_SOURCE_DIR}/Tegra2Dependencies"
+    "${OGRE_BINARY_DIR}/../Tegra2Dependencies"
+    "${OGRE_SOURCE_DIR}/../Tegra2Dependencies"
   )
 else()
   set(OGRE_DEP_SEARCH_PATH 
@@ -39,9 +48,21 @@ endif()
 message(STATUS "Search path: ${OGRE_DEP_SEARCH_PATH}")
 
 # Set hardcoded path guesses for various platforms
-if (UNIX)
+if (UNIX AND NOT OGRE_BUILD_PLATFORM_TEGRA2)
   set(OGRE_DEP_SEARCH_PATH ${OGRE_DEP_SEARCH_PATH} /usr/local)
+  # Ubuntu 11.10 has an inconvenient path to OpenGL libraries
+  set(OGRE_DEP_SEARCH_PATH ${OGRE_DEP_SEARCH_PATH} /usr/lib/${CMAKE_SYSTEM_PROCESSOR}-linux-gnu)
 endif ()
+
+if(OGRE_BUILD_PLATFORM_TEGRA2)
+  getenv_path(L4TROOT)
+  set(OGRE_DEP_SEARCH_PATH
+    ${OGRE_DEP_SEARCH_PATH}
+    ${ENV_L4TROOT}/_out/3rdparty/xorg/arm-none-linux-gnueabi
+    ${ENV_L4TROOT}/_out/targetfs/usr
+    ${ENV_L4TROOT}/_out/targetfs
+  )
+endif()
 
 # give guesses as hints to the find_package calls
 set(CMAKE_PREFIX_PATH ${OGRE_DEP_SEARCH_PATH} ${CMAKE_PREFIX_PATH})
@@ -70,13 +91,15 @@ find_package(Freetype)
 macro_log_feature(FREETYPE_FOUND "freetype" "Portable font engine" "http://www.freetype.org" TRUE "" "")
 
 # Find X11
-if (UNIX AND NOT OGRE_BUILD_PLATFORM_IPHONE)
-	find_package(X11)
-	macro_log_feature(X11_FOUND "X11" "X Window system" "http://www.x.org" TRUE "" "")
-	macro_log_feature(X11_Xt_FOUND "Xt" "X Toolkit" "http://www.x.org" TRUE "" "")
-	find_library(XAW_LIBRARY NAMES Xaw Xaw7 PATHS ${DEP_LIB_SEARCH_DIR} ${X11_LIB_SEARCH_PATH})
-	macro_log_feature(XAW_LIBRARY "Xaw" "X11 Athena widget set" "http://www.x.org" TRUE "" "")
-  mark_as_advanced(XAW_LIBRARY)
+if (UNIX AND NOT OGRE_BUILD_PLATFORM_APPLE_IOS)
+  find_package(X11)
+  macro_log_feature(X11_FOUND "X11" "X Window system" "http://www.x.org" TRUE "" "")
+  if (NOT OGRE_BUILD_PLATFORM_TEGRA2)
+     macro_log_feature(X11_Xt_FOUND "Xt" "X Toolkit" "http://www.x.org" TRUE "" "")
+     find_library(XAW_LIBRARY NAMES Xaw Xaw7 PATHS ${OGRE_DEP_SEARCH_PATH} ${DEP_LIB_SEARCH_DIR} ${X11_LIB_SEARCH_PATH})
+     macro_log_feature(XAW_LIBRARY "Xaw" "X11 Athena widget set" "http://www.x.org" TRUE "" "")
+     mark_as_advanced(XAW_LIBRARY)
+  endif (NOT OGRE_BUILD_PLATFORM_TEGRA2)
 endif ()
 
 
@@ -90,7 +113,11 @@ macro_log_feature(OPENGL_FOUND "OpenGL" "Support for the OpenGL render system" "
 
 # Find OpenGL ES
 find_package(OpenGLES)
-macro_log_feature(OPENGLES_FOUND "OpenGL ES" "Support for the OpenGL ES 1.x render system" "http://www.khronos.org/opengles/" FALSE "" "")
+macro_log_feature(OPENGLES_FOUND "OpenGL ES 1.x" "Support for the OpenGL ES 1.x render system" "http://www.khronos.org/opengles/" FALSE "" "")
+
+# Find OpenGL ES 2.x
+find_package(OpenGLES2)
+macro_log_feature(OPENGLES2_FOUND "OpenGL ES 2.x" "Support for the OpenGL ES 2.x render system" "http://www.khronos.org/opengles/" FALSE "" "")
 
 # Find DirectX
 if(WIN32)
@@ -103,10 +130,10 @@ endif()
 #######################################################################
 
 # Find Cg
-if (NOT OGRE_BUILD_PLATFORM_IPHONE)
+if (NOT OGRE_BUILD_PLATFORM_APPLE_IOS)
   find_package(Cg)
   macro_log_feature(Cg_FOUND "cg" "C for graphics shader language" "http://developer.nvidia.com/object/cg_toolkit.html" FALSE "" "")
-endif (NOT OGRE_BUILD_PLATFORM_IPHONE)
+endif (NOT OGRE_BUILD_PLATFORM_APPLE_IOS)
 
 # Find Boost
 # Prefer static linking in all cases
@@ -117,11 +144,11 @@ else ()
 	set(Boost_USE_STATIC_LIBS ${OGRE_STATIC})
 endif ()
 if (APPLE)
-	if(OGRE_BUILD_PLATFORM_IPHONE)
+	if(OGRE_BUILD_PLATFORM_APPLE_IOS)
 		set(Boost_COMPILER "-xgcc42")
 	endif()
 endif()
-set(Boost_ADDITIONAL_VERSIONS "1.46" "1.46.0" "1.46.1" "1.45" "1.45.0" "1.44" "1.44.0" "1.42" "1.42.0" "1.41.0" "1.41" "1.40.0" "1.40" "1.39.0" "1.39" "1.38.0" "1.38" "1.37.0" "1.37" )
+set(Boost_ADDITIONAL_VERSIONS "1.46" "1.46.0" "1.45" "1.45.0" "1.44" "1.44.0" "1.42" "1.42.0" "1.41.0" "1.41" "1.40.0" "1.40" "1.39.0" "1.39" "1.38.0" "1.38" "1.37.0" "1.37" )
 # Components that need linking (NB does not include header-only components like bind)
 set(OGRE_BOOST_COMPONENTS thread date_time)
 find_package(Boost COMPONENTS ${OGRE_BOOST_COMPONENTS} QUIET)
@@ -148,6 +175,13 @@ macro_log_feature(POCO_FOUND "POCO" "POCO framework" "http://pocoproject.org/" F
 find_package(TBB)
 macro_log_feature(TBB_FOUND "tbb" "Threading Building Blocks" "http://www.threadingbuildingblocks.org/" FALSE "" "")
 
+# GLSL-Optimizer
+find_package(GLSLOptimizer)
+macro_log_feature(GLSL_Optimizer_FOUND "GLSL Optimizer" "GLSL Optimizer" "http://github.com/aras-p/glsl-optimizer/" FALSE "" "")
+
+# HLSL2GLSL
+find_package(HLSL2GLSL)
+macro_log_feature(HLSL2GLSL_FOUND "HLSL2GLSL" "HLSL2GLSL" "http://hlsl2glslfork.googlecode.com/" FALSE "" "")
 
 
 #######################################################################
@@ -165,6 +199,10 @@ macro_log_feature(OIS_FOUND "OIS" "Input library needed for the samples" "http:/
 find_package(Doxygen)
 macro_log_feature(DOXYGEN_FOUND "Doxygen" "Tool for building API documentation" "http://doxygen.org" FALSE "" "")
 
+# Find Softimage SDK
+find_package(Softimage)
+macro_log_feature(Softimage_FOUND "Softimage" "Softimage SDK needed for building XSIExporter" FALSE "6.0" "")
+
 #######################################################################
 # Tests
 #######################################################################
@@ -176,10 +214,10 @@ macro_log_feature(CppUnit_FOUND "CppUnit" "Library for performing unit tests" "h
 # Apple-specific
 #######################################################################
 if (APPLE)
-  if (OGRE_BUILD_PLATFORM_IPHONE)
-    find_package(iPhoneSDK)
-    macro_log_feature(iPhoneSDK_FOUND "iPhone SDK" "iPhone SDK" "http://developer.apple.com/iphone" FALSE "" "")
-  else()
+  find_package(iPhoneSDK)
+  macro_log_feature(iPhoneSDK_FOUND "iOS SDK" "iOS SDK" "http://developer.apple.com/ios" FALSE "" "")
+  
+  if (NOT OGRE_BUILD_PLATFORM_APPLE_IOS)
     find_package(Carbon)
     macro_log_feature(Carbon_FOUND "Carbon" "Carbon" "http://developer.apple.com/mac" TRUE "" "")
 
@@ -188,7 +226,7 @@ if (APPLE)
 
     find_package(IOKit)
     macro_log_feature(IOKit_FOUND "IOKit" "IOKit HID framework needed by the samples" "http://developer.apple.com/mac" FALSE "" "")
-  endif (OGRE_BUILD_PLATFORM_IPHONE)
+  endif (NOT OGRE_BUILD_PLATFORM_APPLE_IOS)
 endif(APPLE)
 
 
@@ -215,6 +253,7 @@ include_directories(
   ${FREETYPE_INCLUDE_DIRS}
   ${OPENGL_INCLUDE_DIRS}
   ${OPENGLES_INCLUDE_DIRS}
+  ${OPENGLES2_INCLUDE_DIRS}
   ${OIS_INCLUDE_DIRS}
   ${Cg_INCLUDE_DIRS}
   ${X11_INCLUDE_DIR}
@@ -222,11 +261,14 @@ include_directories(
   ${CppUnit_INCLUDE_DIRS}
   ${Carbon_INCLUDE_DIRS}
   ${Cocoa_INCLUDE_DIRS}
+  ${GLSL_Optimizer_INCLUDE_DIRS}
+  ${HLSL2GLSL_INCLUDE_DIRS}
 )
 
 link_directories(
   ${OPENGL_LIBRARY_DIRS}
   ${OPENGLES_LIBRARY_DIRS}
+  ${OPENGLES2_LIBRARY_DIRS}
   ${Cg_LIBRARY_DIRS}
   ${X11_LIBRARY_DIRS}
   ${DirectX_LIBRARY_DIRS}

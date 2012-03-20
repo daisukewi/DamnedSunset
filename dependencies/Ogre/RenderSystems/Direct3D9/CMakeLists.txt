@@ -10,6 +10,7 @@
 # Configure Direct3D9 RenderSystem build
 
 set (HEADER_FILES
+  include/OgreD3D9DepthBuffer.h
   include/OgreD3D9Device.h
   include/OgreD3D9DeviceManager.h
   include/OgreD3D9Driver.h
@@ -39,6 +40,7 @@ set (HEADER_FILES
 )
 
 set (SOURCE_FILES
+  src/OgreD3D9DepthBuffer.cpp
   src/OgreD3D9Device.cpp
   src/OgreD3D9DeviceManager.cpp
   src/OgreD3D9Driver.cpp
@@ -76,7 +78,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${DirectX_INCLUDE_DIR})
 link_directories(${DirectX_LIBRARY_DIR})
 add_definitions(-D_USRDLL)
 
-add_library(RenderSystem_Direct3D9 ${OGRE_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+ogre_add_library(RenderSystem_Direct3D9 ${OGRE_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 target_link_libraries(RenderSystem_Direct3D9
   OgreMain
   ${DirectX_LIBRARIES}
