@@ -70,6 +70,7 @@ namespace Logic
 	bool CCameraController::activate()
 	{
 		_bossEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack");
+		_bossPosition = _bossEntity->getPosition();
 
 		return true;
 	} // activate
@@ -206,15 +207,31 @@ namespace Logic
 
 	void CCameraController::zoom(int wheel)
 	{
+		//Graphics::CCamera * graphicsCamera = _entity->getMap()->getScene()->getCamera();
 		if (wheel > 0)
 		{
-			_entity->setPosition(0.1 * ((_bossEntity->getPosition() - _entity->getPosition()).normalise()) + _entity->getPosition());
+
+			Vector3 direction = -10 * Math::getDirection(_entity->getOrientation());
+			direction.y = 7;
+
+			//_entity->setPosition(_bossEntity->getPosition());
+			direction = _entity->getPosition() + direction;
+			if ((direction - _bossEntity->getPosition()).length() > 6)
+			{
+				direction = _bossEntity->getPosition() - direction;
+			direction.normalise();
+			direction.y = -2;
+			_entity->setPosition(_entity->getPosition() + direction);
+			//_entity->setPosition(0.1 * ((_bossEntity->getPosition() - _entity->getPosition()).normalise()) + _entity->getPosition());
 			std::cout << "wheel: " << wheel << '\n';
+			//graphicsCamera->setCameraPosition(Vector3::ZERO);
+			}
 		}
 		else if (wheel < 0)
 		{
 			_entity->setPosition(-0.1 * ((_bossEntity->getPosition() - _entity->getPosition()).normalise()) + _entity->getPosition());
 			std::cout << "wheel: " << wheel << '\n';
+			//graphicsCamera->setCameraPosition(graphicsCamera->getCameraPosition() - Vector3(0,1,0));
 		}
 
 	} // zoom
@@ -233,6 +250,7 @@ namespace Logic
 		Vector3 direction(Vector3::ZERO);
 		Vector3 directionStrafe(Vector3::ZERO);
 		bool south, north, east, west;
+		south = north = east = west = false;
 
 		if (_bossEntity != NULL)
 		{
@@ -249,10 +267,13 @@ namespace Logic
 			_rightMouse &= Math::Proy(cuerda, directionStrafe * (-1)) <= _eastVision;
 			_leftMouse &= Math::Proy(cuerda, directionStrafe) <= _westVision;
 
-			south = Math::Proy(cuerda, direction) > _southEntity;
-			north = Math::Proy(cuerda, direction * (-1)) > _northEntity;
-			east = Math::Proy(cuerda, directionStrafe) > _eastEntity;
-			west = Math::Proy(cuerda, directionStrafe * (-1)) > _westEntity;
+			if (_bossPosition != _bossEntity->getPosition())
+			{
+				south = Math::Proy(cuerda, direction) > _southEntity && !_up;
+				north = Math::Proy(cuerda, direction * (-1)) > _northEntity && !_down;
+				east = Math::Proy(cuerda, directionStrafe) > _eastEntity && !_left;
+				west = Math::Proy(cuerda, directionStrafe * (-1)) > _westEntity && !_right;
+			}
 
 		}
 
@@ -276,6 +297,7 @@ namespace Logic
 			_entity->setPosition(_entity->getPosition() + direction);
 
 		}
+		_bossPosition = _bossEntity->getPosition();
 
 	} // tick
 

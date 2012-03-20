@@ -14,6 +14,7 @@ Contiene la declaración del componente que controla el movimiento de la cámara.
 #define __Logic_CameraController_H
 
 #include "Logic/Entity/Component.h"
+#include "BaseSubsystems/Math.h"
 
 //declaración de la clase
 namespace Logic 
@@ -197,6 +198,11 @@ namespace Logic
 		Entidad a la que debemos mirar siempre.
 		*/
 		CEntity* _bossEntity;
+
+		/**
+		Posición de la entidad.
+		*/
+		Vector3 _bossPosition;
 
 		/**
 		Atributo para saber hasta dónde puede subir la cámara.
