@@ -134,7 +134,6 @@ Parametros:
 	  <arg value="-DOGRE_BUILD_RENDERSYSTEM_GLES=FALSE"/>
 	  <arg value="-DOGRE_BUILD_RENDERSYSTEM_D3D9=TRUE"/>
 	  <arg value="-DOGRE_BUILD_RENDERSYSTEM_D3D11=TRUE"/>
-	  <arg value="-DOGRE_CONFIG_THREADS=0"/>
       <arg value=".."/>
    </exec>
 
