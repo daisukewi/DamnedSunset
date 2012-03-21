@@ -26,7 +26,6 @@ Archetype = {
 	
 	Turret = {
 		type = "Turret",
-		defaultAnimation = "torreta",
 		position = {0, 0, 0},
 		orientation = 0,
 		building_size = "1 1",

@@ -25,7 +25,7 @@ Contiene la implementación del componente que controla lo que debe hacer una tor
 #include "Logic/Entity/Messages/Damaged.h"
 #include "Logic/Entity/Messages/AttackEntity.h"
 #include "Logic/Entity/Messages/SetAnimation.h"
-
+#include "Logic/Entity/Messages/StopAnimation.h"
 
 namespace Logic
 {
@@ -97,11 +97,14 @@ namespace Logic
 			}
 			else if (!m->getTouched())
 			{
-				if (!(_enemies.empty()))
+				_enemies.remove(m->getEntity());
+				_attacking = !(_enemies.empty());
+				m->getEntity()->removeDeathListener(this);
+				if (!_attacking)
 				{
-					_enemies.remove(m->getEntity());
-					_attacking = !(_enemies.empty());
-					m->getEntity()->removeDeathListener(this);
+					MStopAnimation *m_stop = new MStopAnimation();
+					m_stop->setAnimationName("torreta");
+					_entity->emitMessage(m_stop);
 				}
 			}
 		}
@@ -171,6 +174,12 @@ namespace Logic
 		_enemies.remove(entity);
 		_attacking = !(_enemies.empty());
 		entity->removeDeathListener(this);
+		if (!_attacking)
+		{
+			MStopAnimation *m_stop = new MStopAnimation();
+			m_stop->setAnimationName("torreta");
+			_entity->emitMessage(m_stop);
+		}
 
 	} // entityDeath
 

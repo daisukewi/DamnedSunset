@@ -149,6 +149,7 @@ namespace Logic
 			_entity->emitMessage(m_anim, this);
 
 			_moving = true;
+			_attacking = false;
 
 			/*
 			Aviso al reloj con el tiempo de temporizador.

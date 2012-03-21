@@ -207,31 +207,18 @@ namespace Logic
 
 	void CCameraController::zoom(int wheel)
 	{
-		//Graphics::CCamera * graphicsCamera = _entity->getMap()->getScene()->getCamera();
-		if (wheel > 0)
+		Vector3 direction = _bossEntity->getPosition() - _entity->getPosition();
+		direction.y = 0.0f;
+
+		if (wheel > 0 && _entity->getPosition().y > -35)
 		{
-
-			Vector3 direction = -10 * Math::getDirection(_entity->getOrientation());
-			direction.y = 7;
-
-			//_entity->setPosition(_bossEntity->getPosition());
-			direction = _entity->getPosition() + direction;
-			if ((direction - _bossEntity->getPosition()).length() > 6)
-			{
-				direction = _bossEntity->getPosition() - direction;
-			direction.normalise();
-			direction.y = -2;
-			_entity->setPosition(_entity->getPosition() + direction);
-			//_entity->setPosition(0.1 * ((_bossEntity->getPosition() - _entity->getPosition()).normalise()) + _entity->getPosition());
-			std::cout << "wheel: " << wheel << '\n';
-			//graphicsCamera->setCameraPosition(Vector3::ZERO);
-			}
+			_entity->setPosition(_entity->getPosition() + 0.50 * Vector3(0, _entity->getPosition().y - 35, 0));
+			_entity->setPosition(_entity->getPosition() + 0.25 * direction);
 		}
-		else if (wheel < 0)
+		else if (wheel < 0 && direction.length() < 30)
 		{
-			_entity->setPosition(-0.1 * ((_bossEntity->getPosition() - _entity->getPosition()).normalise()) + _entity->getPosition());
-			std::cout << "wheel: " << wheel << '\n';
-			//graphicsCamera->setCameraPosition(graphicsCamera->getCameraPosition() - Vector3(0,1,0));
+			_entity->setPosition(_entity->getPosition() - 0.50 * Vector3(0, _entity->getPosition().y - 35, 0));
+			_entity->setPosition(_entity->getPosition() - 0.25 * direction);
 		}
 
 	} // zoom
