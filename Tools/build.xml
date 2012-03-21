@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- Fichero Ant para la compilación de las dependencias -->
+<!-- del proyecto. -->
+<!-- Marco Antonio Gomez Martin -->
+<!-- Septiembre, 2010 -->
+
+<project name="dependencies" default="build">
+
+
+  <!-- ===================================================== -->
+  <!-- TARGET DE INVOCACION A TODOS LOS BUILD.XML AUXILIARES -->
+  <!-- ===================================================== -->
+
+<!-- 
+     Invoca todos los build.xml de las librerías con el target del parámetro.
+     Parámetro: targetUsed
+-->
+<target name="llamaBuilds"
+        description="Invoca todos los build.xml de las herramientas con un target dado">
+
+      <ant antfile="build.xml" target="${targetUsed}" dir="./mapeditor"/>
+
+</target>
+
+  <!-- ==================================== -->
+  <!-- TARGETS DE PUBLICACION DE RESULTADOS -->
+  <!-- ==================================== -->
+  <!-- Copian al directorio Exes las .dll   -->
+  <!-- generadas.                           -->
+
+<target name="publishDebug">
+   <copy todir="../Exes">
+      <fileset dir="bin/Debug"/>
+   </copy>
+</target>
+
+<target name="publishRelease">
+   <copy todir="../Exes">
+      <fileset dir="bin/Release"/>
+   </copy>
+</target>
+
+  <!-- =================== -->
+  <!-- TARGETS DE LIMPIEZA -->
+  <!-- =================== -->
+
+<target name="clean"
+        description="Elimina los ficheros intermedios de la compilación">
+
+  <antcall target="llamaBuilds">
+    <param name="targetUsed" value="clean"/>
+  </antcall>
+
+</target>
+
+  <!-- ================================== -->
+  <!-- TARGETS DE COMPILACION INCREMENTAL -->
+  <!-- ================================== -->
+
+<!-- Objetivo que compila el proyecto (Debug+Release) de forma incremental. -->
+<target name="build"
+        description="Compilación (incremental) Debug y Release.">
+
+  <antcall target="llamaBuilds">
+    <param name="targetUsed" value="build"/>
+  </antcall>
+
+</target>
+
+  <!-- =============================== -->
+  <!-- TARGETS DE COMPILACION COMPLETA -->
+  <!-- =============================== -->
+
+<!-- Objetivo que compila todo el proyecto (Debug+Release). -->
+<target name="rebuild"
+        description="Compilación desde cero en Debug y Release."
+		depends="clean">
+
+  <antcall target="llamaBuilds">
+    <param name="targetUsed" value="build"/>
+  </antcall>
+
+</target>
+
+  <!-- ============================= -->
+  <!-- TARGETS DE EJECUCION DE TESTS -->
+  <!-- ============================= -->
+
+<target name="runTests"
+        description="Ejecución de tests del proyecto (si los hay...).">
+
+  <antcall target="llamaBuilds">
+    <param name="targetUsed" value="runTests"/>
+  </antcall>
+
+</target>
+
+<target name="tests" description="Compilacion y ejecución de tests.">
+
+  <antcall target="llamaBuilds">
+    <param name="targetUsed" value="tests"/>
+  </antcall>
+
+</target>
+
+  <!-- ==================================== -->
+  <!-- TARGETS DE CREACION DE DOCUMENTACION -->
+  <!-- ==================================== -->
+
+<target name="doxygen"
+        description="Genera la documentación, si la hay.">
+
+  <antcall target="llamaBuilds">
+    <param name="targetUsed" value="doxygen"/>
+  </antcall>
+
+</target>
+
+  <!-- =========================== -->
+  <!-- TARGETS PARA CRUISE CONTROL --> 
+  <!-- =========================== -->
+
+<target name="CruiseControl"
+        description="Compilacion para CruiseControl (build + tests).">
+
+  <antcall target="llamaBuilds">
+    <param name="targetUsed" value="CruiseControl"/>
+  </antcall>
+
+</target>
+
+</project>

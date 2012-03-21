@@ -187,7 +187,7 @@ Parametros:
 
 <target name="clean"
         description="Elimina los ficheros intermedios de la compilación, las bibliotecas resultantes de dependencies/lib, dependencies/bin y Exes (con los ejecutables generados) y los archivos de inclusión de dependencies/include"
-        depends="cleanGaleon">
+        depends="cleanGaleon, cleanTools">
 
   <antcall target="llamaBuilds">
     <param name="targetUsed" value="clean"/>
@@ -326,6 +326,31 @@ Parametros:
 <target name="rebuild"
         description="Compilación desde cero en Debug y Release (con sus dependencias)."
         depends="redebug, rerelease"/>
+		
+  <!-- ===================================== -->
+  <!-- TARGETS PARA GENERAR LAS HERRAMIENTAS --> 
+  <!-- ===================================== -->
+
+<target name="buildTools"
+        description="Generacion de las herramientas de Damned Sunset.">
+		
+	<ant antfile="build.xml" target="build" dir="./Tools"/>
+	
+</target>
+
+<target name="cleanTools"
+        description="Borrado de las herramientas de Damned Sunset.">
+		
+	<ant antfile="build.xml" target="clean" dir="./Tools"/>
+	
+</target>
+
+<target name="run-mapEditor"
+        description="Ejecuta el map Editor.">
+		
+	<ant antfile="build.xml" target="MapEditor" dir="./Tools/mapeditor"/>
+	
+</target>
 
   <!-- =========================== -->
   <!-- TARGETS PARA CRUISE CONTROL --> 
