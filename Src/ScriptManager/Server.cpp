@@ -508,7 +508,7 @@ namespace ScriptManager
 		//------------------------------------------------------//
 		//				DESREGISTRO DEL MAPPARSER				//
 		//------------------------------------------------------//
-		luabind::globals(_lua)["Parser"] = 0;
+		//luabind::globals(_lua)["Parser"] = NULL;
 		
 	} // deRegisterClasses
 
