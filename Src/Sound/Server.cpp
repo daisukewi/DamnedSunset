@@ -12,7 +12,7 @@
 
 namespace Sound{
 
-	template<> Sound::CServer* Singleton<Sound::CServer>::ms_Singleton = 0;
+	/*template<> Sound::CServer* Singleton<Sound::CServer>::ms_Singleton = 0;
 
 	void SoundInstance::Clear(void)
 	{
@@ -544,5 +544,5 @@ namespace Sound{
 		}
 
 		return (float)soundLength / 1000.0f;
-	}
+	}*/
 }

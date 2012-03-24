@@ -99,6 +99,18 @@ namespace ScriptManager
 		void reloadScripts();
 
 		/**
+		Publica el contenido de una variable en el contexto de Lua.
+		Éste método sirve tanto para sobreescribir el contenido
+		de variables ya definidas como para definir variables nuevas
+		desde C++.
+
+		@param name Nombre de la variable a definir o sobreescribir.
+		@param value Valor de la variable.
+		*/
+		template <class T>
+		void setGlobal(const char *name, const T& value);
+
+		/**
 		Obtiene el valor de una variable global en Lua
 		de tipo numérico entero a partir de su nombre.
 		 
@@ -305,6 +317,22 @@ namespace ScriptManager
 		*/
 		template <class F>
 		void registerFunction(const char *name, F f);
+
+		/**
+		Registra en el contexto de LUA todas las clases de C++ que se vayan a
+		utilizar.
+
+		Éste método será el encargado de registrar todas las clases del proyecto 
+		que tengan que ser usadas desde LUA. De esta forma el registro de las 
+		clases solo se encuentra en un sitio del proyecto.
+		*/
+		void registerClasses();
+
+		/**
+		Hace todo lo necesario con las clases registradas para que el cierre del
+		estado de Lua se lleve a cabo correctamente.
+		*/
+		void deRegisterClasses();
 
 		/**
 		Devuelve el estado de lua, que es la variable representativa

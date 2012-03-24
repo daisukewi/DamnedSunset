@@ -11,11 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Src\ScriptManager\Parser.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Server.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\ScriptManager\Parser.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Server.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

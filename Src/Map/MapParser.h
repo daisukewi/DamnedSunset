@@ -107,21 +107,7 @@ namespace Map {
 
 		@param name Nombre de la entidad nueva.
 		*/
-		void beginEntity(std::string &name);
-
-		/**
-		Establece el tipo de la entidad que se está parseando actualmente.
-
-		@param type Tipo de la entidad.
-		*/
-		void newAttribType(std::string &type);
-
-		/**
-		Establece el nombre de la entidad que se está parseando actualmente.
-
-		@param name Nombre de la entidad.
-		*/
-		void newAttribName(std::string &name);
+		void beginEntity(const char *name);
 
 		/**
 		Establece un nuevo atributo en la entidad que se está parseando actualmente.
@@ -129,7 +115,7 @@ namespace Map {
 		@param name Nombre del nuevo atributo.
 		@param value Valor del nuevo atributo.
 		*/
-		void newAttrib(std::string &name, std::string &value);
+		void newAttrib(const char *name, const char *value);
 
 		/**
 		Termina el parseo de una nueva entidad. Añade la entidad en progreso a la
