@@ -50,6 +50,9 @@ namespace Logic
 		
 		_attacking = _moving = !(rand() % 2);
 
+		if (_attacking && _entity->activate())
+			attack();
+
 		return true;
 
 	} // spawn
@@ -58,6 +61,9 @@ namespace Logic
 
 	bool CEnemyController::activate()
 	{
+		if (_attacking)
+			attack();
+
 		return true;
 	} // activate
 	
@@ -99,6 +105,9 @@ namespace Logic
 		}
 		else if (!message->getType().compare("MEntityDeath"))
 		{
+			if (_attacking)
+				_player->removeDeathListener(this);
+
 			MAStarRoute *m_stop = new MAStarRoute();
 			m_stop->setAction(RouteAction::STOP_ROUTE);
 			_entity->emitMessage(m_stop, this);
@@ -162,6 +171,31 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
+	void CEnemyController::attack()
+	{
+		MAttackEntity *m_at = new MAttackEntity();
+		m_at->setAttack(true);
+		unsigned int p = rand() % 3;
+		switch (p)
+		{
+			case 0:
+				_player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack");
+				break;
+			case 1:
+				_player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick");
+				break;
+			case 2:
+				_player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor");
+				break;
+		}
+		m_at->setEntity(_player);
+		_entity->emitMessage(m_at, this);
+		_player->addDeathListener(this);
+
+	} // attack
+	
+	//---------------------------------------------------------
+
 	void CEnemyController::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
@@ -179,29 +213,30 @@ namespace Logic
 
 			_moving = true;
 		}
+		/*
 		else if (_attacking)
 		{
 			MAttackEntity *m_at = new MAttackEntity();
 			m_at->setAttack(true);
 			unsigned int p = rand() % 3;
-			CEntity* player;
 			switch (p)
 			{
 				case 0:
-					player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack");
+					_player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack");
 					break;
 				case 1:
-					player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick");
+					_player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick");
 					break;
 				case 2:
-					player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor");
+					_player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor");
 					break;
 			}
-			m_at->setEntity(player);
+			m_at->setEntity(_player);
 			_entity->emitMessage(m_at, this);
 			_attacking = false;
-			player->addDeathListener(this);
+			_player->addDeathListener(this);
 		}
+		*/
 
 	} // tick
 

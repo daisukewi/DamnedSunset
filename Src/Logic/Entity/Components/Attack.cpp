@@ -106,7 +106,7 @@ namespace Logic
 			{
 				MDamaged *m_damage = new MDamaged();
 				// Quitamos 1 punto de vida al enemigo
-				m_damage->setHurt(1.0f);
+				m_damage->setHurt(msecs / 100.0f);
 				m_damage->setKiller(_entity);
 				_targetEntity->emitMessage(m_damage, this);	
 			}

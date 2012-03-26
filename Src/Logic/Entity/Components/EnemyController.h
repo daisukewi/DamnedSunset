@@ -112,6 +112,11 @@ namespace Logic
 		*/
 		virtual void entityDeath(CEntity* entity);
 
+		/**
+		La entidad ataca.
+		*/
+		void attack();
+
 	protected:
 
 		/**
@@ -123,6 +128,11 @@ namespace Logic
 		Atributo para saber si el enemigo está atacando.
 		*/
 		bool _attacking;
+
+		/**
+		Jugador al que ataca el enemigo.
+		*/
+		CEntity* _player;
 
 	}; // class CEnemyController
 

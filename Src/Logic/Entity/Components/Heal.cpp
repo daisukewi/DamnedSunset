@@ -97,7 +97,7 @@ namespace Logic
 			{	
 				MHealed *m_heal = new MHealed();
 				// Curamos 1 punto de vida al compañero
-				m_heal->setHeal(1.0f);
+				m_heal->setHeal(msecs / 100.0f);
 				m_heal->setHealer(_entity);
 				_targetEntity->emitMessage(m_heal, this);
 			}

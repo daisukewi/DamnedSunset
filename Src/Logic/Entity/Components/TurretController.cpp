@@ -151,7 +151,7 @@ namespace Logic
 			if (entity == _enemies.back())
 			{
 				MDamaged *m_dam = new MDamaged();
-				m_dam->setHurt(40 * _precision / ((_entity->getPosition() - _enemies.back()->getPosition()).length() + 0.1));
+				m_dam->setHurt(40 * msecs * _precision / (100.0f * ((_entity->getPosition() - _enemies.back()->getPosition()).length() + 0.1)));
 				m_dam->setKiller(_entity);
 				_enemies.back()->emitMessage(m_dam, this);
 			}

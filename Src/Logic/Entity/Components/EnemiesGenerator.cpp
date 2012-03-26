@@ -78,10 +78,10 @@ namespace Logic
 		IComponent::tick(msecs);
 		
 		// Cada 500 ticks creamos un enemigo.
-		_ticks += 1;
-		if (_ticks >= _periodo)
+		_time += msecs;
+		if (_time >= _periodo)
 		{
-			_ticks = 0;
+			_time = 0;
 			_enemy += 1;
 
 			Map::CEntity * enemyInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Enemy");

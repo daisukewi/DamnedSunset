@@ -64,7 +64,7 @@ Archetype = {
 	Enemies = {
 		type = "Enemies",
 		position = {80, 5, -80},
-		periodo = 500,
+		periodo = 10000,
 	},
 
 	Enemy = {
