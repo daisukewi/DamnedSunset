@@ -14,9 +14,15 @@
     <ClInclude Include="..\..\Src\ScriptManager\Server.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\ScriptManager\Parser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\ScriptManager\Server.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ScriptManager\Parser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -15,6 +15,7 @@ Contiene la implementación de la clase que encapsula el parseo de mapas.
 #include "MapParser.h"
 
 #include "ScriptManager\Server.h"
+#include "ScriptManager\Parser.h"
 
 namespace Map {
 
@@ -76,6 +77,9 @@ namespace Map {
 		if (!ScriptManager::CServer::getSingletonPtr()->loadExeScript("mapParser"))
 			return false;
 
+		// Registro en el contexto de lua el objeto que me va a servir de comunicación entre el script y el código C++.
+		ScriptManager::CParser::registerClass();
+
 		// Ejecuto la función del parseador para parsear los arquetipos de las entidades.
 		_archetypes = true;
 		if (!ScriptManager::CServer::getSingletonPtr()->executeScript("processMap(Archetype)"))
@@ -132,7 +136,7 @@ namespace Map {
 
 	//--------------------------------------------------------
 
-	void CMapParser::beginEntity(const char *name)
+	void CMapParser::beginEntity(std::string &name)
 	{
 		_entityInProgress = new CEntity(name);
 		
@@ -140,16 +144,28 @@ namespace Map {
 
 	//--------------------------------------------------------
 
-	void CMapParser::newAttrib(const char *name, const char *value)
+	void CMapParser::newAttribType(std::string &type)
 	{
 		if (_entityInProgress)
-		{
-			// Si el atributo que me han pasado el el tipo, lo pongo directamente.
-			if ((strcmp(name, "type") == 0))
-				_entityInProgress->setType(value);
-			else
-				_entityInProgress->setAttribute(name, value);
-		}
+			_entityInProgress->setType(type);
+		
+	} // newAttribType
+
+	//--------------------------------------------------------
+
+	void CMapParser::newAttribName(std::string &name)
+	{
+		if (_entityInProgress)
+			_entityInProgress->setName(name);
+		
+	} // newAttribName
+
+	//--------------------------------------------------------
+
+	void CMapParser::newAttrib(std::string &name, std::string &value)
+	{
+		if (_entityInProgress)
+			_entityInProgress->setAttribute(name, value);
 		
 	} // newAttrib
 

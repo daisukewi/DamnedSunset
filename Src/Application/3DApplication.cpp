@@ -91,11 +91,6 @@ namespace Application {
 		if (!AI::CServer::Init())
 			return false;
 
-		// Una vez inicializados todos los sistemas, registramos en lua las clases necesarias.
-		// Este paso se hace aquí ya que si registramos una clase singleton, necesitamos
-		// que dicha clase haya sido inicializada.
-		ScriptManager::CServer::getSingletonPtr()->registerClasses();
-
 		return true;
 
 	} // init
@@ -104,11 +99,6 @@ namespace Application {
 
 	void C3DApplication::release()
 	{
-		// LLamamos al  scriptManager para que haga todo lo neceario
-		// para que la liberación de recursos sea haga correctamente
-		// y no haya problemas con el estado de Lua.
-		ScriptManager::CServer::getSingletonPtr()->deRegisterClasses();
-
 		// Liberar servidor de IA 
 		if (AI::CServer::getSingletonPtr())
 			AI::CServer::Release();

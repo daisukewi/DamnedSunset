@@ -26,8 +26,6 @@ extern "C"
 #pragma warning( disable: 4251 )
 #include <luabind\luabind.hpp>
 
-#include "Map\MapParser.h"
-
 #include <cassert>
 #include <stdio.h>
 #include <iostream>
@@ -187,15 +185,6 @@ namespace ScriptManager
 		}
 	
 	} // reloadScripts
-
-	//---------------------------------------------------------
-
-	template <class T>
-	void CServer::setGlobal(const char *name, const T& value)
-	{
-		luabind::globals(_lua)[name] = boost::ref(value);
-		
-	} // setGlobal
 
 	//---------------------------------------------------------
 
@@ -485,35 +474,6 @@ namespace ScriptManager
 
 	//---------------------------------------------------------
 
-	void CServer::registerClasses()
-	{
-		//------------------------------------------------------//
-		//				REGISTRO DEL MAPPARSER					//
-		//------------------------------------------------------//
-		luabind::module(_lua)
-			[
-				luabind::class_<Map::CMapParser>("CMapParser")
-				.def("beginEntity", (void (Map::CMapParser::*) (const char*)) &Map::CMapParser::beginEntity)
-				.def("newAttrib", (void (Map::CMapParser::*) (const char*, const char*)) &Map::CMapParser::newAttrib)
-				.def("endEntity", &Map::CMapParser::endEntity)
-			];
-		luabind::globals(_lua)["Parser"] = boost::ref(*Map::CMapParser::getSingletonPtr());
-		
-	} // registerClasses
-
-	//---------------------------------------------------------
-
-	void CServer::deRegisterClasses()
-	{
-		//------------------------------------------------------//
-		//				DESREGISTRO DEL MAPPARSER				//
-		//------------------------------------------------------//
-		//luabind::globals(_lua)["Parser"] = NULL;
-		
-	} // deRegisterClasses
-
-	//---------------------------------------------------------
-
 	bool CServer::loadScript(const char *script, bool inmediate)
 	{
 		// Completo la ruta del script.
@@ -637,8 +597,6 @@ namespace ScriptManager
 	//------------------------------------------------------//
 	//				DEFINICIONES DE PLANTILLAS				//
 	//------------------------------------------------------//
-
-	template void CServer::setGlobal<int>(const char *name, const int& value);
 
 	template bool CServer::executeProcedure<int>(const char *subroutineName, const int& param1);
 	template bool CServer::executeFunction<int>(const char *subroutineName, const int& param1, int &result);
