@@ -552,9 +552,11 @@ public class System {
 					
 					_fileHandler.exportData("Map = {\n\n");
 					
+					_fileHandler.exportData(_preferences.getGridAttributes());
+					
 					_fileHandler.exportData(_map.getGridAttributes());
 					
-					int width = _map.getMapWidth();
+					/*int width = _map.getMapWidth();
 					int height = _map.getMapHeight();
 					String s = "";
 					
@@ -569,7 +571,8 @@ public class System {
 							s = s + "\t},\n\n";
 							_fileHandler.exportData(s);
 							
-						}
+						}*/
+					
 					
 					_fileHandler.exportData(_map.getAllEntitiesAttributes());
 					

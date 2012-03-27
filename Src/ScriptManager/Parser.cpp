@@ -35,26 +35,39 @@ namespace ScriptManager
 
 	//--------------------------------------------------------
 
-	void CParser::beginEntity()
-	{
-		
-		
-	} // beginEntity
-
-	//--------------------------------------------------------
-
 	void CParser::registerClass()
 	{
 		luabind::module(CServer::getSingletonPtr()->getLuaState())
 		[
 			luabind::class_<CParser>("Parser")
 				.def(luabind::constructor<>())
+				.def("beginGrid", (void (CParser::*) (int, int)) &CParser::beginGrid)
+				.def("newTileAttrib", (void (CParser::*) (const char*, const char*, int, int)) &CParser::newTileAttrib)
 				.def("beginEntity", (void (CParser::*) (const char*)) &CParser::beginEntity)
 				.def("newAttrib", (void (CParser::*) (const char*, const char*)) &CParser::newAttrib)
 				.def("endEntity", &CParser::endEntity)
 		];
 
 	} // registerClass
+
+	//--------------------------------------------------------
+
+	void CParser::beginGrid(int height, int width)
+	{
+		Map::CMapParser::getSingletonPtr()->beginGrid(height, width);
+		
+	} // beginGrid
+
+	//--------------------------------------------------------
+
+	void CParser::newTileAttrib(const char *name, const char *value, int y, int x)
+	{
+		if (strcmp(name, "type") == 0)
+			Map::CMapParser::getSingletonPtr()->newTileTypeAttrib(std::string(value), y, x);
+		else
+			Map::CMapParser::getSingletonPtr()->newTileAttrib(std::string(name), std::string(value), y, x);
+		
+	} // newTileAttrib
 
 	//--------------------------------------------------------
 
@@ -68,7 +81,7 @@ namespace ScriptManager
 
 	void CParser::newAttrib(const char *name, const char *value)
 	{
-		if ((strcmp(name, "type") == 0))
+		if (strcmp(name, "type") == 0)
 			Map::CMapParser::getSingletonPtr()->newAttribType(std::string(value));
 		else
 			Map::CMapParser::getSingletonPtr()->newAttrib(std::string(name), std::string(value));

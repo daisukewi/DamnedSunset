@@ -20,6 +20,7 @@ Contiene la declaración de la clase que encapsula el parseo de mapas.
 namespace Map
 {
 	class CEntity;
+	class CTile;
 }
 
 
@@ -79,6 +80,16 @@ namespace Map {
 		typedef std::list<Map::CEntity*> TEntityList;
 
 		/**
+		Tipo casilla del mapa.
+		*/
+		typedef Map::CTile* TTile;
+
+		/**
+		Tipo matriz de tiles del mapa.
+		*/
+		typedef TTile** TTileMatrix;
+
+		/**
 		Devuelve el listado de las entidades leidas del mapa.
 
 		@return Entidades parseadas.
@@ -99,6 +110,34 @@ namespace Map {
 		@return La entidad o null si no existe.
 		*/
 		CEntity *getEntity(const std::string &name);
+
+		/**
+		Inicializa el mapa de celdas y empieza el parseo del mismo.
+
+		@param height Altura del mapa.
+		@param width Anchura del mapa.
+		*/
+		void beginGrid(int height, int width);
+
+		/**
+		Establece el atributo tipo a una celda concreta.
+
+		@param name Nombre del nuevo atributo.
+		@param value Valor del nuevo atributo.
+		@param y Coordenada y de la celda.
+		@param x Coordenada x de la celda.
+		*/
+		void newTileTypeAttrib(std::string &value, int y, int x);
+
+		/**
+		Establece un nuevo atributo a una celda concreta.
+
+		@param name Nombre del nuevo atributo.
+		@param value Valor del nuevo atributo.
+		@param y Coordenada y de la celda.
+		@param x Coordenada x de la celda.
+		*/
+		void newTileAttrib(std::string &name, std::string &value, int y, int x);
 
 		/**
 		Empieza el parseo de una nueva entidad con el nombre proporcionado. Lo
@@ -185,6 +224,11 @@ namespace Map {
 		Lista de los arquetipos de las entidades parseada.
 		*/
 		TEntityList _entityArchetypesList;
+
+		/**
+		Matriz de celdas del mapa parseado.
+		*/
+		TTileMatrix _tileMatrix;
 
 	};
 

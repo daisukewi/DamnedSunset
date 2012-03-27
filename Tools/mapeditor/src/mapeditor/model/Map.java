@@ -432,6 +432,26 @@ public class Map implements Serializable, ExportableData {
 		s = s + "\t\twidth = " + _mapWidth + ",\n";
 		s = s + "\t\theight = " + _mapHeight + ",\n";
 		
+		s = s + "\t\tgrid_map = {\n";
+		
+		for (int y = (_mapHeight - 1); y >= 0; y--) {
+			
+			s = s + "\t\t\t{ ";
+			
+			for (int x = (_mapWidth - 1); x > 0; x--) {
+				
+				s = s + _map[x][y].getType().getType() + ", ";
+				
+			}
+			
+			s = s + _map[0][y].getType().getType();
+			
+			s = s + " },\n";
+			
+		}
+		
+		s = s + "\t\t},\n";
+		
 		s = s + "\t},\n\n";
 		
 		return s;

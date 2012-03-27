@@ -1,4 +1,6 @@
 function processMap(map)
+	-- Creo una variable local donde voy a guardar el mapa para parsearlo al final de todas las entidades.
+	local gridMap
 	-- Creo un objeto de C++ de tipo Parser.
 	local cParser = Parser()
 	-- Me recorro toda la tabla de entidades anteriormente cargada
@@ -7,7 +9,7 @@ function processMap(map)
 		-- Aviso al parser de que empieza la definición de una nueva entidad
 		cParser:beginEntity(key)
 			
-			-- A su ve cada entidad es una tabla con todos sus atributos así que me la recorro
+			-- A su vez cada entidad es una tabla con todos sus atributos así que me la recorro
 			for k, v in pairs(value) do
 			
 				-- Si el valor que estoy leyendo es de tipo booleano, se lo paso al parser convertido en string
@@ -17,12 +19,18 @@ function processMap(map)
 					else
 						cParser:newAttrib(k, "false")
 					end
-				-- Si el valor que estoy leyendo es de tipo tabla, agrupo los elementos de la tabla separados por un espacio y 
-				-- se lo paso al parser en formato string
 				elseif (type(v) == "table") then
-					s = (v[1] .. " " .. v[2])
-					if (rawlen(v) == 3) then
-						s = (s .. " " .. v[3])
+					-- Si el valor que estoy leyendo es de tipo tabla, primero compruebo si la longitud es menor que tres ya que
+					-- de ser así se trata de un vector.
+					if (rawlen(v) <= 3) then
+						s = (v[1] .. " " .. v[2])
+						if (rawlen(v) == 3) then
+							s = (s .. " " .. v[3])
+						end
+					-- Si la longitud de la tabla es mayor de tres, entonces es la definición de las casillas del mapa.
+					else
+						-- Me guardo el mapa para parsearlo cuando ya haya parseado todas las entidades
+						gridMap = v
 					end
 					cParser:newAttrib(k, s)
 				-- En cualquier otro caso, le paso el valor al parser para que lo guarde como un string.
@@ -36,4 +44,14 @@ function processMap(map)
 		cParser:endEntity()
 		
 	end
+	
+	-- Cuando ya he parseado todas las entidades, parseo el mapa en una función a parte.
+	if (gridMap ~= nil) then
+		processGrid(gridMap, cParser)
+	end
+	
+end
+
+function processGrid(grid, cParser)
+	cParser:beginGrid(rawlen(grid), rawlen(grid[1]))
 end

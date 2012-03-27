@@ -13,6 +13,7 @@ Contiene la implementación de la clase que encapsula el parseo de mapas.
 
 #include "MapEntity.h"
 #include "MapParser.h"
+#include "MapTile.h"
 
 #include "ScriptManager\Server.h"
 #include "ScriptManager\Parser.h"
@@ -133,6 +134,37 @@ namespace Map {
 			return 0;
 		
 	} // getEntity
+
+	//--------------------------------------------------------
+
+	void CMapParser::beginGrid(int height, int width)
+	{
+		// Hago la reserva de memoria para guardar el mapa inicializando cada casilla.
+		_tileMatrix = new TTile*[height];
+		for (int y = 0; y < height; y++)
+		{
+			_tileMatrix[y] = new TTile[width];
+			for (int x = 0; x < width; x++)
+				_tileMatrix[y][x] = new CTile();
+		}
+		
+	} // beginGrid
+
+	//--------------------------------------------------------
+
+	void CMapParser::newTileTypeAttrib(std::string &value, int y, int x)
+	{
+		_tileMatrix[y][x]->setType(value);
+		
+	} // newTileTypeAttrib
+
+	//--------------------------------------------------------
+
+	void CMapParser::newTileAttrib(std::string &name, std::string &value, int y, int x)
+	{
+		_tileMatrix[y][x]->setAttribute(name, value);
+		
+	} // newTileAttrib
 
 	//--------------------------------------------------------
 

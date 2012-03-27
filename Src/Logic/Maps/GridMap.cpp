@@ -51,7 +51,7 @@ namespace Logic {
 		_gridSize = Math::Log2(gridSize);
 		_halfGrid = gridSize / 2;
 
-		// Reserva memoria para almacenar el mapa lógico y inicializa cada casilla.
+		// Reserva memoria para almacenar el mapa lógico e inicializa cada casilla.
 		_gridMap = new TGridTile*[_nMapRows];
 		for (int i = 0; i < _nMapRows; ++i)
 		{

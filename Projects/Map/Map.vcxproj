@@ -73,10 +73,12 @@
   <ItemGroup>
     <ClCompile Include="..\..\Src\Map\MapEntity.cpp" />
     <ClCompile Include="..\..\Src\Map\MapParser.cpp" />
+    <ClCompile Include="..\..\Src\Map\MapTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Map\MapEntity.h" />
     <ClInclude Include="..\..\Src\Map\MapParser.h" />
+    <ClInclude Include="..\..\Src\Map\MapTile.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseSubsystems\BaseSubsystems.vcxproj">

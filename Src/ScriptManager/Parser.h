@@ -40,14 +40,30 @@ namespace ScriptManager
 		*/
 		~CParser();
 
-		void beginEntity();
-
 		/**
 		Método que se encarga de registrar la clase en el contexto de lua.
 		Será llamado en el constructor y deberá ser implementado por las
 		clases que implementen esta interfaz.
 		*/
 		static void registerClass();
+
+		/**
+		Empieza el parseo de las casillas del mapa.
+
+		@param height Altura del mapa.
+		@param width Anchura del mapa.
+		*/
+		void beginGrid(int height, int width);
+
+		/**
+		Establece un nuevo atributo a una celda concreta.
+
+		@param name Nombre del nuevo atributo.
+		@param value Valor del nuevo atributo.
+		@param y Coordenada y de la celda.
+		@param x Coordenada x de la celda.
+		*/
+		void newTileAttrib(const char *name, const char *value, int y, int x);
 
 		/**
 		Empieza el parseo de una nueva entidad con el nombre proporcionado.

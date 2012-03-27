@@ -1,5 +1,5 @@
 /**
-@file Entity.h
+@file MapEntity.h
 
 Contiene la declaración de la clase que representa una entidad leida 
 del fichero del mapa.
@@ -10,8 +10,8 @@ del fichero del mapa.
 @date Agosto, 2010
 */
 
-#ifndef __Map_Entity_H
-#define __Map_Entity_H
+#ifndef __Map_MapEntity_H
+#define __Map_MapEntity_H
 
 #include "BaseSubsystems/Math.h"
 #include <string>
@@ -162,7 +162,7 @@ namespace Map
 		void setName(const std::string &name) {_name = name;}
 		
 		/**
-		Tipo lista de CEntity donde guardaremos los pendientes de borrar.
+		Tipo lista de CEntity.
 		*/
 		typedef std::map<std::string, std::string> TAttrList;
 
@@ -193,4 +193,4 @@ namespace Map
 
 } // namespace Map
 
-#endif // __Map_Entity_H
+#endif // __Map_MapEntity_H

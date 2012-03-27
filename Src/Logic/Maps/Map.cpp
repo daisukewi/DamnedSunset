@@ -79,7 +79,7 @@ namespace Logic {
 				{
 					// @TODO @GRID Cuando sepamos qué hacer con cada casilla aquí habrá que hacer algo mas complejo que simplemente poner el tipo.
 					// Por ahora lo hago "a pelo" pero igual vendría bien una factoría de casillas o algo así.
-					map->getGridMap()->getTileFromCoord((*it)->getVector2Attribute("position").x, (*it)->getVector2Attribute("position").y)->SetTerrain((*it)->getIntAttribute("terrain"));
+					//map->getGridMap()->getTileFromCoord((*it)->getVector2Attribute("position").x, (*it)->getVector2Attribute("position").y)->SetTerrain((*it)->getIntAttribute("terrain"));
 				}
 			}
 		}

@@ -1,5 +1,5 @@
 /**
-@file Entity.cpp
+@file MapEntity.cpp
 
 Contiene la implementación de la clase que representa una entidad leida 
 del fichero del mapa.
