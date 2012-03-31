@@ -42,6 +42,9 @@ namespace Logic {
 		// Si se ha realizado con éxito el parseo creamos el mapa.
 		CMap *map = new CMap(mapFilename);
 
+		// Extraemos las casillas del parseo.
+		Map::CMapParser::TTileMatrix tileMatrix = Map::CMapParser::getSingletonPtr()->getTileMatrix();
+
 		// Extraemos las entidades del parseo.
 		Map::CMapParser::TEntityList entityList = Map::CMapParser::getSingletonPtr()->getEntityList();
 		// Obtenemos la factoría.

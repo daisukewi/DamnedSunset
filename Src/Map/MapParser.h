@@ -97,6 +97,13 @@ namespace Map {
 		const TEntityList getEntityList() {return _entityList;}
 
 		/**
+		Devuelve la matriz de casillas leidas del mapa.
+
+		@return Casillas parseadas.
+		*/
+		const TTileMatrix getTileMatrix() {return _tileMatrix;}
+
+		/**
 		Elimina todas las entidades que contenga la lista de entidades 
 		parseadas.
 		*/
