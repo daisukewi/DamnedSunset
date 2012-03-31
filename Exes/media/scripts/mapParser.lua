@@ -53,5 +53,13 @@ function processMap(map)
 end
 
 function processGrid(grid, cParser)
+	-- Aviso que empiezo el parseo de las celdas del mapa.
 	cParser:beginGrid(rawlen(grid), rawlen(grid[1]))
+	
+	-- Hago el parseo en sí con un doble for.
+	for y, val1 in pairs(grid) do
+		for x, val2 in pairs(val1) do
+			cParser:newTile(val2, (y - 1), (x - 1))
+		end
+	end
 end

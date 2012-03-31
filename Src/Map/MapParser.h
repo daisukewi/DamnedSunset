@@ -120,24 +120,14 @@ namespace Map {
 		void beginGrid(int height, int width);
 
 		/**
-		Establece el atributo tipo a una celda concreta.
+		Establece una nueva celda cogiendo los atributos anteriormente
+		parseados.
 
-		@param name Nombre del nuevo atributo.
-		@param value Valor del nuevo atributo.
+		@param name Nombre de la celda.
 		@param y Coordenada y de la celda.
 		@param x Coordenada x de la celda.
 		*/
-		void newTileTypeAttrib(std::string &value, int y, int x);
-
-		/**
-		Establece un nuevo atributo a una celda concreta.
-
-		@param name Nombre del nuevo atributo.
-		@param value Valor del nuevo atributo.
-		@param y Coordenada y de la celda.
-		@param x Coordenada x de la celda.
-		*/
-		void newTileAttrib(std::string &name, std::string &value, int y, int x);
+		void newTile(std::string &name, int y, int x);
 
 		/**
 		Empieza el parseo de una nueva entidad con el nombre proporcionado. Lo

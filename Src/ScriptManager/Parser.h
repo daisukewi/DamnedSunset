@@ -56,14 +56,13 @@ namespace ScriptManager
 		void beginGrid(int height, int width);
 
 		/**
-		Establece un nuevo atributo a una celda concreta.
+		Establece una nueva celda.
 
-		@param name Nombre del nuevo atributo.
-		@param value Valor del nuevo atributo.
+		@param name Nombre de la nueva celda.
 		@param y Coordenada y de la celda.
 		@param x Coordenada x de la celda.
 		*/
-		void newTileAttrib(const char *name, const char *value, int y, int x);
+		void newTile(const char *name, int y, int x);
 
 		/**
 		Empieza el parseo de una nueva entidad con el nombre proporcionado.

@@ -440,11 +440,11 @@ public class Map implements Serializable, ExportableData {
 			
 			for (int x = (_mapWidth - 1); x > 0; x--) {
 				
-				s = s + _map[x][y].getType().getType() + ", ";
+				s = s + "\"" + _map[x][y].getType().getType() + "\"" + ", ";
 				
 			}
 			
-			s = s + _map[0][y].getType().getType();
+			s = s + "\"" + _map[0][y].getType().getType() + "\"";
 			
 			s = s + " },\n";
 			

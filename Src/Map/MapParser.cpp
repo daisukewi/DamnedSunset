@@ -152,17 +152,33 @@ namespace Map {
 
 	//--------------------------------------------------------
 
-	void CMapParser::newTileTypeAttrib(std::string &value, int y, int x)
+	void CMapParser::newTile(std::string &name, int y, int x)
 	{
-		_tileMatrix[y][x]->setType(value);
-		
-	} // newTileTypeAttrib
+		// Busco el tipo de celda en la lista de entidades parseadas.
+		bool find = false;
+		TEntityList::iterator it = _entityList.begin();
+		while ((!find) && (it != _entityList.end()))
+		{
+			find = !strcmp((*it)->getName().c_str(), name.c_str());
+			if (!find)
+				it++;
+		}
 
-	//--------------------------------------------------------
+		if (find)
+		{
+			// Primero le pongo el tipo a la celda.
+			_tileMatrix[y][x]->setType(name);
 
-	void CMapParser::newTileAttrib(std::string &name, std::string &value, int y, int x)
-	{
-		_tileMatrix[y][x]->setAttribute(name, value);
+			// Obtengo la lista de los atributos de la celda.
+			CEntity::TAttrList attrListEnt = (*it)->getAttributes();
+
+			// Me recorro la lista de atributos, asignándoselos a la nueva celda.
+			CEntity::TAttrList::iterator itEnt = attrListEnt.begin();
+			for (; itEnt != attrListEnt.end(); itEnt++)
+			{
+				_tileMatrix[y][x]->setAttribute(itEnt->first, itEnt->second);
+			}
+		}
 		
 	} // newTileAttrib
 
