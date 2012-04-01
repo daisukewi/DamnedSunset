@@ -98,6 +98,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\RaycastController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\RouteTo.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Script.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Selectable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SelectionController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\StateMachineExecutor.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RaycastController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RouteTo.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Script.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Selectable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SelectionController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\StateMachineExecutor.h" />
