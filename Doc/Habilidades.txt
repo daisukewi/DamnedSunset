@@ -1,0 +1,108 @@
+Para todas las habilidades
+
+1-Seleccionar personaje
+2-Seleccionar habilidad a usar
+
+Podría cambiar el puntero del ratón dependiendo de la habilidad que se esté realizando
+
+Healer
+	Curas
+		
+	Pociones
+		Se muestra la distancia mázima a la que se puede lanzar la poción(billboard)
+		3- Se selecciona un punto donde se quiere lanzar el señuelo
+		El billboard es eliminado 
+		5- Animación (physx aplicar fuerza) de la poción hasta llegar al punto indicado
+		6- Efectos de las pociones
+			-Los enemigos cercanos (definido por un trigger circular) no pueden hacer nada durante x segudnos
+			-Todos los enemigos son ralentizados durante x segundos
+			-Los enemigos cercanos (definido por un trigger circular) se atacan entre ellos (cambian su objetivo por el de un enemigo cercano)
+		
+	
+DPS
+	Espada
+		3- Seleccionar enemigo al que se quiere afectar
+		4- El personjaje va hasta el enemigo
+		5- Animación del personaje sacando una espada
+		6- Animación del personaje dando un espadazo
+		Efecto de partículas y sonido
+		7- El enemigo recibe x cantidad de daño
+	Balas explosivas
+		3- Seleccionar el enemigo al que se quiere afectar
+		4- El personaje se acerca hasta que esté a una distancia del enemigo  a la que le pueda disparar
+		4- Animación del personaje poniéndose x arma
+		5- Animación del personaje disparando
+		6- Efecto de partículas de sangre y sonido
+		7- El enemigo recibe daños
+		8- Efecto de partículas de explosión y sonido
+		9- Los enemigos cercanos (definido por un trigger circular) reciben daño y son desplazados (ragdolls en caso de que mueran)
+	Rapidez
+		3- Seleccionar enemigo por el que se quiere comenzar la habilidad
+		4- El personaje se dirije hacia el enemigo
+		5- Animación del enemigo atacando cuerpo a cuerpo (el arma está por ver)
+		6- Efecto de partículas y sonido
+		7- El enemigo pierde x puntos de vida.
+		8- El personaje se dirige hacia el siguiente enemigo más cercano y se repite desde el paso 4
+		9- Finaliza cuando ha hecho daño a x enemigos o cuando el siguiente enemigo más cercano se encuentra a más de x distancia
+	Lanzallamas
+		
+	
+Tank
+	Atraer
+		3- Animación del personaje haciéndose un corte en el brazo.
+		4- El objetivo de los enemigos que estén a x distancia cambia y pasa a ser el Tank.
+	Efecto circular
+		3- Animación del personaje dando  golpe realizando un círculo
+		4- Efecto de partículas y sondo
+		5- Los enemigos próximos (definido por un trigger  circular) reciben x de daño.
+	Puños
+		3- Animación del personaje dando con los puños en el suelo
+		4- En el área próxima al personaje aparece un efecto de resquebrajamiento del suelo
+		Reproducir sonido
+		5- Los enemigos situados en ese área (definido por un trigger) reciben x puntos de daño y se caen al suelo.
+	Teletransporte
+		Se muestra la distancia máxima a la que se puede lanzar la habilidad (con un billboard)
+		3- Se selecciona un punto
+		El billboard es eliminado
+		4- Efecto de partículas en ese punto y sonido
+		5- Los enemigos cercanos (definido por un trigger  circular) son teletransportados a un lugar aleatorio del mapa (cada enemigo por separado)
+	Señuelo
+		Se muestra la distancia mázima a la que se puede lanzar a habilidad(billboard)
+		3- Se selecciona un punto donde se quiere lanzar el señuelo
+		El billboard es eliminado
+		4- Animación del personje lanzando el señuelo
+		5- Animación (physx aplicar fuerza) del señuelo hasta llegar al punto indicado
+		6- Los enemigos que estén a x distancia (definido por un trigger  circular) del señuelo cambian su objetivo y se dirijen donde esté el señuelo
+		7- El señuelo explota (desparece de la pantalla)
+		8- Efecto de partículas de explosión y sonido
+		9- Los enemigos cercanos (definido por un trigger  circular) reciben daño y son desplazados (ragdolls en caso de que mueran)
+	Resistencia
+		3- Animación del personaje volviéndose de hierro
+		4- Durante x segundos no sufrirá daño
+		5- Animación del personaje volviéndose normal.
+		
+		
+		
+Puntos comunes:
+	Poner animación
+	Hacer x de daño a uno/varios objetivos
+	Poner un billdoard en un punto x
+	Eliminar el billboard
+	Cambiar puntero del ratón
+	Crear una entidad física
+	Dar una fuerza a una entidad física
+	Indicar que el personaje se mueva hasta un punto
+	Poner efecto de partículas
+	Poner efecto de sonido
+	Desplazar a un personaje/enemigo
+	Poner un trigger. También será necesario que se indique desde lua lo que se desea hacer a los personajes/enemigos que se encuentren en ese trigger
+		Hacer daño
+		Desplazar
+	Teletransportar a un personaje/enemigo
+	Cancelación de la propia habilidad
+	
+	
+	
+	
+	
+		
