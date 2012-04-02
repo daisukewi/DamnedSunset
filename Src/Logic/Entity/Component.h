@@ -159,16 +159,28 @@ namespace Logic
 		void setActive(bool active) {_active = active;}
 
 		/**
+		Método padre que elige que mensajes son aceptados, por todos los components
+
+		@param message Mensaje a chequear.
+		@return true si el mensaje es aceptado.
+		*/
+		bool acceptPadre(IMessage *message);
+
+		/**
 		Método virtual que elige que mensajes son aceptados.
 
 		@param message Mensaje a chequear.
 		@return true si el mensaje es aceptado.
 		*/
-		virtual bool accept(IMessage *message);
+		virtual bool accept(IMessage *message) {return false;};
 
-		virtual void process(IMessage *message);
+		void processPadre(IMessage *message);
 
-		virtual std::string getType() {return "";}
+		virtual void process(IMessage *message) {};
+
+		virtual std::string getType() {
+			return "";
+		}
 	protected:
 
 		/**

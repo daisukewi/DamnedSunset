@@ -38,14 +38,13 @@ namespace Logic
 
 	bool CDetonadorGranada::accept(IMessage *message)
 	{
-		return  IComponent::accept(message) || !message->getType().compare("MIsTouched");
+		return  !message->getType().compare("MIsTouched");
 	} // accept
 	
 	//---------------------------------------------------------
 
 	void CDetonadorGranada::process(IMessage *message)
 	{
-		IComponent::process(message);
 		if (!message->getType().compare("MIsTouched"))
 		{
 			MIsTouched *m = static_cast <MIsTouched*> (message);

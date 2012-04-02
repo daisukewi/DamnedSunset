@@ -62,14 +62,13 @@ namespace Logic
 
 	bool CLanzadorGranadas::accept(IMessage *message)
 	{
-		return IComponent::accept(message) || !message->getType().compare("MLanzarGranada");
+		return !message->getType().compare("MLanzarGranada");
 	} // accept
 	
 	//---------------------------------------------------------
 
 	void CLanzadorGranadas::process(IMessage *message)
 	{
-		IComponent::process(message);
 		if (!message->getType().compare("MLanzarGranada"))
 		{
 			MLanzarGranada *m = static_cast <MLanzarGranada*> (message);

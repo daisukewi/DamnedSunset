@@ -28,19 +28,31 @@ namespace Logic
 	@author Alberto Plaza
 	@date Enero, 2012
 */
+
+	/*Comprobacion para ver q se crean y se destrullen el mismo numero de mensajes,
+	descomentar estas 2 variables estaticas, el constructor y el destructor para comprobarlo
+	*/
+	//static int numMensajesCreados = 0;
+	//static int numMensajesDestruidos = 0;
+
 	class IMessage 
 	{
+
 	public:
 
 		/**
 		Constructor por defecto; en la clase base no hace nada.
 		*/
-		IMessage() : _numPtr(0), _type("") {}
+		IMessage() : _numPtr(0), _type("") {
+			//printf("\nNumMensajes: %d", numMensajesCreados - numMensajesDestruidos); ++numMensajesCreados;
+		}
 
 		/**
 		Destructor (virtual); en la clase base no hace nada.
 		*/
-		virtual ~IMessage() {}
+		virtual ~IMessage() {
+			//++numMensajesDestruidos;
+		}
 
 		/**
 		Añade una referencia al número de referencias.

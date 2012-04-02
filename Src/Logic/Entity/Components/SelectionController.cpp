@@ -81,24 +81,18 @@ namespace Logic
 
 	bool CSelectionController::accept(IMessage *message)
 	{
-		bool accepted = IComponent::accept(message)
-			|| !message->getType().compare("MMouseEvent")
+		return !message->getType().compare("MMouseEvent")
 			|| !message->getType().compare("MControlRaycast")
 			|| !message->getType().compare("MEntitySelected")
 			|| !message->getType().compare("MEmplaceBuilding")
 			|| !message->getType().compare("MActivateSkill")
 			|| !message->getType().compare("MLanzarGranada");
-
-		if (accepted) message->addPtr();
-
-		return accepted;
 	} // accept
 	
 	//---------------------------------------------------------
 
 	void CSelectionController::process(IMessage *message)
 	{
-		IComponent::process(message);
 		/*if (!message->getType().compare("MMouseEvent"))
 		{
 			if (_canSelect)
@@ -160,8 +154,6 @@ namespace Logic
 			_skill = m_skill->getSkill();
 
 		}
-		
-		message->removePtr();
 		
 		*/
 		
@@ -258,8 +250,6 @@ namespace Logic
 			MLanzarGranada *m_lanzarGranada = static_cast <MLanzarGranada*> (message);
 			changeState(State::LANZANDO_GRANADA);
 		}
-		
-		message->removePtr();
 	} // process
 
 

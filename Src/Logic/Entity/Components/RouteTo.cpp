@@ -171,11 +171,7 @@ namespace Logic
 	*/
 	bool CRouteTo::accept(IMessage *message)
 	{
-		bool accepted = !message->getType().compare("MAStarRoute");
-		if (accepted) message->addPtr();
-
-		return accepted;
-
+		return !message->getType().compare("MAStarRoute");
 	} // accept
 
 	//---------------------------------------------------------
@@ -220,8 +216,6 @@ namespace Logic
 				break;
 			}
 		}
-		message->removePtr();
-
 	} // process
 
 	int CRouteTo::getNextRoutePoint()

@@ -98,12 +98,7 @@ namespace Logic
 
 	bool CGraphics::accept(IMessage *message)
 	{
-		bool accepted = (message->getType().compare("MSetTransform") == 0
-			|| !message->getType().compare("MAttachBillboard"));
-
-		if (accepted) message->addPtr();
-		return accepted;
-
+		return (message->getType().compare("MSetTransform") == 0 || !message->getType().compare("MAttachBillboard"));
 	} // accept
 
 	//---------------------------------------------------------
@@ -120,8 +115,6 @@ namespace Logic
 			MAttachBillboard *m = static_cast <MAttachBillboard*> (message);
 			_graphicsEntity->attachBillboardSet(m->getBillboardSet());
 		}
-
-		message->removePtr();
 	} // process
 
 } // namespace Logic

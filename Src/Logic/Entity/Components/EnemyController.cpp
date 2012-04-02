@@ -78,12 +78,7 @@ namespace Logic
 
 	bool CEnemyController::accept(IMessage *message)
 	{
-		bool accepted = !message->getType().compare("MAStarRoute");
-		if (accepted) message->addPtr();
-		accepted |= !message->getType().compare("MEntityDeath");
-
-		return accepted;
-
+		return !message->getType().compare("MAStarRoute") || !message->getType().compare("MEntityDeath");
 	} // accept
 	
 	//---------------------------------------------------------
@@ -101,7 +96,6 @@ namespace Logic
 				_moving = false;
 				break;
 			}
-			message->removePtr();
 		}
 		else if (!message->getType().compare("MEntityDeath"))
 		{

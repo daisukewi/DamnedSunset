@@ -34,12 +34,13 @@ namespace Logic
 		processMessages();
 	} // tick
 
-	bool IComponent::accept(IMessage *message)
+	bool IComponent::acceptPadre(IMessage *message)
 	{
-		return !message->getType().compare("MActivarComponente");
+		bool acepted = !message->getType().compare("MActivarComponente") || accept(message);
+		return acepted;
 	}
 
-	void IComponent::process(IMessage *message)
+	void IComponent::processPadre(IMessage *message)
 	{
 		if (!message->getType().compare("MActivarComponente"))
 		{
@@ -58,5 +59,7 @@ namespace Logic
 				}
 			}
 		}
+		process(message);
 	}
+
 } // namespace Logic

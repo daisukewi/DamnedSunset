@@ -70,6 +70,13 @@ namespace Logic
 		bool set(IMessage *message);
 
 		/**
+		Metodo que acepta los mensajes que son aceptados por todos los componentes, y llama al accept de los hijos
+		@param message Mensaje a chequear.
+		@return true si el mensaje es aceptado.
+		*/
+		virtual bool acceptPadre(IMessage *message) = 0;
+
+		/**
 		Método virtual que elige que mensajes son aceptados. Las clases
 		que hereden del puerto de comunicación deberán reimplementar
 		este método si quieren aceptar algún mensaje ya que por defecto
@@ -78,14 +85,21 @@ namespace Logic
 		@param message Mensaje a chequear.
 		@return true si el mensaje es aceptado.
 		*/
-		virtual bool accept(IMessage *message) {return false;}
+		virtual bool accept(IMessage *message) = 0;
+
+
+		/**
+		Metodo que procesa los mensajes que procesan todos los componentes, y llama al process de los hijos
+		@param message Mensaje a procesar.
+		*/
+		virtual void processPadre(IMessage *message) = 0;
 
 		/**
 		Método virtual que procesa un mensaje.
 
 		@param message Mensaje a procesar.
 		*/
-		virtual void process(IMessage *message) {}
+		virtual void process(IMessage *message) = 0;
 
 		/**
 		Método que procesa la lista de mensajes que faltan por procesar.

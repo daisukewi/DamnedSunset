@@ -225,7 +225,6 @@ namespace Logic
 		_listeners.clear();
 		
 	} // notifyDeathListeners
-
 	//---------------------------------------------------------
 
 } // namespace Logic

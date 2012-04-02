@@ -66,7 +66,7 @@ namespace Logic
 
 	bool CSunController::accept(IMessage *message)
 	{
-		return IComponent::accept(message);
+		return false;
 
 	} // accept
 	
@@ -74,7 +74,6 @@ namespace Logic
 
 	void CSunController::process(IMessage *message)
 	{
-		IComponent::process(message);
 	} // process
 	
 	//---------------------------------------------------------

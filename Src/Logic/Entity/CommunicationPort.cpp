@@ -24,7 +24,7 @@ namespace Logic {
 
 	bool CCommunicationPort::set(IMessage *message)
 	{
-		bool accepted = accept(message);
+		bool accepted = acceptPadre(message);
 		if(accepted)
 		{
 			message->addPtr();
@@ -42,8 +42,8 @@ namespace Logic {
 		TMessageList::const_iterator it = _messages.begin();
 		for(; it != _messages.end(); it++)
 		{
-			process(*it);
-			it._Ptr->_Myval->removePtr();
+			processPadre(*it);
+			(*it)->removePtr();
 		}
 
 		_messages.clear();

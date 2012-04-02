@@ -192,8 +192,8 @@ namespace GUI {
 		_jugadorSel = 1;
 		this->ocultarBotones();
 		this->cargarBoton('1', "martillo");
-		this->cargarBoton('2',"granada");
-		this->cargarBoton('3',"granada");
+		//this->cargarBoton('2',"granada");
+		//this->cargarBoton('3',"granada");
 		this->cargarBoton('4',"granada");
 	}
 	void CInterfazController::menuJugador2() {

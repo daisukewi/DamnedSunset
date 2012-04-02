@@ -57,14 +57,15 @@ namespace Logic
 
 	bool CAnimatedGraphics::accept(IMessage *message)
 	{
-		bool dady_accepted = CGraphics::accept(message);
-		bool accepted = dady_accepted
-			|| (message->getType().compare("MSetAnimation") == 0)
-			|| (message->getType().compare("MStopAnimation") == 0);
+		//bool dady_accepted = CGraphics::accept(message);
+		//bool accepted = dady_accepted
+		//	|| (message->getType().compare("MSetAnimation") == 0)
+		//	|| (message->getType().compare("MStopAnimation") == 0);
 
-		if (!dady_accepted && accepted) message->addPtr();
-		if (accepted) message->addPtr();
-		return accepted;
+		//if (!dady_accepted && accepted) message->addPtr();
+		//if (accepted) message->addPtr();
+		//return accepted;
+		return CGraphics::accept(message) || (message->getType().compare("MSetAnimation") == 0) || (message->getType().compare("MStopAnimation") == 0);
 	} // accept
 	
 	//---------------------------------------------------------
@@ -89,9 +90,6 @@ namespace Logic
 
 			_animatedGraphicsEntity->stopAnimation(m->getAnimationName());
 		}
-
-		message->removePtr();
-
 	} // process
 	
 	//---------------------------------------------------------

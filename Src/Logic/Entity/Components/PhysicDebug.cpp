@@ -163,11 +163,7 @@ namespace Logic
 
 	bool CPhysicDebug::accept(IMessage *message)
 	{
-		bool accepted = (message->getType().compare("MSetTransform") == 0);
-
-		if (accepted) message->addPtr();
-		return accepted;
-
+		return (message->getType().compare("MSetTransform") == 0);
 	} // accept
 
 	//---------------------------------------------------------
@@ -183,8 +179,6 @@ namespace Logic
 			if(_triggerEntity)
 				_triggerEntity->setTransform(m->getTransform());
 		} 
-
-		message->removePtr();
 	} // process
 
 } // namespace Logic
