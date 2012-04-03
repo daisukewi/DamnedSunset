@@ -41,10 +41,10 @@ Map = {
 	World = {
 		position = {0, 0, 0},
 		orientation = 0,
-		model = "plane.mesh",
 		physic_entity = "simple",
-		physic_height = 1,
+		model = "plane.mesh",
 		static = true,
+		physic_height = 1,
 		physic_normal = {0, 1, 0},
 		type = "World",
 		physic_type = "static",
@@ -59,17 +59,17 @@ Map = {
 		grid_position = { 18, 19 },
 		targetHeight = 7,
 		targetName = "PlayerGod",
-		targetDistance = 10,
 		type = "Camera",
+		targetDistance = 10,
 	},
 
 	PlayerGod = {
 		isPlayer = true,
 		orientation = 225,
-		southVision = 40,
 		isTargetCamera = true,
-		eastVision = 25,
+		southVision = 40,
 		northVision = 20,
+		eastVision = 25,
 		grid_position = { 17, 19 },
 		westVision = 30,
 		type = "PlayerGod",
@@ -81,11 +81,11 @@ Map = {
 
 	Sun = {
 		position = {0, 10, -100},
-		orientation = 0,
 		scale = 30.0,
+		orientation = 0,
 		model = "esfera.mesh",
-		speed = 5.0,
 		grid_position = { 16, 19 },
+		speed = 5.0,
 		inclination = 120.0,
 		type = "Sun",
 	},
@@ -111,6 +111,7 @@ Map = {
 	Amor = {
 		life = 10.0,
 		grid_position = { 14, 8 },
+		script = "amorScript",
 		type = "Player",
 	},
 

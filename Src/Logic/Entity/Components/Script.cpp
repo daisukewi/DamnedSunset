@@ -12,6 +12,16 @@ scripts asociados a una entidad.
 
 #include "Script.h"
 
+#include "Map/MapEntity.h"
+
+#include "ScriptManager/Server.h"
+
+#include "Logic/Entity/Messages/SetAnimation.h"
+#include "Logic/Entity/Messages/MoveSteering.h"
+#include "Logic/Entity/Messages/Healed.h"
+#include "Logic/Entity/Messages/CureEntity.h"
+#include "Logic/Entity/Messages/ActivateSkill.h"
+
 namespace Logic
 {
 	IMP_FACTORY(CScript);
@@ -20,6 +30,12 @@ namespace Logic
 
 	bool CScript::spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo)
 	{
+		if(!IComponent::spawn(entity,map,entityInfo))
+			return false;
+
+		if (entityInfo->hasAttribute("script"))
+			ScriptManager::CServer::getSingletonPtr()->loadExeScript(entityInfo->getStringAttribute("script").c_str());
+
 		return true;
 
 	} // spawn
@@ -43,7 +59,7 @@ namespace Logic
 
 	bool CScript::accept(IMessage *message)
 	{
-		return false;
+		return (!message->getType().compare("MCureEntity"));
 
 	} // accept
 
@@ -51,6 +67,14 @@ namespace Logic
 
 	void CScript::process(IMessage *message)
 	{
+		if (!message->getType().compare("MCureEntity"))
+		{
+			ScriptManager::CServer::getSingletonPtr()->executeScript("hability = coroutine.create(healHability)");
+			ScriptManager::CServer::getSingletonPtr()->executeScript("correct, result = coroutine.resume(hability)");
+			int n = ScriptManager::CServer::getSingletonPtr()->getGlobal("result", 0);
+			ScriptManager::CServer::getSingletonPtr()->executeScript("correct = coroutine.resume(hability, 28)");
+			int n3 = 0;
+		}
 
 	} // process
 
@@ -58,7 +82,8 @@ namespace Logic
 
 	void CScript::tick(unsigned int msecs)
 	{
-		
+		IComponent::tick(msecs);
+
 	} // tick
 
 	//---------------------------------------------------------
