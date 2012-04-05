@@ -24,7 +24,7 @@ entidades que no son character controllers.
 #include "Physics/IPhysicObj.h"
 
 #include "Logic/Entity/Messages/SetTransform.h"
-#include "Logic/Entity/Messages/AplicarFuerza.h"
+#include "Logic/Entity/Messages/AplicarVelocidad.h"
 
 using namespace Logic;
 using namespace Physics;
@@ -72,7 +72,7 @@ bool CPhysicEntity::spawn(CEntity *entity, CMap *map, const Map::CEntity *entity
 
 bool CPhysicEntity::accept(IMessage *message)
 {
-	return (message->getType().compare("MSetTransform") == 0) || !message->getType().compare("MAplicarFuerza");
+	return (message->getType().compare("MSetTransform") == 0) || !message->getType().compare("MAplicarVelocidad");
 }
 
 //---------------------------------------------------------
@@ -88,9 +88,9 @@ void CPhysicEntity::process(IMessage *message)
 		// sólo tendremos en cuenta el último
 		_transform = m->getTransform();
 		_forceApplyTransform = m->getForce();
-	} else if (!message->getType().compare("MAplicarFuerza")) {
-		MAplicarFuerza *m = static_cast <MAplicarFuerza*> (message);
-		_physicObj->ApplyForce(m->getForce(), m->getPos());
+	} else if (!message->getType().compare("MAplicarVelocidad")) {
+		MAplicarVelocidad *m = static_cast <MAplicarVelocidad*> (message);
+		_physicObj->SetLinearVelocity(m->getVelocity(), 0);
 	}
 }
 

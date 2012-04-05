@@ -12,7 +12,7 @@
 #include "Logic/Entity/Entity.h"
 #include "Logic/Maps/Map.h"
 #include "Logic/Entity/Messages/LanzarGranada.h"
-#include "Logic/Entity/Messages/AplicarFuerza.h"
+#include "Logic/Entity/Messages/AplicarVelocidad.h"
 
 #include "Logic/Maps/EntityFactory.h"
 
@@ -119,10 +119,9 @@ namespace Logic
 				v.normalise();
 
 				//Aplicamos la fuerza para lanzar la granada
-				MAplicarFuerza * mf = new MAplicarFuerza();
-				mf->setForce(v.x * 1000, 1000, v.z*1000);
-				mf->setPos(0,0,0);
-				entityGranada->emitMessage(mf);
+				MAplicarVelocidad * mv = new MAplicarVelocidad();
+				mv->setVelocity(v.x * 30, 30, v.z*30);
+				entityGranada->emitMessage(mv);
 
 				entityGranada->setPosition(posDestino3);
 			}
