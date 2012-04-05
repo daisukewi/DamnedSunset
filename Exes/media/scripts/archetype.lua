@@ -153,6 +153,7 @@ Archetype = {
 		billboardLanzamientoMaterial = "circuloSeleccion",
 		billboardLanzamientoWith = 150.0,
 		billboardLanzamientoHeight = 150.0,
+		alcanceGranada = 70.0,
 	},
 	
 	Waypoint = {

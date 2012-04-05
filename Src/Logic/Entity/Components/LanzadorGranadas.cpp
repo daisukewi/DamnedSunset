@@ -50,6 +50,10 @@ namespace Logic
 
 		_estadoGranada = inactivo;
 
+		if(entityInfo->hasAttribute("alcanceGranada"))
+		{
+			_maxAlcance = entityInfo->getFloatAttribute("alcanceGranada");
+		}
 		return true;
 	} // spawn
 
@@ -118,9 +122,22 @@ namespace Logic
 				Vector3 v = Vector3(posDestino3.x - _entity->getPosition().x,0,posDestino3.z - _entity->getPosition().z);
 				v.normalise();
 
+
+				float x = (_entity->getPosition().x - posDestino3.x);
+				x = x * x;
+				float z = (_entity->getPosition().z - posDestino3.z);
+				z = z * z;
+				//Distancia entre el punto en el que clickeamos y el jugador
+				float distance = sqrt( x + z);
+
+				if (distance > _maxAlcance)
+					distance = _maxAlcance;
+				//Volvemos a hacer la raiz cuadrada, para que se ajuste mejor la velocidad (no aplica tanta velocidad lejos, y no reduce tanto de cerca)
+				distance = sqrt(distance) * 6;
+
 				//Aplicamos la fuerza para lanzar la granada
 				MAplicarVelocidad * mv = new MAplicarVelocidad();
-				mv->setVelocity(v.x * 30, 30, v.z*30);
+				mv->setVelocity(v.x * distance, distance, v.z*distance);
 				entityGranada->emitMessage(mv);
 
 				entityGranada->setPosition(posDestino3);

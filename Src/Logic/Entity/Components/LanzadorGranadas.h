@@ -39,6 +39,8 @@ namespace Logic
 			lanzando = 1,
 		};
 		enum EstadoGranada _estadoGranada;
+
+		float _maxAlcance;
 	};
 
 	REG_FACTORY(CLanzadorGranadas);
