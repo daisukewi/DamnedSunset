@@ -290,7 +290,6 @@ namespace Logic
 		if (!message->getType().compare("MSetTransform"))
 		{
 			MSetTransform *m = static_cast <MSetTransform*> (message);
-
 			_transform = m->getTransform();
 		}
 
@@ -310,6 +309,30 @@ namespace Logic
 
 		return anyReceiver;
 
+	} // emitMessage
+
+
+	bool CEntity::emitInstantMessage(IMessage *message, IComponent* emitter)
+	{
+		// Interceptamos los mensajes que además de al resto de los
+		// componentes, interesan a la propia entidad.
+		message->addPtr();
+
+		TComponentList::const_iterator it;
+		// Para saber si alguien quiso el mensaje.
+		bool anyReceiver = false;
+		for( it = _components.begin(); it != _components.end(); ++it )
+		{
+			// Al emisor no se le envia el mensaje.
+			if( emitter != (*it) ) {
+				bool aceptado = (*it)->acceptPadre(message);
+				anyReceiver = aceptado || anyReceiver;
+				if (aceptado)
+					(*it)->processPadre(message);
+			}
+		}
+		message->removePtr();
+		return anyReceiver;
 	} // emitMessage
 
 	//---------------------------------------------------------

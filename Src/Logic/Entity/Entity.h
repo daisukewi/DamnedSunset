@@ -170,6 +170,15 @@ namespace Logic
 		bool emitMessage(IMessage *message, IComponent* emitter = 0);
 
 		/**
+		Recibe un mensaje que envia a todos los componentes de la lista menos 
+		al componente que lo envia, si éste se especifica en el segundo campo.
+		El mensaje se procesa en el mismo instante en el que se envía.
+		@param message Mensaje a enviar.
+		@param emitter Componente emisor, si lo hay. No se le enviará el mensaje.
+		@return true si al menos un componente aceptó el mensaje
+		*/
+		bool emitInstantMessage(IMessage *message, IComponent* emitter = 0);
+		/**
 		Devuelve el identificador único de la entidad.
 
 		@return Identificador.
