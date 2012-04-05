@@ -589,6 +589,16 @@ public class System {
 		
 	}
 	
+	public void exportHeightmapImage(File file)
+	{
+		if (_map != null)
+		{
+			HeightMapExporter hm = new HeightMapExporter(_map.getMapWidth(), _map.getMapHeight(), _preferences);
+			hm.ProcessMap(_map);
+			hm.SaveImageHeightmap(file);
+		}
+	}
+	
 	public void importMap(File file) {
 		
 		if (file.exists() && file.canRead()) {
