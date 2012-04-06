@@ -593,8 +593,8 @@ public class System {
 	{
 		if (_map != null)
 		{
-			HeightMapExporter hm = new HeightMapExporter(_map.getMapWidth(), _map.getMapHeight(), _preferences);
-			hm.ProcessMap(_map);
+			HeightMapExporter hm = new HeightMapExporter(_map.getMapWidth(), _map.getMapHeight());
+			hm.ProcessMap(_map, _preferences);
 			hm.SaveImageHeightmap(file);
 		}
 	}
