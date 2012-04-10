@@ -100,13 +100,13 @@
         "Entry"
         {
         "MsmKey" = "8:_128A75C985ABC02A492A4C38DB352DD2"
-        "OwnerKey" = "8:_DE732A722D8A4571AC8B26B8B9770884"
+        "OwnerKey" = "8:_88A5C09C066E403BB94B1D9EB3CA8F28"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_128A75C985ABC02A492A4C38DB352DD2"
-        "OwnerKey" = "8:_88A5C09C066E403BB94B1D9EB3CA8F28"
+        "OwnerKey" = "8:_DE732A722D8A4571AC8B26B8B9770884"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -819,6 +819,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_670FAE092FDB43CFB08FE9E6A15FD7AE"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_6934F85EC12A4C1B9DC793ADFC59DA27"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -995,6 +1001,18 @@
         {
         "MsmKey" = "8:_8358240C772243ECBF9F164C5439387B"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_838199D25E9C430089A8308D3EAAE5E2"
+        "OwnerKey" = "8:_88A5C09C066E403BB94B1D9EB3CA8F28"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_838199D25E9C430089A8308D3EAAE5E2"
+        "OwnerKey" = "8:_DE732A722D8A4571AC8B26B8B9770884"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1467,18 +1485,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C96BFDBD416946E2A745494E9F0C83CA"
-        "OwnerKey" = "8:_DE732A722D8A4571AC8B26B8B9770884"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C96BFDBD416946E2A745494E9F0C83CA"
-        "OwnerKey" = "8:_88A5C09C066E403BB94B1D9EB3CA8F28"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_C9D0FC23FB354972BED84751D8E8918C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1765,6 +1771,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -1781,6 +1795,27 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -4376,6 +4411,26 @@
             "TargetName" = "8:Menu.layout"
             "Tag" = "8:"
             "Folder" = "8:_F2BB2D52A87640EF841E77E6E276668F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_670FAE092FDB43CFB08FE9E6A15FD7AE"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\amorScript.lua"
+            "TargetName" = "8:amorScript.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -7589,7 +7644,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Damned Sunset"
         "ProductCode" = "8:{0FF8AA89-473A-4DEF-BB9F-D05D8E9E6823}"
-        "PackageCode" = "8:{D68E8B4F-7BB6-44A0-B9D0-E1DE22B5BEEF}"
+        "PackageCode" = "8:{57DED774-E0ED-4045-9766-41AB3406671B}"
         "UpgradeCode" = "8:{FDA5CD02-5EA1-4291-8666-178A79072817}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -8133,7 +8188,7 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_C96BFDBD416946E2A745494E9F0C83CA"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_838199D25E9C430089A8308D3EAAE5E2"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
