@@ -21,12 +21,15 @@ la ventana, etc.
 
 #include "BaseSubsystems/Math.h"
 
+#include "BaseSubsystems/ClockListener.h"
+
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Ogre 
 {
 	class Root;
 	class RenderWindow;
 	class Timer;
+	class ParticleSystem;
 }
 namespace Graphics 
 {
@@ -71,7 +74,7 @@ namespace Graphics
 	@author David Llansó
 	@date Julio, 2010
 	*/
-	class CServer 
+	class CServer: public BaseSubsystems::IClockListener
 	{
 	protected:
 
@@ -213,6 +216,13 @@ namespace Graphics
 		void createParticleEffect(std::string &effect, Vector3 &point);
 		
 
+		/**
+		Método heredado de la interfaz IClockListener que será llamado
+		por el temporizador cuando se acabe el tiempo de espera
+		especificado.
+		*/
+		virtual void timeElapsed();
+
 	protected:
 		
 
@@ -241,6 +251,8 @@ namespace Graphics
 		estáticos se hace en Release().
 		*/
 		void close();
+
+
 
 		/**
 		Instancia única de la aplicación.
@@ -274,6 +286,36 @@ namespace Graphics
 		siempre haya una escena para el dibujado del GUI.
 		*/
 		CScene* _dummyScene;
+
+		/**
+		Lista de los nodos que contienen los efectos de partículas representadas en pantalla
+		*/
+		Ogre::SceneNode* _particleNode[30];
+
+		/**
+		Contador para saber la próxima libre de los nodos
+		*/
+		int _countParticles;
+
+		/**
+		Variable que indica el próximo efecto de partículas que hay que eleiminar cuando se reciba el aviso de que han pasado x segundos.
+		*/
+		int _particleToDelete;
+	
+
+		/**
+		Lista de efectos de particulas
+		*/
+		Ogre::ParticleSystem* _particleSystem[30];
+
+		/**
+		Total de partículas que va a poder estar mostrándose a la vez
+		*/
+		int _numParticles;
+
+
+			//repeat_delay  min max
+			//time_to_live  min max
 
 	}; // class CServer
 

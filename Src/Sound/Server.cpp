@@ -1,548 +1,566 @@
+//---------------------------------------------------------------------------
+// Server.cpp
+//---------------------------------------------------------------------------
+
+
+/**
+@file Server.h
+
+Contiene la implementacion de la clase CServer, Singleton que se encarga de
+la gestión de Sonidos
+
+@see Sound::CServer
+
+@author Luis Rojas
+@date Feb, 2012
+*/
+
 #include "Server.h"
-#include <fmod_errors.h>
+#include "SoundManager.h"
 
-#define INITIAL_VECTOR_SIZE   100
-#define INCREASE_VECTOR_SIZE  20
+#include <assert.h>
 
-#define DOPPLER_SCALE         1.0
-#define DISTANCE_FACTOR       1.0
-#define ROLLOFF_SCALE         0.5
+#include "../../dependencies/include/fmod/fmod.hpp"
+#include "../../dependencies/include/fmod/fmod_errors.h"
 
+//using namespace std;
+using namespace FMOD;
 
+namespace Sounds {
 
-namespace Sound{
+	CServer* CServer::_instance = 0;
 
-	/*template<> Sound::CServer* Singleton<Sound::CServer>::ms_Singleton = 0;
+	//--------------------------------------------------------
 
-	void SoundInstance::Clear(void)
+	CServer::CServer() : _audioSystem(NULL), _numCanales(0)
 	{
-		fileName.clear();
-		streamPtr.setNull();
-		fileArchive = NULL;
-		fmodSound = NULL;
-		soundType = SOUND_TYPE_INVALID;
-	}
+		_instance = this;
 
-	void ChannelInstance::Clear(void)
-	{
-		sceneNode = NULL;
-		prevPosition = Ogre::Vector3(0, 0, 0);
-	}
+	} // CServer
 
-	class FileLocator : public ResourceGroupManager
-	{
-	public:
-		FileLocator() {}
-		~FileLocator() {}
-		Archive *Find(Ogre::String &filename)
-		{
-			ResourceGroup* grp = getResourceGroup("General");
-			if (!grp)
-				OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot locate a resource group called 'General'", "ResourceGroupManager::openResource");
-
-			OGRE_LOCK_MUTEX(grp->OGRE_AUTO_MUTEX_NAME) // lock group mutex
-				ResourceLocationIndex::iterator rit = grp->resourceIndexCaseSensitive.find(filename);
-			if (rit != grp->resourceIndexCaseSensitive.end())
-			{
-				// Found in the index
-				Archive *fileArchive = rit->second;
-				filename = fileArchive->getName() + "/" + filename;
-				return fileArchive;
-			}
-			return NULL;
-		}
-	};
-
-	CServer::CServer()
-	{
-		system = NULL;
-		prevListenerPosition = Vector3(0, 0, 0);
-		soundInstanceVector = new SoundInstanceVector;
-
-		// Initialized to zero, but pre-incremented in GetNextSoundInstanceIndex(), so vector starts at one.
-		nextSoundInstanceIndex = 0;
-
-		// Start off with INITIAL_VECTOR_SIZE soundInstanceVectors.  It can grow from here.
-		soundInstanceVector->resize(INITIAL_VECTOR_SIZE);
-		for (int vectorIndex = 0; vectorIndex < INITIAL_VECTOR_SIZE; vectorIndex++)
-		{
-			soundInstanceVector->at(vectorIndex) = new SoundInstance;
-			soundInstanceVector->at(vectorIndex)->Clear();
-		}
-
-		for (int channelIndex = 0; channelIndex < MAX_SOUND_CHANNELS; channelIndex++)
-			channelArray[channelIndex].Clear();
-	}
+	//--------------------------------------------------------
 
 	CServer::~CServer()
 	{
-		for (int vectorIndex = 0; vectorIndex < (int)soundInstanceVector->capacity(); vectorIndex++)
-		{
-			soundInstanceVector->at(vectorIndex)->fileName.clear();
-			//      soundInstanceVector->at(vectorIndex)->streamPtr->close();
-			delete soundInstanceVector->at(vectorIndex);
-		}
-		delete soundInstanceVector;
-		if (system)
-			system->release();
-	}
+		_instance = 0;
 
-	void CServer::Initialize(void)
+	} // ~CServer
+	
+	//--------------------------------------------------------
+
+	bool CServer::Init()
 	{
-		FMOD_RESULT result;
+		assert(!_instance && "Segunda inicialización de Server::CServer no permitida!");
 
-		//Creamos el sistem
-		result = FMOD::System_Create(&system);
-		if (result != FMOD_OK)
-			OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+		new CServer();
+
+		if (!_instance->open())
+		{
+			Release();
+			return false;
+		}
+
+		return true;
+
+	} // Init
+
+	//--------------------------------------------------------
+
+	void CServer::Release()
+	{
+		assert(_instance && "Sound::CServer no está inicializado!");
+
+		if(_instance)
+		{
+			_instance->close();
+			delete _instance;
+		}
+
+	} // Release
+
+	//--------------------------------------------------------
+
+	bool CServer::open()
+	{
+		if(!CSoundManager::Init())
+		{
+			cout << "unable to initialize CSoundManager " << endl;
+			return false;
+		}
+
+		// Creamos un sistema
+		FMOD_RESULT result;
+		result = System_Create(&_audioSystem);
+		if(SERRCHECK(result))
+			return false;
 
 		//Inicializamos el sistema
-		result = system->init(MAX_SOUND_CHANNELS, FMOD_INIT_NORMAL, 0);    // Initialize FMOD.
-		if (result != FMOD_OK)
-			OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+		result = _audioSystem->init(100, FMOD_INIT_NORMAL, 0);
+		if(SERRCHECK(result))
+			return false;
 
-		//Configuraciones globales del sistema
-		system->set3DSettings(DOPPLER_SCALE, DISTANCE_FACTOR, ROLLOFF_SCALE);
+		float doppler = 1.0f; // ambos entre 0 y 1
+		float rolloff = 1.0f;
+		_audioSystem->set3DSettings(doppler,1.0,rolloff); //system->set3DSettings(doppler,1.0,rolloff);
 
-		result = system->setFileSystem(&fmodFileOpenCallback, &fmodFileCloseCallback, &fmodFileReadCallback, &fmodFileSeekCallback, NULL, NULL, 2048);
-		if (result != FMOD_OK)
-			OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+		setListenerPos(Vector3(0,0,0));
 
-		Ogre::LogManager::getSingleton().logMessage("SoundManager Initialized");
-	}
+		return true;
 
-	CServer* CServer::getSingletonPtr(void)
+	} // open
+
+	//--------------------------------------------------------
+
+	void CServer::close() 
 	{
-		return ms_Singleton;
-	}
+		if(_audioSystem)
+			_audioSystem->release();
 
-	CServer& CServer::getSingleton(void)
-	{  
-		assert( ms_Singleton );  return ( *ms_Singleton );  
-	}
+	} // close
+	//--------------------------------------------------------
 
-	void CServer::tick(Ogre::SceneNode *listenerNode, Ogre::Real timeElapsed)
+	void CServer::tick(float secs)
 	{
-		int            channelIndex;
-		FMOD::Channel *nextChannel;
-		FMOD_VECTOR    listenerPosition;
-		FMOD_VECTOR    listenerForward;
-		FMOD_VECTOR    listenerUp;
-		FMOD_VECTOR    listenerVelocity;
-		Ogre::Vector3  vectorVelocity;
-		Ogre::Vector3  vectorForward;
-		Ogre::Vector3  vectorUp;
+		_audioSystem->update();
+		//_audioSystem->getCPUUsage();
 
-		if (timeElapsed > 0)
-			vectorVelocity = (listenerNode->_getDerivedPosition() - prevListenerPosition) / timeElapsed;
-		else
-			vectorVelocity = Vector3(0, 0, 0);
-
-		vectorForward = listenerNode->_getDerivedOrientation().zAxis();
-		vectorForward.normalise();
-
-		vectorUp = listenerNode->_getDerivedOrientation().yAxis();
-		vectorUp.normalise();
-
-		listenerPosition.x = listenerNode->_getDerivedPosition().x;
-		listenerPosition.y = listenerNode->_getDerivedPosition().y;
-		listenerPosition.z = listenerNode->_getDerivedPosition().z;
-
-		listenerForward.x = vectorForward.x;
-		listenerForward.y = vectorForward.y;
-		listenerForward.z = vectorForward.z;
-
-		listenerUp.x = vectorUp.x;
-		listenerUp.y = vectorUp.y;
-		listenerUp.z = vectorUp.z;
-
-		listenerVelocity.x = vectorVelocity.x;
-		listenerVelocity.y = vectorVelocity.y;
-		listenerVelocity.z = vectorVelocity.z;
-
-		// update 'ears'
-		system->set3DListenerAttributes(0, &listenerPosition, &listenerVelocity, &listenerForward, &listenerUp);
-		system->update();
-
-		prevListenerPosition = listenerNode->_getDerivedPosition();
-
-		for (channelIndex = 0; channelIndex < MAX_SOUND_CHANNELS; channelIndex++)
-		{
-			if (channelArray[channelIndex].sceneNode != NULL)
-			{
-				system->getChannel(channelIndex, &nextChannel);
-				if (timeElapsed > 0)
-					vectorVelocity = (channelArray[channelIndex].sceneNode->_getDerivedPosition() - channelArray[channelIndex].prevPosition) / timeElapsed;
-				else
-					vectorVelocity = Vector3(0, 0, 0);
-
-				listenerPosition.x = channelArray[channelIndex].sceneNode->_getDerivedPosition().x;
-				listenerPosition.y = channelArray[channelIndex].sceneNode->_getDerivedPosition().y;
-				listenerPosition.z = channelArray[channelIndex].sceneNode->_getDerivedPosition().z;
-
-				listenerVelocity.x = vectorVelocity.x;
-				listenerVelocity.y = vectorVelocity.y;
-				listenerVelocity.z = vectorVelocity.z;
-
-				nextChannel->set3DAttributes(&listenerPosition, &listenerVelocity);
-				channelArray[channelIndex].prevPosition = channelArray[channelIndex].sceneNode->_getDerivedPosition();
-			}
-		}
 	}
 
-	int CServer::CreateStream(Ogre::String &fileName)
+	//--------------------------------------------------------
+	bool CServer::createSound(const char* name, bool paused, bool loop)
 	{
-		return CreateSound(fileName, SOUND_TYPE_2D_SOUND);
-	}
+		FMOD_RESULT result;
+		//Creando Sonido
 
-	int CServer::CreateSound(Ogre::String &fileName)
-	{
-		return CreateSound(fileName, SOUND_TYPE_3D_SOUND);
-	}
+		FMOD_MODE mode = FMOD_DEFAULT;
+		if(loop)
+			mode |= FMOD_LOOP_NORMAL;
+		Sound *sound;
 
-	int CServer::CreateLoopedSound(Ogre::String &fileName)
-	{
-		return CreateSound(fileName, SOUND_TYPE_3D_SOUND_LOOPED);
-	}
+		//Si el sonido no existe lo guardamos en la tabla, si ya existía usamos el anterior
+		TSoundTable::const_iterator soundIt;
+		//Verificamos si no existe un sonido con el mismo nombre
+		soundIt = _sounds.find(name);
+		if(soundIt == _sounds.end()){
+			
+			result = _audioSystem->createSound(
+			name, // path del arhivo de sonido
+			mode, // flags FMOD_3D | FMOD_LOOP_NORMAL
+			0, // información adicional (nada en este caso)
+			& sound); // devolución del handle al buffer
 
-	int CServer::CreateLoopedStream(Ogre::String &fileName)
-	{
-		return CreateSound(fileName, SOUND_TYPE_2D_SOUND_LOOPED);
-	}
+			if(SERRCHECK(result))
+				return false;
 
-	// fileName is actually a pointer to a SoundInstance, passed in from CreateSound().
-	FMOD_RESULT CServer::fmodFileOpenCallback(const char *fileName, int unicode, unsigned int *filesize, void **handle, void **userdata)
-	{
-		SoundInstance *soundInstance;
-
-		assert(fileName);
-
-		soundInstance = (SoundInstance *)fileName;
-		assert(soundInstance->fileArchive);
-
-		*handle = (void *)soundInstance;
-		*userdata = NULL;
-
-		soundInstance->streamPtr = soundInstance->fileArchive->open(soundInstance->fileName);
-		if (soundInstance->streamPtr.isNull())
-		{
-			*filesize = 0;
-			return FMOD_ERR_FILE_NOTFOUND;
+			_sounds[name] = sound;
+		}else{
+			cout << "Sonido::CServer: Usando recurso guardado" << endl;
+			sound = _sounds[name];
 		}
 
-		*filesize = (unsigned int)soundInstance->streamPtr->size();
-		return FMOD_OK;
+		//Creamos un Canal de audio
+		Channel *canal;
+		result = _audioSystem->playSound(
+		FMOD_CHANNEL_FREE, // dejamos que FMOD seleccione cualquiera
+		sound, // sonido que se “engancha” a ese canal
+		paused, // arranca sin “pause” (se reproduce directamente)
+		& canal); // devuelve el canal que asigna
+
+		if(SERRCHECK(result))
+			return false;
+
+		//TChannelTable::const_iterator it;
+		//// Comprobamos que no existe un caanal con ese nombre.
+		//it = _channels.find(name);
+		//assert(it == _channels.end() && "Sonido::CServer ya existe un canal con ese nombre");
+		_channels[_numCanales++] = canal;
+
+		return true;
 	}
 
-	FMOD_RESULT CServer::fmodFileCloseCallback(void *handle, void *userdata)
+	//--------------------------------------------------------
+
+	bool CServer::create3DSound(const char* name, bool paused, bool loop)
 	{
-		return FMOD_OK;
-	}
+		FMOD_RESULT result;
+		//Creando Sonido
+		FMOD_MODE mode = FMOD_DEFAULT | FMOD_3D;
+		if(loop)
+			mode |= FMOD_LOOP_NORMAL;
 
-	FMOD_RESULT CServer::fmodFileReadCallback(void *handle, void *buffer, unsigned int sizeBytes, unsigned int *bytesRead, void *userData)
-	{
-		SoundInstance *soundInstance;
+		Sound *sound;
 
-		soundInstance = (SoundInstance *)handle;
-		*bytesRead = (unsigned int)soundInstance->streamPtr->read(buffer, (size_t)sizeBytes);
-		if (*bytesRead == 0)
-			return FMOD_ERR_FILE_EOF;
+		//Si el sonido no existe lo guardamos en la tabla, si ya existía usamos el anterior
+		TSoundTable::const_iterator soundIt;
+		//Verificamos si no existe un sonido con el mismo nombre
+		soundIt = _sounds.find(name);
+		if(soundIt == _sounds.end()){
 
-		return FMOD_OK;
-	}
+			result = _audioSystem->createSound(
+			name, // path del arhivo de sonido
+			mode, // flags FMOD_3D | FMOD_LOOP_NORMAL
+			0, // información adicional (nada en este caso)
+			& sound); // devolución del handle al buffer
 
-	FMOD_RESULT CServer::fmodFileSeekCallback(void *handle, unsigned int pos, void *userdata)
-	{
-		SoundInstance *soundInstance;
+			if(SERRCHECK(result))
+				return false;
 
-		soundInstance = (SoundInstance *)handle;
-		soundInstance->streamPtr->seek((size_t)pos);
-		return FMOD_OK;
-	}
-
-	int CServer::CreateSound(Ogre::String &fileName, SOUND_TYPE soundType)
-	{
-		Archive *      fileArchive;
-		FMOD_RESULT    result;
-		FMOD::Sound *  sound;
-		Ogre::String         fullPathName;
-		SoundInstance *newSoundInstance;
-
-		int soundIndex;
-		soundIndex = FindSound(fileName, soundType);
-		if (soundIndex != INVALID_SOUND_INDEX)
-			return soundIndex;
-
-		fullPathName = fileName;
-		FileLocator * fileLocator = (FileLocator * )ResourceGroupManager::getSingletonPtr();
-		fileArchive = fileLocator->Find(fullPathName);
-		if (!fileArchive)
-		{
-			Ogre::LogManager::getSingleton().logMessage("SoundManager::CreateSound could not find sound '" + fileName + "'");
-			return INVALID_SOUND_INDEX;
+			_sounds[name] = sound;
+		}else{
+			cout << "Sonido::CServer: Usando recurso guardado" << endl;
+			sound = _sounds[name];
 		}
 
-		IncrementNextSoundInstanceIndex();
-		newSoundInstance = soundInstanceVector->at(nextSoundInstanceIndex);
-		newSoundInstance->fileName = fileName;
-		newSoundInstance->fileArchive = fileArchive;
-		newSoundInstance->soundType = soundType;
+		//Creamos un Canal de audio
+		Channel *canal;
+		result = _audioSystem->playSound(
+		FMOD_CHANNEL_FREE, // dejamos que FMOD seleccione cualquiera
+		sound, // sonido que se “engancha” a ese canal
+		paused, // arranca sin “pause” (se reproduce directamente)
+		& canal); // devuelve el canal que asigna
 
-		switch (soundType)
+		if(SERRCHECK(result))
+			return false;
+
+
+		float minDist=5.0;
+		float maxDist=20.0;
+		result = canal->set3DMinMaxDistance(minDist,maxDist);
+		if(SERRCHECK(result))
+			return false;
+
+		//TChannelTable::const_iterator it;
+		//// Comprobamos que no existe un caanal con ese nombre.
+		//it = _channels.find(name);
+		//assert(it == _channels.end() && "Sonido::CServer ya existe un canal con ese nombre");
+		//_channels[name] = canal;
+		_channels[_numCanales++] = canal;
+
+		return true;
+	}
+
+	//--------------------------------------------------------
+	int CServer::createChannel(const char* name, bool paused, bool loop, soundType tipo )
+	{
+		FMOD_RESULT result;
+		FMOD_MODE mode;
+		switch(tipo)
 		{
-		case SOUND_TYPE_3D_SOUND:
-			{
-				result = system->createSound((const char *)newSoundInstance, FMOD_3D | FMOD_HARDWARE, 0, &sound);
-				break;
-			}
-
-		case SOUND_TYPE_3D_SOUND_LOOPED:
-			{
-				result = system->createSound((const char *)newSoundInstance, FMOD_LOOP_NORMAL | FMOD_3D | FMOD_HARDWARE, 0, &sound);
-				break;
-			}
-
-		case SOUND_TYPE_2D_SOUND:
-			{
-				result = system->createStream((const char *)newSoundInstance, FMOD_DEFAULT, 0, &sound);
-				break;
-			}
-
-		case SOUND_TYPE_2D_SOUND_LOOPED:
-			{
-				result = system->createStream((const char *)newSoundInstance, FMOD_LOOP_NORMAL | FMOD_2D | FMOD_HARDWARE, 0, &sound);
-				break;
-			}
-
+		case Sound3D:
+			mode = FMOD_DEFAULT | FMOD_3D;
+			break;
+		case Sound2D:
+			mode = FMOD_DEFAULT;
+			break;
 		default:
-			{
-				Ogre::LogManager::getSingleton().logMessage("SoundManager::CreateSound could not load sound '" + fileName + "' (invalid soundType)");
-				return INVALID_SOUND_INDEX;
+			break;
+		}
+
+		if(loop)
+			mode |= FMOD_LOOP_NORMAL;
+
+		Sound *sound;
+
+		//Si el sonido no existe lo guardamos en la tabla, si ya existía usamos el anterior
+		TSoundTable::const_iterator soundIt;
+		//Verificamos si no existe un sonido con el mismo nombre
+		soundIt = _sounds.find(name);
+		if(soundIt == _sounds.end()){
+
+			result = _audioSystem->createSound(
+			name, // path del arhivo de sonido
+			mode, // flags FMOD_3D | FMOD_LOOP_NORMAL
+			0, // información adicional (nada en este caso)
+			& sound); // devolución del handle al buffer
+
+			if(SERRCHECK(result))
+				return 0;
+
+			_sounds[name] = sound;
+		}else{
+			cout << "Sonido::CServer: Usando recurso guardado" << endl;
+			sound = _sounds[name];
+		}
+
+		//Creamos un Canal de audio
+		Channel *canal;
+		result = _audioSystem->playSound(
+		FMOD_CHANNEL_FREE, // dejamos que FMOD seleccione cualquiera
+		sound, // sonido que se “engancha” a ese canal
+		paused, // arranca sin “pause” (se reproduce directamente)
+		& canal); // devuelve el canal que asigna
+
+		if(SERRCHECK(result))
+			return 0;
+		//float minDist=5.0;
+		//float maxDist=20.0;
+		//result = canal->set3DMinMaxDistance(minDist,maxDist);
+		//if(SERRCHECK(result))
+		//	return 0;
+		_channels[++_numCanales] = canal;
+
+		return _numCanales;
+	}
+
+	//--------------------------------------------------------
+	
+	bool CServer::setChannelVolumen(const int n, float volume)
+	{
+		TChannelTable::const_iterator it;
+		// Comprobamos existe un caanal con ese nombre.
+		it = _channels.find(n);
+		if(it != _channels.end())
+		{
+			FMOD_RESULT result;
+			result = (*it).second->setVolume(volume);
+			if(SERRCHECK(result))
+				return false;
+
+			return true;
+		}
+		return false;
+	}
+
+	//--------------------------------------------------------
+
+	bool CServer::setListenerPos(Vector3 pos)
+	{
+		FMOD_VECTOR
+		listenerPos = {pos.x,pos.y,pos.z}, // posición del listener
+		listenerVel = {0,0,0}, // velocidad
+		up = {0,1,0}, // vector up: hacia la “coronilla”
+		at = {1,0,0}; // vector at: hacia donde se mira
+
+		// se coloca el listener
+		_audioSystem->set3DListenerAttributes(0,&listenerPos, &listenerVel,&up, &at);
+
+		return true;
+	}
+
+	//--------------------------------------------------------
+	// función para dar salida de error y terminar aplicación
+	bool CServer::SERRCHECK(FMOD_RESULT result){
+			if (result != FMOD_OK){
+				cout << "FMOD error! " << result << endl <<
+				FMOD_ErrorString(result);
+				return true;
 			}
-		}
-
-		if (result != FMOD_OK)
-		{
-			Ogre::LogManager::getSingleton().logMessage("SoundManager::CreateSound could not load sound '" + fileName + "'  FMOD Error:" + FMOD_ErrorString(result));
-			return INVALID_SOUND_INDEX;
-		}
-
-		newSoundInstance->fmodSound = sound;
-		return nextSoundInstanceIndex;
+			return false;
 	}
 
-	void CServer::IncrementNextSoundInstanceIndex(void)
+	//--------------------------------------------------------
+	bool CServer::pauseSound(const int n, bool paused)
 	{
-		int oldVectorCapacity;
-
-		oldVectorCapacity = (int)soundInstanceVector->capacity();
-		nextSoundInstanceIndex += 1;
-		if (nextSoundInstanceIndex < oldVectorCapacity)
-			return;
-
-		int vectorIndex;
-		SoundInstanceVector *newSoundInstanceVector;
-
-		// Create a new, larger SoundInstanceVector
-		newSoundInstanceVector = new SoundInstanceVector;
-		newSoundInstanceVector->resize(oldVectorCapacity + INCREASE_VECTOR_SIZE);
-
-		// Check Ogre.log for these messages, and change INITIAL_VECTOR_SIZE to be a more appropriate value
-		Ogre::LogManager::getSingleton().logMessage("SoundManager::IncrementNextSoundInstanceIndex increasing size of soundInstanceVector to " + 
-			StringConverter::toString(oldVectorCapacity + INCREASE_VECTOR_SIZE));
-
-		// Copy values from old vector to new
-		for (vectorIndex = 0; vectorIndex < oldVectorCapacity; vectorIndex++)
-			newSoundInstanceVector->at(vectorIndex) = soundInstanceVector->at(vectorIndex);
-
-		int newVectorCapacity;
-
-		newVectorCapacity = (int)newSoundInstanceVector->capacity();
-		// Clear out the rest of the new vector
-		while (vectorIndex < newVectorCapacity)
+		TChannelTable::const_iterator it;
+		// Comprobamos existe un caanal con ese nombre.
+		it = _channels.find(n);
+		if(it != _channels.end())
 		{
-			newSoundInstanceVector->at(vectorIndex) = new SoundInstance;
-			newSoundInstanceVector->at(vectorIndex)->Clear();
-			vectorIndex++;
+			//FMOD_RESULT result;
+
+			(*it).second->setPaused(paused);
+			//if(SERRCHECK(result))
+			//	return false;
+
+			return true;
 		}
 
-		// Clear out the old vector and point to the new one.
-		soundInstanceVector->clear();
-		delete(soundInstanceVector);
-		soundInstanceVector = newSoundInstanceVector;
+		return false;
+	}
+	//--------------------------------------------------------
+
+	bool CServer::createSoundStream(const char* name, bool paused, bool loop)
+	{
+		FMOD_RESULT result;
+		//Creando Sonido
+
+		FMOD_MODE mode = FMOD_DEFAULT;
+		if(loop)
+			mode |= FMOD_LOOP_NORMAL;
+
+		Sound *sound;
+		//Si el sonido no existe lo guardamos en la tabla, si ya existía usamos el anterior
+		//Verificamos si no existe un sonido con el mismo nombre
+		TSoundTable::const_iterator soundIt;
+		soundIt = _sounds.find(name);
+		if(soundIt == _sounds.end()){
+
+			result = _audioSystem->createStream(
+			name, // path del arhivo de sonido
+			mode, // flags FMOD_3D | FMOD_LOOP_NORMAL
+			0, // información adicional (nada en este caso)
+			& sound); // devolución del handle al buffer
+
+			if(SERRCHECK(result))
+				return false;
+
+			_sounds[name] = sound;
+		}else{
+			cout << "Sonido::CServer: Usando recurso guardado" << endl;
+			sound = _sounds[name];
+		}
+
+		//Creamos un Canal de audio
+		Channel *canal;
+		result = _audioSystem->playSound(
+		FMOD_CHANNEL_FREE, // dejamos que FMOD seleccione cualquiera
+		sound, // sonido que se “engancha” a ese canal
+		paused, // arranca sin “pause” (se reproduce directamente)
+		& canal); // devuelve el canal que asigna
+
+		if(SERRCHECK(result))
+			return false;
+
+		//TChannelTable::const_iterator it;
+		//// Comprobamos que no existe un caanal con ese nombre.
+		//it = _channels.find(name);
+		//assert(it == _channels.end() && "Sonido::CServer ya existe un canal con ese nombre");
+		//_channels[name] = canal;
+		_channels[_numCanales++] = canal;
+
+		return true;
 	}
 
-	void CServer::PlaySound(int soundIndex, SceneNode *soundNode, int *channelIndex)
+	//--------------------------------------------------------
+	
+	Channel* CServer::getChannel(int n)
 	{
-		int            channelIndexTemp;
-		FMOD_RESULT    result;
-		FMOD_VECTOR    initialPosition;
-		FMOD::Channel *channel;
-		SoundInstance *soundInstance;
 
-		if (soundIndex == INVALID_SOUND_INDEX)
-			return;
+		TChannelTable::const_iterator it;
+		//// Comprobamos existe un canal con ese nombre.
+		it = _channels.find(n);
+		if(it != _channels.end()){
+			return (*it).second;
+		}
 
-		if (channelIndex)
-			channelIndexTemp = *channelIndex;
+		return NULL;
+	}
+
+	//--------------------------------------------------------
+
+	bool CServer::set3DSoundPosition(const int n, Vector3 pos)
+	{
+		FMOD_VECTOR pos2={pos.x,pos.y,pos.z}, vel={0,0,0};
+		TChannelTable::const_iterator it;
+
+		// Comprobamos existe un caanal con ese nombre.
+		it = _channels.find(n);
+		if(it != _channels.end()){
+
+			FMOD_RESULT result;
+			result = (*it).second->set3DAttributes(&pos2,&vel);
+			if(SERRCHECK(result))
+			 return false;
+			return true;
+		}
+
+		return false;
+	}
+
+	//--------------------------------------------------------
+
+	bool CServer::set3DSoundVelocity(const int n, Vector3 vel)
+	{
+		FMOD_VECTOR pos2={0,0,0}, vel2={vel.x,vel.y,vel.z};
+		TChannelTable::const_iterator it;
+
+		// Comprobamos existe un caanal con ese nombre.
+		it = _channels.find(n);
+		if(it != _channels.end()){
+
+			FMOD_RESULT result;
+			result = (*it).second->set3DAttributes(&pos2,&vel2);
+			if(SERRCHECK(result))
+			 return false;
+
+			FMOD_VECTOR posicionFinal={0,0,0}, velFinal={vel.x,vel.y,vel.z};
+
+			(*it).second->get3DAttributes(&posicionFinal,&velFinal);
+
+			cout<< "Posicion final:" << posicionFinal.x << "," << posicionFinal.y << "," << posicionFinal.z << endl;
+
+			return true;
+		}
+
+		return false;
+	}
+
+	//--------------------------------------------------------
+
+	bool CServer::set3DSoundConstrains(const int n, float min, float max)
+	{
+		TChannelTable::const_iterator it;
+
+		// Comprobamos existe un caanal con ese nombre.
+		it = _channels.find(n);
+		if(it != _channels.end()){
+
+			FMOD_RESULT result;
+			result = (*it).second->set3DMinMaxDistance(min,max);
+			if(SERRCHECK(result))
+				return false;
+
+			return true;
+		}
+
+		return false;
+	}
+
+	//--------------------------------------------------------
+
+	bool CServer::playSound(int id,  const char* name)
+	{
+		// Comprobamos existe un canal con ese id.
+		TChannelTable::iterator it;
+		it = _channels.find(id);
+		if(it != _channels.end()){
+			bool isplaying = false;
+			FMOD_RESULT result;
+			FMOD::Sound *sonido = 0;
+
+			// Comprobamos existe un sonido con ese nombre.
+			TSoundTable::iterator itSound;
+			itSound = _sounds.find(name);
+			if(itSound != _sounds.end()){
+				sonido = itSound->second;
+			}
+			else
+			{
+				cout << "CServer: No se encuentra el sonido" << endl;
+				return false;
+			}
+
+			result = it->second->isPlaying(&isplaying);
+
+			if (isplaying == true)
+			{
+				cout << "CServer: Already playing this sound try to unpause" << endl;
+				return false;  // Already playing this sound
+			}
+
+			// Start the sound
+			Channel *canal;
+			result = _audioSystem->playSound(FMOD_CHANNEL_FREE, sonido , false, &canal);
+			if(SERRCHECK(result))
+			{
+				cout << "CServer: No se pudo reproducir el sonido" << endl;
+				return false;
+			}
+
+			it->second = canal;
+			return true;
+		}
 		else
-			channelIndexTemp = INVALID_SOUND_CHANNEL;
-
-		assert((soundIndex > 0) && (soundIndex < (int)soundInstanceVector->capacity()));
-
-		// If the channelIndex already has a sound assigned to it, test if it's the same sceneNode.
-		if ((channelIndexTemp != INVALID_SOUND_CHANNEL) && (channelArray[channelIndexTemp].sceneNode != NULL))
 		{
-			result = system->getChannel(channelIndexTemp, &channel);
-			if (result == FMOD_OK)
-			{
-				bool isPlaying;
+			cout << "CServer: No existe tal canal" <<endl;
+			return false;
+		}//if iterator
 
-				result = channel->isPlaying(&isPlaying);
-				if ((result == FMOD_OK) && (isPlaying == true) && (channelArray[channelIndexTemp].sceneNode == soundNode))
-					return;  // Already playing this sound attached to this node.
-			}
-		}
+	}//playSound
 
-		soundInstance = soundInstanceVector->at(soundIndex);
-		// Start the sound paused
-		result = system->playSound(FMOD_CHANNEL_FREE, soundInstance->fmodSound, true, &channel);
-		if (result != FMOD_OK)
-		{
-			Ogre::LogManager::getSingleton().logMessage(Ogre::String("SoundManager::PlaySound could not play sound  FMOD Error:") + FMOD_ErrorString(result));
-			if (channelIndex)
-				*channelIndex = INVALID_SOUND_CHANNEL;
-			return;
-		}
+	//--------------------------------------------------------
+	//--------------------------------------------------------
+	//--------------------------------------------------------
 
-		channel->getIndex(&channelIndexTemp);
-		channelArray[channelIndexTemp].sceneNode = soundNode;
 
-		if (soundNode)
-		{
-			channelArray[channelIndexTemp].prevPosition = soundNode->_getDerivedPosition();
-
-			initialPosition.x = soundNode->_getDerivedPosition().x;
-			initialPosition.y = soundNode->_getDerivedPosition().y;
-			initialPosition.z = soundNode->_getDerivedPosition().z;
-			channel->set3DAttributes(&initialPosition, NULL);
-		}
-
-		result = channel->setVolume(1.0);
-		// This is where the sound really starts.
-		result = channel->setPaused(false);
-
-		if (channelIndex)
-			*channelIndex = channelIndexTemp;
-	}
-
-	SoundInstance *CServer::GetSoundInstance(int soundIndex)
-	{
-		return soundInstanceVector->at(soundIndex);
-	}
-
-	FMOD::Channel *CServer::GetSoundChannel(int channelIndex)
-	{
-		if (channelIndex == INVALID_SOUND_CHANNEL)
-			return NULL;
-
-		FMOD::Channel *soundChannel;
-
-		assert((channelIndex > 0) && (channelIndex < MAX_SOUND_CHANNELS));
-
-		system->getChannel(channelIndex, &soundChannel);
-		return soundChannel;
-	}
-
-	void CServer::Set3DMinMaxDistance(int channelIndex, float minDistance, float maxDistance)
-	{
-		FMOD_RESULT    result;
-		FMOD::Channel *channel;
-
-		if (channelIndex == INVALID_SOUND_CHANNEL)
-			return;
-
-		result = system->getChannel(channelIndex, &channel);
-		if (result == FMOD_OK)
-			channel->set3DMinMaxDistance(minDistance, maxDistance);
-	}
-
-	void CServer::StopAllSounds(void)
-	{
-		int            channelIndex;
-		FMOD_RESULT    result;
-		FMOD::Channel *nextChannel;
-
-		for (channelIndex = 0; channelIndex < MAX_SOUND_CHANNELS; channelIndex++)
-		{
-			result = system->getChannel(channelIndex, &nextChannel);
-			if ((result == FMOD_OK) && (nextChannel != NULL))
-				nextChannel->stop();
-			channelArray[channelIndex].Clear();
-		}
-	}
-
-	void CServer::StopSound(int *channelIndex)
-	{
-		if (*channelIndex == INVALID_SOUND_CHANNEL)
-			return;
-
-		FMOD::Channel *soundChannel;
-
-		assert((*channelIndex > 0) && (*channelIndex < MAX_SOUND_CHANNELS));
-
-		system->getChannel(*channelIndex, &soundChannel);
-		soundChannel->stop();
-
-		channelArray[*channelIndex].Clear();
-		*channelIndex = INVALID_SOUND_CHANNEL;
-	}
-
-	int CServer::FindSound(Ogre::String &fileName, SOUND_TYPE soundType)
-	{
-		int            vectorIndex;
-		int            vectorCapacity;
-		SoundInstance *nextSoundInstance;
-
-		vectorCapacity = (int)soundInstanceVector->capacity();
-		for (vectorIndex = 0; vectorIndex < vectorCapacity; vectorIndex++)
-		{
-			nextSoundInstance = soundInstanceVector->at(vectorIndex);
-			if ((soundType == nextSoundInstance->soundType) && (fileName == nextSoundInstance->fileName))
-				//      if ((soundType == nextSoundInstance->soundType) && (fileName == nextSoundInstance->fileArchive->getName()))
-				return vectorIndex;
-		}
-
-		return INVALID_SOUND_INDEX;
-	}
-
-	float CServer::GetSoundLength(int soundIndex)
-	{
-		if (soundIndex == INVALID_SOUND_INDEX)
-			return 0.0;
-
-		assert((soundIndex > 0) && (soundIndex < (int)soundInstanceVector->capacity()));
-
-		unsigned int   soundLength;   // length in milliseconds
-		FMOD_RESULT    result;
-		SoundInstance *soundInstance;
-
-		soundInstance = soundInstanceVector->at(soundIndex);
-		if (soundInstance)
-		{
-			result = soundInstance->fmodSound->getLength(&soundLength, FMOD_TIMEUNIT_MS);
-			if (result != FMOD_OK)
-			{
-				Ogre::LogManager::getSingleton().logMessage(Ogre::String("SoundManager::GetSoundLength could not get length  FMOD Error:") + FMOD_ErrorString(result));
-				return 0.0;
-			}
-		}
-		else
-		{
-			Ogre::LogManager::getSingleton().logMessage(Ogre::String("SoundManager::GetSoundLength could not find soundInstance"));
-			return 0.0;
-		}
-
-		return (float)soundLength / 1000.0f;
-	}*/
-}
+} // namespace Sonido

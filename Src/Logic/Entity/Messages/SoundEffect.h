@@ -16,6 +16,8 @@ Contiene la declaración del mensaje enviado para indicar que se quiere reporduci
 #include "Logic/Entity/Message.h"
 #include "BaseSubsystems/Math.h"
 
+#include "Sound/Sound.h"
+
 namespace Logic 
 {
 
@@ -27,9 +29,13 @@ namespace Logic
 		*/
 		MSoundEffect();
 
+		void setSoundEffect(Sounds::CSound* sound){_sound = sound;}
+		Sounds::CSound* getSoundEffect(){return _sound;}
 
 	protected:
 
+		Sounds::CSound*_sound;
+		
 	};
 
 

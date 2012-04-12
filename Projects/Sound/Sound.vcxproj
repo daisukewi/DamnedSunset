@@ -71,9 +71,12 @@
   <ItemGroup>
     <ClInclude Include="..\..\Src\Sound\Documentation.h" />
     <ClInclude Include="..\..\Src\Sound\Server.h" />
+    <ClInclude Include="..\..\Src\Sound\Sound.h" />
+    <ClInclude Include="..\..\Src\Sound\SoundManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Sound\Server.cpp" />
+    <ClCompile Include="..\..\Src\Sound\SoundManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

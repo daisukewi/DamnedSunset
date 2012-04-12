@@ -54,14 +54,8 @@ namespace Logic
 		if (!message->getType().compare("MParticleEffect")){
 
 			MParticleEffect *m = static_cast <MParticleEffect*> (message);
-			std::string effect = "EngineFire";
+			std::string effect = "Explosion";
 			Graphics::CServer::getSingletonPtr()->createParticleEffect(effect,m->getPoint());
-		
-			//Esto es usado por la granada, para que no se destruya la entidad antes de reproducir el efecto de partículas
-			//Si la entidad está desactivada
-			if (!_entity->isActivated())
-				//Eliminamos la entidad en el siguiente tick
-				CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 		}
 	} // process
 

@@ -106,6 +106,7 @@ namespace Logic
 	private:
 
 
+
 	}; // class CParticleController
 
 	REG_FACTORY(CParticleController);

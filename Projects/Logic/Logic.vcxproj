@@ -101,6 +101,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Script.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Selectable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SelectionController.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Sonido.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\StateMachineExecutor.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SteeringMovement.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SunController.cpp" />
@@ -142,6 +143,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ParticleEffect.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetTransform.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\SoundEffect.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\StopAnimation.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\Switch.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\UbicarCamara.cpp" />
@@ -184,6 +186,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Script.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Selectable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SelectionController.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Sonido.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\StateMachineExecutor.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SteeringMovement.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SunController.h" />
@@ -226,6 +229,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ParticleEffect.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetTransform.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\SoundEffect.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\StopAnimation.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\Switch.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\UbicarCamara.h" />

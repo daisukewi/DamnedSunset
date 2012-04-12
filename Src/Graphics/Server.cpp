@@ -37,11 +37,18 @@ namespace Graphics
 {
 	CServer *CServer::_instance = 0;
 
-	CServer::CServer() : _root(0), _renderWindow(0), _activeScene(0), _dummyScene(0)
+	CServer::CServer() : _root(0), _renderWindow(0), _activeScene(0), _dummyScene(0), _numParticles(30)
 	{
 		assert(!_instance && "Segunda inicialización de Graphics::CServer no permitida!");
 
 		_instance = this;
+
+		for (int i =0; i < _numParticles;i++){
+			_particleNode[i] = 0;
+		}
+
+		_countParticles = 0;
+		_particleToDelete = 0;
 
 	} // CServer
 
@@ -240,18 +247,54 @@ namespace Graphics
 		return mouseRay;
 		}
 		
+
 		
 		
 	} //getCameraToViewportRay
 
 	void CServer::createParticleEffect(std::string &effect, Vector3 &point){
 
-		Ogre::ParticleSystem* particle = _activeScene->getSceneMgr()->createParticleSystem(effect + "_name", effect);
-		Ogre::SceneNode* particleNode = _activeScene->getSceneMgr()->getRootSceneNode()->createChildSceneNode(effect + "_node");
-		
-		particleNode->setPosition(point);
-		particleNode->attachObject(particle);
 
+		assert(!_particleNode[_countParticles] && "No existe espacio para crear más efectos de partículas.");
+
+		std::stringstream auxString1;
+		auxString1 << effect << "_name" << _countParticles;
+		
+		//crear la partícula
+		_particleSystem[_countParticles] = _activeScene->getSceneMgr()->createParticleSystem(auxString1.str(), effect);
+		//Ogre::SceneNode* particleNode = _activeScene->getSceneMgr()->getRootSceneNode()->createChildSceneNode(effect + "_node");
+		
+		//Crear el nodo de escena que contendrá la partícula
+		std::stringstream auxString2;
+		auxString2 << effect <<"_node"<<_countParticles;
+		_particleNode[_countParticles] = _activeScene->getSceneMgr()->getRootSceneNode()->createChildSceneNode(auxString2.str());
+		_particleNode[_countParticles]->setPosition(point);
+		_particleNode[_countParticles]->attachObject(_particleSystem[_countParticles]);
+
+		_countParticles++;
+		if(_countParticles == _numParticles)
+			_countParticles = 0;
+
+		BaseSubsystems::CServer::getSingletonPtr()->addClockListener(5000, this);
+
+
+	}
+
+	void CServer::timeElapsed()
+	{
+		
+		_particleNode[_particleToDelete]->detachAllObjects();
+		_activeScene->getSceneMgr()->destroySceneNode(_particleNode[_particleToDelete]);
+		_particleNode[_particleToDelete] = 0;
+
+
+		_activeScene->getSceneMgr()->destroyParticleSystem(_particleSystem[_particleToDelete]);
+		_particleSystem[_particleToDelete] = 0;
+
+
+		_particleToDelete++;
+		if (_particleToDelete == _numParticles)
+			_particleToDelete = 0;
 
 	}
 

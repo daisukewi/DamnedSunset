@@ -27,6 +27,7 @@ basadas en Ogre. Esta clase maneja la ejecución de todo el juego.
 #include "Physics/Server.h"
 #include "AI/Server.h"
 #include "ScriptManager/Server.h"
+#include "Sound\Server.h"
 
 #include <cassert>
 
@@ -91,6 +92,10 @@ namespace Application {
 		if (!AI::CServer::Init())
 			return false;
 
+		// Inicializamos el servidor de Sonido
+		//if (!Sounds::CServer::Init())
+			//return false;
+
 		return true;
 
 	} // init
@@ -138,6 +143,9 @@ namespace Application {
 
 		if(BaseSubsystems::CServer::getSingletonPtr())
 			BaseSubsystems::CServer::Release();
+
+		if(Sounds::CServer::getSingletonPtr())
+			Sounds::CServer::Release();
 
 		CBaseApplication::release();
 
