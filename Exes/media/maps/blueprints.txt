@@ -11,7 +11,7 @@ Building CGraphics CPhysicEntity
 PhantomTurret CGraphics
 Turret CPhysicEntity CMapBuilding CTurretController CSelectable CTriggerEntity CPhysicDebug CAnimatedGraphics
 Barril CGraphics CPhysicEntity
-Granada CGraphics CPhysicEntity CDetonadorGranada CTriggerEntity CParticleController
+Granada CGraphics CPhysicEntity CDetonadorGranada CTriggerEntity CParticleController CSonido
 PuertaTrigger CSwitchTrigger CPhysicEntity
 Puerta CGraphics CSwitchPosition
 Sierra CAnimatedGraphics CSwitchPosition CDamageTrigger CPhysicEntity

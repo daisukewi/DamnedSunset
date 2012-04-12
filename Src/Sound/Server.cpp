@@ -35,7 +35,7 @@ namespace Sounds {
 	CServer::CServer() : _audioSystem(NULL), _numCanales(0)
 	{
 		_instance = this;
-
+		_path = "/Exes/media/sounds/";
 	} // CServer
 
 	//--------------------------------------------------------
@@ -142,7 +142,6 @@ namespace Sounds {
 		//Verificamos si no existe un sonido con el mismo nombre
 		soundIt = _sounds.find(name);
 		if(soundIt == _sounds.end()){
-			
 			result = _audioSystem->createSound(
 			name, // path del arhivo de sonido
 			mode, // flags FMOD_3D | FMOD_LOOP_NORMAL
@@ -197,7 +196,7 @@ namespace Sounds {
 		if(soundIt == _sounds.end()){
 
 			result = _audioSystem->createSound(
-			name, // path del arhivo de sonido
+			name , // path del arhivo de sonido
 			mode, // flags FMOD_3D | FMOD_LOOP_NORMAL
 			0, // información adicional (nada en este caso)
 			& sound); // devolución del handle al buffer

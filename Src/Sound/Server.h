@@ -203,6 +203,12 @@ namespace Sounds
 
 		int _numCanales;
 
+
+		/**
+		Path de los archivos de sonido
+		*/
+		char* _path;
+
 	}; // class CServer
 
 } // namespace Sound

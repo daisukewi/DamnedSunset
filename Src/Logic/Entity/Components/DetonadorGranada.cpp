@@ -7,6 +7,7 @@
 #include "Logic/Entity/Messages/IsTouched.h"
 #include "Logic/Entity/Messages/Damaged.h"
 #include "Logic/Entity/Messages/ParticleEffect.h"
+#include "Logic/Entity/Messages/SoundEffect.h"
 
 namespace Logic 
 {
@@ -81,6 +82,13 @@ namespace Logic
 		rc_message->setPoint(_entity->getPosition());
 		//_entity->emitMessage(rc_message,this);
 		_entity->emitInstantMessage(rc_message,this);
+
+		//Envío del mensaje al componente que se encarga de reproducir los sonidos
+		MSoundEffect *rc2_message = new MSoundEffect();
+		Sounds::CSound *aux = new Sounds::CSound();
+		aux->setSound("media/sounds/rocket_explosion.wav");
+		rc2_message->setSoundEffect(aux);
+		_entity->emitInstantMessage(rc2_message,this);
 
 		for(; it != end; ++it) {
 			//Entidad que daña la granada

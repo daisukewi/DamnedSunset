@@ -93,8 +93,8 @@ namespace Application {
 			return false;
 
 		// Inicializamos el servidor de Sonido
-		//if (!Sounds::CServer::Init())
-			//return false;
+		if (!Sounds::CServer::Init())
+			return false;
 
 		return true;
 

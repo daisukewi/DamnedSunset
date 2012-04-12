@@ -24,6 +24,8 @@ Contiene la implementación del componente que controla el movimiento de la cámar
 #include "Logic/Entity/Messages/UbicarCamara.h"
 #include "Logic/Entity/Messages/CameraControl.h"
 
+#include "Sound/Server.h"
+
 namespace Logic 
 {
 	IMP_FACTORY(CCameraController);
@@ -121,6 +123,11 @@ namespace Logic
 			_bossEntity = m->getEntity();
 
 			_entity->setPosition(_bossEntity->getPosition());
+
+
+			//Posicionar el listener de los sonidos
+			Sounds::CServer::getSingletonPtr()->setListenerPos(Vector3(_entity->getPosition().x,_entity->getPosition().y,_entity->getPosition().z));
+
 		}
 
 	} // process
@@ -221,6 +228,9 @@ namespace Logic
 			_entity->setPosition(_entity->getPosition() - 0.25 * direction);
 		}
 
+		//Posicionar el listener de los sonidos
+		Sounds::CServer::getSingletonPtr()->setListenerPos(Vector3(_entity->getPosition().x,_entity->getPosition().y,_entity->getPosition().z));
+
 	} // zoom
 
 	//---------------------------------------------------------
@@ -281,7 +291,13 @@ namespace Logic
 			direction.normalise();
 			direction *= msecs * _speed;
 
+
 			_entity->setPosition(_entity->getPosition() + direction);
+
+
+			//Posicionar el listener de los sonidos
+			Sounds::CServer::getSingletonPtr()->setListenerPos(Vector3(_entity->getPosition().x,_entity->getPosition().y,_entity->getPosition().z));
+
 
 		}
 		_bossPosition = _bossEntity->getPosition();
