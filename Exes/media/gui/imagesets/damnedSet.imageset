@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Imageset Name="damnedSet" Imagefile="damnedSet.jpg" NativeHorzRes="1920" NativeVertRes="1080" AutoScaled="true" >
+    <Image Name="MainMenu" XPos="0" YPos="0" Width="1920" Height="1080" />
+</Imageset>

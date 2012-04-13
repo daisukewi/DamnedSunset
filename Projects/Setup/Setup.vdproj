@@ -261,6 +261,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2676E1D6C36F4E4CB5F7AC53A5841E1A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_273C8B5B402740D2BD68D36C88378068"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -519,6 +525,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_40A736C8308C4227A91B71B2E2BD03D4"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_424C448E926742A3B63145A38647E24D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -634,6 +646,12 @@
         "Entry"
         {
         "MsmKey" = "8:_50CED88D25A447919CF7713B4823F456"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_511EE74A1A9547E5A6BF2B0599A6A7DA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -808,12 +826,6 @@
         "Entry"
         {
         "MsmKey" = "8:_6557FB3FF6054E30B94853418784C594"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_65B4F2B0C5304B1496CCBE0FB158C594"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1001,18 +1013,6 @@
         {
         "MsmKey" = "8:_8358240C772243ECBF9F164C5439387B"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_838199D25E9C430089A8308D3EAAE5E2"
-        "OwnerKey" = "8:_88A5C09C066E403BB94B1D9EB3CA8F28"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_838199D25E9C430089A8308D3EAAE5E2"
-        "OwnerKey" = "8:_DE732A722D8A4571AC8B26B8B9770884"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1778,6 +1778,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
         "Release"
@@ -2571,6 +2584,26 @@
             "TargetName" = "8:cofre.tga"
             "Tag" = "8:"
             "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2676E1D6C36F4E4CB5F7AC53A5841E1A"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\damnedSet.imageset"
+            "TargetName" = "8:damnedSet.imageset"
+            "Tag" = "8:"
+            "Folder" = "8:_439698FA590D418B9786D4F6DB4BE99F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3425,6 +3458,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_40A736C8308C4227A91B71B2E2BD03D4"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\layouts\\Menu.layout"
+            "TargetName" = "8:Menu.layout"
+            "Tag" = "8:"
+            "Folder" = "8:_F2BB2D52A87640EF841E77E6E276668F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_424C448E926742A3B63145A38647E24D"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\models\\Labyrinth\\cuadrosierra.mesh"
@@ -3811,6 +3864,26 @@
             "TargetName" = "8:baemuk.txt"
             "Tag" = "8:"
             "Folder" = "8:_E8DA557073314699A00AF1E250CC05EF"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_511EE74A1A9547E5A6BF2B0599A6A7DA"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\damnedSet.jpg"
+            "TargetName" = "8:damnedSet.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_439698FA590D418B9786D4F6DB4BE99F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4391,26 +4464,6 @@
             "TargetName" = "8:BuildingConstruction.material"
             "Tag" = "8:"
             "Folder" = "8:_7DD50D6BD9544B4B9D734A78BD0D436F"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_65B4F2B0C5304B1496CCBE0FB158C594"
-            {
-            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\layouts\\Menu.layout"
-            "TargetName" = "8:Menu.layout"
-            "Tag" = "8:"
-            "Folder" = "8:_F2BB2D52A87640EF841E77E6E276668F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -8188,20 +8241,6 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_838199D25E9C430089A8308D3EAAE5E2"
-            {
-            "UseDynamicProperties" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:Microsoft_VC100_CRT_x86.msm"
-                "Properties"
-                {
-                }
-            "LanguageId" = "3:0"
-            "Exclude" = "11:FALSE"
-            "Folder" = "8:"
-            "Feature" = "8:"
-            "IsolateTo" = "8:"
-            }
         }
         "ProjectOutput"
         {

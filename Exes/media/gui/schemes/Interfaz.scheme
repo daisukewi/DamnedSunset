@@ -2,4 +2,5 @@
 <GUIScheme Name="Interfaz">
 	<Imageset Filename="InterfazUtils.imageset" />
 	<Imageset Filename="Interfaz.imageset" />
+	<Imageset Filename="damnedSet.imageset" />
 </GUIScheme>

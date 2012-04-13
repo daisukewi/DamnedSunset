@@ -3,29 +3,24 @@
 <GUILayout >
     <Window Type="DefaultWindow" Name="Menu" >
         <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
-        <Window Type="OgreTray/StaticImage" Name="Menu/BackGround" >
+        <Window Type="WindowsLook/StaticImage" Name="Menu/BackGround" >
             <Property Name="Font" Value="FairChar-30" />
-            <Property Name="Text" Value="DAMNED&#13;&#10;SUNSET" />
-            <Property Name="AlwaysOnTop" Value="False" />
+            <Property Name="Text" >DAMNED
+SUNSET</Property>
+            <Property Name="Image" Value="set:damnedSet image:MainMenu" />
             <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
-            <Window Type="OgreTray/Title" Name="Menu/BackGround/" >
-                <Property Name="Font" Value="FairChar-30" />
-                <Property Name="Text" Value="DAMNED&#13;&#10;SUNSET" />
-                <Property Name="AlwaysOnTop" Value="True" />
-                <Property Name="UnifiedAreaRect" Value="{{0.3,0},{0.2,0},{0.7,0},{0.4,0}}" />
-            </Window>
         </Window>
         <Window Type="OgreTray/Button" Name="Menu/Exit" >
             <Property Name="Font" Value="DejaVuSans-10" />
             <Property Name="Text" Value="Exit" />
             <Property Name="AlwaysOnTop" Value="True" />
-            <Property Name="UnifiedAreaRect" Value="{{0.6,0},{0.6,0},{0.9,0},{0.7,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.549219,0},{0.820414,0},{0.74375,0},{0.920414,0}}" />
         </Window>
         <Window Type="OgreTray/Button" Name="Menu/Start" >
             <Property Name="Font" Value="DejaVuSans-10" />
             <Property Name="Text" Value="Start" />
             <Property Name="AlwaysOnTop" Value="True" />
-            <Property Name="UnifiedAreaRect" Value="{{0.1,0},{0.6,0},{0.4,0},{0.7,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.260156,0},{0.820413,0},{0.454687,0},{0.920413,0}}" />
         </Window>
     </Window>
 </GUILayout>
