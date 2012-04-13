@@ -105,7 +105,7 @@ material lambert1
 		{
 			// base colours, not needed for rendering, but as information
 			// to lighting pass categorisation routine
-			ambient 0 0 0 
+			ambient 1 1 1 
 			
 			// do this for each light
 			iteration once_per_light
@@ -144,7 +144,7 @@ material lambert1
 			texture_unit normalmap
 			{
 				texture SoilSand_Nbump.tga
-				transform 0.5 0 0 0 0 0.5 0 0 0 0 1 0 0 0 0 1
+				transform 0.01 0 0 0 0 0.01 0 0 0 0 1 0 0 0 0 1
 				colour_op replace
 				tex_coord_set 0
 				filtering trilinear
@@ -170,7 +170,7 @@ material lambert1
 			texture_unit difusemap
 			{
 				texture SoilSand.jpg 
-				transform 0.5 0 0 0 0 0.5 0 0 0 0 1 0 0 0 0 1
+				transform 0.01 0 0 0 0 0.01 0 0 0 0 1 0 0 0 0 1
 				tex_coord_set 0
 				filtering trilinear
 			}
