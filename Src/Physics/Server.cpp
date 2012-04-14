@@ -491,6 +491,29 @@ Logic::CEntity* CServer::raycastClosest (const Ray& ray, float maxDist) const
 	return physicEntity->getEntity();
 }
 
+int CServer::detectCollisions(Vector3 point, float maxDist, Logic::CEntity* * & entidades) const
+{
+	IPhysicObj * * resultado = NULL;
+	int numColisiones = getScene()->detectCollisions(point,maxDist,resultado);
+
+	entidades = NULL;
+
+	//Pasamos de un array de objetos fisicos a un array de entidades
+	if (numColisiones) {
+		entidades = new Logic::CEntity*[numColisiones];
+		for (int i = 0; i < numColisiones; ++i)
+		{
+			CPhysicEntity *physicEntity = reinterpret_cast<CPhysicEntity*> (resultado[i]->userData);
+			CEntity* entidad = physicEntity->getEntity();
+			entidades[i] = entidad;
+		}
+		delete resultado;
+	}
+
+	return numColisiones;
+}
+
+
 Logic::CEntity* CServer::raycastGroup (const Ray& ray, Vector3* point, TPhysicGroup groups, float maxDist) const
 {
 	// Calcular primera intersección. Si no hay devolvemos NULL.

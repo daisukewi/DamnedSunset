@@ -9,6 +9,8 @@
 #include "Logic/Entity/Messages/ParticleEffect.h"
 #include "Logic/Entity/Messages/SoundEffect.h"
 
+#include "Physics/Server.h"
+
 namespace Logic 
 {
 	IMP_FACTORY(CDetonadorGranada);
@@ -72,6 +74,16 @@ namespace Logic
 
 	void CDetonadorGranada::timeElapsed()
 	{
+
+		Logic::CEntity* * entidadesColision;
+		int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions(Vector3(0,0,0),20,entidadesColision);
+
+		for (int i =0; i < numColisiones; ++i)
+		{
+			std::string a = entidadesColision[i]->getName();
+			int dsf = 842;
+		}
+
 		//Recorremos la lista de entidades dentro del trigger y les hacemos daño
 		std::list<CEntity*>::const_iterator it, end;
 		it = _entidades.begin();

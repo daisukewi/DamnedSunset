@@ -6,6 +6,7 @@
 #include "IPhysicCollisionMng.h"
 
 #include "PhysicUtils.h"
+
 //#include "DrawShapes.h"
 //#include "Graphics/GestorOpenGL.h"
 
@@ -419,7 +420,7 @@ bool    CPhysicScene::CheckExplosionOclusion (const NxVec3& expPos, IPhysicObj* 
 bool    CPhysicScene::CalcIntersection (const NxRay& worldRay, TIntersectInfo& result, NxReal maxDist, NxU32 groups, NxShapesType eShapeType) const
 {
     NxRaycastHit    hit;
-    bool            bHayHit = (m_pScene->raycastClosestShape (worldRay, eShapeType, hit, groups, maxDist) != NULL);
+    bool            bHayHit = (m_pScene->raycastClosestShape(worldRay, eShapeType, hit, groups, maxDist) != NULL);
     if ( bHayHit )
     {
         TActorInfo* pActorInfo = (TActorInfo*) hit.shape->getActor().userData;
@@ -429,6 +430,76 @@ bool    CPhysicScene::CalcIntersection (const NxRay& worldRay, TIntersectInfo& r
     }
 
     return bHayHit;
+}
+
+/**
+	Creado por Isaac el 13/4/2012
+	si teneis alguna duda ya sabeis :P
+*/
+int CPhysicScene::detectCollisions(Vector3 point, float maxDist, IPhysicObj * *& physicObjects) const
+{
+	NxSphere worldSphere;
+	worldSphere.center = NxVec3(point.x, point.y, point.z);
+   
+	worldSphere.radius = maxDist;
+
+	m_pScene->checkOverlapSphere(worldSphere);
+
+	NxU32 nbShapes = 100;
+
+	NxShape** result = new NxShape* [nbShapes];
+
+	for (NxU32 i = 0; i < nbShapes; ++i)
+	{
+		result[i] = NULL;
+	}
+
+	unsigned int overlapCount = m_pScene->overlapSphereShapes(worldSphere, NX_ALL_SHAPES, nbShapes, result, NULL );
+
+	//variable en la que guardaremos los objetos fisicos que encontremos, abra como mucho, tantos como detecte el overlapSphereShapes
+	IPhysicObj * * resultado = new IPhysicObj*[overlapCount];
+	
+	for (int i = 0; i < overlapCount; ++i)
+	{
+		resultado[i] = NULL;
+	}
+
+
+	//Recorremos lo devuelto por la funcion overlapSphereShapes, y lo transformamos y añadimos a un array de objetos fisicos
+	int numEntidades = 0;
+	for (int i = 0; i < overlapCount; i++) 
+	{
+		if( result[i] != NULL )
+		{
+			printf("Shape!!!");
+			//Solo nos interesan las capsulas
+			if (result[i]->isCapsule()) {
+				NxShape* capsula = result[i];
+				TActorInfo* pActorInfo = (TActorInfo*) capsula->getActor().userData;
+				
+				printf("Capsul!!!");
+
+				IPhysicObj * entidadFisica = pActorInfo->pPhysicObj;
+				resultado[numEntidades] = entidadFisica;
+				++numEntidades;
+			}
+		}
+	}
+
+	if (numEntidades) {
+		//Creamos y guardamos el resultado en la variable referenciada que nos pasan, esta la creamos con el tamaño exacto
+		physicObjects =  new IPhysicObj*[numEntidades];
+		for (int i = 0; i < numEntidades; ++i) {
+			physicObjects[i] = resultado[i];
+		}
+	} else {
+		physicObjects = NULL;
+	}
+
+	//Destruimos el array de punteros anterior;
+	delete resultado;
+
+	return numEntidades;
 }
 
 //-----------------------------------------------------------------------------

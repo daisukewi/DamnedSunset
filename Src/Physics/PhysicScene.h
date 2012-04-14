@@ -11,6 +11,11 @@
 #include "NxUserContactReport.h"
 #include "PhysicWaterMgr.h"
 
+#include <list>
+
+#include <string>
+#include "BaseSubsystems/Math.h"
+
 class IPhysicModel;
 //!!
 class IPhysicCollisionMng;
@@ -95,6 +100,15 @@ public:
 
     // Raycasting
     bool            CalcIntersection    (const NxRay& ray, TIntersectInfo& result, NxReal maxDist=NX_MAX_F32, NxU32 groups = 0xffffffff, NxShapesType eShapeType = NX_ALL_SHAPES) const; 
+
+	/**
+	Devuelve los objetos fisicos que hay a una distancia "maxDist" de "point"
+	@param point
+	@param maxdist
+	@param physicObjects - guarda en esta variable un array con los objetos fisicos que colisiona
+	@return numero de colisiones detectadas
+	*/
+	int CPhysicScene::detectCollisions(Vector3 point, float maxDist, IPhysicObj * *& physicObjects) const;
 
     // Creacion de objetos simples
     NxActor*        CreateGroundPlane   (void);

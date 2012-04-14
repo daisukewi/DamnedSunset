@@ -378,6 +378,15 @@ namespace Physics {
 
 
 		/**
+		Devuelve las entidades que tengan una capsula, que hay a una distancia "maxDist" de "point"
+		@param point
+		@param maxdist
+		@param entidades - guarda en esta variable un array con las entidades que colisiona
+		@return numero de entidades con las que colisiona
+		*/
+		int detectCollisions(Vector3 point, float maxDist, Logic::CEntity* * & entidades) const;
+
+		/**
 		 Lanza un rayo y devuelve la primera entidad lógica contra la que interseca. Si el rayo
 		 no choca contra ninguna entidad devuelve NULL.
 		 
