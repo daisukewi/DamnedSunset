@@ -32,8 +32,8 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 
-		if(entityInfo->hasAttribute("position"))
-			_origen = entityInfo->getVector3Attribute("position");
+		if(entityInfo->hasAttribute("grid_position"))
+			_origen = entityInfo->getVector2Attribute("grid_position");
 
 		if(entityInfo->hasAttribute("periodo"))
 			_periodo = entityInfo->getIntAttribute("periodo");
@@ -90,8 +90,8 @@ namespace Logic
 			enemyInfo->setName(name.str());
 						
 			std::stringstream pos;
-			pos << _origen.x << ' ' << _origen.y << ' ' << _origen.z;
-			enemyInfo->setAttribute("position", pos.str());
+			pos << _origen.x << ' ' << _origen.y << ' ';
+			enemyInfo->setAttribute("grid_position", pos.str());
 
 			Logic::CEntity *enemy = Logic::CEntityFactory::getSingletonPtr()->createEntity(enemyInfo, _entity->getMap());
 		}

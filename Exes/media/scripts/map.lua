@@ -164,6 +164,7 @@ Map = {
 		model = "torreta_pie.mesh",
 		grid_position = { 19, 2 },
 		type = "Enemies",
+		periodo = 50000,
 	},
 
 	Jack = {

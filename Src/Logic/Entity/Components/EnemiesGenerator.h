@@ -37,7 +37,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CEnemiesGenerator() : IComponent(), _origen(Vector3::ZERO), _time(0), _enemy(0), _periodo(10000) {}
+		CEnemiesGenerator() : IComponent(), _origen(Vector2::ZERO), _time(0), _enemy(0), _periodo(10000) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -99,7 +99,7 @@ namespace Logic
 		/**
 		Atributo para saber el lugar donde se crea el enemigo.
 		*/
-		Vector3 _origen;
+		Vector2 _origen;
 
 		/**
 		Contador de tiempo.
