@@ -76,18 +76,12 @@ namespace Logic
 	{
 
 		Logic::CEntity* * entidadesColision;
-		int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions(Vector3(0,0,0),20,entidadesColision);
+		int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions( _entity->getPosition(),20,entidadesColision);
 
 		for (int i =0; i < numColisiones; ++i)
 		{
 			std::string a = entidadesColision[i]->getName();
-			int dsf = 842;
 		}
-
-		//Recorremos la lista de entidades dentro del trigger y les hacemos daño
-		std::list<CEntity*>::const_iterator it, end;
-		it = _entidades.begin();
-		end = _entidades.end();
 
 		//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
 		MParticleEffect *rc_message = new MParticleEffect();
@@ -102,9 +96,15 @@ namespace Logic
 		rc2_message->setSoundEffect(aux);
 		_entity->emitInstantMessage(rc2_message,this);
 
-		for(; it != end; ++it) {
+
+		//Recorremos la lista de entidades dentro del trigger y les hacemos daño
+		std::list<CEntity*>::const_iterator it, end;
+		it = _entidades.begin();
+		end = _entidades.end();
+
+		for(int i = 0; i < numColisiones; ++i) {
 			//Entidad que daña la granada
-			CEntity * entidad = *it;
+			CEntity * entidad = entidadesColision[i];
 
 			//Le decimos a la entidad que no nos avise cuando muera
 			entidad->removeDeathListener(this);
