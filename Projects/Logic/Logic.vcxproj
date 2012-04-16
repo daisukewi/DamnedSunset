@@ -82,6 +82,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BillboardSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BuilderController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DetonadorGranada.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Empujable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Heal.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LanzadorGranadas.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyController.cpp" />
@@ -142,6 +143,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MoveTo.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ParticleEffect.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetEmpujarPropiedades.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetTransform.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SoundEffect.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\StopAnimation.cpp" />
@@ -169,6 +171,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\CameraController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DamageTrigger.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DetonadorGranada.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Empujable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemiesGenerator.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Heal.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LanzadorGranadas.h" />
@@ -228,6 +231,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MoveTo.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ParticleEffect.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetEmpujarPropiedades.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetTransform.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SoundEffect.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\StopAnimation.h" />

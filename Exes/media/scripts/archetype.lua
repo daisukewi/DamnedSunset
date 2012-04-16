@@ -111,13 +111,6 @@ Archetype = {
 		physic_radius = 0.5,
 		physic_mass = 1,
 		physic_collision_group = 6,
-		
-		trigger_shape = "trigger_sphere",
-		trigger_type = "trigger_static",
-		trigger = true,
-		trigger_radius = 25,
-		trigger_height = 1,
-		trigger_collision_group = 3,
 	},
 	
 	Player = {
@@ -154,6 +147,8 @@ Archetype = {
 		billboardLanzamientoWith = 150.0,
 		billboardLanzamientoHeight = 150.0,
 		alcanceGranada = 70.0,
+		
+		disableComponent = "CEmpujable",
 	},
 	
 	Waypoint = {

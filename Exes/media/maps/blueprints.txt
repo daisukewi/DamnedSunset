@@ -1,6 +1,6 @@
 World CGraphics CPhysicEntity CSelectable CBillboardIndicacionMover
 Sun CSunController
-Player CLanzadorGranadas CAttack CHeal CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor CSelectable CScript
+Player CLanzadorGranadas CAttack CHeal CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor CSelectable CScript CEmpujable
 Enemy CEnemyController CAttack CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CSelectable
 Entity CGraphics
 Enemies CEnemiesGenerator CGraphics
@@ -11,7 +11,7 @@ Building CGraphics CPhysicEntity
 PhantomTurret CGraphics
 Turret CPhysicEntity CMapBuilding CTurretController CSelectable CTriggerEntity CAnimatedGraphics
 Barril CGraphics CPhysicEntity
-Granada CGraphics CPhysicEntity CDetonadorGranada CTriggerEntity CParticleController CSonido
+Granada CGraphics CPhysicEntity CDetonadorGranada CParticleController CSonido
 PuertaTrigger CSwitchTrigger CPhysicEntity
 Puerta CGraphics CSwitchPosition
 Sierra CAnimatedGraphics CSwitchPosition CDamageTrigger CPhysicEntity

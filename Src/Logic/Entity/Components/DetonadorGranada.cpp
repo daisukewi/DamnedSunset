@@ -11,6 +11,9 @@
 
 #include "Physics/Server.h"
 
+#include "Logic/Entity/Messages/ActivarComponente.h"
+#include "Logic/Entity/Messages/SetEmpujarPropiedades.h"
+
 namespace Logic 
 {
 	IMP_FACTORY(CDetonadorGranada);
@@ -97,7 +100,7 @@ namespace Logic
 		_entity->emitInstantMessage(rc2_message,this);
 
 
-		//Recorremos la lista de entidades dentro del trigger y les hacemos daño
+		//Recorremos la lista de entidades y les hacemos daño
 		std::list<CEntity*>::const_iterator it, end;
 		it = _entidades.begin();
 		end = _entidades.end();
@@ -111,12 +114,30 @@ namespace Logic
 
 			//Enviamos mensaje de daño a la entidad
 			MDamaged *mDamaged = new MDamaged();
-			mDamaged->setHurt(100.0f);
+			mDamaged->setHurt(10.0f);
 			mDamaged->setKiller(0);
 			entidad->removeDeathListener(this);
 			entidad->emitMessage(mDamaged, this);
 
 			printf("DAÑO GRANADA");
+
+			MSetEmpujarPropiedades *m = new MSetEmpujarPropiedades();
+
+			//Calculamos la direccion a la que tenemos que empujar
+			Vector3 pos1 = entidad->getPosition();
+			Vector3 pos2 = _entity->getPosition();
+			Vector3 direccion = Vector3(pos1.x-pos2.x,pos1.y-pos2.y,pos1.z-pos2.z);
+			direccion.normalise();
+			//----
+			m->setDirection(direccion.x,direccion.y,direccion.z);
+
+
+			entidad->emitMessage(m, this);
+
+			MActivarComponente *mActivar = new MActivarComponente();
+			mActivar->setActivar(true);
+			mActivar->setNombreComponente("CEmpujable");
+			entidad->emitMessage(mActivar, this);
 		}
 
 		//Eliminamos la entidad en el siguiente tick
