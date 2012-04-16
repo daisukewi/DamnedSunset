@@ -94,6 +94,7 @@ public class HeightMapExporter {
 						"max_height");
 				_maxHeightMap[x][y] = Float.parseFloat(paramValue) / 255.0f;
 			}
+		map.getParameters().get(key)
 	}
 
 	private void PreprocessMap (Map map, Preferences currentPref)
