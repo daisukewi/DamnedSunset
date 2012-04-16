@@ -122,7 +122,7 @@ Parametros:
    <exec executable="${basedir}/../CMake/bin/cmake.exe"
 	 dir="${basedir}/build/">
       <arg value="-DOGRE_DEPENDENCIES_DIR=..\.."/>
-      <arg value="-DOGRE_BUILD_SAMPLES=FALSE"/>
+      <arg value="-DOGRE_BUILD_SAMPLES=TRUE"/>
       <arg value="-DOGRE_BUILD_TOOLS=TRUE"/>
       <arg value="-DOGRE_BUILD_COMPONENT_PAGING=TRUE"/>
       <arg value="-DOGRE_BUILD_COMPONENT_TERRAIN=TRUE"/>
@@ -133,7 +133,7 @@ Parametros:
 	  <arg value="-DOGRE_BUILD_RENDERSYSTEM_GL=TRUE"/>
 	  <arg value="-DOGRE_BUILD_RENDERSYSTEM_GLES=FALSE"/>
 	  <arg value="-DOGRE_BUILD_RENDERSYSTEM_D3D9=TRUE"/>
-	  <arg value="-DOGRE_BUILD_RENDERSYSTEM_D3D11=FALSe"/>
+	  <arg value="-DOGRE_BUILD_RENDERSYSTEM_D3D11=TRUE"/>
       <arg value=".."/>
    </exec>
 
@@ -170,6 +170,10 @@ Parametros:
 
    <copy todir="../include/OGRE">
       <fileset dir="./OgreMain/include/"/>
+	  <fileset dir="./Components/Paging/include/"/>
+	  <fileset dir="./Components/Terrain/include/"/>
+	  <fileset dir="./PlugIns/OctreeSceneManager/include/"/>
+	  <fileset dir="./PlugIns/ParticleFX/include/"/>
    </copy>
 
    <copy todir="../include/OGRE">

@@ -180,6 +180,11 @@ namespace Application
 		*/
 		bool exitReleased(const CEGUI::EventArgs& e);
 
+		/**
+		Starts the game state.
+		*/
+		bool CMenuState::StartGame();
+
 	}; // CMenuState
 
 } // namespace Application
