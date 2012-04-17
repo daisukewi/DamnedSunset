@@ -151,6 +151,13 @@ namespace Graphics
 		*/
 		void setAmbientLight(const float r, const float g, const float b);
 
+		/**
+		Devuelve el gestor de la escena de Ogre
+
+		@return Puntero al gestor de la escena de Ogre.
+		*/
+		Ogre::SceneManager *getSceneMgr() {return _sceneMgr;}
+
 		void removeBillboardset(Ogre::BillboardSet* b);
 	protected:
 
@@ -219,12 +226,7 @@ namespace Graphics
 		friend class CCubeModel;
 		friend class CSphereModel;
 		friend class CCapsuleModel;
-		/**
-		Devuelve el gestor de la escena de Ogre
-
-		@return Puntero al gestor de la escena de Ogre.
-		*/
-		Ogre::SceneManager *getSceneMgr() {return _sceneMgr;}
+		
 
 		/**
 		Devuelve la geometría estática de la escena de Ogre
