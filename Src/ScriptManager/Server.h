@@ -19,12 +19,6 @@ la gestión de los scripts del juego.
 // Estructura con el contexto (estado) del intérprete de Lua.
 struct lua_State;
 
-// Predeclaración de clases
-namespace ScriptManager
-{
-	class ILUAClass;
-}
-
 /**
 Namespace para la gestión de los scripts del juego. Se encarga
 de la carga y lectura de los mismos.
@@ -305,6 +299,20 @@ namespace ScriptManager
 		*/
 		template <class F>
 		void registerFunction(const char *name, F f);
+
+		/**
+		Método que crea e inicia una corutina de lua con el nombre y la función
+		pasadas como parámetro.
+
+		@param corutineName Nombre con el que se va a crear la corutina.
+		@param corutineFunction Nombre de la función a partir de la cual se va a
+		crear la corutina.
+		@param resultName Nombre de la variable donde se va a guardar el resultado devuelto
+		por el primer yield del script.
+
+		@return Si la corutina se ha ejecutado y pausado con éxito o no.
+		*/
+		bool initCorutine(const char *corutineName, const char *corutineFunction, const char *resultName);
 
 		/**
 		Devuelve el estado de lua, que es la variable representativa

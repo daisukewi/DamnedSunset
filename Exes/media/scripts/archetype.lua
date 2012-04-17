@@ -44,6 +44,7 @@ Archetype = {
 		trigger_height = 1,
 		trigger_collision_group = 3,
 		precision = 0.1,
+		damage = 25,
 	},
 	
 	Barril = {

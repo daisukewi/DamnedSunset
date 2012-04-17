@@ -100,6 +100,11 @@ namespace Logic
 	protected:
 
 		/**
+		Daño de la torreta.
+		*/
+		int _damage;
+
+		/**
 		Atributo para saber si la torreta está atacando.
 		*/
 		bool _attacking;

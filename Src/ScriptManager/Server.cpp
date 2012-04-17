@@ -480,6 +480,28 @@ namespace ScriptManager
 
 	//---------------------------------------------------------
 
+	bool CServer::initCorutine(const char *corutineName, const char *corutineFunction, const char *resultName)
+	{
+		// Creo la corutina.
+		std::stringstream corutineCreate;
+		corutineCreate << corutineName << " = coroutine.create(" << corutineFunction << ")";
+		executeScript(corutineCreate.str().c_str());
+
+		// Ejecuto la corutina.
+		std::stringstream corutineInit;
+		corutineInit << "correct, " << resultName << " = coroutine.resume(" << corutineName << ")";
+		executeScript(corutineInit.str().c_str());
+
+		// Variable temporal para llamar a "getGlobal"
+		bool result;
+
+		// Devuelvo si la corutina se ha ejecutado correctamente o no.
+		return ScriptManager::CServer::getSingletonPtr()->getGlobal("correct", result);
+
+	} // initCorutine
+
+	//---------------------------------------------------------
+
 	bool CServer::loadScript(const char *script, bool inmediate)
 	{
 		// Completo la ruta del script.

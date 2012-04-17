@@ -69,11 +69,10 @@ namespace Logic
 	{
 		if (!message->getType().compare("MCureEntity"))
 		{
-			/*ScriptManager::CServer::getSingletonPtr()->executeScript("hability = coroutine.create(healHability)");
-			ScriptManager::CServer::getSingletonPtr()->executeScript("correct, result = coroutine.resume(hability)");
+			ScriptManager::CServer::getSingletonPtr()->initCorutine("hability", "healHability", "result");
 			int n = ScriptManager::CServer::getSingletonPtr()->getGlobal("result", 0);
 			ScriptManager::CServer::getSingletonPtr()->executeScript("correct = coroutine.resume(hability, 28)");
-			int n3 = 0;*/
+			int n3 = 0;
 		}
 
 	} // process
