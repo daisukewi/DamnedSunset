@@ -29,5 +29,15 @@ namespace Logic
 		_point = point;
 	}
 
+	std::string MParticleEffect::getEffect()
+	{
+		return _effect;
+	}
+
+	void MParticleEffect::setEffect(std::string effect)
+	{
+		_effect = effect;
+	}
+
 
 } // namespace Logic

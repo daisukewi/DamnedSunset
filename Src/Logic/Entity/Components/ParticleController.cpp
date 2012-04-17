@@ -54,8 +54,7 @@ namespace Logic
 		if (!message->getType().compare("MParticleEffect")){
 
 			MParticleEffect *m = static_cast <MParticleEffect*> (message);
-			std::string effect = "Explosion";
-			Graphics::CServer::getSingletonPtr()->createParticleEffect(effect,m->getPoint());
+			Graphics::CServer::getSingletonPtr()->createParticleEffect(m->getEffect(),m->getPoint());
 		}
 	} // process
 

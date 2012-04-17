@@ -29,12 +29,12 @@ namespace Logic
 		*/
 		MSoundEffect();
 
-		void setSoundEffect(Sounds::CSound* sound){_sound = sound;}
-		Sounds::CSound* getSoundEffect(){return _sound;}
+		void setSoundEffect(std::string sound){_sound = sound;}
+		std::string getSoundEffect(){return _sound;}
 
 	protected:
 
-		Sounds::CSound*_sound;
+		std::string _sound;
 		
 	};
 

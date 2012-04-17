@@ -382,6 +382,11 @@ namespace ScriptManager
 		void showErrorMessage(std::string &message);
 
 		/**
+		Registra los objetos C++ que vas a ser necesarios en LUA
+		*/
+		void registerClasses();
+
+		/**
 		Única instancia de la clase.
 		*/
 		static CServer* _instance;

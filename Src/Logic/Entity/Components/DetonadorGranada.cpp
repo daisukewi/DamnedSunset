@@ -89,14 +89,12 @@ namespace Logic
 		//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
 		MParticleEffect *rc_message = new MParticleEffect();
 		rc_message->setPoint(_entity->getPosition());
-		//_entity->emitMessage(rc_message,this);
+		rc_message->setEffect("Explosion");
 		_entity->emitInstantMessage(rc_message,this);
 
 		//Envío del mensaje al componente que se encarga de reproducir los sonidos
 		MSoundEffect *rc2_message = new MSoundEffect();
-		Sounds::CSound *aux = new Sounds::CSound();
-		aux->setSound("media/sounds/rocket_explosion.wav");
-		rc2_message->setSoundEffect(aux);
+		rc2_message->setSoundEffect("media/sounds/rocket_explosion.wav");
 		_entity->emitInstantMessage(rc2_message,this);
 
 
@@ -142,6 +140,11 @@ namespace Logic
 
 		//Eliminamos la entidad en el siguiente tick
 		CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
+
+		
+
+
+
 
 	} // timeElapsed
 

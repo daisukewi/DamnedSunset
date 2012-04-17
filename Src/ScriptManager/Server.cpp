@@ -12,6 +12,9 @@ la gestión de los scripts del juego.
 
 #include "Server.h"
 
+
+#include "ScriptManager\Classes\Messages\LUA_AStarRoute.h"
+
 // Incluímos las cabedceras de Lua.
 // Como es código C (no C++), hay que indicarselo al
 // compilador para que asuma el convenio de nombres
@@ -104,6 +107,9 @@ namespace ScriptManager
 
 		// Activamos luabind en el intérprete
 		luabind::open(_lua);
+
+		//Registrar las clases que se van a usar desde LUA
+		registerClasses();
 
 		return true;
 
@@ -591,6 +597,28 @@ namespace ScriptManager
 		assert(!"Ha ocurrido un error con lua. Mira la consola para saber porqué.");
 	
 	} // showErrorMessage
+
+	void CServer::registerClasses()
+	{
+		//------------------------------------------------------//
+		//				REGISTRO DE LOS MENSAJES				//
+		//------------------------------------------------------//
+
+		//LUA_MAStarRoute
+
+		luabind::module(CServer::getSingletonPtr()->getLuaState())
+		[
+			luabind::class_<LUA_MAStarRoute>("LUA_MAStarRoute")
+				.def(luabind::constructor<>())
+				.def("setDestPointX",(void (LUA_MAStarRoute::*) (float)) &LUA_MAStarRoute::setDestPointX)
+				.def("setDestPointY",(void (LUA_MAStarRoute::*) (float)) &LUA_MAStarRoute::setDestPointY)
+				.def("setDestPointZ",(void (LUA_MAStarRoute::*) (float)) &LUA_MAStarRoute::setDestPointZ)
+				.def("setEntityTo",(void (LUA_MAStarRoute::*) (std::string)) &LUA_MAStarRoute::setEntityTo)
+				.def("send",&LUA_MAStarRoute::send)
+		];
+
+		//---------------------------------------------------------
+	}
 
 	//---------------------------------------------------------
 

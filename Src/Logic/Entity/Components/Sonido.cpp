@@ -79,32 +79,30 @@ namespace Logic
 
 			for (int i=0; (i < numSounds);i++){
 				if (_sound[i]){
-					Sounds::CSoundManager::getSingleton()->setSoundPosition(_sound[i]->getIdChannel(),m->getTransform().getTrans());
+					//Sounds::CSoundManager::getSingleton()->setSoundPosition(_sound[i]->getIdChannel(),m->getTransform().getTrans());
 				Sounds::CServer::getSingletonPtr()->set3DSoundPosition(_sound[i]->getIdChannel(),m->getTransform().getTrans());
 				_sound[i]->setPosition(m->getTransform().getTrans());
 				}
-				
-		
 			}
 			
 		}else if (!message->getType().compare("MSoundEffect")){
 
 			MSoundEffect *m = static_cast <MSoundEffect*> (message);
-			bool enc =  false;
-			Sounds::CSound *sound = m->getSoundEffect();
-			char* id = new char [sound->getSound().size()+1];
-			sound->setId(id);
-			strcpy (id, sound->getSound().c_str());
+
+			
 			countSounds++;
 			if (countSounds >= numSounds)
 				countSounds = 0;
-			
-			_sound[countSounds]->setIdChannel(Sounds::CSoundManager::getSingleton()->createChannel(sound->getSound().c_str(),false,sound->getLoop(),sound->getSoundType()));
-			if (sound[countSounds].getIdChannel() == 0){
-				std::cout << "CSonido: no se pudo crear el sonido: " << sound[countSounds].getIdChannel() << std::endl;
-			}
 
-			delete(sound);
+			_sound[countSounds]->setSound(m->getSoundEffect());
+			char* id = new char [_sound[countSounds]->getSound().size()+1];
+			_sound[countSounds]->setId(id);
+			strcpy (id, _sound[countSounds]->getSound().c_str());
+			
+			_sound[countSounds]->setIdChannel(Sounds::CSoundManager::getSingleton()->createChannel(_sound[countSounds]->getSound().c_str(),false,_sound[countSounds]->getLoop(),_sound[countSounds]->getSoundType()));
+			if (_sound[countSounds]->getIdChannel() == 0){
+				std::cout << "CSonido: no se pudo crear el sonido: " << _sound[countSounds]->getIdChannel() << std::endl;
+			}
 
 		}
 

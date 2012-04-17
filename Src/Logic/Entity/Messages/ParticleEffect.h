@@ -42,12 +42,31 @@ namespace Logic
 		*/
 		void setPoint(Vector3 point);
 
+		/**
+		Método que estable el efecto de partículas a mostrar
+		
+		@param effect effecto de partículas
+		*/
+		void setEffect(std::string effect);
+
+		/**
+		Método que devuelve el efecto de partículas a mostrar
+
+		@return efecto de partículas
+		*/
+		std::string getEffect();
+
 	protected:
 
 		/**
 		Atributo que contiene el punto donde se quiere mostrar el efecto de partículas
 		*/
 		Vector3 _point;
+
+		/**
+		Efecto de partículas a mostrar
+		*/
+		std::string _effect;
 	};
 
 
