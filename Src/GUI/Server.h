@@ -21,6 +21,7 @@ namespace Logic
 	class CEnemyController;
 	class CEnemiesGenerator;
 	class CTurretController;
+	class CTeletransport;
 }
 
 namespace GUI 

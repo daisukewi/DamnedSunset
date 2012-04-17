@@ -77,7 +77,7 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 		
-		// Cada 500 ticks creamos un enemigo.
+		// Cada _periodo milisegundos creamos un enemigo.
 		_time += msecs;
 		if (_time >= _periodo)
 		{

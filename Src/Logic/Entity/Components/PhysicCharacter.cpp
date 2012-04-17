@@ -23,6 +23,7 @@ el mundo físico usando character controllers.
 
 #include "Logic/Entity/Messages/AvatarWalk.h"
 #include "Logic/Entity/Messages/SetTransform.h"
+#include "Logic/Entity/Messages/TeletransportTo.h"
 
 
 using namespace Physics;
@@ -50,7 +51,8 @@ CPhysicCharacter::~CPhysicCharacter()
 bool CPhysicCharacter::accept(IMessage *message)
 {
 	return !message->getType().compare("MAvatarWalk")
-		|| !message->getType().compare("MSetTransform");
+		|| !message->getType().compare("MSetTransform")
+		|| !message->getType().compare("MTeletransportTo");
 } 
 
 //---------------------------------------------------------
@@ -75,6 +77,12 @@ void CPhysicCharacter::process(IMessage *message)
 		// sólo tendremos en cuenta el último
 		_transform = m->getTransform();
 		_forceApplyTransform = m->getForce();
+	}
+	else if (!message->getType().compare("MTeletransportTo"))
+	{
+		MTeletransportTo *m = static_cast <MTeletransportTo*> (message);
+
+		_physicServer->setPosition((CPhysicObjCharacter *)_physicObj, fromLogicToPhysics(m->getPosition()));
 	}
 
 } 

@@ -108,6 +108,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SunController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchPosition.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Teletransport.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\TriggerEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\TurretController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\Building.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SoundEffect.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\StopAnimation.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\Switch.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\TeletransportTo.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\UbicarCamara.cpp" />
     <ClCompile Include="..\..\Src\Logic\Maps\ComponentFactory.cpp" />
     <ClCompile Include="..\..\Src\Logic\Maps\EntityFactory.cpp" />
@@ -195,6 +197,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SunController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchPosition.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Teletransport.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\TriggerEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\TurretController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\DeathListener.h" />
@@ -236,6 +239,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SoundEffect.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\StopAnimation.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\Switch.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\TeletransportTo.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\UbicarCamara.h" />
     <ClInclude Include="..\..\Src\Logic\Maps\ComponentFactory.h" />
     <ClInclude Include="..\..\Src\Logic\Maps\Documentation.h" />
