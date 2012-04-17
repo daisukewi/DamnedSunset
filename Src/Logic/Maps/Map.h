@@ -16,6 +16,7 @@ Contiene la declaración de la clase CMap, Un mapa lógico.
 #include "Map/MapParser.h"
 #include "Logic/Entity/Entity.h"
 #include "GridMap.h"
+#include "GridTile.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Logic 

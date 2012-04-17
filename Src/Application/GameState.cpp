@@ -26,6 +26,7 @@ Contiene la implementación del estado de juego.
 #include "GUI/InterfazController.h"
 
 #include "Physics/Server.h"
+#include "ScriptManager/Server.h"
 
 #include "GUI/Server.h"
 #include <CEGUISystem.h>
@@ -42,9 +43,6 @@ namespace Application {
 	bool CGameState::init() 
 	{
 		CApplicationState::init();
-
-		// Crear la escena física.
-		Physics::CServer::getSingletonPtr()->createScene();
 
 		return true;
 
@@ -71,6 +69,8 @@ namespace Application {
 	void CGameState::activate() 
 	{
 		CApplicationState::activate();
+
+		LoadLevel();
 		
 		// Activamos el mapa que ha sido cargado para la partida.
 		Logic::CServer::getSingletonPtr()->activateMap();
@@ -109,6 +109,8 @@ namespace Application {
 		
 		// Desactivamos el mapa de la partida.
 		Logic::CServer::getSingletonPtr()->deactivateMap();
+
+		UnloadLevel();
 		
 		CApplicationState::deactivate();
 
@@ -172,11 +174,48 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-
 	bool CGameState::mouseReleased(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
 	} // mouseReleased
+
+	//--------------------------------------------------------
+
+	bool CGameState::LoadLevel()
+	{
+		// Crear la escena física.
+		Physics::CServer::getSingletonPtr()->createScene();
+
+		ScriptManager::CServer::getSingletonPtr()->CreateNewState();
+
+		// Cargamos el archivo con las definiciones de las entidades del nivel.
+		if (!Logic::CEntityFactory::getSingletonPtr()->loadBluePrints("blueprints.txt"))
+			return false;
+
+		// Cargamos el nivel y los arquetipos a partir de los nombres de los ficheros de script. 
+		if (!Logic::CServer::getSingletonPtr()->loadLevel("map", "archetype"))
+			return false;
+
+		//Inicializamos la interfaz
+		GUI::CServer::getSingletonPtr()->getInterfazController()->init();
+
+		return true;
+	}
+
+	//--------------------------------------------------------
+
+	void CGameState::UnloadLevel()
+	{
+		Logic::CServer::getSingletonPtr()->unLoadLevel();
+
+		Logic::CEntityFactory::getSingletonPtr()->unloadBluePrints();
+
+		ScriptManager::CServer::getSingletonPtr()->UnloadCurrentState();
+
+		// Liberamos la escena física.
+		Physics::CServer::getSingletonPtr()->destroyScene();
+	}
+
 
 } // namespace Application

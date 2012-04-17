@@ -12,9 +12,11 @@ Contiene la implementación de la clase CGridMap, Un mapa de celdas lógico.
 #include "GridMap.h"
 
 #include "Logic/Maps/EntityFactory.h"
+#include "Logic/Maps/GridTile.h"
 #include "Logic/Entity/Entity.h"
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
+
 
 namespace Logic {
 

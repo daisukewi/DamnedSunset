@@ -246,6 +246,7 @@
     <ClInclude Include="..\..\Src\Logic\Maps\EntityFactory.h" />
     <ClInclude Include="..\..\Src\Logic\Maps\EntityID.h" />
     <ClInclude Include="..\..\Src\Logic\Maps\GridMap.h" />
+    <ClInclude Include="..\..\Src\Logic\Maps\GridTile.h" />
     <ClInclude Include="..\..\Src\Logic\Maps\Map.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\CommunicationPort.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Component.h" />

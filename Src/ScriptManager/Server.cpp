@@ -92,6 +92,21 @@ namespace ScriptManager
 
 	bool CServer::open()
 	{
+		return true;
+
+	} // open
+
+	//--------------------------------------------------------
+
+	void CServer::close() 
+	{
+		
+	} // close
+
+	//---------------------------------------------------------
+
+	bool CServer::CreateNewState()
+	{
 		// Obtengo el estado de lua (inicialización de lua)
 		_lua = luaL_newstate();
 
@@ -112,17 +127,17 @@ namespace ScriptManager
 		registerClasses();
 
 		return true;
+	}
 
-	} // open
+	//---------------------------------------------------------
 
-	//--------------------------------------------------------
-
-	void CServer::close() 
+	void CServer::UnloadCurrentState()
 	{
 		if (_lua)
 			lua_close(_lua);
 
-	} // close
+		_scriptList.clear();
+	}
 
 	//---------------------------------------------------------
 

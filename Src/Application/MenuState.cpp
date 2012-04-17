@@ -17,13 +17,7 @@ Contiene la implementación del estado de menú.
 #include "MenuState.h"
 
 #include "Logic/Server.h"
-#include "Logic/Maps/EntityFactory.h"
-#include "Logic/Maps/Map.h"
-
 #include "GUI/Server.h"
-#include "GUI/PlayerController.h"
-#include "GUI/CameraController.h"
-#include "GUI/InterfazController.h"
 
 #include <CEGUISystem.h>
 #include <CEGUIWindowManager.h>
@@ -120,7 +114,8 @@ namespace Application {
 			_app->exitRequest();
 			break;
 		case GUI::Key::RETURN:
-			return StartGame();
+			_app->setState("game");
+			break;
 		default:
 			return false;
 		}
@@ -157,7 +152,8 @@ namespace Application {
 		
 	bool CMenuState::startReleased(const CEGUI::EventArgs& e)
 	{
-		return StartGame();
+		_app->setState("game");
+		return true;
 
 	} // startReleased
 			
@@ -169,23 +165,5 @@ namespace Application {
 		return true;
 
 	} // exitReleased
-
-	//--------------------------------------------------------
-
-	bool CMenuState::StartGame()
-	{
-		// Cargamos el archivo con las definiciones de las entidades del nivel.
-		if (!Logic::CEntityFactory::getSingletonPtr()->loadBluePrints("blueprints.txt"))
-			return false;
-
-		// Cargamos el nivel y los arquetipos a partir de los nombres de los ficheros de script. 
-		if (!Logic::CServer::getSingletonPtr()->loadLevel("map", "archetype"))
-			return false;
-
-		//Inicializamos la interfaz
-		GUI::CServer::getSingletonPtr()->getInterfazController()->init();
-
-		_app->setState("game");
-	}
 
 } // namespace Application

@@ -58,15 +58,28 @@ namespace Logic {
 			return false;
 		}
 
+		int width = gridEntity->hasAttribute("width") ? gridEntity->getIntAttribute("width") : 0;
+		int height = gridEntity->hasAttribute("height") ? gridEntity->getIntAttribute("height") : 0;
+		int grid_size = gridEntity->hasAttribute("grid_size") ? gridEntity->getIntAttribute("grid_size") : 0;
+
 		// Con la entidad de tipo "Grid" inicializo el mapa pasándole las dimensiones y el tamaño de celda.
-		if ((gridEntity->hasAttribute("width")) && (gridEntity->hasAttribute("height")) && (gridEntity->hasAttribute("grid_size")))
+		if ((width != 0) && (height != 0) && (grid_size != 0))
 		{
-			map->getGridMap()->initMap(gridEntity->getIntAttribute("width"), gridEntity->getIntAttribute("height"), gridEntity->getIntAttribute("grid_size"));
+			map->getGridMap()->initMap(width, height, grid_size);
+		
 		} else {
 			assert(!"No se han encontrado dimensiones y/o tamaño del grid del mapa.");
 			return false;
 		}
 
+		// @TODO Rellenar las casillas de tipo Grid del mapa con la info de tileMatrix
+		for (int row = 0; row < height; ++row)
+			for (int col = 0; col < width; ++col)
+			{
+				//map->getGridMap->getTileFromCoord(row, col)->FillData(tileMatrix[row][col]);
+			}
+		
+		// @TODO crear el terreno con la info de las casillas del Grid.
 
 		Map::CMapParser::TEntityList::const_iterator it, end;
 		it = entityList.begin();
@@ -80,9 +93,7 @@ namespace Logic {
 			{
 				if (!entityFactory->createEntity((*it),map)) 
 				{
-					// @TODO @GRID Cuando sepamos qué hacer con cada casilla aquí habrá que hacer algo mas complejo que simplemente poner el tipo.
-					// Por ahora lo hago "a pelo" pero igual vendría bien una factoría de casillas o algo así.
-					//map->getGridMap()->getTileFromCoord((*it)->getVector2Attribute("position").x, (*it)->getVector2Attribute("position").y)->SetTerrain((*it)->getIntAttribute("terrain"));
+				
 				}
 			}
 		}

@@ -19,6 +19,12 @@ la gestión de los scripts del juego.
 // Estructura con el contexto (estado) del intérprete de Lua.
 struct lua_State;
 
+// Predeclaración de clases
+namespace ScriptManager
+{
+	class ILUAClass;
+}
+
 /**
 Namespace para la gestión de los scripts del juego. Se encarga
 de la carga y lectura de los mismos.
@@ -59,6 +65,22 @@ namespace ScriptManager
 		aplicación.
 		*/
 		static void Release();
+
+		/**
+		Crea un nuevo estado de lua.
+		Este método tiene que ser llamado después de inicializar el servidor
+		y antes de poder utilizar cualquier funcionalidad de LUA.
+
+		@return Devuelve false si no ha podido crear un nuevo estado de lua.
+		*/
+		bool CreateNewState();
+
+		/**
+		Descarga el estado actual de LUA liberando toda la memoria que haya
+		reservado anteriormente.
+		Este método debe ser llamado antes de volver a crear un nuevo estado.
+		*/
+		void UnloadCurrentState();
 
 		/**
 		Carga un fichero de script en lua y lo ejecuta. Lo guarda
@@ -388,7 +410,7 @@ namespace ScriptManager
 		@param message Mensaje de error a mostrar.
 		*/
 		void showErrorMessage(std::string &message);
-
+		
 		/**
 		Registra los objetos C++ que vas a ser necesarios en LUA
 		*/

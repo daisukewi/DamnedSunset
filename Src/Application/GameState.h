@@ -182,6 +182,16 @@ namespace Application
 
 	private:
 
+		/**
+		Loads a new level creating a scene and a new physics scene.
+		*/
+		bool LoadLevel();
+
+		/**
+		Unloads the previously created scene, releasing all memory.
+		*/
+		void UnloadLevel();
+
 	}; // CGameState
 
 } // namespace Application
