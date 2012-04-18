@@ -59,7 +59,8 @@ namespace Logic
 
 	bool CScript::accept(IMessage *message)
 	{
-		return (!message->getType().compare("MCureEntity"));
+		//return (!message->getType().compare("MCureEntity"));
+		return false;
 
 	} // accept
 
@@ -67,11 +68,11 @@ namespace Logic
 
 	void CScript::process(IMessage *message)
 	{
-		bool m = false;
+		/*bool m = false;
 		bool b = false;
 		if (!message->getType().compare("MCureEntity"))
 		{
-			/*ScriptManager::CServer::getSingletonPtr()->initCorutine("hability", "healHability", "result");
+			ScriptManager::CServer::getSingletonPtr()->initCorutine("hability", "healHability", "result");
 
 			int n = ScriptManager::CServer::getSingletonPtr()->getGlobal("result", 0);
 
@@ -82,8 +83,8 @@ namespace Logic
 			b = ScriptManager::CServer::getSingletonPtr()->resumeCorutine("hability", "result", "28");
 
 			bool a;
-			m = ScriptManager::CServer::getSingletonPtr()->getGlobal("result", a);*/
-		}
+			m = ScriptManager::CServer::getSingletonPtr()->getGlobal("result", a);
+		}*/
 
 	} // process
 
