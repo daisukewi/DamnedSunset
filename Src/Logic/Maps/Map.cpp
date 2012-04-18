@@ -303,4 +303,12 @@ namespace Logic {
 
 	} // getEntityByType
 
+	//--------------------------------------------------------
+
+	void CMap::createTerrain(int width, int height)
+	{
+		_terrain = Graphics::CServer::getSingletonPtr()->generateTerrain(width, height);
+
+	} // generateTerrain
+
 } // namespace Logic

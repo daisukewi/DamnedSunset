@@ -34,6 +34,7 @@ namespace Ogre
 namespace Graphics 
 {
 	class CScene;
+	class CTerrain;
 }
 
 /**
@@ -200,18 +201,24 @@ namespace Graphics
 		*/
 		void setScene(const std::string& name);
 
+		/**
+		Genera un nuevo terreno en el mapa con las dimensiones pasadas
+		como parámetro.
+
+		@param height altura del terreno.
+		@param width anchura del terreno.
+		*/
+		CTerrain* generateTerrain(int width, int height);
+
 		/**Obtener el rayo que es necesario lanzar al hacer un raicast con las coordenadas del ratón
 		
 		@param screenx Posición x del ratón en pantalla
 		@param screeny posición y del ratón en pantalla
 		*/
-
 		Ray getCameraToViewportRay(float screenx, float screeny);
 
 		/**
 		Crear un efecto de partículas en la posición de la entidad que se el envía
-
-
 		*/
 		void createParticleEffect(std::string &effect, Vector3 &point);
 		

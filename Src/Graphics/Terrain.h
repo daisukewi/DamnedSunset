@@ -54,9 +54,6 @@ namespace Graphics
 		void initBlendMaps(Ogre::Terrain* terrain);
 		void configureTerrainDefaults();
 
-	protected:
-		virtual void createFrameListener(void);
-		virtual void destroyScene(void);
 
 	}; // class CTerrain
 

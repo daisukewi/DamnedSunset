@@ -23,6 +23,7 @@ la ventana, etc.
 
 #include "Graphics\Scene.h"
 #include "Graphics\Camera.h"
+#include "Graphics\Terrain.h"
 
 #include <assert.h>
 
@@ -221,6 +222,15 @@ namespace Graphics
 		_activeScene->activate();
 
 	} // createScene
+
+	//--------------------------------------------------------
+
+	CTerrain* CServer::generateTerrain(int width, int height)
+	{
+		CTerrain* terrain = new CTerrain();
+		return terrain;
+
+	} // generateTerrain
 
 	//--------------------------------------------------------
 

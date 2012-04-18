@@ -159,13 +159,13 @@ namespace Logic
 		CEntity *getEntityByType(const std::string &type, CEntity *start = 0);
 
 		/**
-		Genera un nuevo terreno en el mapa con las dimensiones pasadas
+		Crea un nuevo terreno en el mapa con las dimensiones pasadas
 		como parámetro.
 
 		@param height altura del terreno.
 		@param width anchura del terreno.
 		*/
-		void generateTerrain(int height, int width);
+		void createTerrain(int width, int height);
 
 		/**
 		Devuelve la escena gráfica correspondiente a este mapa.
