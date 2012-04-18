@@ -175,6 +175,16 @@ namespace ScriptManager
 		const char *getGlobal(const char *name, const char *defaultValue);
 
 		/**
+		Establece el valor de una variable global en lua. Si ya 
+		existe esa variable se sobreescribe.
+
+		@param name Nombre de la variable.
+		@param value Valor de la variable.
+		*/
+		template <class T>
+		void setGlobal(const char *name, const T& value);
+
+		/**
 		Obtiene el valor de un campo de tipo numérico de
 		una tabla global.
 	 
@@ -323,18 +333,32 @@ namespace ScriptManager
 		void registerFunction(const char *name, F f);
 
 		/**
-		Método que crea e inicia una corutina de lua con el nombre y la función
+		Método que crea e inicia una corrutina de lua con el nombre y la función
 		pasadas como parámetro.
 
-		@param corutineName Nombre con el que se va a crear la corutina.
+		@param corutineName Nombre con el que se va a crear la corrutina.
 		@param corutineFunction Nombre de la función a partir de la cual se va a
-		crear la corutina.
-		@param resultName Nombre de la variable donde se va a guardar el resultado devuelto
-		por el primer yield del script.
+		crear la corrutina.
+		@param resultName Nombre de la variable global de lua donde se va a guardar 
+		el resultado devuelto por el primer yield del script.
 
-		@return Si la corutina se ha ejecutado y pausado con éxito o no.
+		@return true si la corrutina se ha ejecutado y pausado con éxito o no.
 		*/
 		bool initCorutine(const char *corutineName, const char *corutineFunction, const char *resultName);
+
+		/**
+		Método que continua una corrutina pausada pasándole un parámetro en formato de cadena de caracteres.
+
+		@param corutineName Nombre de la corutina que hay que despertar.
+		@param resultName Nombre de la variable global de lua donde se va a guardar
+		el resultado devuelto por el siguiente yield del script.
+		@param param Parámetro a pasarle al yield del script actual. Independientemente del formato
+		de la variable hay que pasarlo en formato texto de forma que lo entienda lua.
+
+		@return true si la corrutina se ha ejecutado y pausado con éxito hasta el siguiente
+		yield o no.
+		*/
+		bool resumeCorutine(const char *corutineName, const char *resultName, const char *param);
 
 		/**
 		Devuelve el estado de lua, que es la variable representativa

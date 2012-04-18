@@ -11,6 +11,7 @@ Contiene el tipo de datos de un mensaje.
 #define __ScriptManager_LUA_Message_H
 
 #include <string>
+#include "Logic/Maps/EntityID.h"
 
 #include "Logic/Maps/EntityID.h"
 

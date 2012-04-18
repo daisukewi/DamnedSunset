@@ -81,7 +81,7 @@ namespace Logic {
 			}
 		
 		// @TODO crear el terreno con la info de las casillas del Grid.
-		map->createTerrain(height, width);
+		//map->createTerrain(height, width);
 
 		Map::CMapParser::TEntityList::const_iterator it, end;
 		it = entityList.begin();

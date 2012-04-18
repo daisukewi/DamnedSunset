@@ -279,6 +279,15 @@ namespace ScriptManager
 
 	//---------------------------------------------------------
 
+	template <class T>
+	void CServer::setGlobal(const char *name, const T& value)
+	{
+		luabind::globals(_lua)[name] = value;
+
+	} // setGlobal
+
+	//---------------------------------------------------------
+
 	int CServer::getField(const char *table, const char *field, int defaultValue)
 	{
 		assert(_lua && "No se ha hecho la inicialización de lua");
@@ -499,12 +508,12 @@ namespace ScriptManager
 
 	bool CServer::initCorutine(const char *corutineName, const char *corutineFunction, const char *resultName)
 	{
-		// Creo la corutina.
+		// Creo la corrutina.
 		std::stringstream corutineCreate;
 		corutineCreate << corutineName << " = coroutine.create(" << corutineFunction << ")";
 		executeScript(corutineCreate.str().c_str());
 
-		// Ejecuto la corutina.
+		// Ejecuto la corrutina.
 		std::stringstream corutineInit;
 		corutineInit << "correct, " << resultName << " = coroutine.resume(" << corutineName << ")";
 		executeScript(corutineInit.str().c_str());
@@ -512,10 +521,27 @@ namespace ScriptManager
 		// Variable temporal para llamar a "getGlobal"
 		bool result;
 
-		// Devuelvo si la corutina se ha ejecutado correctamente o no.
+		// Devuelvo si la corrutina se ha ejecutado correctamente o no.
 		return ScriptManager::CServer::getSingletonPtr()->getGlobal("correct", result);
 
 	} // initCorutine
+
+	//---------------------------------------------------------
+
+	bool CServer::resumeCorutine(const char *corutineName, const char *resultName, const char *param)
+	{
+		// Ejecuto la corrutina
+		std::stringstream corutineResume;
+		corutineResume << "correct, " << resultName << " = coroutine.resume(" << corutineName << ", " << param <<")";
+		executeScript(corutineResume.str().c_str());
+
+		// Variable temporal para llamar a "getGlobal"
+		bool result;
+
+		// Devuelvo si la corrutina se ha ejecutado correctamente o no.
+		return ScriptManager::CServer::getSingletonPtr()->getGlobal("correct", result);
+
+	} // resumeCorutine
 
 	//---------------------------------------------------------
 
@@ -682,5 +708,7 @@ namespace ScriptManager
 	template bool CServer::executeFunction<int>(const char *subroutineName, const int& param1, int &result);
 
 	template void CServer::registerFunction<void(*)()>(const char *name, void (*f)());
+
+	template void CServer::setGlobal<int>(const char *name, const int& value);
 
 } // namespace ScriptManager
