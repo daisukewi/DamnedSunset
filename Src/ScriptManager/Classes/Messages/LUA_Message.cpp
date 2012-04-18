@@ -14,7 +14,7 @@ Contiene el tipo de datos de un mensaje.
 
 namespace ScriptManager
 {
-	void LUA_IMessage::setEntityTo(Logic::TEntityID entityTo)
+	void LUA_IMessage::setEntityTo(unsigned int entityTo)
 	{
 		_entityTo = entityTo;
 	}

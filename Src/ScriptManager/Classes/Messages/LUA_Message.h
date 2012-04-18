@@ -12,7 +12,7 @@ Contiene el tipo de datos de un mensaje.
 
 #include <string>
 
-
+#include "Logic/Maps/EntityID.h"
 
 namespace ScriptManager
 {
