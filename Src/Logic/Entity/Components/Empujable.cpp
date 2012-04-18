@@ -10,6 +10,7 @@
 #include "Logic/Maps/EntityFactory.h"
 
 #include "Logic/Entity/Messages/SetEmpujarPropiedades.h"
+#include "Logic/Entity/Messages/AvatarWalk.h"
 
 namespace Logic 
 {
@@ -51,6 +52,8 @@ namespace Logic
 		{
 			MSetEmpujarPropiedades *m = static_cast <MSetEmpujarPropiedades*> (message);
 			_direccion = m->getDirection();
+			_time = m->getTime();
+			_distPerSecond = m->getDistanciaPorSegundo();
 		}
 	} // process
 
@@ -59,11 +62,22 @@ namespace Logic
 		IComponent::tick(msecs);
 
 		Vector3 position =  _entity->getPosition();
+		
+		unsigned int milisecs = msecs;
+		_time -= msecs/1000.0f;
+
+		if (_time < 0 )
+		{
+			milisecs -= _time*1000; //Si el tiempo fuese mucho menor que 0, moveriamos mas el personaje que lo que tiene q moverse, por lo que lo movemos X msecs menos, donde X es el tiempo que ha pasado de mas
+			//Desactivamos el componente
+			_active = false;
+		}
+
 		float distMover = _distPerSecond * msecs / 1000.0f;
-		Vector3 newPosition = Vector3(	position.x + _direccion.x * distMover,
-										position.y + _direccion.y * distMover,
-										position.z + _direccion.z * distMover );
-		_entity->setPosition( newPosition, true );
+
+		MAvatarWalk * m = new MAvatarWalk();
+		m->setMovement(Vector3(_direccion.x * distMover, _direccion.y * distMover, _direccion.z * distMover));
+		_entity->emitMessage(m);
 	}
 } // namespace Logic
 

@@ -32,9 +32,15 @@ namespace Logic
 
 		void setDirection(float x, float y, float z) {_direction = Vector3(x,y,z);}
 		Vector3 getDirection() {return _direction;}
+		float getTime() {return _time;}
+		void setTime(float t) {_time = t;}
+		float getDistanciaPorSegundo() {return _distanciaPorSegundo;}
+		void setDistanciaPorSegundo(float d) {_distanciaPorSegundo = d;}
 
 	protected:
 		Vector3 _direction;
+		float _time;
+		float _distanciaPorSegundo;
 	};
 
 }

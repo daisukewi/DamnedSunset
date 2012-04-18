@@ -28,6 +28,7 @@ namespace Logic
 	protected:
 		float _distPerSecond;
 		Vector3 _direccion;
+		float _time;
 	};
 
 	REG_FACTORY(CEmpujable);

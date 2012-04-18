@@ -4,6 +4,8 @@
 #include "BaseSubsystems/Server.h"
 #include "Logic/Maps/EntityFactory.h"
 
+#include "Map/MapEntity.h"
+
 #include "Logic/Entity/Messages/IsTouched.h"
 #include "Logic/Entity/Messages/Damaged.h"
 #include "Logic/Entity/Messages/ParticleEffect.h"
@@ -31,6 +33,14 @@ namespace Logic
 	{
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
+
+		if(entityInfo->hasAttribute("damage"))
+			_damage = entityInfo->getFloatAttribute("damage");
+		if(entityInfo->hasAttribute("timeEmpujar"))
+			_timeEmpujar = entityInfo->getFloatAttribute("timeEmpujar");
+		if(entityInfo->hasAttribute("distEmpujarSeg"))
+			_distEmpujarSeg = entityInfo->getFloatAttribute("distEmpujarSeg");
+
 		BaseSubsystems::CServer::getSingletonPtr()->addClockListener(2000, this);
 		return true;
 	} // spawn
@@ -112,7 +122,7 @@ namespace Logic
 
 			//Enviamos mensaje de daño a la entidad
 			MDamaged *mDamaged = new MDamaged();
-			mDamaged->setHurt(10.0f);
+			mDamaged->setHurt(_damage);
 			mDamaged->setKiller(0);
 			entidad->removeDeathListener(this);
 			entidad->emitMessage(mDamaged, this);
@@ -128,6 +138,8 @@ namespace Logic
 			direccion.normalise();
 			//----
 			m->setDirection(direccion.x,direccion.y,direccion.z);
+			m->setTime(_timeEmpujar);
+			m->setDistanciaPorSegundo(_distEmpujarSeg);
 
 
 			entidad->emitMessage(m, this);

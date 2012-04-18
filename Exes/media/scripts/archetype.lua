@@ -112,6 +112,10 @@ Archetype = {
 		physic_radius = 0.5,
 		physic_mass = 1,
 		physic_collision_group = 6,
+		
+		damage = 20.0,
+		timeEmpujar = 0.3,
+		distEmpujarSeg = 150.0,
 	},
 	
 	Player = {
