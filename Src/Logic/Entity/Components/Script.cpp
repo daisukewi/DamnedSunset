@@ -67,13 +67,22 @@ namespace Logic
 
 	void CScript::process(IMessage *message)
 	{
-		bool b;
+		bool m = false;
+		bool b = false;
 		if (!message->getType().compare("MCureEntity"))
 		{
-			ScriptManager::CServer::getSingletonPtr()->initCorutine("hability", "healHability", "result");
+			/*ScriptManager::CServer::getSingletonPtr()->initCorutine("hability", "healHability", "result");
+
 			int n = ScriptManager::CServer::getSingletonPtr()->getGlobal("result", 0);
+
+
+
 			ScriptManager::CServer::getSingletonPtr()->setGlobal("numero", 14);
+
 			b = ScriptManager::CServer::getSingletonPtr()->resumeCorutine("hability", "result", "28");
+
+			bool a;
+			m = ScriptManager::CServer::getSingletonPtr()->getGlobal("result", a);*/
 		}
 
 	} // process
