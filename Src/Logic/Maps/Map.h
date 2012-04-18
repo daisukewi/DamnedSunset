@@ -27,6 +27,7 @@ namespace Logic
 namespace Graphics 
 {
 	class CScene;
+	class CTerrain;
 }
 
 // Declaración de la clase
@@ -158,6 +159,15 @@ namespace Logic
 		CEntity *getEntityByType(const std::string &type, CEntity *start = 0);
 
 		/**
+		Genera un nuevo terreno en el mapa con las dimensiones pasadas
+		como parámetro.
+
+		@param height altura del terreno.
+		@param width anchura del terreno.
+		*/
+		void generateTerrain(int height, int width);
+
+		/**
 		Devuelve la escena gráfica correspondiente a este mapa.
 
 		@return Escena con las entidades gráficas.
@@ -193,6 +203,11 @@ namespace Logic
 		las entidades.
 		*/
 		Graphics::CScene* _scene;
+
+		/**
+		Terreno del nivel actual del juego.
+		*/
+		Graphics::CTerrain* _terrain;
 
 		/**
 		Grid de tiles donde se almacena el mapa lógico del escenario.

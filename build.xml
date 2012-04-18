@@ -346,7 +346,8 @@ Parametros:
 </target>
 
 <target name="run-mapEditor"
-        description="Ejecuta el map Editor.">
+        description="Ejecuta el map Editor."
+		depends="buildTools">
 		
 	<ant antfile="build.xml" target="MapEditor" dir="./Tools/mapeditor"/>
 	
