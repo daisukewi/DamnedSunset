@@ -71,13 +71,26 @@
     <ClInclude Include="..\..\Src\Application\GameOverState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Galeon.ico">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="small.ico">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Damned Sunset.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Galeon.ico">
+      <Filter>Resource Files</Filter>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Application.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -119,8 +119,10 @@
     <ClInclude Include="..\..\Src\Application\GameOverState.h" />
     <ClInclude Include="..\..\Src\Application\GameState.h" />
     <ClInclude Include="..\..\Src\Application\MenuState.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Damned Sunset.ico" />
     <None Include="Galeon.ico" />
     <None Include="small.ico" />
   </ItemGroup>
@@ -163,6 +165,9 @@
     <ProjectReference Include="..\Sound\Sound.vcxproj">
       <Project>{e667483d-aa8e-4e75-8b33-142c3f8811dd}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Application.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

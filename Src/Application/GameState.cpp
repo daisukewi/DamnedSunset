@@ -53,12 +53,6 @@ namespace Application {
 
 	void CGameState::release() 
 	{
-		Logic::CServer::getSingletonPtr()->unLoadLevel();
-
-		Logic::CEntityFactory::getSingletonPtr()->unloadBluePrints();
-
-		// Liberamos la escena física.
-		Physics::CServer::getSingletonPtr()->destroyScene();
 
 		CApplicationState::release();
 
