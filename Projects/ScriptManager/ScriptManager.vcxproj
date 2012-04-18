@@ -12,12 +12,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AStarRoute.h" />
+    <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AttackEntity.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_Message.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Parser.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Server.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AStarRoute.cpp" />
+    <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AttackEntity.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_Message.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Parser.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Server.cpp" />

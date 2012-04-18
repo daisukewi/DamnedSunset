@@ -35,6 +35,9 @@
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_Message.h">
       <Filter>Classes\Messages\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AttackEntity.h">
+      <Filter>Classes\Messages\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\ScriptManager\Server.cpp">
@@ -47,6 +50,9 @@
       <Filter>Classes\Messages\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_Message.cpp">
+      <Filter>Classes\Messages\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AttackEntity.cpp">
       <Filter>Classes\Messages\Source Files</Filter>
     </ClCompile>
   </ItemGroup>

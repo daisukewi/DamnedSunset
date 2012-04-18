@@ -13,7 +13,9 @@ la gestión de los scripts del juego.
 #include "Server.h"
 
 
+
 #include "ScriptManager\Classes\Messages\LUA_AStarRoute.h"
+#include "ScriptManager\Classes\Messages\LUA_AttackEntity.h"
 
 // Incluímos las cabedceras de Lua.
 // Como es código C (no C++), hay que indicarselo al
@@ -650,10 +652,23 @@ namespace ScriptManager
 				.def("setDestPointX",(void (LUA_MAStarRoute::*) (float)) &LUA_MAStarRoute::setDestPointX)
 				.def("setDestPointY",(void (LUA_MAStarRoute::*) (float)) &LUA_MAStarRoute::setDestPointY)
 				.def("setDestPointZ",(void (LUA_MAStarRoute::*) (float)) &LUA_MAStarRoute::setDestPointZ)
-				.def("setEntityTo",(void (LUA_MAStarRoute::*) (std::string)) &LUA_MAStarRoute::setEntityTo)
-				.def("send",&LUA_MAStarRoute::send)
+				.def("setEntityTo",(void (LUA_MAStarRoute::*) (unsigned int)) &LUA_MAStarRoute::setEntityTo)
+				.def("send",&LUA_MAStarRoute::send)	
 		];
 
+
+		//LUA_MAttackEntity
+
+		luabind::module(CServer::getSingletonPtr()->getLuaState())
+		[
+			luabind::class_<LUA_MAttackEntity>("LUA_MAtackEntity")
+				.def(luabind::constructor<>())
+				.def("setAttack",(void (LUA_MAttackEntity::*) (bool)) &LUA_MAttackEntity::setAttack)
+				.def("setEntity",(void (LUA_MAttackEntity::*) (unsigned int)) &LUA_MAttackEntity::setEntity)
+				.def("setEntityTo",(void (LUA_MAttackEntity::*) (unsigned int)) &LUA_MAttackEntity::setEntityTo)
+				.def("send",&LUA_MAttackEntity::send)	
+				
+		];
 		//---------------------------------------------------------
 	}
 

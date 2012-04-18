@@ -13,7 +13,6 @@ Contiene el tipo de datos de un mensaje.
 #include <string>
 
 
-#include "Logic/Maps/EntityID.h"
 
 namespace ScriptManager
 {
@@ -58,13 +57,13 @@ namespace ScriptManager
 
 		@param entity  entidada a la que va dirigido
 		*/
-		void setEntityTo(Logic::TEntityID entityTo);
+		void setEntityTo(unsigned int entityTo);
 	
 
 		/**
 		Método para obtener la entidad a la que va dirigido el mensaje
 		*/
-		Logic::TEntityID getEntityTo() {return _entityTo; }
+		unsigned int getEntityTo() {return _entityTo; }
 
 
 		/**
@@ -82,7 +81,7 @@ namespace ScriptManager
 		/**
 		Entidad a la que va dirigido el mensaje
 		*/
-		Logic::TEntityID _entityTo;
+		unsigned int _entityTo;
 
 	}; // class IMessage
 

@@ -21,6 +21,8 @@ entre dos puntos del mapa y luego seguirlos con Steering Behaviours.
 
 #include "Logic/Server.h"
 
+#include "Logic/Maps/EntityID.h"
+
 namespace ScriptManager
 {
 
@@ -96,17 +98,14 @@ namespace ScriptManager
 
 	void LUA_MAStarRoute::send()
 	{
-		//assert(_entityTo == Logic::EntityID::UNASSIGNED && "No se ha indicado a que entidad se envía el mensaje");
+		assert(_entityTo == Logic::EntityID::UNASSIGNED && "No se ha indicado a que entidad se envía el mensaje");
 
 		Logic::MAStarRoute *message = new Logic::MAStarRoute();
-
+		
 		message->setAction(Logic::RouteAction::START_ROUTE);
 		message->setRouteDestination(Vector3(_destPointX,_destPointY,_destPointZ));
 	
-		//Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_entityTo)->emitMessage(message);
-
-		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack")->emitMessage(message);
-
+		Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_entityTo)->emitMessage(message);
 
 	} // send
 
