@@ -27,7 +27,12 @@ namespace Logic
 	{
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
-		_distPerSecond = 5;
+
+		if(entityInfo->hasAttribute("afectaEmpujar"))
+			_afectaEmpujar = entityInfo->getIntAttribute("afectaEmpujar");
+		else
+			_afectaEmpujar = 100;
+		_distPerSecond = 5; //Valor por defecto
 
 		return true;
 	} // spawn
@@ -52,7 +57,7 @@ namespace Logic
 		{
 			MSetEmpujarPropiedades *m = static_cast <MSetEmpujarPropiedades*> (message);
 			_direccion = m->getDirection();
-			_time = m->getTime();
+			_time = m->getTime() * _afectaEmpujar / 100.0f;
 			_distPerSecond = m->getDistanciaPorSegundo();
 		}
 	} // process

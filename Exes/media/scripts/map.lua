@@ -171,12 +171,14 @@ Map = {
 		life = 100.0,
 		grid_position = { 15, 14 },
 		type = "Player",
+		afectaEmpujar = 50,
 	},
 
 	Erick = {
 		life = 80.0,
 		grid_position = { 17, 11 },
 		type = "Player",
+		afectaEmpujar = 100,
 	},
 
 	Amor = {
@@ -184,6 +186,7 @@ Map = {
 		grid_position = { 14, 8 },
 		script = "amorScript",
 		type = "Player",
+		afectaEmpujar = 150,
 	},
 
 	Turret1 = {

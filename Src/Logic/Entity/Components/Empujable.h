@@ -29,6 +29,7 @@ namespace Logic
 		float _distPerSecond;
 		Vector3 _direccion;
 		float _time;
+		int _afectaEmpujar;
 	};
 
 	REG_FACTORY(CEmpujable);

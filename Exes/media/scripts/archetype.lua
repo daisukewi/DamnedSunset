@@ -96,6 +96,8 @@ Archetype = {
 		billboardSeleccionMaterial = "circuloSeleccion",
 		billboardSeleccionWith = 15.0,
 		billboardSeleccionHeight = 15.0,
+		
+		afectaEmpujar = 100,
 	},
 	
 	Granada = {
@@ -154,6 +156,8 @@ Archetype = {
 		alcanceGranada = 70.0,
 		
 		disableComponent = "CEmpujable",
+		
+		afectaEmpujar = 100,
 	},
 	
 	Waypoint = {
