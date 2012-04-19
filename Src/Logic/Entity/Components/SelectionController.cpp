@@ -32,6 +32,9 @@
 #include "GUI/Server.h"
 #include "GUI/InterfazController.h"
 
+
+#include "ScriptManager/Server.h"
+
 #include <assert.h>
 namespace Logic 
 {
@@ -63,6 +66,9 @@ namespace Logic
 		_godStates[State::HEALING] = new CHealing(this);
 		_godStates[State::LANZANDO_GRANADA] = new CLanzandoGranada(this);
 		_selectedEntity = NULL;
+
+		ScriptManager::CServer::getSingletonPtr()->loadExeScript("goTo");
+		
 		
 		return true;
 	} // activate
@@ -304,10 +310,14 @@ namespace Logic
 
 	void CSelectionController::moveAStar(CEntity* entity, Vector3 point){
 
-		MAStarRoute *m_movement = new MAStarRoute();
+		/*MAStarRoute *m_movement = new MAStarRoute();
 		m_movement->setAction(RouteAction::START_ROUTE);
 		m_movement->setRouteDestination(point);
 		_selectedEntity->emitMessage(m_movement, NULL);
+		*/			
+				
+		ScriptManager::CServer::getSingletonPtr()->executeFunction("goTo",point.x,point.y,point.z,_selectedEntity->getEntityID());
+
 
 	}
 

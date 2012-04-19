@@ -494,6 +494,49 @@ namespace ScriptManager
 
 	//---------------------------------------------------------
 
+	template <class T,class T1, class T2, class T3>
+	bool CServer::executeFunction(const char *subroutineName, const T& param1, const T1& param2,const T2& param3,const T3& param4)
+	{
+		assert(_lua && "No se ha hecho la inicialización de lua");
+
+		// Obtengo la función definida en lua
+		luabind::object func = luabind::globals(_lua)[subroutineName];
+
+		// Compruebo que la función existe y es una función.
+		if (!func.is_valid() || (luabind::type(func) != LUA_TFUNCTION))
+		{
+			showErrorMessage("ERROR DE LUA! - La función \"" + std::string(subroutineName) + "\" que se está intentando ejecutar no existe o es una función.");
+
+			return false;
+		}
+
+		try {
+			// Intento ejecutar la función
+			luabind::object res = func(param1, param2, param3, param4);
+
+			// Hago comprobación de errores para asegurarme de que lo que me ha devuelto la función es correcto.
+			if (!res.is_valid())
+			{
+				showErrorMessage("ERROR DE LUA! - La función \"" + std::string(subroutineName) + "\" no ha devuelto ningún valor o el valor devuelto no es de tipo entero.");
+
+				return false;
+			}
+
+			//result = luabind::object_cast<int>(res);
+			return true;
+
+		} catch (luabind::error &ex) {
+			showErrorMessage("ERROR DE LUA! - Error al ejecutar la función \"" + std::string(subroutineName) + "\". Tipo de error: " + std::string(ex.what()));
+
+			return false;
+		}
+
+		return true;
+		
+	} // executeFunction(4 param)
+
+	//---------------------------------------------------------
+
 	template <class F>
 	void CServer::registerFunction(const char *name, F f)
 	{
@@ -706,6 +749,7 @@ namespace ScriptManager
 
 	template bool CServer::executeProcedure<int>(const char *subroutineName, const int& param1);
 	template bool CServer::executeFunction<int>(const char *subroutineName, const int& param1, int &result);
+	template bool CServer::executeFunction<float, float, float, unsigned int>(const char *subroutineName, const float& param1, const float& param2, const float& param3, const unsigned int& param4 );
 
 	template void CServer::registerFunction<void(*)()>(const char *name, void (*f)());
 

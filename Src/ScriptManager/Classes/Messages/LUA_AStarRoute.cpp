@@ -98,7 +98,7 @@ namespace ScriptManager
 
 	void LUA_MAStarRoute::send()
 	{
-		assert(_entityTo == Logic::EntityID::UNASSIGNED && "No se ha indicado a que entidad se envía el mensaje");
+		//assert(!_entityTo == Logic::EntityID::UNASSIGNED && "No se ha indicado a que entidad se envía el mensaje");
 
 		Logic::MAStarRoute *message = new Logic::MAStarRoute();
 		

@@ -19,6 +19,8 @@ Contiene la implementación de la clase encargada de gestionar el estado PlayerSe
 
 #include "Logic/Entity/Components/SelectionController.h"
 
+#include "ScriptManager/Server.h"
+
 namespace Logic
 {
 
@@ -43,6 +45,7 @@ namespace Logic
 
 				// Dejamos de atacar
 				_selectionController->sendAttackMsg(entity, false);
+				
 				_selectionController->moveAStar(entity, point);
 
 				//Mensaje para que se cree el billboard de movimiento en el mundo
