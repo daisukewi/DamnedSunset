@@ -120,7 +120,7 @@ Map = {
 		physic_type = "static",
 		physic_shape = "box",
 		physic_radius = 1,
-		physic_dimensions = {720.0, 0.1, 720.0},
+		physic_dimensions = {720.0, 0.5, 720.0},
 	},
 
 	Camera = {
