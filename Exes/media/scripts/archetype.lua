@@ -119,6 +119,23 @@ Archetype = {
 		timeEmpujar = 0.3,
 		distEmpujarSeg = 150.0,
 	},
+
+	BolaTeltr = {
+		type = "BolaTeltr",
+		position = {0, 3, 0},
+		orientation = 0,
+		model = "Esfera.mesh",
+		scale = 12.0,
+		physic_entity = "simple",
+		physic_type = "dynamic",
+		physic_shape = "box",
+		physic_dimensions = { 1.0, 1.0, 1.0 },
+		physic_height = 2.0,
+		physic_radius = 0.5,
+		physic_mass = 1,
+		physic_collision_group = 6,
+		distEmpujarSeg = 150.0,
+	},
 	
 	Player = {
 		type = "Player",

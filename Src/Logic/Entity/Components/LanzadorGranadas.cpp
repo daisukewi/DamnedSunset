@@ -54,6 +54,12 @@ namespace Logic
 		{
 			_maxAlcance = entityInfo->getFloatAttribute("alcanceGranada");
 		}
+
+		if(entityInfo->hasAttribute("nombreGranada"))
+		{
+			_nomGranada = entityInfo->getStringAttribute("nombreGranada");
+		}
+
 		return true;
 	} // spawn
 
@@ -97,7 +103,7 @@ namespace Logic
 				Vector3 posDestino3 = Vector3(posDestino.x,4,posDestino.y);
 
 				//Lanzamos la granada a dicha posicion
-				Map::CEntity * entityInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Granada");
+				Map::CEntity * entityInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo(_nomGranada);
 
 				std::stringstream sstm;
 				sstm << "granada" << numGranada;

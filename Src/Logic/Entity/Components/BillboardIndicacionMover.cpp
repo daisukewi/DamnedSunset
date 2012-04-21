@@ -61,7 +61,8 @@ namespace Logic
 		if (!message->getType().compare("MCrearBillboardMovimiento"))
 		{
 			MCrearBillboardMovimiento *m = static_cast <MCrearBillboardMovimiento*> (message);
-			_billboard->setPosition(m->getPosX()-7.5,0.3f,m->getPosY()-7.5);
+			/*_billboard->setPosition(m->getPosX()-7.5,0.3f,m->getPosY()-7.5);*/
+			_billboard->setPosition(m->getPosX(),0.3f,m->getPosY());
 			_billboardVisible = true;
 			_billboard->setVisible(true);
 			_time = _startTime;

@@ -41,6 +41,7 @@ namespace Logic
 		enum EstadoGranada _estadoGranada;
 
 		float _maxAlcance;
+		std::string _nomGranada;
 	};
 
 	REG_FACTORY(CLanzadorGranadas);

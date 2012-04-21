@@ -201,6 +201,7 @@ namespace GUI {
 		_jugadorSel = 2;
 		this->ocultarBotones();
 		this->cargarBoton('1',"martillo");
+		this->cargarBoton('4',"granada");
 	}
 
 	void CInterfazController::menuJugador3() {
@@ -292,6 +293,14 @@ namespace GUI {
 			//Granada
 			Logic::MLanzarGranada *mLanzarGranada = new Logic::MLanzarGranada();
 			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack")->emitMessage(mLanzarGranada);
+			mLanzarGranada = new Logic::MLanzarGranada();
+			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(mLanzarGranada);
+		}
+		if (_jugadorSel == 2)
+		{
+			//Granada
+			Logic::MLanzarGranada *mLanzarGranada = new Logic::MLanzarGranada();
+			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick")->emitMessage(mLanzarGranada);
 			mLanzarGranada = new Logic::MLanzarGranada();
 			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(mLanzarGranada);
 		}

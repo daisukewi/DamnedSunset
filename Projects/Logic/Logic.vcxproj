@@ -81,6 +81,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BillboardIndicacionMover.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BillboardSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BuilderController.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\DetonadorBolaTeltr.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DetonadorGranada.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Empujable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Heal.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\BuilderController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\CameraController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DamageTrigger.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\DetonadorBolaTeltr.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DetonadorGranada.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Empujable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemiesGenerator.h" />
