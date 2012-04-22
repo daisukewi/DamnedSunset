@@ -32,7 +32,7 @@ namespace Graphics
 	{
 		mSceneMgr = sceneMgr;
 		_worldSize = width;
-		_mapSize = _worldSize / 2;
+		_mapSize = 257.0f;
 
 		mTerrainsImported = false;
 
@@ -43,7 +43,7 @@ namespace Graphics
 		printf("Terrain: Creating new terrain.\n");
 		mTerrainGlobals = OGRE_NEW Ogre::TerrainGlobalOptions();
 
-		mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(mSceneMgr, Ogre::Terrain::ALIGN_X_Z, 513, 12000.0f);
+		mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(mSceneMgr, Ogre::Terrain::ALIGN_X_Z, _mapSize, _worldSize);
 		mTerrainGroup->setFilenameConvention(Ogre::String("DamnedSunsetTerrain"), Ogre::String("dat"));
 		mTerrainGroup->setOrigin(Ogre::Vector3::ZERO);
 
@@ -165,8 +165,8 @@ namespace Graphics
 
 		// Configure default import settings for if we use imported image
 		Ogre::Terrain::ImportData& defaultimp = mTerrainGroup->getDefaultImportSettings();
-		defaultimp.terrainSize = 513;
-		defaultimp.worldSize = 12000.0f;
+		defaultimp.terrainSize = _mapSize;
+		defaultimp.worldSize = _worldSize;
 		defaultimp.inputScale = 600;
 		defaultimp.minBatchSize = 33;
 		defaultimp.maxBatchSize = 65;
