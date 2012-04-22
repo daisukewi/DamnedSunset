@@ -82,11 +82,9 @@
     <None Include="Damned Sunset.ico">
       <Filter>Resource Files</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Galeon.ico">
+    <None Include="Galeon.ico">
       <Filter>Resource Files</Filter>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Application.rc">

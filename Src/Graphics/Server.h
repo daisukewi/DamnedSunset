@@ -205,10 +205,11 @@ namespace Graphics
 		Genera un nuevo terreno en el mapa con las dimensiones pasadas
 		como parámetro.
 
+		@param scene Escena donde se pondrá el terreno generado.
 		@param height altura del terreno.
 		@param width anchura del terreno.
 		*/
-		CTerrain* generateTerrain(int width, int height);
+		CTerrain* generateTerrain(CScene* scene, int width, int height);
 
 		/**Obtener el rayo que es necesario lanzar al hacer un raicast con las coordenadas del ratón
 		

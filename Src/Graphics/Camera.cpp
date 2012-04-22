@@ -21,6 +21,7 @@ Contiene la implementación de la clase que maneja la cámara.
 
 #include <assert.h>
 
+#include <OgreRoot.h>
 #include <OgreCamera.h>
 #include <OgreSceneNode.h>
 #include <OgreSceneManager.h>
@@ -50,8 +51,12 @@ namespace Graphics
 		_camera = scene->getSceneMgr()->createCamera(name + "_camera");
 		//HACK: Valores cableados de las distancias para reenderizar. 
 		// Deberían poder configurarse.
-		_camera->setNearClipDistance(5);
-		_camera->setFarClipDistance(500);
+		_camera->setNearClipDistance(0.1);
+		_camera->setFarClipDistance(50000);
+		if (BaseSubsystems::CServer::getSingletonPtr()->getOgreRoot()->getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_INFINITE_FAR_PLANE))
+		{
+			_camera->setFarClipDistance(0);   // enable infinite far clip distance if we can
+		}
 		// Finalmente adjuntamos la cámara a su nodo.
 		_cameraNode->attachObject (_camera);
 

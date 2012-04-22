@@ -35,7 +35,7 @@ namespace Graphics
 			_staticGeometry(0), _directionalLight(0)
 	{
 		_root = BaseSubsystems::CServer::getSingletonPtr()->getOgreRoot();
-		_sceneMgr = _root->createSceneManager(Ogre::ST_INTERIOR, name);
+		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, name);
 		_camera = new CCamera(name,this);
 		_name = name;
 

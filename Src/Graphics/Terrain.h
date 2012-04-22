@@ -17,6 +17,7 @@ Contiene la declaración de la clase que define un terreno.
 #define __Graphics_Terrain_H
 
 #include <list>
+#include <OgrePrerequisites.h>
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Ogre 
@@ -41,13 +42,15 @@ namespace Graphics
 	class CTerrain 
 	{
 	public:
-		CTerrain();
+		CTerrain(Ogre::SceneManager* sceneMgr, int width, int height);
 		~CTerrain();
 
 	private:
 		Ogre::TerrainGlobalOptions* mTerrainGlobals;
 		Ogre::TerrainGroup* mTerrainGroup;
 		Ogre::SceneManager* mSceneMgr;
+		Ogre::Root* mRoot;
+		Ogre::Real _mapSize, _worldSize;
 		bool mTerrainsImported;
 
 		void defineTerrain(long x, long y);

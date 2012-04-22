@@ -225,9 +225,9 @@ namespace Graphics
 
 	//--------------------------------------------------------
 
-	CTerrain* CServer::generateTerrain(int width, int height)
+	CTerrain* CServer::generateTerrain(CScene* scene, int width, int height)
 	{
-		CTerrain* terrain = new CTerrain();
+		CTerrain* terrain = new CTerrain(scene->getSceneMgr(), width, height);
 		return terrain;
 
 	} // generateTerrain
@@ -249,22 +249,19 @@ namespace Graphics
 
 	//--------------------------------------------------------
 
-	Ray CServer::getCameraToViewportRay(float screenx, float screeny){
-	
-		if (_activeScene){
+	Ray CServer::getCameraToViewportRay(float screenx, float screeny)
+	{
+		if (_activeScene)
+		{
 			Graphics::CCamera* camera =  _activeScene->getCamera();
 			Ray mouseRay = camera->getCamera()->getCameraToViewportRay(screenx,screeny);
-		return mouseRay;
+			return mouseRay;
 		}
-		
-
-		
 		
 	} //getCameraToViewportRay
 
-	void CServer::createParticleEffect(std::string &effect, Vector3 &point){
-
-
+	void CServer::createParticleEffect(std::string &effect, Vector3 &point)
+	{
 		assert(!_particleNode[_countParticles] && "No existe espacio para crear más efectos de partículas.");
 
 		std::stringstream auxString1;
@@ -286,26 +283,20 @@ namespace Graphics
 			_countParticles = 0;
 
 		BaseSubsystems::CServer::getSingletonPtr()->addClockListener(5000, this);
-
-
 	}
 
 	void CServer::timeElapsed()
 	{
-		
 		_particleNode[_particleToDelete]->detachAllObjects();
 		_activeScene->getSceneMgr()->destroySceneNode(_particleNode[_particleToDelete]);
 		_particleNode[_particleToDelete] = 0;
 
-
 		_activeScene->getSceneMgr()->destroyParticleSystem(_particleSystem[_particleToDelete]);
 		_particleSystem[_particleToDelete] = 0;
-
 
 		_particleToDelete++;
 		if (_particleToDelete == _numParticles)
 			_particleToDelete = 0;
-
 	}
 
 } // namespace Graphics

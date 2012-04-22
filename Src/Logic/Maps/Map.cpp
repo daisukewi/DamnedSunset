@@ -81,7 +81,7 @@ namespace Logic {
 			}
 		
 		// @TODO crear el terreno con la info de las casillas del Grid.
-		//map->createTerrain(height, width);
+		map->createTerrain(height * grid_size, width * grid_size);
 
 		Map::CMapParser::TEntityList::const_iterator it, end;
 		it = entityList.begin();
@@ -123,6 +123,9 @@ namespace Logic {
 	CMap::~CMap()
 	{
 		destroyAllEntities();
+
+		if (_terrain)
+			delete(_terrain);
 
 		AI::CServer::getSingletonPtr()->getNavigationMap()->setGridMap(NULL);
 		delete(_gridMap);
@@ -307,7 +310,7 @@ namespace Logic {
 
 	void CMap::createTerrain(int width, int height)
 	{
-		_terrain = Graphics::CServer::getSingletonPtr()->generateTerrain(width, height);
+		_terrain = Graphics::CServer::getSingletonPtr()->generateTerrain(_scene, width, height);
 
 	} // generateTerrain
 
