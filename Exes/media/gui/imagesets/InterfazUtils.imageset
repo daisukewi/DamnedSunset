@@ -19,6 +19,10 @@
   <Image Name="jeringa" XPos="400" YPos="5" Width="100" Height="100" />
   <Image Name="jeringa2" XPos="400" YPos="105" Width="100" Height="100" />
   <Image Name="jeringa3" XPos="400" YPos="205" Width="100" Height="100" />
+
+  <Image Name="bolazul" XPos="500" YPos="5" Width="100" Height="100" />
+  <Image Name="bolazul2" XPos="500" YPos="105" Width="100" Height="100" />
+  <Image Name="bolazul3" XPos="500" YPos="205" Width="100" Height="100" />
 	
 	<Image Name="volver" XPos="300" YPos="5" Width="100" Height="100" />
 	<Image Name="volver2" XPos="300" YPos="105" Width="100" Height="100" />

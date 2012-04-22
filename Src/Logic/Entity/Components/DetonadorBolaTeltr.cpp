@@ -31,9 +31,6 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 
-		if(entityInfo->hasAttribute("distEmpujarSeg"))
-			_distEmpujarSeg = entityInfo->getFloatAttribute("distEmpujarSeg");
-
 		BaseSubsystems::CServer::getSingletonPtr()->addClockListener(2000, this);
 		return true;
 	} // spawn
@@ -86,7 +83,7 @@ namespace Logic
 
 		//Envío del mensaje al componente que se encarga de reproducir los sonidos
 		MSoundEffect *rc2_message = new MSoundEffect();
-		rc2_message->setSoundEffect("media/sounds/rocket_explosion.wav");
+		rc2_message->setSoundEffect("media/sounds/teletransporte.mp3");
 		_entity->emitInstantMessage(rc2_message,this);
 
 
@@ -101,7 +98,8 @@ namespace Logic
 
 			//Enviamos mensaje de teletransporte a la entidad
 			MTeletransportTo *mTrans = new MTeletransportTo();
-			mTrans->setPosition(Vector3(i, 1, 1));
+			//mTrans->setPosition(entidad->getPosition() + Vector3(0, 10, 0));
+			mTrans->setPosition( Vector3 ( rand() % 200 - 100, 5.0f, rand() % 200 - 100));
 			entidad->emitMessage(mTrans, this);
 
 			printf("TELETRANSPORTE REALIZADO");

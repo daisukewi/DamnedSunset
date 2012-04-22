@@ -40,8 +40,6 @@ namespace Logic
 		Entidades que estan en el rango de la granada
 		*/
 		std::list<CEntity*> _entidades;
-
-		float _distEmpujarSeg;
 	};
 
 	REG_FACTORY(CDetonadorBolaTeltr);
