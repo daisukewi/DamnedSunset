@@ -78,7 +78,7 @@ namespace Logic
 		//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
 		MParticleEffect *rc_message = new MParticleEffect();
 		rc_message->setPoint(_entity->getPosition());
-		rc_message->setEffect("Explosion");
+		rc_message->setEffect("Spiral");
 		_entity->emitInstantMessage(rc_message,this);
 
 		//Envío del mensaje al componente que se encarga de reproducir los sonidos
