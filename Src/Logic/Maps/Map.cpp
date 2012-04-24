@@ -12,6 +12,7 @@ Contiene la implementación de la clase CMap, Un mapa lógico.
 #include "Map.h"
 
 #include "Logic/Entity/Entity.h"
+#include "Logic/Maps/TerrainTile.h"
 #include "EntityFactory.h"
 #include "GridMap.h"
 
@@ -74,14 +75,10 @@ namespace Logic {
 		}
 
 		// @TODO Rellenar las casillas de tipo Grid del mapa con la info de tileMatrix
-		for (int row = 0; row < height; ++row)
-			for (int col = 0; col < width; ++col)
-			{
-				//map->getGridMap->getTileFromCoord(row, col)->FillData(tileMatrix[row][col]);
-			}
-		
+		map->getGridMap()->FillTileData(&tileMatrix);
+
 		// @TODO crear el terreno con la info de las casillas del Grid.
-		map->createTerrain(height * grid_size, width * grid_size);
+		map->createTerrain(height * grid_size);
 
 		Map::CMapParser::TEntityList::const_iterator it, end;
 		it = entityList.begin();
@@ -95,10 +92,14 @@ namespace Logic {
 			{
 				if (!entityFactory->createEntity((*it),map)) 
 				{
-				
+					CTerrainTile* terrain_tile = new CTerrainTile((*it)->getType());
+					terrain_tile->FillData(*it);
+					
 				}
 			}
 		}
+
+		// @TODO cocinar el gridMap para que recoja las celdas ocupadas por el terreno abrupto.
 
 		return map;
 
@@ -308,10 +309,18 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	void CMap::createTerrain(int width, int height)
+	void CMap::createTerrain(int mapSize)
 	{
-		_terrain = Graphics::CServer::getSingletonPtr()->generateTerrain(_scene, width, height);
+		//@TODO: generate terrain with the terrainList info.
+		_terrain = Graphics::CServer::getSingletonPtr()->generateTerrain(_scene, mapSize);
 
 	} // generateTerrain
+
+	//--------------------------------------------------------
+
+	void CMap::addTerrainTile(CTerrainTile* terrain_tile)
+	{
+		_terrainList.push_back(terrain_tile);
+	}
 
 } // namespace Logic

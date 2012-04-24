@@ -206,10 +206,9 @@ namespace Graphics
 		como parámetro.
 
 		@param scene Escena donde se pondrá el terreno generado.
-		@param height altura del terreno.
-		@param width anchura del terreno.
+		@param terrainSize tamaño del terreno que se quiere generar.
 		*/
-		CTerrain* generateTerrain(CScene* scene, int width, int height);
+		CTerrain* generateTerrain(CScene* scene, int terrainSize);
 
 		/**Obtener el rayo que es necesario lanzar al hacer un raicast con las coordenadas del ratón
 		

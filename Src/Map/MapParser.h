@@ -47,6 +47,21 @@ namespace Map {
 	public:
 
 		/**
+		Tipo lista de entidades de mapa.
+		*/
+		typedef std::list<Map::CEntity*> TEntityList;
+
+		/**
+		Tipo casilla del mapa.
+		*/
+		typedef Map::CTile* TTile;
+
+		/**
+		Tipo matriz de tiles del mapa.
+		*/
+		typedef TTile** TTileMatrix;
+
+		/**
 		Devuelve la única instancia de la clase CMapParser.
 		
 		@return Única instancia de la clase CMapParser.
@@ -73,21 +88,6 @@ namespace Map {
 		@return true si el parseo fue satisfactorio.
 		*/
 		bool parseFile(const std::string& mapFilename, const std::string& archFilename);
-
-		/**
-		Tipo lista de entidades de mapa.
-		*/
-		typedef std::list<Map::CEntity*> TEntityList;
-
-		/**
-		Tipo casilla del mapa.
-		*/
-		typedef Map::CTile* TTile;
-
-		/**
-		Tipo matriz de tiles del mapa.
-		*/
-		typedef TTile** TTileMatrix;
 
 		/**
 		Devuelve el listado de las entidades leidas del mapa.

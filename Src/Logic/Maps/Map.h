@@ -22,6 +22,7 @@ Contiene la declaración de la clase CMap, Un mapa lógico.
 namespace Logic 
 {
 	class CEntity;
+	class CTerrainTile;
 }
 
 namespace Graphics 
@@ -162,10 +163,16 @@ namespace Logic
 		Crea un nuevo terreno en el mapa con las dimensiones pasadas
 		como parámetro.
 
-		@param height altura del terreno.
-		@param width anchura del terreno.
+		@param mapSize tamaño del mapa donde se generará el terreno (M x N)
 		*/
-		void createTerrain(int width, int height);
+		void createTerrain(int mapSize);
+
+		/**
+		Añade un nuevo tipo de terreno a la lista de tiles de terreno del mapa.
+
+		@param terrain_tile nuevo tipo de terrenopara añadir a la lista.
+		*/
+		void addTerrainTile (CTerrainTile* terrain_tile);
 
 		/**
 		Devuelve la escena gráfica correspondiente a este mapa.
@@ -213,6 +220,11 @@ namespace Logic
 		Grid de tiles donde se almacena el mapa lógico del escenario.
 		*/
 		CGridMap* _gridMap;
+
+		/**
+		Lista con los diferentes terrenos que contiene el mapa.
+		*/
+		std::list<CTerrainTile*> _terrainList;
 
 	}; // class CMap
 

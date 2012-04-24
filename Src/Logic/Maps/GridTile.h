@@ -42,17 +42,17 @@ namespace Logic
 		/**
 		Devuelve la fila en la que se encuentra la casilla dentro de la tabla.
 		*/
-		unsigned int GetRow() { return _row; }
+		unsigned int GetRow();
 
 		/**
 		Devuelve la columna en la que se encuentra la casilla dentro de la tabla.
 		*/
-		unsigned int GetCol() { return _col; }
+		unsigned int GetCol();
 
 		/**
 		Pone el tipo de terreno de la casilla.
 		*/
-		void SetTerrain(int terrainType) { _terrain = terrainType; }
+		void SetTerrain(int terrainType);
 
 		/**
 		Obtiene el tipo de terreno de la casilla.
@@ -62,19 +62,19 @@ namespace Logic
 		/**
 		Establece el edificio que se encuentra en la casilla.
 		*/
-		void SetBuilding(CEntity* building) { _building = building; }
+		void SetBuilding(CEntity* building);
 
 		/**
 		Elimina el edificio que tiene la casilla.
 		*/
-		void DeleteBuilding() { _building = NULL; }
+		void DeleteBuilding();
 
 		/**
 		Obtiene el edificio que se encuentra en la casilla.
 
 		Devuelve NULL si no hay edificio.
 		*/
-		CEntity* GetBuilding() { return _building; }
+		CEntity* GetBuilding();
 
 		/**
 		Indica si la casilla está ocupada por un edificio o tiene
@@ -83,21 +83,21 @@ namespace Logic
 		@return true Si hay un edificio construido, o cuando hay una unidad
 		en la casilla.
 		*/
-		bool IsPopulated() { return _building != NULL; }
+		bool IsPopulated();
 
 		/**
 		Añade una nueva entidad a la casilla.
 		NOT IMPLEMENTED
 		*/
-		void AddUnit(CEntity* entity) { /*_entityList.insert(std::pair<TEntityID, CEntity*>(entity->getEntityID(), entity));*/ }
+		void AddUnit(CEntity* entity);
 
 		/**
 		Elimina una entidad de la casilla.
 		NOT IMPLEMENTED
 		*/
-		void DeleteUnit(CEntity* entity) { /*_entityList.erase(entity->getEntityID());*/ }
+		void DeleteUnit(CEntity* entity);
 
-		void FillData(){} //Map::CMapParser::TTileMatrix tileMatrix){}
+		void FillData();
 
 	private:
 

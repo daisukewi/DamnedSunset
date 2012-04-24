@@ -16,6 +16,8 @@ Contiene la implementación de la clase CGridMap, Un mapa de celdas lógico.
 #include "Logic/Entity/Entity.h"
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
+#include "Map/MapTile.h"
+#include "Map/MapParser.h"
 
 
 namespace Logic {
@@ -257,6 +259,17 @@ namespace Logic {
 				Logic::CEntityFactory::getSingletonPtr()->createEntity(waypointInfo, _map);
 			}
 		}
+	}
+
+	void CGridMap::FillTileData( Map::CMapParser::TTileMatrix* tileMatrix )
+	{
+		//throw std::exception("The method or operation is not implemented.");
+		for (int row = 0; row < _nMapRows; ++row)
+			for (int col = 0; col < _nMapCols; ++col)
+			{
+				//@TODO: Pregunta!! Todas las "Tiles" de tileMatrix que son iguales, apuntan al mismo objeto?
+				tileMatrix[row][col];
+			}
 	}
 
 

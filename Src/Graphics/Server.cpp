@@ -225,9 +225,9 @@ namespace Graphics
 
 	//--------------------------------------------------------
 
-	CTerrain* CServer::generateTerrain(CScene* scene, int width, int height)
+	CTerrain* CServer::generateTerrain(CScene* scene, int terrainSize)
 	{
-		CTerrain* terrain = new CTerrain(scene->getSceneMgr(), width, height);
+		CTerrain* terrain = new CTerrain(scene->getSceneMgr(), terrainSize);
 		return terrain;
 
 	} // generateTerrain
