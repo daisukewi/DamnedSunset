@@ -42,7 +42,7 @@ namespace Graphics
 	class CTerrain 
 	{
 	public:
-		CTerrain(Ogre::SceneManager* sceneMgr, int width, int height);
+		CTerrain(Ogre::SceneManager* sceneMgr, int terrainSize);
 		~CTerrain();
 
 	private:
@@ -56,6 +56,7 @@ namespace Graphics
 		void defineTerrain(long x, long y);
 		void initBlendMaps(Ogre::Terrain* terrain);
 		void configureTerrainDefaults();
+		
 
 
 	}; // class CTerrain

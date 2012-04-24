@@ -28,10 +28,10 @@ Contiene la implementación de la clase que define un terreno
 
 namespace Graphics 
 {
-	CTerrain::CTerrain(Ogre::SceneManager* sceneMgr, int width, int height)
+	CTerrain::CTerrain(Ogre::SceneManager* sceneMgr, int terrainSize)
 	{
 		mSceneMgr = sceneMgr;
-		_worldSize = width;
+		_worldSize = terrainSize;
 		_mapSize = 257.0f;
 
 		mTerrainsImported = false;
@@ -69,6 +69,9 @@ namespace Graphics
 
 		mTerrainGroup->freeTemporaryResources();
 
+		while (mTerrainGroup->isDerivedDataUpdateInProgress());
+		mTerrainGroup->saveAllTerrains(true);
+
 	} // CTerrain
 
 	//--------------------------------------------------------
@@ -97,6 +100,7 @@ namespace Graphics
 	{
 		//std::cout << "Terrain: Defining terrain for x: " << x << " & y: " << y;
 		Ogre::String filename = mTerrainGroup->generateFilename(x, y);
+
 		if (Ogre::ResourceGroupManager::getSingleton().resourceExists(mTerrainGroup->getResourceGroup(), filename))
 		{
 			printf("Terrain: coordinate data loaded from file.\n");
