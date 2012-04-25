@@ -32,6 +32,8 @@ de juego. Es una colección de componentes.
 #include <string>
 #include <sstream>
 
+#include "ScriptManager/Server.h"
+
 namespace Logic 
 {
 	CEntity::CEntity(TEntityID entityID) : _entityID(entityID), 
@@ -186,12 +188,23 @@ namespace Logic
 			if ((*it)->isActive())
 				_activated = (*it)->activate() && _activated;
 		}
-			
+	
+		//Inicializar las tablas en LUA en las que se encontrará toda la información de las entidadades enemigo y jugador para 
+		//su consulta
+		if (!_type.compare("Player") || !_type.compare("Enemy"))
+		{
+			//Crear la tabla
+			std::string auxScript;
+			std::stringstream auxID;
+			auxID << this->getEntityID();
+			auxScript = "table" + auxID.str()+ "={ life=0, posx=0, posy=0, posz=0}";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(auxScript.c_str());
+		}
 
 
 		return _activated;
 
-	} // activate
+	} // activaet
 
 	//---------------------------------------------------------
 
