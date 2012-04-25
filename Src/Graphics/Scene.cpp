@@ -18,6 +18,9 @@ de una escena.
 #include "Camera.h"
 #include "Server.h"
 #include "StaticEntity.h"
+#include "Terrain.h"
+
+#include "Logic/Maps/TerrainTile.h"
 #include "BaseSubsystems/Server.h"
 
 #include <assert.h>
@@ -32,7 +35,7 @@ de una escena.
 namespace Graphics 
 {
 	CScene::CScene(const std::string& name) : _viewport(0), 
-			_staticGeometry(0), _directionalLight(0)
+			_staticGeometry(0), _directionalLight(0), _terrain(0)
 	{
 		_root = BaseSubsystems::CServer::getSingletonPtr()->getOgreRoot();
 		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, name);
@@ -46,6 +49,10 @@ namespace Graphics
 	CScene::~CScene() 
 	{
 		deactivate();
+
+		if (_terrain)
+			delete _terrain;
+
 		_sceneMgr->destroyStaticGeometry(_staticGeometry);
 		delete _camera;
 		_root->destroySceneManager(_sceneMgr);
@@ -150,6 +157,7 @@ namespace Graphics
 	void CScene::setLightDirection(const float x, const float y, const float z)
 	{
 		_directionalLight->setDirection(x, y, z);
+
 	} // setLightDirection
 
 	//--------------------------------------------------------
@@ -157,7 +165,21 @@ namespace Graphics
 	void CScene::setAmbientLight(const float r, const float g, const float b)
 	{
 		_sceneMgr->setAmbientLight(Ogre::ColourValue(r, g, b));
+
 	} // setAmbientLight
+
+	//--------------------------------------------------------
+
+	CTerrain* CScene::generateTerrain(std::list<Logic::CTerrainTile*>* terrainList, int terrainSize)
+	{
+		if (_terrain)
+			delete(_terrain);
+
+		_terrain = new CTerrain(_sceneMgr, terrainList, terrainSize);
+
+		return _terrain;
+
+	} // generateTerrain
 
 	//--------------------------------------------------------
 

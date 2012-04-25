@@ -263,11 +263,10 @@ namespace Logic {
 
 	void CGridMap::FillTileData( Map::CMapParser::TTileMatrix* tileMatrix )
 	{
-		//throw std::exception("The method or operation is not implemented.");
 		for (int row = 0; row < _nMapRows; ++row)
 			for (int col = 0; col < _nMapCols; ++col)
 			{
-				//@TODO: Pregunta!! Todas las "Tiles" de tileMatrix que son iguales, apuntan al mismo objeto?
+				//@TODO: Pregunta!! Todas las "Tiles" de tileMatrix que son iguales, apuntan al mismo objeto? -No
 				tileMatrix[row][col];
 			}
 	}

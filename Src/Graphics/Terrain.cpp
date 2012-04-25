@@ -25,27 +25,28 @@ Contiene la implementación de la clase que define un terreno
 
 #include <stdio.h>
 
+#include "Logic/Maps/TerrainTile.h"
 
 namespace Graphics 
 {
-	CTerrain::CTerrain(Ogre::SceneManager* sceneMgr, int terrainSize)
+	CTerrain::CTerrain(Ogre::SceneManager* sceneMgr, std::list<Logic::CTerrainTile*>* terrainList, int terrainSize)
 	{
-		mSceneMgr = sceneMgr;
+		_sceneMgr = sceneMgr;
 		_worldSize = terrainSize;
 		_mapSize = 257.0f;
 
-		mTerrainsImported = false;
+		_terrainsImported = false;
 
 		Ogre::MaterialManager::getSingleton().setDefaultTextureFiltering(Ogre::TFO_ANISOTROPIC);
 		Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(7);
 
 		// TerrainSystem initialization..
 		printf("Terrain: Creating new terrain.\n");
-		mTerrainGlobals = OGRE_NEW Ogre::TerrainGlobalOptions();
+		_terrainGlobals = OGRE_NEW Ogre::TerrainGlobalOptions();
 
-		mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(mSceneMgr, Ogre::Terrain::ALIGN_X_Z, _mapSize, _worldSize);
-		mTerrainGroup->setFilenameConvention(Ogre::String("DamnedSunsetTerrain"), Ogre::String("dat"));
-		mTerrainGroup->setOrigin(Ogre::Vector3::ZERO);
+		_terrainGroup = OGRE_NEW Ogre::TerrainGroup(_sceneMgr, Ogre::Terrain::ALIGN_X_Z, _mapSize, _worldSize);
+		_terrainGroup->setFilenameConvention(Ogre::String("DamnedSunsetTerrain"), Ogre::String("dat"));
+		_terrainGroup->setOrigin(Ogre::Vector3::ZERO);
 
 		configureTerrainDefaults();
 
@@ -54,12 +55,12 @@ namespace Graphics
 				defineTerrain(x, y);
 
 		// sync load since we want everything in place when we start
-		mTerrainGroup->loadAllTerrains(true);
+		_terrainGroup->loadAllTerrains(true);
 
-		if (mTerrainsImported)
+		if (_terrainsImported)
 		{
 			printf("Terrain: terrain imported, blending it.\n");
-			Ogre::TerrainGroup::TerrainIterator ti = mTerrainGroup->getTerrainIterator();
+			Ogre::TerrainGroup::TerrainIterator ti = _terrainGroup->getTerrainIterator();
 			while(ti.hasMoreElements())
 			{
 				Ogre::Terrain* t = ti.getNext()->instance;
@@ -67,10 +68,10 @@ namespace Graphics
 			}
 		}
 
-		mTerrainGroup->freeTemporaryResources();
+		_terrainGroup->freeTemporaryResources();
 
-		while (mTerrainGroup->isDerivedDataUpdateInProgress());
-		mTerrainGroup->saveAllTerrains(true);
+		while (_terrainGroup->isDerivedDataUpdateInProgress());
+		_terrainGroup->saveAllTerrains(true);
 
 	} // CTerrain
 
@@ -78,8 +79,8 @@ namespace Graphics
 
 	CTerrain::~CTerrain()
 	{
-		OGRE_DELETE mTerrainGroup;
-		OGRE_DELETE mTerrainGlobals;
+		OGRE_DELETE _terrainGroup;
+		OGRE_DELETE _terrainGlobals;
 
 	} // ~CTerrain
 
@@ -99,20 +100,21 @@ namespace Graphics
 	void CTerrain::defineTerrain(long x, long y)
 	{
 		//std::cout << "Terrain: Defining terrain for x: " << x << " & y: " << y;
-		Ogre::String filename = mTerrainGroup->generateFilename(x, y);
+		Ogre::String filename = _terrainGroup->generateFilename(x, y);
 
-		if (Ogre::ResourceGroupManager::getSingleton().resourceExists(mTerrainGroup->getResourceGroup(), filename))
+		if (Ogre::ResourceGroupManager::getSingleton().resourceExists(_terrainGroup->getResourceGroup(), filename))
 		{
 			printf("Terrain: coordinate data loaded from file.\n");
-			mTerrainGroup->defineTerrain(x, y);
+			_terrainGroup->defineTerrain(x, y);
 		}
 		else
 		{
+			//@TODO: Cuando esté en release mostrar un error en vez de generar el terreno.
 			printf("Terrain: Generating a new terrain in that coord.\n");
 			Ogre::Image img;
 			getTerrainImage(x % 2 != 0, y % 2 != 0, img);
-			mTerrainGroup->defineTerrain(x, y, &img);
-			mTerrainsImported = true;
+			_terrainGroup->defineTerrain(x, y, &img);
+			_terrainsImported = true;
 		}
 	}
 
@@ -158,17 +160,17 @@ namespace Graphics
 		printf("Terrain: Configuring terrain parameters.\n");
 
 		// Configure global
-		mTerrainGlobals->setMaxPixelError(8);
+		_terrainGlobals->setMaxPixelError(8);
 		// testing composite map
-		mTerrainGlobals->setCompositeMapDistance(3000);
+		_terrainGlobals->setCompositeMapDistance(3000);
 
 		// Important to set these so that the terrain knows what to use for derived (non-realtime) data
-		mTerrainGlobals->setLightMapDirection(Vector3(0.55, -0.3, 0.75));
-		mTerrainGlobals->setCompositeMapAmbient(Ogre::ColourValue(0.2, 0.2, 0.2));
-		mTerrainGlobals->setCompositeMapDiffuse(Ogre::ColourValue::White);
+		_terrainGlobals->setLightMapDirection(Vector3(0.55, -0.3, 0.75));
+		_terrainGlobals->setCompositeMapAmbient(Ogre::ColourValue(0.2, 0.2, 0.2));
+		_terrainGlobals->setCompositeMapDiffuse(Ogre::ColourValue::White);
 
 		// Configure default import settings for if we use imported image
-		Ogre::Terrain::ImportData& defaultimp = mTerrainGroup->getDefaultImportSettings();
+		Ogre::Terrain::ImportData& defaultimp = _terrainGroup->getDefaultImportSettings();
 		defaultimp.terrainSize = _mapSize;
 		defaultimp.worldSize = _worldSize;
 		defaultimp.inputScale = 600;

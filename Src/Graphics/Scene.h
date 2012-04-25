@@ -36,6 +36,12 @@ namespace Graphics
 	class CEntity;
 	class CStaticEntity;
 	class CBillboard;
+	class CTerrain;
+}
+
+namespace Logic
+{
+	class CTerrainTile;
 }
 
 namespace Graphics 
@@ -150,6 +156,15 @@ namespace Graphics
 		@param valores RGB del nuevo color de la luz ambiental. Desde 0.0 hasta 1.0
 		*/
 		void setAmbientLight(const float r, const float g, const float b);
+
+		/**
+		Genera un nuevo terreno en el mapa con las dimensiones pasadas
+		como parámetro.
+
+		@param terrainList Lista con las diferentes casillas que tiene el mapa.
+		@param terrainSize tamaño del terreno que se quiere generar.
+		*/
+		CTerrain* generateTerrain(std::list<Logic::CTerrainTile*>* terrainList, int terrainSize);
 
 		/**
 		Devuelve el gestor de la escena de Ogre
@@ -272,6 +287,11 @@ namespace Graphics
 		ellas se encargarán de mover esta instancia.
 		*/
 		CCamera *_camera;
+
+		/**
+		Terreno del nivel actual del juego.
+		*/
+		Graphics::CTerrain* _terrain;
 
 		/**
 		Tipos para la lista de entidades.

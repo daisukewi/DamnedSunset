@@ -30,6 +30,11 @@ namespace Ogre
 	class SceneManager;
 }
 
+namespace Logic
+{
+	class CTerrainTile;
+}
+
 namespace Graphics 
 {
 	
@@ -42,22 +47,30 @@ namespace Graphics
 	class CTerrain 
 	{
 	public:
-		CTerrain(Ogre::SceneManager* sceneMgr, int terrainSize);
+
+		CTerrain(Ogre::SceneManager* sceneMgr, std::list<Logic::CTerrainTile*>* terrainList, int terrainSize);
+
 		~CTerrain();
 
 	private:
-		Ogre::TerrainGlobalOptions* mTerrainGlobals;
-		Ogre::TerrainGroup* mTerrainGroup;
-		Ogre::SceneManager* mSceneMgr;
-		Ogre::Root* mRoot;
+
+		Ogre::TerrainGlobalOptions* _terrainGlobals;
+
+		Ogre::TerrainGroup* _terrainGroup;
+
+		Ogre::SceneManager* _sceneMgr;
+
+		Ogre::Root* _ogreRoot;
+
 		Ogre::Real _mapSize, _worldSize;
-		bool mTerrainsImported;
+
+		bool _terrainsImported;
 
 		void defineTerrain(long x, long y);
-		void initBlendMaps(Ogre::Terrain* terrain);
-		void configureTerrainDefaults();
-		
 
+		void initBlendMaps(Ogre::Terrain* terrain);
+
+		void configureTerrainDefaults();
 
 	}; // class CTerrain
 

@@ -34,8 +34,8 @@ namespace Ogre
 namespace Graphics 
 {
 	class CScene;
-	class CTerrain;
 }
+
 
 /**
 Namespace con todo lo que se refiere a la parte gráfica. Las diferentes clases
@@ -200,15 +200,6 @@ namespace Graphics
 		escena activa.
 		*/
 		void setScene(const std::string& name);
-
-		/**
-		Genera un nuevo terreno en el mapa con las dimensiones pasadas
-		como parámetro.
-
-		@param scene Escena donde se pondrá el terreno generado.
-		@param terrainSize tamaño del terreno que se quiere generar.
-		*/
-		CTerrain* generateTerrain(CScene* scene, int terrainSize);
 
 		/**Obtener el rayo que es necesario lanzar al hacer un raicast con las coordenadas del ratón
 		

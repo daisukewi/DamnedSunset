@@ -75,10 +75,8 @@ namespace Logic {
 		}
 
 		// @TODO Rellenar las casillas de tipo Grid del mapa con la info de tileMatrix
+		// @TODO cocinar el gridMap para que recoja las celdas ocupadas por el terreno abrupto.
 		map->getGridMap()->FillTileData(&tileMatrix);
-
-		// @TODO crear el terreno con la info de las casillas del Grid.
-		map->createTerrain(height * grid_size);
 
 		Map::CMapParser::TEntityList::const_iterator it, end;
 		it = entityList.begin();
@@ -94,12 +92,12 @@ namespace Logic {
 				{
 					CTerrainTile* terrain_tile = new CTerrainTile((*it)->getType());
 					terrain_tile->FillData(*it);
-					
 				}
 			}
 		}
 
-		// @TODO cocinar el gridMap para que recoja las celdas ocupadas por el terreno abrupto.
+		// Crea el terreno con la info de las casillas del Grid.
+		map->createTerrain(height * grid_size);
 
 		return map;
 
@@ -112,6 +110,7 @@ namespace Logic {
 		_name = name;
 		_scene = Graphics::CServer::getSingletonPtr()->createScene(name);
 		_gridMap = new CGridMap();
+		_terrainList = new std::list<CTerrainTile*>();
 
 		// Se le añade el mapa al servidor de IA para tener una referencia
 		// y poder calcular rutas con A*
@@ -125,11 +124,9 @@ namespace Logic {
 	{
 		destroyAllEntities();
 
-		if (_terrain)
-			delete(_terrain);
-
 		AI::CServer::getSingletonPtr()->getNavigationMap()->setGridMap(NULL);
 		delete(_gridMap);
+		delete(_terrainList);
 
 		if(Graphics::CServer::getSingletonPtr())
 			Graphics::CServer::getSingletonPtr()->removeScene(_scene);
@@ -309,18 +306,17 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	void CMap::createTerrain(int mapSize)
+	void CMap::addTerrainTile(CTerrainTile* terrain_tile)
 	{
-		//@TODO: generate terrain with the terrainList info.
-		_terrain = Graphics::CServer::getSingletonPtr()->generateTerrain(_scene, mapSize);
-
-	} // generateTerrain
+		_terrainList->push_back(terrain_tile);
+	}
 
 	//--------------------------------------------------------
 
-	void CMap::addTerrainTile(CTerrainTile* terrain_tile)
+	void CMap::createTerrain(int mapSize)
 	{
-		_terrainList.push_back(terrain_tile);
-	}
+		_scene->generateTerrain(_terrainList, mapSize);
+
+	} // generateTerrain
 
 } // namespace Logic

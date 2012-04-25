@@ -212,11 +212,6 @@ namespace Logic
 		Graphics::CScene* _scene;
 
 		/**
-		Terreno del nivel actual del juego.
-		*/
-		Graphics::CTerrain* _terrain;
-
-		/**
 		Grid de tiles donde se almacena el mapa lógico del escenario.
 		*/
 		CGridMap* _gridMap;
@@ -224,7 +219,7 @@ namespace Logic
 		/**
 		Lista con los diferentes terrenos que contiene el mapa.
 		*/
-		std::list<CTerrainTile*> _terrainList;
+		std::list<CTerrainTile*>* _terrainList;
 
 	}; // class CMap
 
