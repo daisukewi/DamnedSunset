@@ -44,12 +44,12 @@ public class HeightMapExporter {
 	{
 		PreprocessMap(map, currentPref);
 		
-		int i = 0;
+		int i = _imageHeight * _imageWidth - 1;
 		for (int y = 0; y < _imageHeight; y++)
 			for (int x = 0; x < _imageWidth; x++)
 			{
 				float noise = PerlinNoise(x, y);
-				_fPixels[i++] = (byte) (noise * 255);
+				_fPixels[i--] = (byte) (noise * 255);
 			}
 	}
 	
