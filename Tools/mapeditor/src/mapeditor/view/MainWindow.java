@@ -42,7 +42,7 @@ public class MainWindow implements ComponentListener, WindowListener, Controller
 	private JMenuBar _menu;
 	private JMenu _menuMap, _menuCell, _menuEntity;
 	private JMenuItem _menuNewMap, _menuSaveMap, _menuOpenMap, _menuExportMap, _menuImportMap, _menuNewCellType, _menuNewEntityType, _menuChangeCellParameters, _menuChangeMapParameters;
-	private JFileChooser _fileChooser;
+	private JFileChooser _fileChooser, _exportFileChooser;
 	private PalettePanel _palettePanel;
 	private MapPanel _mapPanel;
 	private InfoPanel _infoPanel;
@@ -53,6 +53,10 @@ public class MainWindow implements ComponentListener, WindowListener, Controller
 		_fileChooser = new JFileChooser(java.lang.System.getProperty("user.dir"));
 		_fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Archivos de mapa", "map"));
 		_fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Archivos de mapa en lua", "lua"));
+		
+		_exportFileChooser = new JFileChooser(java.lang.System.getProperty("user.dir"));
+		_exportFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		_exportFileChooser.setAcceptAllFileFilterUsed(false);
 		
 		_system = system;
 		
@@ -384,12 +388,18 @@ public class MainWindow implements ComponentListener, WindowListener, Controller
 		public void actionPerformed(ActionEvent e) {
 				
 			if (_system.initialized()) {
-				int val = _fileChooser.showSaveDialog(_window);
+				int val = _exportFileChooser.showSaveDialog(_window);
 				
 				if (val == JFileChooser.APPROVE_OPTION)
 				{
-					_system.exportMap(new File(_fileChooser.getSelectedFile().getPath() + ".lua"));
-					_system.exportHeightmapImage(new File(_fileChooser.getSelectedFile().getPath() + ".png"));
+					File currentDir = _exportFileChooser.getSelectedFile();
+					File scriptsDir = new File(currentDir.getAbsolutePath() + "\\Exes\\media\\scripts\\");
+					if (scriptsDir.exists())
+						_system.exportMap(new File(scriptsDir.getAbsolutePath() + "\\map.lua"));
+					
+					File texturesDir = new File(_exportFileChooser.getSelectedFile() + "\\Exes\\media\\materials\\textures\\");
+					if (texturesDir.exists())
+						_system.exportHeightmapImage(new File(texturesDir.getAbsolutePath() + "\\terrain.png"));
 				}
 			}
 			else
