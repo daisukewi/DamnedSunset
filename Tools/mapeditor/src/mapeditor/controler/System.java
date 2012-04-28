@@ -375,6 +375,17 @@ public class System {
 		
 	}
 	
+	public boolean deleteCell() {
+		
+		boolean deleted = _preferences.deleteCell(new ColorCell(_preferences.getColorTypeCell((CellType) _elementSelected), (CellType) _elementSelected));
+		
+		if (deleted)
+			notifyPreferencesChanged();
+		
+		return deleted;
+		
+	}
+	
 	public boolean newEntityType(Color color, String entityType, int height, int width) {
 		
 		boolean inserted = _preferences.newEntityType(new ColorEntity(color, new EntityType(entityType), height, width));
@@ -383,6 +394,17 @@ public class System {
 			notifyPreferencesChanged();
 		
 		return inserted;
+		
+	}
+	
+	public boolean deleteEntity() {
+		
+		boolean deleted = _preferences.deleteEntity(new ColorEntity(_preferences.getColorTypeEntity((EntityType) _elementSelected), (EntityType) _elementSelected, _preferences.getEntityHeight((EntityType) _elementSelected), _preferences.getEntityWidth((EntityType) _elementSelected)));
+		
+		if (deleted)
+			notifyPreferencesChanged();
+		
+		return deleted;
 		
 	}
 	

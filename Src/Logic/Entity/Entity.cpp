@@ -66,6 +66,11 @@ namespace Logic
 		if(entityInfo->hasAttribute("name"))
 			_name = entityInfo->getStringAttribute("name");
 
+		if(entityInfo->hasAttribute("tag"))
+			_tag = entityInfo->getStringAttribute("tag");
+		else
+			_tag = "none";
+
 		if(entityInfo->hasAttribute("position"))
 		{
 			position = entityInfo->getVector3Attribute("position");

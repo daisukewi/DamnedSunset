@@ -48,10 +48,10 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 		
-		_attacking = _moving = !(rand() % 2);
-
+		/*_attacking = _moving = !(rand() % 2);
+		
 		if (_attacking && _entity->activate())
-			attack();
+			attack();*/
 
 		return true;
 
@@ -61,8 +61,8 @@ namespace Logic
 
 	bool CEnemyController::activate()
 	{
-		if (_attacking)
-			attack();
+		/*if (_attacking)
+			attack();*/
 
 		return true;
 	} // activate

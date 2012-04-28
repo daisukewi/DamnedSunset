@@ -41,7 +41,7 @@ public class MainWindow implements ComponentListener, WindowListener, Controller
 	private JScrollPane _mapPanelWrapper;
 	private JMenuBar _menu;
 	private JMenu _menuMap, _menuCell, _menuEntity;
-	private JMenuItem _menuNewMap, _menuSaveMap, _menuOpenMap, _menuExportMap, _menuImportMap, _menuNewCellType, _menuNewEntityType, _menuChangeCellParameters, _menuChangeMapParameters;
+	private JMenuItem _menuNewMap, _menuSaveMap, _menuOpenMap, _menuExportMap, _menuImportMap, _menuNewCellType, _menuNewEntityType, _menuChangeCellParameters, _menuChangeMapParameters, _menuDeleteCell, _menuDeleteEntity;
 	private JFileChooser _fileChooser, _exportFileChooser;
 	private PalettePanel _palettePanel;
 	private MapPanel _mapPanel;
@@ -132,12 +132,22 @@ public class MainWindow implements ComponentListener, WindowListener, Controller
 		_menuChangeCellParameters.setEnabled(false);
 		_menuCell.add(_menuChangeCellParameters);
 		
+		_menuDeleteCell = new JMenuItem("Borrar celda");
+		_menuDeleteCell.addActionListener(new DeleteCell());
+		_menuDeleteCell.setEnabled(false);
+		_menuCell.add(_menuDeleteCell);
+		
 		_menuEntity = new JMenu("Entidad");
 		_menu.add(_menuEntity);
 		
 		_menuNewEntityType = new JMenuItem("Nuevo tipo de entidad");
 		_menuNewEntityType.addActionListener(new NewEntityTypeMenuListener());
 		_menuEntity.add(_menuNewEntityType);
+		
+		_menuDeleteEntity = new JMenuItem("Borrar entidad");
+		_menuDeleteEntity.addActionListener(new DeleteEntity());
+		_menuDeleteEntity.setEnabled(false);
+		_menuEntity.add(_menuDeleteEntity);
 		
 		Dimension d1 = new Dimension(1024, 600);
 		_window.setPreferredSize(d1);
@@ -297,8 +307,22 @@ public class MainWindow implements ComponentListener, WindowListener, Controller
 	public void typeElementSelected(ElementType elementType, int height,
 			int width) {
 		
-		if (elementType instanceof CellType)
+		if (elementType instanceof CellType) {
+			
 			_menuChangeCellParameters.setEnabled(true);
+			_menuDeleteCell.setEnabled(true);
+			
+			_menuDeleteEntity.setEnabled(false);
+			
+		}
+		else if (elementType instanceof EntityType) {
+			
+			_menuChangeCellParameters.setEnabled(false);
+			_menuDeleteCell.setEnabled(false);
+			
+			_menuDeleteEntity.setEnabled(true);
+			
+		}
 		
 	}
 
@@ -306,6 +330,9 @@ public class MainWindow implements ComponentListener, WindowListener, Controller
 	public void typeElementDeSelected() {
 		
 		_menuChangeCellParameters.setEnabled(false);
+		_menuDeleteCell.setEnabled(false);
+		
+		_menuDeleteEntity.setEnabled(false);
 		
 	}
 
@@ -500,6 +527,28 @@ public class MainWindow implements ComponentListener, WindowListener, Controller
 			
 			if (val == JOptionPane.OK_OPTION)
 				_system.setCellParameters(changeCellParametersPanel.getParameters());
+			
+		}
+		
+	}
+	
+	class DeleteCell implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			_system.deleteCell();
+			
+		}
+		
+	}
+	
+	class DeleteEntity implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			_system.deleteEntity();
 			
 		}
 		

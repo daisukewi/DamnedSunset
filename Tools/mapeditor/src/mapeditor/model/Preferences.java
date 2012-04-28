@@ -57,6 +57,12 @@ public class Preferences implements Serializable, ExportableData {
 		
 	}
 	
+	public boolean deleteCell(ColorCell cellType) {
+		
+		return _cellTypes.remove(cellType);
+		
+	}
+	
 	public boolean newEntityType(ColorEntity entityType) {
 		
 		if (_entityTypes.contains(entityType))
@@ -67,6 +73,12 @@ public class Preferences implements Serializable, ExportableData {
 			return true;
 			
 		}
+		
+	}
+	
+	public boolean deleteEntity(ColorEntity entityType) {
+		
+		return _entityTypes.remove(entityType);
 		
 	}
 	

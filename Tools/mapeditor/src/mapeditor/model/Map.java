@@ -434,7 +434,7 @@ public class Map implements Serializable, ExportableData {
 		
 		s = s + "\t\tgrid_map = {\n";
 		
-		for (int y = (_mapHeight - 1); y >= 0; y--) {
+		/*for (int y = (_mapHeight - 1); y >= 0; y--) {
 			
 			s = s + "\t\t\t{ ";
 			
@@ -448,6 +448,22 @@ public class Map implements Serializable, ExportableData {
 			
 			s = s + " },\n";
 			
+		}*/
+		
+		for (int y = 0; y < _mapHeight; y++) {
+		
+		s = s + "\t\t\t{ ";
+		
+		for (int x = 0; x < (_mapWidth - 1); x++) {
+			
+			s = s + "\"" + _map[x][y].getType().getType() + "\"" + ", ";
+			
+		}
+		
+		s = s + "\"" + _map[_mapWidth - 1][y].getType().getType() + "\"";
+		
+		s = s + " },\n";
+		
 		}
 		
 		s = s + "\t\t},\n";

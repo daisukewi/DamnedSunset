@@ -34,7 +34,10 @@ namespace Logic
 			return false;
 
 		if (entityInfo->hasAttribute("script"))
-			ScriptManager::CServer::getSingletonPtr()->loadExeScript(entityInfo->getStringAttribute("script").c_str());
+		{
+			std::string s = entityInfo->getStringAttribute("script");
+			ScriptManager::CServer::getSingletonPtr()->loadExeScript(s.c_str());
+		}
 
 		return true;
 
@@ -53,13 +56,13 @@ namespace Logic
 	void CScript::deactivate()
 	{
 
+
 	} // deactivate
 
 	//---------------------------------------------------------
 
 	bool CScript::accept(IMessage *message)
 	{
-		//return (!message->getType().compare("MCureEntity"));
 		return false;
 
 	} // accept
@@ -68,23 +71,7 @@ namespace Logic
 
 	void CScript::process(IMessage *message)
 	{
-		/*bool m = false;
-		bool b = false;
-		if (!message->getType().compare("MCureEntity"))
-		{
-			ScriptManager::CServer::getSingletonPtr()->initCorutine("hability", "healHability", "result");
 
-			int n = ScriptManager::CServer::getSingletonPtr()->getGlobal("result", 0);
-
-
-
-			ScriptManager::CServer::getSingletonPtr()->setGlobal("numero", 14);
-
-			b = ScriptManager::CServer::getSingletonPtr()->resumeCorutine("hability", "result", "28");
-
-			bool a;
-			m = ScriptManager::CServer::getSingletonPtr()->getGlobal("result", a);
-		}*/
 
 	} // process
 

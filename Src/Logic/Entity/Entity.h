@@ -233,6 +233,13 @@ namespace Logic
 		const std::string &getType() const { return _type; }
 
 		/**
+		Devuelve el tag de la entidad.
+
+		@retrun Tag de la entidad.
+		*/
+		const std::string &getTag() const { return _tag; }
+
+		/**
 		Establece la matriz de transformación de la entidad. Avisa a los 
 		componentes del cambio.
 
@@ -381,6 +388,11 @@ namespace Logic
 		Nombre de la entidad.
 		*/
 		std::string _name;
+
+		/**
+		Tag de la entidad.
+		*/
+		std::string _tag;
 
 		/**
 		Mapa lógico donde está la entidad.

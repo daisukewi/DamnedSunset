@@ -98,9 +98,6 @@ public class PalettePanel extends JPanel implements ControllerListener {
 				
 				if (cellTypeButton.getButton() == null) {
 					
-					/*_labelCells = new JLabel(cellTypeButton.getType().getType());
-					_panelCells.add(_labelCells);*/
-					
 					button = new JButton(cellTypeButton.getType().getType());
 					button.setBackground(_system.getPreferencesColorTypeCell((CellType) cellTypeButton.getType()));
 					button.addActionListener(new ButtonPalette(cellTypeButton.getType()));
@@ -117,9 +114,6 @@ public class PalettePanel extends JPanel implements ControllerListener {
 				
 				if (entityTypeButton.getButton() == null) {
 					
-					/*_labelEntities = new JLabel(entityTypeButton.getType().getType());
-					_panelEntities.add(_labelEntities);*/
-					
 					button = new JButton(entityTypeButton.getType().getType());
 					button.setBackground(_system.getPreferencesColorTypeEntity((EntityType) entityTypeButton.getType()));
 					button.addActionListener(new ButtonPalette(entityTypeButton.getType()));
@@ -135,29 +129,90 @@ public class PalettePanel extends JPanel implements ControllerListener {
 	
 	private void refreshFromPreferences() {
 		
+		Vector<TypeButtonGroup> removeElements;
+		
 		Vector<CellType> cellTypesTemp = _system.getPreferencesCellTypes();
 		
-		TypeButtonGroup tmp;
+		TypeButtonGroup buttonTmp;
 		
+		// Compruebo las celdas nuevas.
 		for (CellType cellType : cellTypesTemp) {
 			
-			tmp = new TypeButtonGroup(cellType, null);
+			buttonTmp = new TypeButtonGroup(cellType, null);
 			
-			if (!_cellTypes.contains(tmp))
-				_cellTypes.add(tmp);
+			if (!_cellTypes.contains(buttonTmp))
+				_cellTypes.add(buttonTmp);
 			
 		}
+		
+		removeElements = new Vector<TypeButtonGroup>();
+		CellType cellTmp;
+		
+		// Compruebo las celdas que ya no existan.
+		for (TypeButtonGroup typeButton : _cellTypes) {
+			
+			cellTmp = new CellType(typeButton.getType().getType());
+			
+			if (!cellTypesTemp.contains(cellTmp))
+				//_cellTypes.remove(typeButton);
+				removeElements.add(typeButton);
+			
+		}
+		
+		// Borro las celdas que ya no existan.
+		if (!removeElements.isEmpty())
+			for (TypeButtonGroup deleteElement : removeElements)
+				_cellTypes.remove(deleteElement);
 		
 		Vector<EntityType> entityTypesTemp = _system.getPreferencesEntityTypes();
 		
+		// Compruebo las entidades nuevas.
 		for (EntityType entityType : entityTypesTemp) {
 			
-			tmp = new TypeButtonGroup(entityType, null);
+			buttonTmp = new TypeButtonGroup(entityType, null);
 			
-			if (!_entityTypes.contains(tmp))
-				_entityTypes.add(tmp);
+			if (!_entityTypes.contains(buttonTmp))
+				_entityTypes.add(buttonTmp);
 			
 		}
+		
+		removeElements = new Vector<TypeButtonGroup>();
+		EntityType entityTmp;
+		
+		// Compruebo las entidades que ya no existan.
+		for (TypeButtonGroup typeButton : _entityTypes) {
+			
+			entityTmp = new EntityType(typeButton.getType().getType());
+			
+			if (!entityTypesTemp.contains(entityTmp))
+				//_cellTypes.remove(typeButton);
+				removeElements.add(typeButton);
+			
+		}
+		
+		// Borro las entidades que ya no existan.
+		if (!removeElements.isEmpty())
+			for (TypeButtonGroup deleteElement : removeElements)
+				_entityTypes.remove(deleteElement);
+		
+		// Como ha habido cambios, limpio los paneles y reinicio las celdas y las entidades para que se vuelvan a pintar.
+		_panelCells.removeAll();
+		_panelCells.add(_labelCells);
+		
+		_labelEmpty = new JLabel(" ");
+		_panelCells.add(_labelEmpty);
+		
+		_panelEntities.removeAll();
+		_panelEntities.add(_labelEntities);
+		
+		_labelEmpty = new JLabel(" ");
+		_panelEntities.add(_labelEmpty);
+		
+		for (TypeButtonGroup cellButton : _cellTypes)
+			cellButton.setButton(null);
+		
+		for (TypeButtonGroup entityButton : _entityTypes)
+			entityButton.setButton(null);
 		
 		repaint();
 		

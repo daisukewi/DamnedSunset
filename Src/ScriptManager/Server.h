@@ -19,12 +19,6 @@ la gestión de los scripts del juego.
 // Estructura con el contexto (estado) del intérprete de Lua.
 struct lua_State;
 
-// Predeclaración de clases
-namespace ScriptManager
-{
-	class ILUAClass;
-}
-
 /**
 Namespace para la gestión de los scripts del juego. Se encarga
 de la carga y lectura de los mismos.

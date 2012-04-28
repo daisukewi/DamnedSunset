@@ -70,6 +70,8 @@ Archetype = {
 
 	Enemy = {
 		type = "Enemy",
+		script = "enemyScript",
+		tag = "enemy",
 		orientation = 0,
 		life = 40.0,
 		maxLife = 100.0,
@@ -139,6 +141,7 @@ Archetype = {
 	
 	Player = {
 		type = "Player",
+		tag = "player",
 		position = {0, 5, 0},
 		orientation = 180,
 		life = 100.0,
