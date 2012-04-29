@@ -1,0 +1,2 @@
+function jackTick(deltaTime)
+end

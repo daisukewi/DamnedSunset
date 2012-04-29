@@ -94,6 +94,18 @@ namespace Logic
 		*/
 		virtual void process(IMessage *message);
 
+	private:
+
+		/**
+		Indica si hay que llamar a una función de lua en el tick o no.
+		*/
+		bool _tickFunction;
+
+		/**
+		Nombre de la función de lua que se llamará en cada tick.
+		*/
+		const char *_luaTickFunction;
+
 	}; // class CScript
 
 	REG_FACTORY(CScript);

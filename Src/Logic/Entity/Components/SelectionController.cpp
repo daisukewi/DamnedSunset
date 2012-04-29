@@ -316,14 +316,15 @@ namespace Logic
 		m_movement->setRouteDestination(point);
 		_selectedEntity->emitMessage(m_movement, NULL);
 		*/			
-				
-		//ScriptManager::CServer::getSingletonPtr()->executeFunction("goTo",point.x,point.y,point.z,_selectedEntity->getEntityID());
+		
 		std::stringstream script;
 		script << "goTo(" << point.x << ", " << point.y << ", " << point.z << ", " << _selectedEntity->getEntityID() << ")";
 		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
 
 	}
+
+	//---------------------------------------------------------
 
 	void CSelectionController::processEntity( Vector3 colPoint, CEntity* colEntity )
 	{

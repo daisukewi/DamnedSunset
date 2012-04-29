@@ -22,6 +22,8 @@ scripts asociados a una entidad.
 #include "Logic/Entity/Messages/CureEntity.h"
 #include "Logic/Entity/Messages/ActivateSkill.h"
 
+#include <sstream>
+
 namespace Logic
 {
 	IMP_FACTORY(CScript);
@@ -35,8 +37,18 @@ namespace Logic
 
 		if (entityInfo->hasAttribute("script"))
 		{
-			std::string s = entityInfo->getStringAttribute("script");
-			ScriptManager::CServer::getSingletonPtr()->loadExeScript(s.c_str());
+			//std::string s = entityInfo->getStringAttribute("script");
+			ScriptManager::CServer::getSingletonPtr()->loadExeScript(entityInfo->getStringAttribute("script").c_str());
+		}
+
+		if (entityInfo->hasAttribute("tickFunction"))
+		{
+			_tickFunction = true;
+			_luaTickFunction = entityInfo->getStringAttribute("tickFunction").c_str();
+		}
+		else
+		{
+			_tickFunction = false;
 		}
 
 		return true;
@@ -80,6 +92,13 @@ namespace Logic
 	void CScript::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
+
+		if (_tickFunction)
+		{
+			std::stringstream script;
+			script << _luaTickFunction << "(" << msecs << ")";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
 
 	} // tick
 
