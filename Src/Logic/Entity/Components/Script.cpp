@@ -47,9 +47,15 @@ namespace Logic
 			_luaTickFunction = entityInfo->getStringAttribute("tickFunction").c_str();
 		}
 		else
-		{
 			_tickFunction = false;
+
+		if (entityInfo->hasAttribute("activateFunction"))
+		{
+			_activateFunction = true;
+			_luaActivateFunction = entityInfo->getStringAttribute("activateFunction").c_str();
 		}
+		else
+			_activateFunction = false;
 
 		return true;
 
@@ -59,6 +65,13 @@ namespace Logic
 
 	bool CScript::activate()
 	{
+		if (_activateFunction)
+		{
+			std::stringstream script;
+			script << _luaActivateFunction << "()";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
+
 		return true;
 
 	} // activate

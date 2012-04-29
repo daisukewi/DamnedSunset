@@ -102,9 +102,19 @@ namespace Logic
 		bool _tickFunction;
 
 		/**
+		Indica si hay que llamar a una función de lua en el activate o no.
+		*/
+		bool _activateFunction;
+
+		/**
 		Nombre de la función de lua que se llamará en cada tick.
 		*/
 		const char *_luaTickFunction;
+
+		/**
+		Nombre de la función de lua que se llamará en el activate.
+		*/
+		const char *_luaActivateFunction;
 
 	}; // class CScript
 

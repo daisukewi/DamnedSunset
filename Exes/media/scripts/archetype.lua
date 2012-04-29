@@ -62,10 +62,17 @@ Archetype = {
 		physic_collision_group = 6,
 	},
 	
+	EnemyMind = {
+		type = "EnemyMind",
+		script = "enemyMindScript",
+		activateFunction = "launchIA",
+	},
+	
 	Enemies = {
 		type = "Enemies",
-		position = {80, 5, -80},
-		periodo = 10000,
+		periodo = 5000,
+		automaticSpawn = false,
+		script = "enemyScript",
 	},
 
 	Enemy = {

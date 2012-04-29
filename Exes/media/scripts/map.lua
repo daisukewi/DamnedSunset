@@ -66,10 +66,10 @@ Map = {
 	PlayerGod = {
 		isPlayer = true,
 		orientation = 225,
-		isTargetCamera = true,
 		southVision = 1000,
-		eastVision = 1000,
+		isTargetCamera = true,
 		northVision = 1000,
+		eastVision = 1000,
 		grid_position = { 29, 0 },
 		westVision = 1000,
 		type = "PlayerGod",
@@ -85,16 +85,16 @@ Map = {
 		grid_position = { 28, 0 },
 		targetHeight = 7,
 		targetName = "PlayerGod",
-		targetDistance = 10,
 		type = "Camera",
+		targetDistance = 10,
 	},
 
 	World = {
 		position = { 0, 0, 0 },
 		orientation = 0,
 		physic_entity = "simple",
-		physic_height = 1,
 		static = true,
+		physic_height = 1,
 		physic_normal = { 0, 1, 0 },
 		type = "World",
 		physic_type = "static",
@@ -105,9 +105,8 @@ Map = {
 
 	Sun = {
 		position = { 0, 10, -100 },
-		orientation = 0,
 		scale = 30.0,
-		model = "esfera.mesh",
+		orientation = 0,
 		speed = 5.0,
 		grid_position = { 28, 29 },
 		inclination = 120.0,
@@ -120,8 +119,8 @@ Map = {
 		grid_position = { 28, 2 },
 		nombreGranada = "Granada",
 		tickFunction = "jackTick",
-		script = "jackScript",
 		type = "Player",
+		script = "jackScript",
 	},
 
 	Erick = {
@@ -136,23 +135,20 @@ Map = {
 		afectaEmpujar = 150,
 		life = 10.0,
 		grid_position = { 27, 1 },
-		script = "amorScript",
 		type = "Player",
+		script = "amorScript",
 	},
 
-	Entity8 = {
-		grid_position = { 27, 5 },
-		type = "Enemy",
+	EnemiesSpawner = {
+		model = "esfera.mesh",
+		grid_position = { 22, 7 },
+		ID = 1,
+		type = "Enemies",
 	},
 
-	Entity9 = {
-		grid_position = { 23, 5 },
-		type = "Enemy",
-	},
-
-	Entity10 = {
-		grid_position = { 23, 1 },
-		type = "Enemy",
+	EnemyMind = {
+		grid_position = { 0, 29 },
+		type = "EnemyMind",
 	},
 
 }

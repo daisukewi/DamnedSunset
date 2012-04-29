@@ -21,6 +21,11 @@ de enemigos en el mapa.
 #include "Graphics/Server.h"
 #include "Graphics/Scene.h"
 
+#include "ScriptManager/Server.h"
+
+#include <stdlib.h>
+#include <sstream>
+
 namespace Logic
 {
 	IMP_FACTORY(CEnemiesGenerator);
@@ -37,6 +42,20 @@ namespace Logic
 
 		if(entityInfo->hasAttribute("periodo"))
 			_periodo = entityInfo->getIntAttribute("periodo");
+
+		if(entityInfo->hasAttribute("automaticSpawn"))
+			_automaticSpawn = entityInfo->getBoolAttribute("automaticSpawn");
+		else
+			_automaticSpawn = false;
+
+		if(entityInfo->hasAttribute("ID"))
+		{
+			std::stringstream script;
+			script << "spawners = { [" << entityInfo->getIntAttribute("ID") << "] = { entityID = " << _entity->getEntityID() << ", }, }";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
+
+		std::srand(time(NULL));
 
 		return true;
 
@@ -60,7 +79,7 @@ namespace Logic
 
 	bool CEnemiesGenerator::accept(IMessage *message)
 	{
-		return false;
+		return !message->getType().compare("MSpawnEnemy");
 
 	} // accept
 	
@@ -68,35 +87,64 @@ namespace Logic
 
 	void CEnemiesGenerator::process(IMessage *message)
 	{
+		if (!message->getType().compare("MSpawnEnemy"))
+			_spawn++;
 
 	} // process
 	
+	//---------------------------------------------------------
+
+	Logic::CEntity* CEnemiesGenerator::spawnEnemy()
+	{
+		Map::CEntity *enemyInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Enemy");
+		std::stringstream name;
+		name << "Enemy" << _enemy;
+		enemyInfo->setName(name.str());
+
+		int offsetX = rand() % 4 + 1;
+		int offsetY = rand() % 4 + 1;
+						
+		std::stringstream pos;
+		pos << _origen.x + offsetX << ' ' << _origen.y + offsetY << ' ';
+		enemyInfo->setAttribute("grid_position", pos.str());
+
+		Logic::CEntity *ent = Logic::CEntityFactory::getSingletonPtr()->createEntity(enemyInfo, _entity->getMap());
+		ent->activate();
+
+		return ent;
+
+	} // spawnEnemy
+
 	//---------------------------------------------------------
 
 	void CEnemiesGenerator::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
 		
-		// Cada _periodo milisegundos creamos un enemigo.
-		_time += msecs;
-		if (_time >= _periodo)
+		if (_automaticSpawn)
 		{
-			_time = 0;
-			_enemy += 1;
+			// Si está activado el spawn automático, se spawnea un enemigo cada período de tiempo.
+			_time += msecs;
+			if (_time >= _periodo)
+			{
+				_time = 0;
+				_enemy++;
 
-			Map::CEntity * enemyInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Enemy");
-			std::stringstream name;
-			name << "Enemy" << _enemy;
-			enemyInfo->setName(name.str());
-						
-			std::stringstream pos;
-			pos << _origen.x << ' ' << _origen.y << ' ';
-			enemyInfo->setAttribute("grid_position", pos.str());
+				spawnEnemy();
+			}
+		}
 
-			Logic::CEntity *enemy = Logic::CEntityFactory::getSingletonPtr()->createEntity(enemyInfo, _entity->getMap());
+		if (_spawn > 0)
+		{
+			_spawn--;
+			_enemy++;
+
+			spawnEnemy();
 		}
 
 	} // tick
+
+	//---------------------------------------------------------
 
 } // namespace Logic
 

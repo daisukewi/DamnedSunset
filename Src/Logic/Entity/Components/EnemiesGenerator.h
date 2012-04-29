@@ -37,7 +37,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CEnemiesGenerator() : IComponent(), _origen(Vector2::ZERO), _time(0), _enemy(0), _periodo(10000) {}
+		CEnemiesGenerator() : IComponent(), _origen(Vector2::ZERO), _time(0), _enemy(0), _periodo(10000), _spawn(0) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -94,6 +94,13 @@ namespace Logic
 		*/
 		virtual void process(IMessage *message);
 
+		/**
+		Spawnea en una posición aleatoria alrededor del spawner.
+
+		@return La referencia del enemigo spawneado.
+		*/
+		Logic::CEntity* spawnEnemy();
+
 	protected:
 
 		/**
@@ -115,6 +122,18 @@ namespace Logic
 		Cada cuántos milisegundos se crea un enemigo.
 		*/
 		unsigned int _periodo;
+
+		/**
+		Indica si hay que spawnear enemigos automáticamente o no.
+		*/
+		bool _automaticSpawn;
+
+		/**
+		Indica si hay que spawnear un enemigo en el tick del componente y cuantos.
+
+		Hecho para no spawnear mas de un enemigo por tick.
+		*/
+		int _spawn;
 
 	}; // class CEnemiesGenerator
 

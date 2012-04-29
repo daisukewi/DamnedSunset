@@ -12,10 +12,9 @@ la gestión de los scripts del juego.
 
 #include "Server.h"
 
-
-
 #include "ScriptManager\Classes\Messages\LUA_AStarRoute.h"
 #include "ScriptManager\Classes\Messages\LUA_AttackEntity.h"
+#include "ScriptManager\Classes\Messages\LUA_SpawnEnemy.h"
 
 // Incluímos las cabedceras de Lua.
 // Como es código C (no C++), hay que indicarselo al
@@ -671,31 +670,40 @@ namespace ScriptManager
 		//				REGISTRO DE LOS MENSAJES				//
 		//------------------------------------------------------//
 
-		//LUA_MAStarRoute
+		// LUA_MAStarRoute
 
-		luabind::module(CServer::getSingletonPtr()->getLuaState())
+		luabind::module(_lua)
 		[
 			luabind::class_<LUA_MAStarRoute>("LUA_MAStarRoute")
 				.def(luabind::constructor<>())
-				.def("setDestPointX",(void (LUA_MAStarRoute::*) (float)) &LUA_MAStarRoute::setDestPointX)
-				.def("setDestPointY",(void (LUA_MAStarRoute::*) (float)) &LUA_MAStarRoute::setDestPointY)
-				.def("setDestPointZ",(void (LUA_MAStarRoute::*) (float)) &LUA_MAStarRoute::setDestPointZ)
-				.def("setEntityTo",(void (LUA_MAStarRoute::*) (unsigned int)) &LUA_MAStarRoute::setEntityTo)
-				.def("send",&LUA_MAStarRoute::send)	
+				.def("setDestPointX", (void (LUA_MAStarRoute::*) (float)) &LUA_MAStarRoute::setDestPointX)
+				.def("setDestPointY", (void (LUA_MAStarRoute::*) (float)) &LUA_MAStarRoute::setDestPointY)
+				.def("setDestPointZ", (void (LUA_MAStarRoute::*) (float)) &LUA_MAStarRoute::setDestPointZ)
+				.def("setEntityTo", (void (LUA_MAStarRoute::*) (unsigned int)) &LUA_MAStarRoute::setEntityTo)
+				.def("send", &LUA_MAStarRoute::send)
 		];
 
+		// LUA_MAttackEntity
 
-		//LUA_MAttackEntity
-
-		luabind::module(CServer::getSingletonPtr()->getLuaState())
+		luabind::module(_lua)
 		[
 			luabind::class_<LUA_MAttackEntity>("LUA_MAtackEntity")
 				.def(luabind::constructor<>())
-				.def("setAttack",(void (LUA_MAttackEntity::*) (bool)) &LUA_MAttackEntity::setAttack)
-				.def("setEntity",(void (LUA_MAttackEntity::*) (unsigned int)) &LUA_MAttackEntity::setEntity)
-				.def("setEntityTo",(void (LUA_MAttackEntity::*) (unsigned int)) &LUA_MAttackEntity::setEntityTo)
-				.def("send",&LUA_MAttackEntity::send)	
+				.def("setAttack", (void (LUA_MAttackEntity::*) (bool)) &LUA_MAttackEntity::setAttack)
+				.def("setEntity", (void (LUA_MAttackEntity::*) (unsigned int)) &LUA_MAttackEntity::setEntity)
+				.def("setEntityTo", (void (LUA_MAttackEntity::*) (unsigned int)) &LUA_MAttackEntity::setEntityTo)
+				.def("send", &LUA_MAttackEntity::send)
 				
+		];
+
+		// LUA_MSpawnEnemy
+
+		luabind::module(_lua)
+		[
+			luabind::class_<LUA_MSpawnEnemy>("LUA_MSpawnEnemy")
+				.def(luabind::constructor<>())
+				.def("setEntityTo", (void (LUA_MSpawnEnemy::*) (unsigned int)) &LUA_MSpawnEnemy::setEntityTo)
+				.def("send", &LUA_MSpawnEnemy::send)
 		];
 
 		//---------------------------------------------------------

@@ -10,10 +10,9 @@ Contiene el tipo de datos de un mensaje.
 #ifndef __ScriptManager_LUA_Message_H
 #define __ScriptManager_LUA_Message_H
 
-#include <string>
 #include "Logic/Maps/EntityID.h"
 
-#include "Logic/Maps/EntityID.h"
+#include <string>
 
 namespace ScriptManager
 {

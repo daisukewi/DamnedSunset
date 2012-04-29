@@ -10,6 +10,7 @@ Contiene el tipo de datos de un mensaje.
 */
 
 #include "LUA_Message.h"
+
 #include <cassert>
 
 namespace ScriptManager
@@ -17,12 +18,17 @@ namespace ScriptManager
 	void LUA_IMessage::setEntityTo(unsigned int entityTo)
 	{
 		_entityTo = entityTo;
-	}
+
+	} // setEntityTo
+
+	//---------------------------------------------------------
 
 	void LUA_IMessage::send()
 	{
-		assert(true && "No se ha redefinido el metodo en la clase hija"); 
-	}
+		assert(true && "No se ha redefinido el metodo en la clase hija");
 
+	} // send
+
+	//---------------------------------------------------------
 
 } // namespace ScriptManager

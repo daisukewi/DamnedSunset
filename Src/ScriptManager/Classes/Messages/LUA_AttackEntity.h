@@ -16,8 +16,6 @@ Contiene la declaración del mensaje de ataque a una entidad.
 
 #include "LUA_Message.h"
 
-#include "Logic/Maps/EntityID.h"
-
 namespace ScriptManager 
 {
 	/**

@@ -21,8 +21,6 @@ entre dos puntos del mapa y luego seguirlos con Steering Behaviours.
 
 #include "Logic/Server.h"
 
-#include "Logic/Maps/EntityID.h"
-
 namespace ScriptManager
 {
 
@@ -51,36 +49,55 @@ namespace ScriptManager
 
 	} // getAction
 
+	//---------------------------------------------------------
+
 	void LUA_MAStarRoute::setDestPointX(float destPointX)
 	{
 		_destPointX = destPointX;
 
 	} //setDestPointX
 
+	//---------------------------------------------------------
+
 	float LUA_MAStarRoute::getDestPointX()
 	{
 		return _destPointX;
+
 	} //getDestPointX
+
+	//---------------------------------------------------------
 
 	void LUA_MAStarRoute::setDestPointY(float destPointY)
 	{
 		_destPointY = destPointY;
+
 	} //setDestPointY
+
+	//---------------------------------------------------------
 
 	float LUA_MAStarRoute::getDestPointY()
 	{
 		return _destPointY;
+
 	} //getDestPointY
+
+	//---------------------------------------------------------
 
 	void LUA_MAStarRoute::setDestPointZ(float destPintZ)
 	{
 		_destPointZ = destPintZ;
+
 	} //setDestPointZ
+
+	//---------------------------------------------------------
 
 	float LUA_MAStarRoute::getDestPointZ()
 	{
 		return _destPointZ;
+
 	} //getDestPointZ
+
+	//---------------------------------------------------------
 
 	bool LUA_MAStarRoute::hasRouteFailed()
 	{
@@ -96,6 +113,8 @@ namespace ScriptManager
 
 	} // setRouteFailed
 
+	//---------------------------------------------------------
+
 	void LUA_MAStarRoute::send()
 	{
 		//assert(!_entityTo == Logic::EntityID::UNASSIGNED && "No se ha indicado a que entidad se envía el mensaje");
@@ -107,6 +126,10 @@ namespace ScriptManager
 	
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_entityTo)->emitMessage(message);
 
+		//delete(this);
+
 	} // send
+
+	//---------------------------------------------------------
 
 } // namespace ScriptManager

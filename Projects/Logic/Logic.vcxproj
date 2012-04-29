@@ -148,6 +148,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetEmpujarPropiedades.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetTransform.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SoundEffect.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\SpawnEnemy.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\StopAnimation.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\Switch.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\TeletransportTo.cpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetEmpujarPropiedades.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetTransform.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SoundEffect.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\SpawnEnemy.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\StopAnimation.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\Switch.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\TeletransportTo.h" />

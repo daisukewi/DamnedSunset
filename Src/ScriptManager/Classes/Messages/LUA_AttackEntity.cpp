@@ -20,8 +20,6 @@ Contiene la implementación del mensaje de ataque a una entidad.
 
 #include "Logic/Server.h"
 
-#include "Logic/Maps/EntityID.h"
-
 namespace ScriptManager
 {
 
@@ -61,6 +59,10 @@ namespace ScriptManager
 		message->setEntity(Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_entity));
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_entityTo)->emitMessage(message);
 
-	}
+		//delete(this);
+
+	} // send
+
+	//---------------------------------------------------------
 
 } // namespace Logic

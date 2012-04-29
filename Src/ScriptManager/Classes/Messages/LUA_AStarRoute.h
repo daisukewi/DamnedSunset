@@ -125,7 +125,6 @@ namespace ScriptManager
 		*/
 		void setRouteFailed(bool failed);
 
-
 		/*
 		Implementación del método send heredado de la clase LUA_IMessage
 		*/
