@@ -304,8 +304,6 @@ namespace ScriptManager
 		*/
 		template <class T>
 		bool executeFunction(const char *subroutineName, const T& param1, int &result);
-		template <class T,class T1, class T2, class T3>
-		bool executeFunction(const char *subroutineName, const T& param1, const T1& param2,const T2& param3,const T3& param4);
 
 		/**
 		Método templatizado que registra una función de C++ en el 

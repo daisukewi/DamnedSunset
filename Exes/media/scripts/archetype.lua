@@ -70,7 +70,6 @@ Archetype = {
 
 	Enemy = {
 		type = "Enemy",
-		script = "enemyScript",
 		tag = "enemy",
 		orientation = 0,
 		life = 40.0,

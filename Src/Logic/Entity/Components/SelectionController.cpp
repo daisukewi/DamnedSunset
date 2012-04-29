@@ -36,6 +36,7 @@
 #include "ScriptManager/Server.h"
 
 #include <assert.h>
+#include <sstream>
 namespace Logic 
 {
 	IMP_FACTORY(CSelectionController);
@@ -316,7 +317,10 @@ namespace Logic
 		_selectedEntity->emitMessage(m_movement, NULL);
 		*/			
 				
-		ScriptManager::CServer::getSingletonPtr()->executeFunction("goTo",point.x,point.y,point.z,_selectedEntity->getEntityID());
+		//ScriptManager::CServer::getSingletonPtr()->executeFunction("goTo",point.x,point.y,point.z,_selectedEntity->getEntityID());
+		std::stringstream script;
+		script << "goTo(" << point.x << ", " << point.y << ", " << point.z << ", " << _selectedEntity->getEntityID() << ")";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
 
 	}
