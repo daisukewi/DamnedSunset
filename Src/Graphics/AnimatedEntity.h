@@ -85,7 +85,7 @@ namespace Graphics
 		@param mesh Nombre del modelo que debe cargarse.
 		*/
 		CAnimatedEntity(const std::string &name, const std::string &mesh):
-					CEntity(name,mesh), _currentAnimation(0) {}
+					CEntity(name,mesh), _currentAnimation(0), _realTime(false) {}
 
 		/**
 		Destructor de la aplicación.
@@ -128,6 +128,8 @@ namespace Graphics
 		void removeObserver(CAnimatedEntityListener *observer)
 							{if(_observer = observer) _observer = 0;}
 
+		bool getRealTime() { return _realTime;}
+		void setRealTime(bool realTime) { _realTime = realTime;}
 	protected:
 
 		/**
@@ -154,6 +156,7 @@ namespace Graphics
 		*/
 		Ogre::AnimationState *_currentAnimation;
 
+		bool _realTime;
 	}; // class CAnimatedEntity
 
 } // namespace Graphics

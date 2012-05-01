@@ -27,6 +27,7 @@ de juego. Es una colección de componentes.
 #include "Logic/Entity/Messages/SetTransform.h"
 #include "Logic/Entity/Messages/EntityDeathListener.h"
 #include "Messages/ActivarComponente.h"
+#include "Messages/SetRealTime.h"
 
 #include <vector>
 #include <string>
@@ -38,7 +39,7 @@ namespace Logic
 {
 	CEntity::CEntity(TEntityID entityID) : _entityID(entityID), 
 				_map(0), _type(""), _name(""), _transform(Matrix4::IDENTITY),
-				_isPlayer(false), _activated(false), _isTargetCamera(false)
+				_isPlayer(false), _activated(false), _isTargetCamera(false), _realTime(false)
 	{
 
 	} // CEntity
@@ -154,6 +155,20 @@ namespace Logic
 			}
 		}
 
+		//Atributo para desactivar componentes
+		if(entityInfo->hasAttribute("realTime"))
+		{
+			_realTime = entityInfo->getBoolAttribute("realTime");
+			if (_realTime)
+			{
+				MSetRealTime * m = new MSetRealTime();
+				m->setRealTime(_realTime);
+				this->emitMessage(m);
+			}
+		} else
+		{
+			_realTime = false;
+		}
 
 		return correct;
 
@@ -244,7 +259,7 @@ namespace Logic
 		for( it = _components.begin(); it != _components.end(); ++it )
 		{
 			if ((*it)->isActive())
-				(*it)->tick(msecs); //Tambien se procesan los mensajes dentro del tick
+				(*it)->tick( _realTime ? msecs * 5: msecs); //Tambien se procesan los mensajes dentro del tick
 			else
 				(*it)->processMessages();
 		}

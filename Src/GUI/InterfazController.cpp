@@ -36,6 +36,12 @@
 #include "Logic\Entity\Messages\CrearBillboardMovimiento.h"
 #include "Logic\Entity\Messages\LanzarGranada.h"
 
+#include "Logic\Entity\Messages\SetRealTime.h"
+
+
+#include "BaseSubsystems/Server.h"
+
+
 namespace GUI {
 
 	CInterfazController::CInterfazController()
@@ -209,6 +215,7 @@ namespace GUI {
 		_jugadorSel = 3;
 		this->ocultarBotones();
 		this->cargarBoton('1',"martillo");
+		this->cargarBoton('3',"bolazul");
 		this->cargarBoton('4',"jeringa");
 	}
 	
@@ -275,14 +282,22 @@ namespace GUI {
 		///* FIN PRUEBA */
 
 		/** PRUEBA QUE MANDA MENSAJES DE ACTIVAR COMPONENTES **/
-		Logic::MActivarComponente * m = new Logic::MActivarComponente();
-		bool activar = false;
-		m->setActivar(activar);
-		m->setNombreComponente("CSunController");
-		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Sol")->emitMessage(m);
+		//Logic::MActivarComponente * m = new Logic::MActivarComponente();
+		//bool activar = false;
+		//m->setActivar(activar);
+		//m->setNombreComponente("CSunController");
+		//Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Sol")->emitMessage(m);
 
 		/** FIN PRUEBA **/
 
+		if (_jugadorSel == 3)	
+		{
+			//Ralentizar tiempo
+			Logic::MSetRealTime * m = new Logic::MSetRealTime();
+			m->setRealTime(true);
+			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor")->emitMessage(m);
+			BaseSubsystems::CServer::getSingletonPtr()->setFactorRalentizar(5);
+		}
 		return true;
 	}
 	bool CInterfazController::clickB4(const CEGUI::EventArgs& e)

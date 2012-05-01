@@ -19,7 +19,8 @@ namespace BaseSubsystems {
 
 	void IClock::updateTime() {
 		unsigned long newTime = getPhysicalTime();
-		_lastFrameDuration = newTime - _lastTime;
+		_lastRealFrameDuration = newTime - _lastTime;
+		_lastFrameDuration =  _lastRealFrameDuration / _factorRalentizar;
 		_lastTime = newTime;
 
 		notifyListeners();

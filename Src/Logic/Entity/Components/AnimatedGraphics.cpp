@@ -21,6 +21,7 @@ gráfica de una entidad estática.
 
 #include "Logic/Entity/Messages/SetAnimation.h"
 #include "Logic/Entity/Messages/StopAnimation.h"
+#include "Logic/Entity/Messages/SetRealTime.h"
 
 namespace Logic 
 {
@@ -49,6 +50,8 @@ namespace Logic
 			scale = entityInfo->getFloatAttribute("scale");
 		_animatedGraphicsEntity->setScale(scale);
 
+		_animatedGraphicsEntity->setRealTime(_entity->getRealTime());
+
 		return _animatedGraphicsEntity;
 
 	} // createGraphicsEntity
@@ -65,7 +68,7 @@ namespace Logic
 		//if (!dady_accepted && accepted) message->addPtr();
 		//if (accepted) message->addPtr();
 		//return accepted;
-		return CGraphics::accept(message) || (message->getType().compare("MSetAnimation") == 0) || (message->getType().compare("MStopAnimation") == 0);
+		return CGraphics::accept(message) || !message->getType().compare("MSetAnimation") || !message->getType().compare("MStopAnimation") || !message->getType().compare("MSetRealTime");
 	} // accept
 	
 	//---------------------------------------------------------
@@ -89,6 +92,10 @@ namespace Logic
 			MStopAnimation *m = static_cast <MStopAnimation*> (message);
 
 			_animatedGraphicsEntity->stopAnimation(m->getAnimationName());
+		} else if (!message->getType().compare("MSetRealTime"))
+		{
+			MSetRealTime *m = static_cast <MSetRealTime*> (message);
+			_animatedGraphicsEntity->setRealTime(m->getRealTime());
 		}
 	} // process
 	

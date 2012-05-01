@@ -64,7 +64,7 @@ namespace BaseSubsystems
 		/** 
 		Constructor de la clase 
 		*/
-		IClock() : _lastTime(0), _lastFrameDuration(0) {}
+		IClock() : _lastTime(0), _lastFrameDuration(0), _lastRealFrameDuration(0), _factorRalentizar(1) {}
 
 		/** 
 		Destructor 
@@ -100,6 +100,16 @@ namespace BaseSubsystems
 		*/
 		unsigned int getLastFrameDuration() const { return _lastFrameDuration; }
 
+
+		/**
+		Devuelve la duración del último frame, o lo que es lo mismo,
+		el tiempo transcurrido entre las dos últimas invocaciones
+		a updateTime().
+
+		@return Duración del último frame. Si se ha invocado menos
+		de dos veces a updateTime() el resultado es indeterminado.
+		*/
+		unsigned int getLastRealFrameDuration() const { return _lastRealFrameDuration; }
 		/**
 		Añade un nuevo oyente del temporizador con el tiempo tras el cual quiere
 		ser avisado.
@@ -109,6 +119,8 @@ namespace BaseSubsystems
 		*/
 		void addListener(int clock, IClockListener* listener);
 
+
+		void setFactorRalentizar(float f) { _factorRalentizar = f;}
 	protected:
 
 		/**
@@ -142,6 +154,17 @@ namespace BaseSubsystems
 		Duración del último frame
 		*/
 		unsigned int _lastFrameDuration;
+
+
+		/**
+		Duracion real del último frame
+		*/
+		unsigned int _lastRealFrameDuration;
+
+		/*
+			Tiempo que se ralentizara el juego
+		*/
+		float _factorRalentizar;
 
 		/**
 		Tipo Lista de oyentes del temporizador.

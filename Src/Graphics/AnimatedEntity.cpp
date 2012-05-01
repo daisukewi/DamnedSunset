@@ -22,6 +22,8 @@ con animaciones.
 #include <OgreEntity.h>
 #include <OgreAnimationState.h>
 
+#include "BaseSubsystems/Server.h"
+
 namespace Graphics 
 {
 		
@@ -80,7 +82,13 @@ namespace Graphics
 	{
 		if(_currentAnimation)
 		{
-			_currentAnimation->addTime(secs);
+			float time;
+			if (_realTime)
+				time = BaseSubsystems::CServer::getSingletonPtr()->getLastRealFrameDuration() / 1000.0f;
+			else
+				time = secs;
+
+			_currentAnimation->addTime(time);
 			// Comprobamos si la animación ha terminado para avisar
 			if(_observer && _currentAnimation->hasEnded())
 				_observer->animationFinished
@@ -88,6 +96,5 @@ namespace Graphics
 		}
 
 	} // tick
-
 
 } // namespace Graphics

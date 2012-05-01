@@ -351,6 +351,9 @@ namespace Logic
 		*/
 		bool removeDeathListener(IDeathListener* listener);
 
+		bool getRealTime() {return _realTime;}
+		void setRealTime(bool realTime) {_realTime = realTime;}
+
 	protected:
 
 		/**
@@ -426,6 +429,7 @@ namespace Logic
 		*/
 		bool _isTargetCamera;
 
+		bool _realTime;
 	}; // class CEntity
 
 } // namespace Logic

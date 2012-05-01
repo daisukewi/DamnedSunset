@@ -15,6 +15,7 @@ Contiene la implementación de la clase base de los componentes.
 #include "Logic/Entity/Messages/ActivarComponente.h"
 #include "Map/MapEntity.h"
 #include "Messages/ActivarComponente.h"
+#include "Messages/SetRealTime.h"
 #include "Logic/Entity/Entity.h"
 
 namespace Logic 
@@ -36,7 +37,7 @@ namespace Logic
 
 	bool IComponent::acceptPadre(IMessage *message)
 	{
-		bool acepted = !message->getType().compare("MActivarComponente") || accept(message);
+		bool acepted = !message->getType().compare("MActivarComponente") || !message->getType().compare("MSetRealTime") || accept(message);
 		return acepted;
 	}
 
@@ -58,6 +59,11 @@ namespace Logic
 					_active = false;
 				}
 			}
+		}
+		else if (!message->getType().compare("MSetRealTime"))
+		{
+			MSetRealTime *m = static_cast <MSetRealTime*> (message);
+			_entity->setRealTime(m->getRealTime());
 		}
 		process(message);
 	}

@@ -558,6 +558,10 @@ namespace BaseSubsystems
 
 	} // getLastFrameDuration
 
+	unsigned int CServer::getLastRealFrameDuration()
+	{
+		return _appClock->getLastRealFrameDuration();
+	}
 	//--------------------------------------------------------
 
 	void CServer::addClockListener(unsigned int clock, IClockListener* listener)
@@ -576,4 +580,8 @@ namespace BaseSubsystems
 
 	//--------------------------------------------------------
 
+	void CServer::setFactorRalentizar(float f)
+	{
+		_appClock->setFactorRalentizar(f);
+	}
 } // namespace BaseSubsystems

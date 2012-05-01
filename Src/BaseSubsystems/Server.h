@@ -199,7 +199,7 @@ namespace BaseSubsystems
 		@return La duración del último frame en milisegundos.
 		*/
 		unsigned int getLastFrameDuration();
-
+		unsigned int getLastRealFrameDuration();
 		/**
 		Añade un nuevo oyente al reloj de la aplicación con el tiempo especificado.
 
@@ -213,6 +213,7 @@ namespace BaseSubsystems
 		*/
 		void updateClock();
 
+		void setFactorRalentizar(float f);
 	protected:
 
 		/**
