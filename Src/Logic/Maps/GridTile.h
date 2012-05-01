@@ -28,6 +28,8 @@ namespace Logic
 	*/
 	class CGridTile
 	{
+		friend class CTerrainTile;
+
 	public:
 		/**
 		Constructor.
@@ -52,12 +54,12 @@ namespace Logic
 		/**
 		Pone el tipo de terreno de la casilla.
 		*/
-		void SetTerrain(int terrainType);
+		void SetTerrain(CTerrainTile* terrain);
 
 		/**
 		Obtiene el tipo de terreno de la casilla.
 		*/
-		int GetTerrain() { return _terrain; }
+		CTerrainTile* GetTerrain() { return _terrain; }
 
 		/**
 		Establece el edificio que se encuentra en la casilla.
@@ -97,7 +99,17 @@ namespace Logic
 		*/
 		void DeleteUnit(CEntity* entity);
 
-		void FillData();
+		/**
+		Devuelve el coste que tiene atravesar este tipo de casilla.
+		Siempre y cuando no haya un edificio en ella.
+		*/
+		int GetAStarCost();
+
+		/**
+		Devuelve True, si la casilla se puede atravesar. Esto es,
+		que su coste de A* sea distinto de -1 y no contenga ningún edificio.
+		*/
+		bool CanPassThrow();
 
 	private:
 
@@ -110,7 +122,7 @@ namespace Logic
 		/**
 		Atributo que almacena el tipo de terreno que hay en la casilla.
 		*/
-		int _terrain;
+		CTerrainTile* _terrain;
 
 		/**
 		Atributo para almacenar la entidad de un edificio.

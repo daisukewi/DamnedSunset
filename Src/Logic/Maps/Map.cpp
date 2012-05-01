@@ -74,8 +74,7 @@ namespace Logic {
 			return false;
 		}
 
-		// @TODO Rellenar las casillas de tipo Grid del mapa con la info de tileMatrix
-		// @TODO cocinar el gridMap para que recoja las celdas ocupadas por el terreno abrupto.
+		// Rellena las casillas de tipo Grid del mapa con la info de tileMatrix.
 		map->getGridMap()->FillTileData(&tileMatrix);
 
 		Map::CMapParser::TEntityList::const_iterator it, end;
@@ -92,6 +91,7 @@ namespace Logic {
 				{
 					CTerrainTile* terrain_tile = new CTerrainTile((*it)->getType());
 					terrain_tile->FillData(*it);
+					map->addTerrainTile(terrain_tile);
 				}
 			}
 		}
@@ -315,8 +315,8 @@ namespace Logic {
 
 	void CMap::createTerrain(int mapSize)
 	{
-		_scene->generateTerrain(_terrainList, mapSize);
+		_scene->generateTerrain(_terrainList, _gridMap);
 
-	} // generateTerrain
+	} // createTerrain
 
 } // namespace Logic

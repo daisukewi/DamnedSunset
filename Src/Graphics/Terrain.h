@@ -33,6 +33,7 @@ namespace Ogre
 namespace Logic
 {
 	class CTerrainTile;
+	class CGridMap;
 }
 
 namespace Graphics 
@@ -48,7 +49,7 @@ namespace Graphics
 	{
 	public:
 
-		CTerrain(Ogre::SceneManager* sceneMgr, std::list<Logic::CTerrainTile*>* terrainList, int terrainSize);
+		CTerrain(Ogre::SceneManager* sceneMgr, std::list<Logic::CTerrainTile*>* terrainList, Logic::CGridMap* terrainMap);
 
 		~CTerrain();
 
@@ -65,6 +66,11 @@ namespace Graphics
 		Ogre::Real _mapSize, _worldSize;
 
 		bool _terrainsImported;
+
+		Logic::CTerrainTile** _terrainList;
+		int _nTerrains;
+
+		Logic::CGridMap* _terrainMap;
 
 		void defineTerrain(long x, long y);
 

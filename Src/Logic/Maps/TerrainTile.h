@@ -18,6 +18,7 @@ la informacion de una celda del terreno.
 namespace Map
 {
 	class CEntity;
+	class CTile;
 }
 
 // Declaración de la clase
@@ -59,6 +60,30 @@ namespace Logic
 		*/
 		void FillData(Map::CEntity* terrain_info);
 
+		void FillData(Map::CTile* terrain_info);
+
+		/**
+		Coste que tiene el A* para atravesar una casilla de este tipo.
+
+		Si el coste es -1, no se puede pasar por esta casilla.
+		*/
+		int getAStarCost();
+
+		/**
+		Mapa de textura que tiene la casilla del terreno.
+		*/
+		std::string getDifuseMap();
+
+		/**
+		Mapa de normales que tiene la casilla del terreno.
+		*/
+		std::string getNormalMap();
+
+		/**
+		Tamaño de la textura que tiene la casilla del terreno.
+		*/
+		int getTextureSize();
+
 	private:
 
 		/**
@@ -66,12 +91,23 @@ namespace Logic
 		*/
 		std::string _name;
 
+		/**
+		Coste que tiene el A* para atravesar una casilla de este tipo.
+
+		Si el coste es -1, no se puede pasar por esta casilla.
+		*/
 		int _aStarCost;
 
+		/**
+		Mapa de textura que tiene la casilla del terreno.
+		Difuso y mapa de normales.
+		*/
 		std::string _difuseMap, _normalMap;
 
-
-
+		/**
+		Tamaño de la textura que tiene la casilla del terreno.
+		*/
+		int _textureSize;
 	};
 
 }

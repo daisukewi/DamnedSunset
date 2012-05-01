@@ -122,7 +122,7 @@ Parametros:
    <exec executable="${basedir}/../CMake/bin/cmake.exe"
 	 dir="${basedir}/build/">
       <arg value="-DOGRE_DEPENDENCIES_DIR=..\.."/>
-      <arg value="-DOGRE_BUILD_SAMPLES=TRUE"/>
+      <arg value="-DOGRE_BUILD_SAMPLES=FALSE"/>
       <arg value="-DOGRE_BUILD_TOOLS=TRUE"/>
       <arg value="-DOGRE_BUILD_COMPONENT_PAGING=TRUE"/>
       <arg value="-DOGRE_BUILD_COMPONENT_TERRAIN=TRUE"/>

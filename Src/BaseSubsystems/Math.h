@@ -257,6 +257,15 @@ namespace Math
 		return Ogre::Math::Log2(exponent);
 	}
 
+	/**
+	Devuelve el mayor de dos numeros. O el mismo número si son
+	iguales.
+	*/
+	static int Max(const int a, const int b)
+	{
+		return a > b ? a : b;
+	}
+
 } // namespace Math
 
 #endif // __BaseSubsystems_Math_H

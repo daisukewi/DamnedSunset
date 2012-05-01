@@ -66,6 +66,11 @@ namespace Logic
 		void initMap(int width, int height, int gridSize);
 
 		/**
+		Devuelve el tamapo del mapa lógico.
+		*/
+		int getMapSize();
+
+		/**
 		Devuelve el tamaño de las casillas del mapa.
 		*/
 		unsigned int GetGridSize();
@@ -150,7 +155,7 @@ namespace Logic
 		Devuelve el índice de una casilla que se encuentra en las coordenadas dadas.
 		*/
 		int getIndexTileFromCoord( const int row, const int col );
-
+		
 		typedef TGridTile** TGridMap;
 
 		/**

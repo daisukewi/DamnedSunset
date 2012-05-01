@@ -13,6 +13,7 @@ Contiene la implementación de la clase CGridMap, Un mapa de celdas lógico.
 
 #include "Logic/Maps/EntityFactory.h"
 #include "Logic/Maps/GridTile.h"
+#include "Logic/Maps/TerrainTile.h"
 #include "Logic/Entity/Entity.h"
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
@@ -65,6 +66,13 @@ namespace Logic {
 		}
 
 	} // initMap
+
+	//--------------------------------------------------------
+
+	int CGridMap::getMapSize()
+	{
+		return Math::Max(_mapHeight, _mapWidth);
+	}
 
 	//--------------------------------------------------------
 
@@ -168,13 +176,13 @@ namespace Logic {
 	{
 		TGridTile tile = getTileFromIndex(index);
 		std::list<unsigned int>* neighbours = new std::list<unsigned int>();
-		if (tile->GetCol() > 0)
+		if (tile->GetCol() > 0 && tile->CanPassThrow())
 			neighbours->push_back(index - 1);
-		if (tile->GetCol() < _nMapCols - 1)
+		if (tile->GetCol() < _nMapCols - 1 && tile->CanPassThrow())
 			neighbours->push_back(index + 1);
-		if (tile->GetRow() > 0)
+		if (tile->GetRow() > 0 && tile->CanPassThrow())
 			neighbours->push_back(index - _nMapCols);
-		if (tile->GetRow() < _nMapRows - 1)
+		if (tile->GetRow() < _nMapRows - 1 && tile->CanPassThrow())
 			neighbours->push_back(index + _nMapCols);
 		
 
@@ -207,6 +215,8 @@ namespace Logic {
 		}
 	}
 
+	//--------------------------------------------------------
+
 	void CGridMap::PrintMapWithRoute( std::vector<void*>* path )
 	{
 		printf("\n--------Map Dump ---------\n");
@@ -237,6 +247,8 @@ namespace Logic {
 		}
 	}
 
+	//--------------------------------------------------------
+
 	void CGridMap::ShowDebugTiles( CMap * _map )
 	{
 		for (int i = 0; i < _nMapRows; ++i)
@@ -261,13 +273,16 @@ namespace Logic {
 		}
 	}
 
+	//--------------------------------------------------------
+
 	void CGridMap::FillTileData( Map::CMapParser::TTileMatrix* tileMatrix )
 	{
 		for (int row = 0; row < _nMapRows; ++row)
 			for (int col = 0; col < _nMapCols; ++col)
 			{
-				//@TODO: Pregunta!! Todas las "Tiles" de tileMatrix que son iguales, apuntan al mismo objeto? -No
-				tileMatrix[row][col];
+				CTerrainTile* t_tile = new CTerrainTile((*tileMatrix[row][col])->getType());
+				t_tile->FillData((*tileMatrix[row][col]));
+				getTileFromCoord(row, col)->SetTerrain(t_tile);
 			}
 	}
 

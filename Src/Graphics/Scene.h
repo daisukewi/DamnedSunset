@@ -42,6 +42,7 @@ namespace Graphics
 namespace Logic
 {
 	class CTerrainTile;
+	class CGridMap;
 }
 
 namespace Graphics 
@@ -162,9 +163,9 @@ namespace Graphics
 		como parámetro.
 
 		@param terrainList Lista con las diferentes casillas que tiene el mapa.
-		@param terrainSize tamaño del terreno que se quiere generar.
+		@param terrainMap mapa logico que contiene todas las casillas del terreno.
 		*/
-		CTerrain* generateTerrain(std::list<Logic::CTerrainTile*>* terrainList, int terrainSize);
+		CTerrain* generateTerrain(std::list<Logic::CTerrainTile*>* terrainList, Logic::CGridMap* terrainMap);
 
 		/**
 		Devuelve el gestor de la escena de Ogre

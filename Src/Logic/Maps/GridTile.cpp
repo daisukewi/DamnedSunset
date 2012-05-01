@@ -10,6 +10,7 @@ Contiene la implementación de la clase CGridTile, Las celdas de un mapa lógico.
 */
 
 #include "GridTile.h"
+#include "TerrainTile.h"
 
 namespace Logic {
 
@@ -27,9 +28,10 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	void CGridTile::SetTerrain(int terrainType)
+	void CGridTile::SetTerrain(CTerrainTile* terrain)
 	{
-		_terrain = terrainType;
+		_terrain = terrain;
+
 	}
 
 	//--------------------------------------------------------
@@ -76,9 +78,18 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	void CGridTile::FillData()
+	int CGridTile::GetAStarCost()
 	{
-		//Map::CMapParser::TTileMatrix tileMatrix){}
+		return _terrain->getAStarCost();
+
+	}
+
+	//--------------------------------------------------------
+
+	bool CGridTile::CanPassThrow()
+	{
+		return _terrain->getAStarCost() >= 0 && !IsPopulated();
+
 	}
 
 	//--------------------------------------------------------

@@ -21,6 +21,7 @@ de una escena.
 #include "Terrain.h"
 
 #include "Logic/Maps/TerrainTile.h"
+#include "Logic/Maps/GridMap.h"
 #include "BaseSubsystems/Server.h"
 
 #include <assert.h>
@@ -170,12 +171,12 @@ namespace Graphics
 
 	//--------------------------------------------------------
 
-	CTerrain* CScene::generateTerrain(std::list<Logic::CTerrainTile*>* terrainList, int terrainSize)
+	CTerrain* CScene::generateTerrain(std::list<Logic::CTerrainTile*>* terrainList, Logic::CGridMap* terrainMap)
 	{
 		if (_terrain)
 			delete(_terrain);
 
-		_terrain = new CTerrain(_sceneMgr, terrainList, terrainSize);
+		_terrain = new CTerrain(_sceneMgr, terrainList, terrainMap);
 
 		return _terrain;
 

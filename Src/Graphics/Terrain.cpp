@@ -26,16 +26,28 @@ Contiene la implementación de la clase que define un terreno
 #include <stdio.h>
 
 #include "Logic/Maps/TerrainTile.h"
+#include "Logic/Maps/GridMap.h"
 
 namespace Graphics 
 {
-	CTerrain::CTerrain(Ogre::SceneManager* sceneMgr, std::list<Logic::CTerrainTile*>* terrainList, int terrainSize)
+	CTerrain::CTerrain(Ogre::SceneManager* sceneMgr, std::list<Logic::CTerrainTile*>* terrainList, Logic::CGridMap* terrainMap)
 	{
 		_sceneMgr = sceneMgr;
-		_worldSize = terrainSize;
+		_terrainMap = terrainMap;
+		_worldSize = _terrainMap->getMapSize();
 		_mapSize = 257.0f;
-
 		_terrainsImported = false;
+
+		_nTerrains = terrainList->size();
+		_terrainList = new Logic::CTerrainTile*[_nTerrains];
+
+		int i = 0;
+		std::list<Logic::CTerrainTile*>::iterator terrain_tile = terrainList->begin();
+		for (int i = 0; i < _nTerrains; ++i)
+		{
+			_terrainList[i] = (*terrain_tile);
+			++terrain_tile;
+		}
 
 		Ogre::MaterialManager::getSingleton().setDefaultTextureFiltering(Ogre::TFO_ANISOTROPIC);
 		Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(7);
@@ -99,7 +111,6 @@ namespace Graphics
 
 	void CTerrain::defineTerrain(long x, long y)
 	{
-		//std::cout << "Terrain: Defining terrain for x: " << x << " & y: " << y;
 		Ogre::String filename = _terrainGroup->generateFilename(x, y);
 
 		if (Ogre::ResourceGroupManager::getSingleton().resourceExists(_terrainGroup->getResourceGroup(), filename))
@@ -124,10 +135,10 @@ namespace Graphics
 	{
 		Ogre::TerrainLayerBlendMap* blendMap0 = terrain->getLayerBlendMap(1);
 		Ogre::TerrainLayerBlendMap* blendMap1 = terrain->getLayerBlendMap(2);
-		Ogre::Real minHeight0 = 60;
-		Ogre::Real fadeDist0 = 20;
-		Ogre::Real minHeight1 = 130;
-		Ogre::Real fadeDist1 = 15;
+		Ogre::Real minHeight0 = 1;
+		Ogre::Real fadeDist0 = 1;
+		Ogre::Real minHeight1 = 3;
+		Ogre::Real fadeDist1 = 2;
 		float* pBlend0 = blendMap0->getBlendPointer();
 		float* pBlend1 = blendMap1->getBlendPointer();
 		for (Ogre::uint16 y = 0; y < terrain->getLayerBlendMapSize(); ++y)
@@ -138,13 +149,14 @@ namespace Graphics
 
 				blendMap0->convertImageToTerrainSpace(x, y, &tx, &ty);
 				Ogre::Real height = terrain->getHeightAtTerrainPosition(tx, ty);
+
 				Ogre::Real val = (height - minHeight0) / fadeDist0;
 				val = Ogre::Math::Clamp(val, (Ogre::Real)0, (Ogre::Real)1);
 				*pBlend0++ = val;
 
 				val = (height - minHeight1) / fadeDist1;
 				val = Ogre::Math::Clamp(val, (Ogre::Real)0, (Ogre::Real)1);
-				*pBlend1++ = val;
+				*pBlend1++ = 0;//val;
 			}
 		}
 		blendMap0->dirty();
@@ -165,9 +177,10 @@ namespace Graphics
 		_terrainGlobals->setCompositeMapDistance(3000);
 
 		// Important to set these so that the terrain knows what to use for derived (non-realtime) data
-		_terrainGlobals->setLightMapDirection(Vector3(0.55, -0.3, 0.75));
+		_terrainGlobals->setLightMapDirection(Vector3(0.0, -1.0, 0.0));
 		_terrainGlobals->setCompositeMapAmbient(Ogre::ColourValue(0.2, 0.2, 0.2));
 		_terrainGlobals->setCompositeMapDiffuse(Ogre::ColourValue::White);
+		_terrainGlobals->setCastsDynamicShadows(true);
 
 		// Configure default import settings for if we use imported image
 		Ogre::Terrain::ImportData& defaultimp = _terrainGroup->getDefaultImportSettings();
@@ -176,18 +189,16 @@ namespace Graphics
 		defaultimp.inputScale = 600;
 		defaultimp.minBatchSize = 33;
 		defaultimp.maxBatchSize = 65;
-		// textures
-		defaultimp.layerList.resize(3);
-		defaultimp.layerList[0].worldSize = 100;
-		defaultimp.layerList[0].textureNames.push_back("dirt_grayrocky_diffusespecular.dds");
-		defaultimp.layerList[0].textureNames.push_back("dirt_grayrocky_normalheight.dds");
-		defaultimp.layerList[1].worldSize = 30;
-		defaultimp.layerList[1].textureNames.push_back("grass_green-01_diffusespecular.dds");
-		defaultimp.layerList[1].textureNames.push_back("grass_green-01_normalheight.dds");
-		defaultimp.layerList[2].worldSize = 200;
-		defaultimp.layerList[2].textureNames.push_back("growth_weirdfungus-03_diffusespecular.dds");
-		defaultimp.layerList[2].textureNames.push_back("growth_weirdfungus-03_normalheight.dds");
-	}
 
+		// textures
+		defaultimp.layerList.resize(_nTerrains);
+		for (int i = 0; i < _nTerrains; ++i)
+		{
+			defaultimp.layerList[i].worldSize = _terrainList[i]->getTextureSize();
+			defaultimp.layerList[i].textureNames.push_back(_terrainList[i]->getDifuseMap());
+			defaultimp.layerList[i].textureNames.push_back(_terrainList[i]->getNormalMap());
+		}
+
+	}
 
 } // namespace Graphics
