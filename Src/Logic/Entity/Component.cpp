@@ -22,7 +22,6 @@ namespace Logic
 {
 	bool IComponent::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
 	{
-		_active = true;
 		_entity = entity;
 		return true;
 

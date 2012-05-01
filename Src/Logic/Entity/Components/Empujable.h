@@ -17,7 +17,7 @@ namespace Logic
 		/**
 		Constructor por defecto.
 		*/
-		CEmpujable();
+		CEmpujable() ;
 		~CEmpujable();
 
 		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
@@ -29,6 +29,7 @@ namespace Logic
 		float _distPerSecond;
 		Vector3 _direccion;
 		float _time;
+		/*Porcentaje que le afectara a la hora de que se empuje esta entidad, si el valor es 200, la entidad se empujara el doble de lo normal*/
 		int _afectaEmpujar;
 	};
 

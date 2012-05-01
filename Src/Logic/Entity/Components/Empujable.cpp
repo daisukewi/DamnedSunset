@@ -18,6 +18,11 @@ namespace Logic
 	//---------------------------------------------------------
 
 	CEmpujable::CEmpujable() : IComponent() {
+		//Este componente siempre estara desactivado por defecto, ya que se activa a la hora de empujar a la entidad y se desactiva otra vez solo
+		_active = false;
+		_distPerSecond = 0;
+		_time = 0;
+		_afectaEmpujar = 100;
 	}
 
 	CEmpujable::~CEmpujable() {
@@ -30,9 +35,6 @@ namespace Logic
 
 		if(entityInfo->hasAttribute("afectaEmpujar"))
 			_afectaEmpujar = entityInfo->getIntAttribute("afectaEmpujar");
-		else
-			_afectaEmpujar = 100;
-		_distPerSecond = 5; //Valor por defecto
 
 		return true;
 	} // spawn

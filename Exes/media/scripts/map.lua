@@ -77,6 +77,7 @@ Map = {
 		northEntity = 1000,
 		westEntity = 1000,
 		southEntity = 1000,
+		realTime = true,
 	},
 
 	Camera = {
@@ -87,6 +88,7 @@ Map = {
 		targetName = "PlayerGod",
 		type = "Camera",
 		targetDistance = 10,
+		realTime = true,
 	},
 
 	World = {

@@ -181,8 +181,6 @@ Archetype = {
 		billboardLanzamientoHeight = 150.0,
 		alcanceGranada = 70.0,
 		
-		disableComponent = "CEmpujable",
-		
 		afectaEmpujar = 100,
 	},
 	

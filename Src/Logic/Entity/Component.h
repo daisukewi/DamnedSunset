@@ -84,7 +84,7 @@ namespace Logic
 		/**
 		Constructor por defecto; en la clase base no hace nada.
 		*/
-		IComponent() : _entity(0) {}
+		IComponent() : _entity(0), _active(true) {}
 
 		/**
 		Destructor (virtual); en la clase base no hace nada.

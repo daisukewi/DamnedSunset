@@ -35,6 +35,8 @@ de juego. Es una colección de componentes.
 
 #include "ScriptManager/Server.h"
 
+#include "BaseSubsystems/Server.h"
+
 namespace Logic 
 {
 	CEntity::CEntity(TEntityID entityID) : _entityID(entityID), 
@@ -259,7 +261,7 @@ namespace Logic
 		for( it = _components.begin(); it != _components.end(); ++it )
 		{
 			if ((*it)->isActive())
-				(*it)->tick( _realTime ? msecs * 5: msecs); //Tambien se procesan los mensajes dentro del tick
+				(*it)->tick( _realTime ? BaseSubsystems::CServer::getSingletonPtr()->getLastRealFrameDuration() : msecs); //Tambien se procesan los mensajes dentro del tick
 			else
 				(*it)->processMessages();
 		}
