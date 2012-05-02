@@ -135,6 +135,9 @@
     <ClCompile Include="..\..\Src\Physics\Tools\NxuStream2\NXU_tinyxmlparser.cpp">
       <Filter>Tools\NxuStream2</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Physics\PhysicTerrain.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Physics\CollisionMng.h">
@@ -262,6 +265,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\Physics\Tools\NxuStream2\NXU_tinyxml.h">
       <Filter>Tools\NxuStream2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Physics\PhysicTerrain.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -25,7 +25,7 @@ CPhysicEngine::CPhysicEngine (void)
 
     // Set the debug visualization parameters
     m_pPhysicsSDK->setParameter (NX_VISUALIZATION_SCALE, 1);
-    m_pPhysicsSDK->setParameter (NX_VISUALIZE_COLLISION_SHAPES, 1);
+    m_pPhysicsSDK->setParameter (NX_VISUALIZE_COLLISION_SHAPES, 0);
     m_pPhysicsSDK->setParameter (NX_VISUALIZE_ACTOR_AXES, 1);
 
     // Inicializacion del motor de cooking para procesamiento de triangleMeshes

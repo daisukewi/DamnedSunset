@@ -45,7 +45,7 @@ namespace Logic
 			return false;
 
 		_gridMap = map->getGridMap();
-		_gridSize = _gridMap->GetGridSize();
+		_gridSize = _gridMap->getGridSize();
 
 		_OkBuildMaterial = new Graphics::CMaterial("BuildingCanEmplace");
 		_NokBuildMaterial = new Graphics::CMaterial("BuildingCannotEmplace");

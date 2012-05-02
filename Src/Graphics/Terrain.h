@@ -53,6 +53,10 @@ namespace Graphics
 
 		~CTerrain();
 
+		bool wasTerrainsImported();
+
+		float getHeightAtWorldPosition(Ogre::Vector3 vPos);
+
 	private:
 
 		Ogre::TerrainGlobalOptions* _terrainGlobals;

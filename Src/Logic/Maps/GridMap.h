@@ -71,9 +71,15 @@ namespace Logic
 		int getMapSize();
 
 		/**
+		Devuelve las dimensiones del mapa lógico.
+		*/
+		int getMapWidth();
+		int getMapHeight();
+
+		/**
 		Devuelve el tamaño de las casillas del mapa.
 		*/
-		unsigned int GetGridSize();
+		unsigned int getGridSize();
 
 		/**
 		Devuelve la posición modulada en el grid del mapa, de las

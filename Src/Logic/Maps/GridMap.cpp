@@ -76,7 +76,21 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	unsigned int CGridMap::GetGridSize()
+	int CGridMap::getMapWidth()
+	{
+		return _mapWidth;
+	}
+
+	//--------------------------------------------------------
+
+	int CGridMap::getMapHeight()
+	{
+		return _mapHeight;
+	}
+
+	//--------------------------------------------------------
+
+	unsigned int CGridMap::getGridSize()
 	{
 		return _gridSize * _gridSize;
 

@@ -98,6 +98,20 @@ namespace Graphics
 
 	//--------------------------------------------------------
 
+	float CTerrain::getHeightAtWorldPosition(Ogre::Vector3 vPos)
+	{
+		return _terrainGroup->getHeightAtWorldPosition(vPos);
+	}
+
+	//--------------------------------------------------------
+
+	bool CTerrain::wasTerrainsImported()
+	{
+		return _terrainsImported;
+	}
+
+	//--------------------------------------------------------
+
 	void getTerrainImage(bool flipX, bool flipY, Ogre::Image& img)
 	{
 		img.load("terrain.png", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);

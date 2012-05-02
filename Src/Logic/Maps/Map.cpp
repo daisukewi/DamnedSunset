@@ -27,6 +27,7 @@ Contiene la implementación de la clase CMap, Un mapa lógico.
 
 #include "ScriptManager/Server.h"
 
+#include "Physics/PhysicTerrain.h"
 
 #include <cassert>
 
@@ -320,7 +321,103 @@ namespace Logic {
 
 	void CMap::createTerrain(int mapSize)
 	{
-		_scene->generateTerrain(_terrainList, _gridMap);
+		Graphics::CTerrain* terrain = _scene->generateTerrain(_terrainList, _gridMap);
+
+		if (!terrain->wasTerrainsImported()) return;
+		
+		//////////////////////////////////////////////////////////////////////////
+		/////   BAKING THE PHYSICS TERRAIN
+		//////////////////////////////////////////////////////////////////////////
+
+		// Create a vertex buffer for the terrain physics
+		int nVertexCount = _gridMap->getMapSize();
+
+		Vector3* aVertex = new Vector3[ nVertexCount ];
+
+		// And an index buffer to define the triangles:
+		int nNumSquares = (_gridMap->getMapWidth() - 1) * (_gridMap->getMapHeight() - 1);
+		int nNumTriangles = nNumSquares * 2;
+		int nNumIndiciesPerTriangle = 3;
+		int nIndexCount = nNumTriangles * nNumIndiciesPerTriangle;
+
+		// According to a post I read, NxTriangleMesh uses 16-bit indicies,
+		// so anything more than that will overflow.
+		assert( nVertexCount <= 65536 );  // 2^16
+
+		unsigned int* aIndex = new unsigned int[ nIndexCount ];   
+
+		// Make sure we got valid triangle data.
+		if ( nVertexCount < 3 || nIndexCount < 3 || !aVertex || !aIndex )
+		{
+			assert( false );
+			return;
+		}
+		// Triangles need 3 indicies, right?
+		assert( nIndexCount % 3 == 0 );
+
+		// Populate our vertex and index buffers
+		int nTerrainSize = 257; 
+		float fStep = _gridMap->getMapSize() / (nTerrainSize - 1);
+
+		// Vertex Data
+		for ( int z = 0; z <= _gridMap->getMapHeight() - 1; ++z )
+		{
+			for ( int x = 0; x <= _gridMap->getMapWidth() - 1; ++x )
+			{
+				// Extract the vertex data from the graphical terrain, and populate the
+				// physics NxTriangleMesh buffers created above.
+				Vector3 v3Terrain( x * fStep, 0.f, z * fStep );
+				v3Terrain.y = terrain->getHeightAtWorldPosition( v3Terrain );
+				// - Make sure we stay within our bounds and start at index 0 by subtracting i_xStart and i_zStart
+				aVertex[ x + z ] = v3Terrain;
+			}
+		}
+
+		// Index Data
+		unsigned int* ptr = aIndex;
+		for ( int z=0; z < _gridMap->getMapHeight() - 1; ++z )
+		{
+			for ( int x=0; x < _gridMap->getMapWidth() - 1; ++x )
+			{
+				// The Ogre 1.8 terrain uses different tessilation for each row.
+				// See comments in OgreTerrain.cpp
+				//      6---7---8
+				//      | \ | \ |
+				//      3---4---5
+				//      | / | / |
+				//      0---1---2
+
+				// We need our x and z to be the 0-based indicies into our vertex array
+				int xIndex = x;
+				int zIndex = z;
+
+				// This switches up the tessilation every row:
+				if ( z%2==0 )
+				{
+					// Note:  need to be careful about the triangle winding here,
+					// if you get it wrong (as I originally did), you will fall through the terrain.
+					*ptr++ = ( xIndex   + zIndex     );
+					*ptr++ = ( xIndex+1 + (zIndex+1) );
+					*ptr++ = ( xIndex+1 + zIndex     );
+
+					*ptr++ = ( xIndex   + zIndex     );
+					*ptr++ = ( xIndex   + (zIndex+1) );
+					*ptr++ = ( xIndex+1 + (zIndex+1) );
+				}
+				else
+				{
+					*ptr++ = ( xIndex   + zIndex     );
+					*ptr++ = ( xIndex   + (zIndex+1) );
+					*ptr++ = ( xIndex+1 + zIndex     );
+
+					*ptr++ = ( xIndex   + (zIndex+1) );
+					*ptr++ = ( xIndex+1 + (zIndex+1) );
+					*ptr++ = ( xIndex+1 + zIndex     );
+				}
+			}
+		}
+		
+		Physics::CPhysicTerrain phys_terrain(nVertexCount, nIndexCount, aVertex, aIndex);
 
 	} // createTerrain
 
