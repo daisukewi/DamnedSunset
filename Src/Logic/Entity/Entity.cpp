@@ -74,6 +74,14 @@ namespace Logic
 		else
 			_tag = "none";
 
+		// Creo la tabla con la información del jugador.
+		if (!_type.compare("Player"))
+		{
+			std::stringstream scriptCreate;
+			scriptCreate << "players[\"" << _name << "\"] = {}";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreate.str().c_str());
+		}
+
 		if(entityInfo->hasAttribute("position"))
 		{
 			position = entityInfo->getVector3Attribute("position");
@@ -172,6 +180,17 @@ namespace Logic
 			_realTime = false;
 		}
 
+		// Relleno la tabla con la información del jugador.
+		if (!_type.compare("Player"))
+		{
+			std::stringstream script;
+			script	<< "players[\"" << _name << "\"].ID = " << _entityID << " "
+					<< "players[\"" << _name << "\"].posX = " << getPosition().x << " "
+					<< "players[\"" << _name << "\"].posY = " << getPosition().y << " "
+					<< "players[\"" << _name << "\"].posZ = " << getPosition().z;
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
+
 		return correct;
 
 	} // spawn
@@ -210,19 +229,6 @@ namespace Logic
 			if ((*it)->isActive())
 				_activated = (*it)->activate() && _activated;
 		}
-	
-		//Inicializar las tablas en LUA en las que se encontrará toda la información de las entidadades enemigo y jugador para 
-		//su consulta
-		if (!_type.compare("Player") || !_type.compare("Enemy"))
-		{
-			//Crear la tabla
-			std::string auxScript;
-			std::stringstream auxID;
-			auxID << this->getEntityID();
-			auxScript = "table" + auxID.str()+ "={ life=0, posx=0, posy=0, posz=0}";
-			ScriptManager::CServer::getSingletonPtr()->executeScript(auxScript.c_str());
-		}
-
 
 		return _activated;
 

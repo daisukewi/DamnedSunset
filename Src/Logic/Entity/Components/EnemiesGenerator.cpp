@@ -50,8 +50,14 @@ namespace Logic
 
 		if(entityInfo->hasAttribute("ID"))
 		{
+			// Crear la tabla del spawner actual.
+			std::stringstream scriptCreate;
+			scriptCreate << "spawners[" << entityInfo->getIntAttribute("ID") << "] = {}";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreate.str().c_str());
+
+			// Relleno la tabla con el ID de la entidad.
 			std::stringstream script;
-			script << "spawners = { [" << entityInfo->getIntAttribute("ID") << "] = { entityID = " << _entity->getEntityID() << ", }, }";
+			script << "spawners[" << entityInfo->getIntAttribute("ID") << "].entityID = " << _entity->getEntityID();
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
 
@@ -98,7 +104,7 @@ namespace Logic
 	{
 		Map::CEntity *enemyInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Enemy");
 		std::stringstream name;
-		name << "Enemy" << _enemy;
+		name << "Enemy" << _enemy << "_" << _entity->getEntityID();
 		enemyInfo->setName(name.str());
 
 		int offsetX = rand() % 4 + 1;
@@ -110,6 +116,8 @@ namespace Logic
 
 		Logic::CEntity *ent = Logic::CEntityFactory::getSingletonPtr()->createEntity(enemyInfo, _entity->getMap());
 		ent->activate();
+
+		_enemy++;
 
 		return ent;
 
@@ -128,8 +136,7 @@ namespace Logic
 			if (_time >= _periodo)
 			{
 				_time = 0;
-				_enemy++;
-
+				
 				spawnEnemy();
 			}
 		}
@@ -137,7 +144,6 @@ namespace Logic
 		if (_spawn > 0)
 		{
 			_spawn--;
-			_enemy++;
 
 			spawnEnemy();
 		}

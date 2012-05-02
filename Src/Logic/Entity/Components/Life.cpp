@@ -25,6 +25,8 @@ Contiene la implementación del componente que controla la vida de una entidad.
 #include "Graphics/Billboard.h"
 #include "Graphics.h"
 
+#include "ScriptManager/Server.h"
+
 #include "assert.h"
 
 //Mensajes
@@ -76,6 +78,16 @@ namespace Logic
 		float porcentajeVida = _life/_maxLife;
 		float num = 0.5f - porcentajeVida/2.0f;
 		_billboard->setPosicionImagen(num/*inicioX*/, 0.0f, num + 0.5f/*finX*/, 1.0f);
+
+		// Relleno la tabla con la información del jugador.
+		if (!_entity->getType().compare("Player"))
+		{
+			//Crear la tabla
+			std::stringstream script;
+			script << "players[\"" << _entity->getName() << "\"].life = " << _life;
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
+
 		return true;
 	} // spawn
 	
@@ -191,6 +203,15 @@ namespace Logic
 				m->setCure(false);
 				mh->getHealer()->emitMessage(m, this);
 			}
+		}
+
+		// Relleno la tabla con la información del jugador.
+		if (!_entity->getType().compare("Player"))
+		{
+			//Crear la tabla
+			std::stringstream script;
+			script << "players[\"" << _entity->getName() << "\"].life = " << _life;
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
 
 	} // process

@@ -77,6 +77,10 @@ namespace Logic {
 		// Rellena las casillas de tipo Grid del mapa con la info de tileMatrix.
 		map->getGridMap()->FillTileData(tileMatrix);
 
+		// Preparo las tablas de lua para que las entidades las rellenen en sus respectivos spawns.
+		ScriptManager::CServer::getSingletonPtr()->executeScript("players = {}");
+		ScriptManager::CServer::getSingletonPtr()->executeScript("spawners = {}");
+
 		Map::CMapParser::TEntityList::const_iterator it, end;
 		it = entityList.begin();
 		end = entityList.end();
