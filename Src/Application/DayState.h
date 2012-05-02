@@ -1,21 +1,21 @@
 //---------------------------------------------------------------------------
-// GameState.h
+// DayState.h
 //---------------------------------------------------------------------------
 
 /**
-@file GameState.h
+@file DayState.h
 
-Contiene la declaración del estado de juego.
+Contiene la declaración del estado en el que se realiza la fase de día
 
 @see Application::CApplicationState
 @see Application::CGameState
 
-@author David Llansó
-@date Agosto, 2010
+@author Alberto Ortega
+@date Mayo, 2012
 */
 
-#ifndef __Application_GameState_H
-#define __Application_GameState_H
+#ifndef __Application_DayState_H
+#define __Application_DayState_H
 
 #include "ApplicationState.h"
 
@@ -41,40 +41,28 @@ namespace CEGUI
 
 namespace Application 
 {
-	/**
-	Clase CGameState; representa el estado de juego de la aplicación.
-	Se encarga de la preparación y la carga del mapa lógico del juego.
-	Tiene cableados los nombres de ficheros de mapa y de blueprints por
-	simplicidad. En la activación y desactivación se encarga de activar
-	y desactivar el módulo que se encarga de manejar al jugador leyendo 
-	eventos de entrada de periféricos y de activar y desactivar el mapa 
-	de Logic::CServer. En el tick() también se actualiza el módulo de 
-	lógica.
-	<p>
-	Como ejemplo de Ventana 2D para el GUI se tiene una pequeña ventana 
-	que muestra el tiempo transcurrido. 
-	Esto provoca que este estado sea CEGUI dependiente, lo cual no es 
-	deseable. La aplicación	debería ser independiente de las tecnologías 
-	usadas.
+	/*
+	Se encarga de mostrar la interfaz correspondiente a la fase de día.
+	
 
 	@ingroup applicationGroup
 
-	@author David Llansó
-	@date Agosto, 2010
+	@author Alberto Ortega
+	@date Abril, 2012
 	*/
-	class CGameState : public CApplicationState 
+	class CDayState : public CApplicationState 
 	{
 	public:
 		/** 
 		Constructor de la clase 
 		*/
-		CGameState(CBaseApplication *app) : CApplicationState(app), 
+		CDayState(CBaseApplication *app) : CApplicationState(app), 
 				_scene(0) {}
 
 		/** 
 		Destructor 
 		*/
-		virtual ~CGameState() {}
+		virtual ~CDayState() {}
 
 		/**
 		Función llamada cuando se crea el estado (se "engancha" en la
@@ -182,18 +170,9 @@ namespace Application
 
 	private:
 
-		/**
-		Loads a new level creating a scene and a new physics scene.
-		*/
-		//bool LoadLevel();
 
-		/**
-		Unloads the previously created scene, releasing all memory.
-		*/
-		//void UnloadLevel();
-
-	}; // CGameState
+	}; // CLoadState
 
 } // namespace Application
 
-#endif //  __Application_GameState_H
+#endif //  __Application_DayState_H

@@ -1,20 +1,20 @@
 //---------------------------------------------------------------------------
-// GameState.cpp
+// LoadState.cpp
 //---------------------------------------------------------------------------
 
 /**
-@file GameState.cpp
+@file DayState.h
 
-Contiene la implementación del estado de juego.
+Contiene la implementación del estado en el que se realiza la fase de día
 
 @see Application::CApplicationState
 @see Application::CGameState
 
-@author David Llansó
-@date Agosto, 2010
+@author Alberto Ortega
+@date Mayo, 2012
 */
 
-#include "GameState.h"
+#include "DayState.h"
 
 #include "Logic/Server.h"
 #include "Logic/Maps/EntityFactory.h"
@@ -40,7 +40,7 @@ namespace GUI
 }
 
 namespace Application {
-	bool CGameState::init() 
+	bool CDayState::init() 
 	{
 		CApplicationState::init();
 
@@ -51,7 +51,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CGameState::release() 
+	void CDayState::release() 
 	{
 
 		CApplicationState::release();
@@ -60,21 +60,12 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CGameState::activate() 
+	void CDayState::activate() 
 	{
 		CApplicationState::activate();
 
-		//LoadLevel();
-	/*	
-		// Activamos el mapa que ha sido cargado para la partida.
-		Logic::CServer::getSingletonPtr()->activateMap();
-
-		// Queremos que el GUI maneje al jugador y la cámara.
-		GUI::CServer::getSingletonPtr()->getPlayerController()->activate();
-		GUI::CServer::getSingletonPtr()->getCameraController()->activate();*/
-
 		// Activamos la ventana de interfaz
-		GUI::CServer::getSingletonPtr()->getInterfazController()->activate();
+		//GUI::CServer::getSingletonPtr()->getInterfazController()->activate();
 
 		// Mostramos el ratón
 		CEGUI::MouseCursor::getSingleton().show();
@@ -84,17 +75,20 @@ namespace Application {
 		CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();  
 		CEGUI::System::getSingleton().injectMouseMove(state.X.abs-mousePos.d_x,state.Y.abs-mousePos.d_y);
 
+
+
+
 	} // activate
 
 	//--------------------------------------------------------
 
-	void CGameState::deactivate() 
+	void CDayState::deactivate() 
 	{
 		// Desactivamos la ventana de tiempo y el ratón.
 		CEGUI::MouseCursor::getSingleton().hide();
 
 		// Desactivamos la ventana de interfaz
-		GUI::CServer::getSingletonPtr()->getInterfazController()->deactivate();
+		//GUI::CServer::getSingletonPtr()->getInterfazController()->deactivate();
 
 		/*// Desactivamos la clase que procesa eventos de entrada para 
 		// controlar al jugador y la cámara.
@@ -112,7 +106,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CGameState::tick(unsigned int msecs) 
+	void CDayState::tick(unsigned int msecs) 
 	{
 		CApplicationState::tick(msecs);
 
@@ -124,11 +118,12 @@ namespace Application {
 
 		//Actualizamos la interfaz
 		GUI::CServer::getSingletonPtr()->getInterfazController()->tick(msecs);
+	
 	} // tick
 
 	//--------------------------------------------------------
 
-	bool CGameState::keyPressed(GUI::TKey key)
+	bool CDayState::keyPressed(GUI::TKey key)
 	{
 		return false;
 
@@ -136,26 +131,28 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	bool CGameState::keyReleased(GUI::TKey key)
+	bool CDayState::keyReleased(GUI::TKey key)
 	{
+
 		switch(key.keyId)
 		{
 		case GUI::Key::ESCAPE:
 			_app->setState("menu");
 			break;
-		case GUI::Key::D:
-			_app->setState("day");
+		case GUI::Key::G:
+			_app->setState("game");
 			break;
 		default:
 			return false;
 		}
 		return true;
 
+
 	} // keyReleased
 
 	//--------------------------------------------------------
 	
-	bool CGameState::mouseMoved(const GUI::CMouseState &mouseState)
+	bool CDayState::mouseMoved(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
@@ -163,7 +160,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 		
-	bool CGameState::mousePressed(const GUI::CMouseState &mouseState)
+	bool CDayState::mousePressed(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
@@ -171,48 +168,13 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	bool CGameState::mouseReleased(const GUI::CMouseState &mouseState)
+	bool CDayState::mouseReleased(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
 	} // mouseReleased
 
 	//--------------------------------------------------------
-
-	/*bool CGameState::LoadLevel()
-	{
-		// Crear la escena física.
-		Physics::CServer::getSingletonPtr()->createScene();
-
-		ScriptManager::CServer::getSingletonPtr()->CreateNewState();
-
-		// Cargamos el archivo con las definiciones de las entidades del nivel.
-		if (!Logic::CEntityFactory::getSingletonPtr()->loadBluePrints("blueprints.txt"))
-			return false;
-
-		// Cargamos el nivel y los arquetipos a partir de los nombres de los ficheros de script. 
-		if (!Logic::CServer::getSingletonPtr()->loadLevel("map", "archetype"))
-			return false;
-
-		//Inicializamos la interfaz
-		GUI::CServer::getSingletonPtr()->getInterfazController()->init();
-
-		return true;
-	}*/
-
-	//--------------------------------------------------------
-
-	/*void CGameState::UnloadLevel()
-	{
-		Logic::CServer::getSingletonPtr()->unLoadLevel();
-
-		Logic::CEntityFactory::getSingletonPtr()->unloadBluePrints();
-
-		ScriptManager::CServer::getSingletonPtr()->UnloadCurrentState();
-
-		// Liberamos la escena física.
-		Physics::CServer::getSingletonPtr()->destroyScene();
-	}*/
 
 
 } // namespace Application

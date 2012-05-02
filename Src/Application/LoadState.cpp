@@ -1,20 +1,20 @@
 //---------------------------------------------------------------------------
-// GameState.cpp
+// LoadState.cpp
 //---------------------------------------------------------------------------
 
 /**
-@file GameState.cpp
+@file LoadState.h
 
-Contiene la implementación del estado de juego.
+Contiene la declaración del estado en el que se cargan los recursos
 
 @see Application::CApplicationState
 @see Application::CGameState
 
-@author David Llansó
-@date Agosto, 2010
+@author Alberto Ortega
+@date Abril, 2012
 */
 
-#include "GameState.h"
+#include "LoadState.h"
 
 #include "Logic/Server.h"
 #include "Logic/Maps/EntityFactory.h"
@@ -40,9 +40,20 @@ namespace GUI
 }
 
 namespace Application {
-	bool CGameState::init() 
+	bool CLoadState::init() 
 	{
 		CApplicationState::init();
+		
+		//Cargar el nivel
+		assert(LoadLevel() && "Imposible cargar el nivel");
+
+		// Activamos el mapa que ha sido cargado para la partida.
+		Logic::CServer::getSingletonPtr()->activateMap();
+
+		// Queremos que el GUI maneje al jugador y la cámara.
+		GUI::CServer::getSingletonPtr()->getPlayerController()->activate();
+		GUI::CServer::getSingletonPtr()->getCameraController()->activate();
+
 
 		return true;
 
@@ -51,8 +62,19 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CGameState::release() 
+	void CLoadState::release() 
 	{
+
+
+		//Desactivamos la clase que procesa eventos de entrada para 
+		// controlar al jugador y la cámara.
+		GUI::CServer::getSingletonPtr()->getCameraController()->deactivate();
+		GUI::CServer::getSingletonPtr()->getPlayerController()->deactivate();
+		
+		// Desactivamos el mapa de la partida.
+		Logic::CServer::getSingletonPtr()->deactivateMap();
+
+		UnloadLevel();
 
 		CApplicationState::release();
 
@@ -60,51 +82,20 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CGameState::activate() 
+	void CLoadState::activate() 
 	{
 		CApplicationState::activate();
 
-		//LoadLevel();
-	/*	
-		// Activamos el mapa que ha sido cargado para la partida.
-		Logic::CServer::getSingletonPtr()->activateMap();
 
-		// Queremos que el GUI maneje al jugador y la cámara.
-		GUI::CServer::getSingletonPtr()->getPlayerController()->activate();
-		GUI::CServer::getSingletonPtr()->getCameraController()->activate();*/
+		
 
-		// Activamos la ventana de interfaz
-		GUI::CServer::getSingletonPtr()->getInterfazController()->activate();
-
-		// Mostramos el ratón
-		CEGUI::MouseCursor::getSingleton().show();
-
-		// El siguiente código es para sincronizar el ratón de CEGUI con el de OIS.
-		const OIS::MouseState state = GUI::CInputManager::getSingletonPtr()->getMouseState();
-		CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();  
-		CEGUI::System::getSingleton().injectMouseMove(state.X.abs-mousePos.d_x,state.Y.abs-mousePos.d_y);
 
 	} // activate
 
 	//--------------------------------------------------------
 
-	void CGameState::deactivate() 
+	void CLoadState::deactivate() 
 	{
-		// Desactivamos la ventana de tiempo y el ratón.
-		CEGUI::MouseCursor::getSingleton().hide();
-
-		// Desactivamos la ventana de interfaz
-		GUI::CServer::getSingletonPtr()->getInterfazController()->deactivate();
-
-		/*// Desactivamos la clase que procesa eventos de entrada para 
-		// controlar al jugador y la cámara.
-		GUI::CServer::getSingletonPtr()->getCameraController()->deactivate();
-		GUI::CServer::getSingletonPtr()->getPlayerController()->deactivate();
-		
-		// Desactivamos el mapa de la partida.
-		Logic::CServer::getSingletonPtr()->deactivateMap();
-		*/
-		//UnloadLevel();
 		
 		CApplicationState::deactivate();
 
@@ -112,23 +103,17 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CGameState::tick(unsigned int msecs) 
+	void CLoadState::tick(unsigned int msecs) 
 	{
-		CApplicationState::tick(msecs);
+		//Incializar el estado de día del juego
+		//para hacer pruebas, esperar a pulsar la tecla esc para inicializar el juego
+		_app->setState("game");
 
-		// Simulación física
-		Physics::CServer::getSingletonPtr()->tick(msecs / 1000.0f);
-
-		// Actualizamos la lógica de juego.
-		Logic::CServer::getSingletonPtr()->tick(msecs);
-
-		//Actualizamos la interfaz
-		GUI::CServer::getSingletonPtr()->getInterfazController()->tick(msecs);
 	} // tick
 
 	//--------------------------------------------------------
 
-	bool CGameState::keyPressed(GUI::TKey key)
+	bool CLoadState::keyPressed(GUI::TKey key)
 	{
 		return false;
 
@@ -136,26 +121,26 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	bool CGameState::keyReleased(GUI::TKey key)
+	bool CLoadState::keyReleased(GUI::TKey key)
 	{
+
 		switch(key.keyId)
 		{
-		case GUI::Key::ESCAPE:
-			_app->setState("menu");
-			break;
-		case GUI::Key::D:
-			_app->setState("day");
+		case GUI::Key::RETURN:
+			
+		
 			break;
 		default:
 			return false;
 		}
 		return true;
 
+
 	} // keyReleased
 
 	//--------------------------------------------------------
 	
-	bool CGameState::mouseMoved(const GUI::CMouseState &mouseState)
+	bool CLoadState::mouseMoved(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
@@ -163,7 +148,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 		
-	bool CGameState::mousePressed(const GUI::CMouseState &mouseState)
+	bool CLoadState::mousePressed(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
@@ -171,7 +156,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	bool CGameState::mouseReleased(const GUI::CMouseState &mouseState)
+	bool CLoadState::mouseReleased(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
@@ -179,7 +164,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	/*bool CGameState::LoadLevel()
+	bool CLoadState::LoadLevel()
 	{
 		// Crear la escena física.
 		Physics::CServer::getSingletonPtr()->createScene();
@@ -198,11 +183,11 @@ namespace Application {
 		GUI::CServer::getSingletonPtr()->getInterfazController()->init();
 
 		return true;
-	}*/
+	}
 
 	//--------------------------------------------------------
 
-	/*void CGameState::UnloadLevel()
+	void CLoadState::UnloadLevel()
 	{
 		Logic::CServer::getSingletonPtr()->unLoadLevel();
 
@@ -212,7 +197,7 @@ namespace Application {
 
 		// Liberamos la escena física.
 		Physics::CServer::getSingletonPtr()->destroyScene();
-	}*/
+	}
 
 
 } // namespace Application

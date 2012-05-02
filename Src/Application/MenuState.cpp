@@ -114,7 +114,8 @@ namespace Application {
 			_app->exitRequest();
 			break;
 		case GUI::Key::RETURN:
-			_app->setState("game");
+			//_app->setState("game");
+			_app->setState("load");
 			break;
 		default:
 			return false;
@@ -152,7 +153,10 @@ namespace Application {
 		
 	bool CMenuState::startReleased(const CEGUI::EventArgs& e)
 	{
-		_app->setState("game");
+
+		//Ir al estado de carga de los recursos
+		//_app->setState("game");
+		_app->setState("load");
 		return true;
 
 	} // startReleased
