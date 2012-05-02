@@ -146,7 +146,7 @@ namespace Logic
 
 		@param tileMatrix a talbe with the information to fill in each tile of the map.
 		*/
-		void FillTileData( Map::CMapParser::TTileMatrix* tileMatrix );
+		void FillTileData( Map::CMapParser::TTileMatrix tileMatrix );
 
 
 	private:

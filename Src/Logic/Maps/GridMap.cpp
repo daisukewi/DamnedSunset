@@ -275,13 +275,13 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	void CGridMap::FillTileData( Map::CMapParser::TTileMatrix* tileMatrix )
+	void CGridMap::FillTileData( Map::CMapParser::TTileMatrix tileMatrix )
 	{
 		for (int row = 0; row < _nMapRows; ++row)
 			for (int col = 0; col < _nMapCols; ++col)
 			{
-				CTerrainTile* t_tile = new CTerrainTile((*tileMatrix[row][col])->getType());
-				t_tile->FillData((*tileMatrix[row][col]));
+				CTerrainTile* t_tile = new CTerrainTile(tileMatrix[row][col]->getType());
+				t_tile->FillData(tileMatrix[row][col]);
 				getTileFromCoord(row, col)->SetTerrain(t_tile);
 			}
 	}

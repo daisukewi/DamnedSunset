@@ -75,7 +75,7 @@ namespace Logic {
 		}
 
 		// Rellena las casillas de tipo Grid del mapa con la info de tileMatrix.
-		map->getGridMap()->FillTileData(&tileMatrix);
+		map->getGridMap()->FillTileData(tileMatrix);
 
 		Map::CMapParser::TEntityList::const_iterator it, end;
 		it = entityList.begin();
