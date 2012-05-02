@@ -88,6 +88,14 @@ namespace Logic
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
 
+		// Relleno la tabla con la información del enemigo.
+		if (!_entity->getEntityTag().compare("enemy"))
+		{
+			std::stringstream script;
+			script	<< "enemies[\"" << _entity->getEntityID() << "\"].life = " << _life;
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
+
 		return true;
 	} // spawn
 	
@@ -211,6 +219,14 @@ namespace Logic
 			//Crear la tabla
 			std::stringstream script;
 			script << "players[\"" << _entity->getName() << "\"].life = " << _life;
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
+
+		// Relleno la tabla con la información del enemigo.
+		if (!_entity->getEntityTag().compare("enemy"))
+		{
+			std::stringstream script;
+			script	<< "enemies[\"" << _entity->getEntityID() << "\"].life = " << _life;
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
 

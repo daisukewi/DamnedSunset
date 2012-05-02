@@ -82,6 +82,14 @@ namespace Logic
 			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreate.str().c_str());
 		}
 
+		// Croe la tabla con la información del enemigo.
+		if (!_tag.compare("enemy"))
+		{
+			std::stringstream scriptCreate;
+			scriptCreate << "enemies[\"" << _entityID << "\"] = {}";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreate.str().c_str());
+		}
+
 		if(entityInfo->hasAttribute("position"))
 		{
 			position = entityInfo->getVector3Attribute("position");
@@ -188,6 +196,16 @@ namespace Logic
 					<< "players[\"" << _name << "\"].posX = " << getPosition().x << " "
 					<< "players[\"" << _name << "\"].posY = " << getPosition().y << " "
 					<< "players[\"" << _name << "\"].posZ = " << getPosition().z;
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
+
+		// Creo la tabla con la información del enemigo.
+		if (!_tag.compare("enemy"))
+		{
+			std::stringstream script;
+			script	<< "enemies[\"" << _entityID << "\"].posX = " << getPosition().x << " "
+					<< "enemies[\"" << _entityID << "\"].posY = " << getPosition().y << " "
+					<< "enemies[\"" << _entityID << "\"].posZ = " << getPosition().z;
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
 
