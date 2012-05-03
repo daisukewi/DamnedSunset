@@ -132,6 +132,15 @@ namespace Logic
 		*/
 		void sendAttackMsg(CEntity* entity, bool attack);
 
+
+		/**
+		Método usado para atacar a distancia a la entidad sobre la que recae la acción o para dejar de atacarla
+
+		@param entity  entidad a la que se le modifica la vida
+		*/
+		void sendAttackDistanceMsg(CEntity* entity);
+
+
 		/**
 		Método usado para curar a la entidad sobre la que recae la acción o para dejar de curarla
 

@@ -1,12 +1,11 @@
 //---------------------------------------------------------------------------
-// LoadState.h
+// UnloadState.h
 //---------------------------------------------------------------------------
 
 /**
-@file LoadState.h
+@file UnloadState.h
 
-Contiene la declaración del estado en el que se cargan los recursos
-Una vez cargados se pasará al estado de juego correspondiente (día / noche)
+Contiene la declaración del estado en el que se descargan los recursos
 
 @see Application::CApplicationState
 @see Application::CGameState
@@ -15,8 +14,8 @@ Una vez cargados se pasará al estado de juego correspondiente (día / noche)
 @date Abril, 2012
 */
 
-#ifndef __Application_LoadState_H
-#define __Application_LoadState_H
+#ifndef __Application_UnloadState_H
+#define __Application_UnloadState_H
 
 #include "ApplicationState.h"
 
@@ -43,7 +42,7 @@ namespace CEGUI
 namespace Application 
 {
 	/*
-	Se encarga de cargar los recursos necesarios una vez seleccionada la opción de empezar partida en el menú
+	Se encarga de descargar los recursos  de la escena
 	
 
 	@ingroup applicationGroup
@@ -51,19 +50,19 @@ namespace Application
 	@author Alberto Ortega
 	@date Abril, 2012
 	*/
-	class CLoadState : public CApplicationState 
+	class CUnloadState : public CApplicationState 
 	{
 	public:
 		/** 
 		Constructor de la clase 
 		*/
-		CLoadState(CBaseApplication *app) : CApplicationState(app), 
+		CUnloadState(CBaseApplication *app) : CApplicationState(app), 
 				_scene(0) {}
 
 		/** 
 		Destructor 
 		*/
-		virtual ~CLoadState() {}
+		virtual ~CUnloadState() {}
 
 		/**
 		Función llamada cuando se crea el estado (se "engancha" en la
@@ -172,12 +171,12 @@ namespace Application
 	private:
 
 		/**
-		Loads a new level creating a scene and a new physics scene.
+		Unloads the previously created scene, releasing all memory.
 		*/
-		bool LoadLevel();
+		void UnloadLevel();
 
-	}; // CLoadState
+	}; // CUnloadState
 
 } // namespace Application
 
-#endif //  __Application_LoadState_H
+#endif //  __Application_UnloadState_H

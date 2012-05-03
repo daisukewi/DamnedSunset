@@ -15,6 +15,7 @@
 #include "Logic/Entity/Messages/MoveSteering.h"
 #include "Logic/Entity/Messages/AStarRoute.h"
 #include "Logic/Entity/Messages/AttackEntity.h"
+#include "Logic/Entity/Messages/AttackDistance.h"
 #include "Logic/Entity/Messages/EmplaceBuilding.h"
 #include "Logic/Entity/Messages/IsSelectable.h"
 #include "Logic/Entity/Messages/ActivateSkill.h"
@@ -288,8 +289,15 @@ namespace Logic
 		else
 			m->setAttack(false);
 		_selectedEntity->emitMessage(m);
-
 	}
+
+	void CSelectionController::sendAttackDistanceMsg(CEntity* entity){
+
+		MAttackDistance *m = new MAttackDistance();
+		m->setEntity(entity);
+		_selectedEntity->emitMessage(m);
+	}
+
 
 	//---------------------------------------------------------
 

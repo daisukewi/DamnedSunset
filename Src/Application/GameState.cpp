@@ -141,7 +141,7 @@ namespace Application {
 		switch(key.keyId)
 		{
 		case GUI::Key::ESCAPE:
-			_app->setState("menu");
+			_app->setState("unload");
 			break;
 		case GUI::Key::D:
 			_app->setState("day");

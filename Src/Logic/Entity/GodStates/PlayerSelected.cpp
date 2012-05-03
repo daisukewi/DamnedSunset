@@ -61,7 +61,7 @@ namespace Logic
 			{
 
 				// Enviamos una orden de ataque al enemigo
-				_selectionController->sendAttackMsg(entity, true);
+				_selectionController->sendAttackDistanceMsg(entity);
 
 			}
 	

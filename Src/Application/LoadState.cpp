@@ -44,17 +44,6 @@ namespace Application {
 	{
 		CApplicationState::init();
 		
-		//Cargar el nivel
-		assert(LoadLevel() && "Imposible cargar el nivel");
-
-		// Activamos el mapa que ha sido cargado para la partida.
-		Logic::CServer::getSingletonPtr()->activateMap();
-
-		// Queremos que el GUI maneje al jugador y la cámara.
-		GUI::CServer::getSingletonPtr()->getPlayerController()->activate();
-		GUI::CServer::getSingletonPtr()->getCameraController()->activate();
-
-
 		return true;
 
 	} // init
@@ -66,16 +55,6 @@ namespace Application {
 	{
 
 
-		//Desactivamos la clase que procesa eventos de entrada para 
-		// controlar al jugador y la cámara.
-		GUI::CServer::getSingletonPtr()->getCameraController()->deactivate();
-		GUI::CServer::getSingletonPtr()->getPlayerController()->deactivate();
-		
-		// Desactivamos el mapa de la partida.
-		Logic::CServer::getSingletonPtr()->deactivateMap();
-
-		UnloadLevel();
-
 		CApplicationState::release();
 
 	} // release
@@ -85,6 +64,27 @@ namespace Application {
 	void CLoadState::activate() 
 	{
 		CApplicationState::activate();
+
+			//Cargar el nivel
+		assert(LoadLevel() && "Imposible cargar el nivel");
+
+		// Activamos el mapa que ha sido cargado para la partida.
+		Logic::CServer::getSingletonPtr()->activateMap();
+
+		// Queremos que el GUI maneje al jugador y la cámara.
+		GUI::CServer::getSingletonPtr()->getPlayerController()->activate();
+		GUI::CServer::getSingletonPtr()->getCameraController()->activate();
+
+		// Activamos la ventana de interfaz
+		GUI::CServer::getSingletonPtr()->getInterfazController()->activate();
+
+		// Mostramos el ratón
+		CEGUI::MouseCursor::getSingleton().show();
+
+		// El siguiente código es para sincronizar el ratón de CEGUI con el de OIS.
+		const OIS::MouseState state = GUI::CInputManager::getSingletonPtr()->getMouseState();
+		CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();  
+		CEGUI::System::getSingleton().injectMouseMove(state.X.abs-mousePos.d_x,state.Y.abs-mousePos.d_y);
 
 
 		
@@ -183,20 +183,6 @@ namespace Application {
 		GUI::CServer::getSingletonPtr()->getInterfazController()->init();
 
 		return true;
-	}
-
-	//--------------------------------------------------------
-
-	void CLoadState::UnloadLevel()
-	{
-		Logic::CServer::getSingletonPtr()->unLoadLevel();
-
-		Logic::CEntityFactory::getSingletonPtr()->unloadBluePrints();
-
-		ScriptManager::CServer::getSingletonPtr()->UnloadCurrentState();
-
-		// Liberamos la escena física.
-		Physics::CServer::getSingletonPtr()->destroyScene();
 	}
 
 

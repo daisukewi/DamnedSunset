@@ -277,6 +277,12 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetRealTime.cpp">
       <Filter>Entity\Messages\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttackDistance.cpp">
+      <Filter>Entity\Messages\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\DistanceAttack.cpp">
+      <Filter>Entity\Components\Abilities\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Entity\CommunicationPort.h">
@@ -569,6 +575,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetRealTime.h">
       <Filter>Entity\Messages\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttackDistance.h">
+      <Filter>Entity\Messages\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\DistanceAttack.h">
+      <Filter>Entity\Components\Abilities\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

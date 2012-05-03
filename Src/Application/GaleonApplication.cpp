@@ -21,6 +21,7 @@ basadas en Ogre. Esta clase maneja la ejecución de todo el juego.
 #include "GameOverState.h"
 #include "GameState.h"
 #include "LoadState.h"
+#include "UnloadState.h"
 #include "DayState.h"
 
 namespace Application {
@@ -60,8 +61,12 @@ namespace Application {
 			return false;
 
 
-		//Estado en el que son cargados los recursos necesarios antes de iniciar la partida
+		//Estado en el que son cargados los recursos de la escena antes de iniciar la partida
 		if (!addState("load", new CLoadState(this)))
+			return false;
+
+		//Estado en el que son descargados los recursos de la escen
+		if (!addState("unload", new CUnloadState(this)))
 			return false;
 
 		//Estado en el que se gestiona la fase de día del juego

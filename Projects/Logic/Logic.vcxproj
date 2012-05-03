@@ -83,6 +83,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BuilderController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DetonadorBolaTeltr.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DetonadorGranada.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\DistanceAttack.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Empujable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Heal.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LanzadorGranadas.cpp" />
@@ -122,6 +123,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivarComponente.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AplicarVelocidad.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttackDistance.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntityDeath.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntityDeathListener.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.cpp" />
@@ -179,6 +181,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DamageTrigger.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DetonadorBolaTeltr.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DetonadorGranada.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\DistanceAttack.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Empujable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemiesGenerator.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Heal.h" />
@@ -213,6 +216,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Building.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AplicarVelocidad.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttackDistance.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntityDeath.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntityDeathListener.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.h" />
