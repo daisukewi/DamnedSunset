@@ -32,6 +32,9 @@ namespace Logic
 		if (terrain_info->hasAttribute("normal_texture"))
 			_normalMap = terrain_info->getStringAttribute("normal_texture");
 
+		if (terrain_info->hasAttribute("texture_blendheight"))
+			_blendHeight = terrain_info->getFloatAttribute("texture_blendheight");
+
 	} // FillData
 
 	//--------------------------------------------------------
@@ -49,6 +52,9 @@ namespace Logic
 
 		if (terrain_info->hasAttribute("normal_texture"))
 			_normalMap = terrain_info->getStringAttribute("normal_texture");
+
+		if (terrain_info->hasAttribute("texture_blendheight"))
+			_blendHeight = terrain_info->getFloatAttribute("texture_blendheight");
 
 	} // FillData
 
@@ -97,6 +103,14 @@ namespace Logic
 	bool CTerrainTile::isObstacle()
 	{
 		return getAStarCost() < 0;
+
+	} // isObstacle
+
+	//--------------------------------------------------------
+
+	float CTerrainTile::getBlendHeight()
+	{
+		return _blendHeight;
 
 	} // isObstacle
 }

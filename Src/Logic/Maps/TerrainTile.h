@@ -90,6 +90,12 @@ namespace Logic
 		*/
 		bool isObstacle();
 
+		/**
+		Devuelve la altura a partir de la cual se tiene que empezar a
+		pintar la textura de este terreno.
+		*/
+		float getBlendHeight();
+
 	private:
 
 		/**
@@ -114,6 +120,12 @@ namespace Logic
 		Tamaño de la textura que tiene la casilla del terreno.
 		*/
 		int _textureSize;
+
+		/**
+		Altura a partir de la cual se tiene que pintar la textura
+		que lleva este terreno.
+		*/
+		float _blendHeight;
 	};
 
 }

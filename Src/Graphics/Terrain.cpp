@@ -147,36 +147,40 @@ namespace Graphics
 
 	void CTerrain::initBlendMaps(Ogre::Terrain* terrain)
 	{
-		Ogre::TerrainLayerBlendMap* blendMap0 = terrain->getLayerBlendMap(1);
-		Ogre::TerrainLayerBlendMap* blendMap1 = terrain->getLayerBlendMap(2);
-		Ogre::Real minHeight0 = 1;
-		Ogre::Real fadeDist0 = 1;
-		Ogre::Real minHeight1 = 3;
-		Ogre::Real fadeDist1 = 2;
-		float* pBlend0 = blendMap0->getBlendPointer();
-		float* pBlend1 = blendMap1->getBlendPointer();
+		int nBlendMaps = _nTerrains - 1;
+		Ogre::TerrainLayerBlendMap** blendMaps = new Ogre::TerrainLayerBlendMap*[_nTerrains];
+		float** pBlend = new float*[nBlendMaps];
+
+		for (int i = 0; i < nBlendMaps; ++i)
+		{
+			blendMaps[i] = terrain->getLayerBlendMap(i + 1);
+			pBlend[i] = blendMaps[i]->getBlendPointer();
+		}
+
+		Ogre::Real fadeDist = 1;
+
 		for (Ogre::uint16 y = 0; y < terrain->getLayerBlendMapSize(); ++y)
 		{
 			for (Ogre::uint16 x = 0; x < terrain->getLayerBlendMapSize(); ++x)
 			{
 				Ogre::Real tx, ty;
 
-				blendMap0->convertImageToTerrainSpace(x, y, &tx, &ty);
+				blendMaps[0]->convertImageToTerrainSpace(x, y, &tx, &ty);
 				Ogre::Real height = terrain->getHeightAtTerrainPosition(tx, ty);
 
-				Ogre::Real val = (height - minHeight0) / fadeDist0;
-				val = Ogre::Math::Clamp(val, (Ogre::Real)0, (Ogre::Real)1);
-				*pBlend0++ = val;
-
-				val = (height - minHeight1) / fadeDist1;
-				val = Ogre::Math::Clamp(val, (Ogre::Real)0, (Ogre::Real)1);
-				*pBlend1++ = 0;//val;
+				for (int i = 0; i < nBlendMaps; ++i)
+				{
+					Ogre::Real val = (height - _terrainList[i + 1]->getBlendHeight()) / fadeDist;
+					val = Ogre::Math::Clamp(val, (Ogre::Real)0, (Ogre::Real)1);
+					*pBlend[i]++ = val;
+				}
 			}
 		}
-		blendMap0->dirty();
-		blendMap1->dirty();
-		blendMap0->update();
-		blendMap1->update();
+
+		for (int i = 0; i < nBlendMaps; ++i)
+			blendMaps[i]->dirty();
+		for (int i = 0; i < nBlendMaps; ++i)
+			blendMaps[i]->update();
 	}
 
 	//-------------------------------------------------------------------------------------

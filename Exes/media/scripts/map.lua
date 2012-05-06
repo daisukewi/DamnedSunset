@@ -1,27 +1,33 @@
 Map = {
 
 	Sand = {
-		normal_texture = "normales.png",
+		normal_texture = "toon_desertb.jpg",
 		height = 0,
 		max_height = 0,
-		texture_size = 100,
-		difuse_texture = "textura.jpg",
+		texture_size = 256,
+		difuse_texture = "toon_desert.jpg",
+		texture_blendheight = 0,
 		cost = 0,
 	},
 
 	Road = {
-		model = "road.mesh",
+		normal_texture = "toon_desertb.jpg",
 		height = 2,
 		max_height = 2,
+		texture_size = 256,
+		difuse_texture = "toon_desert.jpg",
+		cost = 0,
+		texture_blendheight = 10,
 	},
 
 	Mountain = {
-		normal_texture = "",
+		normal_texture = "toon_desertb.jpg",
 		height = 1,
 		max_height = 5,
-		texture_size = 200,
-		difuse_texture = "",
+		texture_size = 256,
+		difuse_texture = "toon_desert.jpg",
 		cost = -1,
+		texture_blendheight = 10,
 	},
 
 	Grid = {
@@ -94,14 +100,12 @@ Map = {
 	World = {
 		position = { 0, 0, 0 },
 		orientation = 0,
-		physic_entity = "simple",
 		static = true,
-		physic_height = 1,
-		physic_normal = { 0, 1, 0 },
 		type = "World",
+		physic_entity = "simple",
 		physic_type = "static",
 		physic_shape = "box",
-		physic_radius = 1,
+		physic_normal = { 0, 1, 0 },
 		physic_dimensions = { 720.0, 0.5, 720.0 },
 	},
 
