@@ -1,43 +1,44 @@
 /**
-@file EnemiesGenerator.h
+@file Perception.h
 
-Contiene la declaración del componente que controla la generación en 
-el mapa de enemigos.
+Contiene la declaración del componente que controla la percepción de los enemigos.
 
-@see Logic::CEnemiesGenerator
-@see Logic::IComponent
-
-@author Luis Mendoza
-@date Febrero, 2012
+@author Alberto Plaza
+@date Mayo, 2012
 */
-#ifndef __Logic_EnemiesGenerator_H
-#define __Logic_EnemiesGenerator_H
+#ifndef __Logic_Perception_H
+#define __Logic_Perception_H
 
 #include "Logic/Entity/Component.h"
 
-#include "BaseSubsystems/Math.h"
+// Predeclaración de clases.
+namespace Logic
+{
+	class CEntity;
+}
 
 //declaración de la clase
 namespace Logic 
 {
 /**
-	Este componente es el encargado de generar enemigos.
+	Componente encargado de percibir el mundo y notificar a la IA
+	cualquier cosa percibida para la toma de decisiones.
 	
     @ingroup logicGroup
 
-	@author Luis Mendoza
-	@date Febrero, 2012
+	@author Alberto Plaza
+	@date Mayo, 2012
 */
-	class CEnemiesGenerator : public IComponent
+	class CPerception : public IComponent
 	{
-		DEC_FACTORY(CEnemiesGenerator);
+		DEC_FACTORY(CPerception);
 	public:
 
 		/**
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CEnemiesGenerator() : IComponent(), _origen(Vector2::ZERO), _time(0), _enemy(1), _periodo(10000), _spawn(0) {}
+		CPerception() : IComponent(), _distanceOfView(0) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -94,56 +95,22 @@ namespace Logic
 		*/
 		virtual void process(IMessage *message);
 
-		/**
-		Spawnea en una posición aleatoria alrededor del spawner.
-
-		@return La referencia del enemigo spawneado.
-		*/
-		Logic::CEntity* spawnEnemy();
-
 	protected:
 
 		/**
-		Atributo para saber el lugar donde se crea el enemigo.
+		Distancia de visión de la entidad.
 		*/
-		Vector2 _origen;
+		int _distanceOfView;
 
 		/**
-		Contador de tiempo.
+		Lista de los jugadores para comprobar si los veo o no.
 		*/
-		unsigned int _time;
+		std::list<Logic::CEntity*> _playerEntities;
 
-		/**
-		Contador de enemigos.
-		*/
-		unsigned int _enemy;
+	}; // class CPerception
 
-		/**
-		Cada cuántos milisegundos se crea un enemigo.
-		*/
-		unsigned int _periodo;
-
-		/**
-		Indica si hay que spawnear enemigos automáticamente o no.
-		*/
-		bool _automaticSpawn;
-
-		/**
-		Indica si hay que spawnear un enemigo en el tick del componente y cuantos.
-
-		Hecho para no spawnear mas de un enemigo por tick.
-		*/
-		int _spawn;
-
-		/**
-		ID del spawner. Debería ser único, pero no se comprueba; simplemente se lee del map.lua.
-		*/
-		int _ID;
-
-	}; // class CEnemiesGenerator
-
-	REG_FACTORY(CEnemiesGenerator);
+	REG_FACTORY(CPerception);
 
 } // namespace Logic
 
-#endif // __Logic_EnemiesGenerator_H
+#endif // __Logic_Perception_H

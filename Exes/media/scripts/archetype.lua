@@ -116,6 +116,8 @@ Archetype = {
 		billboardSeleccionHeight = 15.0,
 		
 		afectaEmpujar = 100,
+		
+		distanceOfView = 100,
 	},
 	
 	Granada = {

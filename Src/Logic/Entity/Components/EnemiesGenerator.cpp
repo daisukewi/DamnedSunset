@@ -50,15 +50,22 @@ namespace Logic
 
 		if(entityInfo->hasAttribute("ID"))
 		{
+			_ID = entityInfo->getIntAttribute("ID");
+
 			// Crear la tabla del spawner actual.
 			std::stringstream scriptCreate;
-			scriptCreate << "spawners[" << entityInfo->getIntAttribute("ID") << "] = {}";
+			scriptCreate << "spawners[" << _ID << "] = {}";
 			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreate.str().c_str());
 
 			// Relleno la tabla con el ID de la entidad.
 			std::stringstream script;
-			script << "spawners[" << entityInfo->getIntAttribute("ID") << "].entityID = " << _entity->getEntityID();
+			script << "spawners[" << _ID << "].entityID = " << _entity->getEntityID();
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+			// Creo la tabla de enemigos.
+			std::stringstream scriptCreateEnemies;
+			scriptCreateEnemies << "spawners[" << _ID << "].enemies = {}";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreateEnemies.str().c_str());
 		}
 
 		std::srand(time(NULL));
@@ -116,6 +123,11 @@ namespace Logic
 
 		Logic::CEntity *ent = Logic::CEntityFactory::getSingletonPtr()->createEntity(enemyInfo, _entity->getMap());
 		ent->activate();
+
+		// Añado un nuevo enemigo a la tabla de enemigos creados por el spawner.
+		std::stringstream script;
+		script << "spawners[" << _ID << "].enemies[" << _enemy << "] = { ID = " << ent->getEntityID() << ", }";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
 		_enemy++;
 
