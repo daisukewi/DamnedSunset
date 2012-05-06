@@ -9,6 +9,16 @@ Archetype = {
 		billboardMoverTime = 2.0,
 	},
 	
+	Obstacle = {
+		type = "Obstacle",
+		position = {0, 0, 0},
+		physic_entity = "simple",
+		physic_type = "static",
+		physic_shape = "box",
+		physic_dimensions = { 8, 8, 8 },
+		physic_collision_group = 1,
+	},
+	
 	Entity = {
 		type = "Entity",
 		position = {0, 0, 0},

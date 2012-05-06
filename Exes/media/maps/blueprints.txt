@@ -1,4 +1,5 @@
 World CPhysicEntity CSelectable CBillboardIndicacionMover
+Obstacle CPhysicEntity
 Sun CSunController
 Player CDistanceAttack CLanzadorGranadas CAttack CHeal CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor CSelectable CScript CEmpujable
 Enemy CAttack CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CSelectable CScript CEmpujable

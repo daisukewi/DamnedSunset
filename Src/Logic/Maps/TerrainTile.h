@@ -84,6 +84,12 @@ namespace Logic
 		*/
 		int getTextureSize();
 
+		/**
+		Devuelve true si es un obstaculo y necesita una caja física
+		de su tamaño para no poder atravesar esta casilla.
+		*/
+		bool isObstacle();
+
 	private:
 
 		/**

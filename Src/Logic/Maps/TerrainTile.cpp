@@ -91,4 +91,12 @@ namespace Logic
 		return _textureSize;
 
 	} // getTextureSize
+
+	//--------------------------------------------------------
+
+	bool CTerrainTile::isObstacle()
+	{
+		return getAStarCost() < 0;
+
+	} // isObstacle
 }

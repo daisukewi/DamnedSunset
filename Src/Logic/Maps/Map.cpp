@@ -76,7 +76,7 @@ namespace Logic {
 		}
 
 		// Rellena las casillas de tipo Grid del mapa con la info de tileMatrix.
-		map->getGridMap()->FillTileData(tileMatrix);
+		map->getGridMap()->FillTileData(map, tileMatrix);
 
 		// Preparo las tablas de lua para que las entidades las rellenen en sus respectivos spawns.
 		ScriptManager::CServer::getSingletonPtr()->executeScript("players = {}");
@@ -323,7 +323,8 @@ namespace Logic {
 	{
 		Graphics::CTerrain* terrain = _scene->generateTerrain(_terrainList, _gridMap);
 
-		if (!terrain->wasTerrainsImported()) return;
+		//if (!terrain->wasTerrainsImported())
+		return;
 		
 		//////////////////////////////////////////////////////////////////////////
 		/////   BAKING THE PHYSICS TERRAIN

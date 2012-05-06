@@ -150,9 +150,10 @@ namespace Logic
 		/**
 		Fiils the tiles of the map with the info stored in tileMatrix.
 
+		@param map Mapa del juego que contiene todas las entidades.
 		@param tileMatrix a talbe with the information to fill in each tile of the map.
 		*/
-		void FillTileData( Map::CMapParser::TTileMatrix tileMatrix );
+		void FillTileData( CMap * _map, Map::CMapParser::TTileMatrix tileMatrix );
 
 
 	private:

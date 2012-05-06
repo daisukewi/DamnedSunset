@@ -289,7 +289,7 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	void CGridMap::FillTileData( Map::CMapParser::TTileMatrix tileMatrix )
+	void CGridMap::FillTileData( CMap * _map, Map::CMapParser::TTileMatrix tileMatrix )
 	{
 		for (int row = 0; row < _nMapRows; ++row)
 			for (int col = 0; col < _nMapCols; ++col)
@@ -297,6 +297,25 @@ namespace Logic {
 				CTerrainTile* t_tile = new CTerrainTile(tileMatrix[row][col]->getType());
 				t_tile->FillData(tileMatrix[row][col]);
 				getTileFromCoord(row, col)->SetTerrain(t_tile);
+
+				if (t_tile->isObstacle())
+				{
+					//@TODO: spawn Obstacle entity on this position.
+					Vector2 pos = getRelativeMapPos(row, col);
+					std::stringstream vecPos, name;
+
+					// Creamos una nueva entidad con su entidad trigger sacada de los arquetipos
+					Map::CEntity * obstacleInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Obstacle");
+
+					name << "Obstacle_" << row << "_" << col;
+					vecPos << pos.x << " 0 " << pos.y;
+
+					// Le ponemos un nuevo nombre para poder hacer spawn y la posición del edificio fantasma
+					obstacleInfo->setName(name.str());
+					obstacleInfo->setAttribute("position", vecPos.str());
+
+					Logic::CEntityFactory::getSingletonPtr()->createEntity(obstacleInfo, _map);
+				}
 			}
 	}
 

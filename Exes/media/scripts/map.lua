@@ -30,7 +30,7 @@ Map = {
 		width = 30,
 		height = 30,
 		grid_map = {
-			{ "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand" },
+			{ "Sand", "Mountain", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand" },
 			{ "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand" },
 			{ "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand" },
 			{ "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand", "Sand" },
