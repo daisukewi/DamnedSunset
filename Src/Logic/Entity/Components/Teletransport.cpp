@@ -53,9 +53,6 @@ namespace Logic
 	{
 		MTeletransportTo *m_trans =  static_cast<MTeletransportTo*> (message);
 		Vector3 point = m_trans->getPosition();
-		//_entity->setPosition(point);
-		//Physics::CServer::getSingletonPtr()->setPosition((CPhysicObjCharacter *)_entity, point);
 
-		std::cout << "Teletransporte procesado" ;
 	} // process
 } // namespace Logic

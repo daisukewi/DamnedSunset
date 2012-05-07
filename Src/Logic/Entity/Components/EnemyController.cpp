@@ -199,7 +199,7 @@ namespace Logic
 		if (!_moving)
 		{
 			Vector3 destino = Vector3 ( rand() % 200 - 100, 1.0f, rand() % 200 - 100);
-
+			
 			MAStarRoute *m = new MAStarRoute();
 			m->setAction(RouteAction::START_ROUTE);
 			m->setRouteDestination(destino);

@@ -119,6 +119,13 @@ Map = {
 		type = "Sun",
 	},
 
+	EnemiesGenerator = {
+		model = "torreta_pie.mesh",
+		grid_position = { 19, 11 },
+		type = "Enemies",
+		periodo = 10000,
+	},
+
 	Jack = {
 		afectaEmpujar = 50,
 		life = 100.0,

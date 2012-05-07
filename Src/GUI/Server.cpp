@@ -24,6 +24,8 @@ la gestión de la interfaz con el usuario (entrada de periféricos, CEGui...).
 #include <CEGUIWindow.h>
 #include <CEGUISchemeManager.h>
 #include <CEGUIFontManager.h>
+#include <ScriptingModules\LuaScriptModule\CEGUILua.h>
+#include "ScriptManager/Server.h"
 
 namespace GUI {
 
@@ -96,6 +98,17 @@ namespace GUI {
 		CEGUI::SchemeManager::getSingleton().create("VanillaSkin.scheme");
 		CEGUI::SchemeManager::getSingleton().create("Interfaz.scheme");
 		CEGUI::SchemeManager::getSingleton().create("WindowsLook.scheme");
+		/*
+		CEGUI::LuaScriptModule& scriptModule = CEGUI::LuaScriptModule::create();
+		CEGUI::Renderer& renderer = CEGUI:
+		new CEGUI::System(renderer, 0,NULL,NULL, scriptModule,"","");
+		new CEGUI::System(renderer, 0, 0, 0, scriptModule, 0, 0 );
+		CEGUI::System::create(renderer, NULL, NULL, NULL, &scriptModule, "", "");
+		*/
+
+		/*
+		ScriptManager::CServer::getSingletonPtr()->executeScript("initCEGUI.lua");
+		*/
 
 		// Cargamos los archivos con las fuentes que usaremos.
 		CEGUI::FontManager::getSingleton().create("DejaVuSans-10.font");

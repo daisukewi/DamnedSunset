@@ -80,7 +80,7 @@ Archetype = {
 	
 	Enemies = {
 		type = "Enemies",
-		periodo = 5000,
+		periodo = 10000,
 		automaticSpawn = false,
 		script = "enemyScript",
 	},
