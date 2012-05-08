@@ -120,6 +120,7 @@ Archetype = {
 		distOfView = 100,
 		
 		initState = 1,
+		memInitPoint = true,
 	},
 	
 	Granada = {
