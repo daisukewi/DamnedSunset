@@ -1,5 +1,5 @@
 function launchIA()
-	for i = 1, 3 do
+	for i = 1, 1 do
 		entity = spawners[1].entityID
 		local mensaje = LUA_MSpawnEnemy()
 		mensaje:setEntityTo(entity)

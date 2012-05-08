@@ -687,7 +687,7 @@ namespace ScriptManager
 
 		luabind::module(_lua)
 		[
-			luabind::class_<LUA_MAttackEntity>("LUA_MAtackEntity")
+			luabind::class_<LUA_MAttackEntity>("LUA_MAttackEntity")
 				.def(luabind::constructor<>())
 				.def("setAttack", (void (LUA_MAttackEntity::*) (bool)) &LUA_MAttackEntity::setAttack)
 				.def("setEntity", (void (LUA_MAttackEntity::*) (unsigned int)) &LUA_MAttackEntity::setEntity)

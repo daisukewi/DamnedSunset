@@ -15,6 +15,8 @@ Contiene la implementación del componente que controla la percepción de los enem
 
 #include "ScriptManager/Server.h"
 
+#include "Logic/Entity/Messages/AttackEntity.h"
+
 #include <sstream>
 
 namespace Logic
@@ -35,7 +37,7 @@ namespace Logic
 		Logic::CEntity *ent = _entity->getMap()->getEntityByType("Player");
 		while (ent != NULL)
 		{
-			_playerEntities.push_back(ent);
+			_playerEntities.push_back(std::pair<Logic::CEntity*, bool>(ent, false));
 			ent = _entity->getMap()->getEntityByType("Player", ent);
 		}
 
@@ -70,7 +72,7 @@ namespace Logic
 
 	void CPerception::process(IMessage *message)
 	{
-
+		
 	} // process
 
 	//---------------------------------------------------------
@@ -79,21 +81,50 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
-		// Compruebo si veo a algún jugador.
-		std::list<Logic::CEntity*>::const_iterator it = _playerEntities.begin();
-		for (; it != _playerEntities.end(); it++)
+		_currentExeFrames++;
+
+		// Ejecuto la percepción si toca.
+		if (_exeFrames >= _currentExeFrames)
 		{
-			int xDistance = std::abs(it._Ptr->_Myval->getPosition().x - _entity->getPosition().x);
-			int yDistance = std::abs(it._Ptr->_Myval->getPosition().z - _entity->getPosition().z);
+			// Reinicio el contador de frames.
+			_currentExeFrames = 0;
 
-			int distance = xDistance + yDistance;
-
-			if (distance <= _distanceOfView)
+			// Compruebo si veo a algún jugador. Me recorro la lista de jugadores para ver uno por uno si está a la distancia de visión.
+			TPlayerList::iterator it = _playerEntities.begin();
+			for (; it != _playerEntities.end(); it++)
 			{
-				std::stringstream script;
-				script << "onPlayerSeen(" << _entity->getEntityID() << ", " << it._Ptr->_Myval->getEntityID() << ")";
-				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-				break;
+				// Calculo la distancia entre el jugador y la entidad actual. (Distancia Manhattan)
+				int xDistance = std::abs((*it).first->getPosition().x - _entity->getPosition().x);
+				int yDistance = std::abs((*it).first->getPosition().z - _entity->getPosition().z);
+
+				int distance = xDistance + yDistance;
+
+				// Si está dentro de la distancia de visión, aviso a lua.
+				if (distance <= _distanceOfView)
+				{
+					// Compruebo si ya lo había visto antes para no mandar el aviso mas de una vez.
+					if (!(*it).second)
+					{
+						std::stringstream script;
+						script << "onPlayerSeen(" << _entity->getEntityID() << ", " << (*it).first->getEntityID() << ")";
+						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+						(*it).second = true;
+					}
+				}
+				// Si está fuera de la distancia de visión, aviso a lua de que lo he perdido de vista.
+				else
+				{
+					// Compruebo si ya lo había dejado de ver para no mandar el aviso mas de una vez.
+					if ((*it).second)
+					{
+						std::stringstream script;
+						script << "onPlayerLost(" << _entity->getEntityID() << ", " << (*it).first->getEntityID() << ")";
+						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+						(*it).second = false;
+					}
+				}
 			}
 		}
 

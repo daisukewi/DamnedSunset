@@ -38,7 +38,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CPerception() : IComponent(), _distanceOfView(0) {}
+		CPerception() : IComponent(), _distanceOfView(0), _exeFrames(10), _currentExeFrames(0) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -98,14 +98,29 @@ namespace Logic
 	protected:
 
 		/**
+		Cada cuántos frames se ejecuta la percepción.
+		*/
+		int _exeFrames;
+
+		/**
+		Cuenta de cuántos frames van ejecutados sin hacer la percepción.
+		*/
+		int _currentExeFrames;
+
+		/**
 		Distancia de visión de la entidad.
 		*/
 		int _distanceOfView;
 
 		/**
+		Tipo lista de jugadores.
+		*/
+		typedef std::list<std::pair<Logic::CEntity*, bool>> TPlayerList;
+
+		/**
 		Lista de los jugadores para comprobar si los veo o no.
 		*/
-		std::list<Logic::CEntity*> _playerEntities;
+		TPlayerList _playerEntities;
 
 	}; // class CPerception
 
