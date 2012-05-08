@@ -30,8 +30,8 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 
-		if(entityInfo->hasAttribute("distanceOfView"))
-			_distanceOfView = entityInfo->getIntAttribute("distanceOfView");
+		if(entityInfo->hasAttribute("distOfView"))
+			_distanceOfView = entityInfo->getIntAttribute("distOfView");
 
 		// Obtengo todas las entidades de tipo jugador del mapa.
 		Logic::CEntity *ent = _entity->getMap()->getEntityByType("Player");
@@ -106,7 +106,8 @@ namespace Logic
 					if (!(*it).second)
 					{
 						std::stringstream script;
-						script << "onPlayerSeen(" << _entity->getEntityID() << ", " << (*it).first->getEntityID() << ")";
+						script << "enemyEventParam = { target = " << (*it).first->getEntityID() << " } ";
+						script << "enemyEvent(\"OnPlayerSeen\", " << _entity->getEntityID() << ")";
 						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
 						(*it).second = true;
@@ -119,7 +120,7 @@ namespace Logic
 					if ((*it).second)
 					{
 						std::stringstream script;
-						script << "onPlayerLost(" << _entity->getEntityID() << ", " << (*it).first->getEntityID() << ")";
+						script << "enemyEvent(\"OnPlayerLost\", " << _entity->getEntityID() << ")";
 						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
 						(*it).second = false;

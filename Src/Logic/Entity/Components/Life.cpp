@@ -92,7 +92,7 @@ namespace Logic
 		if (!_entity->getEntityTag().compare("enemy"))
 		{
 			std::stringstream script;
-			script	<< "enemies[\"" << _entity->getEntityID() << "\"].life = " << _life;
+			script	<< "enemies[" << _entity->getEntityID() << "].life = " << _life;
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
 

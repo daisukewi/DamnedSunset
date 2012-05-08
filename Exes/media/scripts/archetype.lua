@@ -117,7 +117,9 @@ Archetype = {
 		
 		afectaEmpujar = 100,
 		
-		distanceOfView = 100,
+		distOfView = 100,
+		
+		initState = 1,
 	},
 	
 	Granada = {

@@ -1,31 +1,72 @@
-function onPlayerSeen(entity, playerSeen)
-	player = ""
-	for key, value in pairs(players) do
-		if (value.ID == playerSeen) then
-			player = key;
-		end
+-- Recogida de eventos del estado idle.
+function idleStateEvent(event, entity)
+-- El estado de idle es el estado 1.
+	local nextState;
+
+	if (event == "OnPlayerSeen") then
+		local mensaje = LUA_MAttackEntity()
+		mensaje:setAttack(true)
+		mensaje:setEntity(enemyEventParam.target)
+		mensaje:setEntityTo(entity)
+		mensaje:send()
+		
+		nextState = 2
+	else
+		nextState = 1
 	end
-	print("Soy el enemigo " .. entity .. " y veo a " .. player)
 	
-	local mensaje = LUA_MAttackEntity()
-	mensaje:setAttack(true)
-	mensaje:setEntity(playerSeen)
-	mensaje:setEntityTo(entity)
-	mensaje:send()
+	return nextState;
 end
 
-function onPlayerLost(entity, playerLost)
-	player = ""
-	for key, value in pairs(players) do
-		if (value.ID == playerLost) then
-			player = key;
-		end
-	end
-	print("Soy el enemigo " .. entity .. " y he dejado de ver a " .. player)
+-- Acción del estado idle.
+function idleStateAction(entity)
+-- El estado de idle es el estado 1.
+	return 1
+end
+
+-- Recogida de eventos del estado atacando.
+function attackStateEvent(event, entity)
+-- El estado de atacando es el estado 2.
+	local nextState;
 	
-	local mensaje = LUA_MAttackEntity()
-	mensaje:setAttack(false)
-	mensaje:setEntity(playerLost)
-	mensaje:setEntityTo(entity)
-	mensaje:send()
+	if (event == "OnPlayerLost") then
+		local mensaje = LUA_MAttackEntity()
+		mensaje:setAttack(false)
+		mensaje:setEntityTo(entity)
+		mensaje:send()
+		
+		nextState = 1
+	else
+		nextState = 2
+	end
+	
+	return nextState;
+end
+
+-- Acción del estado atacando.
+function attackStateAction(entity)
+-- El estado de atacando es el estado 2.
+	return 2
+end
+
+-- Definición de los distintos estados y sus acciones.
+idleState = { event = idleStateEvent, action = idleStateAction }
+attackState = { event = attackStateEvent, action = attackStateAction }
+
+-- Tabla con todos los estados.
+states = {
+	{ name = "idle", state = idleState },
+	{ name = "attack", state = attackState }
+}
+
+-- Función que recogerá los eventos a los cuales reaccionará la máquina de estados.
+function enemyEvent(event, entity)
+	local nextState = states[enemies[entity].state].state.event(event, entity)
+	enemies[entity].state = nextState
+end
+
+-- Función que se llamará en cada tick para ejecutar las acciones que haga falta en el estado actual.
+function AIAction(entity)
+	local nextState = states[enemies[entity].state].state.action(entity)
+	enemies[entity].state = nextState
 end

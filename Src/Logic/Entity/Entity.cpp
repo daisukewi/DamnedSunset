@@ -82,11 +82,12 @@ namespace Logic
 			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreate.str().c_str());
 		}
 
-		// Croe la tabla con la información del enemigo.
+		// Creo la tabla con la información del enemigo.
 		if (!_tag.compare("enemy"))
 		{
 			std::stringstream scriptCreate;
-			scriptCreate << "enemies[\"" << _entityID << "\"] = {}";
+			scriptCreate << "enemies[" << _entityID << "] = {}";
+			scriptCreate << "enemies[" << _entityID << "].state = 1";
 			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreate.str().c_str());
 		}
 
@@ -203,9 +204,9 @@ namespace Logic
 		if (!_tag.compare("enemy"))
 		{
 			std::stringstream script;
-			script	<< "enemies[\"" << _entityID << "\"].posX = " << getPosition().x << " "
-					<< "enemies[\"" << _entityID << "\"].posY = " << getPosition().y << " "
-					<< "enemies[\"" << _entityID << "\"].posZ = " << getPosition().z;
+			script	<< "enemies[" << _entityID << "].posX = " << getPosition().x << " "
+					<< "enemies[" << _entityID << "].posY = " << getPosition().y << " "
+					<< "enemies[" << _entityID << "].posZ = " << getPosition().z;
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
 
