@@ -10,6 +10,7 @@ Contiene la implementación del componente que controla la IA de los enemigos.
 #include "EnemyAIController.h"
 
 #include "Logic/Entity/Entity.h"
+#include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
 
 #include "ScriptManager/Server.h"
@@ -48,6 +49,19 @@ namespace Logic
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
 
+		if (entityInfo->hasAttribute("runLifeThreshold"))
+		{
+			std::stringstream script;
+			script << "enemies[" << _entity->getEntityID() << "].runLifeThreshold = " << entityInfo->getIntAttribute("runLifeThreshold");
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
+		else
+		{
+			std::stringstream script;
+			script << "enemies[" << _entity->getEntityID() << "].runLifeThreshold = 0";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
+
 		return true;
 
 	} // spawn
@@ -56,6 +70,28 @@ namespace Logic
 
 	bool CEnemyAIController::activate()
 	{
+		std::list<Logic::CEntity*> _playerEntities;
+		Logic::CEntity *ent = _entity->getMap()->getEntityByType("Player");
+		while (ent != NULL)
+		{
+			_playerEntities.push_back(ent);
+			ent = _entity->getMap()->getEntityByType("Player", ent);
+		}
+
+		std::stringstream script;
+		script << "enemies[" << _entity->getEntityID() << "].playersSeen = { ";
+
+		std::list<Logic::CEntity*>::const_iterator it = _playerEntities.begin();
+		script << "[" << (*it)->getEntityID() << "] = false";
+		it++;
+		for (; it != _playerEntities.end(); it++)
+		{
+			script << ", " << "[" << (*it)->getEntityID() << "] = false";
+		}
+		script << " }";
+
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
 		return true;
 
 	} // activate

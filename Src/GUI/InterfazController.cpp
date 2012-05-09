@@ -134,13 +134,6 @@ namespace GUI {
 			_time = 0;
 			_nFrames = 0;
 		}
-
-		Logic::MDamaged *m = new Logic::MDamaged();
-		m->setHurt(msecs/1000.0f);
-
-		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack")->emitMessage(m);
-		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick")->emitMessage(m);
-		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor")->emitMessage(m);
 	
 		
 	}

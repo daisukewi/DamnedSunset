@@ -66,10 +66,10 @@ Map = {
 	PlayerGod = {
 		isPlayer = true,
 		orientation = 225,
-		isTargetCamera = true,
 		southVision = 1000,
-		eastVision = 1000,
+		isTargetCamera = true,
 		northVision = 1000,
+		eastVision = 1000,
 		grid_position = { 29, 0 },
 		westVision = 1000,
 		type = "PlayerGod",
@@ -85,16 +85,16 @@ Map = {
 		grid_position = { 28, 0 },
 		targetHeight = 7,
 		targetName = "PlayerGod",
-		targetDistance = 10,
 		type = "Camera",
+		targetDistance = 10,
 	},
 
 	World = {
 		position = { 0, 0, 0 },
 		orientation = 0,
 		physic_entity = "simple",
-		physic_height = 1,
 		static = true,
+		physic_height = 1,
 		physic_normal = { 0, 1, 0 },
 		type = "World",
 		physic_type = "static",
@@ -105,10 +105,10 @@ Map = {
 
 	Sun = {
 		position = { 0, 10, -100 },
-		orientation = 0,
 		scale = 30.0,
-		grid_position = { 28, 29 },
+		orientation = 0,
 		speed = 5.0,
+		grid_position = { 28, 29 },
 		inclination = 120.0,
 		type = "Sun",
 	},
@@ -119,13 +119,13 @@ Map = {
 		grid_position = { 28, 2 },
 		nombreGranada = "Granada",
 		tickFunction = "jackTick",
-		script = "jackScript",
 		type = "Player",
+		script = "jackScript",
 	},
 
 	Erick = {
 		afectaEmpujar = 100,
-		life = 80.0,
+		life = 100.0,
 		grid_position = { 26, 2 },
 		nombreGranada = "BolaTeltr",
 		type = "Player",
@@ -133,7 +133,7 @@ Map = {
 
 	Amor = {
 		afectaEmpujar = 150,
-		life = 10.0,
+		life = 100.0,
 		grid_position = { 27, 1 },
 		script = "amorScript",
 		type = "Player",

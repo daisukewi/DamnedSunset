@@ -89,7 +89,7 @@ Archetype = {
 		type = "Enemy",
 		tag = "enemy",
 		orientation = 0,
-		life = 40.0,
+		life = 100.0,
 		maxLife = 100.0,
 		isPlayer = false,
 		model = "loco.mesh",
@@ -121,6 +121,7 @@ Archetype = {
 		
 		initState = 1,
 		memInitPoint = true,
+		runLifeThreshold = 50,
 	},
 	
 	Granada = {

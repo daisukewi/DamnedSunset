@@ -78,7 +78,7 @@ namespace Logic
 		if (!_type.compare("Player"))
 		{
 			std::stringstream scriptCreate;
-			scriptCreate << "players[\"" << _name << "\"] = {}";
+			scriptCreate << "players[" << _entityID << "] = {}";
 			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreate.str().c_str());
 		}
 
@@ -193,10 +193,10 @@ namespace Logic
 		if (!_type.compare("Player"))
 		{
 			std::stringstream script;
-			script	<< "players[\"" << _name << "\"].ID = " << _entityID << " "
-					<< "players[\"" << _name << "\"].posX = " << getPosition().x << " "
-					<< "players[\"" << _name << "\"].posY = " << getPosition().y << " "
-					<< "players[\"" << _name << "\"].posZ = " << getPosition().z;
+			script	<< "players[" << _entityID << "].name = " << _name << " "
+					<< "players[" << _entityID << "].posX = " << getPosition().x << " "
+					<< "players[" << _entityID << "].posY = " << getPosition().y << " "
+					<< "players[" << _entityID << "].posZ = " << getPosition().z;
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
 

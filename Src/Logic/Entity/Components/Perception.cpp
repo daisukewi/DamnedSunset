@@ -33,14 +33,6 @@ namespace Logic
 		if(entityInfo->hasAttribute("distOfView"))
 			_distanceOfView = entityInfo->getIntAttribute("distOfView");
 
-		// Obtengo todas las entidades de tipo jugador del mapa.
-		Logic::CEntity *ent = _entity->getMap()->getEntityByType("Player");
-		while (ent != NULL)
-		{
-			_playerEntities.push_back(std::pair<Logic::CEntity*, bool>(ent, false));
-			ent = _entity->getMap()->getEntityByType("Player", ent);
-		}
-
 		return true;
 
 	} // spawn
@@ -49,6 +41,14 @@ namespace Logic
 
 	bool CPerception::activate()
 	{
+		// Obtengo todas las entidades de tipo jugador del mapa.
+		Logic::CEntity *ent = _entity->getMap()->getEntityByType("Player");
+		while (ent != NULL)
+		{
+			_playerEntities.push_back(std::pair<Logic::CEntity*, bool>(ent, false));
+			ent = _entity->getMap()->getEntityByType("Player", ent);
+		}
+
 		return true;
 
 	} // activate
@@ -106,7 +106,7 @@ namespace Logic
 					if (!(*it).second)
 					{
 						std::stringstream script;
-						script << "enemyEventParam = { target = " << (*it).first->getEntityID() << " } ";
+						script << "enemyEventParam = { target = " << (*it).first->getEntityID() << ", distance = " << distance << " } ";
 						script << "enemyEvent(\"OnPlayerSeen\", " << _entity->getEntityID() << ")";
 						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
@@ -120,6 +120,7 @@ namespace Logic
 					if ((*it).second)
 					{
 						std::stringstream script;
+						script << "enemyEventParam = { target = " << (*it).first->getEntityID() << ", distance = " << distance << " } ";
 						script << "enemyEvent(\"OnPlayerLost\", " << _entity->getEntityID() << ")";
 						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
