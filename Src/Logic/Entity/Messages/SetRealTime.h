@@ -1,7 +1,7 @@
 /**
 @file SetRealTime.h
 
-Contiene la declaración del mensaje para indicar si se tiene que vasar en el tiempo real
+Contiene la declaración del mensaje para indicar si la entidad se tiene q comportar en base al time que le llega o al time real
 
 @see Logic::IMessage
 

@@ -32,13 +32,10 @@
 #include "Logic\Entity\Messages\Damaged.h"
 #include "Logic\Entity\Messages\EntitySelected.h"
 #include "Logic\Entity\Messages\ActivateSkill.h"
+#include "Logic\Entity\Messages\ActivarTiempoBala.h"
 
 #include "Logic\Entity\Messages\CrearBillboardMovimiento.h"
 #include "Logic\Entity\Messages\LanzarGranada.h"
-
-#include "Logic\Entity\Messages\SetRealTime.h"
-
-
 #include "BaseSubsystems/Server.h"
 
 
@@ -293,10 +290,18 @@ namespace GUI {
 		if (_jugadorSel == 3)	
 		{
 			//Ralentizar tiempo
-			Logic::MSetRealTime * m = new Logic::MSetRealTime();
-			m->setRealTime(true);
+			Logic::MActivarTiempoBala * m = new Logic::MActivarTiempoBala();
+			m->setTime(5.0f);
+
+			unsigned int id1 = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor")->getEntityID();
+			unsigned int id2 = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack")->getEntityID();
+			unsigned int id3 = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick")->getEntityID();
+
+			m->addEntity(id1);
+			m->addEntity(id2);
+			//m->addEntity(id3);
 			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor")->emitMessage(m);
-			BaseSubsystems::CServer::getSingletonPtr()->setFactorRalentizar(5);
+
 		}
 		return true;
 	}

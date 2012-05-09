@@ -113,6 +113,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchPosition.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Teletransport.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\TiempoBala.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\TriggerEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\TurretController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\Building.cpp" />
@@ -123,6 +124,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\PlayerSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Message.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivarComponente.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivarTiempoBala.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AplicarVelocidad.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttackDistance.cpp" />
@@ -211,12 +213,14 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchPosition.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Teletransport.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\TiempoBala.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\TriggerEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\TurretController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\DeathListener.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Healing.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\LanzandoGranada.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivarComponente.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivarTiempoBala.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Building.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AplicarVelocidad.h" />
