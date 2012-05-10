@@ -35,9 +35,7 @@ namespace Logic
 		defecto.
 		*/
 		CCameraController() : IComponent(), _up(false), _upMouse(false), _down(false), _downMouse(false), 
-			_left(false), _leftMouse(false), _right(false), _rightMouse(false), _mouse(false), _speed(0.05f),
-		_northVision(0), _southVision(0), _westVision(0), _eastVision(0),
-		_northEntity(0), _southEntity(0), _westEntity(0), _eastEntity(0) {}
+			_left(false), _leftMouse(false), _right(false), _rightMouse(false), _mouse(false), _speed(0.05f) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -216,48 +214,26 @@ namespace Logic
 		Vector3 _movement;
 
 		/**
-		Atributo para saber hasta dónde puede subir la cámara.
+		Límite de distancia de movimiento del ratón
 		*/
-		int _northVision;
+		float _mouseDistance;
 
 		/**
-		Atributo para saber hasta dónde puede bajar la cámara.
+		Distancia máxima entre el personaje y la cámara cuando éste se está desplazando
 		*/
-		int _southVision;
+		float _cameraDistance; 
 
 		/**
-		Atributo para saber hasta dónde puede ir a la derecha la cámara.
+		Valor para indicar la velocidad a la que se interpola la posición de la cámara
+		Cuanto más alto más despacio se mueve
 		*/
-		int _eastVision;
+		float _cameraVelocity;
 
 		/**
-		Atributo para saber hasta dónde puede ir a la izquierda la cámara.
+		Valor que indica a que velocidad se mueve la cámara cuando se mueve el ratón.
+		Cuanto más alto más rápido
 		*/
-		int _westVision;
-
-		/**
-		Atributo para saber cuándo se tiene que mover la cámara para arriba
-		por el movimiento del personaje.
-		*/
-		int _northEntity;
-
-		/**
-		Atributo para saber cuándo se tiene que mover la cámara para abajo
-		por el movimiento del personaje.
-		*/
-		int _southEntity;
-
-		/**
-		Atributo para saber cuándo se tiene que mover la cámara para la derecha
-		por el movimiento del personaje.
-		*/
-		int _eastEntity;
-
-		/**
-		Atributo para saber cuándo se tiene que mover la cámara para la izquierda
-		por el movimiento del personaje.
-		*/
-		int _westEntity;
+		float _mouseVelocity;
 
 	}; // class CCameraController
 

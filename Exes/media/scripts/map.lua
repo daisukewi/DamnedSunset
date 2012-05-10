@@ -66,17 +66,14 @@ Map = {
 	PlayerGod = {
 		isPlayer = true,
 		orientation = 225,
-		southVision = 1000,
 		isTargetCamera = true,
-		northVision = 1000,
-		eastVision = 1000,
 		grid_position = { 29, 0 },
-		westVision = 1000,
 		type = "PlayerGod",
-		eastEntity = 1000,
-		northEntity = 1000,
-		westEntity = 1000,
-		southEntity = 1000,
+		
+		mouseDistance = 100,
+		cameraDistance = 150,
+		cameraVelocity = 500,
+		mouseVelocity = 4,
 	},
 
 	Camera = {

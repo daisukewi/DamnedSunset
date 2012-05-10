@@ -37,29 +37,17 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 
-		if(entityInfo->hasAttribute("northVision"))
-			_northVision = entityInfo->getIntAttribute("northVision");
+		if(entityInfo->hasAttribute("mouseDistance"))
+			_mouseDistance = entityInfo->getIntAttribute("mouseDistance");
 
-		if(entityInfo->hasAttribute("southVision"))
-			_southVision = entityInfo->getIntAttribute("southVision");
+		if(entityInfo->hasAttribute("cameraDistance"))
+			_cameraDistance = entityInfo->getIntAttribute("cameraDistance");
 
-		if(entityInfo->hasAttribute("westVision"))
-			_westVision = entityInfo->getIntAttribute("westVision");
+		if(entityInfo->hasAttribute("cameraVelocity"))
+			_cameraVelocity = entityInfo->getIntAttribute("cameraVelocity");
 
-		if(entityInfo->hasAttribute("eastVision"))
-			_eastVision = entityInfo->getIntAttribute("eastVision");
-
-		if(entityInfo->hasAttribute("northEntity"))
-			_northEntity = entityInfo->getIntAttribute("northEntity");
-
-		if(entityInfo->hasAttribute("southEntity"))
-			_southEntity = entityInfo->getIntAttribute("southEntity");
-
-		if(entityInfo->hasAttribute("westEntity"))
-			_westEntity = entityInfo->getIntAttribute("westEntity");
-
-		if(entityInfo->hasAttribute("eastEntity"))
-			_eastEntity = entityInfo->getIntAttribute("eastEntity");
+		if(entityInfo->hasAttribute("mouseVelocity"))
+			_mouseVelocity = entityInfo->getIntAttribute("mouseVelocity");
 
 		_bossEntity = NULL;
 
@@ -255,30 +243,30 @@ namespace Logic
 			
 
 			if (_up || _upMouse){
-				_movement.z += msecs*4;
+				_movement.z += msecs*_mouseVelocity;
 			}else if(_down || _downMouse){
-				_movement.z -= msecs*4;
+				_movement.z -= msecs*_mouseVelocity;
 			}else
 				_movement.z = 0;
 
 			if (_left || _leftMouse){
-				_movement.x += msecs*4;
+				_movement.x += msecs*_mouseVelocity;
 			}else if(_right || _rightMouse){
-				_movement.x -= msecs*4;
+				_movement.x -= msecs*_mouseVelocity;
 			}else
 				_movement.x = 0;
 
-			if (_movement.x > 100)
-				_movement.x = 100;
+			if (_movement.x > _mouseDistance)
+				_movement.x = _mouseDistance;
 
-			if (_movement.z > 100)
-				_movement.z = 100;
+			if (_movement.z > _mouseDistance)
+				_movement.z = _mouseDistance;
 
-			if (_movement.x < -100)
-				_movement.x = -100;
+			if (_movement.x < -_mouseDistance)
+				_movement.x = -_mouseDistance;
 
-			if (_movement.z < -100)
-				_movement.z = -100;
+			if (_movement.z < -_mouseDistance)
+				_movement.z = -_mouseDistance;
 
 			//Vector3 cuerda = _entity->getPosition() - _bossEntity->getPosition();
 			//direction = Math::getDirection(_entity->getYaw());
@@ -308,21 +296,17 @@ namespace Logic
 				cuerda.z = 0;
 				cuerda.x = 0;
 			}else{
-				cuerda.x *= 150;
-				cuerda.z *= 150;
+				cuerda.x *= _cameraDistance;
+				cuerda.z *= _cameraDistance;
 			}
 
 			_bossPosition = bossPositionAct;
 
 			//Posición a la que tiene que llegar a mirar la cámara
 			_finalPosition = _bossPosition + cuerda + _movement;
-		
-			//std::cout << "Final: " << _finalPosition << " Camara: " << _entity->getPosition() << "\n";
-			
-			float aux = msecs / 500.0f ;
+
+			float aux = msecs / _cameraVelocity ;
 			Vector3 pos = Math::Lerp( _entity->getPosition(),_finalPosition,  aux);
-			
-			std::cout << "ANTES DE ASIGNAR POSICION: "" msecs: " << aux << "\n" ;
 			
 			_entity->setPosition(pos);
 		
