@@ -73,7 +73,9 @@ namespace Logic
 	{
 		_bossEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack");
 		_bossPosition = _bossEntity->getPosition();
-
+		_finalPosition = _bossEntity->getPosition();
+		_entity->setPosition(_finalPosition);
+		_movement = Vector3::ZERO;
 		return true;
 	} // activate
 	
@@ -121,13 +123,8 @@ namespace Logic
 			MUbicarCamara *m = static_cast <MUbicarCamara*> (message);
 
 			_bossEntity = m->getEntity();
-
-			_entity->setPosition(_bossEntity->getPosition());
-
-
-			//Posicionar el listener de los sonidos
-			Sounds::CServer::getSingletonPtr()->setListenerPos(Vector3(_entity->getPosition().x,_entity->getPosition().y,_entity->getPosition().z));
-
+			_finalPosition = _bossEntity->getPosition();
+			
 		}
 
 	} // process
@@ -249,13 +246,45 @@ namespace Logic
 		bool south, north, east, west;
 		south = north = east = west = false;
 
+
+
 		if (_bossEntity != NULL)
 		{
-			Vector3 cuerda = _entity->getPosition() - _bossEntity->getPosition();
-			direction = Math::getDirection(_entity->getYaw());
-			directionStrafe = Math::getDirection(_entity->getYaw() + Math::PI/2);
+			Vector3 bossPositionAct  = _bossEntity->getPosition();
+			Vector3 cuerda = bossPositionAct - _bossPosition;
+			
 
-			_up &= Math::Proy(cuerda, direction) <= _northVision;
+			if (_up || _upMouse){
+				_movement.z += msecs*4;
+			}else if(_down || _downMouse){
+				_movement.z -= msecs*4;
+			}else
+				_movement.z = 0;
+
+			if (_left || _leftMouse){
+				_movement.x += msecs*4;
+			}else if(_right || _rightMouse){
+				_movement.x -= msecs*4;
+			}else
+				_movement.x = 0;
+
+			if (_movement.x > 100)
+				_movement.x = 100;
+
+			if (_movement.z > 100)
+				_movement.z = 100;
+
+			if (_movement.x < -100)
+				_movement.x = -100;
+
+			if (_movement.z < -100)
+				_movement.z = -100;
+
+			//Vector3 cuerda = _entity->getPosition() - _bossEntity->getPosition();
+			//direction = Math::getDirection(_entity->getYaw());
+			//directionStrafe = Math::getDirection(_entity->getYaw() + Math::PI/2);
+
+			/*_up &= Math::Proy(cuerda, direction) <= _northVision;
 			_down &= Math::Proy(cuerda, direction * (-1)) <= _southVision;
 			_right &= Math::Proy(cuerda, directionStrafe * (-1)) <= _eastVision;
 			_left &= Math::Proy(cuerda, directionStrafe) <= _westVision;
@@ -270,11 +299,42 @@ namespace Logic
 				north = Math::Proy(cuerda, direction * (-1)) > _northEntity && !_down;
 				east = Math::Proy(cuerda, directionStrafe) > _eastEntity && !_left;
 				west = Math::Proy(cuerda, directionStrafe * (-1)) > _westEntity && !_right;
+			}*/
+			
+			//Compara con la actual posición y obtener el vector de dirección
+			cuerda.normalise();
+
+			if (_bossPosition == bossPositionAct){
+				cuerda.z = 0;
+				cuerda.x = 0;
+			}else{
+				cuerda.x *= 150;
+				cuerda.z *= 150;
 			}
+
+			_bossPosition = bossPositionAct;
+
+			//Posición a la que tiene que llegar a mirar la cámara
+			_finalPosition = _bossPosition + cuerda + _movement;
+		
+			//std::cout << "Final: " << _finalPosition << " Camara: " << _entity->getPosition() << "\n";
+			
+			float aux = msecs / 500.0f ;
+			Vector3 pos = Math::Lerp( _entity->getPosition(),_finalPosition,  aux);
+			
+			std::cout << "ANTES DE ASIGNAR POSICION: "" msecs: " << aux << "\n" ;
+			
+			_entity->setPosition(pos);
+		
+			//Posicionar el listener de los sonidos
+			Sounds::CServer::getSingletonPtr()->setListenerPos(Vector3(_entity->getPosition().x,_entity->getPosition().y,_entity->getPosition().z));
 
 		}
 
-		if(_up || _down || _left || _right || _upMouse || _downMouse || _leftMouse || _rightMouse 
+		
+
+
+		/*if(_up || _down || _left || _right || _upMouse || _downMouse || _leftMouse || _rightMouse 
 			|| north || south || east || west)
 		{
 			if (!(_up || _down || _upMouse || _downMouse || north || south))
@@ -295,12 +355,11 @@ namespace Logic
 			_entity->setPosition(_entity->getPosition() + direction);
 
 
-			//Posicionar el listener de los sonidos
-			Sounds::CServer::getSingletonPtr()->setListenerPos(Vector3(_entity->getPosition().x,_entity->getPosition().y,_entity->getPosition().z));
+			
 
+		}*/
 
-		}
-		_bossPosition = _bossEntity->getPosition();
+		
 
 	} // tick
 

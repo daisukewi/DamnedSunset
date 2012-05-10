@@ -60,6 +60,9 @@ namespace Application {
 		if(!addState("exit", new CExitState(this)))
 			return false;
 
+		//Estado en el que se gestiona la fase de día del juego
+		if (!addState("day", new CDayState(this)))
+			return false;
 
 		//Estado en el que son cargados los recursos de la escena antes de iniciar la partida
 		if (!addState("load", new CLoadState(this)))
@@ -69,9 +72,7 @@ namespace Application {
 		if (!addState("unload", new CUnloadState(this)))
 			return false;
 
-		//Estado en el que se gestiona la fase de día del juego
-		if (!addState("day", new CDayState(this)))
-			return false;
+		
 
 		if(!setState("menu"))
 			return false;

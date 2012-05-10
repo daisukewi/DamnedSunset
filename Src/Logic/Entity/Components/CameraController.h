@@ -204,6 +204,17 @@ namespace Logic
 		*/
 		Vector3 _bossPosition;
 
+
+		/**
+		Posición  donde debe de mirar la cámara
+		*/
+		Vector3 _finalPosition;
+
+		/**
+		Movimiento adicional que debe hacer la cámara por el pulsado de teclas o movimiento del ratón
+		*/
+		Vector3 _movement;
+
 		/**
 		Atributo para saber hasta dónde puede subir la cámara.
 		*/
