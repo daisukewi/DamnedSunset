@@ -37,6 +37,7 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 
+
 		if(entityInfo->hasAttribute("mouseDistance"))
 			_mouseDistance = entityInfo->getIntAttribute("mouseDistance");
 
@@ -46,8 +47,8 @@ namespace Logic
 		if(entityInfo->hasAttribute("cameraVelocity"))
 			_cameraVelocity = entityInfo->getIntAttribute("cameraVelocity");
 
-		if(entityInfo->hasAttribute("mouseVelocity"))
-			_mouseVelocity = entityInfo->getIntAttribute("mouseVelocity");
+		if(entityInfo->hasAttribute("zoomVelocity"))
+			_zoomVelocity = entityInfo->getIntAttribute("zoomVelocity");
 
 		_bossEntity = NULL;
 
@@ -62,8 +63,11 @@ namespace Logic
 		_bossEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack");
 		_bossPosition = _bossEntity->getPosition();
 		_finalPosition = _bossEntity->getPosition();
+		_graphicsCamera = _entity->getMap()->getScene()->getCamera();
 		_entity->setPosition(_finalPosition);
 		_movement = Vector3::ZERO;
+		_cameraHeight = 0.0;
+		_scroll = false;
 		return true;
 	} // activate
 	
@@ -103,8 +107,11 @@ namespace Logic
 				stopUpDown();
 			else if(!m->getMovement().compare("stopLeftRight"))
 				stopLeftRight();
-			if(m->getScroll()!=0)
-				zoom(m->getScroll());
+			if(m->getScroll()!=0){
+				//zoom(m->getScroll());
+				_scrollValue = m->getScroll();
+				_scroll = true;
+			}
 		}
 		else if (!message->getType().compare("MUbicarCamara"))
 		{
@@ -199,7 +206,7 @@ namespace Logic
 
 	void CCameraController::zoom(int wheel)
 	{
-		Vector3 direction = _bossEntity->getPosition() - _entity->getPosition();
+	/*	Vector3 direction = _bossEntity->getPosition() - _entity->getPosition();
 		direction.y = 0.0f;
 
 		if (wheel > 0 && _entity->getPosition().y > -35)
@@ -212,10 +219,8 @@ namespace Logic
 			_entity->setPosition(_entity->getPosition() - 0.50 * Vector3(0, _entity->getPosition().y - 35, 0));
 			_entity->setPosition(_entity->getPosition() - 0.25 * direction);
 		}
-
-		//Posicionar el listener de los sonidos
-		Sounds::CServer::getSingletonPtr()->setListenerPos(Vector3(_entity->getPosition().x,_entity->getPosition().y,_entity->getPosition().z));
-
+		*/
+		
 	} // zoom
 
 	//---------------------------------------------------------
@@ -224,72 +229,30 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
-		// Si nos estamos desplazando y tenemos a la vista nuestra entidad
-		// de referencia calculamos la próxima posición
-		// Calculamos si hay vectores de dirección de avance y strafe,
-		// hayamos la dirección de la suma y escalamos según la
-		// velocidad y el tiempo transcurrido.
-		Vector3 direction(Vector3::ZERO);
-		Vector3 directionStrafe(Vector3::ZERO);
-		bool south, north, east, west;
-		south = north = east = west = false;
-
-
-
 		if (_bossEntity != NULL)
 		{
+
 			Vector3 bossPositionAct  = _bossEntity->getPosition();
 			Vector3 cuerda = bossPositionAct - _bossPosition;
 			
-
 			if (_up || _upMouse){
-				_movement.z += msecs*_mouseVelocity;
-			}else if(_down || _downMouse){
-				_movement.z -= msecs*_mouseVelocity;
-			}else
-				_movement.z = 0;
-
-			if (_left || _leftMouse){
-				_movement.x += msecs*_mouseVelocity;
-			}else if(_right || _rightMouse){
-				_movement.x -= msecs*_mouseVelocity;
-			}else
-				_movement.x = 0;
-
-			if (_movement.x > _mouseDistance)
-				_movement.x = _mouseDistance;
-
-			if (_movement.z > _mouseDistance)
 				_movement.z = _mouseDistance;
-
-			if (_movement.x < -_mouseDistance)
-				_movement.x = -_mouseDistance;
-
-			if (_movement.z < -_mouseDistance)
+				_movement.x = _mouseDistance;
+			}else if(_down || _downMouse){
 				_movement.z = -_mouseDistance;
-
-			//Vector3 cuerda = _entity->getPosition() - _bossEntity->getPosition();
-			//direction = Math::getDirection(_entity->getYaw());
-			//directionStrafe = Math::getDirection(_entity->getYaw() + Math::PI/2);
-
-			/*_up &= Math::Proy(cuerda, direction) <= _northVision;
-			_down &= Math::Proy(cuerda, direction * (-1)) <= _southVision;
-			_right &= Math::Proy(cuerda, directionStrafe * (-1)) <= _eastVision;
-			_left &= Math::Proy(cuerda, directionStrafe) <= _westVision;
-			_upMouse &= Math::Proy(cuerda, direction) <= _northVision;
-			_downMouse &= Math::Proy(cuerda, direction * (-1)) <= _southVision;
-			_rightMouse &= Math::Proy(cuerda, directionStrafe * (-1)) <= _eastVision;
-			_leftMouse &= Math::Proy(cuerda, directionStrafe) <= _westVision;
-
-			if (_bossPosition != _bossEntity->getPosition())
-			{
-				south = Math::Proy(cuerda, direction) > _southEntity && !_up;
-				north = Math::Proy(cuerda, direction * (-1)) > _northEntity && !_down;
-				east = Math::Proy(cuerda, directionStrafe) > _eastEntity && !_left;
-				west = Math::Proy(cuerda, directionStrafe * (-1)) > _westEntity && !_right;
-			}*/
+				_movement.x = -_mouseDistance;
+			}else{
+				_movement.z = 0;
+				_movement.x = 0;
+			}
+			if (_left || _leftMouse){
+				_movement.x = _mouseDistance;
+				_movement.z = -_mouseDistance;
+			}else if(_right || _rightMouse){
+				_movement.x = -_mouseDistance;
+				_movement.z = _mouseDistance;
+			}
 			
-			//Compara con la actual posición y obtener el vector de dirección
 			cuerda.normalise();
 
 			if (_bossPosition == bossPositionAct){
@@ -315,36 +278,31 @@ namespace Logic
 
 		}
 
+		if (_scroll){
 		
-
-
-		/*if(_up || _down || _left || _right || _upMouse || _downMouse || _leftMouse || _rightMouse 
-			|| north || south || east || west)
-		{
-			if (!(_up || _down || _upMouse || _downMouse || north || south))
-				direction = Vector3::ZERO;
-			else if(_down || _downMouse || south)
-				direction *= -1;
-
-			if (!(_left || _right || _leftMouse || _rightMouse || east || west))
-				directionStrafe = Vector3::ZERO;
-			else if(_right || _rightMouse || east)
-				directionStrafe *= -1;
-
-			direction += directionStrafe;
-			direction.normalise();
-			direction *= msecs * _speed;
-
-
-			_entity->setPosition(_entity->getPosition() + direction);
-
-
 			
+			if (_scrollValue > 0)
+			{
+				Vector3 position = _entity->getPosition();
+				Vector3 direction = -40 * Math::getDirection(_entity->getOrientation());
+				direction.y = 40;
+				_graphicsCamera->setTargetCameraPosition(position + direction);
+			}
+			else if (_scrollValue < 0 )
+			{
+				_graphicsCamera->setCameraPosition(Vector3(100,100,100));
+			}
+			/*// Actualizamos la posición de la cámara.
 
-		}*/
-
-		
-
+			float aux = msecs / _zoomVelocity ;
+			Vector3 pos = Math::Lerp( _graphicsCamera->getCameraPosition(),_finalPosition,  aux);
+			
+			_entity->setPosition(pos);
+	*/
+			_scroll = false;
+			//Posicionar el listener de los sonidos
+			Sounds::CServer::getSingletonPtr()->setListenerPos(Vector3(_entity->getPosition().x,_entity->getPosition().y,_entity->getPosition().z));
+		}	
 	} // tick
 
 } // namespace Logic

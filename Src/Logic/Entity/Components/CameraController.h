@@ -15,7 +15,7 @@ Contiene la declaración del componente que controla el movimiento de la cámara.
 
 #include "Logic/Entity/Component.h"
 #include "BaseSubsystems/Math.h"
-
+#include "Graphics/Camera.h"
 //declaración de la clase
 namespace Logic 
 {
@@ -34,7 +34,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CCameraController() : IComponent(), _up(false), _upMouse(false), _down(false), _downMouse(false), 
+		CCameraController() : IComponent(), _graphicsCamera(0), _up(false), _upMouse(false), _down(false), _downMouse(false), 
 			_left(false), _leftMouse(false), _right(false), _rightMouse(false), _mouse(false), _speed(0.05f) {}
 		
 		/**
@@ -139,6 +139,11 @@ namespace Logic
 	protected:
 
 		/**
+		Cámara gráfica.
+		*/
+		Graphics::CCamera *_graphicsCamera;
+
+		/**
 		Atributo para saber si la entidad está avanzando con las teclas.
 		*/
 		bool _up;
@@ -230,10 +235,24 @@ namespace Logic
 		float _cameraVelocity;
 
 		/**
-		Valor que indica a que velocidad se mueve la cámara cuando se mueve el ratón.
-		Cuanto más alto más rápido
+		Valor que indica a que velocidad de zoom
 		*/
-		float _mouseVelocity;
+		float _zoomVelocity;
+
+		/**
+		Valor del scroll
+		*/
+		int _scrollValue;
+
+		/**
+		Indica si se ha hecho scroll
+		*/
+		bool _scroll;
+
+		/**
+		Indica la altura de la cámara
+		*/
+		float _cameraHeight;
 
 	}; // class CCameraController
 
