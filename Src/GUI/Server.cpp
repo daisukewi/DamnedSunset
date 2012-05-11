@@ -26,6 +26,7 @@ la gestión de la interfaz con el usuario (entrada de periféricos, CEGui...).
 #include <CEGUIFontManager.h>
 #include <ScriptingModules\LuaScriptModule\CEGUILua.h>
 #include "ScriptManager/Server.h"
+#include "RendererModules\Ogre\CEGUIOgreRenderer.h"
 
 namespace GUI {
 
@@ -98,13 +99,17 @@ namespace GUI {
 		CEGUI::SchemeManager::getSingleton().create("VanillaSkin.scheme");
 		CEGUI::SchemeManager::getSingleton().create("Interfaz.scheme");
 		CEGUI::SchemeManager::getSingleton().create("WindowsLook.scheme");
-		/*
-		CEGUI::LuaScriptModule& scriptModule = CEGUI::LuaScriptModule::create();
-		CEGUI::Renderer& renderer = CEGUI:
-		new CEGUI::System(renderer, 0,NULL,NULL, scriptModule,"","");
-		new CEGUI::System(renderer, 0, 0, 0, scriptModule, 0, 0 );
-		CEGUI::System::create(renderer, NULL, NULL, NULL, &scriptModule, "", "");
-		*/
+
+		//CEGUI::OgreRenderer& renderer = CEGUI::OgreRenderer::bootstrapSystem();
+		CEGUI::OgreRenderer& renderer = CEGUI::OgreRenderer::create();
+		//CEGUI::LuaScriptModule* scriptModule = 
+		//	new CEGUI::LuaScriptModule(ScriptManager::CServer::getSingletonPtr()->getLuaState());
+		
+		//	CEGUI::LuaScriptModule::create(ScriptManager::CServer::getSingletonPtr()->getLuaState());
+		//new CEGUI::System(renderer, 0,NULL,NULL, scriptModule,"","");
+		//new CEGUI::System(renderer, 0, 0, 0, scriptModule, 0, 0 );
+	//	CEGUI::System::create(renderer, NULL, NULL, NULL, scriptModule, "", "");
+		
 
 		/*
 		ScriptManager::CServer::getSingletonPtr()->executeScript("initCEGUI.lua");

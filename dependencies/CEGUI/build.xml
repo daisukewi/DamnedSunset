@@ -28,30 +28,40 @@
   <!-- =============================================== -->
 <target name="publishLibBinDebug">
    <copy file="lib/CEGUIBase_d.lib" todir="../lib/Debug"/>
+   <copy file="lib/CEGUILuaScriptModule_d.lib" todir="../lib/Debug"/>
    <copy file="lib/CEGUIExpatParser_d.lib" todir="../lib/Debug"/>
    <copy file="lib/CEGUIFalagardWRBase_d.lib" todir="../lib/Debug"/>
    <copy file="lib/CEGUIOgreRenderer_d.lib" todir="../lib/Debug"/>
    <copy file="lib/CEGUISILLYImageCodec_d.lib" todir="../lib/Debug"/>
+   <copy file="lib/tolua++_d.lib" todir="../lib/Debug"/>
    <copy file="bin/CEGUIBase_d.dll" todir="../bin/Debug"/>
+   <copy file="bin/CEGUILuaScriptModule_d.dll" todir="../bin/Debug"/>
    <copy file="bin/CEGUIExpatParser_d.dll" todir="../bin/Debug"/>
    <copy file="bin/CEGUIFalagardWRBase_d.dll" todir="../bin/Debug"/>
    <copy file="bin/CEGUIOgreRenderer_d.dll" todir="../bin/Debug"/>
    <copy file="bin/CEGUISILLYImageCodec_d.dll" todir="../bin/Debug"/>
+   <copy file="bin/tolua++_d.dll" todir="../bin/Debug"/>
    <copy file="dependencies/bin/SILLY_d.dll" todir="../bin/Debug"/>
+   <copy file="dependencies/bin/lua_d.dll" todir="../bin/Debug"/>
 </target>
 
 <target name="publishLibBinRelease">
    <copy file="lib/CEGUIBase.lib" todir="../lib/Release"/>
+   <copy file="lib/CEGUILuaScriptModule.lib" todir="../lib/Release"/>
    <copy file="lib/CEGUIExpatParser.lib" todir="../lib/Release"/>
    <copy file="lib/CEGUIFalagardWRBase.lib" todir="../lib/Release"/>
    <copy file="lib/CEGUIOgreRenderer.lib" todir="../lib/Release"/>
    <copy file="lib/CEGUISILLYImageCodec.lib" todir="../lib/Release"/>
+   <copy file="lib/tolua++.lib" todir="../lib/Release"/>
    <copy file="bin/CEGUIBase.dll" todir="../bin/Release"/>
+   <copy file="bin/CEGUILuaScriptModule.dll" todir="../bin/Release"/>
    <copy file="bin/CEGUIExpatParser.dll" todir="../bin/Release"/>
    <copy file="bin/CEGUIFalagardWRBase.dll" todir="../bin/Release"/>
    <copy file="bin/CEGUIOgreRenderer.dll" todir="../bin/Release"/>
    <copy file="bin/CEGUISILLYImageCodec.dll" todir="../bin/Release"/>
+   <copy file="bin/tolua++.dll" todir="../bin/Release"/>
    <copy file="dependencies/bin/SILLY.dll" todir="../bin/Release"/>
+   <copy file="dependencies/bin/lua.dll" todir="../bin/Release"/>
 </target>
 
 

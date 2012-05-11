@@ -41,6 +41,7 @@ usados. La mayoría de ellos son parte de Ogre.
 #include <CEGUIWindowManager.h>
 #include <falagard/CEGUIFalWidgetLookManager.h>
 #include <CEGUIScheme.h>
+#include <ScriptingModules\LuaScriptModule\CEGUILua.h>
 
 // Para cerrar la aplicación si se cierra la ventana
 #include "Application/BaseApplication.h"
@@ -314,6 +315,8 @@ namespace BaseSubsystems
 		CEGUI::WindowManager::setDefaultResourceGroup("layouts");
 		CEGUI::WidgetLookManager::setDefaultResourceGroup("looknfeels");
 		CEGUI::Scheme::setDefaultResourceGroup("schemes");
+
+		CEGUI::LuaScriptModule& scriptModule(CEGUI::LuaScriptModule::create());
 
 		return true;
 

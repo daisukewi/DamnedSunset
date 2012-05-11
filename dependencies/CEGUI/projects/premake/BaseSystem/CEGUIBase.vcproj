@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="CEGUIBase"
-	ProjectGUID="{5A519C8E-BD13-E049-B934-BFFE03C8A249}"
+	ProjectGUID="{A03F4BAD-876D-CD45-B6E5-99A7FE070839}"
 	RootNamespace="CEGUIBase"
 	Keyword="Win32Proj"
 	>

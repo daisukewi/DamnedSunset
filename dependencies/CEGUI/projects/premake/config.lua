@@ -166,12 +166,12 @@ DEFAULT_XML_PARSER = "expat"
 -------
 -- Lua
 -- this controls whether CEGUILua is enabled
-LUA_SCRIPT_MODULE = false
+LUA_SCRIPT_MODULE = true
 
 -- disable this for a smaller and faster, but less safe Lua module
 -- only affects Release builds. Debug and ReleaseWithSymbols always
 -- enable this
-LUA_SCRIPT_MODULE_SAFE = false
+LUA_SCRIPT_MODULE_SAFE = true
 
 -- enable this to build the bundled tolua++ as a static library
 TOLUA_STATIC = false
