@@ -65,8 +65,8 @@ namespace Application {
 	{
 		CApplicationState::activate();
 
-			//Cargar el nivel
-		assert(LoadLevel() && "Imposible cargar el nivel");
+		//Cargar el nivel
+		LoadLevel();
 
 		// Activamos el mapa que ha sido cargado para la partida.
 		Logic::CServer::getSingletonPtr()->activateMap();
@@ -75,7 +75,7 @@ namespace Application {
 		GUI::CServer::getSingletonPtr()->getPlayerController()->activate();
 		GUI::CServer::getSingletonPtr()->getCameraController()->activate();
 
-		// Activamos la ventana de interfaz
+		/*// Activamos la ventana de interfaz
 		GUI::CServer::getSingletonPtr()->getInterfazController()->activate();
 
 		// Mostramos el ratón
@@ -84,7 +84,7 @@ namespace Application {
 		// El siguiente código es para sincronizar el ratón de CEGUI con el de OIS.
 		const OIS::MouseState state = GUI::CInputManager::getSingletonPtr()->getMouseState();
 		CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();  
-		CEGUI::System::getSingleton().injectMouseMove(state.X.abs-mousePos.d_x,state.Y.abs-mousePos.d_y);
+		CEGUI::System::getSingleton().injectMouseMove(state.X.abs-mousePos.d_x,state.Y.abs-mousePos.d_y);*/
 
 
 		
