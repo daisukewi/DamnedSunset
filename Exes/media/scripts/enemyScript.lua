@@ -18,13 +18,11 @@ function decideAttackPlayer(attacker)
 		mensaje:setEntity(enemies[attacker].target)
 		mensaje:setEntityTo(attacker)
 		mensaje:send()
-		print("Atacando a " .. enemies[attacker].target)
 	else
 		local mensaje = LUA_MAttackEntity()
 		mensaje:setAttack(false)
 		mensaje:setEntityTo(attacker)
 		mensaje:send()
-		print("No atacando a nadie")
 	end
 end
 
@@ -58,7 +56,6 @@ end
 
 -- Acción del estado idle.
 function idleStateAction(entity)
-print("Idle")
 -- El estado de idle es el estado 1.
 	local nextState
 	
@@ -141,7 +138,6 @@ end
 
 -- Acción del estado atacando.
 function attackStateAction(entity)
-print("Atacando")
 -- El estado de atacando es el estado 2.
 	local nextState
 	
@@ -200,7 +196,6 @@ end
 
 -- Acción del estado moviendo.
 function moveStateAction(entity)
-print("Moviendo")
 -- El estado de moviendo es el estado 3.
 	local nextState
 	
@@ -252,7 +247,6 @@ end
 
 -- Acción del estado huyendo.
 function runStateAction(entity)
-print("Moviendo")
 -- El estado de huyendo es el estado 4.
 	local nextState
 	
