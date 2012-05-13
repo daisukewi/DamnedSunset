@@ -41,9 +41,9 @@ namespace ScriptManager
 	public:
 
 		/**
-		Devuelve la única instancia de la clase CServer.
+		Devuelve la referencia a la única instancia de la clase CServer.
 		
-		@return Única instancia de la clase CServer.
+		@return Referencia a la Única instancia de la clase CServer.
 		*/
 		static CServer* getSingletonPtr() {return _instance;}
 

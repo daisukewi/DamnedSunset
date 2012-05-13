@@ -44,16 +44,22 @@ namespace ScriptManager
 
 	CServer::CServer()
 	{
-		_instance = this;
-		_lua = NULL;
-
+		// Con esto evitamos que otros (Lua) no cree mas referencias de la clase.
+		if (_instance == 0)
+		{
+			_instance = this;
+			_lua = NULL;
+		}
+		
 	} // CServer
 
 	//--------------------------------------------------------
 
 	CServer::~CServer()
 	{
-		_instance = 0;
+		// Con esto evitamos que otros (Lua) no destruyan nuestro singleton.
+		if (_instance == this)
+			_instance = 0;
 
 	} // ~CServer
 
@@ -667,7 +673,25 @@ namespace ScriptManager
 	void CServer::registerClasses()
 	{
 		//------------------------------------------------------//
-		//				REGISTRO DE LOS MENSAJES				//
+		//			REGISTRO DEL SERVIDOR DE SCRIPTS				//
+		//------------------------------------------------------//
+		
+		luabind::module(_lua) 
+			[ 
+				/** Note: ScriptManager is a class with static member functions */ 
+				luabind::class_<CServer>("ScriptManager")
+				.scope
+				[
+					luabind::def("getSingleton", &CServer::getSingletonPtr)
+				]
+				.def("loadScript", &CServer::loadExeScript)
+			];
+
+		luabind::globals(_lua)["SManager"] = CServer::getSingletonPtr();
+
+
+		//------------------------------------------------------//
+		//				REGISTRO DE LOS MENSAJES					//
 		//------------------------------------------------------//
 
 		// LUA_MAStarRoute
@@ -707,6 +731,7 @@ namespace ScriptManager
 		];
 
 		//---------------------------------------------------------
+
 	}
 
 	//---------------------------------------------------------

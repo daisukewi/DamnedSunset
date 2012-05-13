@@ -5,4 +5,5 @@ function launchIA()
 		mensaje:setEntityTo(entity)
 		mensaje:send()
 	end
+	SManager:loadScript("print")
 end
