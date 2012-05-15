@@ -182,7 +182,7 @@ namespace Logic
 
 				float porcentajeVida = _life/_maxLife;
 				float num = 0.5f - porcentajeVida/2.0f;
-				//_billboard->setPosicionImagen(num/*inicioX*/, 0.0f, num + 0.5f/*finX*/, 1.0f);
+				_billboard->setPosicionImagen(num/*inicioX*/, 0.0f, num + 0.5f/*finX*/, 1.0f);
 
 				if (!_entity->getName().compare("Jack"))
 				{
