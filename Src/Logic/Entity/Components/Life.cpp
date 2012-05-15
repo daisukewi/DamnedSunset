@@ -179,6 +179,12 @@ namespace Logic
 					}
 					else if (!_entity->getName().compare("Jack") || !_entity->getName().compare("Erick") || !_entity->getName().compare("Amor"))
 					{
+						MSetAnimation *m_anim = new MSetAnimation();
+						m_anim->setAnimationName("Death");
+						m_anim->setLoop(false);
+						_entity->emitMessage(m_anim, this);
+
+
 						/** MUERE UNO DE LOS 3 PERSONAJES*/
 						notifyDeathListeners();
 

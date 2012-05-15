@@ -20,6 +20,7 @@ Contiene la implementación del componente que controla lo que debe hacer una tor
 #include "Graphics/Scene.h"
 
 #include "Physics\Server.h"
+#include "Logic/Server.h"
 
 #include "Logic/Entity/Messages/IsTouched.h"
 #include "Logic/Entity/Messages/Damaged.h"
@@ -80,12 +81,16 @@ namespace Logic
 
 			if (m->getTouched() && !m->getEntity()->getType().compare("Enemy"))
 			{
-				_enemies.push_back(m->getEntity());
-				_attacking = true;
-				/*
-				Apunto a la torreta a la muerte del enemigo que acaba de llegar.
-				*/
-				_enemies.back()->addDeathListener(this);
+				_enemiesID.push_back(m->getEntity()->getEntityID());
+				if (!_attacking)
+				{
+					//Si no estaba atacando, ponemos para que dispare al siguiente tick y ponemos la animacion
+					_attacking = true;
+					MSetAnimation *m_anim = new MSetAnimation();
+					m_anim->setAnimationName("torreta");
+					m_anim->setLoop(true);
+					_entity->emitMessage(m_anim);
+				}
 				/*
 				// Orientamos la torreta hacia el enemigo al que dispara
 				float yaw = atan((_enemy->getPosition().x - _entity->getPosition().x) / (_enemy->getPosition().z - _entity->getPosition().z));
@@ -93,16 +98,13 @@ namespace Logic
 					yaw += Math::PI;
 				_entity->setYaw(yaw);
 				*/
-				MSetAnimation *m_anim = new MSetAnimation();
-				m_anim->setAnimationName("torreta");
-				m_anim->setLoop(true);
-				_entity->emitMessage(m_anim);
+
 			}
 			else if (!m->getTouched())
 			{
-				_enemies.remove(m->getEntity());
-				_attacking = !(_enemies.empty());
-				m->getEntity()->removeDeathListener(this);
+				_enemiesID.remove(m->getEntity()->getEntityID());
+				_attacking = !(_enemiesID.empty());
+
 				if (!_attacking)
 				{
 					MStopAnimation *m_stop = new MStopAnimation();
@@ -134,59 +136,57 @@ namespace Logic
 		
 		if (_attacking)
 		{
-			Vector3 origen = _entity->getPosition();
-			Vector3 destino = _enemies.back()->getPosition();
-			destino.y = 3.0f;
-			Vector3 direction = destino - origen;
-			direction.x *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
-			direction.y *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
-			direction.z *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
-			/*
-			std::cout << _enemies->back()->getPosition() << '\n';
-			std::cout << origen << '\n';
-			std::cout << origen +  1 * direction << '\n';
-			*/
-			direction.normalise();
-			Vector3 impact;
-			Ray disparo = Ray(origen, direction);
-			Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastGroup(disparo, &impact,
-				(Physics::TPhysicGroup)(Physics::TPhysicGroup::PG_ALL & ~Physics::TPhysicGroup::PG_TRIGGER));
-			if (entity == _enemies.back())
+			//Buscamos la entidad a la que disparar de la lista de entidades que han entrado en su rango
+			Logic::CEntity * targetEntity;
+			do {
+				unsigned int id = _enemiesID.back();
+				targetEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(id);
+				if (targetEntity == NULL)
+					_enemiesID.remove(id);
+			} while (targetEntity == NULL && !_enemiesID.empty());
+
+			if (targetEntity)
 			{
-				MDamaged *m_dam = new MDamaged();
-				m_dam->setHurt((40 * msecs * _precision / (100.0f * ((_entity->getPosition() - _enemies.back()->getPosition()).length() + 0.1))) * _damage);
-				m_dam->setKiller(_entity);
-				_enemies.back()->emitMessage(m_dam, this);
+				Vector3 origen = _entity->getPosition();
+				Vector3 destino = targetEntity->getPosition();
+				destino.y = 3.0f;
+				Vector3 direction = destino - origen;
+				direction.x *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
+				direction.y *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
+				direction.z *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
+				/*
+				std::cout << _enemies->back()->getPosition() << '\n';
+				std::cout << origen << '\n';
+				std::cout << origen +  1 * direction << '\n';
+				*/
+				direction.normalise();
+				Vector3 impact;
+				Ray disparo = Ray(origen, direction);
+				Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastGroup(disparo, &impact,
+					(Physics::TPhysicGroup)(Physics::TPhysicGroup::PG_ALL & ~Physics::TPhysicGroup::PG_TRIGGER));
+
+				if (entity == targetEntity)
+				{
+					MDamaged *m_dam = new MDamaged();
+					m_dam->setHurt((40 * msecs * _precision / (100.0f * ((_entity->getPosition() - targetEntity->getPosition()).length() + 0.1))) * _damage);
+					m_dam->setKiller(_entity);
+					targetEntity->emitMessage(m_dam, this);
+				}
+				else
+				{
+					std::cout << "Fallo!!!\n";
+				}
 			}
-			else
+			else 
 			{
-				std::cout << "Fallo!!!\n";
-			}
+				//Deja de disparar
+				MStopAnimation *m_stop = new MStopAnimation();
+				m_stop->setAnimationName("torreta");
+				_entity->emitMessage(m_stop);
+				_attacking = false;
+			}	
 		}
-
-
 	} // tick
-
-	//---------------------------------------------------------
-
-	void CTurretController::entityDeath(CEntity* entity)
-	{
-		/* 
-		Implementación del método que va a ser llamado cuando muera la entidad.
-		*/
-		_enemies.remove(entity);
-		_attacking = !(_enemies.empty());
-		entity->removeDeathListener(this);
-		if (!_attacking)
-		{
-			MStopAnimation *m_stop = new MStopAnimation();
-			m_stop->setAnimationName("torreta");
-			_entity->emitMessage(m_stop);
-		}
-
-	} // entityDeath
-
-	//---------------------------------------------------------
 
 } // namespace Logic
 
