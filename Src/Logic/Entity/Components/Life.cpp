@@ -117,18 +117,22 @@ namespace Logic
 		// Si es un mensaje de daño, se procesa y se comprueba que la entidad no ha muerto; con todo lo que ello conlleva.
 		if (!message->getType().compare("MDamaged"))
 		{
+			//El mensaje de daño solo te deberia afectar si la entidad no esta muerta
+			if (!_death)
+			{
 				MDamaged *md = static_cast <MDamaged*> (message);
 				// Disminuir la vida de la entidad
 				_life -= md->getHurt();
-				
+
 				if (_life <= 0) {
+					//Muere la entidad
+					_death = true;
 					_life = 0;
-					// Si han matado al jugador salir de la partida
-					if (_entity->isPlayer())
-						Application::CBaseApplication::getSingletonPtr()->setState("gameOver");
-					// Si han matado al enemigo matarlo
-					else if (!_entity->getType().compare("Enemy"))
+
+					if (!_entity->getType().compare("Enemy"))
 					{
+						/** MUERE UN ENEMIGO*/
+
 						// @TODO @ENTITYDEATH Habrá que borrar este bloque de código cuando la notificación de la muerte de la entidad funcione bien.
 						/*MAttackEntity *m = new MAttackEntity();
 						m->setAttack(false);
@@ -154,22 +158,22 @@ namespace Logic
 
 						Logic::CEntity *muerto = Logic::CEntityFactory::getSingletonPtr()->createEntity(muertoInfo, _entity->getMap());
 						*/
-						if (!_death)
-						{
-							_death = true;
-							MEntityDeath *m_death = new MEntityDeath();
-							m_death->setEntityDeath(_entity);
-							_entity->emitMessage(m_death);
-						}
+
+						
+						MEntityDeath *m_death = new MEntityDeath();
+						m_death->setEntityDeath(_entity);
+						_entity->emitMessage(m_death);
+
+						//Eliminamos la entidad en el siguiente tick
+						//CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 					}
-					else if (!_entity->getName().compare("Jack") || !_entity->getName().compare("Erick")
-						      || !_entity->getName().compare("Amor"))
+					else if (!_entity->getName().compare("Jack") || !_entity->getName().compare("Erick") || !_entity->getName().compare("Amor"))
 					{
+						/** MUERE UNO DE LOS 3 PERSONAJES*/
 						notifyDeathListeners();
 
-						//Los heroes no pueden morir, se quedan inco
+						//Los heroes no mueren realmente,
 						//Desactivamos sus componentes
-
 						MActivarComponente *m_deactComp = new MActivarComponente();
 						m_deactComp->setActivar(false);
 						m_deactComp->setNombreComponente("CRouteTo CAttack CLanzadorGranadas CHeal CScript CTiempoBala CSteeringMovement CDistanceAttack");
@@ -177,13 +181,13 @@ namespace Logic
 						_entity->emitMessage(m_deactComp, this);
 					}
 				}
-				// @todo Poner la animación de herido.
-				// @todo Si la vida es menor que 0 poner animación de morir.
 
+				//Actualizamos la barra de vida
 				float porcentajeVida = _life/_maxLife;
 				float num = 0.5f - porcentajeVida/2.0f;
 				_billboard->setPosicionImagen(num/*inicioX*/, 0.0f, num + 0.5f/*finX*/, 1.0f);
 
+				//Actualizamos la barra de vida en la interfaz
 				if (!_entity->getName().compare("Jack"))
 				{
 					//Actualizamos la vida en la interfaz
@@ -199,6 +203,15 @@ namespace Logic
 					//Actualizamos la vida en la interfaz
 					GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('3',_life/_maxLife);
 				}
+
+
+				// @todo Poner la animación de herido.
+				// @todo Si la vida es menor que 0 poner animación de morir.
+			} else {
+				//Si entra aqui es que estas haciendo daño a una entidad muerta!!!
+
+			}
+				
 		} else if (!message->getType().compare("MEntityDeathListener")) {
 			// Si en un mensaje de listener se mira si hay que añadirlo o borrarlo y se hace.
 
