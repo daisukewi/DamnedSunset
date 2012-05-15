@@ -6,7 +6,6 @@
 
 #include "Map/MapEntity.h"
 
-#include "Logic/Entity/Messages/IsTouched.h"
 #include "Logic/Entity/Messages/Damaged.h"
 #include "Logic/Entity/Messages/ParticleEffect.h"
 #include "Logic/Entity/Messages/SoundEffect.h"
@@ -54,26 +53,14 @@ namespace Logic
 
 	bool CDetonadorGranada::accept(IMessage *message)
 	{
-		return  !message->getType().compare("MIsTouched");
+		return  false;
 	} // accept
 	
 	//---------------------------------------------------------
 
 	void CDetonadorGranada::process(IMessage *message)
 	{
-		if (!message->getType().compare("MIsTouched"))
-		{
-			MIsTouched *m = static_cast <MIsTouched*> (message);
-			if (m->getTouched() && !m->getEntity()->getType().compare("Enemy"))
-			{
-				_entidades.push_back(m->getEntity());
-				_entidades.back()->addDeathListener(this);
-			} else if (!m->getTouched())
-			{
-				_entidades.remove(m->getEntity());
-				m->getEntity()->removeDeathListener(this);
-			}
-		}
+
 	} // process
 
 	void CDetonadorGranada::entityDeath(CEntity* entity)
@@ -106,12 +93,6 @@ namespace Logic
 		MSoundEffect *rc2_message = new MSoundEffect();
 		rc2_message->setSoundEffect("media/sounds/rocket_explosion.wav");
 		_entity->emitInstantMessage(rc2_message,this);
-
-
-		//Recorremos la lista de entidades y les hacemos daño
-		std::list<CEntity*>::const_iterator it, end;
-		it = _entidades.begin();
-		end = _entidades.end();
 
 		for(int i = 0; i < numColisiones; ++i) {
 			//Entidad que daña la granada
