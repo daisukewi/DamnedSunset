@@ -41,6 +41,7 @@ Contiene la implementación del componente que controla la vida de una entidad.
 #include "GUI/InterfazController.h"
 
 #include "Logic/Entity/Messages/ActivarComponente.h"
+#include "Logic/Entity/Messages/SetAnimation.h"
 
 namespace Logic 
 {
@@ -166,6 +167,12 @@ namespace Logic
 
 						//Eliminamos la entidad en el siguiente tick
 						//CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
+
+						MSetAnimation *m_anim = new MSetAnimation();
+						m_anim->setAnimationName("Death");
+						m_anim->setLoop(false);
+						_entity->emitMessage(m_anim, this);
+
 					}
 					else if (!_entity->getName().compare("Jack") || !_entity->getName().compare("Erick") || !_entity->getName().compare("Amor"))
 					{

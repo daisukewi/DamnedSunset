@@ -65,15 +65,22 @@ Map = {
 
 	StageManager = {
 		grid_position = { 2, 29 },
-		type = "StageManager",
 		script = "mission1StagesConfiguration",
+		type = "StageManager",
+	},
+
+	ScriptsLoader = {
+		activateFunction = "loadScripts",
+		grid_position = { 1, 29 },
+		script = "scriptsLoader",
+		type = "ScriptsLoader",
 	},
 
 	PlayerGod = {
 		isPlayer = true,
 		orientation = 225,
-		cameraVelocity = 500,
 		isTargetCamera = true,
+		cameraVelocity = 500,
 		grid_position = { 29, 0 },
 		type = "PlayerGod",
 		cameraDistance = 10,
@@ -81,11 +88,14 @@ Map = {
 		mouseDistance = 100,
 	},
 
-	ScriptsLoader = {
-		activateFunction = "loadScripts",
-		grid_position = { 1, 29 },
-		type = "ScriptsLoader",
-		script = "scriptsLoader",
+	Camera = {
+		distance = 150,
+		height = 300,
+		grid_position = { 28, 0 },
+		targetHeight = 7,
+		targetName = "PlayerGod",
+		type = "Camera",
+		targetDistance = 10,
 	},
 
 	EnemiesSpawner2 = {
@@ -95,29 +105,12 @@ Map = {
 		type = "Enemies",
 	},
 
-	Camera = {
-		distance = 150,
-		height = 300,
-		grid_position = { 28, 0 },
-		targetHeight = 7,
-		targetName = "PlayerGod",
-		targetDistance = 10,
-		type = "Camera",
-	},
-
-	EnemiesSpawner1 = {
-		model = "esfera.mesh",
-		grid_position = { 21, 23 },
-		ID = 1,
-		type = "Enemies",
-	},
-
 	World = {
 		position = { 0, 0, 0 },
 		orientation = 0,
 		physic_entity = "simple",
-		physic_height = 1,
 		static = true,
+		physic_height = 1,
 		physic_normal = { 0, 1, 0 },
 		type = "World",
 		physic_type = "static",
@@ -126,12 +119,21 @@ Map = {
 		physic_dimensions = { 720.0, 0.5, 720.0 },
 	},
 
+	EnemiesSpawner1 = {
+		automaticSpawn = true,
+		model = "esfera.mesh",
+		grid_position = { 21, 23 },
+		ID = 1,
+		periodo = 5000,
+		type = "Enemies",
+	},
+
 	Sun = {
 		position = { 0, 10, -100 },
-		orientation = 0,
 		scale = 30.0,
-		grid_position = { 28, 29 },
+		orientation = 0,
 		speed = 5.0,
+		grid_position = { 28, 29 },
 		inclination = 120.0,
 		type = "Sun",
 	},
@@ -142,8 +144,8 @@ Map = {
 		grid_position = { 28, 2 },
 		nombreGranada = "Granada",
 		tickFunction = "jackTick",
-		script = "jackScript",
 		type = "Player",
+		script = "jackScript",
 	},
 
 	Erick = {
@@ -158,15 +160,15 @@ Map = {
 		afectaEmpujar = 150,
 		life = 100.0,
 		grid_position = { 27, 1 },
-		type = "Player",
 		script = "amorScript",
+		type = "Player",
 	},
 
 	EnemyMind = {
-		initStage = 1,
 		grid_position = { 0, 29 },
-		script = "enemyMindScript",
+		initStage = 1,
 		type = "EnemyMind",
+		script = "enemyMindScript",
 		initState = 1,
 	},
 

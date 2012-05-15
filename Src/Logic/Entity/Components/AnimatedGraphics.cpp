@@ -84,8 +84,17 @@ namespace Logic
 			// Paramos todas las animaciones antes de poner una nueva.
 			// Un control más sofisticado debería permitir interpolación
 			// de animaciones. Galeon no lo plantea.
-			_animatedGraphicsEntity->stopAllAnimations();
-			_animatedGraphicsEntity->setAnimation(m->getAnimationName(),m->getLoop());
+			std::string animation = m->getAnimationName();
+			if (!_currentAnimation.compare("Death"))
+			{
+				//Si esta la animacion de muerte ignoramos las demas animaciones
+
+			} else {
+				_currentAnimation = animation;
+				_animatedGraphicsEntity->stopAllAnimations();
+				_animatedGraphicsEntity->setAnimation(_currentAnimation,m->getLoop());
+			}
+
 		}
 		else if (!message->getType().compare("MStopAnimation"))
 		{

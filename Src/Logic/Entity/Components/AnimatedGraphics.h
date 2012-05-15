@@ -100,6 +100,11 @@ namespace Logic
 		*/
 		std::string _defaultAnimation;
 
+		/**
+		Animación por defecto de una entidad gráfica animada.
+		*/
+		std::string _currentAnimation;
+
 	}; // class CAnimatedGraphics
 
 	REG_FACTORY(CAnimatedGraphics);
