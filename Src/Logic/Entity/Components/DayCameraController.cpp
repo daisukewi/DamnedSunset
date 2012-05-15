@@ -39,7 +39,7 @@ namespace Logic
 
 
 		if(entityInfo->hasAttribute("speed"))
-			_speed = entityInfo->getIntAttribute("speed");
+			_speed = entityInfo->getFloatAttribute("speed");
 
 
 		_bossEntity = NULL;
