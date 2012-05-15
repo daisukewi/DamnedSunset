@@ -28,6 +28,7 @@ Contiene la implementación del componente que controla la vida de una entidad.
 #include "ScriptManager/Server.h"
 
 #include "assert.h"
+#include "BaseSubsystems/Server.h"
 
 //Mensajes
 #include "Logic/Entity/Messages/Damaged.h"
@@ -165,13 +166,15 @@ namespace Logic
 						m_death->setEntityDeath(_entity);
 						_entity->emitMessage(m_death);
 
-						//Eliminamos la entidad en el siguiente tick
-						//CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
+
 
 						MSetAnimation *m_anim = new MSetAnimation();
 						m_anim->setAnimationName("Death");
 						m_anim->setLoop(false);
 						_entity->emitMessage(m_anim, this);
+
+						//Destruimos la entidad en unos pocos milisegundos
+						BaseSubsystems::CServer::getSingletonPtr()->addClockListener(1000, this);
 
 					}
 					else if (!_entity->getName().compare("Jack") || !_entity->getName().compare("Erick") || !_entity->getName().compare("Amor"))
@@ -296,5 +299,10 @@ namespace Logic
 
 	//---------------------------------------------------------
 
+	void CLife::timeElapsed()
+	{
+		//Eliminamos la entidad en el siguiente tick
+		CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
+	}
 } // namespace Logic
 

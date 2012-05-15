@@ -14,6 +14,7 @@ Contiene la declaración del componente que controla la vida de una entidad.
 
 #include "Logic/Entity/Component.h"
 #include "Logic/Entity/DeathListener.h"
+#include "BaseSubsystems/ClockListener.h"
 
 namespace Graphics 
 {
@@ -41,7 +42,7 @@ namespace Logic
 	@author David Llansó García
 	@date Octubre, 2010
 */
-	class CLife : public IComponent
+	class CLife : public IComponent, public BaseSubsystems::IClockListener
 	{
 		DEC_FACTORY(CLife);
 	public:
@@ -121,6 +122,13 @@ namespace Logic
 		Lista de todos los oyentes de la muerte de la entidad.
 		*/
 		TListenersList _listeners;
+	private:
+		/**
+		Método heredado de la interfaz IClockListener que será llamado
+		por el temporizador cuando se acabe el tiempo de espera
+		especificado.
+		*/
+		virtual void timeElapsed();
 
 	}; // class CLife
 
