@@ -40,6 +40,8 @@ Contiene la implementación del componente que controla la vida de una entidad.
 #include "GUI/Server.h"
 #include "GUI/InterfazController.h"
 
+#include "Logic/Entity/Messages/ActivarComponente.h"
+
 namespace Logic 
 {
 	IMP_FACTORY(CLife);
@@ -164,6 +166,15 @@ namespace Logic
 						      || !_entity->getName().compare("Amor"))
 					{
 						notifyDeathListeners();
+
+						//Los heroes no pueden morir, se quedan inco
+						//Desactivamos sus componentes
+
+						MActivarComponente *m_deactComp = new MActivarComponente();
+						m_deactComp->setActivar(false);
+						m_deactComp->setNombreComponente("CRouteTo CAttack CLanzadorGranadas CHeal CScript CTiempoBala CSteeringMovement CDistanceAttack");
+							//"CDistanceAttack CLanzadorGranadas CAttack CHeal CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor CSelectable CScript CEmpujable CTiempoBala");
+						_entity->emitMessage(m_deactComp, this);
 					}
 				}
 				// @todo Poner la animación de herido.

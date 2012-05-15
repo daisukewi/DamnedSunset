@@ -131,6 +131,12 @@ namespace Logic
 
 			MSetEmpujarPropiedades *m = new MSetEmpujarPropiedades();
 
+			MActivarComponente *mActivar = new MActivarComponente();
+			mActivar->setActivar(true);
+			mActivar->setNombreComponente("CEmpujable");
+			//Tiene que ser instantaneo, sino no se empujara ya q no esta activo
+			entidad->emitInstantMessage(mActivar, this);
+
 			//Calculamos la direccion a la que tenemos que empujar
 			Vector3 pos1 = entidad->getPosition();
 			Vector3 pos2 = _entity->getPosition();
@@ -141,23 +147,11 @@ namespace Logic
 			m->setTime(_timeEmpujar);
 			m->setDistanciaPorSegundo(_distEmpujarSeg);
 
-
 			entidad->emitMessage(m, this);
-
-			MActivarComponente *mActivar = new MActivarComponente();
-			mActivar->setActivar(true);
-			mActivar->setNombreComponente("CEmpujable");
-			entidad->emitMessage(mActivar, this);
 		}
 
 		//Eliminamos la entidad en el siguiente tick
 		CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
-
-		
-
-
-
-
 	} // timeElapsed
 
 } // namespace Logic

@@ -35,8 +35,8 @@ namespace Logic
 	} // tick
 
 	bool IComponent::acceptPadre(IMessage *message)
-	{
-		bool acepted = !message->getType().compare("MActivarComponente") || !message->getType().compare("MSetRealTime") || accept(message);
+	{		
+		bool acepted = !message->getType().compare("MActivarComponente") || (_active && ( !message->getType().compare("MSetRealTime") || accept(message) ) );
 		return acepted;
 	}
 
@@ -45,17 +45,23 @@ namespace Logic
 		if (!message->getType().compare("MActivarComponente"))
 		{
 			MActivarComponente *m = static_cast <MActivarComponente*> (message);
-			if (m->getNombreComponent() == this->getType())
-			{
-				if ( m->getActivar() && !_active)
+
+			std::string s = m->getNombreComponent();
+			std::string buf; // Have a buffer string
+			std::stringstream ss(s); // Insert the string into a stream
+			while (ss >> buf) {
+				if (this->getType() == buf)
 				{
-					this->activate();
-					_active = true;
-				}
-				else if ( !m->getActivar() && _active)
-				{
-					this->deactivate();
-					_active = false;
+					if ( m->getActivar() && !_active)
+					{
+						this->activate();
+						_active = true;
+					}
+					else if ( !m->getActivar() && _active)
+					{
+						this->deactivate();
+						_active = false;
+					}
 				}
 			}
 		}
