@@ -86,6 +86,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DistanceAttack.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Empujable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyAIController.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyMindAIController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Heal.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LanzadorGranadas.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyController.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Empujable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemiesGenerator.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemyAIController.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemyMindAIController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Heal.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LanzadorGranadas.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemyController.h" />

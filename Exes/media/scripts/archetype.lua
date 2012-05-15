@@ -74,8 +74,6 @@ Archetype = {
 	
 	EnemyMind = {
 		type = "EnemyMind",
-		script = "enemyMindScript",
-		activateFunction = "launchIA",
 	},
 	
 	Enemies = {

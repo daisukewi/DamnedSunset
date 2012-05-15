@@ -34,6 +34,12 @@ namespace Logic
 			script	<< "enemies[" << _entity->getEntityID() << "].state = " << entityInfo->getIntAttribute("initState");
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
+		else
+		{
+			std::stringstream script;
+			script	<< "enemies[" << _entity->getEntityID() << "].state = 1";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
 
 		if ((entityInfo->hasAttribute("memInitPoint")) && (entityInfo->getBoolAttribute("memInitPoint")))
 		{
@@ -70,6 +76,7 @@ namespace Logic
 
 	bool CEnemyAIController::activate()
 	{
+		// Busco todas las entidades de tipo Player del mapa.
 		std::list<Logic::CEntity*> _playerEntities;
 		Logic::CEntity *ent = _entity->getMap()->getEntityByType("Player");
 		while (ent != NULL)
@@ -78,6 +85,8 @@ namespace Logic
 			ent = _entity->getMap()->getEntityByType("Player", ent);
 		}
 
+
+		// Construyo la estructura de datos que me va a servir para saber a que jugadores veo.
 		std::stringstream script;
 		script << "enemies[" << _entity->getEntityID() << "].playersSeen = { ";
 
@@ -127,7 +136,7 @@ namespace Logic
 		_currentExeFrames++;
 
 		// Ejecuto la IA si toca.
-		if (_exeFrames >= _currentExeFrames)
+		if (_currentExeFrames >= _exeFrames)
 		{
 			// Reinicio el contador de frames.
 			_currentExeFrames = 0;

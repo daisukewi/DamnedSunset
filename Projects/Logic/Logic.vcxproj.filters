@@ -285,14 +285,20 @@
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Perception.cpp">
       <Filter>Entity\Components\Source Files</Filter>
-    </ClCompile>    <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyAIController.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyAIController.cpp">
       <Filter>Entity\Components\Source Files</Filter>
-    </ClCompile>    <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivarTiempoBala.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivarTiempoBala.cpp">
       <Filter>Entity\Messages\Abilities\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Components\TiempoBala.cpp">
       <Filter>Entity\Components\Source Files</Filter>
-    </ClCompile>  </ItemGroup>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyMindAIController.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Entity\CommunicationPort.h">
       <Filter>Entity\Header Files</Filter>
@@ -596,12 +602,17 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemyAIController.h">
       <Filter>Entity\Components\Header Files</Filter>
-    </ClInclude>    <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivarTiempoBala.h">
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivarTiempoBala.h">
       <Filter>Entity\Messages\Abilities\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\TiempoBala.h">
       <Filter>Entity\Components\Header Files</Filter>
-    </ClInclude>  </ItemGroup>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemyMindAIController.h">
+      <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
   <ItemGroup>
     <Filter Include="Entity">
       <UniqueIdentifier>{063426d2-2f19-43b7-8c81-a9d6543e3042}</UniqueIdentifier>

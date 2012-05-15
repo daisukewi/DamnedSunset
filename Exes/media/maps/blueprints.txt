@@ -18,5 +18,5 @@ PuertaTrigger CSwitchTrigger CPhysicEntity
 Puerta CGraphics CSwitchPosition
 Sierra CAnimatedGraphics CSwitchPosition CDamageTrigger CPhysicEntity
 Waypoint CGraphics
-EnemyMind CScript
+EnemyMind CScript CEnemyMindAIController
 ScriptsLoader CScript
