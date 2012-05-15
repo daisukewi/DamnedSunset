@@ -53,6 +53,7 @@ namespace Logic
 	class CMap
 	{
 	public:
+
 		/**
 		Método factoría que carga un mapa de fichero. Tras el parseo de
 		todas las entidades del mapa mediante CMapParser, genera todas las
@@ -187,13 +188,24 @@ namespace Logic
 		@return Escena con las entidades gráficas.
 		*/
 		CGridMap *getGridMap() { return _gridMap; }
-		
+
+	
+		/**
+		Envia un mensaje a todas las entidades excepto a la que se pase por parámetro
+
+		@param mensaje a enviar
+		@param entidad a la que no se quiere que se envíe el mensaje. Normalmente la misma que lo envía.
+		*/
+		void sendMessageAll(IMessage *message, Logic::CEntity *entity);
+
 	private:
-		
+
+
 		/**
 		Tipo tabla de entidades de mapa.
 		*/
 		typedef std::map<TEntityID,CEntity*> TEntityMap;
+
 
 		/**
 		tabla con las entidades del mapa localizadas por su ID.

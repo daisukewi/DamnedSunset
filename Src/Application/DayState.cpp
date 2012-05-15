@@ -20,6 +20,10 @@ Contiene la implementación del estado en el que se realiza la fase de día
 #include "Logic/Maps/EntityFactory.h"
 #include "Logic/Maps/Map.h"
 
+
+#include "Logic\Entity\Messages\DayNight.h"
+#include "Logic\Entity\Messages\ActivarComponente.h"
+
 #include "GUI/Server.h"
 #include "GUI/PlayerController.h"
 #include "GUI/CameraController.h"
@@ -65,7 +69,7 @@ namespace Application {
 		CApplicationState::activate();
 
 		// Activamos la ventana de interfaz
-		//GUI::CServer::getSingletonPtr()->getInterfazController()->activate();
+		GUI::CServer::getSingletonPtr()->getInterfazController()->deactivate();
 
 		// Mostramos el ratón
 		CEGUI::MouseCursor::getSingleton().show();
@@ -76,7 +80,15 @@ namespace Application {
 		CEGUI::System::getSingleton().injectMouseMove(state.X.abs-mousePos.d_x,state.Y.abs-mousePos.d_y);
 
 
-
+		//Activar el componente de control de la cámara de día y desacticar el de noche
+		Logic::MActivarComponente *m1 = new Logic::MActivarComponente();
+		m1->setActivar(true);
+		m1->setNombreComponente("CDayCameraController");
+		Logic::MActivarComponente *m2 = new Logic::MActivarComponente();
+		m2->setActivar(false);
+		m2->setNombreComponente("CCameraController");
+		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m1);
+		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m2);
 
 	} // activate
 
@@ -128,9 +140,26 @@ namespace Application {
 		case GUI::Key::ESCAPE:
 			_app->setState("unload");
 			break;
-		case GUI::Key::G:
+		case GUI::Key::G:{
+			//Avisar  al "dios" que se pasa a la fase de noche y active el componente de control de la cámara correspondiente
+			Logic::MDayNight *m = new Logic::MDayNight();
+			m->setTime(Logic::TIME_TYPE::NIGHT);
+			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m);
+			
+			Logic::MActivarComponente *m1 = new Logic::MActivarComponente();
+			m1->setActivar(false);
+			m1->setNombreComponente("CDayCameraController");
+			
+			Logic::MActivarComponente *m2 = new Logic::MActivarComponente();
+			m2->setActivar(true);
+			m2->setNombreComponente("CCameraController");
+			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m1);
+			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m2);
+			
+			
 			_app->setState("game");
 			break;
+		}
 		default:
 			return false;
 		}

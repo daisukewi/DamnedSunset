@@ -9,6 +9,19 @@ Archetype = {
 		billboardMoverTime = 2.0,
 	},
 	
+	
+	PlayerGod = {
+		type = "PlayerGod",
+		mouseDistance = 100,
+		cameraDistance = 150,
+		cameraVelocity = 500,
+		mouseVelocity = 4,
+		dayTime = 10000,
+		dayTimeAlarm = 2000,
+		nightTime = 500000,
+		speed = 0.15,
+	},
+	
 	Obstacle = {
 		type = "Obstacle",
 		position = {0, 0, 0},

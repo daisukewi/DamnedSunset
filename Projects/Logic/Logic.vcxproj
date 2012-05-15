@@ -81,6 +81,8 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BillboardIndicacionMover.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BillboardSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BuilderController.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\DayCameraController.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\DayNightController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DetonadorBolaTeltr.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DetonadorGranada.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DistanceAttack.cpp" />
@@ -129,6 +131,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AplicarVelocidad.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttackDistance.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\DayNight.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntityDeath.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntityDeathListener.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.cpp" />
@@ -184,6 +187,8 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\BuilderController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\CameraController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DamageTrigger.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\DayCameraController.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\DayNightController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DetonadorBolaTeltr.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DetonadorGranada.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DistanceAttack.h" />
@@ -227,6 +232,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Building.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AplicarVelocidad.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttackDistance.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\DayNight.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntityDeath.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntityDeathListener.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.h" />

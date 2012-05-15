@@ -76,7 +76,7 @@ namespace Application {
 		GUI::CServer::getSingletonPtr()->getCameraController()->activate();
 
 		/*// Activamos la ventana de interfaz
-		GUI::CServer::getSingletonPtr()->getInterfazController()->activate();
+		//GUI::CServer::getSingletonPtr()->getInterfazController()->activate();
 
 		// Mostramos el ratón
 		CEGUI::MouseCursor::getSingleton().show();
@@ -107,7 +107,7 @@ namespace Application {
 	{
 		//Incializar el estado de día del juego
 		//para hacer pruebas, esperar a pulsar la tecla esc para inicializar el juego
-		_app->setState("game");
+		_app->setState("day");
 
 	} // tick
 

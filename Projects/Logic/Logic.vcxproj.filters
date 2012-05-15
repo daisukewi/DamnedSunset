@@ -298,6 +298,15 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyMindAIController.cpp">
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\DayCameraController.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\DayNightController.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\DayNight.cpp">
+      <Filter>Entity\Messages\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Entity\CommunicationPort.h">
@@ -611,6 +620,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemyMindAIController.h">
       <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\DayCameraController.h">
+      <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\DayNightController.h">
+      <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\DayNight.h">
+      <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

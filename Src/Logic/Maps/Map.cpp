@@ -422,4 +422,18 @@ namespace Logic {
 
 	} // createTerrain
 
+	void CMap::sendMessageAll(IMessage *message, Logic::CEntity *entity){
+		TEntityMap::const_iterator it, end;
+		it = _entityMap.begin();
+		end = _entityMap.end();
+		message->addPtr();
+		for(; it != end; it++)
+		{
+			if ((*it).second != entity)
+			(*it).second->emitMessage(message);
+
+		}
+		message->removePtr();
+	} //sendMessageAll
+
 } // namespace Logic
