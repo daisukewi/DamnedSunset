@@ -13,6 +13,7 @@ la gestión de la interfaz con el usuario (entrada de periféricos, CEGui...).
 #define __GUI_Server_H
 
 #include "InputManager.h"
+#include "BaseSubsystems/Math.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Logic 
@@ -153,15 +154,20 @@ namespace GUI
 		*/
 		bool mouseReleased(const CMouseState &mouseState);
 
-
-
-
 		/**
 		Método que devuelve true en caso de que el ratón esté encima de la interfaz
 		@return true si el ratón está encima de la interfaz
 		*/
 		bool interfaceMouse();
 
+		/**
+		Método que devuelve la posición relativa que tiene el puntero del ratón
+		con respecto del viewPort actual.
+		<p>Sirve para hacer raycast desde el viewport y obtener el punto de colisión
+		al hacer click con el ratón.
+		@return Vector2 que contiene la coordenada X e Y del cursor.
+		*/
+		Vector2 getMouseRelPos();
 
 	protected:
 
@@ -216,6 +222,11 @@ namespace GUI
 		Única instancia de la clase.
 		*/
 		static CServer* _instance;
+
+		/**
+		Posiciones relativas del cursor con respecto del ViewPort actual.
+		*/
+		float _mouseRelPosX, _mouseRelPosY;
 
 	}; // class CServer
 

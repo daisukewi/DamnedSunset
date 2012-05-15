@@ -1,4 +1,4 @@
 function loadScripts()
-	SManager:loadScript("print")
+	SManager:loadScript("utils")
 	SManager:loadScript("enemyScript")
 end

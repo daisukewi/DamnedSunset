@@ -16,6 +16,7 @@ de los edificios sobre el escenario, cuando se van a construir.
 #include "Logic/Maps/EntityFactory.h"
 #include "Logic/Entity/Entity.h"
 #include "Logic/Maps/Map.h"
+#include "Logic/Server.h"
 #include "Map/MapEntity.h"
 
 #include "Graphics/Scene.h"
@@ -27,7 +28,7 @@ de los edificios sobre el escenario, cuando se van a construir.
 #include "Physics/Server.h"
 
 #include "Logic/Entity/Messages/EmplaceBuilding.h"
-#include "Logic/Entity/Messages/ControlRaycast.h"
+#include "Logic/Entity/Messages/MouseMove.h"
 #include "Logic/Entity/Messages/MouseEvent.h"
 
 #include "Graphics/ModelFactory.h"
@@ -73,7 +74,7 @@ namespace Logic
 	bool CBuilderController::accept(IMessage *message)
 	{
 		return !message->getType().compare("MEmplaceBuilding")
-			|| !message->getType().compare("MControlRaycast")
+			|| !message->getType().compare("MMouseMove")
 			|| !message->getType().compare("MMouseEvent");
 
 	} // accept
@@ -100,19 +101,17 @@ namespace Logic
 
 			}
 
-		} else if (!message->getType().compare("MControlRaycast"))
+		} else if (!message->getType().compare("MMouseMove"))
 		{
-			MControlRaycast *m_raycast = static_cast <MControlRaycast*> (message);
-			switch (m_raycast->getAction())
-			{
-				case RaycastMessage::HIT_RAYCAST:
-					if (!_building) return;
-					Vector3 collPoint = m_raycast->getCollisionPoint();
-					moveBuilding(Vector2(collPoint.x, collPoint.z));
-					break;
-			}
+			MMouseMove *m_mouse = static_cast <MMouseMove*> (message);
 
-		} 
+			if (!_building) return;
+			Vector3 collPoint;
+			if (Logic::CServer::getSingletonPtr()->raycastFromViewport(&collPoint, Physics::PG_WORLD) != NULL)
+				moveBuilding(Vector2(collPoint.x, collPoint.z));
+
+		}
+
 	} // process
 	
 	//---------------------------------------------------------
@@ -158,12 +157,6 @@ namespace Logic
 		// Pintamos un plano bajo el cursor que indicará si se puede construir o no.
 		_plane = Graphics::CModelFactory::getSingletonPtr()->CreatePlane(_entity->getMap()->getScene(),"","",Vector2(_buildingWidth * _gridSize, _buildingHeight * _gridSize),Vector3(0,0,0));
 
-		// Solicitamos que empiecen a lanzar Raycast desde el viewport.
-		MControlRaycast *rc_message = new MControlRaycast();
-		rc_message->setAction(RaycastMessage::START_RAYCAST);
-		rc_message->setCollisionGroups(Physics::TPhysicGroup::PG_WORLD);
-		_entity->emitMessage(rc_message);
-
 	} //startBuilding
 
 	//---------------------------------------------------------
@@ -185,11 +178,6 @@ namespace Logic
 
 		FreeResources();
 
-		// Mandamos un mensaje para dejar de lanzar raycasts
-		MControlRaycast *rc_message = new MControlRaycast();
-		rc_message->setAction(RaycastMessage::STOP_RAYCAST);
-		_entity->emitMessage(rc_message);
-
 		_building = false;
 
 	} // cancelBuilding
@@ -201,13 +189,6 @@ namespace Logic
 		if (!_building || _buildingEntity == NULL) return;
 		if (!CheckBuildingCanEmplace())
 		{
-			// Si no se puede construir, volvemos a activar el Raycast
-			// y continuamos como estabamos.
-			MControlRaycast *rc_message = new MControlRaycast();
-			rc_message->setAction(RaycastMessage::START_RAYCAST);
-			rc_message->setCollisionGroups(Physics::TPhysicGroup::PG_WORLD);
-			_entity->emitMessage(rc_message);
-
 			return;
 		}
 
@@ -234,11 +215,6 @@ namespace Logic
 		buildInfo->setAttribute("grid_position", gridPos.str());
 
 		Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap());
-
-		// Mandamos un mensaje para dejar de lanzar raycasts.
-		MControlRaycast *rc_message = new MControlRaycast();
-		rc_message->setAction(RaycastMessage::STOP_RAYCAST);
-		_entity->emitMessage(rc_message);
 
 		MEmplaceBuilding *b_message = new MEmplaceBuilding();
 		b_message->setAction(BuildingAction::FINISH_BUILDING);

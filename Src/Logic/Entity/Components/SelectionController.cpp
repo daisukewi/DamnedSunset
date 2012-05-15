@@ -68,8 +68,6 @@ namespace Logic
 		_godStates[State::HEALING] = new CHealing(this);
 		_godStates[State::LANZANDO_GRANADA] = new CLanzandoGranada(this);
 		_selectedEntity = NULL;
-
-		ScriptManager::CServer::getSingletonPtr()->loadExeScript("goTo");
 		
 		
 		return true;

@@ -12,10 +12,15 @@ la gestión de la lógica del juego.
 
 #include "Server.h"
 #include "Logic/Maps/Map.h"
-
 #include "Logic/Maps/EntityFactory.h"
 
 #include "Map/MapParser.h"
+
+#include "BaseSubsystems/Math.h"
+
+#include "GUI/Server.h"
+#include "Graphics/Server.h"
+#include "Physics/Server.h"
 
 #include <cassert>
 
@@ -158,5 +163,16 @@ namespace Logic {
 		_map->tick(msecs);
 
 	} // tick
+
+	//---------------------------------------------------------
+
+	Logic::CEntity* CServer::raycastFromViewport (Ogre::Vector3* point, unsigned groups, float maxDist) const
+	{
+		Vector2 mousePos = GUI::CServer::getSingletonPtr()->getMouseRelPos();
+		// Lanzar un rayo desde la camara hasta el plano del escenario.
+		Ray mouseRay = Graphics::CServer::getSingletonPtr()->getCameraToViewportRay(mousePos.x, mousePos.y);
+
+		return Physics::CServer::getSingletonPtr()->raycastGroup(mouseRay, point, (Physics::TPhysicGroup)groups, maxDist);
+	}
 
 } // namespace Logic

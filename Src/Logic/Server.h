@@ -21,6 +21,11 @@ namespace Logic
 	class CEntity;
 }
 
+namespace Ogre
+{
+	class Vector3;
+}
+
 /**
 Namespace que engloba la lógica del juego. Engloba desde el mapa lógico
 contenedor de todas las entidades del juego hasta las propias entidades,
@@ -125,6 +130,19 @@ namespace Logic
 		Si hay un nivel cargado lo descarga  destruye.
 		*/
 		void unLoadLevel();
+
+		/**
+		 Lanza un rayo desde la camara en la direccion del cursor del raton y devuelve
+		 la primera entidad lógica contra la que intersecta. Si el rayo
+		 no choca contra ninguna entidad devuelve NULL.
+		 
+		 @param point Vector3 que devuelve la posición donde ha intersecado el rayo.
+		 @param maxDist distancia máxima a la que se debe encontrar intersección
+		 @param groups Mascara de grupos con los que se busca intersecar.
+		 @return Primera entidad lógica alcanzada o NULL.
+		 */
+		Logic::CEntity* raycastFromViewport (Ogre::Vector3* point, unsigned groups = 0xffffffff, float maxDist = FLT_MAX ) const; 
+
 
 	protected:
 		/**

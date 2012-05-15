@@ -34,7 +34,7 @@ namespace GUI {
 
 	//--------------------------------------------------------
 
-	CServer::CServer() : _playerController(0)
+	CServer::CServer() : _playerController(0), _mouseRelPosX(0), _mouseRelPosY(0)
 	{
 		_instance = this;
 
@@ -173,6 +173,9 @@ namespace GUI {
 	
 	bool CServer::mouseMoved(const CMouseState &mouseState)
 	{
+		_mouseRelPosX = mouseState.posRelX;
+		_mouseRelPosY = mouseState.posRelY;
+
 #if defined NON_EXCLUSIVE_MODE_IN_WINDOW_MODE
 		_GUISystem->injectMousePosition((float)mouseState.posAbsX,(float)mouseState.posAbsY);
 #else 
@@ -220,5 +223,13 @@ namespace GUI {
 		return false;
 
 	} // mouseReleased
+
+	//--------------------------------------------------------
+
+	Vector2 CServer::getMouseRelPos()
+	{
+		return Vector2(_mouseRelPosX, _mouseRelPosY);
+
+	} //getMouseRelPos
 
 } // namespace GUI
