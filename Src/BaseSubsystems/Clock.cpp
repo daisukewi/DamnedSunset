@@ -14,6 +14,7 @@ Contiene la implementación de un interfaz para un temporizador.
 */
 
 #include "Clock.h"
+#include <cassert>
 
 namespace BaseSubsystems {
 
@@ -22,6 +23,11 @@ namespace BaseSubsystems {
 		_lastRealFrameDuration = newTime - _lastTime;
 		_lastFrameDuration =  _lastRealFrameDuration / _factorRalentizar;
 		_lastTime = newTime;
+
+		//Para que el tiempo no pueda ser mayor de uno, suele darse cuando ponemos un punto de interrupcion, y da resultados raros, asi lo evitamos
+		//Si el tick dura mas de medio segundo, lo fijamos en medio segundo
+		assert((_lastFrameDuration = _lastFrameDuration>500?500:_lastFrameDuration) || true);
+		assert((_lastRealFrameDuration = _lastRealFrameDuration>500?500:_lastRealFrameDuration) || true);
 
 		notifyListeners();
 
