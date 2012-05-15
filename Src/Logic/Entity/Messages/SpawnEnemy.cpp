@@ -22,4 +22,20 @@ namespace Logic
 
 	//---------------------------------------------------------
 
+	void MSpawnEnemy::setNumEnemies(int numEnemies)
+	{
+		_numEnemies = numEnemies;
+
+	} // setNumEnemies
+
+	//---------------------------------------------------------
+
+	int MSpawnEnemy::getNumEnemies()
+	{
+		return _numEnemies;
+
+	} // getNumEnemies
+
+	//---------------------------------------------------------
+
 } // namespace Logic

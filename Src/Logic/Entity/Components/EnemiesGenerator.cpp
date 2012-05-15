@@ -23,6 +23,8 @@ de enemigos en el mapa.
 
 #include "ScriptManager/Server.h"
 
+#include "Logic/Entity/Messages/SpawnEnemy.h"
+
 #include <stdlib.h>
 #include <sstream>
 
@@ -66,6 +68,16 @@ namespace Logic
 			std::stringstream scriptCreateEnemies;
 			scriptCreateEnemies << "spawners[" << _ID << "].enemies = {}";
 			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreateEnemies.str().c_str());
+
+			// Inicializo el tiempo de cada spawner.
+			std::stringstream scriptTime;
+			scriptTime << "spawners[" << _ID << "].spawnTime = 0";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptTime.str().c_str());
+
+			// Inicializo el conteo de enemigos que hay que mandar a atacar de cada spawner.
+			std::stringstream scriptAttack;
+			scriptAttack << "spawners[" << _ID << "].attackEnemies = 0";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptAttack.str().c_str());
 		}
 
 		std::srand(time(NULL));
@@ -101,7 +113,10 @@ namespace Logic
 	void CEnemiesGenerator::process(IMessage *message)
 	{
 		if (!message->getType().compare("MSpawnEnemy"))
-			_spawn++;
+		{
+			MSpawnEnemy *m = static_cast <MSpawnEnemy*> (message);
+			_spawn += m->getNumEnemies();
+		}
 
 	} // process
 	
@@ -153,6 +168,7 @@ namespace Logic
 			}
 		}
 
+		// Para no saturar la lógica del juego spawneo un enemigo a la vez en cada tick.
 		if (_spawn > 0)
 		{
 			_spawn--;

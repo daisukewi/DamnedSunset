@@ -193,7 +193,7 @@ namespace Logic
 		if (!_type.compare("Player"))
 		{
 			std::stringstream script;
-			script	<< "players[" << _entityID << "].name = " << _name << " "
+			script	<< "players[" << _entityID << "].name = \"" << _name << "\" "
 					<< "players[" << _entityID << "].posX = " << getPosition().x << " "
 					<< "players[" << _entityID << "].posY = " << getPosition().y << " "
 					<< "players[" << _entityID << "].posZ = " << getPosition().z;

@@ -20,3 +20,4 @@ Sierra CAnimatedGraphics CSwitchPosition CDamageTrigger CPhysicEntity
 Waypoint CGraphics
 EnemyMind CScript CEnemyMindAIController
 ScriptsLoader CScript
+StageManager CScript

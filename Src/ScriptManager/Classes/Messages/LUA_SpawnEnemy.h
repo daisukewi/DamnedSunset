@@ -15,7 +15,7 @@ Contiene la declaración del mensaje de spawnear enemigo que sirve como intermedi
 namespace ScriptManager 
 {
 	/**
-	Clase mensaje que se encargará de indicar que hay que spawnear un enemigo.
+	Clase mensaje que se encargará de indicar que hay que spawnear enemigos.
 
 	@author Alberto Plaza
 	@date Abril, 2012
@@ -33,6 +33,23 @@ namespace ScriptManager
 		Implementación del método send heredado de la clase LUA_IMessage
 		*/
 		virtual void send();
+
+		/**
+		Establece en el mensaje el número de enemigos que hay que spawnear.
+		*/
+		void setNumEnemies(int numEnemies);
+
+		/**
+		Devuelve el número de enemigos que hay que spawnear almacenados en el mensaje.
+		*/
+		int getNumEnemies();
+
+	protected:
+
+		/**
+		Número de enemigos que hay que spawnear.
+		*/
+		int _numEnemies;
 
 	}; // class LUA_MSpawnEnemy
 

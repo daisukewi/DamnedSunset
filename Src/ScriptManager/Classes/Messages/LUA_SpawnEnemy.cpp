@@ -22,9 +22,27 @@ namespace ScriptManager
 	{
 		LUA_IMessage();
 
+		_numEnemies = 1;
+
 		_type = "LUA_MSpawnEnemy";
 
 	} // MSpawnEnemy
+
+	//---------------------------------------------------------
+
+	void LUA_MSpawnEnemy::setNumEnemies(int numEnemies)
+	{
+		_numEnemies = numEnemies;
+
+	} // setNumEnemies
+
+	//---------------------------------------------------------
+
+	int LUA_MSpawnEnemy::getNumEnemies()
+	{
+		return _numEnemies;
+
+	} // getNumEnemies
 
 	//---------------------------------------------------------
 
@@ -38,6 +56,7 @@ namespace ScriptManager
 		}
 
 		Logic::MSpawnEnemy *m = new Logic::MSpawnEnemy();
+		m->setNumEnemies(_numEnemies);
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_entityTo)->emitMessage(m);
 
 		//delete(this);

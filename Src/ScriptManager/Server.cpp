@@ -727,6 +727,7 @@ namespace ScriptManager
 			luabind::class_<LUA_MSpawnEnemy>("LUA_MSpawnEnemy")
 				.def(luabind::constructor<>())
 				.def("setEntityTo", (void (LUA_MSpawnEnemy::*) (unsigned int)) &LUA_MSpawnEnemy::setEntityTo)
+				.def("setNumEnemies", (void (LUA_MSpawnEnemy::*) (int)) &LUA_MSpawnEnemy::setNumEnemies)
 				.def("send", &LUA_MSpawnEnemy::send)
 		];
 

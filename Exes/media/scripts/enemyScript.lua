@@ -46,6 +46,24 @@ function idleStateEvent(event, entity)
 		enemies[entity].playersSeen[enemyEventParam.target] = false
 		
 		nextState = 1
+	elseif (event == "EnemyMindMove") then
+		-- Establezco el punto de destino.
+		enemies[entity].destPoint = {
+			x = enemyEventParam.x,
+			y = enemyEventParam.y,
+			z = enemyEventParam.z
+		}
+		
+		-- Envío el mensaje de movimiento.
+		local mensaje = LUA_MAStarRoute()
+		mensaje:setDestPointX(enemies[entity].destPoint.x)
+		mensaje:setDestPointY(enemies[entity].destPoint.y)
+		mensaje:setDestPointZ(enemies[entity].destPoint.z)
+		mensaje:setEntityTo(entity)
+		mensaje:send()
+		
+		-- Como me estoy moviendo paso al estado de moviéndome.
+		nextState = 3
 	else
 		-- No me ha interesado ningún evento, me quedo en el estado de idle.
 		nextState = 1
@@ -89,7 +107,7 @@ function idleStateAction(entity)
 			mensaje:setEntityTo(entity)
 			mensaje:send()
 			
-			-- Como me estoy moviendo paso al estado de moviendome.
+			-- Como me estoy moviendo paso al estado de moviéndome.
 			nextState = 3
 		else
 			-- Si ya estoy en el punto que quiero no cambio de estado.

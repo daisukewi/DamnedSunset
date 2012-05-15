@@ -63,6 +63,12 @@ Map = {
 		},
 	},
 
+	StageManager = {
+		grid_position = { 2, 29 },
+		type = "StageManager",
+		script = "mission1StagesConfiguration",
+	},
+
 	PlayerGod = {
 		isPlayer = true,
 		orientation = 225,
@@ -82,6 +88,13 @@ Map = {
 		script = "scriptsLoader",
 	},
 
+	EnemiesSpawner2 = {
+		model = "esfera.mesh",
+		grid_position = { 9, 23 },
+		ID = 2,
+		type = "Enemies",
+	},
+
 	Camera = {
 		distance = 150,
 		height = 300,
@@ -90,6 +103,13 @@ Map = {
 		targetName = "PlayerGod",
 		targetDistance = 10,
 		type = "Camera",
+	},
+
+	EnemiesSpawner1 = {
+		model = "esfera.mesh",
+		grid_position = { 21, 23 },
+		ID = 1,
+		type = "Enemies",
 	},
 
 	World = {
@@ -143,24 +163,11 @@ Map = {
 	},
 
 	EnemyMind = {
+		initStage = 1,
 		grid_position = { 0, 29 },
 		script = "enemyMindScript",
 		type = "EnemyMind",
 		initState = 1,
-	},
-
-	EnemiesSpawner1 = {
-		model = "esfera.mesh",
-		grid_position = { 26, 24 },
-		ID = 1,
-		type = "Enemies",
-	},
-
-	EnemiesSpawner2 = {
-		model = "esfera.mesh",
-		grid_position = { 3, 24 },
-		ID = 2,
-		type = "Enemies",
 	},
 
 }
