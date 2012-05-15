@@ -6,7 +6,7 @@ function decideAttackPlayer(attacker)
 	local life = 10000
 	enemies[attacker].target = nil
 	for playerID, seen in pairs(enemies[attacker].playersSeen) do
-		if ((seen) and (players[playerID].life < life)) then
+		if ((seen) and (players[playerID].life < life) and (players[playerID].life > 0)) then
 			life = players[playerID].life
 			enemies[attacker].target = playerID
 		end
@@ -128,6 +128,15 @@ function attackStateEvent(event, entity)
 		else
 			nextState = 2
 		end
+	elseif (event == "OnPlayerDeath") then
+		decideAttackPlayer(entity)
+		
+		-- Decido a que estado voy en base a si tengo objetivo o no.
+		if (enemies[entity].target == nil) then
+			nextState = 1
+		else
+			nextState = 2
+		end
 	else
 		-- Como no me interesa ningún evento me quedo en el estado actual.
 		nextState = 2
@@ -160,7 +169,12 @@ function attackStateAction(entity)
 		
 		nextState = 4
 	else
-		nextState = 2
+		-- Decido a que estado voy en base a si tengo objetivo o no.
+		if (enemies[entity].target == nil) then
+			nextState = 1
+		else
+			nextState = 2
+		end
 	end
 	
 	return nextState

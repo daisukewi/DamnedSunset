@@ -19,3 +19,4 @@ Puerta CGraphics CSwitchPosition
 Sierra CAnimatedGraphics CSwitchPosition CDamageTrigger CPhysicEntity
 Waypoint CGraphics
 EnemyMind CScript
+ScriptsLoader CScript

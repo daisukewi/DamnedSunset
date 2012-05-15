@@ -63,11 +63,18 @@ Map = {
 		},
 	},
 
+	ScriptsLoader = {
+		activateFunction = "loadScripts",
+		grid_position = { 1, 29 },
+		script = "scriptsLoader",
+		type = "ScriptsLoader",
+	},
+
 	PlayerGod = {
 		isPlayer = true,
 		orientation = 225,
-		cameraVelocity = 500,
 		isTargetCamera = true,
+		cameraVelocity = 500,
 		grid_position = { 29, 0 },
 		type = "PlayerGod",
 		cameraDistance = 10,
@@ -81,16 +88,16 @@ Map = {
 		grid_position = { 28, 0 },
 		targetHeight = 7,
 		targetName = "PlayerGod",
-		targetDistance = 10,
 		type = "Camera",
+		targetDistance = 10,
 	},
 
 	World = {
 		position = { 0, 0, 0 },
 		orientation = 0,
 		physic_entity = "simple",
-		physic_height = 1,
 		static = true,
+		physic_height = 1,
 		physic_normal = { 0, 1, 0 },
 		type = "World",
 		physic_type = "static",
@@ -101,10 +108,10 @@ Map = {
 
 	Sun = {
 		position = { 0, 10, -100 },
-		orientation = 0,
 		scale = 30.0,
-		grid_position = { 28, 29 },
+		orientation = 0,
 		speed = 5.0,
+		grid_position = { 28, 29 },
 		inclination = 120.0,
 		type = "Sun",
 	},
@@ -115,8 +122,8 @@ Map = {
 		grid_position = { 28, 2 },
 		nombreGranada = "Granada",
 		tickFunction = "jackTick",
-		script = "jackScript",
 		type = "Player",
+		script = "jackScript",
 	},
 
 	Erick = {
@@ -131,8 +138,8 @@ Map = {
 		afectaEmpujar = 150,
 		life = 100.0,
 		grid_position = { 27, 1 },
-		type = "Player",
 		script = "amorScript",
+		type = "Player",
 	},
 
 	EnemyMind = {
@@ -140,10 +147,17 @@ Map = {
 		type = "EnemyMind",
 	},
 
-	EnemiesSpawner = {
+	EnemiesSpawner1 = {
 		model = "esfera.mesh",
-		grid_position = { 15, 15 },
+		grid_position = { 26, 24 },
 		ID = 1,
+		type = "Enemies",
+	},
+
+	EnemiesSpawner2 = {
+		model = "esfera.mesh",
+		grid_position = { 3, 24 },
+		ID = 2,
 		type = "Enemies",
 	},
 

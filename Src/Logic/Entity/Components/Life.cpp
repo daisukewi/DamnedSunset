@@ -128,11 +128,11 @@ namespace Logic
 					else if (!_entity->getType().compare("Enemy"))
 					{
 						// @TODO @ENTITYDEATH Habrá que borrar este bloque de código cuando la notificación de la muerte de la entidad funcione bien.
-						MAttackEntity *m = new MAttackEntity();
+						/*MAttackEntity *m = new MAttackEntity();
 						m->setAttack(false);
 
 						if (md->getKiller())
-							md->getKiller()->emitMessage(m, this);
+							md->getKiller()->emitMessage(m, this);*/
 
 						// Notifico a todos mis oyentes de que la entidad ha muerto.
 						notifyDeathListeners();
@@ -171,7 +171,7 @@ namespace Logic
 
 				float porcentajeVida = _life/_maxLife;
 				float num = 0.5f - porcentajeVida/2.0f;
-				_billboard->setPosicionImagen(num/*inicioX*/, 0.0f, num + 0.5f/*finX*/, 1.0f);
+				//_billboard->setPosicionImagen(num/*inicioX*/, 0.0f, num + 0.5f/*finX*/, 1.0f);
 
 				if (!_entity->getName().compare("Jack"))
 				{
@@ -262,6 +262,7 @@ namespace Logic
 		_listeners.clear();
 		
 	} // notifyDeathListeners
+
 	//---------------------------------------------------------
 
 } // namespace Logic

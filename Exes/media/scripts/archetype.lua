@@ -82,7 +82,6 @@ Archetype = {
 		type = "Enemies",
 		periodo = 10000,
 		automaticSpawn = false,
-		script = "enemyScript",
 	},
 
 	Enemy = {
@@ -122,6 +121,8 @@ Archetype = {
 		initState = 1,
 		memInitPoint = true,
 		runLifeThreshold = 50,
+		
+		damage = 10,
 	},
 	
 	Granada = {

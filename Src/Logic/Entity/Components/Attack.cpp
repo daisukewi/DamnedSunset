@@ -24,6 +24,8 @@ Contiene la implementación del componente que controla el ataque de una entidad.
 #include "Logic/Entity/Messages/Damaged.h"
 #include "Logic/Entity/Messages/AttackEntity.h"
 
+#include "ScriptManager/Server.h"
+
 namespace Logic 
 {
 	IMP_FACTORY(CAttack);
@@ -34,6 +36,9 @@ namespace Logic
 	{
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
+
+		if(entityInfo->hasAttribute("damage"))
+			_damage = entityInfo->getFloatAttribute("damage");
 
 		return true;
 
@@ -106,7 +111,8 @@ namespace Logic
 			{
 				MDamaged *m_damage = new MDamaged();
 				// Quitamos 1 punto de vida al enemigo
-				m_damage->setHurt(msecs / 100.0f);
+				//m_damage->setHurt(msecs / 100.0f);
+				m_damage->setHurt(_damage / msecs);
 				m_damage->setKiller(_entity);
 				_targetEntity->emitMessage(m_damage, this);	
 			}
@@ -122,7 +128,16 @@ namespace Logic
 		Implementación del método que va a ser llamado cuando muera la entidad.
 		*/
 		_attack = false;
-		entity->removeDeathListener(this);
+
+		// Si la entidad que se ha muerto es un jugador, también aviso a lua de la muerte del mismo.
+		if (!entity->getType().compare("Player"))
+		{
+			std::stringstream script;
+			script << "enemyEventParam = { playerDeath = " << entity->getEntityID() <<  " } ";
+			script << "enemyEvent(\"OnPlayerDeath\", " << _entity->getEntityID() << ")";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
+		//entity->removeDeathListener(this);
 
 	} // entityDeath
 

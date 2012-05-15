@@ -35,7 +35,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CAttack() : IComponent(), IDeathListener(), _attack(false) {}
+		CAttack() : IComponent(), IDeathListener(), _attack(false), _damage(0) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -96,6 +96,11 @@ namespace Logic
 		virtual void entityDeath(CEntity* entity);
 
 	protected:
+
+		/**
+		Atributo que indica cuantos puntos de vida quita la entidad.
+		*/
+		float _damage;
 
 		/**
 		Atributo para saber si la entidad tiene que atacar.
