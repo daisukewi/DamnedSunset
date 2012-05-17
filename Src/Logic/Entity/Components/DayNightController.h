@@ -34,7 +34,7 @@ namespace Logic
 	enum TIME_TYPE{
 		DAY,
 		NIGHT,
-		DAY_ALARM
+		DAY_ALARM //Queda poco para que llegue el día
 	};
 
 	class CDayNightController : public IComponent,  public BaseSubsystems::IClockListener
@@ -132,6 +132,18 @@ namespace Logic
 		float _nightTime;
 
 		/**
+		Radio de la cúpula donde no afecta el sol
+		*/
+		float _safeLimit;
+
+		/**
+		Punto inicial donde se encuentra el centro de la cúpula
+		*/
+		Vector3 _initPoint;
+
+
+		/**
+		Guarda el estado del tiempo del mapa (dñia /noche / alarma de día)
 		*/
 		TIME_TYPE _timeType;
 

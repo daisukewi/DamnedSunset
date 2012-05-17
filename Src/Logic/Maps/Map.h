@@ -54,6 +54,13 @@ namespace Logic
 	{
 	public:
 
+
+		/**
+		Tipo tabla de entidades de mapa.
+		*/
+		typedef std::map<TEntityID,CEntity*> TEntityMap;
+
+
 		/**
 		Método factoría que carga un mapa de fichero. Tras el parseo de
 		todas las entidades del mapa mediante CMapParser, genera todas las
@@ -198,14 +205,15 @@ namespace Logic
 		*/
 		void sendMessageAll(IMessage *message, Logic::CEntity *entity);
 
-	private:
-
 
 		/**
-		Tipo tabla de entidades de mapa.
-		*/
-		typedef std::map<TEntityID,CEntity*> TEntityMap;
+		Devuelve el map de las entidades
 
+		@return entityMap
+		*/
+		TEntityMap* getEntityMap(){ return &_entityMap; }
+
+	private:
 
 		/**
 		tabla con las entidades del mapa localizadas por su ID.

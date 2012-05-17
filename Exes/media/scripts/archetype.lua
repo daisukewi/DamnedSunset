@@ -17,9 +17,11 @@ Archetype = {
 		cameraVelocity = 500,
 		mouseVelocity = 4,
 		dayTime = 10000,
-		dayTimeAlarm = 2000,
-		nightTime = 500000,
+		dayTimeAlarm = 1000,
+		nightTime = 1000000,
 		speed = 0.15,
+		safeLimit = 110.0,
+		initPoint = { 0, 0, 0 },
 	},
 	
 	Obstacle = {

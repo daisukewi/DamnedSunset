@@ -141,6 +141,7 @@ namespace Application {
 			_app->setState("unload");
 			break;
 		case GUI::Key::G:{
+
 			//Avisar  al "dios" que se pasa a la fase de noche y active el componente de control de la cámara correspondiente
 			Logic::MDayNight *m = new Logic::MDayNight();
 			m->setTime(Logic::TIME_TYPE::NIGHT);
