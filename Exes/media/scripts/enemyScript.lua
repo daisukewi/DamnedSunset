@@ -6,7 +6,7 @@ function decideAttackPlayer(attacker)
 	local life = 10000
 	enemies[attacker].target = nil
 	for playerID, seen in pairs(enemies[attacker].playersSeen) do
-		if ((seen) and (players[playerID].life < life) and (players[playerID].life > 0)) then
+		if ((seen) and (players[playerID].life >= 1) and (players[playerID].life < life)) then
 			life = players[playerID].life
 			enemies[attacker].target = playerID
 		end

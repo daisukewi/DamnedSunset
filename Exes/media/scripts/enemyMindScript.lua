@@ -1,5 +1,16 @@
 --------------------------------------------------
---				Estado normal						--
+--				Cosas de debug					--
+--------------------------------------------------
+
+function spawnEnemy()
+	local mensaje = LUA_MSpawnEnemy()
+	mensaje:setNumEnemies(1)
+	mensaje:setEntityTo(spawners[1].entityID)
+	mensaje:send()
+end
+
+--------------------------------------------------
+--				Estado normal					--
 --------------------------------------------------
 
 -- Recogida de eventos del estado normal.
