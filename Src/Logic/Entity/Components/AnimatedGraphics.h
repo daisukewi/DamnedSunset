@@ -104,6 +104,10 @@ namespace Logic
 		Animación por defecto de una entidad gráfica animada.
 		*/
 		std::string _currentAnimation;
+		/**
+		Siguiente animación que se realizara cuando se termine la animación actual
+		*/
+		std::string _nextAnimation;
 
 	}; // class CAnimatedGraphics
 

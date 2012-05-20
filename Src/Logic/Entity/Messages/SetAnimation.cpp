@@ -17,6 +17,9 @@ namespace Logic
 		IMessage();
 
 		_type = "MSetAnimation";
+		_animationName = "";
+		_nextAnimationName = "";
+		_loop = false;
 
 	} // MSetAnimation
 

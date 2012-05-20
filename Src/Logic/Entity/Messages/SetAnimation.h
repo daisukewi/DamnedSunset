@@ -46,6 +46,20 @@ namespace Logic
 		std::string getAnimationName();
 
 		/**
+		Método que establece el nombre de la animación en el mensaje.
+
+		@param animationName Nombre de la animación.
+		*/
+		void setNextAnimationName(std::string nextAnimationName) {_nextAnimationName = nextAnimationName;}
+
+		/**
+		Método que devuelve el nombre de la animación almacenada en el mensaje.
+
+		@return Nombre de la animación.
+		*/
+		std::string getNextAnimationName() {return _nextAnimationName;}
+
+		/**
 		Método que establece en el mensaje la información de si se tiene que reproducir la animación en bucle o no.
 
 		@param loop Si la animación es en bucle o no.
@@ -65,6 +79,11 @@ namespace Logic
 		Atributo que indica el nombre de la animación que hay que reproducir.
 		*/
 		std::string _animationName;
+
+		/**
+		Atributo que indica el nombre de la animación que hay que reproducir cuando se acabe la 1º animacion
+		*/
+		std::string _nextAnimationName;
 
 		/**
 		Atributo que indica si la animación se tiene que repetir o no.

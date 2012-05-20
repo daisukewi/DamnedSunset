@@ -130,6 +130,8 @@ namespace Logic
 		*/
 		virtual void timeElapsed();
 
+
+
 	}; // class CLife
 
 	REG_FACTORY(CLife);

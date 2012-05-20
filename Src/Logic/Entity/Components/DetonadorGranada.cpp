@@ -63,15 +63,6 @@ namespace Logic
 
 	} // process
 
-	void CDetonadorGranada::entityDeath(CEntity* entity)
-	{
-		/* 
-		Implementación del método que va a ser llamado cuando muera la entidad.
-		*/
-		_entidades.remove(entity);
-		entity->removeDeathListener(this);
-	}
-
 	void CDetonadorGranada::timeElapsed()
 	{
 
@@ -94,29 +85,26 @@ namespace Logic
 		rc2_message->setSoundEffect("media/sounds/rocket_explosion.wav");
 		_entity->emitInstantMessage(rc2_message,this);
 
-		for(int i = 0; i < numColisiones; ++i) {
+		for(int i = 0; i < numColisiones; ++i)
+		{
 			//Entidad que daña la granada
 			CEntity * entidad = entidadesColision[i];
-
-			//Le decimos a la entidad que no nos avise cuando muera
-			entidad->removeDeathListener(this);
 
 			//Enviamos mensaje de daño a la entidad
 			MDamaged *mDamaged = new MDamaged();
 			mDamaged->setHurt(_damage);
 			mDamaged->setKiller(0);
-			entidad->removeDeathListener(this);
 			entidad->emitMessage(mDamaged, this);
 
 			printf("DAÑO GRANADA");
 
-			MSetEmpujarPropiedades *m = new MSetEmpujarPropiedades();
-
+			//EMPUJAR
+			
+			//Activamos el componente de empujar
 			MActivarComponente *mActivar = new MActivarComponente();
 			mActivar->setActivar(true);
 			mActivar->setNombreComponente("CEmpujable");
-			//Tiene que ser instantaneo, sino no se empujara ya q no esta activo
-			entidad->emitInstantMessage(mActivar, this);
+			entidad->emitInstantMessage(mActivar, this); //Tiene que ser instantaneo, sino no se empujara ya q no esta activo
 
 			//Calculamos la direccion a la que tenemos que empujar
 			Vector3 pos1 = entidad->getPosition();
@@ -124,13 +112,13 @@ namespace Logic
 			Vector3 direccion = Vector3(pos1.x-pos2.x,pos1.y-pos2.y,pos1.z-pos2.z);
 			direccion.normalise();
 			//----
+			MSetEmpujarPropiedades *m = new MSetEmpujarPropiedades();
 			m->setDirection(direccion.x,direccion.y,direccion.z);
 			m->setTime(_timeEmpujar);
 			m->setDistanciaPorSegundo(_distEmpujarSeg);
 
 			entidad->emitMessage(m, this);
 		}
-
 		//Eliminamos la entidad en el siguiente tick
 		CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 	} // timeElapsed

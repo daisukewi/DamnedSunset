@@ -85,16 +85,12 @@ namespace Logic
 			// Un control más sofisticado debería permitir interpolación
 			// de animaciones. Galeon no lo plantea.
 			std::string animation = m->getAnimationName();
-			if (!_currentAnimation.compare("Death"))
-			{
-				//Si esta la animacion de muerte ignoramos las demas animaciones
-
-			} else {
+			if (animation != "") {
 				_currentAnimation = animation;
 				_animatedGraphicsEntity->stopAllAnimations();
 				_animatedGraphicsEntity->setAnimation(_currentAnimation,m->getLoop());
 			}
-
+			_nextAnimation = m->getNextAnimationName();
 		}
 		else if (!message->getType().compare("MStopAnimation"))
 		{
@@ -112,10 +108,17 @@ namespace Logic
 	
 	void CAnimatedGraphics::animationFinished(const std::string &animation)
 	{
-		// Si acaba una animación y tenemos una por defecto la ponemos
-		_animatedGraphicsEntity->stopAllAnimations();
-		_animatedGraphicsEntity->setAnimation(_defaultAnimation,true);
+		if (_nextAnimation != "") {
+			_currentAnimation = _nextAnimation;
+			_nextAnimation = "";
+			_animatedGraphicsEntity->stopAllAnimations();
+			_animatedGraphicsEntity->setAnimation(_currentAnimation,true);
+		}
+		//else {
+		//	// Si acaba una animación y tenemos una por defecto la ponemos
+		//	_animatedGraphicsEntity->stopAllAnimations();
+		//	_animatedGraphicsEntity->setAnimation(_defaultAnimation,true);
+		//}
 	}
-
 } // namespace Logic
 

@@ -12,7 +12,7 @@
 namespace Logic 
 {
 
-	class CDetonadorGranada: public IComponent, public BaseSubsystems::IClockListener, public IDeathListener
+	class CDetonadorGranada: public IComponent, public BaseSubsystems::IClockListener
 	{
 		DEC_FACTORY(CDetonadorGranada);
 	public:
@@ -23,17 +23,10 @@ namespace Logic
 		CDetonadorGranada();
 		~CDetonadorGranada();
 		
-
 		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 		virtual bool accept(IMessage *message);
 		virtual void process(IMessage *message);
 		virtual bool activate();
-
-		/**
-		Método heredado de la interfaz IDeathListener que será llamado
-		cuando una entidad muera.
-		*/
-		virtual void entityDeath(CEntity* entity);
 
 		/**
 		Método heredado de la interfaz IClockListener que será llamado

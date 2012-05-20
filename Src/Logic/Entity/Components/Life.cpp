@@ -181,7 +181,6 @@ namespace Logic
 					{
 						MSetAnimation *m_anim = new MSetAnimation();
 						m_anim->setAnimationName("Death");
-						m_anim->setLoop(false);
 						_entity->emitMessage(m_anim, this);
 
 
@@ -310,5 +309,6 @@ namespace Logic
 		//Eliminamos la entidad en el siguiente tick
 		CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 	}
+
 } // namespace Logic
 
