@@ -79,6 +79,7 @@ namespace Logic
 		{
 			std::stringstream scriptCreate;
 			scriptCreate << "players[" << _entityID << "] = {}";
+			scriptCreate << "players[" << _entityID << "].state = 1";
 			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreate.str().c_str());
 		}
 
