@@ -42,6 +42,7 @@ namespace OIS
 namespace CEGUI
 {
 	class System;
+	class LuaScriptModule;
 }
 
 namespace BaseSubsystems
@@ -357,6 +358,11 @@ namespace BaseSubsystems
 		Sistema de la interfaz gráfica de usuario CEGUI.
 		*/
 		CEGUI::System *_GUISystem;
+
+		/**
+		Puntero al modulo de scripts de CEGUI para poder liberarlo a la salida.
+		*/
+		CEGUI::LuaScriptModule *_luaModule;
 
 		/**
 		Reloj de la aplicación.

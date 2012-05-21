@@ -99,6 +99,25 @@ namespace ScriptManager
 
 	bool CServer::open()
 	{
+		// Obtengo el estado de lua (inicialización de lua)
+		_lua = luaL_newstate();
+
+		if (!_lua)
+			return false;
+
+		// Abro las librerías de lua (segunda parte de la inicialización)
+		luaL_openlibs(_lua);
+
+		// Abrimos la librería base para hacer disponible
+		// print() en Lua.
+		luaopen_base(_lua);
+
+		// Activamos luabind en el intérprete
+		luabind::open(_lua);
+
+		//Registrar las clases que se van a usar desde LUA
+		registerClasses();
+
 		return true;
 
 	} // open
@@ -107,7 +126,11 @@ namespace ScriptManager
 
 	void CServer::close() 
 	{
-		
+		if (_lua)
+			lua_close(_lua);
+
+		_scriptList.clear();
+
 	} // close
 
 	//---------------------------------------------------------

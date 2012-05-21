@@ -55,13 +55,13 @@ namespace Application {
 		if (!CBaseApplication::init())
 			return false;
 
+		// Inicializamos el script manager
+		if (!ScriptManager::CServer::Init())
+			return false;
+
 		// Inicializamos los diferentes subsistemas, los de 
 		// Ogre entre ellos.
 		if (!BaseSubsystems::CServer::Init())
-			return false;
-
-		// Inicializamos el script manager
-		if (!ScriptManager::CServer::Init())
 			return false;
 
 		// Inicializamos el servidor gráfico.
@@ -104,6 +104,9 @@ namespace Application {
 
 	void C3DApplication::release()
 	{
+		if(Sounds::CServer::getSingletonPtr())
+			Sounds::CServer::Release();
+
 		// Liberar servidor de IA 
 		if (AI::CServer::getSingletonPtr())
 			AI::CServer::Release();
@@ -137,15 +140,12 @@ namespace Application {
 		if(Graphics::CServer::getSingletonPtr())
 			Graphics::CServer::Release();
 
-		// Liberar el script manager
-		if (ScriptManager::CServer::getSingletonPtr())
-			ScriptManager::CServer::Release();
-
 		if(BaseSubsystems::CServer::getSingletonPtr())
 			BaseSubsystems::CServer::Release();
 
-		if(Sounds::CServer::getSingletonPtr())
-			Sounds::CServer::Release();
+		// Liberar el script manager
+		if (ScriptManager::CServer::getSingletonPtr())
+			ScriptManager::CServer::Release();
 
 		CBaseApplication::release();
 

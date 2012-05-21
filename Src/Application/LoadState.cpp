@@ -169,7 +169,7 @@ namespace Application {
 		// Crear la escena física.
 		Physics::CServer::getSingletonPtr()->createScene();
 
-		ScriptManager::CServer::getSingletonPtr()->CreateNewState();
+		//ScriptManager::CServer::getSingletonPtr()->CreateNewState();
 
 		// Cargamos el archivo con las definiciones de las entidades del nivel.
 		if (!Logic::CEntityFactory::getSingletonPtr()->loadBluePrints("blueprints.txt"))

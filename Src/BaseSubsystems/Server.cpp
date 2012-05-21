@@ -43,6 +43,8 @@ usados. La mayoría de ellos son parte de Ogre.
 #include <CEGUIScheme.h>
 #include <ScriptingModules\LuaScriptModule\CEGUILua.h>
 
+#include "ScriptManager/Server.h"
+
 // Para cerrar la aplicación si se cierra la ventana
 #include "Application/BaseApplication.h"
 
@@ -294,7 +296,9 @@ namespace BaseSubsystems
 		CEGUI::OgreRenderer& CEGUIRenderer =
 				 CEGUI::OgreRenderer::create(*_renderWindow);
 
-		CEGUI::System::create(CEGUIRenderer);
+		//CEGUI::System::create(CEGUIRenderer);
+		_luaModule = &CEGUI::LuaScriptModule::create(ScriptManager::CServer::getSingletonPtr()->getLuaState());
+		CEGUI::System::create(CEGUIRenderer, NULL, NULL, NULL, _luaModule); 
 
 		_GUISystem = CEGUI::System::getSingletonPtr();
 
@@ -381,6 +385,7 @@ namespace BaseSubsystems
 		if(_GUISystem)
 		{
 			CEGUI::System::destroy();
+			CEGUI::LuaScriptModule::destroy(*_luaModule);
 			_GUISystem = 0;
 		}
 

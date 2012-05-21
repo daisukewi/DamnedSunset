@@ -88,37 +88,10 @@ namespace GUI {
 		_interfazController = new CInterfazController();
 		_cameraController = new CCameraController();
 		
-
 		_GUISystem = BaseSubsystems::CServer::getSingletonPtr()->getGUISystem();
 
-		// Cargamos las distintas plantillas o esquemas de fichero
-		// que usaremos en nuestro GUI.
-		// (automáticamente cargan los archivos looknfeel e imageset)
-		CEGUI::SchemeManager::getSingleton().create("TaharezLook.scheme");
-		CEGUI::SchemeManager::getSingleton().create("OgreTray.scheme");
-		CEGUI::SchemeManager::getSingleton().create("VanillaSkin.scheme");
-		CEGUI::SchemeManager::getSingleton().create("Interfaz.scheme");
-		CEGUI::SchemeManager::getSingleton().create("WindowsLook.scheme");
-
-		//CEGUI::OgreRenderer& renderer = CEGUI::OgreRenderer::bootstrapSystem();
-		CEGUI::OgreRenderer& renderer = CEGUI::OgreRenderer::create();
-		//CEGUI::LuaScriptModule* scriptModule = 
-		//	new CEGUI::LuaScriptModule(ScriptManager::CServer::getSingletonPtr()->getLuaState());
-		
-		//	CEGUI::LuaScriptModule::create(ScriptManager::CServer::getSingletonPtr()->getLuaState());
-		//new CEGUI::System(renderer, 0,NULL,NULL, scriptModule,"","");
-		//new CEGUI::System(renderer, 0, 0, 0, scriptModule, 0, 0 );
-	//	CEGUI::System::create(renderer, NULL, NULL, NULL, scriptModule, "", "");
-		
-
-		/*
-		ScriptManager::CServer::getSingletonPtr()->executeScript("initCEGUI.lua");
-		*/
-
-		// Cargamos los archivos con las fuentes que usaremos.
-		CEGUI::FontManager::getSingleton().create("DejaVuSans-10.font");
-		CEGUI::FontManager::getSingleton().create("FairChar-30.font");
-		CEGUI::FontManager::getSingleton().create("Batang-26.font");
+		//@TODO: Desñapear esto:
+		ScriptManager::CServer::getSingletonPtr()->loadExeScript("initCEGUI");
 
 #ifndef NON_EXCLUSIVE_MODE_IN_WINDOW_MODE 
 		// Establecemos cual será el puntero del ratón.
