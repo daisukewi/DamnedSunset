@@ -124,10 +124,10 @@ Parametros:
       <arg value="-DOGRE_DEPENDENCIES_DIR=..\.."/>
       <arg value="-DOGRE_BUILD_SAMPLES=FALSE"/>
       <arg value="-DOGRE_BUILD_TOOLS=TRUE"/>
-      <arg value="-DOGRE_BUILD_COMPONENT_PAGING=TRUE"/>
+      <arg value="-DOGRE_BUILD_COMPONENT_PAGING=FALSE"/>
       <arg value="-DOGRE_BUILD_COMPONENT_TERRAIN=TRUE"/>
       <arg value="-DOGRE_BUILD_PLUGIN_PCZ=FALSE"/>
-      <arg value="-DOGRE_BUILD_PLUGIN_OCTREE=TRUE"/>
+      <arg value="-DOGRE_BUILD_PLUGIN_OCTREE=FALSE"/>
       <arg value="-DOGRE_BUILD_PLUGIN_BSP=FALSE"/>
 	  <arg value="-DOGRE_BUILD_PLUGIN_PFX=TRUE"/>
 	  <arg value="-DOGRE_BUILD_RENDERSYSTEM_GL=TRUE"/>

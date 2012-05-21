@@ -260,21 +260,29 @@ static int tolua_bnd_setpeer(lua_State* L) {
 
 	if (lua_isnil(L, -1)) {
 
-		lua_pop(L, 1);
-		lua_pushvalue(L, TOLUA_NOPEER);
-	};
-	lua_setfenv(L, -2);
+               lua_pop(L, 1);                                                                                                                                                                                                                                                 
+               lua_pushvalue(L, TOLUA_NOPEER);                                                                                                                                                                                                                                
+       };                                                                                                                                                                                                                                                                     
+#if LUA_VERSION_NUM > 501                                                                                                                                                                                                                                                     
+       lua_setuservalue(L, -2);                                                                                                                                                                                                                                               
+#else
+       lua_setfenv(L, -2);
+#endif
 
-	return 0;
+       return 0;
 };
 
 static int tolua_bnd_getpeer(lua_State* L) {
 
-	/* stack: userdata */
-	lua_getfenv(L, -1);
-	if (lua_rawequal(L, -1, TOLUA_NOPEER)) {
-		lua_pop(L, 1);
-		lua_pushnil(L);
+       /* stack: userdata */
+#if LUA_VERSION_NUM > 501
+       lua_getuservalue(L, -1);
+#else
+       lua_getfenv(L, -1);
+#endif
+       if (lua_rawequal(L, -1, TOLUA_NOPEER)) {
+               lua_pop(L, 1);
+               lua_pushnil(L);
 	};
 	return 1;
 };
@@ -408,10 +416,14 @@ TOLUA_API void tolua_beginmodule (lua_State* L, const char* name)
 	if (name)
 	{
 	 lua_pushstring(L,name);
-		lua_rawget(L,-2);
-	}
-	else
-	 lua_pushvalue(L,LUA_GLOBALSINDEX);
+               lua_rawget(L,-2);
+       }
+       else
+#if LUA_VERSION_NUM > 501
+        lua_pushglobaltable(L);
+#else
+        lua_pushvalue(L,LUA_GLOBALSINDEX);
+#endif
 }
 
 /* End module
@@ -442,13 +454,17 @@ TOLUA_API void tolua_module (lua_State* L, const char* name, int hasvar)
 		 lua_rawset(L,-4);       /* assing module into module */
 		}
 	}
-	else
-	{
-		/* global table */
-		lua_pushvalue(L,LUA_GLOBALSINDEX);
-	}
-	if (hasvar)
-	{
+       else
+       {
+               /* global table */
+#if LUA_VERSION_NUM > 501
+               lua_pushglobaltable(L);
+#else
+               lua_pushvalue(L,LUA_GLOBALSINDEX);
+#endif
+       }
+       if (hasvar)
+       {
 		if (!tolua_ismodulemetatable(L))  /* check if it already has a module metatable */
 		{
 			/* create metatable to get/set C/C++ variable */
@@ -470,13 +486,17 @@ TOLUA_API void tolua_module (lua_State* L, char* name, int hasvar)
 		lua_pushstring(L,name);
 		lua_newtable(L);
 	}
-	else
-	{
-		/* global table */
-		lua_pushvalue(L,LUA_GLOBALSINDEX);
-	}
-	if (hasvar)
-	{
+       else
+       {
+               /* global table */
+#if LUA_VERSION_NUM > 501
+               lua_pushglobaltable(L);
+#else
+               lua_pushvalue(L,LUA_GLOBALSINDEX);
+#endif
+       }
+       if (hasvar)
+       {
 		/* create metatable to get/set C/C++ variable */
 		lua_newtable(L);
 		tolua_moduleevents(L);

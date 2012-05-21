@@ -64,12 +64,16 @@ static void setfield (lua_State* L, int table, char* f, char* v)
 }
 
 static void add_extra (lua_State* L, char* value) {
-	int len;
-	lua_getglobal(L, "_extra_parameters");
-	len = luaL_getn(L, -1);
-	lua_pushstring(L, value);
-	lua_rawseti(L, -2, len+1);
-	lua_pop(L, 1);
+       int len;
+       lua_getglobal(L, "_extra_parameters");
+#if LUA_VERSION_NUM > 501
+       len = lua_rawlen(L, -1);
+#else
+       len = luaL_getn(L, -1);
+#endif
+       lua_pushstring(L, value);
+       lua_rawseti(L, -2, len+1);
+       lua_pop(L, 1);
 };
 
 static void error (char* o)
@@ -85,10 +89,13 @@ int main (int argc, char* argv[])
  lua_State* L = luaL_newstate();
  luaL_openlibs(L);
  #else
+#if LUA_VERSION_NUM > 501
+ lua_State* L = luaL_newstate();
+#else
  lua_State* L = lua_open();
+#endif
  luaopen_base(L);
  luaopen_io(L);
- luaopen_string(L);
  luaopen_table(L);
  luaopen_math(L);
  luaopen_debug(L);

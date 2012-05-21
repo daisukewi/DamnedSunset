@@ -42,7 +42,7 @@
    <copy file="bin/CEGUISILLYImageCodec_d.dll" todir="../bin/Debug"/>
    <copy file="bin/tolua++_d.dll" todir="../bin/Debug"/>
    <copy file="dependencies/bin/SILLY_d.dll" todir="../bin/Debug"/>
-   <copy file="dependencies/bin/lua_d.dll" todir="../bin/Debug"/>
+   <copy file="dependencies/bin/lua52_d.dll" todir="../bin/Debug"/>
 </target>
 
 <target name="publishLibBinRelease">
@@ -61,7 +61,7 @@
    <copy file="bin/CEGUISILLYImageCodec.dll" todir="../bin/Release"/>
    <copy file="bin/tolua++.dll" todir="../bin/Release"/>
    <copy file="dependencies/bin/SILLY.dll" todir="../bin/Release"/>
-   <copy file="dependencies/bin/lua.dll" todir="../bin/Release"/>
+   <copy file="dependencies/bin/lua52.dll" todir="../bin/Release"/>
 </target>
 
 

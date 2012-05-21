@@ -114,6 +114,10 @@ rebuild: "true" si se quiere recompilar; false si no.
 	<copy file="./src/lualib.h" todir="../include/lua"/>
 	<copy file="./src/lauxlib.h" todir="../include/lua"/>
 	<copy file="./src/luaconf.h" todir="../include/lua"/>
+	<copy file="./src/lua.h" todir="../CEGUI/dependencies/include"/>
+	<copy file="./src/lualib.h" todir="../CEGUI/dependencies/include"/>
+	<copy file="./src/lauxlib.h" todir="../CEGUI/dependencies/include"/>
+	<copy file="./src/luaconf.h" todir="../CEGUI/dependencies/include"/>
 
 </target>
 
@@ -125,6 +129,9 @@ rebuild: "true" si se quiere recompilar; false si no.
 	<copy todir="../bin/Debug">
 		<fileset dir="./bin/Debug" includes="lua52.dll"/>
 	</copy>
+	
+	<copy file ="./lib/Debug/lua52.lib" tofile="../CEGUI/dependencies/lib/dynamic/lua52_d.lib"/>
+	<copy file ="./bin/Debug/lua52.dll" tofile="../CEGUI/dependencies/bin/lua52_d.dll"/>
 
 </target>
 
@@ -136,6 +143,9 @@ rebuild: "true" si se quiere recompilar; false si no.
 	<copy todir="../bin/Release">
 		<fileset dir="./bin/Release" includes="lua52.dll"/>
 	</copy>
+	
+	<copy file ="./lib/Release/lua52.lib" tofile="../CEGUI/dependencies/lib/dynamic/lua52.lib"/>
+	<copy file ="./bin/Release/lua52.dll" tofile="../CEGUI/dependencies/bin/lua52.dll"/>
 
 </target>
 

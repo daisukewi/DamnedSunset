@@ -60,6 +60,9 @@ RAPIDXML_PATHS = { "rapidxml-1.13", "", "" }
 --
 CEGUI_EXTRA_PATHS = {
 	{ "..", "include", "", "CEGUIOgreRenderer" },
+	{ "..", "include/lua", "lib/Release", "tolua++" },
+	{ "..", "include/lua", "lib/Release", "tolua++cegui" },
+	{ "..", "include/lua", "lib/Release", "CEGUILuaScriptModule" }, 
 }
 
 --- Irrlicht SDK Version
@@ -185,7 +188,7 @@ SAMPLES_GL = false
 SAMPLES_DX9 = false
 SAMPLES_DX10 = false
 SAMPLES_IRRLICHT = false
-SAMPLES_OGRE = false
+SAMPLES_OGRE = true
 
 -- this setting controls if the samples should be included in the same
 -- solution as the core libraries. If this setting is disabled you can
