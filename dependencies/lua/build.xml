@@ -123,28 +123,34 @@ rebuild: "true" si se quiere recompilar; false si no.
 
 <target name="publishLibBinDebug">
 
-	<copy todir="../lib/Debug">
-		<fileset dir="./lib/Debug" includes="lua52.lib"/>
+	<!--<copy todir="../lib/Debug">
+		<fileset dir="./bin/Release" includes="lua52dll.lib"/>
 	</copy>
 	<copy todir="../bin/Debug">
-		<fileset dir="./bin/Debug" includes="lua52.dll"/>
-	</copy>
+		<fileset dir="./bin/Release" includes="lua52.dll"/>
+	</copy>-->
 	
-	<copy file ="./lib/Debug/lua52.lib" tofile="../CEGUI/dependencies/lib/dynamic/lua52_d.lib"/>
-	<copy file ="./bin/Debug/lua52.dll" tofile="../CEGUI/dependencies/bin/lua52_d.dll"/>
+	<copy file ="./bin/Release/lua52dll.lib" tofile="../lib/Debug/lua52_d.lib"/>
+	<copy file ="./bin/Release/lua52.dll" tofile="../bin/Debug/lua52_d.dll"/>
+	
+	<copy file ="./bin/Release/lua52dll.lib" tofile="../CEGUI/dependencies/lib/dynamic/lua52_d.lib"/>
+	<copy file ="./bin/Release/lua52.dll" tofile="../CEGUI/dependencies/bin/lua52_d.dll"/>
 
 </target>
 
 <target name="publishLibBinRelease">
 
-	<copy todir="../lib/Release">
-		<fileset dir="./lib/Release" includes="lua52.lib"/>
+	<!--<copy todir="../bin/Release">
+		<fileset dir="./bin/Release" includes="lua52dll.lib"/>
 	</copy>
 	<copy todir="../bin/Release">
 		<fileset dir="./bin/Release" includes="lua52.dll"/>
-	</copy>
+	</copy>-->
 	
-	<copy file ="./lib/Release/lua52.lib" tofile="../CEGUI/dependencies/lib/dynamic/lua52.lib"/>
+	<copy file ="./bin/Release/lua52dll.lib" tofile="../lib/Release/lua52.lib"/>
+	<copy file ="./bin/Release/lua52.dll" tofile="../bin/Release/lua52.dll"/>
+	
+	<copy file ="./bin/Release/lua52dll.lib" tofile="../CEGUI/dependencies/lib/dynamic/lua52.lib"/>
 	<copy file ="./bin/Release/lua52.dll" tofile="../CEGUI/dependencies/bin/lua52.dll"/>
 
 </target>
