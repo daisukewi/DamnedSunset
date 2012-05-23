@@ -1,27 +1,33 @@
 Map = {
 
 	Sand = {
-		normal_texture = "normales.png",
+		normal_texture = "SoilSand_NBump.tga",
 		height = 0,
 		max_height = 0,
-		texture_size = 100,
-		difuse_texture = "textura.jpg",
+		texture_size = 512,
+		difuse_texture = "SoilSand.jpg",
 		cost = 0,
+		texture_blendheight = 0,
 	},
 
 	Road = {
-		model = "road.mesh",
-		height = 2,
-		max_height = 2,
+		normal_texture = "SoilSand_NBump.tga",
+		height = 0,
+		max_height = 0,
+		texture_size = 512,
+		difuse_texture = "SoilSand.jpg",
+		cost = 0,
+		texture_blendheight = 0,
 	},
 
 	Mountain = {
-		normal_texture = "",
+		normal_texture = "SoilSand_NBump.tga",
 		height = 1,
 		max_height = 5,
-		texture_size = 200,
-		difuse_texture = "",
+		texture_size = 512,
+		difuse_texture = "SoilSand.jpg",
 		cost = -1,
+		texture_blendheight = 0,
 	},
 
 	Grid = {
