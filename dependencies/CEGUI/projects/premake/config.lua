@@ -60,9 +60,9 @@ RAPIDXML_PATHS = { "rapidxml-1.13", "", "" }
 --
 CEGUI_EXTRA_PATHS = {
 	{ "..", "include", "", "CEGUIOgreRenderer" },
-	{ "..", "include/lua", "lib/Release", "tolua++" },
-	{ "..", "include/lua", "lib/Release", "tolua++cegui" },
-	{ "..", "include/lua", "lib/Release", "CEGUILuaScriptModule" }, 
+	{ "..", "include/lua", "lib", "tolua++" },
+	{ "..", "include/lua", "lib", "tolua++cegui" },
+	{ "..", "include/lua", "lib", "CEGUILuaScriptModule" }, 
 }
 
 --- Irrlicht SDK Version

@@ -16,6 +16,7 @@ rule debug-message ( txt * )
     {
         echo [luabind DEBUG] $(txt) ;
 		INCLUDE_PATH = Debug ;
+		DEBUG = true ;
     }
 }
 
@@ -52,9 +53,9 @@ if [ os.name ] = NT
 
     if [ GLOB $(LUA_PATH) : lib ]
     {
-		lib lua : : <link>shared <name>lua52dll <search>$(LUA_PATH)/bin/$(INCLUDE_PATH) : : <include>$(includes) ;
+		lib lua : : <link>shared <name>lua52 <search>$(LUA_PATH)/bin/$(INCLUDE_PATH) : : <include>$(includes) ;
     }
-    else if [ GLOB $(LUA_PATH) : lua52.dll ]
+    else if [ GLOB $(LUA_PATH) : dll ]
     {
 		lib lua : : <name>lua52 <search>$(LUA_PATH)/bin/$(INCLUDE_PATH) : : <include>$(includes) ;
     }

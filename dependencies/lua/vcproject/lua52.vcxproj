@@ -12,7 +12,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4845478D-F86C-4061-B58F-A5BCF4BF2BAA}</ProjectGuid>
-    <RootNamespace>lua52dll</RootNamespace>
+    <RootNamespace>lua52</RootNamespace>
+    <ProjectName>lua52</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -55,7 +56,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <OutputFile>$(OutDir)lua52.dll</OutputFile>
+      <OutputFile>$(OutDir)lua52_d.dll</OutputFile>
       <ProfileGuidedDatabase>
       </ProfileGuidedDatabase>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>

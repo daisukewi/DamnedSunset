@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua52lib", "lua52lib.vcxproj", "{FA49A759-F428-4F45-8BEB-9DC9FE4B70FC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua52dll", "lua52dll.vcxproj", "{4845478D-F86C-4061-B58F-A5BCF4BF2BAA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua52", "lua52.vcxproj", "{4845478D-F86C-4061-B58F-A5BCF4BF2BAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
