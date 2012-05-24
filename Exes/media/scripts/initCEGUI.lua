@@ -15,8 +15,21 @@ GUI.Schemes:create("VanillaSkin.scheme")
 GUI.Schemes:create("Interfaz.scheme")
 GUI.Schemes:create("WindowsLook.scheme")
 
--- Load fonts
+-- Carga de fonts
 GUI.Fonts:create("DejaVuSans-10.font")
 GUI.Fonts:create("FairChar-30.font")
 GUI.Fonts:create("Batang-26.font")
+
+-- Texturas
+--GUI.Images:create("Javy.imageset")
+
+-- set default mouse cursor
+--GUI.System:setDefaultMouseCursor( "TaharezLook","MouseArrow" )
+-- set default mouse cursor
+--system:setDefaultMouseCursor( "TaharezLook","MouseArrow" )
+
+-- precision del raton
+--GUI.System:setMouseMoveScaling(18)
+
+
 

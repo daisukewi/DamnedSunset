@@ -38,6 +38,9 @@
 #include "Logic\Entity\Messages\LanzarGranada.h"
 #include "BaseSubsystems/Server.h"
 
+// ScriptManager
+#include "ScriptManager\Server.h"
+
 
 namespace GUI {
 
@@ -58,13 +61,16 @@ namespace GUI {
 		_vida1 = 100000;
 
 		// Cargamos la interfaz
-		CEGUI::WindowManager::getSingletonPtr()->loadWindowLayout("Interfaz.layout");
-		_interfazWindow = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
-		this->ocultarBotones();
+		//CEGUI::WindowManager::getSingletonPtr()->loadWindowLayout("Interfaz.layout");
+		ScriptManager::CServer::getSingletonPtr()->loadExeScript("interfaz");
+		ScriptManager::CServer::getSingletonPtr()->executeProcedure("init");
+		//_interfazWindow = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
+		//_interfazWindow =  (CEGUI::Window*)(ScriptManager::CServer::getSingletonPtr()->getGlobal("interfazW", error));
+		//this->ocultarBotones();
 
 		// Cargamos la ventana que muestra los FPS
-		CEGUI::WindowManager::getSingletonPtr()->loadWindowLayout("Time.layout");
-		_fpsWindow = CEGUI::WindowManager::getSingleton().getWindow("Time");
+		//CEGUI::WindowManager::getSingletonPtr()->loadWindowLayout("Time.layout");
+		//_fpsWindow = CEGUI::WindowManager::getSingleton().getWindow("Time");
 
 		// Asociamos los botones del menú con las funciones que se deben ejecutar.
 		CEGUI::WindowManager::getSingleton().getWindow("Interfaz/bPersonaje1")->
@@ -97,15 +103,17 @@ namespace GUI {
 
 		CInputManager::getSingletonPtr()->addKeyListener(this);
 
+		ScriptManager::CServer::getSingletonPtr()->executeProcedure("activate");
+
 		// Activamos la ventana de interfaz
-		CEGUI::System::getSingletonPtr()->setGUISheet(_interfazWindow);
-		_interfazWindow->setVisible(true);
-		_interfazWindow->activate();
+		//CEGUI::System::getSingletonPtr()->setGUISheet(_interfazWindow);
+		//_interfazWindow->setVisible(true);
+		//_interfazWindow->activate();
 		
 		// Activamos la ventana que muestra los FPS
-		_interfazWindow->addChildWindow(_fpsWindow);
-		_fpsWindow->setVisible(true);
-		_fpsWindow->activate();
+		//_interfazWindow->addChildWindow(_fpsWindow);
+		//_fpsWindow->setVisible(true);
+		//_fpsWindow->activate();
 	}
 
 	//--------------------------------------------------------
@@ -114,11 +122,12 @@ namespace GUI {
 	{
 		CInputManager::getSingletonPtr()->removeKeyListener(this);
 
-		_fpsWindow->deactivate();
-		_fpsWindow->setVisible(false);
+		//_fpsWindow->deactivate();
+		//_fpsWindow->setVisible(false);
 
-		_interfazWindow->deactivate();
-		_interfazWindow->setVisible(false);
+		ScriptManager::CServer::getSingletonPtr()->executeProcedure("deactivate");
+	//	_interfazWindow->deactivate();
+	//	_interfazWindow->setVisible(false);
 	} // deactivate
 
 	void CInterfazController::tick(unsigned int msecs)
@@ -129,8 +138,12 @@ namespace GUI {
 		if (_time > 500)
 		{
 			std::stringstream text;
-			text << "FPS: " << (_nFrames*1000)/_time;
-			_fpsWindow->setText(text.str());
+			text << "\"FPS: " << (_nFrames*1000)/_time << "\"";
+			//_fpsWindow->setText(text.str());
+			std::stringstream script;
+			script << "interfazTick" << "(" << text.str() << ")";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
 			_time = 0;
 			_nFrames = 0;
 		}
@@ -186,27 +199,51 @@ namespace GUI {
 	void CInterfazController::menuJugador1() {
 		_estado = normal;
 		_jugadorSel = 1;
-		this->ocultarBotones();
-		this->cargarBoton('1', "martillo");
+		//this->ocultarBotones();
+		ScriptManager::CServer::getSingletonPtr()->executeProcedure("ocultarBotones");
+		//this->cargarBoton('1', "martillo");
 		//this->cargarBoton('2',"granada");
 		//this->cargarBoton('3',"granada");
-		this->cargarBoton('4',"granada");
+		//this->cargarBoton('4',"granada");
+		std::stringstream script;
+		script << "cargarBoton" << "(1," << "\"martillo\"" << ")";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		script.str("");
+		script << "cargarBoton" << "(4," << "\"granada\"" << ")";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 	}
 	void CInterfazController::menuJugador2() {
 		_estado = normal;
 		_jugadorSel = 2;
-		this->ocultarBotones();
-		this->cargarBoton('1',"martillo");
-		this->cargarBoton('4',"bolazul");
+		//this->ocultarBotones();
+		ScriptManager::CServer::getSingletonPtr()->executeProcedure("ocultarBotones");
+		//this->cargarBoton('1',"martillo");
+		//this->cargarBoton('4',"bolazul");
+		std::stringstream script;
+		script << "cargarBoton" << "(1," << "\"martillo\"" << ")";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		script.str("");
+		script << "cargarBoton" << "(4," << "\"bolazul\"" << ")";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 	}
 
 	void CInterfazController::menuJugador3() {
 		_estado = normal;
 		_jugadorSel = 3;
-		this->ocultarBotones();
-		this->cargarBoton('1',"martillo");
-		this->cargarBoton('3',"bolazul");
-		this->cargarBoton('4',"jeringa");
+		//this->ocultarBotones();
+		ScriptManager::CServer::getSingletonPtr()->executeProcedure("ocultarBotones");
+		//this->cargarBoton('1',"martillo");
+		//this->cargarBoton('3',"bolazul");
+		//this->cargarBoton('4',"jeringa");
+		std::stringstream script;
+		script << "cargarBoton" << "(1," << "\"martillo\"" << ")";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		script.str("");
+		script << "cargarBoton" << "(3," << "\"bolazul\"" << ")";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		script.str("");
+		script << "cargarBoton" << "(4," << "\"jeringa\"" << ")";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 	}
 	
 
@@ -230,13 +267,20 @@ namespace GUI {
 	}
 	bool CInterfazController::clickB1(const CEGUI::EventArgs& e)
 	{
+		std::stringstream script;
 		switch (_estado) {
 		case normal:
 			//BOTON CONSTRUIR
 			_estado = construir;
-			this->ocultarBotones();
-			this->cargarBoton('1',"volver");
-			this->cargarBoton('2',"torreta");
+			//this->ocultarBotones();
+			ScriptManager::CServer::getSingletonPtr()->executeProcedure("ocultarBotones");
+			//this->cargarBoton('1',"volver");
+			//this->cargarBoton('2',"torreta");
+			script << "cargarBoton" << "(1," << "\"volver\"" << ")";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+			script.str("");
+			script << "cargarBoton" << "(2," << "\"torreta\"" << ")";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 			break;
 		case construir:
 			//BOTON VOLVER

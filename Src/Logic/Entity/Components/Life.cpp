@@ -206,17 +206,26 @@ namespace Logic
 				if (!_entity->getName().compare("Jack"))
 				{
 					//Actualizamos la vida en la interfaz
-					GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('1',_life/_maxLife);
+					//GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('1',_life/_maxLife);
+					std::stringstream script;
+					script << "actualizarBarraVida" << "(1," << _life/_maxLife << ")";
+					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 				}
 				if (!_entity->getName().compare("Erick"))
 				{
 					//Actualizamos la vida en la interfaz
-					GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('2',_life/_maxLife);
+					//GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('2',_life/_maxLife);
+					std::stringstream script;
+					script << "actualizarBarraVida" << "(2," << _life/_maxLife << ")";
+					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 				}
 				if (!_entity->getName().compare("Amor"))
 				{
 					//Actualizamos la vida en la interfaz
-					GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('3',_life/_maxLife);
+					//GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('3',_life/_maxLife);
+					std::stringstream script;
+					script << "actualizarBarraVida" << "(3," << _life/_maxLife << ")";
+					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 				}
 
 
