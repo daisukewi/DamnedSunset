@@ -146,14 +146,14 @@ namespace Logic
 		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
 		//Avisar a los player de la creación del enemigo para que actualicen el componente de percepción y el controlador de la IA
-		MEnemyCreated *m = new MEnemyCreated();
+		/*MEnemyCreated *m = new MEnemyCreated();
 		Logic::CEntity *player = _entity->getMap()->getEntityByType("Player");
 		m->setCreatedEnemy(ent);
 		while (player != NULL)
 		{
 			player->emitMessage(m);
 			player = _entity->getMap()->getEntityByType("Player", player);
-		}
+		}*/
 
 		_enemy++;
 
