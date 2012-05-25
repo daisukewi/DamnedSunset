@@ -37,7 +37,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CDistanceAttack() : IComponent(){}
+		CDistanceAttack():IComponent(){}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -102,6 +102,17 @@ namespace Logic
 		Atributo que indica la puntería de la torreta.
 		*/
 		float _precision;
+
+
+		/**
+		Entidad a la que se está atacando cuando es necesario atacar de modo contínuo 
+		*/
+		CEntity *_attackEntity;
+
+		/**
+		Indica si se está atacando continuamente
+		*/
+		bool _continue;
 
 
 	}; // class CDistanceAtack

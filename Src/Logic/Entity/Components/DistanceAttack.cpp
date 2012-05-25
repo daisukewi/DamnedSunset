@@ -81,28 +81,41 @@ namespace Logic
 	{
 		if (!message->getType().compare("MAttackDistance")){
 		
-			MAttackDistance *m = static_cast <MAttackDistance*> (message);
-			
-			Vector3 origen = _entity->getPosition();
-			Vector3 destino = m->getEntity()->getPosition();
-			destino.y = 3.0f;
-			Vector3 direction = destino - origen;
-			//Descomentar para deviar el disparo a distancia de los personajes
-			//direction.x *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
-			//direction.y *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
-			//direction.z *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
 		
-			direction.normalise();
-			Vector3 impact;
-			Ray disparo = Ray(origen, direction);
-			Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastGroup(disparo, &impact,
-				(Physics::TPhysicGroup)(Physics::TPhysicGroup::PG_ALL & ~Physics::TPhysicGroup::PG_TRIGGER));
-			if (!entity->getType().compare("Enemy"))
-			{
-				MDamaged *m_dam = new MDamaged();
-				m_dam->setHurt((_damage)); ///Descomentar para reducir el daño en base a la distancia de los personajes (100.0f * ((_entity->getPosition() - m->getEntity()->getPosition()).length() + 0.1))) * _damage);
-				m_dam->setKiller(_entity);
-				entity->emitMessage(m_dam, this);
+			MAttackDistance *m = static_cast <MAttackDistance*> (message);
+
+			//Cuando se está atacando continuamente es necesario indicar enviar un mensaje con la variable attack a false para indicar que se deje de atacar
+			if (!m->getAttack()){
+				_continue = false;
+			}else{
+				if (!m->getContinue()) {
+					_continue = false;
+					Vector3 origen = _entity->getPosition();
+					Vector3 destino = m->getEntity()->getPosition();
+					destino.y = 3.0f;
+					Vector3 direction = destino - origen;
+					//Descomentar para deviar el disparo a distancia de los personajes
+					//direction.x *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
+					//direction.y *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
+					//direction.z *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
+		
+					direction.normalise();
+					Vector3 impact;
+					Ray disparo = Ray(origen, direction);
+					Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastGroup(disparo, &impact,
+						(Physics::TPhysicGroup)(Physics::TPhysicGroup::PG_ALL & ~Physics::TPhysicGroup::PG_TRIGGER));
+					if (!entity->getType().compare("Enemy"))
+					{
+						MDamaged *m_dam = new MDamaged();
+						m_dam->setHurt((_damage)); ///Descomentar para reducir el daño en base a la distancia de los personajes (100.0f * ((_entity->getPosition() - m->getEntity()->getPosition()).length() + 0.1))) * _damage);
+						m_dam->setKiller(_entity);
+						entity->emitMessage(m_dam, this);
+					}
+				}else{
+					_continue = true;
+					_entity = m->getEntity(); 
+
+				}
 			}
 			
 		}

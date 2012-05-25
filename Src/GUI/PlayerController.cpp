@@ -21,6 +21,7 @@ mover al jugador.
 #include "Logic/Entity/Messages/MouseEvent.h"
 #include "Logic/Entity/Messages/MouseMove.h"
 
+#include "Logic/Entity/Messages/KeyboardEvent.h"
 
 #include "GUI\Server.h"
 #include "GUI\InterfazController.h"
@@ -75,6 +76,9 @@ namespace GUI {
 
 	bool CPlayerController::keyReleased(TKey key)
 	{
+		Logic::MKeyboardEvent* m = new Logic::MKeyboardEvent();
+		m->setKey(key.keyId);
+		Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m);
 		return false;
 
 	} // keyReleased

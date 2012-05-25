@@ -14,6 +14,8 @@ Contiene el tipo de datos de un mensaje.
 
 #include <string>
 
+#include "LUA_Message.h"
+
 namespace ScriptManager
 {
 	/**
@@ -25,7 +27,7 @@ namespace ScriptManager
 	@date Abril, 2012
 */
 
-	class LUA_IMessage 
+	class LUA_IMessage
 	{
 
 	public:

@@ -24,6 +24,7 @@ de enemigos en el mapa.
 #include "ScriptManager/Server.h"
 
 #include "Logic/Entity/Messages/SpawnEnemy.h"
+#include "Logic/Entity/Messages/EnemyCreated.h"
 
 #include <stdlib.h>
 #include <sstream>
@@ -143,6 +144,16 @@ namespace Logic
 		std::stringstream script;
 		script << "spawners[" << _ID << "].enemies[" << _enemy << "] = { ID = " << ent->getEntityID() << ", }";
 		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+		//Avisar a los player de la creación del enemigo para que actualicen el componente de percepción y el controlador de la IA
+		MEnemyCreated *m = new MEnemyCreated();
+		Logic::CEntity *player = _entity->getMap()->getEntityByType("Player");
+		m->setCreatedEnemy(ent);
+		while (player != NULL)
+		{
+			player->emitMessage(m);
+			player = _entity->getMap()->getEntityByType("Player", player);
+		}
 
 		_enemy++;
 

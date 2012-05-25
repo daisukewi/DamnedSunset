@@ -361,6 +361,18 @@ namespace Logic
 		bool getRealTime() {return _realTime;}
 		void setRealTime(bool realTime) {_realTime = realTime;}
 
+		/**
+		Devuelve si la entidad está seleccionada
+		@return _isSelected
+		*/
+		bool getSelected(){ return _isSelected;}
+
+		/**
+		Establece si la entidad está seleccionada
+		@param isSelected
+		*/
+		void setSelected(bool isSelected) {_isSelected = isSelected;}
+
 	protected:
 
 		/**
@@ -429,6 +441,11 @@ namespace Logic
 		es false a no ser que se lea otra cosa de los atributos.
 		*/
 		bool _isPlayer;
+
+		/**
+		Atributo que indica si la entidad está seleccionada
+		*/
+		bool _isSelected;
 
 		/**
 		Atributo que indica si la entidad es el objetivo de la cámara; por

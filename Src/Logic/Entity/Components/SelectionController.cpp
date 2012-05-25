@@ -8,6 +8,7 @@
 
 #include "AI/Movement.h"
 
+#include "Logic/Entity/Messages/KeyboardEvent.h"
 #include "Logic/Entity/Messages/MouseEvent.h"
 #include "Logic/Entity/Messages/ControlRaycast.h"
 #include "Logic/Entity/Messages/EntitySelected.h"
@@ -32,7 +33,6 @@
 
 #include "GUI/Server.h"
 #include "GUI/InterfazController.h"
-
 
 #include "ScriptManager/Server.h"
 
@@ -87,7 +87,8 @@ namespace Logic
 
 	bool CSelectionController::accept(IMessage *message)
 	{
-		return !message->getType().compare("MMouseEvent")
+		return !message->getType().compare("MKeyboardEvent")
+			|| !message->getType().compare("MMouseEvent")
 			|| !message->getType().compare("MControlRaycast")
 			|| !message->getType().compare("MEntitySelected")
 			|| !message->getType().compare("MEmplaceBuilding")
@@ -98,73 +99,14 @@ namespace Logic
 	//---------------------------------------------------------
 
 	void CSelectionController::process(IMessage *message)
-	{
-		/*if (!message->getType().compare("MMouseEvent"))
-		{
-			if (_canSelect)
-			{
-				MMouseEvent *m_mouse = static_cast <MMouseEvent*> (message);
-
-				switch(m_mouse->getAction())
-				{
-					case TMouseAction::LEFT_CLICK:
-						startSelection();
-						break;
-					case TMouseAction::RIGHT_CLICK:
-						startAction();
-						break;
-				}
+	{	
+		if (!message->getType().compare("MKeyboardEvent")){
+			if (_selectedEntity){
+				message->addPtr();
+				_selectedEntity->emitMessage(message);
+				message->removePtr();
 			}
-
-		} else if (!message->getType().compare("MEmplaceBuilding"))
-		{
-			// TODO: (Blackboard): Este pequeño hack evita realizar acciones cuando se ha mandado
-			// la orden de construir. Se puede modificar si se implemente el blackboard.
-			MEmplaceBuilding *m_building = static_cast <MEmplaceBuilding*> (message);
-			switch (m_building->getAction())
-			{
-				case BuildingMessage::START_BUILDING:
-					_canSelect = false;
-					break;
-				case BuildingMessage::EMPLACE_BUILDING:
-				case BuildingMessage::CANCEL_BUILDING:
-					_canSelect = true;
-					break;
-			}
-
-		} else if (!message->getType().compare("MControlRaycast"))
-		{
-			MControlRaycast *m_raycast = static_cast <MControlRaycast*> (message);
-			switch (m_raycast->getAction())
-			{
-				case RaycastMessage::HIT_RAYCAST:
-					if (_isSelecting || _isWaitingForAction){
-						//Comprobar si la entidad es seleccionable
-						CEntity *col_entity = m_raycast->getCollisionEntity();
-						
-						MIsSelectable* message = new MIsSelectable();
-						message->setPoint(m_raycast->getCollisionPoint());
-						col_entity->emitMessage(message);
-
-					}
-					break;
-			}
-
-		} else if (!message->getType().compare("MEntitySelected"))
-		{
-			MEntitySelected *m_selection = static_cast <MEntitySelected*> (message);
-			processEntity(m_selection->getPoint(),m_selection->getSelectedEntity());
-		} else if (!message->getType().compare("MActivateSkill"))
-		{
-			MActivateSkill *m_skill = static_cast <MActivateSkill*> (message);
-			_skill = m_skill->getSkill();
-
-		}
-		
-		*/
-		
-
-		if (!message->getType().compare("MMouseEvent"))
+		}else if (!message->getType().compare("MMouseEvent"))
 		{
 			MMouseEvent *m_mouse = static_cast <MMouseEvent*> (message);
 

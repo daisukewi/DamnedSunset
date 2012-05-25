@@ -15,6 +15,7 @@ la gestión de los scripts del juego.
 #include "ScriptManager\Classes\Messages\LUA_AStarRoute.h"
 #include "ScriptManager\Classes\Messages\LUA_AttackEntity.h"
 #include "ScriptManager\Classes\Messages\LUA_SpawnEnemy.h"
+#include "ScriptManager\Classes\Messages\LUA_AttackDistance.h"
 
 // Incluímos las cabedceras de Lua.
 // Como es código C (no C++), hay que indicarselo al
@@ -752,6 +753,18 @@ namespace ScriptManager
 				.def("setEntityTo", (void (LUA_MSpawnEnemy::*) (unsigned int)) &LUA_MSpawnEnemy::setEntityTo)
 				.def("setNumEnemies", (void (LUA_MSpawnEnemy::*) (int)) &LUA_MSpawnEnemy::setNumEnemies)
 				.def("send", &LUA_MSpawnEnemy::send)
+		];
+
+		// LUA_MAttackEntity
+
+		luabind::module(_lua)
+		[
+			luabind::class_<LUA_MAttackDistance>("LUA_MAttackDistance")
+				.def(luabind::constructor<>())
+				.def("setEntityTo", (void (LUA_MAttackDistance::*) (unsigned int)) &LUA_MAttackDistance::setEntityTo)
+				.def("setEntity", (void (LUA_MAttackDistance::*) (unsigned int)) &LUA_MAttackDistance::setEntity)
+				.def("setAttack", (void (LUA_MAttackDistance::*) (bool)) &LUA_MAttackDistance::setAttack)
+				.def("send", &LUA_MAttackDistance::send)
 		];
 
 		//---------------------------------------------------------

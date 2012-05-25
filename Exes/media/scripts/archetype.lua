@@ -212,6 +212,10 @@ Archetype = {
 		alcanceGranada = 70.0,
 		
 		afectaEmpujar = 100,
+		
+		distOfView = 100,
+		
+		initState = 1,
 	},
 	
 	Waypoint = {

@@ -1,38 +1,44 @@
 /**
-@file PlayerAIController.h
+@file PlayerPerception.h
 
-Contiene la declaración del componente que controla la IA de los personajes.
+Contiene la declaración del componente que controla la percepción de los personajes.
 
 @author Alberto Ortega
 @date Mayo, 2012
 */
-#ifndef __Logic_PlayerAIController_H
-#define __Logic_PlayerAIController_H
+#ifndef __Logic_PlayerPerception_H
+#define __Logic_PlayerPerception_H
 
 #include "Logic/Entity/Component.h"
+
+// Predeclaración de clases.
+namespace Logic
+{
+	class CEntity;
+}
 
 //declaración de la clase
 namespace Logic 
 {
 /**
-	Componente encargado de controlar la ejecución de la IA
-	de los personajes.
+	Componente encargado de percibir el mundo y notificar a la IA
+	cualquier cosa percibida para la toma de decisiones.
 	
     @ingroup logicGroup
 
 	@author Alberto Ortega
 	@date Mayo, 2012
 */
-	class CPlayerAIController : public IComponent
+	class CPlayerPerception : public IComponent
 	{
-		DEC_FACTORY(CPlayerAIController);
+		DEC_FACTORY(CPlayerPerception);
 	public:
 
 		/**
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CPlayerAIController() : IComponent(), _exeFrames(10), _currentExeFrames(0) {}
+		CPlayerPerception() : IComponent(), _distanceOfView(0), _exeFrames(10), _currentExeFrames(0) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -92,29 +98,34 @@ namespace Logic
 	protected:
 
 		/**
-		Cada cuántos frames se ejecuta la IA.
+		Cada cuántos frames se ejecuta la percepción.
 		*/
 		int _exeFrames;
 
 		/**
-		Cuenta de cuántos frames van ejecutados sin hacer la IA.
+		Cuenta de cuántos frames van ejecutados sin hacer la percepción.
 		*/
 		int _currentExeFrames;
 
 		/**
-		Almacena la lista de enemigos
+		Distancia de visión de la entidad.
 		*/
-		std::list<Logic::CEntity*> _playerEntities;
+		int _distanceOfView;
 
 		/**
-		Almacena el estado de IA que se deberá de ejecutar cuando se deseleccione el jugador
+		Tipo lista de enemigos.
 		*/
-		std::string _state;
+		typedef std::list<std::pair<Logic::CEntity*, bool>> TEnemyList;
 
-	}; // class CPlayerAIController
+		/**
+		Lista de los enemigos para comprobar si los veo o no.
+		*/
+		TEnemyList _enemyEntities;
 
-	REG_FACTORY(CPlayerAIController);
+	}; // class CPlayerPerception
+
+	REG_FACTORY(CPlayerPerception);
 
 } // namespace Logic
 
-#endif // __Logic_PlayerAIController_H
+#endif // __Logic_PlayerPerception_H

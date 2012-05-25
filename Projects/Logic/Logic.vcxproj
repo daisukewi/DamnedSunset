@@ -105,6 +105,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicDebug.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PlayerAIController.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\PlayerPerception.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\RaycastController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\RouteTo.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Script.cpp" />
@@ -133,6 +134,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AplicarVelocidad.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttackDistance.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\DayNight.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\EnemyCreated.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntityDeath.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntityDeathListener.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.cpp" />
@@ -147,6 +149,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntitySelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\Healed.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\IsTouched.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\KeyboardEvent.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\LanzarGranada.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MouseEvent.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MouseMove.cpp" />
@@ -210,6 +213,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicDebug.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PlayerAIController.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\PlayerPerception.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RaycastController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RouteTo.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Script.h" />
@@ -235,6 +239,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AplicarVelocidad.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttackDistance.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\DayNight.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\EnemyCreated.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntityDeath.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntityDeathListener.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttachBillboard.h" />
@@ -253,6 +258,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntitySelected.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\Healed.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\IsTouched.h" />
+    <ClInclude Include="..\..\src\logic\entity\messages\KeyboardEvent.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\LanzarGranada.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MouseEvent.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MouseMove.h" />

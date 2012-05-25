@@ -15,6 +15,8 @@ Contiene la implementación del componente que controla la IA de los personajes.
 
 #include "ScriptManager/Server.h"
 
+#include "Logic/Entity/Messages/KeyboardEvent.h"
+
 #include <sstream>
 
 namespace Logic
@@ -41,20 +43,6 @@ namespace Logic
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
 
-		if ((entityInfo->hasAttribute("memInitPoint")) && (entityInfo->getBoolAttribute("memInitPoint")))
-		{
-			std::stringstream script;
-			script << "players[" << _entity->getEntityID() << "].backToInitPoint = true";
-			script << " players[" << _entity->getEntityID() << "].initPoint = { x = " << _entity->getPosition().x << ", y = " << _entity->getPosition().y << ", z = " << _entity->getPosition().z << " }";
-			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-		}
-		else
-		{
-			std::stringstream script;
-			script << "players[" << _entity->getEntityID() << "].backToInitPoint = false";
-			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-		}
-
 		if (entityInfo->hasAttribute("runLifeThreshold"))
 		{
 			std::stringstream script;
@@ -76,32 +64,33 @@ namespace Logic
 
 	bool CPlayerAIController::activate()
 	{
-		/*
-		// Busco todas las entidades de tipo Player del mapa.
+		
+		// Busco todas las entidades de tipo Enemy del mapa.
 		std::list<Logic::CEntity*> _playerEntities;
-		Logic::CEntity *ent = _entity->getMap()->getEntityByType("Player");
+		Logic::CEntity *ent = _entity->getMap()->getEntityByType("Enemy");
 		while (ent != NULL)
 		{
 			_playerEntities.push_back(ent);
-			ent = _entity->getMap()->getEntityByType("Player", ent);
+			ent = _entity->getMap()->getEntityByType("Enemy", ent);
 		}
+		if (ent != NULL){
+			// Construyo la estructura de datos que me va a servir para saber a que enemigos veo.
+			std::stringstream script;
+			script << "players[" << _entity->getEntityID() << "].enemiesSeen = { ";
 
+			std::list<Logic::CEntity*>::const_iterator it = _playerEntities.begin();
+			script << "[" << (*it)->getEntityID() << "] = false";
+			it++;
+			for (; it != _playerEntities.end(); it++)
+			{
+				script << ", " << "[" << (*it)->getEntityID() << "] = false";
+			}
+			script << " }";
 
-		// Construyo la estructura de datos que me va a servir para saber a que jugadores veo.
-		std::stringstream script;
-		script << "enemies[" << _entity->getEntityID() << "].playersSeen = { ";
-
-		std::list<Logic::CEntity*>::const_iterator it = _playerEntities.begin();
-		script << "[" << (*it)->getEntityID() << "] = false";
-		it++;
-		for (; it != _playerEntities.end(); it++)
-		{
-			script << ", " << "[" << (*it)->getEntityID() << "] = false";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
-		script << " }";
+		_state = "idle";
 
-		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-		*/
 		return true;
 		
 	} // activate
@@ -117,7 +106,9 @@ namespace Logic
 
 	bool CPlayerAIController::accept(IMessage *message)
 	{
-		return false;
+		return !message->getType().compare("MKeyboardEvent")
+			|| !message->getType().compare("MEntitySelected")
+			|| !message->getType().compare("MEntityCreated");
 
 	} // accept
 	
@@ -125,7 +116,49 @@ namespace Logic
 
 	void CPlayerAIController::process(IMessage *message)
 	{
+		if (!message->getType().compare("MKeyboardEvent")){
+			MKeyboardEvent *m_keyboard = static_cast <MKeyboardEvent*> (message);
+			
+			if (m_keyboard->getKey() == GUI::Key::H){
+
+				_state = "hold";
+				std::cout << "PlayerAIController: " + _state + "\n";
+			
+				std::stringstream script;
+				script << "playerEventParam = { state = " << _state << " } ";
+				script << "playerEvent(\"StateChange\", " << _entity->getEntityID() << ")";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+			}else if (m_keyboard->getKey() == GUI::Key::F){
+
+				_state = "follow";
+				std::cout << "PlayerAIController: " + _state + "\n";
+
+				std::stringstream script;
+				script << "playerEventParam = { state = " << _state << " } ";
+				script << "playerEvent(\"StateChange\", " << _entity->getEntityID() << ")";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+			}else if (m_keyboard->getKey() == GUI::Key::I){
+				
+				_state = "idle";
+				std::cout << "PlayerAIController: " + _state + "\n";
+
+				std::stringstream script;
+				script << "playerEventParam = { state = " << _state << " } ";
+				script << "playerEvent(\"StateChange\", " << _entity->getEntityID() << ")";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+			}
+
+		}else if (!message->getType().compare("MEntityCreated")){
 		
+			std::cout << "ENTIDAD CREADA";
+			std::cout << "ENTIDAD CREADA";
+			std::cout << "ENTIDAD CREADA";
+			std::cout << "ENTIDAD CREADA";
+			std::cout << "ENTIDAD CREADA";
+			std::cout << "ENTIDAD CREADA";
+		}
 	} // process
 
 	//---------------------------------------------------------
@@ -134,21 +167,26 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
-		_currentExeFrames++;
+		if (!_entity->getSelected()){
+			_currentExeFrames++;
 
-		// Ejecuto la IA si toca.
-		if (_currentExeFrames >= _exeFrames)
-		{
-			// Reinicio el contador de frames.
+			// Ejecuto la IA si toca.
+			if (_currentExeFrames >= _exeFrames)
+			{
+				// Reinicio el contador de frames.
+				_currentExeFrames = 0;
+
+				// Actualizo la posición de la entidad y llamo a la función de la IA.
+				std::stringstream script;
+				script	<< "players[" << _entity->getEntityID() << "].posX = " << _entity->getPosition().x << " "
+						<< "players[" << _entity->getEntityID() << "].posY = " << _entity->getPosition().y << " "
+						<< "players[" << _entity->getEntityID() << "].posZ = " << _entity->getPosition().z << " "
+						<< "playerAIAction(" << _entity->getEntityID() << ")";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+			}
+
+		}else{
 			_currentExeFrames = 0;
-
-			// Actualizo la posición de la entidad y llamo a la función de la IA.
-			std::stringstream script;
-			script	<< "players[" << _entity->getEntityID() << "].posX = " << _entity->getPosition().x << " "
-					<< "players[" << _entity->getEntityID() << "].posY = " << _entity->getPosition().y << " "
-					<< "players[" << _entity->getEntityID() << "].posZ = " << _entity->getPosition().z << " "
-					<< "playerAIAction(" << _entity->getEntityID() << ")";
-			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
 
 	} // tick

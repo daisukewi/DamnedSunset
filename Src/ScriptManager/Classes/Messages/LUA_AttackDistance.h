@@ -1,5 +1,5 @@
 /**
-@file AttackDistance.h
+@file LUA_AttackDistance.h
 
 Contiene la declaración del mensaje de ataque a distancia  una entidad.
 
@@ -9,13 +9,13 @@ Contiene la declaración del mensaje de ataque a distancia  una entidad.
 @date Mayo, 2012
 */
 
-#ifndef __Logic_AttackDistance_H
-#define __Logic_AttackDistance_H
+#ifndef __Logic_LUA_AttackDistance_H
+#define __Logic_LUA_AttackDistance_H
 
-#include "Logic/Entity/Message.h"
-#include "Logic/Entity/Entity.h"
 
-namespace Logic 
+#include "LUA_Message.h"
+
+namespace ScriptManager 
 {
 	/**
 	Clase mensaje que se encargará de avisar a una entidad de que hay que atacar a otra entidad.
@@ -23,21 +23,21 @@ namespace Logic
 	@author Luis Mendoza
 	@date Febrero, 2012
 	*/
-	class MAttackDistance : public IMessage
+	class LUA_MAttackDistance : public LUA_IMessage
 	{
 	public:
 
 		/**
 		Constructor por defecto.
 		*/
-		MAttackDistance();
+		LUA_MAttackDistance();
 
 		/**
 		Método que establece en el mensaje la entidad a la que hay que atacar.
 
-		@param entity Entidad a la que atacar que debe guardar el mensaje.
+		@param entity ID de la entidad a la que atacar que debe guardar el mensaje.
 		*/
-		void setEntity(CEntity* entity);
+		void setEntity(unsigned int entity);
 
 		/**
 		Método que establece en el mensaje si hay que atacar o hay que dejar de atacar.
@@ -49,9 +49,9 @@ namespace Logic
 		/**
 		Método que devuelve la entidad a la que hay que atacar guardada en el mensaje.
 
-		@return Puntero a la entidad guardada en el mensaje.
+		@return Id de la entidad guardada en el mensaje.
 		*/
-		CEntity *getEntity();
+		unsigned int getEntity();
 
 		/**
 		Método que nos dice si hay que atacar.
@@ -73,13 +73,17 @@ namespace Logic
 		*/
 		void setContinue(bool con) { _continue = con; };
 
+		/*
+		Implementación del método send heredado de la clase LUA_IMessage
+		*/
+		virtual void send();
 
 	protected:
 
 		/**
 		Atributo que indica la entidad a la que hay que atacar.
 		*/
-		CEntity* _entity;
+		unsigned int _entity;
 
 		/**
 		Atributo que indica si hay que atacar.
@@ -91,8 +95,8 @@ namespace Logic
 		*/
 		bool _continue;
 
-	}; // class MAttackDistance
+	}; // class MLUA_AttackDistance
 
 } // namespace Logic
 
-#endif // __Logic_AttackDistance_H
+#endif // __Logic_LUA_AttackDistance_H

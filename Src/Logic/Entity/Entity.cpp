@@ -26,6 +26,7 @@ de juego. Es una colección de componentes.
 
 #include "Logic/Entity/Messages/SetTransform.h"
 #include "Logic/Entity/Messages/EntityDeathListener.h"
+#include "Logic/Entity/Messages/EntitySelected.h"
 #include "Messages/ActivarComponente.h"
 #include "Messages/SetRealTime.h"
 
@@ -353,6 +354,16 @@ namespace Logic
 		{
 			MSetTransform *m = static_cast <MSetTransform*> (message);
 			_transform = m->getTransform();
+		}
+
+		if (!message->getType().compare("MEntitySelected"))
+		{
+			MEntitySelected *m = static_cast <MEntitySelected*> (message);
+			if (m->getSelectedEntity()->getEntityID() == _entityID){
+				_isSelected = true;
+			}else{
+				_isSelected = false;
+			}
 		}
 
 		message->addPtr();

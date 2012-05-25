@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AStarRoute.h" />
+    <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AttackDistance.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AttackEntity.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_Message.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_SpawnEnemy.h" />
@@ -20,6 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AStarRoute.cpp" />
+    <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AttackDistance.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AttackEntity.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_Message.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_SpawnEnemy.cpp" />
