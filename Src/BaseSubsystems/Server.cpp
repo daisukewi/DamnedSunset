@@ -297,7 +297,7 @@ namespace BaseSubsystems
 				 CEGUI::OgreRenderer::create(*_renderWindow);
 
 		_luaModule = &CEGUI::LuaScriptModule::create(ScriptManager::CServer::getSingletonPtr()->getLuaState());
-		CEGUI::System::create(CEGUIRenderer, NULL, NULL, NULL, _luaModule); 
+		CEGUI::System::create(CEGUIRenderer, NULL, NULL, NULL, _luaModule, "media/gui/configs/CEGUIConfig.xml"); 
 
 		_GUISystem = CEGUI::System::getSingletonPtr();
 
@@ -317,9 +317,7 @@ namespace BaseSubsystems
 		CEGUI::Imageset::setDefaultResourceGroup("imagesets");
 		CEGUI::WindowManager::setDefaultResourceGroup("layouts");
 		CEGUI::WidgetLookManager::setDefaultResourceGroup("looknfeels");
-	 	CEGUI::Scheme::setDefaultResourceGroup("schemes");
-
-		//ScriptManager::CServer::getSingletonPtr()->loadExeScript("initCEGUI2");
+		CEGUI::Scheme::setDefaultResourceGroup("schemes");
 
 		return true;
 
@@ -383,7 +381,6 @@ namespace BaseSubsystems
 	{
 		if(_GUISystem)
 		{
-		//	ScriptManager::CServer::getSingletonPtr()->loadExeScript("releaseCEGUI");
 			CEGUI::System::destroy();
 			CEGUI::LuaScriptModule::destroy(*_luaModule);
 			_GUISystem = 0;

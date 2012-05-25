@@ -1,0 +1,4 @@
+<CEGUIConfig>
+	<Logging level="Insane"/>
+	<!--<Scripting initScript="media/scripts/initCEGUI.lua"/>-->
+</CEGUIConfig>

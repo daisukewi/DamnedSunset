@@ -90,7 +90,8 @@ namespace GUI {
 		
 		_GUISystem = BaseSubsystems::CServer::getSingletonPtr()->getGUISystem();
 
-		//@TODO: Desñapear esto:
+		//@TODO: Si vemos que tal y nos quedamos con CEGUI poner esta inicialización de CEGUI en el archivo xml
+		// de configuración inicial.
 		ScriptManager::CServer::getSingletonPtr()->loadExeScript("initCEGUI");
 
 #ifndef NON_EXCLUSIVE_MODE_IN_WINDOW_MODE 
