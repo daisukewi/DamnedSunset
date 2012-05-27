@@ -263,6 +263,31 @@ public class MapPanel extends JPanel implements MouseListener, MouseWheelListene
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
+		/*if (e.getButton() == MouseEvent.BUTTON1) {
+			
+			int x = e.getX() / _grid;
+			int y = e.getY() / _grid;
+			
+			if ((x < _width) && (y < _height))
+			// If complejo pero necesario para calcular que el click del ratón no caiga en un borde.
+				if ((e.getX() > ((x * _grid) + (_border - 1))) && (e.getX() < ((x * _grid) + (_grid - (_border - 1)))) && 
+					(e.getY() > ((y * _grid) + (_border - 1))) && (e.getY() < ((y * _grid) + (_grid - (_border - 1))))) {
+					_system.clicked(new Position(x, y));
+				}
+		
+		}
+		else
+			if (e.getButton() == MouseEvent.BUTTON3) {
+				
+				_system.clickedSecond();
+				
+			}*/
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			
 			int x = e.getX() / _grid;
@@ -282,12 +307,6 @@ public class MapPanel extends JPanel implements MouseListener, MouseWheelListene
 				_system.clickedSecond();
 				
 			}
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
