@@ -49,9 +49,9 @@ print("Estado normal de la Supermente")
 					
 					-- Establezco el punto de ataque, envío el evento al enemigo y resto el conteo de enemigos.
 					enemyEventParam = {
-						x = 200,
+						x = 0,
 						y = 5,
-						z = -200
+						z = 0
 					}
 					enemyEvent("EnemyMindMove", tEnemy.ID)
 					t.attackEnemies = t.attackEnemies - 1

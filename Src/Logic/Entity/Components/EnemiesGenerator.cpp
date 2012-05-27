@@ -130,8 +130,8 @@ namespace Logic
 		name << "Enemy" << _enemy << "_" << _entity->getEntityID();
 		enemyInfo->setName(name.str());
 
-		int offsetX = rand() % 4 + 1;
-		int offsetY = rand() % 4 + 1;
+		int offsetX = 0;//rand() % 4 + 1;
+		int offsetY = 0;//rand() % 4 + 1;
 						
 		std::stringstream pos;
 		pos << _origen.x + offsetX << ' ' << _origen.y + offsetY << ' ';
