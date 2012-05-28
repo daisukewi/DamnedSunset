@@ -210,11 +210,23 @@ namespace Graphics
 
 		// textures
 		defaultimp.layerList.resize(_nTerrains);
-		for (int i = 0; i < _nTerrains; ++i)
+		int i = 0, j = 1;
+		while (i < _nTerrains)
 		{
-			defaultimp.layerList[i].worldSize = _terrainList[i]->getTextureSize();
-			defaultimp.layerList[i].textureNames.push_back(_terrainList[i]->getDifuseMap());
-			defaultimp.layerList[i].textureNames.push_back(_terrainList[i]->getNormalMap());
+			if (_terrainList[i]->isBaseTexture())
+			{
+				defaultimp.layerList[0].worldSize = _terrainList[i]->getTextureSize();
+				defaultimp.layerList[0].textureNames.push_back(_terrainList[i]->getDifuseMap());
+				defaultimp.layerList[0].textureNames.push_back(_terrainList[i]->getNormalMap());
+			}
+			else
+			{
+				defaultimp.layerList[j].worldSize = _terrainList[i]->getTextureSize();
+				defaultimp.layerList[j].textureNames.push_back(_terrainList[i]->getDifuseMap());
+				defaultimp.layerList[j].textureNames.push_back(_terrainList[i]->getNormalMap());
+				++j;
+			}
+			++i;
 		}
 
 	}

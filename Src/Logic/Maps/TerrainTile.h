@@ -96,6 +96,12 @@ namespace Logic
 		*/
 		float getBlendHeight();
 
+		/**
+		Devuelve true si la textura que contiene este terreno debe ser
+		usada como textura base del terreno generado.
+		*/
+		bool isBaseTexture();
+
 	private:
 
 		/**
@@ -126,6 +132,13 @@ namespace Logic
 		que lleva este terreno.
 		*/
 		float _blendHeight;
+
+		/**
+		Atributo que indica si la textura que contiene este terreno
+		se debe utilizar como textura base al aplicar el blending
+		de texturas al generar el terreno.
+		*/
+		bool _baseTexture;
 	};
 
 }

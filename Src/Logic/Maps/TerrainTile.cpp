@@ -35,6 +35,11 @@ namespace Logic
 		if (terrain_info->hasAttribute("texture_blendheight"))
 			_blendHeight = terrain_info->getFloatAttribute("texture_blendheight");
 
+		if (terrain_info->hasAttribute("is_texture_base"))
+			_baseTexture = terrain_info->getBoolAttribute("is_texture_base");
+		else
+			_baseTexture = false;
+
 	} // FillData
 
 	//--------------------------------------------------------
@@ -55,6 +60,11 @@ namespace Logic
 
 		if (terrain_info->hasAttribute("texture_blendheight"))
 			_blendHeight = terrain_info->getFloatAttribute("texture_blendheight");
+
+		if (terrain_info->hasAttribute("is_texture_base"))
+			_baseTexture = terrain_info->getBoolAttribute("is_texture_base");
+		else
+			_baseTexture = false;
 
 	} // FillData
 
@@ -113,4 +123,13 @@ namespace Logic
 		return _blendHeight;
 
 	} // isObstacle
+
+	//--------------------------------------------------------
+
+	bool CTerrainTile::isBaseTexture()
+	{
+		return _baseTexture;
+
+	} // isBaseTexture
+
 }
