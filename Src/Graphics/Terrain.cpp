@@ -168,9 +168,11 @@ namespace Graphics
 				blendMaps[0]->convertImageToTerrainSpace(x, y, &tx, &ty);
 				Ogre::Real height = terrain->getHeightAtTerrainPosition(tx, ty);
 
+				int j = 0;
 				for (int i = 0; i < nBlendMaps; ++i)
 				{
-					Ogre::Real val = (height - _terrainList[i + 1]->getBlendHeight()) / fadeDist;
+					if (_terrainList[j]->isBaseTexture()) j += 1;
+					Ogre::Real val = (height - _terrainList[j++]->getBlendHeight()) / fadeDist;
 					val = Ogre::Math::Clamp(val, (Ogre::Real)0, (Ogre::Real)1);
 					*pBlend[i]++ = val;
 				}
