@@ -97,6 +97,12 @@ namespace Logic
 		float getBlendHeight();
 
 		/**
+		Devuelve la altura maxima hasta la cual se va a pintar la
+		textura de este terreno.
+		*/
+		float getBlendHeightMax();
+
+		/**
 		Devuelve true si la textura que contiene este terreno debe ser
 		usada como textura base del terreno generado.
 		*/
@@ -128,10 +134,10 @@ namespace Logic
 		int _textureSize;
 
 		/**
-		Altura a partir de la cual se tiene que pintar la textura
-		que lleva este terreno.
+		Alturas minima y maxima entre las cuales se tiene que pintar
+		la textura que lleva este terreno.
 		*/
-		float _blendHeight;
+		float _blendHeight, _blendHeightMax;
 
 		/**
 		Atributo que indica si la textura que contiene este terreno

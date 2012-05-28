@@ -172,9 +172,11 @@ namespace Graphics
 				for (int i = 0; i < nBlendMaps; ++i)
 				{
 					if (_terrainList[j]->isBaseTexture()) j += 1;
-					Ogre::Real val = (height - _terrainList[j++]->getBlendHeight()) / fadeDist;
+					Ogre::Real val = (height - _terrainList[j]->getBlendHeight()) / fadeDist;
 					val = Ogre::Math::Clamp(val, (Ogre::Real)0, (Ogre::Real)1);
+					if (height > _terrainList[j]->getBlendHeightMax()) val = (Ogre::Real)0;
 					*pBlend[i]++ = val;
+					++j;
 				}
 			}
 		}

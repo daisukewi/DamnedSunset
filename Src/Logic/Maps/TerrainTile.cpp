@@ -35,6 +35,9 @@ namespace Logic
 		if (terrain_info->hasAttribute("texture_blendheight"))
 			_blendHeight = terrain_info->getFloatAttribute("texture_blendheight");
 
+		if (terrain_info->hasAttribute("texture_blendheightmax"))
+			_blendHeightMax = terrain_info->getFloatAttribute("texture_blendheightmax");
+
 		if (terrain_info->hasAttribute("is_texture_base"))
 			_baseTexture = terrain_info->getBoolAttribute("is_texture_base");
 		else
@@ -60,6 +63,9 @@ namespace Logic
 
 		if (terrain_info->hasAttribute("texture_blendheight"))
 			_blendHeight = terrain_info->getFloatAttribute("texture_blendheight");
+
+		if (terrain_info->hasAttribute("texture_blendheightmax"))
+			_blendHeightMax = terrain_info->getFloatAttribute("texture_blendheightmax");
 
 		if (terrain_info->hasAttribute("is_texture_base"))
 			_baseTexture = terrain_info->getBoolAttribute("is_texture_base");
@@ -122,7 +128,15 @@ namespace Logic
 	{
 		return _blendHeight;
 
-	} // isObstacle
+	} // getBlendHeight
+
+	//--------------------------------------------------------
+
+	float CTerrainTile::getBlendHeightMax()
+	{
+		return _blendHeightMax;
+
+	} // getBlendHeightMax
 
 	//--------------------------------------------------------
 
