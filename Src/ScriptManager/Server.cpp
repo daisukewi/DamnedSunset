@@ -16,6 +16,7 @@ la gestión de los scripts del juego.
 #include "ScriptManager\Classes\Messages\LUA_AttackEntity.h"
 #include "ScriptManager\Classes\Messages\LUA_SpawnEnemy.h"
 #include "ScriptManager\Classes\Messages\LUA_AttackDistance.h"
+#include "ScriptManager\Classes\Messages\LUA_EntitySelected.h"
 
 // Incluímos las cabedceras de Lua.
 // Como es código C (no C++), hay que indicarselo al
@@ -765,6 +766,18 @@ namespace ScriptManager
 				.def("setEntity", (void (LUA_MAttackDistance::*) (unsigned int)) &LUA_MAttackDistance::setEntity)
 				.def("setAttack", (void (LUA_MAttackDistance::*) (bool)) &LUA_MAttackDistance::setAttack)
 				.def("send", &LUA_MAttackDistance::send)
+		];
+
+		// LUA_MEntitySelected
+
+		luabind::module(_lua)
+		[
+			luabind::class_<LUA_MEntitySelected>("LUA_MEntitySelected")
+				.def(luabind::constructor<>())
+				.def("setEntityTo", (void (LUA_MEntitySelected::*) (unsigned int)) &LUA_MEntitySelected::setEntityTo)
+				.def("setSelectedEntity", (void (LUA_MEntitySelected::*) (std::string)) &LUA_MEntitySelected::setSelectedEntity)
+				.def("setInterface", (void (LUA_MEntitySelected::*) (bool)) &LUA_MEntitySelected::setInterface)
+				.def("send", &LUA_MEntitySelected::send)
 		];
 
 		//---------------------------------------------------------

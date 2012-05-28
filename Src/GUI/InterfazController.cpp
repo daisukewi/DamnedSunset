@@ -374,15 +374,19 @@ namespace GUI {
 	void CInterfazController::sendClickMessage(std::string name)
 	{
 		//Obtener la entidad encargadad de controllar el gameplay
-		Logic::CEntity *diosEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod");
+		//Logic::CEntity *diosEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod");
 			
 		//Crear y enviar el mensaje de entity selected
-		Logic::MEntitySelected* m_selected = new Logic::MEntitySelected();
+		//Logic::MEntitySelected* m_selected = new Logic::MEntitySelected();
 
-		Logic::CEntity * playerEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName(name);
-		m_selected->setSelectedEntity(playerEntity);
-		m_selected->setInterface(true);
-		diosEntity->emitMessage(m_selected);
+		//Logic::CEntity * playerEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName(name);
+		//m_selected->setSelectedEntity(playerEntity);
+		//m_selected->setInterface(true);
+		//diosEntity->emitMessage(m_selected);
+
+		std::stringstream script;
+		script << "sendClickMessage(" << "\"" << name << "\"" << ")";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 	}
 
 	bool CInterfazController::isMouseOnInterface(){
