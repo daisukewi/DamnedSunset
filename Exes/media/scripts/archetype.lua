@@ -7,6 +7,8 @@ Archetype = {
 		billboardMoverMaterial = "circuloSeleccion",
 		billboardMoverDimension = 10.0,
 		billboardMoverTime = 2.0,
+		position = {0, 0, 0},
+		orientation = 0,
 	},
 	
 	PlayerGod = {

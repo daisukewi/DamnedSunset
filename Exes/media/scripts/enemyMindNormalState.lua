@@ -14,7 +14,6 @@ end
 
 -- Acción del estado normal.
 function normalStateAction()
-print("Estado normal de la Supermente")
 -- El estado de normal es el estado 1.
 	local nextState
 	
