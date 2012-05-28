@@ -66,7 +66,7 @@ namespace Logic
 	{
 		
 		// Busco todas las entidades de tipo Enemy del mapa.
-		std::list<Logic::CEntity*> _playerEntities;
+		/*std::list<Logic::CEntity*> _playerEntities;
 		Logic::CEntity *ent = _entity->getMap()->getEntityByType("Enemy");
 		while (ent != NULL)
 		{
@@ -89,7 +89,7 @@ namespace Logic
 
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
-		_state = "idle";
+		_state = "idle";*/
 
 		return true;
 		
@@ -125,7 +125,7 @@ namespace Logic
 				std::cout << "PlayerAIController: " + _state + "\n";
 			
 				std::stringstream script;
-				script << "playerEventParam = { state = " << _state << " } ";
+				script << "playerEventParam = { state = \"" << _state << "\" } ";
 				script << "playerEvent(\"StateChange\", " << _entity->getEntityID() << ")";
 				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
@@ -135,7 +135,7 @@ namespace Logic
 				std::cout << "PlayerAIController: " + _state + "\n";
 
 				std::stringstream script;
-				script << "playerEventParam = { state = " << _state << " } ";
+				script << "playerEventParam = { state = \"" << _state << "\" } ";
 				script << "playerEvent(\"StateChange\", " << _entity->getEntityID() << ")";
 				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
@@ -145,7 +145,7 @@ namespace Logic
 				std::cout << "PlayerAIController: " + _state + "\n";
 
 				std::stringstream script;
-				script << "playerEventParam = { state = " << _state << " } ";
+				script << "playerEventParam = { state = \"" << _state << "\" } ";
 				script << "playerEvent(\"StateChange\", " << _entity->getEntityID() << ")";
 				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 			}
@@ -167,7 +167,7 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
-		if (!_entity->getSelected()){
+		/*if (!_entity->getSelected()){
 			_currentExeFrames++;
 
 			// Ejecuto la IA si toca.
@@ -187,7 +187,7 @@ namespace Logic
 
 		}else{
 			_currentExeFrames = 0;
-		}
+		}*/
 
 	} // tick
 

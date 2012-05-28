@@ -359,7 +359,7 @@ namespace Logic
 		if (!message->getType().compare("MEntitySelected"))
 		{
 			MEntitySelected *m = static_cast <MEntitySelected*> (message);
-			if (m->getSelectedEntity()->getEntityID() == _entityID){
+			if (m->getSelectedEntity() == this){
 				_isSelected = true;
 			}else{
 				_isSelected = false;

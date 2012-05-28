@@ -149,12 +149,13 @@ namespace Logic
 		/*MEnemyCreated *m = new MEnemyCreated();
 		Logic::CEntity *player = _entity->getMap()->getEntityByType("Player");
 		m->setCreatedEnemy(ent);
+		m->addPtr();
 		while (player != NULL)
 		{
-			player->emitMessage(m);
+			//player->emitMessage(m);
 			player = _entity->getMap()->getEntityByType("Player", player);
 		}*/
-
+		m->removePtr();
 		_enemy++;
 
 		return ent;
