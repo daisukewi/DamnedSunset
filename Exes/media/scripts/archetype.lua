@@ -9,7 +9,6 @@ Archetype = {
 		billboardMoverTime = 2.0,
 	},
 	
-	
 	PlayerGod = {
 		type = "PlayerGod",
 		mouseDistance = 100,
@@ -26,11 +25,11 @@ Archetype = {
 	
 	Obstacle = {
 		type = "Obstacle",
-		position = {0, 0, 0},
+		position = {0, -1, 0},
 		physic_entity = "simple",
 		physic_type = "static",
 		physic_shape = "box",
-		physic_dimensions = { 8, 8, 8 },
+		physic_dimensions = { 8, 16, 8 },
 		physic_collision_group = 1,
 	},
 	

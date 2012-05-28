@@ -243,7 +243,7 @@ namespace Logic
 			CEntity *colisionEnt = Physics::CServer::getSingletonPtr()->raycastGroup(
 				Ray( from, direction / dist ),
 				&colPoint,
-				Physics::TPhysicGroup::PG_BUILDING,
+				(Physics::TPhysicGroup)(Physics::TPhysicGroup::PG_BUILDING | Physics::TPhysicGroup::PG_WORLD),
 				dist );
 
 			found = colisionEnt == NULL;
