@@ -12,4 +12,7 @@ function loadScripts()
 	-- Scripts de la máquina de estados de la IA de la supermente.
 	SManager:loadScript("enemyMindNormalState")
 	SManager:loadScript("enemyMindScript")
+	
+	-- Interfaz
+	SManager:loadScript("interfazControles")
 end

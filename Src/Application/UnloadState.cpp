@@ -161,6 +161,7 @@ namespace Application {
 		Logic::CEntityFactory::getSingletonPtr()->unloadBluePrints();
 
 		//ScriptManager::CServer::getSingletonPtr()->UnloadCurrentState();
+		Map::CMapParser::getSingletonPtr()->releaseEntityList();
 
 		// Liberamos la escena física.
 		Physics::CServer::getSingletonPtr()->destroyScene();
