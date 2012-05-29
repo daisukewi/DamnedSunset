@@ -222,9 +222,15 @@ Archetype = {
 		
 		afectaEmpujar = 100,
 		
-		distOfView = 100,
-		
 		initState = 1,
+		
+		
+		trigger_shape = "trigger_sphere",
+		trigger_type = "trigger_static",
+		trigger = true,
+		trigger_radius = 100,
+		trigger_height = 1,
+		trigger_collision_group = 3,
 	},
 	
 	Waypoint = {

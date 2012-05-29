@@ -115,10 +115,10 @@ namespace Logic
 		/**
 		Tipo lista de enemigos.
 		*/
-		typedef std::list<std::pair<Logic::CEntity*, bool>> TEnemyList;
+		typedef std::list<Logic::CEntity*> TEnemyList;
 
 		/**
-		Lista de los enemigos para comprobar si los veo o no.
+		Lista de los enemigos que estoy viendo.
 		*/
 		TEnemyList _enemyEntities;
 

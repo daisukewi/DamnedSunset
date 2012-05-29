@@ -16,8 +16,12 @@ Contiene la implementación del componente que controla la percepción de los play
 #include "ScriptManager/Server.h"
 
 #include "Logic/Entity/Messages/AttackEntity.h"
+#include "Logic/Entity/Messages/IsTouched.h"
+
+
 
 #include <sstream>
+#include <iostream>
 
 namespace Logic
 {
@@ -27,14 +31,6 @@ namespace Logic
 
 	bool CPlayerPerception::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
 	{
-		if(!IComponent::spawn(entity,map,entityInfo))
-			return false;
-
-		if(entityInfo->hasAttribute("distOfView"))
-			_distanceOfView = entityInfo->getIntAttribute("distOfView");
-		else
-			_distanceOfView = 30;
-
 		return true;
 
 	} // spawn
@@ -43,13 +39,7 @@ namespace Logic
 
 	bool CPlayerPerception::activate()
 	{
-		// Obtengo todas las entidades de tipo enemigo del mapa.
-		Logic::CEntity *ent = _entity->getMap()->getEntityByType("Enemy");
-		while (ent != NULL)
-		{
-			_enemyEntities.push_back(std::pair<Logic::CEntity*, bool>(ent, false));
-			ent = _entity->getMap()->getEntityByType("Enemy", ent);
-		}
+		
 
 		return true;
 
@@ -66,7 +56,7 @@ namespace Logic
 
 	bool CPlayerPerception::accept(IMessage *message)
 	{
-		return false;
+		return (!message->getType().compare("MIsTouched"));
 
 	} // accept
 	
@@ -74,7 +64,30 @@ namespace Logic
 
 	void CPlayerPerception::process(IMessage *message)
 	{
-		
+		if (!message->getType().compare("MIsTouched")){
+			MIsTouched *m = static_cast <MIsTouched*> (message);
+			Logic::CEntity *ent = m->getEntity();
+
+			//Si el trigger lo ha activado un enemigo
+			if (!ent->getType().compare("Enemy")){
+				//si ha entrado se añade a la lista de enemigos detntro del trigger
+				if (m->getTouched()){
+					_enemyEntities.push_back(ent);
+					std::cout << "ENEMIGO HA ENTRADO";
+				//Si ha salido, eliminar de la lista y avisar a LUA de que lo ha dejado de ver
+				}else{
+					
+					std::cout << "ENEMIGO HA SALIDO";
+					std::stringstream script;
+					script << "playerEventParam = { target = " << ent->getEntityID() << ", distance = " << 0 << " } ";
+					script << "playerEvent(\"OnEnemyLost\", " << _entity->getEntityID() << ")";
+					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+					_enemyEntities.remove(ent);
+		}
+			}
+			
+		}
 	} // process
 
 	//---------------------------------------------------------
@@ -82,7 +95,7 @@ namespace Logic
 	void CPlayerPerception::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
-		/*
+		
 		if (!_entity->getSelected()){
 			
 			_currentExeFrames++;
@@ -93,50 +106,43 @@ namespace Logic
 				// Reinicio el contador de frames.
 				_currentExeFrames = 0;
 
-				// Compruebo si veo a algún jugador. Me recorro la lista de jugadores para ver uno por uno si está a la distancia de visión.
+				//Recorrer la lista para saber cual es el enemigo más cercano y enviar un OnEnemySeen a la IA de LUA para que sea su nuevo objetivo 
 				TEnemyList::iterator it = _enemyEntities.begin();
+				CEntity *minDistanceEntity;
+				
+				int minDistance = 10000000;
+
+				//Obtener el enemigo más cercano
 				for (; it != _enemyEntities.end(); it++)
 				{
 					// Calculo la distancia entre el jugador y la entidad actual. (Distancia Manhattan)
-					int xDistance = std::abs((*it).first->getPosition().x - _entity->getPosition().x);
-					int yDistance = std::abs((*it).first->getPosition().z - _entity->getPosition().z);
+					int xDistance = std::abs((*it)->getPosition().x - _entity->getPosition().x);
+					int yDistance = std::abs((*it)->getPosition().z - _entity->getPosition().z);
+
+
 
 					int distance = xDistance + yDistance;
 
-					// Si está dentro de la distancia de visión, aviso a lua.
-					if (distance <= _distanceOfView)
-					{
-					
-						//Necesario comrobar todas las veces para saber cual es el enemigo más cercano
-						//if (!(*it).second)
-						//{
-							std::stringstream script;
-							script << "playerEventParam = { target = " << (*it).first->getEntityID() << ", distance = " << distance << " } ";
-							script << "playerEvent(\"OnEnemySeen\", " << _entity->getEntityID() << ")";
-							ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
-							(*it).second = true;
-						//}
+					if (distance < minDistance){
+						minDistance = distance;
+						minDistanceEntity = (*it);
 					}
-					// Si está fuera de la distancia de visión, aviso a lua de que lo he perdido de vista.
-					else
-					{
-						// Compruebo si ya lo había dejado de ver para no mandar el aviso mas de una vez.
-						if ((*it).second)
-						{
-							std::stringstream script;
-							script << "playerEventParam = { target = " << (*it).first->getEntityID() << ", distance = " << distance << " } ";
-							script << "playerEvent(\"OnEnemyLost\", " << _entity->getEntityID() << ")";
-							ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-
-							(*it).second = false;
-						}
-					}
+				
 				}
+
+				if (minDistanceEntity){
+					//Avisar a LUA del enemigo más cercano
+					std::stringstream script;
+					script << "playerEventParam = { target = " << minDistanceEntity->getEntityID() << ", distance = " << minDistance << " } ";
+					script << "playerEvent(\"OnEnemySeen\", " << _entity->getEntityID() << ")";
+					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+				}
+
 			}
 		}else{
 			_currentExeFrames=0;
-		}*/
+		}
 
 	} // tick
 

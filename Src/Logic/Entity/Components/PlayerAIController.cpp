@@ -167,7 +167,7 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
-		/*if (!_entity->getSelected()){
+		if (!_entity->getSelected()){
 			_currentExeFrames++;
 
 			// Ejecuto la IA si toca.
@@ -187,7 +187,7 @@ namespace Logic
 
 		}else{
 			_currentExeFrames = 0;
-		}*/
+		}
 
 	} // tick
 

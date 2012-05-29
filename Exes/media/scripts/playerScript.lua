@@ -44,7 +44,33 @@ end
 -- Recogida de eventos del mantener posición.
 function playerHoldStateEvent(event, entity)
 	local nextState
+	if (event == "OnFollow") then
+		
+		nextState = 2
+	elseif (event == "OnEnemySeen") then
 	
+		if (playerEventParam.distance < distance) then
+			distance = playerEventParam.distance
+			
+			local mensaje = LUA_MAttackDistance()
+			mensaje:setAttack(true)
+			mensaje:setEntityTo(entity)
+			mensaje:setEntity(playerEventParam.target)
+			mensaje:send()
+		end
+		
+		nextState = 3
+		
+	elseif (event == "OnEnemyLost") then
+		
+		local mensaje = LUA_MAttackDistance()
+		mensaje:setAttack(false)
+		mensaje:setEntityTo(entity)
+		mensaje:setEntity(playerEventParam.target)
+		mensaje:send()
+	
+		nextState = 3
+	end
 	
 	return nextState
 end
@@ -103,6 +129,7 @@ end
 
 -- Función que se llamará en cada tick para ejecutar las acciones que haga falta en el estado actual.
 function playerAIAction(entity)
+	print('playerAIAction: ')
 	local nextState = playerStates[players[entity].state].state.action(entity)
 	players[entity].state = nextState
 end
