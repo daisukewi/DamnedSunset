@@ -15,4 +15,8 @@ function loadScripts()
 	
 	-- Interfaz
 	--SManager:loadScript("interfaz/interfazControles")
+	
+	-- Scripts de misión.
+	SManager:loadScript("mission1StagesConfiguration")
+	SManager:loadScript("mission1Behaviour")
 end

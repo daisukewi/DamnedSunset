@@ -48,20 +48,6 @@ namespace Logic
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
 
-		// Cojo la etapa inicial de la misión.
-		if (entityInfo->hasAttribute("initStage"))
-		{
-			std::stringstream script;
-			script	<< "enemyMind.stage = " << entityInfo->getIntAttribute("initStage");
-			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-		}
-		else
-		{
-			std::stringstream script;
-			script	<< "enemyMind.stage = 1";
-			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-		}
-
 		return true;
 
 	} // spawn

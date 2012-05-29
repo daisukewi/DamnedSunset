@@ -111,16 +111,16 @@ namespace Logic
 			position.z = relativePosition.y;
 		}
 
-		if(entityInfo->hasAttribute("building_size"))
+		if(entityInfo->hasAttribute("dimension"))
 		{
-			Vector2 size = entityInfo->getVector2Attribute("building_size");
+			Vector2 size = entityInfo->getVector2Attribute("dimension");
 			//Width = size.x;
 			//Height = size.y;
 
 			TGridTile cornerTile = map->getGridMap()->getTileFromPosition(position.x, position.z);
 
-			unsigned int endRow = cornerTile->GetRow() + size.y - 1;
-			unsigned int endCol = cornerTile->GetCol() + size.x - 1;
+			unsigned int endRow = cornerTile->GetRow() + size.x - 1;
+			unsigned int endCol = cornerTile->GetCol() + size.y - 1;
 
 			Vector2 currentPos = Vector2(position.x, position.z);
 			Vector2 diagonalVector = currentPos - map->getGridMap()->getRelativeMapPos(endRow, endCol);

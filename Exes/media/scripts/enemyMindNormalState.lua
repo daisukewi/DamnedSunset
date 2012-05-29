@@ -22,9 +22,9 @@ function normalStateAction()
 		t.spawnTime = t.spawnTime + (enemyMind.deltaTime / 1000)
 		
 		-- Compruebo la tabla de spawners para ver si hay que spawnear o no.
-		if (t.spawnTime >= stages[enemyMind.stage].spawnTime[spawnID]) then 
+		if (t.spawnTime >= stages[currentStage].spawnTime[spawnID]) then 
 			-- Spawneo los enemigos en el spawner correspondiente.
-			local spawnEnemies = stages[enemyMind.stage].spawnEnemies[spawnID]
+			local spawnEnemies = stages[currentStage].spawnEnemies[spawnID]
 			local entity = t.entityID
 			
 			local mensaje = LUA_MSpawnEnemy()

@@ -491,7 +491,9 @@ public class Map implements Serializable, ExportableData {
 					
 				}
 				else
-					if (!name.equals(ENTITY_DIMENSION) && !name.equals(ENTITY_NAME))
+					/*if (!name.equals(ENTITY_DIMENSION) && !name.equals(ENTITY_NAME))
+						s = s + "\t\t" + name + " = " + entity.getParameter(name) + ",\n";*/
+					if (!name.equals(ENTITY_NAME))
 						s = s + "\t\t" + name + " = " + entity.getParameter(name) + ",\n";
 				
 			}

@@ -73,6 +73,14 @@ Archetype = {
 		damage = 25,
 	},
 	
+	DoorStage2Trigger = {
+		type = "DoorStage2Trigger",
+		trigger = true,
+		trigger_shape = "trigger_box",
+		trigger_type = "trigger_static",
+		trigger_collision_group = 3,
+	},
+	
 	Barril = {
 		type = "Barril",
 		position = {0, 1, 0},

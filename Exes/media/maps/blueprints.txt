@@ -14,10 +14,10 @@ Turret CPhysicEntity CMapBuilding CTurretController CSelectable CTriggerEntity C
 Barril CGraphics CPhysicEntity
 Granada CGraphics CPhysicEntity CDetonadorGranada CParticleController CSonido
 BolaTeltr CGraphics CPhysicEntity CDetonadorBolaTeltr CParticleController CSonido
-PuertaTrigger CSwitchTrigger CPhysicEntity
 Puerta CGraphics CSwitchPosition
 Sierra CAnimatedGraphics CSwitchPosition CDamageTrigger CPhysicEntity
 Waypoint CGraphics
 EnemyMind CScript CEnemyMindAIController
 ScriptsLoader CScript
 StageManager CScript
+DoorStage2Trigger CTriggerEntity

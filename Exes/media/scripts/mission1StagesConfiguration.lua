@@ -51,3 +51,5 @@ stages = {
 	},
 	
 }
+
+currentStage = 1

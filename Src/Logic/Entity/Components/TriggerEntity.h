@@ -154,6 +154,16 @@ namespace Logic
 		*/
 		void createTriggerShape(const Map::CEntity *entityInfo, CPhysicModelSimple *model, float scale);
 
+		/**
+		Indica si hay que llamar a una función de lua cuando alguna entidad entra en el trigger o no.
+		*/
+		bool _triggerFunction;
+
+		/**
+		Nombre de la función de lua que se llamará cuando otra entidad entre en el trigger.
+		*/
+		const char *_luaTriggerFunction;
+
 	}; // class CTriggerEntity
 
 	REG_FACTORY(CTriggerEntity);

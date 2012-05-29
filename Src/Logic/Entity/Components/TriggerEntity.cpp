@@ -23,6 +23,12 @@ Contiene la implementación del componente encargado de la representación de los 
 
 #include "Logic/Entity/Messages/IsTouched.h"
 
+#include "ScriptManager/Server.h"
+
+#include "BaseSubsystems/Math.h"
+
+#include <sstream>
+
 using namespace Physics;
 
 namespace Logic
@@ -56,6 +62,14 @@ namespace Logic
 		// Invocar al método de la clase padre
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
+
+		if(entityInfo->hasAttribute("triggerFunction"))
+		{
+			_triggerFunction = true;
+			_luaTriggerFunction = entityInfo->getStringAttribute("triggerFunction").c_str();
+		}
+		else
+			_triggerFunction = false;
 
 		// Crear el objeto físico asociado al componente
 		_physicObj = createTriggerEntity(entityInfo);
@@ -99,6 +113,12 @@ namespace Logic
 		if (enter)
 		{
 			m->setTouched(true);
+			if (_triggerFunction)
+			{
+				std::stringstream script;
+				script << _luaTriggerFunction << "(" << otherEntity->getEntityID() << ")";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+			}
 		}
 		else
 		{
@@ -214,8 +234,11 @@ namespace Logic
 	
 		// Usar una caja?
 		} else if (shape == STR_TRIGGER_BOX) {
-			Vector3 dimensions = entityInfo->getVector3Attribute(STR_TRIGGER_DIMENSIONS);
-			_physicServer->createBoxShape(model, dimensions * scale, group);
+			Vector2 dimensions2D = entityInfo->getVector2Attribute("dimension");
+			int gridSize = _entity->getMap()->getGridMap()->getGridSize();
+			Ogre::Vector3 dimensions3D = Ogre::Vector3(dimensions2D.y * (gridSize / 2), 50, dimensions2D.x * (gridSize / 2));
+
+			_physicServer->createBoxShape(model, dimensions3D * scale, group);
 
 		} 
 	}
