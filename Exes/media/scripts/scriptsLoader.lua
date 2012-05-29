@@ -14,5 +14,5 @@ function loadScripts()
 	SManager:loadScript("enemyMindScript")
 	
 	-- Interfaz
-	SManager:loadScript("interfazControles")
+	--SManager:loadScript("interfazControles")
 end
