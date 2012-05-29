@@ -73,14 +73,14 @@ namespace GUI {
 		//_fpsWindow = CEGUI::WindowManager::getSingleton().getWindow("Time");
 
 		// Asociamos los botones del menú con las funciones que se deben ejecutar.
-		CEGUI::WindowManager::getSingleton().getWindow("Interfaz/bPersonaje1")->
-			subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::SubscriberSlot(&GUI::CInterfazController::clickPersonaje1, this));
+		//CEGUI::WindowManager::getSingleton().getWindow("Interfaz/bPersonaje1")->
+		//	subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::SubscriberSlot(&GUI::CInterfazController::clickPersonaje1, this));
 
-		CEGUI::WindowManager::getSingleton().getWindow("Interfaz/bPersonaje2")->
-			subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::SubscriberSlot(&GUI::CInterfazController::clickPersonaje2, this));
+		//CEGUI::WindowManager::getSingleton().getWindow("Interfaz/bPersonaje2")->
+		//	subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::SubscriberSlot(&GUI::CInterfazController::clickPersonaje2, this));
 
-		CEGUI::WindowManager::getSingleton().getWindow("Interfaz/bPersonaje3")->
-			subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::SubscriberSlot(&GUI::CInterfazController::clickPersonaje3, this));
+		//CEGUI::WindowManager::getSingleton().getWindow("Interfaz/bPersonaje3")->
+		//	subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::SubscriberSlot(&GUI::CInterfazController::clickPersonaje3, this));
 
 		CEGUI::WindowManager::getSingleton().getWindow("Interfaz/Menu/b1")->
 			subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::SubscriberSlot(&GUI::CInterfazController::clickB1, this));

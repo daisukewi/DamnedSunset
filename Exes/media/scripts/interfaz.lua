@@ -3,25 +3,17 @@ function interfazTick(text)
 end
 
 function init()
-	CEGUI.WindowManager:getSingleton():loadWindowLayout("Interfaz.layout")
-	interfazW = CEGUI.WindowManager:getSingleton():getWindow("Interfaz")
+	winMgr:loadWindowLayout("Interfaz.layout")
+	interfazW = winMgr:getWindow("Interfaz")
 	ocultarBotones()
 	-- Cargamos la ventana que muestra los FPS
-	CEGUI.WindowManager:getSingleton():loadWindowLayout("Time.layout")
-	fpsWindow = CEGUI.WindowManager:getSingleton():getWindow("Time")
+	winMgr:loadWindowLayout("Time.layout")
+	fpsWindow = winMgr:getWindow("Time")
 
 	-- Asociamos los botones del menú con las funciones que se deben ejecutar.
-	print("self1")
-	--local name = "Jack"
-	--CEGUI.WindowManager:getSingleton():getWindow("Interfaz/bPersonaje1").subscribeEvent(CEGUI.PushButton.EventClicked, self, "sendClickMessage")
-	print("self2")
-	--sendClickMessage("Jack")
-	print("self3")
-	--CEGUI.WindowManager:getSingleton():getWindow("Interfaz/bPersonaje2"):subscribeEvent(CEGUI.PushButton.EventClicked, CEGUI:SubscriberSlot(true, self))
-	print("self4")
-	--sendClickMessage("Erick")
-	--CEGUI.WindowManager:getSingleton():getWindow("Interfaz/bPersonaje3"):subscribeEvent(CEGUI.PushButton.EventClicked, CEGUI:SubscriberSlot(true, self))
-	--sendClickMessage("Amor")
+	winMgr:getWindow("Interfaz/bPersonaje1"):subscribeEvent("Clicked", "sendClickMessage1")
+	winMgr:getWindow("Interfaz/bPersonaje2"):subscribeEvent("Clicked", "sendClickMessage2")
+	winMgr:getWindow("Interfaz/bPersonaje3"):subscribeEvent("Clicked", "sendClickMessage3")
 
 	--	CEGUI.WindowManager:getSingleton():getWindow("Interfaz/Menu/b1"):subscribeEvent(CEGUI.PushButton.EventClicked, CEGUI:SubscriberSlot(GUI.CInterfazController.clickB1, self))
 	--	CEGUI.WindowManager:getSingleton():getWindow("Interfaz/Menu/b2"):subscribeEvent(CEGUI.PushButton.EventClicked, CEGUI:SubscriberSlot(GUI.CInterfazController.clickB2, self))
@@ -39,6 +31,8 @@ function activate()
 	interfazW:addChildWindow(fpsWindow)
 	fpsWindow:setVisible(true)
 	fpsWindow:activate()
+
+	sacarVentana("Dream Theater")
 end
 
 function deactivate()
@@ -72,14 +66,51 @@ function cargarBoton(numBoton, nombreBoton)
 	interfazW:getChild("Interfaz/Menu"):getChild(nombreHijo):setVisible(true)
 end
 
-function sendClickMessage(name)
+function sendClickMessage1()
 	-- Crear y enviar el mensaje de entity selected
 	local mensaje = LUA_MEntitySelected()
-	mensaje:setSelectedEntity(name)
+	mensaje:setSelectedEntity("Jack")
 	mensaje:setInterface(true)
 	mensaje:send()
-	print("sendClickMessage")
+	print("sendClickMessage1")
 end
 
+function sendClickMessage2()
+	-- Crear y enviar el mensaje de entity selected
+	local mensaje = LUA_MEntitySelected()
+	mensaje:setSelectedEntity("Erick")
+	mensaje:setInterface(true)
+	mensaje:send()
+	print("sendClickMessage2")
+end
+
+function sendClickMessage3()
+	-- Crear y enviar el mensaje de entity selected
+	local mensaje = LUA_MEntitySelected()
+	mensaje:setSelectedEntity("Amor")
+	mensaje:setInterface(true)
+	mensaje:send()
+	print("sendClickMessage3")
+end
+
+function sacarVentana(text)
+	-- Cargamos la ventana
+	winMgr:loadWindowLayout("VentanaText.layout")
+	textWindow = winMgr:getWindow("VentanaText/Ventana")
+	-- Activamos la ventana del texto
+	interfazW:addChildWindow(textWindow)
+	textWindow:setVisible(true)
+	textWindow:activate()
+	textWindow:setText(text)
+	winMgr:getWindow("VentanaText/Ventana/Start"):subscribeEvent("Clicked", "closeVentana")
+end
+
+function closeVentana()
+	textWindow:deactivate()
+	textWindow:setVisible(false)
+end
+
+winMgr = CEGUI.WindowManager:getSingleton()
 interfazW = 0
 fpsWindow = 0
+textWindow = 0
