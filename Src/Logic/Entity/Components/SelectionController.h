@@ -1,13 +1,15 @@
 /**
 @file SelectionController.h
 
-Contiene la declaración del componente que se encarga de gestionar la entidad seleccionada
+Contiene la declaración del componente que se encarga de decidir
+que cosas se seleccionan cuando se hace click izquierdo, y que sobre que
+entidades se actua cuando se hace click derecho.
 
-@see Logic::CRaycastController
+@see Logic::CSelectionController
 @see Logic::IComponent
 
-@author Alberto Ortega
-@date Enero, 2012
+@author Daniel Flamenco
+@date Mayo, 2012
 */
 #ifndef __Logic_SelectionController_H
 #define __Logic_SelectionController_H
@@ -16,24 +18,11 @@ Contiene la declaración del componente que se encarga de gestionar la entidad se
 
 #include "BaseSubsystems/Math.h"
 
-namespace Logic 
-{
-	class IGodState;
-}
+
 //declaración de la clase
 namespace Logic 
 {
-/**
 
-	Este componente es el encargado de gestionar los raycast producidos al hacer click en el ratón.
-	Para ello se apoya en el servidor de física y una vez obtenido la entidad con la que ha chocado el raycast y el punto,
-	le informa al servidor de lógica de este evento.
-	
-    @ingroup logicGroup
-
-	@author Alberto Ortega
-	@date Eneor, 2012
-*/
 	class CSelectionController : public IComponent
 	{
 		DEC_FACTORY(CSelectionController);
@@ -43,8 +32,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CSelectionController() : IComponent(), _canSelect(true),
-			_isSelecting(false), _isWaitingForAction(false), _numStates(6), _raycastStart(false) {}
+		CSelectionController() : IComponent() {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -102,106 +90,59 @@ namespace Logic
 		*/
 		virtual void process(IMessage *message);
 
-		/**
-		Método usado para poder cambiar de estado tanto llamándose desde la misma clase, como de las clases de los estados
-		
-		@param state stado nuevo al que se quiere cambiar
-		*/
-		void changeState(int state);
-
+	private:
 
 		/**
-		Método usado para obtener la entidada que está seleccionada
-
-		@return entidad  seleccionada
+		Metodo que se encarga de comprobar que se ha hecho click izquierdo
+		y si hay una entidad, comprobar que se puede seleccionar.
 		*/
-		CEntity* getSelectedEntity();
+		void prepareSelectionClick();
 
 		/**
-		Método usado para cambiar la entidada que está seleccionada
-
-		@param entity  entidad nueva seleccionada
+		Metodo que se encarga de comprobar que se ha hecho click derecho
+		y si hay una entidad, comprobar que se puede realizar una accion sobre ella.
 		*/
-		void changeSelectedEntity(CEntity* entity);
+		void prepareActionClick();
 
 		/**
-		Método usado para atacar a la entidad sobre la que recae la acción o para dejar de atacarla
-
-		@param entity  entidad a la que se le modifica la vida
-		@param attack  booleano que nos indica si atacar o parar de atacar
+		Metodo que se encarga de procesar que se ha hecho click izquierdo
+		y se ha seleccionado una entidad.
+		<p>
+		Envia un mensaje a la entidad indicando el evento de seleccion.
 		*/
-		void sendAttackMsg(CEntity* entity, bool attack);
-
+		void processSelectionClick();
 
 		/**
-		Método usado para atacar a distancia a la entidad sobre la que recae la acción o para dejar de atacarla
-
-		@param entity  entidad a la que se le modifica la vida
+		Metodo que se encarga de procesar que se ha hecho click derecho
+		y se va a actuar sobre una entidad.
+		<p>
+		Envia un mensaje a la entidad indicando el evento de actuar.
 		*/
-		void sendAttackDistanceMsg(CEntity* entity);
-
+		void processActionClick();
 
 		/**
-		Método usado para curar a la entidad sobre la que recae la acción o para dejar de curarla
-
-		@param entity  entidad a la que se le modifica la vida
-		@param heal    booleano que nos indica si curar o parar de curar
+		Flag que se activa cuando se esta esperando una respuesta
+		de una entidad que sea seleccionable.
 		*/
-		void sendHealerMsg(CEntity* entity, bool heal);
+		bool _waitingForSelectable;
 
 		/**
-		Método usado para mover la entidad sobre la que recae la acción
-
-		@param entity  entidad a la que se mueve
-		@param point   punto al que se mueve
+		Flag que se activa cuando se esta esperando una respuesta
+		de una entidad sobre la que se pueda actuar.
 		*/
-		void moveAStar(CEntity* entity, Vector3 point);
-
-	protected:
-
-		void processEntity( Vector3 colPoint, CEntity* colEntity );
-
-		void startSelection();
-
-		void startAction();
-		void saveSelectedEntity( CEntity* selectedEntity );
-		/**
-		Entidad que se encuentra actualmente seleccionada
-		*/
-		CEntity *_selectedEntity;
-
-		bool _canSelect;
-
-		bool _isSelecting;
-
-		bool _isWaitingForAction;
-
-		bool _raycastStart;
-
-
-		int _skill;
-
+		bool _waitingForActuable;
 
 		/**
-		Variable que contiene el número de estados que va a haber
+		Atributo que almacena el punto de colision del ultimo click
+		de raton que se hizo sobre el mapa.
 		*/
-		int _numStates;
+		Vector3 _worldCollisionPoint;
 
 		/**
-		Variables para almacenar los estados en los que se puede encontrar el selectionController
+		Atributo que contiene el ID de la entidad sobre la que se va a
+		realizar la seleccion o la accion.
 		*/
-		IGodState** _godStates;
-
-
-		/**
-		Estado activo actualmente
-		*/
-		IGodState *_activeState;
-
-		/**
-		Varibale temporal que se va a usar para saber el botón con el que se ha dado click
-		*/
-		int _button;
+		int _targetEntityID;
 		
 	}; // class CSelectedController
 

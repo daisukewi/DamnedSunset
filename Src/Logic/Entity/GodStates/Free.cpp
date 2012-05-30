@@ -23,8 +23,8 @@ namespace Logic
 		
 			if (!entity->getType().compare("Player"))
 			{
-				_selectionController->changeSelectedEntity(entity);
-				_selectionController->changeState(State::PLAYER_SELECTED);
+				//_selectionController->changeSelectedEntity(entity);
+				//_selectionController->changeState(State::PLAYER_SELECTED);
 			}
 
 			if (!entity->getType().compare("Building"))

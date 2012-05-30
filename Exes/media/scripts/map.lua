@@ -92,6 +92,7 @@ Map = {
 		cameraVelocity = 500,
 		grid_position = { 29, 0 },
 		type = "PlayerGod",
+		script = "godScript",
 		cameraDistance = 10,
 		mouseVelocity = 4,
 		mouseDistance = 100,
@@ -125,7 +126,7 @@ Map = {
 		physic_type = "static",
 		physic_shape = "box",
 		physic_radius = 1,
-		physic_dimensions = { 720.0, 0.5, 720.0 },
+		physic_dimensions = { 240.0, 0.5, 240.0 },
 	},
 
 	EnemiesSpawner1 = {

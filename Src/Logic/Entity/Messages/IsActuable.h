@@ -1,17 +1,18 @@
 /**
-@file IsSelectable.h
+@file IsActuable.h
 
-Contiene la declaración del mensaje enviado para preguntar a una entidad si es seleccionable
+Contiene la declaración del mensaje enviado para preguntar a una entidad
+si se puede interactuar con ella o no.
 
 @see Logic::IMessage
 
-@author Alberto Ortega
-@date Enero, 2012
+@author Daniel Flamenco
+@date Mayo, 2012
 */
 
 //Tiene que ir con una M por delante porque si no da problemas con el define del componente Selectable
-#ifndef __Logic_IsSelectable_H
-#define __Logic_IsSelectable_H
+#ifndef __Logic_MIsActuable_H
+#define __Logic_MIsActuable_H
 
 #include "Logic/Entity/Message.h"
 
@@ -22,19 +23,19 @@ namespace Logic
 
 namespace Logic 
 {
-	enum SelectablePetition
+	enum ActuablePetition
 	{
-		SELECTION_REQUEST,
-		SELECTION_RESPONSE
+		ACTION_REQUEST,
+		ACTION_RESPONSE
 	};
 
-	class MIsSelectable : public IMessage
+	class MIsActuable : public IMessage
 	{
 	public:
 		/**
 		Constructor por defecto.
 		*/
-		MIsSelectable();
+		MIsActuable();
 
 		/**
 		Método que devuelve el tipo del mensaje,
@@ -42,13 +43,13 @@ namespace Logic
 
 		@return enumerado que contiene el tipo del mensaje.
 		*/
-		SelectablePetition getMessageType();
+		ActuablePetition getMessageType();
 
 		/**
 		Método que establece el tipo del mensaje,
 		si es de peticion o respuesta de seleccion.
 		*/
-		void setMessageType(SelectablePetition petitionType);
+		void setMessageType(ActuablePetition petitionType);
 
 		/**
 		Establece la entidad que emite este mensaje.
@@ -66,11 +67,11 @@ namespace Logic
 		/**
 		Atributo que contiene el tipo de mensaje que es
 		*/
-		SelectablePetition _petition;
+		ActuablePetition _petition;
 
 		unsigned int _senderID;
 	};
 
 } // namespace Logic
 
-#endif // __Logic_IsSelectable_H
+#endif // __Logic_MIsActuable_H

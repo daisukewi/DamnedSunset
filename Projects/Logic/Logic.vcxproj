@@ -148,6 +148,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EmplaceBuilding.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EntitySelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\Healed.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\IsActuable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\IsTouched.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\KeyboardEvent.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\LanzarGranada.cpp" />
@@ -257,6 +258,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EmplaceBuilding.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EntitySelected.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\Healed.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\IsActuable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\IsTouched.h" />
     <ClInclude Include="..\..\src\logic\entity\messages\KeyboardEvent.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\LanzarGranada.h" />

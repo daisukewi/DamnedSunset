@@ -1,10 +1,6 @@
 #include "Selectable.h"
 
 #include "Logic/Entity/Entity.h"
-#include "Map/MapEntity.h"
-
-#include "Graphics\Server.h"
-#include "Physics\Server.h"
 
 #include "Logic/Maps/Map.h"
 #include "Logic/Entity/Messages/EntitySelected.h"
@@ -54,16 +50,22 @@ namespace Logic
 		if (!message->getType().compare("MIsSelectable")){
 
 			MIsSelectable *m_selectable = static_cast <MIsSelectable*> (message);
-
-			//Obtener la entidad encargadad de controllar el gameplay
-			CEntity *entity = _entity->getMap()->getEntityByName("PlayerGod");
+			if (m_selectable->getMessageType() == SelectablePetition::SELECTION_REQUEST)
+			{
+				//Obtener la entidad encargadad de controllar el gameplay
+				CEntity *senderEntity = m_selectable->getSenderEntity();
+				if (senderEntity == NULL)
+					return;
 			
-			//Crear y enviar el mensaje de entity selected
-			MEntitySelected* m_selected = new MEntitySelected();
-			m_selected->setSelectedEntity(_entity);
-			m_selected->setPoint(m_selectable->getPoint());
-			entity->emitMessage(m_selected);
+				//Crear y enviar el mensaje de entity selected
+				MIsSelectable* m_selected = new MIsSelectable();
+				m_selected->setMessageType(SELECTION_RESPONSE);
+				m_selected->setSenderEntity(_entity);
+				senderEntity->emitInstantMessage(m_selected);
+				//senderEntity->emitMessage(m_selected);
+			}
 		}
+
 	} // process
 
 	//---------------------------------------------------------
@@ -71,9 +73,6 @@ namespace Logic
 	void CSelectable::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
-		
-		
-		
 
 	} // tick
 

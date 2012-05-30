@@ -293,8 +293,7 @@ namespace BaseSubsystems
 
 	bool CServer::initCEGUI()
 	{
-		CEGUI::OgreRenderer& CEGUIRenderer =
-				 CEGUI::OgreRenderer::create(*_renderWindow);
+		CEGUI::OgreRenderer& CEGUIRenderer = CEGUI::OgreRenderer::create(*_renderWindow);
 
 		_luaModule = &CEGUI::LuaScriptModule::create(ScriptManager::CServer::getSingletonPtr()->getLuaState());
 		CEGUI::System::create(CEGUIRenderer, NULL, NULL, NULL, _luaModule, "media/gui/configs/CEGUIConfig.xml"); 
@@ -381,8 +380,9 @@ namespace BaseSubsystems
 	{
 		if(_GUISystem)
 		{
+			//_luaModule->destroyBindings();
 			CEGUI::System::destroy();
-			CEGUI::LuaScriptModule::destroy(*_luaModule);
+			//CEGUI::LuaScriptModule::destroy(*_luaModule);
 			_GUISystem = 0;
 		}
 

@@ -92,7 +92,6 @@ namespace Logic {
 
 	unsigned int CGridMap::getGridSize()
 	{
-		//return _gridSize;
 		return Math::Pow(2, _gridSize);
 
 	} // GetGridSize

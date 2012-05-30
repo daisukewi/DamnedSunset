@@ -108,7 +108,7 @@ namespace GUI {
 
 		GUI::CInterfazController* controller = GUI::CServer::getSingletonPtr()->getInterfazController();
 		
-		if(!controller->isMouseOnInterface()){
+		//if(!controller->isMouseOnInterface()){
 
 			Logic::MMouseEvent *m_message = new Logic::MMouseEvent();
 
@@ -120,7 +120,7 @@ namespace GUI {
 				m_message->setAction(Logic::TMouseAction::MIDDLE_CLICK);
 	
 			Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m_message);
-		}
+		//}
 		
 		return false;
 	} // mouseReleased

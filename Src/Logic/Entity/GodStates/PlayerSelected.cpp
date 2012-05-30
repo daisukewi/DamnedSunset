@@ -32,7 +32,7 @@ namespace Logic
 		
 			if (!entity->getType().compare("Player"))
 			{
-				_selectionController->changeSelectedEntity(entity);
+				//_selectionController->changeSelectedEntity(entity);
 
 			}
 	
@@ -44,9 +44,9 @@ namespace Logic
 			{
 
 				// Dejamos de atacar
-				_selectionController->sendAttackMsg(entity, false);
+				//_selectionController->sendAttackMsg(entity, false);
 				
-				_selectionController->moveAStar(entity, point);
+				//_selectionController->moveAStar(entity, point);
 
 				//Mensaje para que se cree el billboard de movimiento en el mundo
 				Logic::MCrearBillboardMovimiento *mCrearBillboardMovimiento = new Logic::MCrearBillboardMovimiento();
@@ -61,7 +61,7 @@ namespace Logic
 			{
 
 				// Enviamos una orden de ataque al enemigo
-				_selectionController->sendAttackDistanceMsg(entity);
+				//_selectionController->sendAttackDistanceMsg(entity);
 
 			}
 	

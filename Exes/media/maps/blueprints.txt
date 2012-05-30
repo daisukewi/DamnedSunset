@@ -7,7 +7,7 @@ Entity CGraphics
 Enemies CEnemiesGenerator CGraphics CScript
 AnimatedEntity CAnimatedGraphics
 Camera CCamera
-PlayerGod CDayCameraController CDayNightController CCameraController CRaycastController CSelectionController CBuilderController
+PlayerGod CDayCameraController CDayNightController CCameraController CRaycastController CSelectionController CBuilderController CScript
 Building CGraphics CPhysicEntity
 PhantomTurret CGraphics
 Turret CPhysicEntity CMapBuilding CTurretController CSelectable CTriggerEntity CAnimatedGraphics

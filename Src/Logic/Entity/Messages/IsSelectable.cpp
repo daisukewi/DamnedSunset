@@ -9,6 +9,10 @@ Contiene la implementación del mensaje enviado para preguntar a una entidad si e
 
 #include "IsSelectable.h"
 
+#include "Logic/Entity/Entity.h"
+#include "Logic/Server.h"
+#include "Logic/Maps/Map.h"
+
 namespace Logic
 {
 	MIsSelectable::MIsSelectable()
@@ -19,15 +23,24 @@ namespace Logic
 	
 	} // MIsSelectable
 
-	Vector3 MIsSelectable::getPoint()
+	SelectablePetition MIsSelectable::getMessageType()
 	{
-		return _point;
+		return _petition;
 	}
 
-	void MIsSelectable::setPoint(Vector3 point)
+	void MIsSelectable::setMessageType(SelectablePetition petitionType)
 	{
-		_point = point;
+		_petition = petitionType;
 	}
 
+	void MIsSelectable::setSenderEntity(CEntity* sender)
+	{
+		_senderID = sender->getEntityID();
+	}
+
+	CEntity* MIsSelectable::getSenderEntity()
+	{
+		return Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_senderID);
+	}
 
 } // namespace Logic
