@@ -149,19 +149,6 @@ namespace Application {
 			Logic::MDayNight *m = new Logic::MDayNight();
 			m->setTime(Logic::TIME_TYPE::NIGHT);
 			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m);
-			
-			Logic::MActivarComponente *m1 = new Logic::MActivarComponente();
-			m1->setActivar(false);
-			m1->setNombreComponente("CDayCameraController");
-			
-			Logic::MActivarComponente *m2 = new Logic::MActivarComponente();
-			m2->setActivar(true);
-			m2->setNombreComponente("CCameraController");
-			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m1);
-			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m2);
-			
-			
-			_app->setState("game");
 			break;
 		}
 		default:

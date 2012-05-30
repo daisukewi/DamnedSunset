@@ -22,8 +22,7 @@ Contiene la implementación del mensaje de cambiar ciclo dia y noche
 
 #include "Logic/Server.h"
 
-#include <OISMouse.h>
-#include "Application/BaseApplication.h"
+#include "Logic\Entity\Messages\DayNight.h"
 
 namespace ScriptManager
 {
@@ -41,12 +40,9 @@ namespace ScriptManager
 
 	void LUA_MCambiarDiaNoche::send()
 	{
-		//Logic::MCambiarDiaNoche *message = new Logic::MCambiarDiaNoche();
-		//message->setCambiarADia(_cambiarADia);
-		//Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_entityTo)->emitMessage(message);
-
-
-		Application::CBaseApplication::getSingletonPtr()->setState("game");
+		Logic::MDayNight *m = new Logic::MDayNight();
+		m->setTime(Logic::TIME_TYPE::NIGHT);
+		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m);
 	} // sendKFF
 
 	//---------------------------------------------------------

@@ -20,6 +20,7 @@ Contiene la implementación del componente que controla el cambio del día a la no
 
 #include "Logic/Entity/Messages/DayNight.h"
 #include "Logic/Entity/Messages/Damaged.h"
+#include "Logic\Entity\Messages\ActivarComponente.h"
 
 #include "BaseSubsystems/Server.h"
 
@@ -113,7 +114,20 @@ namespace Logic
 				BaseSubsystems::CServer::getSingletonPtr()->addClockListener(_nightTime - _dayTimeAlarm, this);
 				_timeType = TIME_TYPE::NIGHT;
 
+				//Cambiamos la camara
+				Logic::MActivarComponente *m1 = new Logic::MActivarComponente();
+				m1->setActivar(false);
+				m1->setNombreComponente("CDayCameraController");
+			
+				Logic::MActivarComponente *m2 = new Logic::MActivarComponente();
+				m2->setActivar(true);
+				m2->setNombreComponente("CCameraController");
+				_entity->emitMessage(m1);
+				_entity->emitMessage(m2);
+
+
 				Application::CGaleonApplication::getSingletonPtr()->setState("game");
+
 
 			}
 			
@@ -176,8 +190,6 @@ namespace Logic
 
 				}
 				damageMessage->removePtr();
-
-
 
 				_timeType = TIME_TYPE::DAY;
 				Application::CGaleonApplication::getSingletonPtr()->setState("day");
