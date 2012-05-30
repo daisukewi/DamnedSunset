@@ -37,7 +37,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CDistanceAttack():IComponent(){}
+		CDistanceAttack():IComponent(), _attackCountTime(0), _continue(false){}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -113,6 +113,16 @@ namespace Logic
 		Indica si se está atacando continuamente
 		*/
 		bool _continue;
+
+		/**
+		Cada cuánto tiempo se ejecuta el ataque continuo.
+		*/
+		int _attackTime;
+
+		/**
+		Cuenta de cuántos tiempo se lleva sin realizar un ataque.
+		*/
+		int _attackCountTime;
 
 
 	}; // class CDistanceAtack

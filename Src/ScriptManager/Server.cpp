@@ -766,6 +766,7 @@ namespace ScriptManager
 				.def("setEntityTo", (void (LUA_MAttackDistance::*) (unsigned int)) &LUA_MAttackDistance::setEntityTo)
 				.def("setEntity", (void (LUA_MAttackDistance::*) (unsigned int)) &LUA_MAttackDistance::setEntity)
 				.def("setAttack", (void (LUA_MAttackDistance::*) (bool)) &LUA_MAttackDistance::setAttack)
+				.def("setContinue", (void (LUA_MAttackDistance::*) (bool)) &LUA_MAttackDistance::setContinue)
 				.def("send", &LUA_MAttackDistance::send)
 		];
 

@@ -126,6 +126,17 @@ namespace Logic
 	private:
 
 		/**
+		Tranforma posiciones lógicas a posiciones físicas.
+		 */
+		Vector3 fromLogicToPhysics(const Vector3 &v) { return Vector3(v.x, v.y + _offsetY, v.z); };
+
+		/**
+		Transforma posiciones físicas a posiciones lógicas.
+		*/
+		Vector3 fromPhysicsToLogic(const Vector3 &v) { return Vector3(v.x, v.y - _offsetY, v.z); };
+
+
+		/**
 		Este método indica el tipo de trigger que debemos crear (estática, dinámica o 
 		kinemática) a partir de la descripción de la entidad en el fichero de mapa.
 
@@ -154,6 +165,14 @@ namespace Logic
 		*/
 		void createTriggerShape(const Map::CEntity *entityInfo, CPhysicModelSimple *model, float scale);
 
+
+		/**
+		Desplazamiento en el eje Y para transformar entre coordenadas lógicas y coordenadas
+		físicas.
+		 */
+		float _offsetY;
+
+
 		/**
 		Indica si hay que llamar a una función de lua cuando alguna entidad entra en el trigger o no.
 		*/
@@ -163,6 +182,14 @@ namespace Logic
 		Nombre de la función de lua que se llamará cuando otra entidad entre en el trigger.
 		*/
 		const char *_luaTriggerFunction;
+
+
+		/**
+		Controlar si se ha movido la entidad
+		*/
+		bool _setPosition;
+
+		Vector3 _newPosition;
 
 	}; // class CTriggerEntity
 

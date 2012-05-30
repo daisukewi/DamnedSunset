@@ -38,7 +38,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CPlayerPerception() : IComponent(), _distanceOfView(0), _exeFrames(10), _currentExeFrames(0) {}
+		CPlayerPerception() : IComponent(), _distanceOfView(0), _exeFrames(10), _currentExeFrames(0), _minDistance (100000) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -121,6 +121,12 @@ namespace Logic
 		Lista de los enemigos que estoy viendo.
 		*/
 		TEnemyList _enemyEntities;
+
+		/**
+		Distancia a la que se encuentra el enemigo más cercano
+		*/
+		int _minDistance;
+
 
 	}; // class CPlayerPerception
 

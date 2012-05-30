@@ -79,8 +79,9 @@ namespace Logic
 		if (!_type.compare("Player"))
 		{
 			std::stringstream scriptCreate;
-			scriptCreate << "players[" << _entityID << "] = {}";
-			scriptCreate << "players[" << _entityID << "].state = 1";
+			scriptCreate << "players[" << _entityID << "] = {} ";
+			scriptCreate << "players[" << _entityID << "].state = 1 ";
+			scriptCreate << "players[" << _entityID << "].attackEnemy = 0";
 			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreate.str().c_str());
 		}
 

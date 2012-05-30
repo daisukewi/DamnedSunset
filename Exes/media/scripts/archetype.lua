@@ -226,9 +226,9 @@ Archetype = {
 		
 		
 		trigger_shape = "trigger_sphere",
-		trigger_type = "trigger_static",
+		trigger_type = "trigger_dynamic",
 		trigger = true,
-		trigger_radius = 100,
+		trigger_radius = 200,
 		trigger_height = 1,
 		trigger_collision_group = 3,
 	},

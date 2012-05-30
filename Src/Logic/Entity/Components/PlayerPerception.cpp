@@ -65,27 +65,28 @@ namespace Logic
 	void CPlayerPerception::process(IMessage *message)
 	{
 		if (!message->getType().compare("MIsTouched")){
-			MIsTouched *m = static_cast <MIsTouched*> (message);
-			Logic::CEntity *ent = m->getEntity();
+				MIsTouched *m = static_cast <MIsTouched*> (message);
+				Logic::CEntity *ent = m->getEntity();
+				//Si el trigger lo ha activado un enemigo
+				if (!ent->getType().compare("Enemy")){
+					//si ha entrado se añade a la lista de enemigos detntro del trigger
+					if (m->getTouched()){
+						_enemyEntities.push_back(ent);
+						std::cout << "ENEMIGO HA ENTRADO \n";
+					//Si ha salido, eliminar de la lista y avisar a LUA de que lo ha dejado de ver
+					}else{
+						std::cout << "ENEMIGO HA SALIDO \n";
+						if (true){	
+							
+							std::stringstream script;
+							script << "playerEventParam = { target = " << ent->getEntityID() << ", distance = " << 0 << " } ";
+							script << "playerEvent(\"OnEnemyLost\", " << _entity->getEntityID() << ")";
+							ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
-			//Si el trigger lo ha activado un enemigo
-			if (!ent->getType().compare("Enemy")){
-				//si ha entrado se añade a la lista de enemigos detntro del trigger
-				if (m->getTouched()){
-					_enemyEntities.push_back(ent);
-					std::cout << "ENEMIGO HA ENTRADO";
-				//Si ha salido, eliminar de la lista y avisar a LUA de que lo ha dejado de ver
-				}else{
-					
-					std::cout << "ENEMIGO HA SALIDO";
-					std::stringstream script;
-					script << "playerEventParam = { target = " << ent->getEntityID() << ", distance = " << 0 << " } ";
-					script << "playerEvent(\"OnEnemyLost\", " << _entity->getEntityID() << ")";
-					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-
-					_enemyEntities.remove(ent);
-		}
-			}
+							_enemyEntities.remove(ent);
+						}
+					}
+				}
 			
 		}
 	} // process
@@ -96,7 +97,7 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 		
-		if (!_entity->getSelected()){
+		if (true){
 			
 			_currentExeFrames++;
 
@@ -108,33 +109,36 @@ namespace Logic
 
 				//Recorrer la lista para saber cual es el enemigo más cercano y enviar un OnEnemySeen a la IA de LUA para que sea su nuevo objetivo 
 				TEnemyList::iterator it = _enemyEntities.begin();
-				CEntity *minDistanceEntity;
-				
-				int minDistance = 10000000;
+				CEntity *minDistanceEntity = NULL;
+	
 
 				//Obtener el enemigo más cercano
 				for (; it != _enemyEntities.end(); it++)
 				{
-					// Calculo la distancia entre el jugador y la entidad actual. (Distancia Manhattan)
-					int xDistance = std::abs((*it)->getPosition().x - _entity->getPosition().x);
-					int yDistance = std::abs((*it)->getPosition().z - _entity->getPosition().z);
+					if ((*it)){
+						// Calculo la distancia entre el jugador y la entidad actual. (Distancia Manhattan)
+						int xDistance = std::abs((*it)->getPosition().x - _entity->getPosition().x);
+						int yDistance = std::abs((*it)->getPosition().z - _entity->getPosition().z);
+						
+
+						int distance = xDistance + yDistance;
 
 
-
-					int distance = xDistance + yDistance;
-
-
-					if (distance < minDistance){
-						minDistance = distance;
-						minDistanceEntity = (*it);
+						if (distance < _minDistance){
+							_minDistance = distance;
+							minDistanceEntity = (*it);
+						}
+					}else{
+						_enemyEntities.remove((*it));
 					}
+
 				
 				}
 
 				if (minDistanceEntity){
 					//Avisar a LUA del enemigo más cercano
 					std::stringstream script;
-					script << "playerEventParam = { target = " << minDistanceEntity->getEntityID() << ", distance = " << minDistance << " } ";
+					script << "playerEventParam = { target = " << minDistanceEntity->getEntityID() << ", distance = " << _minDistance << " } ";
 					script << "playerEvent(\"OnEnemySeen\", " << _entity->getEntityID() << ")";
 					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 				}

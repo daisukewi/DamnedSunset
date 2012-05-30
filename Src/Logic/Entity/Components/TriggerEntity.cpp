@@ -20,8 +20,10 @@ Contiene la implementación del componente encargado de la representación de los 
 #include "Physics/Server.h"
 #include "Physics/PhysicModelSimple.h"
 #include "Physics/IPhysicObj.h"
+#include "PhysicCharacter.h"
 
 #include "Logic/Entity/Messages/IsTouched.h"
+#include "Logic/Entity/Messages/SetTransform.h"
 
 #include "ScriptManager/Server.h"
 
@@ -37,7 +39,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	CTriggerEntity::CTriggerEntity() : IComponent(), _physicObj(NULL)
+	CTriggerEntity::CTriggerEntity() : IComponent(), _physicObj(NULL),  _offsetY(0), _setPosition(false)
 	{
 		_physicServer = CServer::getSingletonPtr();
 	}
@@ -74,6 +76,7 @@ namespace Logic
 		// Crear el objeto físico asociado al componente
 		_physicObj = createTriggerEntity(entityInfo);
 
+		_setPosition = false;
 		return (_physicObj != NULL);
 	} 
 
@@ -81,14 +84,18 @@ namespace Logic
 
 	bool CTriggerEntity::accept(IMessage *message)
 	{
-		return false;
+		return (!message->getType().compare("MSetTransform"));
 	}
 
 	//---------------------------------------------------------
 
 	void CTriggerEntity::process(IMessage *message)
 	{
-	
+		if (!message->getType().compare("MSetTransform")){
+			_setPosition = true;
+			MSetTransform *m = static_cast <MSetTransform*> (message);
+			_newPosition = m->getTransform().getTrans();
+		}
 	}
 
 	//---------------------------------------------------------
@@ -97,6 +104,13 @@ namespace Logic
 	{
 		// Invocar al método de la clase padre
 		IComponent::tick(msecs);
+
+		if (_setPosition){
+			if (_physicObj){
+				_physicServer->setPosition((CPhysicObjCharacter* )_physicObj,_newPosition);
+			}
+			_setPosition = false;
+		}
 	}
 
 	//---------------------------------------------------------

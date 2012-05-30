@@ -44,31 +44,33 @@ end
 -- Recogida de eventos del mantener posición.
 function playerHoldStateEvent(event, entity)
 	local nextState
+	--print('PLAYERHOLDSTATEEVENT')
 	if (event == "OnFollow") then
 		
 		nextState = 2
 	elseif (event == "OnEnemySeen") then
 	
-		if (playerEventParam.distance < distance) then
-			distance = playerEventParam.distance
+		if (players[entity].attackEnemy == playerEventParam.target) then
+		
+		else
+			players[entity].attackEnemy = playerEventParam.target
+			
+			
 			
 			local mensaje = LUA_MAttackDistance()
+			mensaje:setContinue(true)
 			mensaje:setAttack(true)
 			mensaje:setEntityTo(entity)
 			mensaje:setEntity(playerEventParam.target)
 			mensaje:send()
+		
+		
+			print('MENSAJE ENVIADO')
 		end
 		
 		nextState = 3
-		
-	elseif (event == "OnEnemyLost") then
-		
-		local mensaje = LUA_MAttackDistance()
-		mensaje:setAttack(false)
-		mensaje:setEntityTo(entity)
-		mensaje:setEntity(playerEventParam.target)
-		mensaje:send()
-	
+
+	else
 		nextState = 3
 	end
 	
@@ -99,16 +101,13 @@ playerStates = {
 	{ name = "hold", state = playerHoldState },
 }
 
--- Contiene la distancia a la que está la entidad que se está atacando
-distance = 0
-
 -- Función que recogerá los eventos a los cuales reaccionará la máquina de estados.
 function playerEvent(event, entity)
-	print('playerEvent: ')
+	--print('playerEvent: ')
 	
 	if (event == "StateChange") then
 		local state
-		print(playerEventParam.state )
+		--print(playerEventParam.state )
 		if (playerEventParam.state == 'idle') then
 			state = 1
 			print('IDLE')
@@ -122,14 +121,13 @@ function playerEvent(event, entity)
 		
 		players[entity].state = state
 	else
-		local nextState = states[players[entity].state].state.event(event, entity)
+		local nextState = playerStates[players[entity].state].state.event(event, entity)
 		players[entity].state = nextState
 	end
 end
 
 -- Función que se llamará en cada tick para ejecutar las acciones que haga falta en el estado actual.
 function playerAIAction(entity)
-	print('playerAIAction: ')
 	local nextState = playerStates[players[entity].state].state.action(entity)
 	players[entity].state = nextState
 end
