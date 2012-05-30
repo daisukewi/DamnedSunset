@@ -155,6 +155,9 @@ namespace Application
 		virtual bool mouseReleased(const GUI::CMouseState &mouseState)
 														{return false;}
 
+		void setState(std::string stateName) {
+			_app->setState(stateName);
+		}
 	protected:
 		/**
 		Puntero a la aplicación a la que pertenece el estado

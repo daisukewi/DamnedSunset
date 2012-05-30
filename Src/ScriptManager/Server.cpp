@@ -17,6 +17,7 @@ la gestión de los scripts del juego.
 #include "ScriptManager\Classes\Messages\LUA_SpawnEnemy.h"
 #include "ScriptManager\Classes\Messages\LUA_AttackDistance.h"
 #include "ScriptManager\Classes\Messages\LUA_EntitySelected.h"
+#include "ScriptManager\Classes\Messages\LUA_CambiarDiaNoche.h"
 
 // Incluímos las cabedceras de Lua.
 // Como es código C (no C++), hay que indicarselo al
@@ -780,6 +781,14 @@ namespace ScriptManager
 				.def("send", &LUA_MEntitySelected::send)
 		];
 
+		// LUA_MCambiarDiaNoche
+		luabind::module(_lua)
+		[
+			luabind::class_<LUA_MCambiarDiaNoche>("LUA_MCambiarDiaNoche")
+				.def(luabind::constructor<>())
+				.def("setCambiarADia", (void (LUA_MCambiarDiaNoche::*) (bool)) &LUA_MCambiarDiaNoche::setCambiarADia)
+				.def("send", &LUA_MCambiarDiaNoche::send)
+		];
 		//---------------------------------------------------------
 
 	}

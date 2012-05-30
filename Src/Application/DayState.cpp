@@ -72,7 +72,7 @@ namespace Application {
 		GUI::CServer::getSingletonPtr()->getInterfazController()->deactivate();
 
 		//Interfaz lua Dia
-		//ScriptManager::CServer::getSingletonPtr()->executeProcedure("inicializarInterfazControles");
+		ScriptManager::CServer::getSingletonPtr()->executeProcedure("inicializarInterfazControles");
 
 		// Mostramos el ratón
 		CEGUI::MouseCursor::getSingleton().show();

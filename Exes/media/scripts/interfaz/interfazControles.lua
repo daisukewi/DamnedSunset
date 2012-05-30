@@ -1,5 +1,7 @@
-function fsadfsadf()
-	print("fsadfsadf")
+function cambiarADia()
+	local mensaje = LUA_MCambiarDiaNoche()
+	mensaje:setCambiarADia(false)
+	mensaje:send()
 end
 
 function funcionConstruir()
@@ -14,8 +16,8 @@ function inicializarBotonesDia()
 	print("inicializarBotonesDia")
 	cargarBoton(1,"martillo","funcionConstruir")
 	cargarBoton(2,"granada","funcionConstruir")
-	cargarBoton(3,"bolazul","funcionConstruir")
-	cargarBoton(4,"jeringa","funcionConstruir")
+	cargarBoton(3,"jeringa","funcionConstruir")
+	cargarBoton(4,"bolazul","cambiarADia")
 end
 
 

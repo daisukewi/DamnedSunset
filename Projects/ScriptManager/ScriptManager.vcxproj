@@ -14,6 +14,7 @@
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AStarRoute.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AttackDistance.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AttackEntity.h" />
+    <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_CambiarDiaNoche.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_EntitySelected.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_Message.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_SpawnEnemy.h" />
@@ -24,6 +25,7 @@
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AStarRoute.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AttackDistance.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_AttackEntity.cpp" />
+    <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_CambiarDiaNoche.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_EntitySelected.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_Message.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_SpawnEnemy.cpp" />
@@ -66,7 +68,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\dependencies\include\OGRE;..\..\dependencies\include\lua;..\..\dependencies\include\;..\..\Src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\dependencies\include\OGRE;..\..\dependencies\include\lua;../../dependencies/include/OIS;..\..\dependencies\include\;..\..\Src</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_MBCS;LUABIND_DYNAMIC_LINK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
