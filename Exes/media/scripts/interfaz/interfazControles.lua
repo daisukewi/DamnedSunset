@@ -1,39 +1,24 @@
-function cambiarADia()
-	local mensaje = LUA_MCambiarDiaNoche()
-	mensaje:setCambiarADia(false)
-	mensaje:send()
-end
-
-function funcionConstruir()
-	print("funcionConstruir")
-	cargarBoton(1,"torreta","inicializarBotonesDia")
-	cargarBoton(2,"torreta","inicializarBotonesDia")
-	cargarBoton(3,"torreta","inicializarBotonesDia")
-	cargarBoton(4,"volver","inicializarBotonesDia")
-end
-
-function inicializarBotonesDia()
-	print("inicializarBotonesDia")
-	cargarBoton(1,"martillo","funcionConstruir")
-	cargarBoton(2,"granada","funcionConstruir")
-	cargarBoton(3,"jeringa","funcionConstruir")
-	cargarBoton(4,"bolazul","cambiarADia")
-end
-
-
 --Las funciones de los botones redirigen a la funcion que asignemos a dicho boton
 --No asignamos directamente las funciones al evento del boton, porque da problemas al cambiar el mismo evento que se esta produciendo
 function clickBoton1()
-	_G[funcionBoton1]()
+	if funcionBoton1 ~= "" then
+		_G[funcionBoton1]()
+	end
 end
 function clickBoton2()
-	_G[funcionBoton2]()
+	if funcionBoton2 ~= "" then
+		_G[funcionBoton2]()
+	end
 end
 function clickBoton3()
-	_G[funcionBoton3]()
+	if funcionBoton3 ~= "" then
+		_G[funcionBoton3]()
+	end
 end
 function clickBoton4()
-	_G[funcionBoton4]()
+	if funcionBoton4 ~= "" then
+		_G[funcionBoton4]()
+	end
 end
 
 --Funcion que cargar en un boton, una imagen y una funcion
@@ -42,8 +27,6 @@ function cargarBoton(numBoton,imageName,funcion)
 	local boton
 	if numBoton == 1 then
 		boton = botonControles1
-		print("asignada funcion1 a: ")
-		print(funcion)
 		funcionBoton1 = funcion
     elseif numBoton == 2 then
 		boton = botonControles2
@@ -65,10 +48,25 @@ function cargarBoton(numBoton,imageName,funcion)
 	boton:setProperty("HoverImage",imageNameFinal)
 	imageNameFinal = imageNameComun .. imageName .. 3
 	boton:setProperty("PushedImage",imageNameFinal)
+	boton:setVisible(true)
+end
+
+function ocultarBoton(numBoton)
+	if numBoton == 1 then
+		botonControles1:setVisible(false)
+    elseif numBoton == 2 then
+		botonControles2:setVisible(false)
+    elseif numBoton == 3 then
+		botonControles3:setVisible(false)
+	elseif numBoton == 4 then
+		botonControles4:setVisible(false)
+    end
 end
 
 --Inicializacion de la interfaz de los controles
 function inicializarInterfazControles()
+	print("inicializarInterfazControles")
+
 	-- Cargamos la interfaz
 	CEGUI.WindowManager:getSingleton():loadWindowLayout("InterfazControles.layout")
 	interfazC = CEGUI.WindowManager:getSingleton():getWindow("InterfazControles")
