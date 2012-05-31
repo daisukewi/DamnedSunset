@@ -22,8 +22,8 @@ namespace ScriptManager
 	{
 		LUA_IMessage();
 
-		_interface = false;
-		_selectedEntity = "Jack";
+		_selectedEntity = "";
+		_selectedEntityID = 0;
 
 		_type = "LUA_MEntitySelected";
 
@@ -39,36 +39,26 @@ namespace ScriptManager
 
 	//---------------------------------------------------------
 
-	std::string LUA_MEntitySelected::getSelectedEntity()
+	void LUA_MEntitySelected::setSelectedEntity(unsigned int entityID)
 	{
-		return _selectedEntity;
+		_selectedEntityID = entityID;
 
-	} // getSelectedEntity
-
-	//---------------------------------------------------------
-
-	void LUA_MEntitySelected::setInterface(bool interfaz)
-	{
-		_interface = interfaz;
-
-	} // setInterface
-
-	//---------------------------------------------------------
-
-	bool LUA_MEntitySelected::getInterface()
-	{
-		return _interface;
-
-	} // getInterface
+	} // setSelectedEntity
 
 	//---------------------------------------------------------
 
 	void LUA_MEntitySelected::send()
 	{
+		Logic::CEntity *selectedEntity = NULL;
 		Logic::MEntitySelected *m = new Logic::MEntitySelected();
-		m->setSelectedEntity(Logic::CServer::getSingletonPtr()->getMap()->getEntityByName(_selectedEntity));
-		m->setInterface(_interface);
-		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m);
+
+		if (_selectedEntityID != 0)
+			selectedEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_selectedEntityID);
+		else
+			selectedEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName(_selectedEntity);
+
+		m->setSelectedEntity(selectedEntity);
+		Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(this->getEntityTo())->emitMessage(m);
 
 	} // send
 

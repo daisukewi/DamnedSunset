@@ -50,6 +50,9 @@
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_CambiarDiaNoche.h">
       <Filter>Classes\Messages\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_UbicarCamara.h">
+      <Filter>Classes\Messages\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\ScriptManager\Server.cpp">
@@ -77,6 +80,9 @@
       <Filter>Classes\Messages\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_CambiarDiaNoche.cpp">
+      <Filter>Classes\Messages\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_UbicarCamara.cpp">
       <Filter>Classes\Messages\Source Files</Filter>
     </ClCompile>
   </ItemGroup>

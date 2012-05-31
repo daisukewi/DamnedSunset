@@ -18,6 +18,7 @@ la gestión de los scripts del juego.
 #include "ScriptManager\Classes\Messages\LUA_AttackDistance.h"
 #include "ScriptManager\Classes\Messages\LUA_EntitySelected.h"
 #include "ScriptManager\Classes\Messages\LUA_CambiarDiaNoche.h"
+#include "ScriptManager\Classes\Messages\LUA_UbicarCamara.h"
 
 // Incluímos las cabedceras de Lua.
 // Como es código C (no C++), hay que indicarselo al
@@ -670,7 +671,7 @@ namespace ScriptManager
 		std::cout << message;
 		std::cout << std::endl;
 
-		assert(!"Ha ocurrido un error con lua. Mira la consola para saber porqué.");
+		//assert(!"Ha ocurrido un error con lua. Mira la consola para saber porqué.");
 	
 	} // showErrorMessage
 
@@ -751,14 +752,13 @@ namespace ScriptManager
 		];
 
 		// LUA_MEntitySelected
-
 		luabind::module(_lua)
 		[
 			luabind::class_<LUA_MEntitySelected>("LUA_MEntitySelected")
 				.def(luabind::constructor<>())
 				.def("setEntityTo", (void (LUA_MEntitySelected::*) (unsigned int)) &LUA_MEntitySelected::setEntityTo)
 				.def("setSelectedEntity", (void (LUA_MEntitySelected::*) (std::string)) &LUA_MEntitySelected::setSelectedEntity)
-				.def("setInterface", (void (LUA_MEntitySelected::*) (bool)) &LUA_MEntitySelected::setInterface)
+				.def("setSelectedEntity", (void (LUA_MEntitySelected::*) (unsigned int)) &LUA_MEntitySelected::setSelectedEntity)
 				.def("send", &LUA_MEntitySelected::send)
 		];
 
@@ -770,6 +770,15 @@ namespace ScriptManager
 				.def("setCambiarADia", (void (LUA_MCambiarDiaNoche::*) (bool)) &LUA_MCambiarDiaNoche::setCambiarADia)
 				.def("send", &LUA_MCambiarDiaNoche::send)
 		];
+
+		// LUA_MUbicarCamara
+		luabind::module(_lua)
+			[
+				luabind::class_<LUA_MUbicarCamara>("LUA_MUbicarCamara")
+				.def(luabind::constructor<>())
+				.def("setTarget", (void (LUA_MEntitySelected::*) (unsigned int)) &LUA_MEntitySelected::setEntityTo)
+				.def("send", &LUA_MEntitySelected::send)
+			];
 		//---------------------------------------------------------
 
 	}

@@ -40,19 +40,9 @@ namespace ScriptManager
 		void setSelectedEntity(std::string entity);
 
 		/**
-		Devuelve la entidad almacenada en el mensaje.
+		Establece en el mensaje la entidad seleccionada.
 		*/
-		std::string getSelectedEntity();
-
-		/**
-		Establece en el mensaje si el mensaje ha sido enviado desde la interfaz.
-		*/
-		void setInterface(bool interface);
-
-		/**
-		Devuelve si el mensaje ha sido enviado desde la interfaz.
-		*/
-		bool getInterface();
+		void setSelectedEntity(unsigned int entityID);
 
 	protected:
 
@@ -61,10 +51,7 @@ namespace ScriptManager
 		*/
 		std::string _selectedEntity;
 
-		/**
-		Atributo que contiene si el mensaje ha sido enviado desde la interfaz
-		*/
-		bool _interface;
+		unsigned int _selectedEntityID;
 
 	}; // class LUA_MEntitySelected
 

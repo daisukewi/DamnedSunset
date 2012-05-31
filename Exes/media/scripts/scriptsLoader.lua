@@ -1,6 +1,7 @@
 function loadScripts()
 	SManager:loadScript("utils")
 	SManager:loadScript("playerScript")
+	SManager:loadScript("habilities")
 	
 	-- Scripts de la máquina de estados de la IA de los enemigos.
 	SManager:loadScript("enemyIdleState")
