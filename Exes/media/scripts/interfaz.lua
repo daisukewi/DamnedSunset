@@ -1,5 +1,21 @@
 function interfazTick(text)
 	fpsWindow:setText(text)
+	minutos = minutos + 1
+
+	if minutos <= 9 and minutos >= 0 then
+		winMgr:getWindow("Interfaz/ToSunsetText"):setText(horas .. " : 0" .. minutos)
+	else
+		winMgr:getWindow("Interfaz/ToSunsetText"):setText(horas .. " : " .. minutos)
+	end
+
+	if minutos == 59 then
+		horas = horas + 1
+		minutos = -1
+		if horas == 24 then
+			horas = 00
+		end
+	end
+
 end
 
 function init()
@@ -30,7 +46,7 @@ function activate()
 	fpsWindow:setVisible(true)
 	fpsWindow:activate()
 
-	sacarVentana("Dream Theater")
+	--sacarVentana(os.clock())
 end
 
 function deactivate()
@@ -79,3 +95,5 @@ winMgr = CEGUI.WindowManager:getSingleton()
 interfazW = 0
 fpsWindow = 0
 textWindow = 0
+horas = 21
+minutos = 00

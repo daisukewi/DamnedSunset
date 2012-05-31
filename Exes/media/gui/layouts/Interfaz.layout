@@ -3,6 +3,17 @@
 <GUILayout >
     <Window Type="DefaultWindow" Name="Interfaz" >
         <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Window Type="WindowsLook/StaticImage" Name="Interfaz/ToSunset" >
+            <Property Name="Font" Value="FairChar-30" />
+            <Property Name="Text" Value="Time: " />
+            <Property Name="Image" Value="set:ToSunset image:toSunset" />
+            <Property Name="UnifiedAreaRect" Value="{{0.4,0},{0.01,0},{0.6,0},{0.12,0}}" />
+        </Window>
+        <Window Type="WindowsLook/StaticText" Name="Interfaz/ToSunsetText" >
+            <Property Name="CaptionFont" Value="DejaVuSans-10" />
+            <Property Name="Text" Value="21 : 00" />
+            <Property Name="UnifiedAreaRect" Value="{{0.42,0},{0.02,0},{0.5,0},{0.07,0}}" />
+        </Window>
         <Window Type="TaharezLook/ImageButton" Name="Interfaz/bPersonaje1" >
             <Property Name="Font" Value="DejaVuSans-10" />
             <Property Name="HoverImage" Value="set:Interfaz image:Personaje1h" />
@@ -58,12 +69,12 @@
             <Property Name="HorzFormatting" Value="WordWrapLeftAligned" />
             <Property Name="UnifiedAreaRect" Value="{{0.501811,0},{0.805776,0},{0.654786,0},{0.846534,0}}" />
         </Window>
-        <Window Type="OgreTray/FrameWindow" Name="Interfaz/Tiempo" >
-            <Property Name="Text" Value="Time: " />
+        <Window Type="OgreTray/FrameWindow" Name="Interfaz/Recursos" >
+            <Property Name="Text" Value="Solium: 1000" />
             <Property Name="CaptionFont" Value="DejaVuSans-10" />
             <Property Name="SizingEnabled" Value="False" />
             <Property Name="TitlebarEnabled" Value="True" />
-            <Property Name="UnifiedAreaRect" Value="{{0.81316,0},{0.797135,0},{0.991867,0},{0.851823,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.81316,0},{0.01,0},{0.991867,0},{0.07,0}}" />
             <Property Name="DragMovingEnabled" Value="False" />
             <Property Name="CloseButtonEnabled" Value="False" />
         </Window>

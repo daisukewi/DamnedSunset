@@ -3,4 +3,5 @@
 	<Imageset Filename="InterfazUtils.imageset" />
 	<Imageset Filename="Interfaz.imageset" />
 	<Imageset Filename="damnedSet.imageset" />
+  <Imageset Filename="ToSunset.imageset" />
 </GUIScheme>
