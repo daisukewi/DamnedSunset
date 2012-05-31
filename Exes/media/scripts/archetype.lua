@@ -21,8 +21,6 @@ Archetype = {
 		dayTimeAlarm = 1000,
 		nightTime = 1000000,
 		speed = 0.15,
-		safeLimit = 110.0,
-		initPoint = { 0, 0, 0 },
 	},
 	
 	Obstacle = {
@@ -206,8 +204,8 @@ Archetype = {
 		tag = "player",
 		position = {0, 5, 0},
 		orientation = 180,
-		life = 100.0,
-		maxLife = 100.0,
+		life = 5000.0,
+		maxLife = 5000.0,
 		isPlayer = false,
 		model = "marine.mesh",
 		defaultAnimation = "Idle",
@@ -242,12 +240,12 @@ Archetype = {
 		initState = 1,
 		
 		trigger_shape = "trigger_sphere",
-		trigger_type = "trigger_dynamic",
+		trigger_type = "trigger_kinematic",
 		trigger = true,
-		trigger_radius = 25,
-		trigger_radius = 200,
-		trigger_height = 1,
+		trigger_radius = 50,
 		trigger_collision_group = 3,
+		
+		damage = 10,
 	},
 	
 	Waypoint = {
@@ -256,6 +254,14 @@ Archetype = {
 		orientation = 0,
 		model = "Esfera.mesh",
 		scale = 8.0,
+	},
+	
+	CentroMando = {
+		type = "CentroMando",
+		position = {0, 0, 0},
+		cupulaPosition = {0, 0, 0},
+		cupulaRadius = 100.0,
+		scale = 1.0,
 	},
 	
 }

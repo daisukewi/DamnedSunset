@@ -53,6 +53,7 @@ namespace ScriptManager
 		Logic::MAttackDistance *message = new Logic::MAttackDistance();
 		message->setContinue(_continue);
 		message->setAttack(_attack);
+		message->setEntityID(_entity);
 		message->setEntity(Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_entity));
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_entityTo)->emitMessage(message);
 

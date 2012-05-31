@@ -64,33 +64,6 @@ namespace Logic
 
 	bool CPlayerAIController::activate()
 	{
-		
-		// Busco todas las entidades de tipo Enemy del mapa.
-		/*std::list<Logic::CEntity*> _playerEntities;
-		Logic::CEntity *ent = _entity->getMap()->getEntityByType("Enemy");
-		while (ent != NULL)
-		{
-			_playerEntities.push_back(ent);
-			ent = _entity->getMap()->getEntityByType("Enemy", ent);
-		}
-		if (ent != NULL){
-			// Construyo la estructura de datos que me va a servir para saber a que enemigos veo.
-			std::stringstream script;
-			script << "players[" << _entity->getEntityID() << "].enemiesSeen = { ";
-
-			std::list<Logic::CEntity*>::const_iterator it = _playerEntities.begin();
-			script << "[" << (*it)->getEntityID() << "] = false";
-			it++;
-			for (; it != _playerEntities.end(); it++)
-			{
-				script << ", " << "[" << (*it)->getEntityID() << "] = false";
-			}
-			script << " }";
-
-			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-		}
-		_state = "idle";*/
-
 		return true;
 		
 	} // activate
@@ -167,7 +140,7 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
-		if (!_entity->getSelected()){
+		if (true){
 			_currentExeFrames++;
 
 			// Ejecuto la IA si toca.

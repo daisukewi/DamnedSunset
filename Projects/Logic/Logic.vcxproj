@@ -81,6 +81,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BillboardIndicacionMover.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BillboardSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\BuilderController.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Cupula.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DayCameraController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DayNightController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DetonadorBolaTeltr.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\BillboardSelected.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\BuilderController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\CameraController.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Cupula.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DamageTrigger.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DayCameraController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DayNightController.h" />

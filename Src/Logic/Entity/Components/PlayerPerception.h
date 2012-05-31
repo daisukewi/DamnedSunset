@@ -38,7 +38,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CPlayerPerception() : IComponent(), _distanceOfView(0), _exeFrames(10), _currentExeFrames(0), _minDistance (100000) {}
+		CPlayerPerception() : IComponent(), _distanceOfView(0), _perceptionCountTime(0), _minDistance (100000), _minDistanceEntity(-1) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -98,16 +98,6 @@ namespace Logic
 	protected:
 
 		/**
-		Cada cuántos frames se ejecuta la percepción.
-		*/
-		int _exeFrames;
-
-		/**
-		Cuenta de cuántos frames van ejecutados sin hacer la percepción.
-		*/
-		int _currentExeFrames;
-
-		/**
 		Distancia de visión de la entidad.
 		*/
 		int _distanceOfView;
@@ -115,17 +105,39 @@ namespace Logic
 		/**
 		Tipo lista de enemigos.
 		*/
-		typedef std::list<Logic::CEntity*> TEnemyList;
+		typedef std::list<unsigned int> TEnemyList;
 
 		/**
-		Lista de los enemigos que estoy viendo.
+		Lista de los id enemigos que estoy viendo.
 		*/
 		TEnemyList _enemyEntities;
+
+		/**
+		Lista de los id de los enemigos que han salido del trigger
+		*/
+		TEnemyList _enemyTriggerOut;
+
 
 		/**
 		Distancia a la que se encuentra el enemigo más cercano
 		*/
 		int _minDistance;
+
+		/**
+		Enemigo más cercano
+		*/
+		int _minDistanceEntity;
+
+		/**
+		Cada cuánto tiempo se ejecuta la percepcion.
+		*/
+		int _perceptionTime;
+
+		/**
+		Cuenta de cuántos tiempo se lleva sin realizarse la percepción.
+		*/
+		int _perceptionCountTime;
+
 
 
 	}; // class CPlayerPerception

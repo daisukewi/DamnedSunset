@@ -37,7 +37,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CDistanceAttack():IComponent(), _attackCountTime(0), _continue(false){}
+		CDistanceAttack():IComponent(), _attackCountTime(0), _continue(false), _IDAttackEntity(-1){}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -108,6 +108,12 @@ namespace Logic
 		Entidad a la que se está atacando cuando es necesario atacar de modo contínuo 
 		*/
 		CEntity *_attackEntity;
+
+
+		/**
+		ID de la entidad a la que se está atacando
+		*/
+		unsigned int _IDAttackEntity;
 
 		/**
 		Indica si se está atacando continuamente

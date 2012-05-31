@@ -30,6 +30,7 @@ namespace ScriptManager
 
 		_type = "LUA_MAStarRoute";
 		_failed = false;
+		_start = true;
 
 	} // MAStarRoute
 
@@ -114,15 +115,30 @@ namespace ScriptManager
 	} // setRouteFailed
 
 	//---------------------------------------------------------
+	void LUA_MAStarRoute::setStart(bool start){
+	
+		_start = start;
+	}// setStart
 
+	//---------------------------------------------------------
+
+	bool LUA_MAStarRoute::getStart(){
+		return _start;
+	}// getStart
+
+	//---------------------------------------------------------
 	void LUA_MAStarRoute::send()
 	{
 		//assert(!_entityTo == Logic::EntityID::UNASSIGNED && "No se ha indicado a que entidad se envía el mensaje");
 
 		Logic::MAStarRoute *message = new Logic::MAStarRoute();
+		if (_start){
+			message->setAction(Logic::RouteAction::START_ROUTE);
+			message->setRouteDestination(Vector3(_destPointX,_destPointY,_destPointZ));
+		}else{
+			message->setAction(Logic::RouteAction::STOP_ROUTE);
+		}
 		
-		message->setAction(Logic::RouteAction::START_ROUTE);
-		message->setRouteDestination(Vector3(_destPointX,_destPointY,_destPointZ));
 	
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_entityTo)->emitMessage(message);
 

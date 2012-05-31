@@ -18,6 +18,8 @@ Contiene la implementación del componente que controla la percepción de los play
 #include "Logic/Entity/Messages/AttackEntity.h"
 #include "Logic/Entity/Messages/IsTouched.h"
 
+#include "Logic/Server.h"
+
 
 
 #include <sstream>
@@ -31,6 +33,14 @@ namespace Logic
 
 	bool CPlayerPerception::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
 	{
+
+		if (entityInfo->hasAttribute("perceptionTime")){
+			_perceptionTime = entityInfo->getIntAttribute("perceptionTime");
+		}else{
+			_perceptionTime = 50;
+		}
+
+
 		return true;
 
 	} // spawn
@@ -69,13 +79,16 @@ namespace Logic
 				Logic::CEntity *ent = m->getEntity();
 				//Si el trigger lo ha activado un enemigo
 				if (!ent->getType().compare("Enemy")){
+
 					//si ha entrado se añade a la lista de enemigos detntro del trigger
 					if (m->getTouched()){
-						_enemyEntities.push_back(ent);
-						std::cout << "ENEMIGO HA ENTRADO \n";
+						_enemyEntities.push_back(ent->getEntityID());
+						std::cout << "\n ENEMIGO HA ENTRADO \n";
+					
 					//Si ha salido, eliminar de la lista y avisar a LUA de que lo ha dejado de ver
 					}else{
-						std::cout << "ENEMIGO HA SALIDO \n";
+					
+						std::cout << "\n ENEMIGO HA SALIDO \n";
 						if (true){	
 							
 							std::stringstream script;
@@ -83,7 +96,13 @@ namespace Logic
 							script << "playerEvent(\"OnEnemyLost\", " << _entity->getEntityID() << ")";
 							ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
-							_enemyEntities.remove(ent);
+							//En caso de que salga del trigger y muera, solo se mandaría a LUA el aviso
+							//de que está fuera del trigger, no el de muerte, ya que cuando se analizan las entidades muertas dentro del 
+							//trigger, está ya no existe por haberla sacado de la lista. Así que es necesario hacer una lista de entidades a 
+							//borrar por haber salido fuera del trigger, y tenerla en cuenta después de eliminar las entidades muertas 
+							//ya que una vez muerta no importa lo que ha pasado con ella.
+							_enemyTriggerOut.push_back(ent->getEntityID());
+
 						}
 					}
 				}
@@ -99,26 +118,31 @@ namespace Logic
 		
 		if (true){
 			
-			_currentExeFrames++;
+			_perceptionCountTime+=msecs;
 
 			// Ejecuto la percepción si toca.
-			if (_exeFrames >= _currentExeFrames)
+			if (_perceptionCountTime >=_perceptionTime)
 			{
 				// Reinicio el contador de frames.
-				_currentExeFrames = 0;
+				_perceptionCountTime = 0;
 
 				//Recorrer la lista para saber cual es el enemigo más cercano y enviar un OnEnemySeen a la IA de LUA para que sea su nuevo objetivo 
 				TEnemyList::iterator it = _enemyEntities.begin();
-				CEntity *minDistanceEntity = NULL;
-	
+
+				//Lista para apuntar los enemigos que hay que borrar
+
+				TEnemyList deleteEnemies;
 
 				//Obtener el enemigo más cercano
 				for (; it != _enemyEntities.end(); it++)
 				{
-					if ((*it)){
+		
+					CEntity *ent = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(*it);
+					if (ent){
 						// Calculo la distancia entre el jugador y la entidad actual. (Distancia Manhattan)
-						int xDistance = std::abs((*it)->getPosition().x - _entity->getPosition().x);
-						int yDistance = std::abs((*it)->getPosition().z - _entity->getPosition().z);
+
+						int xDistance = std::abs(ent->getPosition().x - _entity->getPosition().x);
+						int yDistance = std::abs(ent->getPosition().z - _entity->getPosition().z);
 						
 
 						int distance = xDistance + yDistance;
@@ -126,26 +150,57 @@ namespace Logic
 
 						if (distance < _minDistance){
 							_minDistance = distance;
-							minDistanceEntity = (*it);
+							_minDistanceEntity = (*it);
 						}
 					}else{
-						_enemyEntities.remove((*it));
+						deleteEnemies.push_back(*it);
 					}
-
-				
 				}
 
-				if (minDistanceEntity){
-					//Avisar a LUA del enemigo más cercano
+				//Elimino los enemigos muertos
+				TEnemyList::iterator id = deleteEnemies.begin();
+				for (; id != deleteEnemies.end(); id++)
+				{
+					_enemyEntities.remove(*id);
+					//Si coincide con el que estoy atacando
+					if (_minDistanceEntity == (*id)){
+						_minDistanceEntity = -1;
+					}
+
+					//Avisar a LUA de que ha muerto
 					std::stringstream script;
-					script << "playerEventParam = { target = " << minDistanceEntity->getEntityID() << ", distance = " << _minDistance << " } ";
+					script << "playerEventParam = { target = " << (*id) << ", distance = " << 0 << " } ";
+					script << "playerEvent(\"OnEnemyDie\", " << _entity->getEntityID() << ")";
+					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+				}
+
+				
+				//Elimino los enemigos que han salido del trigger
+				TEnemyList::iterator io = _enemyTriggerOut.begin();
+				for (;io != _enemyTriggerOut.end();io++)
+				{
+					_enemyEntities.remove(*io);
+				}
+				_enemyTriggerOut.clear();
+
+
+
+				CEntity *ent = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_minDistanceEntity);
+
+				if (ent){
+					//Avisar a LUA del enemigo más cercano
+					//std::cout << "\n ENTIDA MAS CERCANA: " << _minDistanceEntity << " :: " << _minDistance<<"\n";
+					std::stringstream script;
+					script << "playerEventParam = { target = " << _minDistanceEntity << ", distance = " << _minDistance << " } ";
 					script << "playerEvent(\"OnEnemySeen\", " << _entity->getEntityID() << ")";
 					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+				}else{
+					_minDistance = 10000;
 				}
 
 			}
 		}else{
-			_currentExeFrames=0;
+			_perceptionCountTime=0;
 		}
 
 	} // tick

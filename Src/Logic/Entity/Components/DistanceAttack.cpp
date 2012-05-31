@@ -15,6 +15,7 @@ Contiene la implementación del componente que controla lo que debe hacer una tor
 #include "Logic/Entity/Entity.h"
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
+#include "Logic/Server.h"
 
 #include "Graphics/Server.h"
 #include "Graphics/Scene.h"
@@ -120,6 +121,7 @@ namespace Logic
 				}else{
 					_continue = true;
 					_attackEntity = m->getEntity(); 
+					_IDAttackEntity = m->getEntityID();
 
 				}
 			}
@@ -158,14 +160,14 @@ namespace Logic
 				Ray disparo = Ray(origen, direction);
 				Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastGroup(disparo, &impact,
 					(Physics::TPhysicGroup)(Physics::TPhysicGroup::PG_ALL & ~Physics::TPhysicGroup::PG_TRIGGER));*/
-				if (_attackEntity){	
-				if (!_attackEntity->getType().compare("Enemy"))
-					{
-						MDamaged *m_dam = new MDamaged();
-						m_dam->setHurt((_damage)); ///Descomentar para reducir el daño en base a la distancia de los personajes (100.0f * ((_entity->getPosition() - m->getEntity()->getPosition()).length() + 0.1))) * _damage);
-						m_dam->setKiller(_entity);
-						_attackEntity->emitMessage(m_dam, this);
-					}
+				if (Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_IDAttackEntity)){	
+					if (!_attackEntity->getType().compare("Enemy"))
+						{
+							MDamaged *m_dam = new MDamaged();
+							m_dam->setHurt((_damage)); ///Descomentar para reducir el daño en base a la distancia de los personajes (100.0f * ((_entity->getPosition() - m->getEntity()->getPosition()).length() + 0.1))) * _damage);
+							m_dam->setKiller(_entity);
+							_attackEntity->emitMessage(m_dam, this);
+						}
 				}else{
 					_continue = false;
 					_attackCountTime = 0;

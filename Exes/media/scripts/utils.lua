@@ -8,6 +8,12 @@ function goTo(entity, pointX, pointY, pointZ)
 	mensaje:send()
 end
 
+function stopGoTo(entity)
+	local mensaje = LUA_MAStarRoute()
+	mensaje:setStart(false)
+	mensaje:setEntityTo(entity)
+	mensaje:send()
+end
 ------------------------------------------------------
 
 -- Función utilizada por la IA de los enemigos para decidir en cada momento a que jugador atacar.

@@ -73,6 +73,15 @@ namespace Logic
 		*/
 		void setContinue(bool con) { _continue = con; };
 
+		/**
+		Asignar el ID de la entidad a atacar
+		*/
+		void setEntityID(unsigned int IDEntity) { _IDEntity = IDEntity;};
+
+		/**
+		Obtener el ID de la entida a atacar
+		*/
+		unsigned int getEntityID() { return _IDEntity; };
 
 	protected:
 
@@ -80,6 +89,12 @@ namespace Logic
 		Atributo que indica la entidad a la que hay que atacar.
 		*/
 		CEntity* _entity;
+
+
+		/**
+		Atributo que indica el ID de la entidad a la que hay que atacar
+		*/
+		unsigned int _IDEntity;
 
 		/**
 		Atributo que indica si hay que atacar.

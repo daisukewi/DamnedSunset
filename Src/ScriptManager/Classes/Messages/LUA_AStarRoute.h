@@ -130,6 +130,20 @@ namespace ScriptManager
 		*/
 		virtual void send();
 
+		/*
+		Establece si se desea empezar una ruta o terminar
+
+		@param start True si se desea empezar
+		*/
+		void setStart(bool start);
+
+		/*
+		Obtener si se desea empezar una ruta o terminar
+
+		@return _start True si se desea empezar
+		*/
+		bool getStart();
+
 	protected:
 
 		/**
@@ -147,6 +161,11 @@ namespace ScriptManager
 		Atributo que indica si la ruta ha fallado o no.
 		*/
 		bool _failed;
+
+		/**
+		Indica si se debe empezar una ruta o terminar
+		*/
+		bool _start;
 
 	}; // class LUA_MAStarRoute
 

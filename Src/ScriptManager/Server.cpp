@@ -713,6 +713,7 @@ namespace ScriptManager
 				.def("setDestPointY", (void (LUA_MAStarRoute::*) (float)) &LUA_MAStarRoute::setDestPointY)
 				.def("setDestPointZ", (void (LUA_MAStarRoute::*) (float)) &LUA_MAStarRoute::setDestPointZ)
 				.def("setEntityTo", (void (LUA_MAStarRoute::*) (unsigned int)) &LUA_MAStarRoute::setEntityTo)
+				.def("setStart", (void (LUA_MAStarRoute::*) (bool)) &LUA_MAStarRoute::setStart)
 				.def("send", &LUA_MAStarRoute::send)
 		];
 

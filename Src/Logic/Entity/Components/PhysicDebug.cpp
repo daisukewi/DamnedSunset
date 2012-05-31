@@ -151,7 +151,8 @@ namespace Logic
 					auxRadius = entityInfo->getFloatAttribute("trigger_radius");
 				}
 
-				_triggerEntity = Graphics::CModelFactory::getSingletonPtr()->CreateCapsule(_scene,_entity->getName()+"_trigger", _blueMaterial, auxRadius,_entity->getPosition(),auxHeight);
+				_triggerEntity = Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_scene,_entity->getName()+"_trigger", _blueMaterial, auxRadius,_entity->getPosition());
+				
 			}
 		}
 		

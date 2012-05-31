@@ -178,5 +178,10 @@ Map = {
 		type = "EnemyMind",
 		initState = 1,
 	},
+	
+	CentroMando = {
+		type = "CentroMando",
+		grid_position = { 0, 0},
+	},
 
 }

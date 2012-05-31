@@ -16,6 +16,7 @@ entidades se actua cuando se hace click derecho.
 
 #include "Logic/Server.h"
 #include "Logic/Entity/Entity.h"
+#include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
 
 #include "Logic/Entity/Messages/MouseEvent.h"
@@ -67,7 +68,8 @@ namespace Logic
 
 	bool CSelectionController::accept(IMessage *message)
 	{
-		return !message->getType().compare("MMouseEvent")
+		return !message->getType().compare("MKeyboardEvent") 
+			|| !message->getType().compare("MMouseEvent")
 			|| !message->getType().compare("MEntitySelected")
 			|| !message->getType().compare("MIsSelectable")
 			|| !message->getType().compare("MIsActuable");
@@ -78,7 +80,16 @@ namespace Logic
 
 	void CSelectionController::process(IMessage *message)
 	{
-		if (!message->getType().compare("MMouseEvent"))
+		if (!message->getType().compare("MKeyboardEvent")){
+			//IMPORTANTE Habrá que pensar donde se van a detectar las teclas
+			/*if (_selectedEntity){
+				message->addPtr();
+				_selectedEntity->emitMessage(message);
+				message->removePtr();
+			}*/
+
+		}
+		else if (!message->getType().compare("MMouseEvent"))
 		{
 			MMouseEvent *m_mouse = static_cast <MMouseEvent*> (message);
 
