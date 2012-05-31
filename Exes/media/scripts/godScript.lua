@@ -4,21 +4,14 @@ God = {
 }
 
 function processSelection(target, point_x, point_y, point_z)
-	print("Se ha seleccionado la entidad " .. target)
-	
 	selectNewTarget(target)
 end
 
 function processAction(target, point_x, point_y, point_z)
 	if point_y ~= -1 then
-		if God.Selected ~= -1 then
-			if target ~= -1 then
-				print("Atacando a la entidad " .. target)
-				local atack = LUA_MAttackEntity()
-				atack:setAttack(true)
-				atack:setEntity(target)
-				atack:setEntityTo(God.Selected)
-				atack:send()
+		if God.Selected ~= -1 and isPlayer(God.Selected) then
+			if target ~= -1 and isEnemy(target) then
+				sendAttack(target)
 			else
 				sendMovement(point_x, point_y, point_z)
 			end
@@ -39,19 +32,16 @@ function selectNewTarget(target)
 	God.Selected = target
 	
 	--Send selected to new target
-	if target ~= -1 then
-		print("Selecting new target")
+	if target ~= -1 and isPlayer(target) then
 		local mensaje = LUA_MEntitySelected()
 		mensaje:setEntityTo(target)
 		mensaje:setSelectedEntity(target)
 		mensaje:send()
 		
-		print("Setting new camera target")
 		local mensaje = LUA_MUbicarCamara()
 		mensaje:setTarget(target)
 		mensaje:send()
 		
-		print("Loading selected target GUI")
 		loadPlayerGUI(target)
 	end
 end
@@ -65,19 +55,25 @@ function unselectCurrentTarget()
 	end
 end
 
---Hacerlo diferente para cada heroe
 function loadPlayerGUI (player)
-	ocultarBotones()
-	print("Setting buttons for player " .. player)
-	cargarBoton(1, "martillo", "construirTorreta")
-	cargarBoton(2, "granada", "habilidadGranada")
-	cargarBoton(3, "bolazul", "habilidadRalentizarTiempo")
-	cargarBoton(4, "jeringa", "habilidadCurar")
-	print("Buttons setted correctly")
+	ocultarBoton(1)
+	ocultarBoton(2)
+	ocultarBoton(3)
+	ocultarBoton(4)
+	
+	name = getName(player)
+	if name == "Jack" then
+		cargarBoton(2, "granada", "habilidadGranada")
+	elseif name == "Erick" then
+		cargarBoton(2, "granada", "habilidadGranada")
+		cargarBoton(3, "bolazul", "habilidadRalentizarTiempo")
+	elseif name == "Amor" then
+		cargarBoton(2, "granada", "habilidadGranada")
+		cargarBoton(4, "jeringa", "habilidadCurar")
+	end
 end
 
 function sendMovement(point_x, point_y, point_z)
-	print("Moviendo entidad " .. God.Selected)
 	local mensaje = LUA_MAStarRoute()
 	mensaje:setDestPointX(point_x)
 	mensaje:setDestPointY(point_y)
@@ -86,7 +82,7 @@ function sendMovement(point_x, point_y, point_z)
 	mensaje:send()
 end
 
-function sendAttack (enemy)
+function sendAttack (target)
 	local mensaje = LUA_MAttackDistance()
 	mensaje:setEntity(target)
 	mensaje:setAttack(true)

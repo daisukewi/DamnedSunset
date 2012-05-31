@@ -63,15 +63,15 @@ function actualizarBarraVida(numPersonaje, porcentajeVida)
 end
 
 function sendClickMessage1()
-	seleccionarPersonaje1()
+	selectNewTarget(getEntityID("Jack"))
 end
 
 function sendClickMessage2()
-	seleccionarPersonaje2()
+	selectNewTarget(getEntityID("Erick"))
 end
 
 function sendClickMessage3()
-	seleccionarPersonaje3()
+	selectNewTarget(getEntityID("Amor"))
 end
 
 function sacarVentana(text)

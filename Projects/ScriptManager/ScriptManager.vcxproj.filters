@@ -21,6 +21,12 @@
     <Filter Include="Classes\Messages\Source Files">
       <UniqueIdentifier>{aeb5c068-0d6f-4303-84b6-a47139fb181b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\Source Files">
+      <UniqueIdentifier>{83c36de3-dfe0-4990-894a-0cac9ce99cbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Header Files">
+      <UniqueIdentifier>{3add532b-4f56-4abc-86b2-64211c728bb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\ScriptManager\Server.h">
@@ -53,6 +59,9 @@
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_UbicarCamara.h">
       <Filter>Classes\Messages\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\ScriptManager\Classes\LUA_EntityFunctions.h">
+      <Filter>Classes\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\ScriptManager\Server.cpp">
@@ -84,6 +93,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_UbicarCamara.cpp">
       <Filter>Classes\Messages\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ScriptManager\Classes\LUA_EntityFunctions.cpp">
+      <Filter>Classes\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

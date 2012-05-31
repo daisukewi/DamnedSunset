@@ -20,6 +20,8 @@ la gestión de los scripts del juego.
 #include "ScriptManager\Classes\Messages\LUA_CambiarDiaNoche.h"
 #include "ScriptManager\Classes\Messages\LUA_UbicarCamara.h"
 
+#include "ScriptManager/Classes/LUA_EntityFunctions.h"
+
 // Incluímos las cabedceras de Lua.
 // Como es código C (no C++), hay que indicarselo al
 // compilador para que asuma el convenio de nombres
@@ -775,10 +777,29 @@ namespace ScriptManager
 		luabind::module(_lua)
 			[
 				luabind::class_<LUA_MUbicarCamara>("LUA_MUbicarCamara")
-				.def(luabind::constructor<>())
-				.def("setTarget", (void (LUA_MUbicarCamara::*) (unsigned int)) &LUA_MUbicarCamara::setEntityTo)
-				.def("send", &LUA_MUbicarCamara::send)
+					.def(luabind::constructor<>())
+					.def("setTarget", (void (LUA_MUbicarCamara::*) (unsigned int)) &LUA_MUbicarCamara::setEntityTo)
+					.def("send", &LUA_MUbicarCamara::send)
 			];
+
+		// Funciones especiales
+		luabind::module(_lua)
+			[
+				luabind::def("isPlayer", &isPlayer)
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("isEnemy", &isEnemy)
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("getEntityID", &getEntityID)
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("getName", &getName)
+			];
+
 		//---------------------------------------------------------
 
 	}
