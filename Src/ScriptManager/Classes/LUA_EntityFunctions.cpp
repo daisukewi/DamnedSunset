@@ -37,7 +37,7 @@ namespace ScriptManager
 		Logic::CEntity* entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
 		if (entity != NULL)
 		{
-			return !entity->getType().compare("Enemy");
+			return !entity->getTag().compare("enemy");
 		}
 
 		return false;
