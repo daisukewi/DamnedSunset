@@ -2,6 +2,7 @@
 <GUIScheme Name="Interfaz">
 	<Imageset Filename="InterfazUtils.imageset" />
 	<Imageset Filename="Interfaz.imageset" />
+	<Imageset Filename="BotonesIA.imageset" />
 	<Imageset Filename="damnedSet.imageset" />
   <Imageset Filename="ToSunset.imageset" />
 </GUIScheme>

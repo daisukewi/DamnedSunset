@@ -31,5 +31,27 @@
                 <Property Name="UnifiedAreaRect" Value="{{0.49826,0},{0.0856842,0},{0.616743,0},{0.434493,0}}" />
             </Window>
         </Window>
+        <Window Type="Vanilla/StaticImage" Name="InterfazControles/MenuBotonesIA" >
+            <Property Name="AlwaysOnTop" Value="True" />
+            <Property Name="UnifiedAreaRect" Value="{{0.265626,0},{0.879947,0},{0.503674,0},{0.96526,0}}" />
+            <Window Type="TaharezLook/ImageButton" Name="InterfazControles/BotonIA1" >
+                <Property Name="HoverImage" Value="set:BotonesIA image:BotonIA11" />
+                <Property Name="NormalImage" Value="set:BotonesIA image:BotonIA12" />
+                <Property Name="PushedImage" Value="set:BotonesIA image:BotonIA13" />
+                <Property Name="UnifiedAreaRect" Value="{{0.0345332,0},{0.0609705,0},{0.268915,0},{0.878007,0}}" />
+            </Window>
+            <Window Type="TaharezLook/ImageButton" Name="InterfazControles/BotonIA2" >
+                <Property Name="HoverImage" Value="set:BotonesIA image:BotonIA21" />
+                <Property Name="NormalImage" Value="set:BotonesIA image:BotonIA22" />
+                <Property Name="PushedImage" Value="set:BotonesIA image:BotonIA23" />
+                <Property Name="UnifiedAreaRect" Value="{{0.400416,0},{0.0804455,0},{0.634798,0},{0.897482,0}}" />
+            </Window>
+            <Window Type="TaharezLook/ImageButton" Name="InterfazControles/BotonIA3" >
+                <Property Name="HoverImage" Value="set:BotonesIA image:BotonIA31" />
+                <Property Name="NormalImage" Value="set:BotonesIA image:BotonIA32" />
+                <Property Name="PushedImage" Value="set:BotonesIA image:BotonIA33" />
+                <Property Name="UnifiedAreaRect" Value="{{0.716299,0},{0.0804455,0},{0.95068,0},{0.897482,0}}" />
+            </Window>
+        </Window>
     </Window>
 </GUILayout>

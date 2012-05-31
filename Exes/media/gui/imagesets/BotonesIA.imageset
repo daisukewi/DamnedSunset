@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Imageset Name="BotonesIA" Imagefile="BotonesIA.png" NativeHorzRes="800" NativeVertRes="600" AutoScaled="true" >
+    <Image Name="BotonIA11" XPos="0" YPos="0" Width="300" Height="300" />
+	<Image Name="BotonIA21" XPos="300" YPos="0" Width="300" Height="300" />
+	<Image Name="BotonIA31" XPos="600" YPos="0" Width="300" Height="300" />
+	
+	<Image Name="BotonIA12" XPos="0" YPos="600" Width="300" Height="300" />
+	<Image Name="BotonIA22" XPos="300" YPos="600" Width="300" Height="300" />
+	<Image Name="BotonIA32" XPos="600" YPos="600" Width="300" Height="300" />
+	
+	<Image Name="BotonIA13" XPos="0" YPos="300" Width="300" Height="300" />
+	<Image Name="BotonIA23" XPos="300" YPos="300" Width="300" Height="300" />
+	<Image Name="BotonIA33" XPos="600" YPos="300" Width="300" Height="300" />
+</Imageset>

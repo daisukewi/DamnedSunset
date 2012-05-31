@@ -24,11 +24,27 @@ function inicializarBotonesDia()
 	cargarBoton(1,"martillo","construirTorreta")
 	ocultarBoton(2)
 	ocultarBoton(3)
-	cargarBoton(4,"bolazul","cambiarADia")
+	cargarBoton(4,"bolazul","cambiarANoche")
 	print("fin inicializarBotonesDia")
+	
+	cargarBotonIA(1,"BotonIA1", "funcionIA1")
+	cargarBotonIA(2,"BotonIA2", "funcionIA2")
+	cargarBotonIA(3,"BotonIA3", "funcionIA3")
 end
 
-function cambiarADia()
+function funcionIA1()
+	print("funcionIA1")
+end
+
+function funcionIA2()
+	print("funcionIA2")
+end
+
+function funcionIA3()
+	print("funcionIA3")
+end
+
+function cambiarANoche()
 	local mensaje = LUA_MCambiarDiaNoche()
 	mensaje:setCambiarADia(false)
 	mensaje:send()
@@ -37,4 +53,7 @@ function cambiarADia()
 	ocultarBoton(2)
 	ocultarBoton(3)
 	ocultarBoton(4)
+	
+	--Ponemos visibles los botones de la IA
+	CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/MenuBotonesIA"):setVisible(true)
 end
