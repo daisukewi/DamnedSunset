@@ -63,10 +63,8 @@ namespace GUI {
 		// Cargamos la interfaz
 		//CEGUI::WindowManager::getSingletonPtr()->loadWindowLayout("Interfaz.layout");
 		//ScriptManager::CServer::getSingletonPtr()->executeProcedure("inicializarInterfazControles");
-		ScriptManager::CServer::getSingletonPtr()->loadExeScript("interfaz/interfazControles");
 		ScriptManager::CServer::getSingletonPtr()->executeProcedure("inicializarInterfazControles");
 
-		ScriptManager::CServer::getSingletonPtr()->loadExeScript("interfaz");
 		ScriptManager::CServer::getSingletonPtr()->executeProcedure("init");
 
 		//_interfazWindow = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");

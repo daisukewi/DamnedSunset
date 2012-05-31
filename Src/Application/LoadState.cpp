@@ -179,9 +179,6 @@ namespace Application {
 		if (!Logic::CServer::getSingletonPtr()->loadLevel("map", "archetype"))
 			return false;
 
-		//Inicializamos la interfaz
-		GUI::CServer::getSingletonPtr()->getInterfazController()->init();
-
 		return true;
 	}
 

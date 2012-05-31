@@ -90,6 +90,8 @@ namespace Application {
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m1);
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m2);
 
+		//Inicializamos la interfaz
+		GUI::CServer::getSingletonPtr()->getInterfazController()->init();
 	} // activate
 
 	//--------------------------------------------------------

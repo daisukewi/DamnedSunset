@@ -15,7 +15,8 @@ function loadScripts()
 	SManager:loadScript("enemyMindScript")
 	
 	-- Interfaz
-	--SManager:loadScript("interfaz/interfazControles")
+	SManager:loadScript("interfaz/interfazControles")
+	SManager:loadScript("interfaz")
 	
 	-- Scripts de misión.
 	SManager:loadScript("mission1StagesConfiguration")

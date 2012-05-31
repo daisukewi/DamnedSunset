@@ -75,19 +75,19 @@ function inicializarInterfazControles()
 	CEGUI.System:getSingleton():setGUISheet(interfazC)
 	interfazC:setVisible(true)
 	interfazC:activate()
-	
+
 	--Guargamod los botones en variables para poder acceder facilmente a ellos
 	botonControles1 = CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/Menu/b1")
 	botonControles2 = CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/Menu/b2")
 	botonControles3 = CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/Menu/b3")
 	botonControles4 = CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/Menu/b4")
-	
+
 	--Subscribimos los botones a sus funciones
 	botonControles1:subscribeEvent("Clicked", clickBoton1)
 	botonControles2:subscribeEvent("Clicked", clickBoton2)
 	botonControles3:subscribeEvent("Clicked", clickBoton3)
 	botonControles4:subscribeEvent("Clicked", clickBoton4)
-	
+
 	--Inicializamos los botones del dia
 	inicializarBotonesDia()
 end
