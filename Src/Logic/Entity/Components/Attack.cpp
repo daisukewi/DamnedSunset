@@ -100,7 +100,7 @@ namespace Logic
 		if (_attack)
 		{
 			// Llevamos al jugador hasta donde está la entidad objetivo
-			if ((_targetEntity->getPosition() - _entity->getPosition()).length() >= 10)
+			if ((_targetEntity->getPosition() - _entity->getPosition()).length() >= 20)
 			{
 				MMoveSteering *m = new MMoveSteering();
 				m->setMovementType(AI::IMovement::MOVEMENT_KINEMATIC_ARRIVE);
@@ -135,6 +135,15 @@ namespace Logic
 			std::stringstream script;
 			script << "enemyEventParam = { playerDeath = " << entity->getEntityID() <<  " } ";
 			script << "enemyEvent(\"OnPlayerDeath\", " << _entity->getEntityID() << ")";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
+
+		// Si la entidad que se ha muerto es un edificio, también aviso a lua de la muerte del mismo.
+		if (!entity->getTag().compare("playerBuilding"))
+		{
+			std::stringstream script;
+			script << "enemyEventParam = { buildingDestroy = " << entity->getEntityID() <<  " } ";
+			script << "enemyEvent(\"OnBuildingDestroy\", " << _entity->getEntityID() << ")";
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
 		//entity->removeDeathListener(this);

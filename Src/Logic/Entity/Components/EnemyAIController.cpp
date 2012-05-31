@@ -76,31 +76,6 @@ namespace Logic
 
 	bool CEnemyAIController::activate()
 	{
-		// Busco todas las entidades de tipo Player del mapa.
-		std::list<Logic::CEntity*> _playerEntities;
-		Logic::CEntity *ent = _entity->getMap()->getEntityByType("Player");
-		while (ent != NULL)
-		{
-			_playerEntities.push_back(ent);
-			ent = _entity->getMap()->getEntityByType("Player", ent);
-		}
-
-
-		// Construyo la estructura de datos que me va a servir para saber a que jugadores veo.
-		std::stringstream script;
-		script << "enemies[" << _entity->getEntityID() << "].playersSeen = { ";
-
-		std::list<Logic::CEntity*>::const_iterator it = _playerEntities.begin();
-		script << "[" << (*it)->getEntityID() << "] = false";
-		it++;
-		for (; it != _playerEntities.end(); it++)
-		{
-			script << ", " << "[" << (*it)->getEntityID() << "] = false";
-		}
-		script << " }";
-
-		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-
 		return true;
 
 	} // activate

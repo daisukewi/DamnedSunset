@@ -105,11 +105,14 @@ namespace Logic
 		// Invocar al método de la clase padre
 		IComponent::tick(msecs);
 
-		if (_setPosition){
-			if (_physicObj){
-				_physicServer->setPosition((CPhysicObjCharacter* )_physicObj,_newPosition);
+		if (_physicObj->IsKinematic())
+		{
+			if (_setPosition) {
+				if (_physicObj){
+					_physicServer->move(_physicObj, _newPosition);
+				}
+				_setPosition = false;
 			}
-			_setPosition = false;
 		}
 	}
 

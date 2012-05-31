@@ -14,6 +14,10 @@ function runStateEvent(event, entity)
 		enemies[entity].playersSeen[enemyEventParam.target] = true
 	elseif (event == "OnPlayerLost") then
 		enemies[entity].playersSeen[enemyEventParam.target] = false
+	elseif (event == "OnBuildingSeen") then
+		enemies[entity].buildingsSeen[enemyEventParam.target] = true
+	elseif (event == "OnBuildingLost") then
+		enemies[entity].buildingsSeen[enemyEventParam.target] = false
 	end
 	
 	nextState = 4

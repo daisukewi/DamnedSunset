@@ -11,13 +11,43 @@ function moveStateEvent(event, entity)
 		enemies[entity].playersSeen[enemyEventParam.target] = true
 		decideAttackPlayer(entity)
 		
-		-- Como he visto al enemigo mientras me movía paso al estado de atacando.
-		nextState = 2
+		-- Decido a que estado voy en base a si tengo objetivo o no.
+		if (enemies[entity].target == nil) then
+			nextState = 1
+		else
+			nextState = 2
+		end
 	elseif (event == "OnPlayerLost") then
 		-- Teóricamente este caso no se debería dar nunca. Aún así pongo la comprobación.
 		enemies[entity].playersSeen[enemyEventParam.target] = false
 		
-		nextState = 3
+		-- Decido a que estado voy en base a si tengo objetivo o no.
+		if (enemies[entity].target == nil) then
+			nextState = 1
+		else
+			nextState = 2
+		end
+	elseif (event == "OnBuildingSeen") then
+		enemies[entity].buildingsSeen[enemyEventParam.target] = true
+		decideAttack(entity)
+		
+		-- Decido a que estado voy en base a si tengo objetivo o no.
+		if (enemies[entity].target == nil) then
+			nextState = 1
+		else
+			nextState = 2
+		end
+	elseif (event == "OnBuildingLost") then
+		-- Teóricamente este caso no se debería dar nunca. Aún así pongo la comprobación.
+		enemies[entity].buildingsSeen[enemyEventParam.target] = false
+		decideAttack(entity)
+		
+		-- Decido a que estado voy en base a si tengo objetivo o no.
+		if (enemies[entity].target == nil) then
+			nextState = 1
+		else
+			nextState = 2
+		end
 	else
 		-- Como no me interesa ningún evento me quedo en el estado actual.
 		nextState = 3

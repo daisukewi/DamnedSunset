@@ -2,7 +2,7 @@ World CPhysicEntity CSelectable CBillboardIndicacionMover
 Obstacle CPhysicEntity
 Sun CSunController
 Player CDistanceAttack CLanzadorGranadas CAttack CHeal CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor CSelectable CScript CEmpujable CTiempoBala
-Enemy CAttack CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CSelectable CScript CEmpujable CPerception CEnemyAIController
+Enemy CAttack CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CSelectable CScript CEmpujable CPerception CEnemyAIController CTriggerEntity
 Entity CGraphics
 Enemies CEnemiesGenerator CGraphics CScript
 AnimatedEntity CAnimatedGraphics
@@ -10,7 +10,7 @@ Camera CCamera
 PlayerGod CDayCameraController CDayNightController CCameraController CRaycastController CSelectionController CBuilderController CScript
 Building CGraphics CPhysicEntity
 PhantomTurret CGraphics
-Turret CPhysicEntity CMapBuilding CTurretController CSelectable CTriggerEntity CAnimatedGraphics
+Turret CPhysicEntity CMapBuilding CTurretController CSelectable CTriggerEntity CAnimatedGraphics CLife
 Barril CGraphics CPhysicEntity
 Granada CGraphics CPhysicEntity CDetonadorGranada CParticleController CSonido
 BolaTeltr CGraphics CPhysicEntity CDetonadorBolaTeltr CParticleController CSonido

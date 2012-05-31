@@ -36,3 +36,43 @@ function decideAttackPlayer(attacker)
 end
 
 ------------------------------------------------------
+
+-- Función utilizada por la IA de los enemigos para decidir en cada momento a qué edificio atacar.
+function decideAttackBuilding(attacker)
+	enemies[attacker].target = nil
+	for buildingID, seen in pairs(enemies[attacker].buildingsSeen) do
+		if (seen) then
+			enemies[attacker].target = buildingID
+		end
+	end
+	
+	if (enemies[attacker].target ~= nil) then
+		print("Decido atacar a un edificio. Edificio: " .. enemies[attacker].target)
+		local mensaje = LUA_MAttackEntity()
+		mensaje:setAttack(true)
+		mensaje:setEntity(enemies[attacker].target)
+		mensaje:setEntityTo(attacker)
+		mensaje:send()
+	else
+		print("Decido NO atacar a un edificio.")
+		local mensaje = LUA_MAttackEntity()
+		mensaje:setAttack(false)
+		mensaje:setEntityTo(attacker)
+		mensaje:send()
+	end
+end
+
+------------------------------------------------------
+
+-- Función utilizada por la IA de los enemigos para decidir en cada momento a qué atacar.
+function decideAttack(attacker)
+	-- Primero decido si voy a atacar a algún jugador.
+	decideAttackPlayer(attacker)
+	
+	-- Si he decidido no atacar a ningún jugador, ataco a un edificio.
+	if (enemies[attacker].target == nil) then
+		decideAttackBuilding(attacker)
+	end
+end
+
+------------------------------------------------------

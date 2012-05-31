@@ -9,13 +9,33 @@ function attackStateEvent(event, entity)
 	
 	if (event == "OnPlayerSeen") then
 		enemies[entity].playersSeen[enemyEventParam.target] = true
-		decideAttackPlayer(entity)
+		decideAttack(entity)
 		
 		-- Como he visto a otro jugador mientras estaba atacando me quedo en el estado actual.
 		nextState = 2
 	elseif (event == "OnPlayerLost") then
 		enemies[entity].playersSeen[enemyEventParam.target] = false
-		decideAttackPlayer(entity)
+		decideAttack(entity)
+		
+		-- Decido a que estado voy en base a si tengo objetivo o no.
+		if (enemies[entity].target == nil) then
+			nextState = 1
+		else
+			nextState = 2
+		end
+	elseif (event == "OnBuildingSeen") then
+		enemies[entity].buildingsSeen[enemyEventParam.target] = true
+		decideAttack(entity)
+		
+		-- Decido a que estado voy en base a si tengo objetivo o no.
+		if (enemies[entity].target == nil) then
+			nextState = 1
+		else
+			nextState = 2
+		end
+	elseif (event == "OnBuildingLost") then
+		enemies[entity].buildingsSeen[enemyEventParam.target] = false
+		decideAttack(entity)
 		
 		-- Decido a que estado voy en base a si tengo objetivo o no.
 		if (enemies[entity].target == nil) then
@@ -24,7 +44,18 @@ function attackStateEvent(event, entity)
 			nextState = 2
 		end
 	elseif (event == "OnPlayerDeath") then
-		decideAttackPlayer(entity)
+		decideAttack(entity)
+		
+		-- Decido a que estado voy en base a si tengo objetivo o no.
+		if (enemies[entity].target == nil) then
+			nextState = 1
+		else
+			nextState = 2
+		end
+	elseif (event == "OnBuildingDestroy") then
+		print("Recibo que se ha destruido un edificio")
+		enemies[entity].buildingsSeen[enemyEventParam.buildingDestroy] = false
+		decideAttack(entity)
 		
 		-- Decido a que estado voy en base a si tengo objetivo o no.
 		if (enemies[entity].target == nil) then

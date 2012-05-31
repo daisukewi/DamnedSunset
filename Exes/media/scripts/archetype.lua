@@ -53,12 +53,13 @@ Archetype = {
 	
 	Turret = {
 		type = "Turret",
+		tag = "playerBuilding",
 		position = {0, 0, 0},
 		orientation = 0,
 		building_size = "1 1",
 		model = "torreta_pie.mesh",
 		physic_entity = "simple",
-		physic_type = "static",
+		physic_type = "kinematic",
 		physic_shape = "box",
 		physic_dimensions = { 8, 8, 8 },
 		physic_height = 16,
@@ -71,7 +72,15 @@ Archetype = {
 		trigger_height = 1,
 		trigger_collision_group = 3,
 		precision = 0.1,
-		damage = 25,
+		damage = 1,
+		
+		billboardLifeMaterial = "barraVida",
+		billboardLifeWith = 10.0,
+		billboardLifeHeight = 0.5,
+		billboardLifePosition = {0.0,12.0,0.0},
+		
+		life = 100.0,
+		maxLife = 100.0,
 	},
 	
 	DoorStage2Trigger = {
@@ -145,7 +154,14 @@ Archetype = {
 		memInitPoint = true,
 		runLifeThreshold = 50,
 		
-		damage = 10,
+		damage = 25,
+		
+		trigger_shape = "trigger_sphere",
+		trigger_type = "trigger_kinematic",
+		trigger = true,
+		trigger_radius = 50,
+		trigger_height = 5,
+		trigger_collision_group = 3,
 	},
 	
 	Granada = {
@@ -225,10 +241,10 @@ Archetype = {
 		
 		initState = 1,
 		
-		
 		trigger_shape = "trigger_sphere",
 		trigger_type = "trigger_dynamic",
 		trigger = true,
+		trigger_radius = 25,
 		trigger_radius = 200,
 		trigger_height = 1,
 		trigger_collision_group = 3,

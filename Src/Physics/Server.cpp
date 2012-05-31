@@ -133,8 +133,7 @@ void CServer::createScene ()
 	// Grupo 0 -> Objetos que el jugador atraviesa (triggers). Ver método moveCharacter.
 	// Grupo 1 -> El laberinto
 	// Grupo 2 -> Barriles
-	//scene->GetNxScene()->setGroupCollisionFlag(0,1,false);
-	scene->GetNxScene()->setGroupCollisionFlag(0,3,false);
+	scene->GetNxScene()->setGroupCollisionFlag(0,1,false);
 }
 
 //--------------------------------------------------------

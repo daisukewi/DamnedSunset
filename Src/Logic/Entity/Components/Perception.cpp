@@ -16,6 +16,7 @@ Contiene la implementación del componente que controla la percepción de los enem
 #include "ScriptManager/Server.h"
 
 #include "Logic/Entity/Messages/AttackEntity.h"
+#include "Logic/Entity/Messages/IsTouched.h"
 
 #include <sstream>
 
@@ -41,13 +42,33 @@ namespace Logic
 
 	bool CPerception::activate()
 	{
-		// Obtengo todas las entidades de tipo jugador del mapa.
+		// Busco todas las entidades de tipo Player del mapa.
 		Logic::CEntity *ent = _entity->getMap()->getEntityByType("Player");
 		while (ent != NULL)
 		{
 			_playerEntities.push_back(std::pair<Logic::CEntity*, bool>(ent, false));
 			ent = _entity->getMap()->getEntityByType("Player", ent);
 		}
+
+		// Construyo la estructura de datos que me va a servir para saber a que jugadores veo.
+		std::stringstream script;
+		script << "enemies[" << _entity->getEntityID() << "].playersSeen = { ";
+
+		TPlayerList::const_iterator it = _playerEntities.begin();
+		script << "[" << (*it).first->getEntityID() << "] = false";
+		it++;
+		for (; it != _playerEntities.end(); it++)
+		{
+			script << ", " << "[" << (*it).first->getEntityID() << "] = false";
+		}
+		script << " }";
+
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+		// Construyo la estructura de datos que me va a servir para saber a que edificios veo.
+		std::stringstream script2;
+		script2 << "enemies[" << _entity->getEntityID() << "].buildingsSeen = {}";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script2.str().c_str());
 
 		return true;
 
@@ -64,7 +85,7 @@ namespace Logic
 
 	bool CPerception::accept(IMessage *message)
 	{
-		return false;
+		return !message->getType().compare("MIsTouched");
 
 	} // accept
 	
@@ -72,7 +93,97 @@ namespace Logic
 
 	void CPerception::process(IMessage *message)
 	{
-		
+		if (!message->getType().compare("MIsTouched"))
+		{
+			MIsTouched *m = static_cast <MIsTouched*> (message);
+			if (m->getTouched())
+			{
+				if (!m->getEntity()->getType().compare("Player"))
+				{
+					std::stringstream script;
+					script << "enemyEventParam = { target = " << m->getEntity()->getEntityID() << " } ";
+					script << "enemyEvent(\"OnPlayerSeen\", " << _entity->getEntityID() << ")";
+					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+				}
+
+				if (!m->getEntity()->getTag().compare("playerBuilding"))
+				{
+					std::stringstream script;
+					script << "enemyEventParam = { target = " << m->getEntity()->getEntityID() << " } ";
+					script << "enemyEvent(\"OnBuildingSeen\", " << _entity->getEntityID() << ")";
+					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+				}
+			}
+			else
+			{
+				if (!m->getEntity()->getType().compare("Player"))
+				{
+					std::stringstream script;
+					script << "enemyEventParam = { target = " << m->getEntity()->getEntityID() << " } ";
+					script << "enemyEvent(\"OnPlayerLost\", " << _entity->getEntityID() << ")";
+					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+				}
+
+				if (!m->getEntity()->getTag().compare("playerBuilding"))
+				{
+					std::stringstream script;
+					script << "enemyEventParam = { target = " << m->getEntity()->getEntityID() << " } ";
+					script << "enemyEvent(\"OnBuildingLost\", " << _entity->getEntityID() << ")";
+					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+				}
+			}
+		}
+
+			/*if (m->getTouched())
+			{
+				if (!m->getEntity()->getType().compare("Player"))
+				{
+					// Busco al jugador que he visto.
+					TPlayerList::iterator it = _playerEntities.begin();
+					for (; it != _playerEntities.end(); it++)
+					{
+						if ((*it).first->getEntityID() == m->getEntity()->getEntityID())
+						{
+							// Compruebo si ya lo había visto antes para no mandar el aviso mas de una vez.
+							if (!(*it).second)
+							{
+								std::stringstream script;
+								script << "enemyEventParam = { target = " << (*it).first->getEntityID() << " } ";
+								script << "enemyEvent(\"OnPlayerSeen\", " << _entity->getEntityID() << ")";
+								ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+								(*it).second = true;
+							}
+
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				if (!m->getEntity()->getType().compare("Player"))
+				{
+					// Busco al jugador que he dejado de ver.
+					TPlayerList::iterator it = _playerEntities.begin();
+					for (; it != _playerEntities.end(); it++)
+					{
+						if ((*it).first->getEntityID() == m->getEntity()->getEntityID())
+						{
+							// Compruebo si ya lo había dejado de ver para no mandar el aviso mas de una vez.
+							if ((*it).second)
+							{
+								std::stringstream script;
+								script << "enemyEventParam = { target = " << (*it).first->getEntityID() << " } ";
+								script << "enemyEvent(\"OnPlayerLost\", " << _entity->getEntityID() << ")";
+								ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+								(*it).second = false;
+							}
+						}
+					}
+				}
+			}*/
 	} // process
 
 	//---------------------------------------------------------
@@ -81,7 +192,7 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
-		_currentExeFrames++;
+		/*_currentExeFrames++;
 
 		// Ejecuto la percepción si toca.
 		if (_exeFrames >= _currentExeFrames)
@@ -128,7 +239,7 @@ namespace Logic
 					}
 				}
 			}
-		}
+		}*/
 
 	} // tick
 

@@ -131,9 +131,9 @@ namespace Logic
 					_death = true;
 					_life = 0;
 
-					if (!_entity->getType().compare("Enemy"))
+					if (!_entity->getType().compare("Enemy") || !_entity->getTag().compare("playerBuilding"))
 					{
-						/** MUERE UN ENEMIGO*/
+						/*MUERE UN ENEMIGO O UN EDIFICIO*/
 
 						// @TODO @ENTITYDEATH Habrá que borrar este bloque de código cuando la notificación de la muerte de la entidad funcione bien.
 						/*MAttackEntity *m = new MAttackEntity();
