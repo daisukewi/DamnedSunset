@@ -776,8 +776,8 @@ namespace ScriptManager
 			[
 				luabind::class_<LUA_MUbicarCamara>("LUA_MUbicarCamara")
 				.def(luabind::constructor<>())
-				.def("setTarget", (void (LUA_MEntitySelected::*) (unsigned int)) &LUA_MEntitySelected::setEntityTo)
-				.def("send", &LUA_MEntitySelected::send)
+				.def("setTarget", (void (LUA_MUbicarCamara::*) (unsigned int)) &LUA_MUbicarCamara::setEntityTo)
+				.def("send", &LUA_MUbicarCamara::send)
 			];
 		//---------------------------------------------------------
 

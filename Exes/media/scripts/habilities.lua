@@ -59,7 +59,6 @@ function seleccionarPersonaje2()
 	-- Crear y enviar el mensaje de entity selected
 	local mensaje = LUA_MEntitySelected()
 	mensaje:setSelectedEntity("Erick")
-	mensaje:setInterface(true)
 	mensaje:send()
 	
 	ocultarBoton(1)
@@ -72,7 +71,6 @@ function seleccionarPersonaje3()
 	-- Crear y enviar el mensaje de entity selected
 	local mensaje = LUA_MEntitySelected()
 	mensaje:setSelectedEntity("Amor")
-	mensaje:setInterface(true)
 	mensaje:send()
 	
 	ocultarBoton(1)

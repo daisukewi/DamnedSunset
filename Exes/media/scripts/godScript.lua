@@ -6,30 +6,7 @@ God = {
 function processSelection(target, point_x, point_y, point_z)
 	print("Se ha seleccionado la entidad " .. target)
 	
-	--Unselect current target
-	if God.Selected ~= -1 then
-		local mensaje = LUA_MEntitySelected()
-		mensaje:setEntityTo(God.Selected)
-		mensaje:setSelectedEntity(0)
-		mensaje:send()
-	end
-	
-	--Select new target 
-	God.Selected = target
-	
-	--Send selected to new target
-	if target ~= -1 then
-		local mensaje = LUA_MEntitySelected()
-		mensaje:setEntityTo(target)
-		mensaje:setSelectedEntity(target)
-		mensaje:send()
-		
-		local mensaje = LUA_MUbicarCamara()
-		mensaje:setTarget(target)
-		mensaje:send()
-		
-		loadPlayerGUI(target)
-	end
+	selectNewTarget(target)
 end
 
 function processAction(target, point_x, point_y, point_z)
@@ -49,6 +26,36 @@ function processAction(target, point_x, point_y, point_z)
 	end
 end
 
+function selectNewTarget(target)
+	--Unselect current target
+	if God.Selected ~= -1 then
+		local mensaje = LUA_MEntitySelected()
+		mensaje:setEntityTo(God.Selected)
+		mensaje:setSelectedEntity(0)
+		mensaje:send()
+	end
+	
+	--Select new target 
+	God.Selected = target
+	
+	--Send selected to new target
+	if target ~= -1 then
+		print("Selecting new target")
+		local mensaje = LUA_MEntitySelected()
+		mensaje:setEntityTo(target)
+		mensaje:setSelectedEntity(target)
+		mensaje:send()
+		
+		print("Setting new camera target")
+		local mensaje = LUA_MUbicarCamara()
+		mensaje:setTarget(target)
+		mensaje:send()
+		
+		print("Loading selected target GUI")
+		loadPlayerGUI(target)
+	end
+end
+
 function unselectCurrentTarget()
 	if God.Selected ~= -1 then
 		local mensaje = LUA_MEntitySelected()
@@ -61,10 +68,12 @@ end
 --Hacerlo diferente para cada heroe
 function loadPlayerGUI (player)
 	ocultarBotones()
-	cargarBoton(1, "martillo")
-	cargarBoton(2, "granada")
-	cargarBoton(3, "bolazul")
-	cargarBoton(4, "jeringa")
+	print("Setting buttons for player " .. player)
+	cargarBoton(1, "martillo", "construirTorreta")
+	cargarBoton(2, "granada", "habilidadGranada")
+	cargarBoton(3, "bolazul", "habilidadRalentizarTiempo")
+	cargarBoton(4, "jeringa", "habilidadCurar")
+	print("Buttons setted correctly")
 end
 
 function sendMovement(point_x, point_y, point_z)
