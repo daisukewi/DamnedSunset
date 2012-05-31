@@ -145,7 +145,7 @@ namespace Logic
 
 		Vector3 point;
 
-		CEntity* targetedEntity = Logic::CServer::getSingletonPtr()->raycastFromViewport(&point, Physics::PG_ALL & ~(Physics::PG_TRIGGER | Physics::PG_WORLD));
+		CEntity* targetedEntity = Logic::CServer::getSingletonPtr()->raycastFromViewport(&point, Physics::PG_ALL & ~(Physics::PG_TRIGGER | Physics::PG_TRIGGER_DYNAMIC | Physics::PG_OTHER | Physics::PG_WORLD));
 		if (targetedEntity == NULL)
 		{
 			processSelectionClick();
@@ -180,7 +180,7 @@ namespace Logic
 
 		Vector3 point;
 
-		CEntity* targetedEntity = Logic::CServer::getSingletonPtr()->raycastFromViewport(&point, Physics::PG_ALL & ~(Physics::PG_TRIGGER | Physics::PG_WORLD));
+		CEntity* targetedEntity = Logic::CServer::getSingletonPtr()->raycastFromViewport(&point, Physics::PG_ALL & ~(Physics::PG_TRIGGER | Physics::PG_TRIGGER_DYNAMIC | Physics::PG_OTHER | Physics::PG_WORLD));
 		if (targetedEntity == NULL)
 		{
 			processActionClick();

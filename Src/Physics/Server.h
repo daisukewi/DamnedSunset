@@ -59,15 +59,15 @@ namespace Physics {
 	*/
 	enum TPhysicGroup
 	{
-		PG_NONE			= 0x00000000, //Group:
-		PG_RESERVED		= 1 << 0, //0
-		PG_WORLD		= 1 << 1, //1
-		PG_BUILDING		= 1 << 2, //2
-		PG_TRIGGER		= 1 << 3, //3
-		PG_HERO			= 1 << 4, //4
-		PG_ENEMY		= 1 << 5, //5
-		PG_OTHER		= 1 << 6, //6
-		PG_ALL			= 0xffffffff
+		PG_NONE				= 0x00000000, //Group:
+		PG_TRIGGER_DYNAMIC	= 1 << 0, //0
+		PG_WORLD			= 1 << 1, //1
+		PG_BUILDING			= 1 << 2, //2
+		PG_TRIGGER			= 1 << 3, //3
+		PG_HERO				= 1 << 4, //4
+		PG_ENEMY			= 1 << 5, //5
+		PG_OTHER			= 1 << 6, //6
+		PG_ALL				= 0xffffffff
 	};
 	
 	/**

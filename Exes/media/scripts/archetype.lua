@@ -2,7 +2,7 @@ Archetype = {
 
 	World = {
 		type = "World",
-		
+		tag = "world",
 		physic_collision_group = 1,
 		billboardMoverMaterial = "circuloSeleccion",
 		billboardMoverDimension = 10.0,
@@ -27,6 +27,7 @@ Archetype = {
 	
 	Obstacle = {
 		type = "Obstacle",
+		tag = "world",
 		position = {0, -1, 0},
 		physic_entity = "simple",
 		physic_type = "static",

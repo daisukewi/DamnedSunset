@@ -93,7 +93,7 @@ namespace Logic
 		}
 
 		// Relleno la tabla con la información del enemigo.
-		if (!_entity->getEntityTag().compare("enemy"))
+		if (!_entity->getTag().compare("enemy"))
 		{
 			std::stringstream script;
 			script	<< "enemies[" << _entity->getEntityID() << "].life = " << _life;
@@ -271,7 +271,7 @@ namespace Logic
 		}
 
 		// Relleno la tabla con la información del enemigo.
-		if (!_entity->getEntityTag().compare("enemy"))
+		if (!_entity->getTag().compare("enemy"))
 		{
 			std::stringstream script;
 			script	<< "enemies[" << _entity->getEntityID() << "].life = " << _life;
