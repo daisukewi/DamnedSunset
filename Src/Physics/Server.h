@@ -60,7 +60,7 @@ namespace Physics {
 	enum TPhysicGroup
 	{
 		PG_NONE				= 0x00000000, //Group:
-		PG_TRIGGER_DYNAMIC	= 1 << 0, //0
+		PG_CHARACTERS		= 1 << 0, //0
 		PG_WORLD			= 1 << 1, //1
 		PG_BUILDING			= 1 << 2, //2
 		PG_TRIGGER			= 1 << 3, //3

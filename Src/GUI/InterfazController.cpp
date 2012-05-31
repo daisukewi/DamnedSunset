@@ -368,7 +368,7 @@ namespace GUI {
 	}
 
 	bool CInterfazController::isMouseOnInterface(){
-		CEGUI::Window* guiW = CEGUI::WindowManager::getSingleton().getWindow("InterfazControles");
+		CEGUI::Window* guiW = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
 
 		if(!(CEGUI::System::getSingletonPtr()->getWindowContainingMouse()==guiW))
 		{

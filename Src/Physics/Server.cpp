@@ -133,7 +133,8 @@ void CServer::createScene ()
 	// Grupo 0 -> Objetos que el jugador atraviesa (triggers). Ver método moveCharacter.
 	// Grupo 1 -> El laberinto
 	// Grupo 2 -> Barriles
-	scene->GetNxScene()->setGroupCollisionFlag(0,1,false);
+	//scene->GetNxScene()->setGroupCollisionFlag(0,1,false);
+	scene->GetNxScene()->setGroupCollisionFlag(0,3,false);
 }
 
 //--------------------------------------------------------
@@ -457,7 +458,7 @@ unsigned CServer::moveCharacter(CPhysicObjCharacter *obj, const Vector3 &displ)
 {
 	assert(obj);
 	
-	unsigned collisionGroups = 0xFFFFFFFE; // Todos menos el grupo 0
+	unsigned collisionGroups = PG_ALL & ~PG_TRIGGER;
 	float minDist = 0.01f;
 	float sharpness = 1.0f;
 	return obj->Move(Vector3ToNxVec3(displ), collisionGroups, minDist, sharpness);
