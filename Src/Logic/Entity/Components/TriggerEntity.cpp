@@ -163,13 +163,14 @@ namespace Logic
 		Vector3 position = _entity->getPosition();
 		Matrix3 orientation = _entity->getOrientation();
 		
+		// @TODO @HACK Comento esto porque parece que no influye en la creación de triggers y porque por alguna razón peta.
 		// Crear el modelo físico
-		float height = entityInfo->getFloatAttribute(STR_PHYSIC_HEIGHT);
+		//float height = entityInfo->getFloatAttribute(STR_PHYSIC_HEIGHT);
 		
 		// Calculamos el desplazamiento necesario para transformar entre el sistema de 
 		// coordenadas local de PhysX, que tiene su origen en el centro de la entidad, 
 		// y el de la lógica, que tiene su origen en los pies de la entidad.
-		_offsetY = height / 2.0f;
+		_offsetY = 5 / 2.0f;
 		position.y-= _offsetY;
 		// Creamos la nueva entidad física
 		return _physicServer->createTrigger(this, mode, position, orientation, model); 

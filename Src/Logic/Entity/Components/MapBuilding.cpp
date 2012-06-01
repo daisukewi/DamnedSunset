@@ -31,9 +31,9 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 
-		if(entityInfo->hasAttribute("building_size"))
+		if(entityInfo->hasAttribute("dimension"))
 		{
-			Vector2 size = entityInfo->getVector2Attribute("building_size");
+			Vector2 size = entityInfo->getVector2Attribute("dimension");
 			_buildingWidth = size.x;
 			_buildingHeight = size.y;
 
@@ -45,8 +45,8 @@ namespace Logic
 			_startRow = currentTilePos.y;
 			_startCol = currentTilePos.x;
 
-			_endRow = _startRow + _buildingHeight;
-			_endCol = _startCol + _buildingWidth;
+			_endRow = _startRow - _buildingHeight;
+			_endCol = _startCol - _buildingWidth;
 
 		}
 

@@ -238,8 +238,21 @@ void CPhysicEntity::createPhysicShape(const Map::CEntity *entityInfo, CPhysicMod
 	
 	// Usar una caja?
 	} else if (shape == STR_BOX) {
-		Vector3 dimensions = entityInfo->getVector3Attribute(STR_PHYSIC_DIMENSIONS);
-		_physicServer->createBoxShape(model, dimensions * scale, group);
+
+		// @TODO @HACK Hago esto porque tengo prisa pero en un futuro habría que que hacer algo con el "World".
+		if (!_entity->getType().compare("World"))
+		{
+			Vector3 dimensions = entityInfo->getVector3Attribute(STR_PHYSIC_DIMENSIONS);
+			_physicServer->createBoxShape(model, dimensions * scale, group);
+		}
+		else
+		{
+			Vector2 dimensions2D = entityInfo->getVector2Attribute("dimension");
+			int gridSize = _entity->getMap()->getGridMap()->getGridSize();
+			Ogre::Vector3 dimensions3D = Ogre::Vector3(dimensions2D.y * (gridSize / 2), 50, dimensions2D.x * (gridSize / 2));
+
+			_physicServer->createBoxShape(model, dimensions3D * scale, group);
+		}
 
 	} 
 }

@@ -67,6 +67,14 @@ namespace Logic
 			_life = entityInfo->getFloatAttribute("life");
 		if(entityInfo->hasAttribute("maxLife"))
 			_maxLife = entityInfo->getFloatAttribute("maxLife");
+
+		if(entityInfo->hasAttribute("deathFunction"))
+		{
+			_deathFunction = true;
+			_luaDeathFunction = entityInfo->getStringAttribute("deathFunction").c_str();
+		}
+		else
+			_deathFunction = false;
 		
 		//Billboard
 		_billboard = new Graphics::CBillboard(_entity);
@@ -131,7 +139,14 @@ namespace Logic
 					_death = true;
 					_life = 0;
 
-					if (!_entity->getType().compare("Enemy") || !_entity->getTag().compare("playerBuilding"))
+					if (_deathFunction)
+					{
+						std::stringstream script;
+						script << _luaDeathFunction << "(" << _entity->getEntityID() << ")";
+						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+					}
+
+					if (!_entity->getTag().compare("enemy") || !_entity->getTag().compare("playerBuilding"))
 					{
 						/*MUERE UN ENEMIGO O UN EDIFICIO*/
 

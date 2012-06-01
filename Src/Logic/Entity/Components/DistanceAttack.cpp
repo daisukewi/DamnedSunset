@@ -111,7 +111,7 @@ namespace Logic
 					Ray disparo = Ray(origen, direction);
 					Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastGroup(disparo, &impact,
 						(Physics::TPhysicGroup)(Physics::TPhysicGroup::PG_ALL & ~Physics::TPhysicGroup::PG_TRIGGER));
-					if (!entity->getType().compare("Enemy"))
+					if (!entity->getTag().compare("enemy"))
 					{
 						MDamaged *m_dam = new MDamaged();
 						m_dam->setHurt((_damage)); ///Descomentar para reducir el daño en base a la distancia de los personajes (100.0f * ((_entity->getPosition() - m->getEntity()->getPosition()).length() + 0.1))) * _damage);

@@ -33,6 +33,8 @@ function init()
 
 	interfazC:addChildWindow(interfazW)
 	interfazW:setVisible(false)
+	
+	sacarVentana("Mision 1: Encontrar una forma de salir.")
 end
 
 function activate()

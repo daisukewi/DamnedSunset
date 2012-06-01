@@ -1,7 +1,7 @@
 World CPhysicEntity CSelectable CBillboardIndicacionMover
 Obstacle CPhysicEntity
 Sun CSunController
-Player CPhysicDebug CTriggerEntity CPlayerAIController CPlayerPerception  CDistanceAttack CLanzadorGranadas CAttack CHeal CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor CSelectable CScript CEmpujable CTiempoBala
+Player CTriggerEntity CPlayerAIController CPlayerPerception CDistanceAttack CLanzadorGranadas CAttack CHeal CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CStateMachineExecutor CSelectable CScript CEmpujable CTiempoBala
 Enemy CAttack CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CSelectable CScript CEmpujable CPerception CEnemyAIController CTriggerEntity
 Entity CGraphics
 Enemies CEnemiesGenerator CGraphics CScript
@@ -21,4 +21,5 @@ EnemyMind CScript CEnemyMindAIController
 ScriptsLoader CScript
 StageManager CScript
 DoorStage2Trigger CTriggerEntity
+EnemyEnergyGenerator CPhysicEntity CMapBuilding CSelectable CAnimatedGraphics CLife
 CentroMando CCupula

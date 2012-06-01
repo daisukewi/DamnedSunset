@@ -139,7 +139,7 @@ namespace Logic
 		buildInfo->setName("PhantomBuilding");
 
 		// Obtenemos el tamaño que ocupa el edificio a construir de los arquetipos.
-		Vector2 size = buildInfo->getVector2Attribute("building_size");
+		Vector2 size = buildInfo->getVector2Attribute("dimension");
 		_buildingWidth = size.x;
 		_buildingHeight = size.y;
 
