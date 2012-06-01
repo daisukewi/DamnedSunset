@@ -74,7 +74,7 @@
             <Property Name="CaptionFont" Value="DejaVuSans-10" />
             <Property Name="SizingEnabled" Value="False" />
             <Property Name="TitlebarEnabled" Value="True" />
-            <Property Name="UnifiedAreaRect" Value="{{0.81316,0},{0.01,0},{0.991867,0},{0.07,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.81316,0},{0.01,0},{0.991867,0},{0.075,0}}" />
             <Property Name="DragMovingEnabled" Value="False" />
             <Property Name="CloseButtonEnabled" Value="False" />
         </Window>

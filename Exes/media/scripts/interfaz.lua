@@ -31,9 +31,13 @@ function init()
 	winMgr:getWindow("Interfaz/bPersonaje2"):subscribeEvent("Clicked", "sendClickMessage2")
 	winMgr:getWindow("Interfaz/bPersonaje3"):subscribeEvent("Clicked", "sendClickMessage3")
 
+	-- Cargamos la ventana de texto
+	winMgr:loadWindowLayout("VentanaText.layout")
+	textWindow = winMgr:getWindow("VentanaText/Ventana")
+
 	interfazC:addChildWindow(interfazW)
 	interfazW:setVisible(false)
-	
+
 	sacarVentana("Mision 1: Encontrar una forma de salir.")
 end
 
@@ -77,9 +81,6 @@ function sendClickMessage3()
 end
 
 function sacarVentana(text)
-	-- Cargamos la ventana
-	winMgr:loadWindowLayout("VentanaText.layout")
-	textWindow = winMgr:getWindow("VentanaText/Ventana")
 	-- Activamos la ventana del texto
 	interfazW:addChildWindow(textWindow)
 	textWindow:setVisible(true)
