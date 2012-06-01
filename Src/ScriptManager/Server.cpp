@@ -811,6 +811,10 @@ namespace ScriptManager
 			[
 				luabind::def("getName", &getName)
 			];
+		luabind::module(_lua)
+			[
+				luabind::def("deleteEntity", &deleteEntity)
+			];
 
 		//---------------------------------------------------------
 

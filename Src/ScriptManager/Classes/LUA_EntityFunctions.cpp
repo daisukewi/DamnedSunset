@@ -13,11 +13,19 @@ LUA
 
 #include "Logic/Entity/Entity.h"
 #include "Logic/Maps/Map.h"
+#include "Logic/Maps/EntityFactory.h"
 
 #include "Logic/Server.h"
 
 namespace ScriptManager
 {
+
+	void deleteEntity(unsigned int entityID)
+	{
+		Logic::CEntityFactory::getSingletonPtr()->deferredDeleteEntity(Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID));
+	}
+
+	//---------------------------------------------------------
 
 	bool isPlayer(unsigned int entityID)
 	{

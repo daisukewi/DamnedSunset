@@ -17,6 +17,7 @@ function destroyGenerator1(entityID)
 		currentStage = 3
 	elseif (currentStage == 3) then
 		sacarVentana("Mision 4: Matar al vampiro jefe")
+		deleteEntity(getEntityID("EnemyDoor"))
 		currentStage = 4
 	end
 end
@@ -30,6 +31,11 @@ function destroyGenerator2(entityID)
 		currentStage = 3
 	elseif (currentStage == 3) then
 		sacarVentana("Mision 4: Matar al vampiro jefe")
+		deleteEntity(getEntityID("EnemyDoor"))
 		currentStage = 4
 	end
+end
+
+function mission1End(entityID)
+	sacarVentana("Mission Successful!")
 end

@@ -70,7 +70,7 @@ Archetype = {
 		trigger_height = 1,
 		trigger_collision_group = 3,
 		precision = 0.1,
-		damage = 1,
+		damage = 2,
 		
 		billboardLifeMaterial = "barraVida",
 		billboardLifeWith = 10.0,
@@ -175,7 +175,7 @@ Archetype = {
 		memInitPoint = true,
 		runLifeThreshold = 50,
 		
-		damage = 25,
+		damage = 5,
 		
 		trigger_shape = "trigger_sphere",
 		trigger_type = "trigger_kinematic",
@@ -281,10 +281,94 @@ Archetype = {
 	
 	CentroMando = {
 		type = "CentroMando",
+		tag = "playerBuilding",
 		position = {0, 0, 0},
 		cupulaPosition = {0, 0, 0},
 		cupulaRadius = 100.0,
 		scale = 1.0,
+		orientation = 0,
+		model = "torreta_pie.mesh",
+		physic_entity = "simple",
+		physic_type = "kinematic",
+		physic_shape = "box",
+		physic_dimensions = { 8, 8, 8 },
+		physic_height = 16,
+		physic_radius = 16,
+		physic_collision_group = 2,
+		
+		billboardLifeMaterial = "barraVida",
+		billboardLifeWith = 10.0,
+		billboardLifeHeight = 0.5,
+		billboardLifePosition = {0.0,12.0,0.0},
+		
+		life = 100.0,
+		maxLife = 100.0,
+	},
+	
+	EnemyDoor = {
+		type = "EnemyDoor",
+		tag = "enemy",
+		position = {0, 0, 0},
+		cupulaPosition = {0, 0, 0},
+		cupulaRadius = 100.0,
+		scale = 1.0,
+		orientation = 0,
+		model = "torreta_pie.mesh",
+		physic_entity = "simple",
+		physic_type = "kinematic",
+		physic_shape = "box",
+		physic_dimensions = { 8, 8, 8 },
+		physic_height = 16,
+		physic_radius = 16,
+		physic_collision_group = 2,
+	},
+	
+	EnemyBoss = {
+		type = "EnemyBoss",
+		tag = "enemy",
+		orientation = 0,
+		life = 500.0,
+		maxLife = 500.0,
+		isPlayer = false,
+		model = "loco.mesh",
+		defaultAnimation = "Idle",
+		behavior = "wander",
+		physic_entity = "controller",
+		physic_shape = "capsule",
+		physic_radius = 4,
+		physic_height = 6,
+		physic_collision_group = 5,
+		speed = 0.02,
+		angularSpeed = 0.005,
+		accel = 0.001,
+		angularAccel = 0.0001,
+		movementTolerance = 7.0,
+		
+		billboardLifeMaterial = "barraVida",
+		billboardLifeWith = 10.0,
+		billboardLifeHeight = 0.5,
+		billboardLifePosition = {0.0,12.0,0.0},
+		
+		billboardSeleccionMaterial = "circuloSeleccion",
+		billboardSeleccionWith = 15.0,
+		billboardSeleccionHeight = 15.0,
+		
+		afectaEmpujar = 100,
+		
+		distOfView = 100,
+		
+		initState = 1,
+		memInitPoint = true,
+		runLifeThreshold = 0,
+		
+		damage = 30,
+		
+		trigger_shape = "trigger_sphere",
+		trigger_type = "trigger_kinematic",
+		trigger = true,
+		trigger_radius = 75,
+		trigger_height = 5,
+		trigger_collision_group = 3,
 	},
 	
 }

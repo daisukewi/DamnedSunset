@@ -15,6 +15,7 @@ LUA
 namespace ScriptManager
 {
 
+	void deleteEntity(unsigned int entityID);
 	bool isPlayer (unsigned int entityID);
 	bool isEnemy (unsigned int entityID);
 	unsigned int getEntityID (std::string entityName);
