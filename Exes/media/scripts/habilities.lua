@@ -33,15 +33,27 @@ function inicializarBotonesDia()
 end
 
 function funcionIA1()
-	print("funcionIA1")
+	local mensaje = LUA_MSetPlayerState()
+	mensaje:setPlayerState("idle")
+	mensaje:setEntityTo(God.Selected)
+	mensaje:send()
+	print("Enviado mensaje IDLE")
 end
 
 function funcionIA2()
-	print("funcionIA2")
+	local mensaje = LUA_MSetPlayerState()
+	mensaje:setPlayerState("hold")
+	mensaje:setEntityTo(God.Selected)
+	mensaje:send()
+	print("Enviado mensaje HOLD")
 end
 
 function funcionIA3()
-	print("funcionIA3")
+	local mensaje = LUA_MSetPlayerState()
+	mensaje:setPlayerState("follow")
+	mensaje:setEntityTo(God.Selected)
+	mensaje:send()
+	print("Enviado mensaje FOLLOW")
 end
 
 function cambiarANoche()

@@ -19,6 +19,7 @@ la gestión de los scripts del juego.
 #include "ScriptManager\Classes\Messages\LUA_EntitySelected.h"
 #include "ScriptManager\Classes\Messages\LUA_CambiarDiaNoche.h"
 #include "ScriptManager\Classes\Messages\LUA_UbicarCamara.h"
+#include "ScriptManager\Classes\Messages\LUA_SetPlayerState.h"
 
 #include "ScriptManager/Classes/LUA_EntityFunctions.h"
 
@@ -781,6 +782,16 @@ namespace ScriptManager
 					.def(luabind::constructor<>())
 					.def("setTarget", (void (LUA_MUbicarCamara::*) (unsigned int)) &LUA_MUbicarCamara::setEntityTo)
 					.def("send", &LUA_MUbicarCamara::send)
+			];
+
+		// LUA_MSetStatePlayer
+		luabind::module(_lua)
+			[
+				luabind::class_<LUA_MSetPlayerState>("LUA_MSetPlayerState")
+					.def(luabind::constructor<>())
+					.def("setEntityTo", (void (LUA_MSetPlayerState::*) (unsigned int)) &LUA_MSetPlayerState::setEntityTo)
+					.def("setPlayerState", (void (LUA_MSetPlayerState::*) (std::string)) &LUA_MSetPlayerState::setPlayerState)
+					.def("send", &LUA_MSetPlayerState::send)
 			];
 
 		// Funciones especiales

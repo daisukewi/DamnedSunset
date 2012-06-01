@@ -15,7 +15,7 @@ Contiene la implementación del componente que controla la IA de los personajes.
 
 #include "ScriptManager/Server.h"
 
-#include "Logic/Entity/Messages/KeyboardEvent.h"
+#include "Logic/Entity/Messages/SetPlayerState.h"
 
 #include <sstream>
 
@@ -79,7 +79,7 @@ namespace Logic
 
 	bool CPlayerAIController::accept(IMessage *message)
 	{
-		return !message->getType().compare("MKeyboardEvent")
+		return !message->getType().compare("MSetPlayerState")
 			|| !message->getType().compare("MEntitySelected")
 			|| !message->getType().compare("MEntityCreated");
 
@@ -89,10 +89,10 @@ namespace Logic
 
 	void CPlayerAIController::process(IMessage *message)
 	{
-		if (!message->getType().compare("MKeyboardEvent")){
-			MKeyboardEvent *m_keyboard = static_cast <MKeyboardEvent*> (message);
+		if (!message->getType().compare("MSetPlayerState")){
+			MSetPlayerState *m_state = static_cast <MSetPlayerState*> (message);
 			
-			if (m_keyboard->getKey() == GUI::Key::H){
+			if (m_state->getPlayerState() == Logic::SetPlayerStateMessage::PlayerState::HOLD){
 
 				_state = "hold";
 				std::cout << "PlayerAIController: " + _state + "\n";
@@ -102,7 +102,7 @@ namespace Logic
 				script << "playerEvent(\"StateChange\", " << _entity->getEntityID() << ")";
 				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
-			}else if (m_keyboard->getKey() == GUI::Key::F){
+			}else if (m_state->getPlayerState() == Logic::SetPlayerStateMessage::PlayerState::FOLLOW){
 
 				_state = "follow";
 				std::cout << "PlayerAIController: " + _state + "\n";
@@ -112,7 +112,7 @@ namespace Logic
 				script << "playerEvent(\"StateChange\", " << _entity->getEntityID() << ")";
 				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
-			}else if (m_keyboard->getKey() == GUI::Key::I){
+			}else if (m_state->getPlayerState() == Logic::SetPlayerStateMessage::PlayerState::IDLE){
 				
 				_state = "idle";
 				std::cout << "PlayerAIController: " + _state + "\n";
@@ -140,7 +140,7 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
-		if (true){
+		if (!_entity->getSelected()){
 			_currentExeFrames++;
 
 			// Ejecuto la IA si toca.

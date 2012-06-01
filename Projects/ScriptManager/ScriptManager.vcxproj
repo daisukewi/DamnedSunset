@@ -18,6 +18,7 @@
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_CambiarDiaNoche.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_EntitySelected.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_Message.h" />
+    <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_SetPlayerState.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_SpawnEnemy.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Classes\Messages\LUA_UbicarCamara.h" />
     <ClInclude Include="..\..\Src\ScriptManager\Parser.h" />
@@ -31,6 +32,7 @@
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_CambiarDiaNoche.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_EntitySelected.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_Message.cpp" />
+    <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_SetPlayerState.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_SpawnEnemy.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Classes\Messages\LUA_UbicarCamara.cpp" />
     <ClCompile Include="..\..\Src\ScriptManager\Parser.cpp" />

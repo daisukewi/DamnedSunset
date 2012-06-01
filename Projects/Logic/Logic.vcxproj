@@ -162,6 +162,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ParticleEffect.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetEmpujarPropiedades.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetPlayerState.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetRealTime.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetTransform.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SoundEffect.cpp" />
@@ -273,6 +274,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ParticleEffect.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetEmpujarPropiedades.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetPlayerState.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetRealTime.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetTransform.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SoundEffect.h" />
