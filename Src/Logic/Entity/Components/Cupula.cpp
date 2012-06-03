@@ -31,8 +31,15 @@ namespace Logic
 			_radius = entityInfo->getFloatAttribute("cupulaRadius");
 		}
 
-		if (entityInfo->hasAttribute("cupulaPosition")){
-			_position = entityInfo->getFloatAttribute("cupulaPosition");
+		if(entityInfo->hasAttribute("grid_position"))
+		{
+			Vector2 dimension = entityInfo->getVector2Attribute("dimension");
+			Vector2 currentTilePos = entityInfo->getVector2Attribute("grid_position");
+			Vector2 relativePosition = map->getGridMap()->getRelativeMapPos(currentTilePos.y - dimension.y *0.25 , currentTilePos.x - dimension.x * 0.25);
+
+			_position.x = relativePosition.x;
+			_position.z = relativePosition.y;
+			_position.y = 0.0;
 		}
 
 
@@ -87,11 +94,15 @@ namespace Logic
 
 					//Comprobar el tipo de entidad
 					if (!aux.compare("Enemy") || !aux.compare("Player")){
-					
+						
 						//Comprobar la distancia del centro a la que se encuentra
 						if (_position.distance((*it).second->getPosition()) > _radius)
-							(*it).second->emitMessage(damageMessage);
-					}
+							if (!aux.compare("Player")){
+								
+							}else{
+								(*it).second->emitMessage(damageMessage);
+							}
+						}
 
 				}
 				damageMessage->removePtr();
