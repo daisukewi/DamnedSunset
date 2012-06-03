@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_000F7AFD3751487F80F28B9E80CDD31C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_004152C10AAB4620A12DF7BDE9C2C1CE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -27,7 +33,19 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_02C715CA5D214FC4B41649AD3E606DE9"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_02C8C1158B48423DA59AE32C501923BB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_033E3BDAEB3A4D69965210ED61E9DC63"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -46,6 +64,12 @@
         "Entry"
         {
         "MsmKey" = "8:_0624A513CD14413EB003BE77CB94EBD5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_0840EFC4B0CE46BC8FE2BD98B2452070"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -82,6 +106,12 @@
         "Entry"
         {
         "MsmKey" = "8:_0E5685C3AF414B34944AC3BE7B0B296C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_0F04547613344374B4AAE9F5948F9594"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -130,6 +160,12 @@
         "Entry"
         {
         "MsmKey" = "8:_15BA11397A144AEFB8B08EE8F6140205"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_160BE6047A074DBB887B7A3EACA73D4F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -321,6 +357,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2AD8CFF4B4F74535886757E7226D7F88"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_2BBC6E644A344FED90DF4FE630772A88"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -334,6 +376,12 @@
         "Entry"
         {
         "MsmKey" = "8:_2C4642498FDF40BABD4F8B3485EAEA0B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2C7E8497784342DC8B2C257677213616"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -357,6 +405,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2E65EA75E9DC42C6B8A2682890EEB5D3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_2E84BE9335FE4CC7B84046C6DAC3833E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -370,6 +424,12 @@
         "Entry"
         {
         "MsmKey" = "8:_2F2079AEAD0F492C8FF1C25ACE3CF9F0"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2F57C29CD8944761AAF93572FF83E788"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -453,7 +513,19 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_378E544A07A24BE0BFCAC6975A718140"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_38BE8DC9CC1E4B61BE51158985F7EE30"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_392A46A59FF14DFD8D136C5AD80D1F8B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -466,6 +538,12 @@
         "Entry"
         {
         "MsmKey" = "8:_39CA8E3F48BB4A239ED443FC77E03E51"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3B1DEBC801A04942B64A407120859B30"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -598,6 +676,12 @@
         "Entry"
         {
         "MsmKey" = "8:_4ACD135AFE1B454F920D7DF5CC2C044C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4B5ABC751554467FAAD138F0BD86F3A3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -813,7 +897,31 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_61733AB239DB4FE9BA54D4EBAF0A6235"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_62524D1DA108463D9D53502D1BF04CC3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_626E8FCF1D914F4CA2CF4AAA272ADC15"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_64CA5CF99806470AABF0C64468DD91E4"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_64CC5A1DA7B24B4DABFF093B84C4729C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -861,6 +969,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_6D445A70576549B18EB0C80C7BF71F5F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_6EBACA80F0504092ADEF2C5AC9144A98"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -874,6 +988,12 @@
         "Entry"
         {
         "MsmKey" = "8:_71B1B3018C444EF48D599D7240DF7A69"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_721C3C52DA4040DF8332008DBE30D494"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -904,6 +1024,12 @@
         "Entry"
         {
         "MsmKey" = "8:_75319ABF92F94C8A8EA4E37FC6FACDB7"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7628E16E0EFA4A2390B920479DA8ECF0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -969,6 +1095,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_80005575463E4716A1F69E432EA9570D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_8077FB819A6B47CD8262A71949D35C1A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1023,6 +1155,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_866B95E9D4604C548363247584C289DD"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8695BF75001A4242B2C17FBB2C7C5CDB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_87C34C0467B54201B2788525F7614E5A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1036,6 +1180,12 @@
         "Entry"
         {
         "MsmKey" = "8:_88A5C09C066E403BB94B1D9EB3CA8F28"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8B5AC47FB506436BB2CD454031A46347"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1083,6 +1233,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_8F45542B493E4904AB22FD71E1C718F5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_905662B288F74E51A4CC80B8CAEF1ABE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1119,6 +1275,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_95A5E8E2731A44BC844041217AFE04F0"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_969A7AF966B342A6AF4349DF68FE9451"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_96B9A23C234B4196996C013D28E23224"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1150,6 +1318,12 @@
         "Entry"
         {
         "MsmKey" = "8:_99D4881F251448059726BE1A7642C6C4"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9A5D0EE565F6479D8E19B022C3EE5062"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1197,7 +1371,25 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_9E9A27C8A069493B9E0BA42C692A550F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9F47E94F534048E19C61FB3C9A7A70F1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_A034EE3207B644CBA0891EA4D092EEA3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A1173DF788C841089EADF9EC521279A3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1323,6 +1515,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_B4621EBE9563446FA88D05EE5836B88B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B46DD12088B047B189AB60729AC748C1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_B47B1949779E48D7A0B93C1A112C408D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1359,6 +1563,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_B704EF8326864A40A7DE5D58D783F87D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_B84F5BADF65C44C8818953341727DF0C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1366,6 +1576,12 @@
         "Entry"
         {
         "MsmKey" = "8:_B882AA11D38E466289E6AB90AFCF6131"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B8D9B65DBECC4A0AB7744ABD5A7FA8D9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1383,7 +1599,19 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_BA1F76C18D034623BDE7AD1E23A4C11E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_BA4B01D85C57457485C303510016CCA0"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BB3EF547959341DAB15CF42A0192151D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1395,7 +1623,19 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_BC85C25617034911A6880CB38CA40C44"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_BC8F479E7D384149B2F5BDFE21DE5264"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BD3284DBCA1749EC8B819BC2A26F65E0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1419,7 +1659,19 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_BF58D3F2B19E418FB5387A4A71AD97FB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_BF94C638358047529DF5FBE7A1AA282E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C028BA0D90CB45DD9E437FE9E2800F18"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1467,6 +1719,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C557208CC2E0408DAB10B39DC7F6F342"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C5F6B5AFFDA44D3EACDF7BBF591FB078"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1479,6 +1737,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C84107C64A044918B1E2D72E6DAED2EB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C8A35D39F505406298D526265E4FBEE1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1486,6 +1750,12 @@
         "Entry"
         {
         "MsmKey" = "8:_C9D0FC23FB354972BED84751D8E8918C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CBEEAA06996B41F3867468C0A972EE5F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1539,6 +1809,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_D4AE7049D8DB4268A260C3F3C7E93D3C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_D54CC3A504754EBCBC240F24A08376C4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1552,6 +1828,12 @@
         "Entry"
         {
         "MsmKey" = "8:_D7152B8453F3462F96333E92462E646A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D89371E8035244FDA28D5C821B537DDC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1588,6 +1870,12 @@
         "Entry"
         {
         "MsmKey" = "8:_E1594BE189524A4C8803FB6871F21E90"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E3167352BB4141688A648A58762BF99C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1653,6 +1941,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_ECAAE91715F5461A97174BB997E240DB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_EFA216CA39AD40E7AF2202A5C8733F0F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1689,7 +1983,25 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_F586C5D9F025426D90623ABB8653968D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_F662D867DED147EDA5580BD4793B6FAA"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F6B5ADCD0B2E48B5BB56BB491D06CBEB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F72EF02E50CC4734B700DD451DC45BD2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1727,6 +2039,12 @@
         {
         "MsmKey" = "8:_FAAEFCC2E40A7D74E7B323D5DCEA3407"
         "OwnerKey" = "8:_DE732A722D8A4571AC8B26B8B9770884"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FB734F7FD66D4B8D9DE5FEE5FD334FBB"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1858,6 +2176,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_000F7AFD3751487F80F28B9E80CDD31C"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\enemyMindScript.lua"
+            "TargetName" = "8:enemyMindScript.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_004152C10AAB4620A12DF7BDE9C2C1CE"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\InterfazUtils1.png"
@@ -1898,10 +2236,50 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_02C715CA5D214FC4B41649AD3E606DE9"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\nvidia\\dirt_grayrocky_normalheight.dds"
+            "TargetName" = "8:dirt_grayrocky_normalheight.dds"
+            "Tag" = "8:"
+            "Folder" = "8:_952C751DE16E4E1694B9C0777AA98FFC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_02C8C1158B48423DA59AE32C501923BB"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\archetype.lua"
             "TargetName" = "8:archetype.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_033E3BDAEB3A4D69965210ED61E9DC63"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\mission1Behaviour.lua"
+            "TargetName" = "8:mission1Behaviour.lua"
             "Tag" = "8:"
             "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
             "Condition" = "8:"
@@ -1964,6 +2342,26 @@
             "TargetName" = "8:sierra02.mesh"
             "Tag" = "8:"
             "Folder" = "8:_B2D12FCC1CD84A0AA055018863D45FE3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0840EFC4B0CE46BC8FE2BD98B2452070"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\layouts\\InterfazControles.layout"
+            "TargetName" = "8:InterfazControles.layout"
+            "Tag" = "8:"
+            "Folder" = "8:_F2BB2D52A87640EF841E77E6E276668F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2064,6 +2462,26 @@
             "TargetName" = "8:caja01.mesh"
             "Tag" = "8:"
             "Folder" = "8:_83DBDCBF734D4F46AA7C8AFFC0003D1D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0F04547613344374B4AAE9F5948F9594"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\BotonesIA.imageset"
+            "TargetName" = "8:BotonesIA.imageset"
+            "Tag" = "8:"
+            "Folder" = "8:_439698FA590D418B9786D4F6DB4BE99F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2184,6 +2602,26 @@
             "TargetName" = "8:sample.fontdef"
             "Tag" = "8:"
             "Folder" = "8:_3C1E745B9FBE403F94AB0DF4A65A5622"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_160BE6047A074DBB887B7A3EACA73D4F"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\godScript.lua"
+            "TargetName" = "8:godScript.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2798,6 +3236,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2AD8CFF4B4F74535886757E7226D7F88"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\nvidia\\growth_weirdfungus-03_diffusespecular.dds"
+            "TargetName" = "8:growth_weirdfungus-03_diffusespecular.dds"
+            "Tag" = "8:"
+            "Folder" = "8:_952C751DE16E4E1694B9C0777AA98FFC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2BBC6E644A344FED90DF4FE630772A88"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\calefaccion_Nbump.tga"
@@ -2844,6 +3302,26 @@
             "TargetName" = "8:AttaSoldada.mesh"
             "Tag" = "8:"
             "Folder" = "8:_B2D12FCC1CD84A0AA055018863D45FE3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2C7E8497784342DC8B2C257677213616"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\enemyMindNormalState.lua"
+            "TargetName" = "8:enemyMindNormalState.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2918,6 +3396,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2E65EA75E9DC42C6B8A2682890EEB5D3"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\configs\\CEGUIConfig.xml"
+            "TargetName" = "8:CEGUIConfig.xml"
+            "Tag" = "8:"
+            "Folder" = "8:_E91838AAC5574AC4802A4DF6F8AFA306"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2E84BE9335FE4CC7B84046C6DAC3833E"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\canon.tga"
@@ -2964,6 +3462,26 @@
             "TargetName" = "8:terrain.cfg"
             "Tag" = "8:"
             "Folder" = "8:_39A6957FE2D04EFAB0EB5B5485560E6E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2F57C29CD8944761AAF93572FF83E788"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\road2_NRM.tif"
+            "TargetName" = "8:road2_NRM.tif"
+            "Tag" = "8:"
+            "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3238,12 +3756,52 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_378E544A07A24BE0BFCAC6975A718140"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\road3.jpg"
+            "TargetName" = "8:road3.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_38BE8DC9CC1E4B61BE51158985F7EE30"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\programs\\metal\\cubeCathRefl.dds"
             "TargetName" = "8:cubeCathRefl.dds"
             "Tag" = "8:"
             "Folder" = "8:_C49540DF7F7B45BBAE5E66226B4D8B8F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_392A46A59FF14DFD8D136C5AD80D1F8B"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\interfaz\\interfazControles.lua"
+            "TargetName" = "8:interfazControles.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_43BDB4063CF84B7A931CB1AA48274958"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3284,6 +3842,26 @@
             "TargetName" = "8:WindowsLook.scheme"
             "Tag" = "8:"
             "Folder" = "8:_7718D0EC4BE644FFBA35ADB8804695D4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3B1DEBC801A04942B64A407120859B30"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\ToSunset.imageset"
+            "TargetName" = "8:ToSunset.imageset"
+            "Tag" = "8:"
+            "Folder" = "8:_439698FA590D418B9786D4F6DB4BE99F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3704,6 +4282,26 @@
             "TargetName" = "8:TaharezLook.scheme"
             "Tag" = "8:"
             "Folder" = "8:_7718D0EC4BE644FFBA35ADB8804695D4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4B5ABC751554467FAAD138F0BD86F3A3"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\nvidia\\grass_green-01_normalheight.dds"
+            "TargetName" = "8:grass_green-01_normalheight.dds"
+            "Tag" = "8:"
+            "Folder" = "8:_952C751DE16E4E1694B9C0777AA98FFC"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4418,12 +5016,92 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_61733AB239DB4FE9BA54D4EBAF0A6235"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\layouts\\VentanaText.layout"
+            "TargetName" = "8:VentanaText.layout"
+            "Tag" = "8:"
+            "Folder" = "8:_F2BB2D52A87640EF841E77E6E276668F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_62524D1DA108463D9D53502D1BF04CC3"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\road3_NRM.tif"
+            "TargetName" = "8:road3_NRM.tif"
+            "Tag" = "8:"
+            "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_626E8FCF1D914F4CA2CF4AAA272ADC15"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\mission1StagesConfiguration.lua"
+            "TargetName" = "8:mission1StagesConfiguration.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_64CA5CF99806470AABF0C64468DD91E4"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\circuloSeleccion.png"
             "TargetName" = "8:circuloSeleccion.png"
             "Tag" = "8:"
             "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_64CC5A1DA7B24B4DABFF093B84C4729C"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\ToSunset.jpg"
+            "TargetName" = "8:ToSunset.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_439698FA590D418B9786D4F6DB4BE99F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4578,6 +5256,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6D445A70576549B18EB0C80C7BF71F5F"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\nvidia\\grass_green-01_diffusespecular.dds"
+            "TargetName" = "8:grass_green-01_diffusespecular.dds"
+            "Tag" = "8:"
+            "Folder" = "8:_952C751DE16E4E1694B9C0777AA98FFC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6EBACA80F0504092ADEF2C5AC9144A98"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\programs\\monster.program"
@@ -4624,6 +5322,26 @@
             "TargetName" = "8:Example_Basic.cg"
             "Tag" = "8:"
             "Folder" = "8:_D29C6B46A0584F5F8CC6941421205E32"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_721C3C52DA4040DF8332008DBE30D494"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\Fireball.000.png"
+            "TargetName" = "8:Fireball.000.png"
+            "Tag" = "8:"
+            "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4724,6 +5442,26 @@
             "TargetName" = "8:OgreTrayImages.png"
             "Tag" = "8:"
             "Folder" = "8:_439698FA590D418B9786D4F6DB4BE99F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7628E16E0EFA4A2390B920479DA8ECF0"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\scripts\\Fireball.000.material"
+            "TargetName" = "8:Fireball.000.material"
+            "Tag" = "8:"
+            "Folder" = "8:_7DD50D6BD9544B4B9D734A78BD0D436F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4938,6 +5676,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_80005575463E4716A1F69E432EA9570D"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\scriptsLoader.lua"
+            "TargetName" = "8:scriptsLoader.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8077FB819A6B47CD8262A71949D35C1A"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\programs\\metal\\oshHelm_d.dds"
@@ -5118,6 +5876,46 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_866B95E9D4604C548363247584C289DD"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\sounds\\rocket_explosion.wav"
+            "TargetName" = "8:rocket_explosion.wav"
+            "Tag" = "8:"
+            "Folder" = "8:_8B2406758CE14384A8A73CBF6E1279AC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8695BF75001A4242B2C17FBB2C7C5CDB"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\sounds\\teletransporte.mp3"
+            "TargetName" = "8:teletransporte.mp3"
+            "Tag" = "8:"
+            "Folder" = "8:_8B2406758CE14384A8A73CBF6E1279AC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_87C34C0467B54201B2788525F7614E5A"
             {
             "SourcePath" = "8:..\\..\\Exes\\plugins.cfg"
@@ -5144,6 +5942,26 @@
             "TargetName" = "8:rejas.tga"
             "Tag" = "8:"
             "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8B5AC47FB506436BB2CD454031A46347"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\BotonesIA.png"
+            "TargetName" = "8:BotonesIA.png"
+            "Tag" = "8:"
+            "Folder" = "8:_439698FA590D418B9786D4F6DB4BE99F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5278,6 +6096,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8F45542B493E4904AB22FD71E1C718F5"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\road.jpg"
+            "TargetName" = "8:road.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_905662B288F74E51A4CC80B8CAEF1ABE"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\tanke.tga"
@@ -5364,6 +6202,46 @@
             "TargetName" = "8:aire.tga"
             "Tag" = "8:"
             "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_95A5E8E2731A44BC844041217AFE04F0"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\habilities.lua"
+            "TargetName" = "8:habilities.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_969A7AF966B342A6AF4349DF68FE9451"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\scripts\\Explosion.particle"
+            "TargetName" = "8:Explosion.particle"
+            "Tag" = "8:"
+            "Folder" = "8:_7DD50D6BD9544B4B9D734A78BD0D436F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5484,6 +6362,26 @@
             "TargetName" = "8:corredores_Spec.tga"
             "Tag" = "8:"
             "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9A5D0EE565F6479D8E19B022C3EE5062"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\playerScript - copia.lua"
+            "TargetName" = "8:playerScript - copia.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5638,12 +6536,72 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9E9A27C8A069493B9E0BA42C692A550F"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\print.lua"
+            "TargetName" = "8:print.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9F47E94F534048E19C61FB3C9A7A70F1"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\nvidia\\TextureUsageAgreement.txt"
+            "TargetName" = "8:TextureUsageAgreement.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_952C751DE16E4E1694B9C0777AA98FFC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A034EE3207B644CBA0891EA4D092EEA3"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\InterfazUtils.png"
             "TargetName" = "8:InterfazUtils.png"
             "Tag" = "8:"
             "Folder" = "8:_439698FA590D418B9786D4F6DB4BE99F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A1173DF788C841089EADF9EC521279A3"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\toon_desert.jpg"
+            "TargetName" = "8:toon_desert.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -6038,6 +6996,46 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B4621EBE9563446FA88D05EE5836B88B"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\enemyIdleState.lua"
+            "TargetName" = "8:enemyIdleState.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B46DD12088B047B189AB60729AC748C1"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\jackScript.lua"
+            "TargetName" = "8:jackScript.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B47B1949779E48D7A0B93C1A112C408D"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\corredores_Nbump.tga"
@@ -6138,6 +7136,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B704EF8326864A40A7DE5D58D783F87D"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\Flare.000.png"
+            "TargetName" = "8:Flare.000.png"
+            "Tag" = "8:"
+            "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B84F5BADF65C44C8818953341727DF0C"
             {
             "SourcePath" = "8:..\\..\\Exes\\CEGUIFalagardWRBase.dll"
@@ -6164,6 +7182,26 @@
             "TargetName" = "8:marine.skeleton"
             "Tag" = "8:"
             "Folder" = "8:_B2D12FCC1CD84A0AA055018863D45FE3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B8D9B65DBECC4A0AB7744ABD5A7FA8D9"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\nvidia\\dirt_grayrocky_diffusespecular.dds"
+            "TargetName" = "8:dirt_grayrocky_diffusespecular.dds"
+            "Tag" = "8:"
+            "Folder" = "8:_952C751DE16E4E1694B9C0777AA98FFC"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -6218,12 +7256,52 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BA1F76C18D034623BDE7AD1E23A4C11E"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\interfaz.lua"
+            "TargetName" = "8:interfaz.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BA4B01D85C57457485C303510016CCA0"
             {
             "SourcePath" = "8:..\\..\\Exes\\fmodexL64.dll"
             "TargetName" = "8:fmodexL64.dll"
             "Tag" = "8:"
             "Folder" = "8:_06C50904B4AD4BD6A97D38CBFFCA74E3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BB3EF547959341DAB15CF42A0192151D"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\mountain.jpg"
+            "TargetName" = "8:mountain.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -6258,12 +7336,52 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BC85C25617034911A6880CB38CA40C44"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\terrain.png"
+            "TargetName" = "8:terrain.png"
+            "Tag" = "8:"
+            "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BC8F479E7D384149B2F5BDFE21DE5264"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\gui\\looknfeel\\TaharezLook.looknfeel"
             "TargetName" = "8:TaharezLook.looknfeel"
             "Tag" = "8:"
             "Folder" = "8:_A1BF9D06C40A4B298F70D93EAF09ED40"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BD3284DBCA1749EC8B819BC2A26F65E0"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\utils.lua"
+            "TargetName" = "8:utils.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -6338,12 +7456,52 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BF58D3F2B19E418FB5387A4A71AD97FB"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\enemyAttackState.lua"
+            "TargetName" = "8:enemyAttackState.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BF94C638358047529DF5FBE7A1AA282E"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\gui\\xml_schemas\\CEGUIConfig.xsd"
             "TargetName" = "8:CEGUIConfig.xsd"
             "Tag" = "8:"
             "Folder" = "8:_15B2BC50B1A04192A7F9F9F3A6734A7C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C028BA0D90CB45DD9E437FE9E2800F18"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\Interfaz1.png"
+            "TargetName" = "8:Interfaz1.png"
+            "Tag" = "8:"
+            "Folder" = "8:_439698FA590D418B9786D4F6DB4BE99F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -6498,6 +7656,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C557208CC2E0408DAB10B39DC7F6F342"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\road_NRM.tif"
+            "TargetName" = "8:road_NRM.tif"
+            "Tag" = "8:"
+            "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C5F6B5AFFDA44D3EACDF7BBF591FB078"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\escorpion.jpg"
@@ -6538,6 +7716,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C84107C64A044918B1E2D72E6DAED2EB"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\road2.jpg"
+            "TargetName" = "8:road2.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C8A35D39F505406298D526265E4FBEE1"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\gui\\looknfeel\\WindowsLook.looknfeel"
@@ -6564,6 +7762,26 @@
             "TargetName" = "8:skybox.zip"
             "Tag" = "8:"
             "Folder" = "8:_0ACE4C9D157B4B2C9EC368A1A17D1A4C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CBEEAA06996B41F3867468C0A972EE5F"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\enemyScript.lua"
+            "TargetName" = "8:enemyScript.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -6718,6 +7936,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D4AE7049D8DB4268A260C3F3C7E93D3C"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\playerScript.lua"
+            "TargetName" = "8:playerScript.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D54CC3A504754EBCBC240F24A08376C4"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\paredmetalica_Spec.tga"
@@ -6764,6 +8002,26 @@
             "TargetName" = "8:arcos_Nbump.tga"
             "Tag" = "8:"
             "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D89371E8035244FDA28D5C821B537DDC"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\scripts\\Flare.000.material"
+            "TargetName" = "8:Flare.000.material"
+            "Tag" = "8:"
+            "Folder" = "8:_7DD50D6BD9544B4B9D734A78BD0D436F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -6864,6 +8122,26 @@
             "TargetName" = "8:torreta_brazo2.mesh"
             "Tag" = "8:"
             "Folder" = "8:_83DBDCBF734D4F46AA7C8AFFC0003D1D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E3167352BB4141688A648A58762BF99C"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\enemyRunState.lua"
+            "TargetName" = "8:enemyRunState.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -7078,6 +8356,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_ECAAE91715F5461A97174BB997E240DB"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\scripts\\Spiral.particle"
+            "TargetName" = "8:Spiral.particle"
+            "Tag" = "8:"
+            "Folder" = "8:_7DD50D6BD9544B4B9D734A78BD0D436F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EFA216CA39AD40E7AF2202A5C8733F0F"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\fonts\\bluebold.ttf"
@@ -7198,12 +8496,72 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F586C5D9F025426D90623ABB8653968D"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\nvidia\\growth_weirdfungus-03_normalheight.dds"
+            "TargetName" = "8:growth_weirdfungus-03_normalheight.dds"
+            "Tag" = "8:"
+            "Folder" = "8:_952C751DE16E4E1694B9C0777AA98FFC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F662D867DED147EDA5580BD4793B6FAA"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\luz azul.tga"
             "TargetName" = "8:luz azul.tga"
             "Tag" = "8:"
             "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F6B5ADCD0B2E48B5BB56BB491D06CBEB"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\initCEGUI.lua"
+            "TargetName" = "8:initCEGUI.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F72EF02E50CC4734B700DD451DC45BD2"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\scripts\\enemyMoveState.lua"
+            "TargetName" = "8:enemyMoveState.lua"
+            "Tag" = "8:"
+            "Folder" = "8:_C46EAE09CF7D479C9F1D82622FE98D95"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -7338,6 +8696,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FB734F7FD66D4B8D9DE5FEE5FD334FBB"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\mountain_NRM.tif"
+            "TargetName" = "8:mountain_NRM.tif"
+            "Tag" = "8:"
+            "Folder" = "8:_29AEFA9078914A34A38CE81ED87ADEFB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FE3A28C79086421A9E9038987777CC85"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\corredores.tga"
@@ -7452,6 +8830,17 @@
                                     "Property" = "8:_4E1353E0137348B49AA810B45A65E066"
                                         "Folders"
                                         {
+                                            "{9EF0B969-E518-4E46-987F-47570745A589}:_952C751DE16E4E1694B9C0777AA98FFC"
+                                            {
+                                            "Name" = "8:nvidia"
+                                            "AlwaysCreate" = "11:FALSE"
+                                            "Condition" = "8:"
+                                            "Transitive" = "11:FALSE"
+                                            "Property" = "8:_3F7A60D5C92146C191326C6E5A9709F6"
+                                                "Folders"
+                                                {
+                                                }
+                                            }
                                         }
                                     }
                                     "{9EF0B969-E518-4E46-987F-47570745A589}:_7DD50D6BD9544B4B9D734A78BD0D436F"
@@ -7610,6 +8999,17 @@
                                 {
                                 }
                             }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_8B2406758CE14384A8A73CBF6E1279AC"
+                            {
+                            "Name" = "8:sounds"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_B7CB3BA0306740059BDF1E881E31E481"
+                                "Folders"
+                                {
+                                }
+                            }
                             "{9EF0B969-E518-4E46-987F-47570745A589}:_B2D12FCC1CD84A0AA055018863D45FE3"
                             {
                             "Name" = "8:models"
@@ -7641,6 +9041,17 @@
                             "Property" = "8:_7A626BC8A3254931B45C97E48365C529"
                                 "Folders"
                                 {
+                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_43BDB4063CF84B7A931CB1AA48274958"
+                                    {
+                                    "Name" = "8:interfaz"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "Property" = "8:_1AE1A4D4772F4D18AECCAD9FBD10A540"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
                                 }
                             }
                         }

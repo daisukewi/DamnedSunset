@@ -7,13 +7,38 @@ stages = {
 		spawnEnemies = {
 			
 			[1] = 5,
-			[2] = 6,
-			[3] = 5,
-			[4] = 4,
+			[2] = 5,
+			[3] = 6,
+			[4] = 5,
 			
 		},
 		
 		-- Tiempo entre spawn de enemigos de cada spawn point (en segundos)
+		spawnTime = {
+			
+			[1] = 40,
+			[2] = 40,
+			[3] = 50,
+			[4] = 50,
+			
+		},
+		
+	},
+	
+	-- Configuración etapa 2
+	[2] = {
+	
+		-- Enemigos spawneados por cada spawn point
+		spawnEnemies = {
+			
+			[1] = 5,
+			[2] = 5,
+			[3] = 6,
+			[4] = 5,
+			
+		},
+		
+		-- Tiempo entre spawn de enemigos de cada spawn point
 		spawnTime = {
 			
 			[1] = 30,
@@ -25,8 +50,33 @@ stages = {
 		
 	},
 	
-	-- Configuración etapa 2
-	[2] = {
+	-- Configuración etapa 3
+	[3] = {
+	
+		-- Enemigos spawneados por cada spawn point
+		spawnEnemies = {
+			
+			[1] = 5,
+			[2] = 5,
+			[3] = 6,
+			[4] = 5,
+			
+		},
+		
+		-- Tiempo entre spawn de enemigos de cada spawn point
+		spawnTime = {
+			
+			[1] = 20,
+			[2] = 20,
+			[3] = 30,
+			[4] = 30,
+			
+		},
+		
+	},
+	
+	-- Configuración etapa 4
+	[4] = {
 	
 		-- Enemigos spawneados por cada spawn point
 		spawnEnemies = {

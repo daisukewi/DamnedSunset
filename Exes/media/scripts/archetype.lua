@@ -70,7 +70,7 @@ Archetype = {
 		trigger_height = 1,
 		trigger_collision_group = 3,
 		precision = 0.1,
-		damage = 2,
+		damage = 10,
 		
 		billboardLifeMaterial = "barraVida",
 		billboardLifeWith = 10.0,
@@ -175,7 +175,7 @@ Archetype = {
 		memInitPoint = true,
 		runLifeThreshold = 50,
 		
-		damage = 5,
+		damage = 1,
 		
 		trigger_shape = "trigger_sphere",
 		trigger_type = "trigger_kinematic",
@@ -268,7 +268,7 @@ Archetype = {
 		trigger_radius = 50,
 		trigger_collision_group = 3,
 		
-		damage = 10,
+		damage = 33,
 	},
 	
 	Waypoint = {
