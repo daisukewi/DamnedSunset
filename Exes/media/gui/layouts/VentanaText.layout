@@ -5,11 +5,27 @@
         <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
         <Window Type="OgreTray/FrameWindow" Name="VentanaText/Ventana" >
             <Property Name="Font" Value="DejaVuSans-10" />
-            <Property Name="Text" Value="Time: 0" />
+            <Property Name="Text" Value="Mensaje" />
+            <Property Name="HorzExtent" Value="361" />
+            <Property Name="VertExtent" Value="59.5854" />
+            <Property Name="HorzFormatting" Value="WordWrapLeftAligned" />
+            <Property Name="VertFormatting" Value="TopAligned" />
+            <Property Name="vert-alignment" Value="centre" />
             <Property Name="AlwaysOnTop" Value="True" />
+            <Property Name="SizingEnabled" Value="False" />
+            <Property Name="DragMovingEnabled" Value="False" />
+            <Property Name="CloseButtonEnabled" Value="False" />
             <Property Name="CaptionFont" Value="DejaVuSans-10" />
             <Property Name="TitlebarEnabled" Value="True" />
             <Property Name="UnifiedAreaRect" Value="{{0.35,0},{0.35,0},{0.75,0},{0.65,0}}" />
+            <Window Type="OgreTray/StaticText" Name="VentanaText/Ventana/Text" >
+              <Property Name="Text" Value="Texto a escribir" />
+              <Property Name="HorzExtent" Value="361" />
+              <Property Name="VertExtent" Value="59.5854" />
+              <Property Name="HorzFormatting" Value="WordWrapLeftAligned" />
+              <Property Name="VertFormatting" Value="TopAligned" />
+              <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+            </Window>
             <Window Type="OgreTray/Button" Name="VentanaText/Ventana/Start" >
               <Property Name="Font" Value="DejaVuSans-10" />
               <Property Name="Text" Value="Aceptar" />

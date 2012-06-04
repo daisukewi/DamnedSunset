@@ -85,7 +85,7 @@ function sacarVentana(text)
 	interfazW:addChildWindow(textWindow)
 	textWindow:setVisible(true)
 	textWindow:activate()
-	textWindow:setText(text)
+	winMgr:getWindow("VentanaText/Ventana/Text"):setText(text)
 	winMgr:getWindow("VentanaText/Ventana/Start"):subscribeEvent("Clicked", "closeVentana")
 end
 
