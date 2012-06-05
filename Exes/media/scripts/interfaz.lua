@@ -70,14 +70,37 @@ end
 
 function sendClickMessage1()
 	selectNewTarget(getEntityID("Jack"))
+	if persSelect ~= 1 then
+		cambiarBotones(1)
+	end
 end
 
 function sendClickMessage2()
 	selectNewTarget(getEntityID("Erick"))
+	if persSelect ~= 2 then
+		cambiarBotones(2)
+	end
 end
 
 function sendClickMessage3()
 	selectNewTarget(getEntityID("Amor"))
+	if persSelect ~= 3 then
+		cambiarBotones(3)
+	end
+end
+
+function cambiarBotones(pers)
+	n = 6 - persSelect - pers
+	winMgr:getWindow("Interfaz/bPersonaje" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.15,0},{0.09,0},{0.23,0}}")
+	interfazW:getChild("Interfaz/iVida" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.11,0},{0.09,0},{0.13,0}}")
+	interfazW:getChild("Interfaz/iEnergia" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.13,0},{0.09,0},{0.15,0}}")
+	winMgr:getWindow("Interfaz/bPersonaje" .. n):setProperty("UnifiedAreaRect","{{0.01,0},{0.26,0},{0.06,0},{0.31,0}}")
+	interfazW:getChild("Interfaz/iVida" .. n):setProperty("UnifiedAreaRect","{{0.01,0},{0.24,0},{0.06,0},{0.25,0}}")
+	interfazW:getChild("Interfaz/iEnergia" .. n):setProperty("UnifiedAreaRect","{{0.01,0},{0.25,0},{0.06,0},{0.26,0}}")
+	winMgr:getWindow("Interfaz/bPersonaje" .. persSelect):setProperty("UnifiedAreaRect","{{0.01,0},{0.34,0},{0.06,0},{0.39,0}}")
+	interfazW:getChild("Interfaz/iVida" .. persSelect):setProperty("UnifiedAreaRect","{{0.01,0},{0.32,0},{0.06,0},{0.33,0}}")
+	interfazW:getChild("Interfaz/iEnergia" .. persSelect):setProperty("UnifiedAreaRect","{{0.01,0},{0.33,0},{0.06,0},{0.34,0}}")
+	persSelect = pers
 end
 
 function sacarVentana(text)
@@ -95,6 +118,7 @@ function closeVentana()
 end
 
 winMgr = CEGUI.WindowManager:getSingleton()
+persSelect = 1
 interfazW = 0
 fpsWindow = 0
 textWindow = 0
