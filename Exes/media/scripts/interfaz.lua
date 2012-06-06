@@ -70,23 +70,14 @@ end
 
 function sendClickMessage1()
 	selectNewTarget(getEntityID("Jack"))
-	if persSelect ~= 1 then
-		cambiarBotones(1)
-	end
 end
 
 function sendClickMessage2()
 	selectNewTarget(getEntityID("Erick"))
-	if persSelect ~= 2 then
-		cambiarBotones(2)
-	end
 end
 
 function sendClickMessage3()
 	selectNewTarget(getEntityID("Amor"))
-	if persSelect ~= 3 then
-		cambiarBotones(3)
-	end
 end
 
 function cambiarBotones(pers)

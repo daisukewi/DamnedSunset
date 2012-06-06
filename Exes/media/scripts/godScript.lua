@@ -27,21 +27,21 @@ function selectNewTarget(target)
 		mensaje:setSelectedEntity(0)
 		mensaje:send()
 	end
-	
-	--Select new target 
+
+	--Select new target
 	God.Selected = target
-	
+
 	--Send selected to new target
 	if target ~= -1 and isPlayer(target) then
 		local mensaje = LUA_MEntitySelected()
 		mensaje:setEntityTo(target)
 		mensaje:setSelectedEntity(target)
 		mensaje:send()
-		
+
 		local mensaje = LUA_MUbicarCamara()
 		mensaje:setTarget(target)
 		mensaje:send()
-		
+
 		loadPlayerGUI(target)
 	end
 end
@@ -60,16 +60,25 @@ function loadPlayerGUI (player)
 	ocultarBoton(2)
 	ocultarBoton(3)
 	ocultarBoton(4)
-	
+
 	name = getName(player)
 	if name == "Jack" then
 		cargarBoton(2, "granada", "habilidadGranada")
+		if persSelect ~= 1 then
+			cambiarBotones(1)
+		end
 	elseif name == "Erick" then
 		cargarBoton(2, "granada", "habilidadGranada")
 		cargarBoton(3, "bolazul", "habilidadRalentizarTiempo")
+		if persSelect ~= 2 then
+			cambiarBotones(2)
+		end
 	elseif name == "Amor" then
 		cargarBoton(2, "granada", "habilidadGranada")
 		cargarBoton(4, "jeringa", "habilidadCurar")
+		if persSelect ~= 3 then
+			cambiarBotones(3)
+		end
 	end
 end
 
