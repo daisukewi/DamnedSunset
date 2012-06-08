@@ -82,15 +82,28 @@ end
 
 function cambiarBotones(pers)
 	n = 6 - persSelect - pers
+
 	winMgr:getWindow("Interfaz/bPersonaje" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.15,0},{0.09,0},{0.23,0}}")
 	interfazW:getChild("Interfaz/iVida" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.11,0},{0.09,0},{0.13,0}}")
 	interfazW:getChild("Interfaz/iEnergia" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.13,0},{0.09,0},{0.15,0}}")
+	interfazW:getChild("Interfaz/BotonIA1" .. pers):setProperty("UnifiedAreaRect","{{0.09,0},{0.15,0},{0.11,0},{0.17,0}}")
+	interfazW:getChild("Interfaz/BotonIA2" .. pers):setProperty("UnifiedAreaRect","{{0.09,0},{0.17,0},{0.11,0},{0.2,0}}")
+	interfazW:getChild("Interfaz/BotonIA3" .. pers):setProperty("UnifiedAreaRect","{{0.09,0},{0.2,0},{0.11,0},{0.23,0}}")
+
 	winMgr:getWindow("Interfaz/bPersonaje" .. n):setProperty("UnifiedAreaRect","{{0.01,0},{0.26,0},{0.06,0},{0.31,0}}")
 	interfazW:getChild("Interfaz/iVida" .. n):setProperty("UnifiedAreaRect","{{0.01,0},{0.24,0},{0.06,0},{0.25,0}}")
 	interfazW:getChild("Interfaz/iEnergia" .. n):setProperty("UnifiedAreaRect","{{0.01,0},{0.25,0},{0.06,0},{0.26,0}}")
+	interfazW:getChild("Interfaz/BotonIA1" .. n):setProperty("UnifiedAreaRect","{{0.06,0},{0.26,0},{0.07,0},{0.28,0}}")
+	interfazW:getChild("Interfaz/BotonIA2" .. n):setProperty("UnifiedAreaRect","{{0.06,0},{0.28,0},{0.07,0},{0.3,0}}")
+	interfazW:getChild("Interfaz/BotonIA3" .. n):setProperty("UnifiedAreaRect","{{0.06,0},{0.3,0},{0.07,0},{0.31,0}}")
+
 	winMgr:getWindow("Interfaz/bPersonaje" .. persSelect):setProperty("UnifiedAreaRect","{{0.01,0},{0.34,0},{0.06,0},{0.39,0}}")
 	interfazW:getChild("Interfaz/iVida" .. persSelect):setProperty("UnifiedAreaRect","{{0.01,0},{0.32,0},{0.06,0},{0.33,0}}")
 	interfazW:getChild("Interfaz/iEnergia" .. persSelect):setProperty("UnifiedAreaRect","{{0.01,0},{0.33,0},{0.06,0},{0.34,0}}")
+	interfazW:getChild("Interfaz/BotonIA1" .. persSelect):setProperty("UnifiedAreaRect","{{0.06,0},{0.34,0},{0.07,0},{0.35,0}}")
+	interfazW:getChild("Interfaz/BotonIA2" .. persSelect):setProperty("UnifiedAreaRect","{{0.06,0},{0.35,0},{0.07,0},{0.37,0}}")
+	interfazW:getChild("Interfaz/BotonIA3" .. persSelect):setProperty("UnifiedAreaRect","{{0.06,0},{0.37,0},{0.07,0},{0.39,0}}")
+
 	persSelect = pers
 end
 
@@ -106,6 +119,13 @@ end
 function closeVentana()
 	textWindow:deactivate()
 	textWindow:setVisible(false)
+end
+
+function activarBotonIA(ia)
+	for i = 1, 3, 1 do
+		CEGUI.WindowManager:getSingleton():getWindow("Interfaz/BotonIA" .. i .. persSelect):setVisible(false)
+    end
+	CEGUI.WindowManager:getSingleton():getWindow("Interfaz/BotonIA" .. ia .. persSelect):setVisible(true)
 end
 
 winMgr = CEGUI.WindowManager:getSingleton()

@@ -25,16 +25,21 @@ function clickBotonIA1()
 	if funcionBotonIA1 ~= "" then
 		_G[funcionBotonIA1]()
 	end
+	activarBotonIA(1)
 end
+
 function clickBotonIA2()
 	if funcionBotonIA2 ~= "" then
 		_G[funcionBotonIA2]()
 	end
+	activarBotonIA(2)
 end
+
 function clickBotonIA3()
 	if funcionBotonIA3 ~= "" then
 		_G[funcionBotonIA3]()
 	end
+	activarBotonIA(3)
 end
 
 --Funcion que cargar en un boton, una imagen y una funcion
@@ -54,7 +59,7 @@ function cargarBoton(numBoton,imageName,funcion)
 		boton = botonControles4
 		funcionBoton4 = funcion
     end
-	
+
 	--Cargamos las imagenes al boton
 	local imageNameComun = "set:InterfazUtils image:"
 	local imageNameFinal = imageNameComun .. imageName
@@ -93,10 +98,10 @@ function cargarBotonIA(numBoton,imageName,funcion)
 		boton = botonIA3
 		funcionBotonIA3 = funcion
     end
-	
+
 	--Cargamos las imagenes al boton
 	local imageNameComun = "set:BotonesIA image:"
-	
+
 	local imageNameFinal = imageNameComun .. imageName .. 1
 	boton:setProperty("NormalImage",imageNameFinal)
 	imageNameFinal = imageNameComun .. imageName .. 2
@@ -140,7 +145,7 @@ function inicializarInterfazControles()
 	botonControles2:subscribeEvent("Clicked", clickBoton2)
 	botonControles3:subscribeEvent("Clicked", clickBoton3)
 	botonControles4:subscribeEvent("Clicked", clickBoton4)
-	
+
 	--Guargamod los botones en variables para poder acceder facilmente a ellos
 	botonIA1 = CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/BotonIA1")
 	botonIA2 = CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/BotonIA2")
@@ -152,7 +157,7 @@ function inicializarInterfazControles()
 	botonIA3:subscribeEvent("Clicked", clickBotonIA3)
 
 	CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/MenuBotonesIA"):setVisible(false)
-	
+
 	--Inicializamos los botones del dia
 	inicializarBotonesDia()
 end
