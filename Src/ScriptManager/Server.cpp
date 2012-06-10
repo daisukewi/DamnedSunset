@@ -763,6 +763,7 @@ namespace ScriptManager
 				.def("setEntityTo", (void (LUA_MEntitySelected::*) (unsigned int)) &LUA_MEntitySelected::setEntityTo)
 				.def("setSelectedEntity", (void (LUA_MEntitySelected::*) (std::string)) &LUA_MEntitySelected::setSelectedEntity)
 				.def("setSelectedEntity", (void (LUA_MEntitySelected::*) (unsigned int)) &LUA_MEntitySelected::setSelectedEntity)
+				.def("setSelectedType", (void (LUA_MEntitySelected::*) (std::string)) &LUA_MEntitySelected::setSelectedType)
 				.def("send", &LUA_MEntitySelected::send)
 		];
 

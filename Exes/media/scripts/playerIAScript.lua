@@ -12,7 +12,7 @@ end
 
 -- Acción del estado idle.
 function playerIdleStateAction(entity)
-	
+	local nextState
 	return 1
 end
 
@@ -150,10 +150,24 @@ end
 function playerHoldStateAction(entity)
 	local nextState
 	nextState = 3
-	
+	return nextState
+end
+--------------------------------------------------
+--				Estado seguir al jugador					--
+--------------------------------------------------
+
+function playerFollowPlayerStateEvent(entity)
+	local nextState
+	nextState = 4
 	return nextState
 end
 
+function playerFollowPlayerStateAction(entity)
+	local nextState
+	-- Comprobar distancia con el
+	nextState = 4
+	return nextState
+end
 --------------------------------------------------
 --				Máquina de estados				--
 --------------------------------------------------
@@ -162,13 +176,22 @@ end
 playerIdleState = { event = playerIdleStateEvent, action = playerIdleStateAction }
 playerFollowState = { event = playerFollowStateEvent, action = playerFollowStateAction }
 playerHoldState = { event = playerHoldStateEvent, action = playerHoldStateAction }
+playerFollowPlayer = { event = playerFollowPlayerStateEvent, action = playerFollowPlayerStateAction }
 
 -- Tabla con todos los estados.
 playerStates = {
 	{ name = "idle", state = playerIdleState },
 	{ name = "follow", state = playerFollowState },
 	{ name = "hold", state = playerHoldState },
+	{ name = "followPlayer", state = playerFollowPlayer }
 }
+
+
+-- Variables para guardar los IDs de los personjaes y acceder a su posición 
+playerJackID = -1
+playerErickID = -1
+playerAmorID = -1
+
 
 -- Función que recogerá los eventos a los cuales reaccionará la máquina de estados.
 function playerEvent(event, entity)
@@ -187,6 +210,9 @@ function playerEvent(event, entity)
 		elseif (playerEventParam.state == 'hold') then
 			state = 3
 			print('HOLD')
+		elseif (playerEventParam.state == 'followPlayer') then
+			state = 4
+			print ('FOLLOW PLAYER')
 		end
 		
 		players[entity].state = state

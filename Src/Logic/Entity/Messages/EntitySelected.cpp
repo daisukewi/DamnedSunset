@@ -19,6 +19,7 @@ namespace Logic
 
 		_type = "MEntitySelected";
 		_interface = false;
+		_selectedType = SelectedType::PRIMARY;
 
 	} // MEntitySelected
 
@@ -52,6 +53,14 @@ namespace Logic
 
 	void MEntitySelected::setInterface(bool interface){
 		_interface = interface;
+	}
+
+	void MEntitySelected::setSelectedType(SelectedType selectedType){
+		_selectedType = selectedType;
+	} //setSelectedType
+
+	SelectedType MEntitySelected::getSelectedType(){
+		return _selectedType;
 	}
 
 } // namespace Logic

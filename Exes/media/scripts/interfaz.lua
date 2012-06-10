@@ -69,15 +69,15 @@ function actualizarBarraVida(numPersonaje, porcentajeVida)
 end
 
 function sendClickMessage1()
-	selectNewTarget(getEntityID("Jack"))
+	processSelection(getEntityID("Jack"),0,0,0)
 end
 
 function sendClickMessage2()
-	selectNewTarget(getEntityID("Erick"))
+	processSelection(getEntityID("Erick"),0,0,0)
 end
 
 function sendClickMessage3()
-	selectNewTarget(getEntityID("Amor"))
+	processSelection(getEntityID("Amor"),0,0,0)
 end
 
 function cambiarBotones(pers)

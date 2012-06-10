@@ -366,6 +366,19 @@ namespace Logic
 		*/
 		void setSelected(bool isSelected) {_isSelected = isSelected;}
 
+
+		/**
+		Devuelve si la entidad está seleccionada por multiselección
+		@return _isSecondarySelected
+		*/
+		bool getSecondarySelected(){ return _isSecondarySelected;}
+
+		/**
+		Establece si la entidad está seleccionada por multiselección
+		@param isSelected
+		*/
+		void setSecondarySelected(bool isSecondarySelected) {_isSecondarySelected = isSecondarySelected;}
+
 	protected:
 
 		/**
@@ -440,6 +453,10 @@ namespace Logic
 		*/
 		bool _isSelected;
 
+		/**
+		Atributo que indica si la entidada está seleccionada por multiselección
+		*/
+		bool _isSecondarySelected;
 		/**
 		Atributo que indica si la entidad es el objetivo de la cámara; por
 		defecto es false a no ser que se lea otra cosa de los atributos.

@@ -266,6 +266,51 @@ namespace Math
 		return a > b ? a : b;
 	}
 
+	/**
+	isInsideRectanle devuelve si un punto está dentro del área de un rectangulo en base a los 4 vértices del y 
+	el punto a comprobar
+
+	aux, MIN y MAX son funciones necesarias para poder hacer la comprobación
+	*/
+	#define MIN(x,y) (x < y ? x : y)
+	#define MAX(x,y) (x > y ? x : y)
+
+	static int aux(Vector2 p1, Vector2 p2, Vector2 p){
+		float xinters;
+		if (p.y > MIN(p1.y,p2.y)) {
+		  if (p.y <= MAX(p1.y,p2.y)) {
+			if (p.x <= MAX(p1.x,p2.x)) {
+			  if (p1.y != p2.y) {
+				xinters = (p.y-p1.y)*(p2.x-p1.x)/(p2.y-p1.y)+p1.x;
+				if (p1.x == p2.x || p.x <= xinters)
+				  return 1;
+			  }
+			}
+		  }
+		}
+		return 0;
+	}
+
+	static bool isInsideRectangle(Vector2 A,Vector2 B,Vector2 C,Vector2 D,Vector2 P) {
+		int count = 0;
+		count += aux(A,B,P);
+		count += aux(B,C,P);
+		count += aux(C,D,P);
+		count += aux(D,A,P);
+
+		if (count % 2 == 0)
+			return(false);
+		else
+			return(true);
+		
+	}
+
+	
+
+
+	
+
+
 } // namespace Math
 
 #endif // __BaseSubsystems_Math_H

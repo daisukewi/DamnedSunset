@@ -15,3 +15,21 @@ material circuloSeleccion
 		}
 	}
 }
+
+material circuloMultipleSeleccion
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			depth_write off
+			lighting off
+			texture_unit
+			{
+				texture circuloMultipleSeleccion.png
+				filtering none
+			}
+		}
+	}
+}

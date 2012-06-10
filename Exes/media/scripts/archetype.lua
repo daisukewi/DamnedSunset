@@ -250,6 +250,7 @@ Archetype = {
 		billboardLifePosition = {0.0,13.0,0.0},
 		
 		billboardSeleccionMaterial = "circuloSeleccion",
+		billboardMultipleSeleccionMaterial = "circuloMultipleSeleccion",
 		billboardSeleccionWith = 10.0,
 		billboardSeleccionHeight = 10.0,
 		
@@ -283,7 +284,6 @@ Archetype = {
 		type = "CentroMando",
 		tag = "playerBuilding",
 		position = {0, 0, 0},
-		cupulaPosition = {0, 0, 0},
 		cupulaRadius = 100.0,
 		scale = 1.0,
 		orientation = 0,

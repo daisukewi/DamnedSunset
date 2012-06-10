@@ -3,8 +3,8 @@ Map = {
 	Sand = {
 		normal_texture = "toon_desertb.jpg",
 		height = 0,
-		max_height = 0,
 		is_texture_base = true,
+		max_height = 0,
 		texture_size = 128,
 		difuse_texture = "toon_desert.jpg",
 		cost = 0,
@@ -127,17 +127,19 @@ Map = {
 		afectaEmpujar = 50,
 		dimension = { 1, 1 },
 		life = 100.0,
+		respawn_position = { 28, 2},
 		grid_position = { 28, 2 },
 		nombreGranada = "Granada",
 		tickFunction = "jackTick",
-		type = "Player",
 		script = "jackScript",
+		type = "Player",
 	},
 
 	Erick = {
 		afectaEmpujar = 100,
 		dimension = { 1, 1 },
 		life = 100.0,
+		respawn_position = { 26, 2 },
 		grid_position = { 26, 2 },
 		nombreGranada = "BolaTeltr",
 		type = "Player",
@@ -146,6 +148,7 @@ Map = {
 	Amor = {
 		afectaEmpujar = 150,
 		dimension = { 1, 1 },
+		respawn_position = { 27, 1},
 		life = 100.0,
 		grid_position = { 27, 1 },
 		script = "amorScript",
@@ -189,6 +192,12 @@ Map = {
 		grid_position = { 21, 23 },
 		ID = 1,
 		type = "Enemies",
+	},
+
+	CentroMando = {
+		dimension = { 5, 5 },
+		grid_position = { 17, 18 },
+		type = "CentroMando",
 	},
 
 }

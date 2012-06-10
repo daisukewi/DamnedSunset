@@ -175,4 +175,16 @@ namespace Logic {
 		return Physics::CServer::getSingletonPtr()->raycastGroup(mouseRay, point, (Physics::TPhysicGroup)groups, maxDist);
 	}
 
+	Logic::CEntity* CServer::raycastFromViewport (const Ogre::Vector2 &relCoord, Ogre::Vector3* point, unsigned groups, float maxDist) const
+	{
+		// Lanzar un rayo desde la camara hasta el plano del escenario.
+		Ray mouseRay = Graphics::CServer::getSingletonPtr()->getCameraToViewportRay(relCoord.x, relCoord.y);
+
+		return Physics::CServer::getSingletonPtr()->raycastGroup(mouseRay, point, (Physics::TPhysicGroup)groups, maxDist);
+	}
+
+
+
+	
+
 } // namespace Logic

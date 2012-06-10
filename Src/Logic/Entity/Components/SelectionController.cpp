@@ -23,12 +23,17 @@ entidades se actua cuando se hace click derecho.
 #include "Logic/Entity/Messages/EntitySelected.h"
 #include "Logic/Entity/Messages/IsSelectable.h"
 #include "Logic/Entity/Messages/IsActuable.h"
+#include "Logic/Entity/Messages/KeyboardEvent.h"
 
 #include "BaseSubsystems/Server.h"
 
 #include "ScriptManager/Server.h"
 
 #include "Physics/Server.h"
+#include "GUI/Server.h"
+
+#include "Graphics/ModelFactory.h"
+
 
 #include <assert.h>
 #include <sstream>
@@ -52,6 +57,10 @@ namespace Logic
 
 	bool CSelectionController::activate()
 	{
+		//Obtener los IDs de los personajes
+		_player1 = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack");
+		_player2 = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick");
+		_player3 = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor");
 		return true;
 
 	} // activate
@@ -82,12 +91,8 @@ namespace Logic
 	{
 		if (!message->getType().compare("MKeyboardEvent")){
 			//IMPORTANTE Habrá que pensar donde se van a detectar las teclas
-			/*if (_selectedEntity){
-				message->addPtr();
-				_selectedEntity->emitMessage(message);
-				message->removePtr();
-			}*/
-
+			MKeyboardEvent* m = static_cast <MKeyboardEvent*> (message);	
+			processKeyboardEvent(m->getKey());
 		}
 		else if (!message->getType().compare("MMouseEvent"))
 		{
@@ -96,13 +101,23 @@ namespace Logic
 			switch (m_mouse->getAction())
 			{
 			case TMouseAction::LEFT_CLICK:
-				prepareSelectionClick();
+				_mousePositionReleased = m_mouse->getRelPosition();
+				prepareMultipleSelectionClick();
+
+				//prepareSelectionClick();
 				break;
 			case TMouseAction::MIDDLE_CLICK:
 				//No action
 				break;
 			case TMouseAction::RIGHT_CLICK:
 				prepareActionClick();
+				break;
+
+			case TMouseAction::LEFT_PRESSED:
+				//Controlar la selección múltiple
+				
+				_mousePositionPressed = m_mouse->getRelPosition();
+				
 				break;
 			}
 
@@ -177,6 +192,79 @@ namespace Logic
 
 	} // prepareSelectionClick
 
+	void CSelectionController::prepareMultipleSelectionClick(){
+		
+		//Obtener los 4 puntos en pantalla del cuadrado de selección
+		//Los puntos 1 y 3 son _mousePositionPressed y mousePositionReleased
+
+
+		//Si la posición del ratón ha variado poco, realizar una selección simple
+
+		Vector2 point2;
+		point2.x = _mousePositionPressed.x;
+		point2.y = _mousePositionReleased.y;
+		
+		Vector2 point4;
+		point4.x = _mousePositionReleased.x;
+		point4.y = _mousePositionPressed.y;
+		
+		_targetEntityID = -1;
+		_waitingForSelectable = false;
+		_worldCollisionPoint = Vector3(0, -1, 0);
+
+		//Pasar las coordenadas en pantalla a las coordenadas de mundo
+		Vector3 worldCollisionPoint1 = Vector3(0,-1,0);
+		Vector3 worldCollisionPoint2 = Vector3(0,-1,0);
+		Vector3 worldCollisionPoint3 = Vector3(0,-1,0);
+		Vector3 worldCollisionPoint4 = Vector3(0,-1,0);
+
+		Logic::CServer::getSingletonPtr()->raycastFromViewport(_mousePositionPressed,&worldCollisionPoint1, Physics::PG_WORLD);
+		Logic::CServer::getSingletonPtr()->raycastFromViewport(point2,&worldCollisionPoint2, Physics::PG_WORLD);
+		Logic::CServer::getSingletonPtr()->raycastFromViewport(_mousePositionReleased,&worldCollisionPoint3, Physics::PG_WORLD);
+		Logic::CServer::getSingletonPtr()->raycastFromViewport(point4,&worldCollisionPoint4, Physics::PG_WORLD);
+		
+		/*
+		Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_entity->getMap()->getScene(),"","physic_debug_blue50",2,woldCollisionPoint_1);
+		Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_entity->getMap()->getScene(),"","physic_debug_blue50",2,woldCollisionPoint_2);
+		Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_entity->getMap()->getScene(),"","physic_debug_blue50",2,woldCollisionPoint_3);
+		Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_entity->getMap()->getScene(),"","physic_debug_blue50",2,woldCollisionPoint_4);
+		*/
+
+		//Obtener las posiciones de los personajes y del mapa en 2D, x y z
+		Vector2 player1Pos = Vector2(_player1->getPosition().x,_player1->getPosition().z);
+		Vector2 player2Pos = Vector2(_player2->getPosition().x,_player2->getPosition().z);
+		Vector2 player3Pos = Vector2(_player3->getPosition().x,_player3->getPosition().z);
+
+		Vector2 worldPoint1 = Vector2(worldCollisionPoint1.x, worldCollisionPoint1.z);
+		Vector2 worldPoint2 = Vector2(worldCollisionPoint2.x, worldCollisionPoint2.z);
+		Vector2 worldPoint3 = Vector2(worldCollisionPoint3.x, worldCollisionPoint3.z);
+		Vector2 worldPoint4 = Vector2(worldCollisionPoint4.x, worldCollisionPoint4.z);
+
+		//Comprobar si los personajes están dentro del área seleccionada
+		processMultipleSelection(Math::isInsideRectangle(worldPoint1,worldPoint2,worldPoint3,worldPoint4,player1Pos),
+								Math::isInsideRectangle(worldPoint1,worldPoint2,worldPoint3,worldPoint4,player2Pos),
+								Math::isInsideRectangle(worldPoint1,worldPoint2,worldPoint3,worldPoint4,player3Pos));
+
+		
+		std::string aux = "GodSelected";
+		int ID = ScriptManager::CServer::getSingletonPtr()->getGlobal(aux.c_str(),-2);
+		if (ID >= 0){
+			_targetEntityID = ID;
+			_waitingForSelectable = true;
+
+			// No hace falta enviar mensaje, ya se sabe que es selectable porque es un personajes
+			// Send a message to the entity hit to ensure its selectability
+			//MIsSelectable* m_selectable = new MIsSelectable();
+			//m_selectable->setMessageType(SELECTION_REQUEST);
+			//m_selectable->setSenderEntity(_entity);
+			// Send the message as instant. The response must be send instantly as well.
+			//Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_targetEntityID)->emitInstantMessage(m_selectable, this);
+
+			_waitingForSelectable = false;
+		}
+	
+	}
+
 	//---------------------------------------------------------
 
 	void CSelectionController::prepareActionClick()
@@ -239,6 +327,30 @@ namespace Logic
 		ScriptManager::CServer::getSingletonPtr()->executeScript(procSelec.str().c_str());
 
 	} // processActionClick
+
+	void CSelectionController::processMultipleSelection(bool player1inside, bool player2inside, bool player3inside){
+		_waitingForSelectable = false;
+		//Avisar a LUA de la selección múltiple
+		std::stringstream procSelec;
+		int id1 = player1inside?_player1->getEntityID():-1; 
+		int id2 = player2inside?_player2->getEntityID():-1; 
+		int id3 = player3inside?_player3->getEntityID():-1; 
+		procSelec << "processMultipleSelection(" << id1 << "," 
+												 << id2 << "," 
+												 << id3 << ")";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(procSelec.str().c_str());
+
+	} // processMultipleSelecion
+
+	void CSelectionController::processKeyboardEvent(GUI::Key::TKeyID key){
+		std::string aux;
+		std::stringstream procKey;
+		if (GUI::Key::TKeyID::TAB){
+			aux = "TAB";
+		}
+		procKey << "processKeyboardEvent(\"" << aux <<"\")" ;
+		ScriptManager::CServer::getSingletonPtr()->executeScript(procKey.str().c_str());
+	} //processKeyboardEvent
 
 
 } // namespace Logic

@@ -18,7 +18,19 @@ Contiene la declaración del mensaje para avisar que se ha seleccionado una entid
 
 namespace Logic
 {
+	/**
+	Tipo de selección
+	*/
+	namespace EntitySelectedMessage
+	{
+		enum SelectedType
+		{
+			PRIMARY,
+			SECONDARY
+		};
+	}
 
+	typedef EntitySelectedMessage::SelectedType SelectedType;
 	/**
 	Clase mensaje que se encargará de avisar que se ha seleccionado una entidad.
 
@@ -78,6 +90,19 @@ namespace Logic
 		*/
 		bool getInterface();
 
+		/**
+		Método que establece el tipo de selección
+
+		@param selectedType
+		*/
+		void setSelectedType(SelectedType selectedType);
+
+		/**
+		Método que devuelve el tipo de selección
+
+		@return _selectedType
+		*/
+		SelectedType getSelectedType();
 	protected:
 
 		/**
@@ -94,6 +119,8 @@ namespace Logic
 		Atributo que contiene si el mensaje ha sido enviado desde la interfaz
 		*/
 		bool _interface;
+
+		SelectedType _selectedType;
 
 	}; // class MEntitySelected
 

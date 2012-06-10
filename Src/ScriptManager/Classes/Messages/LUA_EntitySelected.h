@@ -44,6 +44,11 @@ namespace ScriptManager
 		*/
 		void setSelectedEntity(unsigned int entityID);
 
+		/**
+		Establece el tipo de selección
+		*/
+		void setSelectedType(std::string selectedType);
+
 	protected:
 
 		/**
@@ -52,6 +57,8 @@ namespace ScriptManager
 		std::string _selectedEntity;
 
 		unsigned int _selectedEntityID;
+
+		std::string _selectedType;
 
 	}; // class LUA_MEntitySelected
 

@@ -84,12 +84,15 @@ namespace Logic
 					if (m->getTouched()){
 						_enemyEntities.push_back(ent->getEntityID());
 						std::cout << "\n ENEMIGO HA ENTRADO \n";
+
+
 					
 					//Si ha salido, eliminar de la lista y avisar a LUA(si está deseleccionado la entidad) de que lo ha dejado de ver
 					}else{
 					
 						std::cout << "\n ENEMIGO HA SALIDO \n";
-						if (!_entity->getSelected()){	
+						if(true){
+						//if (!_entity->getSelected()){	
 							
 							std::stringstream script;
 							script << "playerEventParam = { target = " << ent->getEntityID() << ", distance = " << 0 << " } ";
@@ -117,8 +120,8 @@ namespace Logic
 	void CPlayerPerception::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
-		
-		if (!_entity->getSelected()){
+		if (true){
+		//if (!_entity->getSelected()){
 			
 			_perceptionCountTime+=msecs;
 

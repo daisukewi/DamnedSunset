@@ -31,10 +31,19 @@ namespace Logic
 			return false;
 
 		_billboard = new Graphics::CBillboard(_entity);
-		if(entityInfo->hasAttribute("billboardSeleccionMaterial"))
+		if(entityInfo->hasAttribute("billboardSeleccionMaterial")){
 			_billboard->setMaterial(entityInfo->getStringAttribute("billboardSeleccionMaterial"));
+			_material = entityInfo->getStringAttribute("billboardSeleccionMaterial");
+		}
+		
+		if (entityInfo->hasAttribute("billboardMultipleSeleccionMaterial")){
+			_materialMultiple = entityInfo->getStringAttribute("billboardMultipleSeleccionMaterial");
+		}
+			
 		if(entityInfo->hasAttribute("billboardSeleccionWith") && entityInfo->hasAttribute("billboardSeleccionHeight"))
 			_billboard->setDimensions(entityInfo->getFloatAttribute("billboardSeleccionWith"),entityInfo->getFloatAttribute("billboardSeleccionHeight"));
+		
+		
 		if(entityInfo->hasAttribute("billboardSeleccionPosition"))
 		{
 			Vector3 v = entityInfo->getVector3Attribute("billboardSeleccionPosition");
@@ -61,9 +70,31 @@ namespace Logic
 		if (!message->getType().compare("MEntitySelected"))
 		{
 			MEntitySelected * m = static_cast <MEntitySelected*> (message);
-			bool mostrar = m->getSelectedEntity() == _entity;
-			billboardVisible = mostrar;
-			_billboard->setVisible(mostrar);
+			
+			if (m->getSelectedEntity() == _entity){
+				if (m->getSelectedType() == Logic::EntitySelectedMessage::PRIMARY){
+					//bool mostrar = m->getSelectedEntity() == _entity;
+					_billboard->setMaterial(_material);
+					billboardVisible = true;
+					_billboard->setVisible(true);
+
+				}else{
+					//bool mostrar = m->getSelectedEntity() == _entity;
+					_billboard->setMaterial(_materialMultiple);
+					billboardVisible = true;
+					_billboard->setVisible(true);
+				}
+			}else{
+				_billboard->setVisible(false);
+			}
+
+				/*
+				bool mostrar = m->getSelectedEntity() == _entity;
+				_billboard->setMaterial(_materialMultiple);
+				billboardVisible = mostrar;
+				_billboard->setVisible(mostrar);
+				*/
+			
 		} 
 	} // process
 

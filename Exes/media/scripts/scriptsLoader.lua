@@ -1,6 +1,9 @@
 function loadScripts()
 	SManager:loadScript("utils")
-	SManager:loadScript("playerScript")
+	
+	-- Scripts de la máquina de estados de la IA de los personajes
+	SManager:loadScript("playerIAScript")
+	SManager:loadScript("playerSecondaryIAScript")
 	SManager:loadScript("habilities")
 	
 	-- Scripts de la máquina de estados de la IA de los enemigos.

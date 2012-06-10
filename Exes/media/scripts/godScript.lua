@@ -1,10 +1,80 @@
 --Creando tabla de datos de God
 God = {
-	Selected = -1
+	Selected = -1,
+	SecondSelected = -1,
+	ThirdSelected = -1
 }
 
+GodSelected = -1
+
+-- Procesa la selección múltiple. Los tres parámetros corresponden a los 3 personajes. en caso de que valgan -1, ese persnaje no ha sido seleccionado
+function processMultipleSelection(target1, target2, target3)
+
+	-- Si hay un personaje seleccionado
+	if (God.Selected ~= -1) then
+	
+		-- Si se ha vuelto a selecionnar uno de los personajes seleccionados.
+		if (target1 == God.Selected) then
+			God.SecondSelected = target2
+			God.ThirdSelected = target3
+		elseif (target2 == God.Selected) then
+			God.SecondSelected = target1
+			God.ThirdSelected = target3
+		elseif (target3 == God.Selected) then
+			God.SecondSelected = target1
+			God.ThirdSelected = target2
+		else
+			-- Si no se ha vuelto a seleccionar ninguno de los ya seleccionados
+			-- Hacer lo mismo que si no se encuentra ningún personaje seleccionado
+			if (target1 ~= -1) then
+				selectNewTarget(target1)
+				God.SecondSelected = target2
+				God.ThirdSelected = target3
+			else
+				if (target2 ~= -1) then
+					selectNewTarget(target2)
+					God.SecondSelected = target1
+					God.ThirdSelected = target3
+				else
+					if (target3 ~= -1) then
+						selectNewTarget(target3)
+						God.SecondSelected = target1
+						God.ThirdSelected = target2
+					end
+				end
+			end
+		end
+		
+	-- Si no hay un personaje seleccionado		
+	else
+		if (target1 ~= -1) then
+			selectNewTarget(target1)
+			God.SecondSelected = target2
+			God.ThirdSelected = target3
+		else
+			if (target2 ~= -1) then
+				selectNewTarget(target2)
+				God.SecondSelected = target1
+				God.ThirdSelected = target3
+			else
+				if (target3 ~= -1) then
+					selectNewTarget(target3)
+					God.SecondSelected = target1
+					God.ThirdSelected = target2
+				end
+			end
+		end
+	end
+	
+	setBillboards()
+end
+
 function processSelection(target, point_x, point_y, point_z)
+	deleteBillboards()
+	God.SecondSelected = -1
+	God.ThirdSelected = -1
 	selectNewTarget(target)
+	
 end
 
 function processAction(target, point_x, point_y, point_z)
@@ -44,6 +114,9 @@ function selectNewTarget(target)
 
 		loadPlayerGUI(target)
 	end
+	
+	GodSelected = God.Selected
+
 end
 
 function unselectCurrentTarget()
@@ -97,4 +170,71 @@ function sendAttack (target)
 	mensaje:setAttack(true)
 	mensaje:setEntityTo(God.Selected)
 	mensaje:send()
+end
+
+function setBillboards()
+	
+	if (God.SecondSelected ~= -1) then
+		local mensaje1 = LUA_MEntitySelected()
+		mensaje1:setEntityTo(God.SecondSelected)
+		mensaje1:setSelectedType("SECONDARY")
+		mensaje1:setSelectedEntity(God.SecondSelected)
+		mensaje1:send()
+	
+	end
+	
+	if (God.ThirdSelected ~= -1 ) then
+		local mensaje3 = LUA_MEntitySelected()
+		mensaje3:setEntityTo(God.ThirdSelected)
+		mensaje3:setSelectedType("SECONDARY")
+		mensaje3:setSelectedEntity(God.ThirdSelected)
+		mensaje3:send()
+	end
+end
+
+function deleteBillboards()
+	if (God.SecondSelected ~= -1) then
+		local mensaje1 = LUA_MEntitySelected()
+		mensaje1:setEntityTo(God.SecondSelected)
+		mensaje1:setSelectedEntity(0)
+		mensaje1:send()
+	
+	end
+	
+	if (God.ThirdSelected ~= -1 ) then
+		local mensaje3 = LUA_MEntitySelected()
+		mensaje3:setEntityTo(God.ThirdSelected)
+		mensaje3:setSelectedEntity(0)
+		mensaje3:send()
+	end
+end
+
+function processKeyboardEvent(key)
+	if (key == "TAB") then
+		alternatePlayer()
+		setBillboards()
+	end
+end
+
+-- Función que se encarga de alternar de jugador cuando se pulsa el tabulador
+function alternatePlayer()
+	if (God.Selected ~= -1) then
+		if (God.SecondSelected ~= -1) and (God.ThirdSelected ~= -1) then
+			aux = God.Selected
+			selectNewTarget( God.SecondSelected)
+			God.SecondSelected = God.ThirdSelected
+			God.ThirdSelected = aux
+		elseif (God.SecondSelected == -1) and (God.ThirdSelected ~= -1) then
+			God.SecondSelected = God.Selected
+			selectNewTarget( God.ThirdSelected)
+			God.ThirdSelected = -1
+		elseif (God.SecondSelected ~= -1) and (God.ThirdSelected == -1) then
+			aux = God.Selected
+			selectNewTarget( God.SecondSelected )
+			God.SecondSelected = aux
+		end
+		
+	end
+	
+	
 end

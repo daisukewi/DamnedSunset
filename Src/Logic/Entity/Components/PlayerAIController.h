@@ -111,6 +111,11 @@ namespace Logic
 		*/
 		std::string _state;
 
+		/**
+		Almacena el estado de IA que se deberá ejecutar cuando esté seleccionado con la multiselección
+		*/
+		std::string _secondaryState;
+
 	}; // class CPlayerAIController
 
 	REG_FACTORY(CPlayerAIController);

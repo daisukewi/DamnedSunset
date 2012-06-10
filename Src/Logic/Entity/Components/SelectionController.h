@@ -15,6 +15,7 @@ entidades se actua cuando se hace click derecho.
 #define __Logic_SelectionController_H
 
 #include "Logic/Entity/Component.h"
+#include "GUI/Server.h"
 
 #include "BaseSubsystems/Math.h"
 
@@ -90,7 +91,45 @@ namespace Logic
 		*/
 		virtual void process(IMessage *message);
 
+
 	private:
+		/**
+		Método para procesar la pulsación de las teclas
+		*/
+		void processKeyboardEvent(GUI::Key::TKeyID key);
+
+		/**
+		Método para avisar a lua de que personajes han sido seleccionados
+		*/
+		void processMultipleSelection(bool player1inside, bool player2inside, bool player3inside);
+
+		/**
+		Método para comprobar si una entidad está dentro del cuadrado de selección múltiple
+
+		Numeración de los vértices del cuadrado de selección
+		
+		1-------2
+		|		|
+		|		|
+		4-------3
+
+		@param entity
+		@param worldColissionPoint1 vértice 1 del cuadrado
+		@param worldColissionPoint2 vértice 2 del cuadrado
+		@param worldColissionPoint1 vértice 3 del cuadrado
+		@param worldColissionPoint2 vértice 4 del cuadrado
+ 		*/
+		bool checkEntityPosition(CEntity* entity, Vector3 &worldColissionPoint1, 
+												  Vector3 &worldColissionPoint2,
+												  Vector3 &worldColissionPoint3,
+												  Vector3 &worldColissionPoint4);
+
+
+		/**
+		Metodo que se encarga de comprobar hecho una selección múltiplea, en caso contrario, llamar a prepareSelectionClick
+		*/
+		void prepareMultipleSelectionClick();
+
 
 		/**
 		Metodo que se encarga de comprobar que se ha hecho click izquierdo
@@ -143,6 +182,24 @@ namespace Logic
 		realizar la seleccion o la accion.
 		*/
 		int _targetEntityID;
+
+		/**
+		Atributo que almacena la posición del ratón en pantalla cuando se ha presionado
+		*/
+		Vector2 _mousePositionPressed;
+
+		/**
+		Atributo que almacen la posición del ratón en pantalla cuando se ha soltado
+		*/
+		Vector2 _mousePositionReleased;
+
+		/**
+		Atributos que almacenan los IDs de los personajes
+		*/
+		CEntity* _player1;
+		CEntity* _player2;
+		CEntity* _player3;
+
 		
 	}; // class CSelectedController
 

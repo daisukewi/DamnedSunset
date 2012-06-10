@@ -14,6 +14,8 @@ Contiene la declaración del mensaje para avisar de los eventos del raton.
 
 #include "Logic/Entity/Message.h"
 
+#include "BaseSubsystems/Math.h"
+
 namespace Logic
 {
 
@@ -26,7 +28,8 @@ namespace Logic
 		{
 			LEFT_CLICK,
 			MIDDLE_CLICK,
-			RIGHT_CLICK
+			RIGHT_CLICK,
+			LEFT_PRESSED
 		};
 	}
 
@@ -61,12 +64,30 @@ namespace Logic
 		*/
 		TMouseAction getAction();
 
+		/**
+		Método que establece la posicón relativa del ratón
+
+		@param relPosition
+		*/
+		void setRelPosition(Vector2 relPosition);
+
+		/**
+		Método que devuelve la posición relativa del ratón
+		*/
+		Ogre::Vector2 getRelPosition();
+		
+
 	protected:
 
 		/**
 		Atributo que indica la acción que se va a realizar con este mensaje.
 		*/
 		TMouseAction _action;
+
+		/**
+		Atributo que indica la posición relativa en pantalla del ratón
+		*/
+		Vector2 _relPosition;
 
 	}; // class MMouseEvent
 

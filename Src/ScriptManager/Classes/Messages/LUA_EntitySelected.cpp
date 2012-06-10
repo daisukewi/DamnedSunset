@@ -24,6 +24,7 @@ namespace ScriptManager
 
 		_selectedEntity = "";
 		_selectedEntityID = 0;
+		_selectedType = "PRIMARY";
 
 		_type = "LUA_MEntitySelected";
 
@@ -47,6 +48,13 @@ namespace ScriptManager
 
 	//---------------------------------------------------------
 
+	void LUA_MEntitySelected::setSelectedType(std::string selectedType)
+	{
+		_selectedType = selectedType;
+
+	} // setSelectedEntity
+
+	//---------------------------------------------------------
 	void LUA_MEntitySelected::send()
 	{
 		Logic::CEntity *selectedEntity = NULL;
@@ -58,6 +66,12 @@ namespace ScriptManager
 			selectedEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName(_selectedEntity);
 
 		m->setSelectedEntity(selectedEntity);
+
+		if (!_selectedType.compare("PRIMARY")){
+			m->setSelectedType(Logic::EntitySelectedMessage::SelectedType::PRIMARY);
+		}else{
+			m->setSelectedType(Logic::EntitySelectedMessage::SelectedType::SECONDARY);
+		}
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(this->getEntityTo())->emitMessage(m);
 
 	} // send

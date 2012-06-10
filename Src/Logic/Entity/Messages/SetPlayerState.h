@@ -23,7 +23,9 @@ namespace Logic
 		{
 			IDLE,
 			HOLD,
-			FOLLOW
+			FOLLOW,
+			FOLLOW_PLAYER_AUTOMATIC,
+			FOLLOW_PLAYER_MANUAL			
 		};
 	}
 

@@ -35,12 +35,20 @@ namespace Logic
 			std::stringstream script;
 			script	<< "players[" << _entity->getEntityID() << "].state = " << entityInfo->getIntAttribute("initState");
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		
+			std::stringstream script2;
+			script2	<< "players[" << _entity->getEntityID() << "].secondaryState = "  << entityInfo->getIntAttribute("initState");
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script2.str().c_str());
 		}
 		else
 		{
 			std::stringstream script;
 			script	<< "players[" << _entity->getEntityID() << "].state = 1";
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		
+			std::stringstream script2;
+			script2	<< "players[" << _entity->getEntityID() << "].secondaryState = 1";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script2.str().c_str());
 		}
 
 		if (entityInfo->hasAttribute("runLifeThreshold"))
@@ -121,6 +129,24 @@ namespace Logic
 				script << "playerEventParam = { state = \"" << _state << "\" } ";
 				script << "playerEvent(\"StateChange\", " << _entity->getEntityID() << ")";
 				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+			}else if (m_state->getPlayerState() == Logic::SetPlayerStateMessage::PlayerState::FOLLOW_PLAYER_MANUAL){
+				
+				_secondaryState = "follow_player_manual";
+				std::cout << "PlayerAIController: " + _state + "\n";
+
+				std::stringstream script;
+				script << "playerSecondaryEventParam = { state = \"" << _state << "\" } ";
+				script << "playerSecondaryEvent(\"StateChange\", " << _entity->getEntityID() << ")";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+			}else if (m_state->getPlayerState() == Logic::SetPlayerStateMessage::PlayerState::FOLLOW_PLAYER_AUTOMATIC){
+				
+				_secondaryState = "follow_player_automatic";
+				std::cout << "PlayerAIController: " + _state + "\n";
+
+				std::stringstream script;
+				script << "playerSecondaryEventParam = { state = \"" << _state << "\" } ";
+				script << "playerSecondaryEvent(\"StateChange\", " << _entity->getEntityID() << ")";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 			}
 
 		}else if (!message->getType().compare("MEntityCreated")){
@@ -140,6 +166,7 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
+		//if(true){
 		if (!_entity->getSelected()){
 			_currentExeFrames++;
 
@@ -158,6 +185,21 @@ namespace Logic
 				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 			}
 
+		}else if (_entity->getSecondarySelected()){
+			/*// Ejecuto la IA si toca.
+			if (_currentExeFrames >= _exeFrames)
+			{
+				// Reinicio el contador de frames.
+				_currentExeFrames = 0;
+
+				// Actualizo la posición de la entidad y llamo a la función de la IA.
+				std::stringstream script;
+				script	<< "players[" << _entity->getEntityID() << "].posX = " << _entity->getPosition().x << " "
+						<< "players[" << _entity->getEntityID() << "].posY = " << _entity->getPosition().y << " "
+						<< "players[" << _entity->getEntityID() << "].posZ = " << _entity->getPosition().z << " "
+						<< "playerSecondaryAIAction(" << _entity->getEntityID() << ")";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+			}*/
 		}else{
 			_currentExeFrames = 0;
 		}

@@ -81,9 +81,24 @@ namespace Logic
 			std::stringstream scriptCreate;
 			scriptCreate << "players[" << _entityID << "] = {} ";
 			scriptCreate << "players[" << _entityID << "].state = 1 ";
+			scriptCreate << "players[" << _entityID << "].secondaryState = 1 ";
 			scriptCreate << "players[" << _entityID << "].attackEnemy = -1 ";
 			scriptCreate << "players[" << _entityID << "].enemyFollow = false";
 			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreate.str().c_str());
+		
+			std::string playerName;
+			if (!_name.compare("Jack")){
+				playerName = "playerJackID";
+			}else if (!_name.compare("Erick")){
+				playerName = "playerErickID";
+			}else if (!_name.compare("Amor")){
+				playerName = "playerAmorID";
+			}
+			bool aux;
+			std::stringstream scriptID;
+			scriptID << playerName.c_str() << "=" <<_entityID;
+			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptID.str().c_str());
+			std::cout << playerName << ": " << ScriptManager::CServer::getSingletonPtr()->getGlobal(playerName.c_str(), -1);
 		}
 
 		// Creo la tabla con la información del enemigo.
@@ -360,11 +375,24 @@ namespace Logic
 
 		if (!message->getType().compare("MEntitySelected"))
 		{
+
 			MEntitySelected *m = static_cast <MEntitySelected*> (message);
-			if (m->getSelectedEntity() == this){
-				_isSelected = true;
-			}else{
-				_isSelected = false;
+			if (m->getSelectedType() == Logic::EntitySelectedMessage::SelectedType::PRIMARY){
+				if (m->getSelectedEntity() == this){
+					_isSelected = true;
+					_isSecondarySelected = false;
+				}else{
+					_isSelected = false;
+				}
+			}else if (m->getSelectedType() == Logic::EntitySelectedMessage::SelectedType::SECONDARY)
+			{
+				if (m->getSelectedEntity() == this){
+					_isSelected = false;
+					_isSecondarySelected = true;
+				}else{
+					_isSelected = false;
+					_isSecondarySelected = false;
+				}
 			}
 		}
 

@@ -24,6 +24,7 @@ namespace Logic
 namespace Ogre
 {
 	class Vector3;
+	class Vector2;
 }
 
 /**
@@ -142,6 +143,19 @@ namespace Logic
 		 @return Primera entidad lógica alcanzada o NULL.
 		 */
 		Logic::CEntity* raycastFromViewport (Ogre::Vector3* point, unsigned groups = 0xffffffff, float maxDist = FLT_MAX ) const; 
+
+
+		/*
+		Lanza un rayo desde la posición de la cámra en dirección de la posición en coordenadas de pantalla que se le indique.
+		Devuelve la primera entidad lógica contra la que intersecta. Si el rayo no choca contra ninguna entidad, devuelve NULL.
+
+		@param relCoord Vector2 cordenadas de la pantalla relativas
+		@param point Vector3 que devuelve la posición donde ha intersecado el rayo.
+		@param maxDist distancia máxima a la que se debe encontrar intersección
+		@param groups Mascara de grupos con los que se busca intersecar.
+		@return Primera entidad lógica alcanzada o NULL.
+		*/
+		Logic::CEntity* raycastFromViewport (const Ogre::Vector2 &relCoord, Ogre::Vector3* point, unsigned groups = 0xffffffff, float maxDist = FLT_MAX ) const;
 
 
 	protected:

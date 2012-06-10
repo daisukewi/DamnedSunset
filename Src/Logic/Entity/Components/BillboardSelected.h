@@ -34,6 +34,16 @@ namespace Logic
 		*/
 		Graphics::CBillboard * _billboard;
 
+		/**
+		Material del billboard cuando el personaje está selecionado 
+		*/
+		std::string _material;
+
+		/**
+		Material del billboard cuando el personajes está seleccionado en una multiple selección
+		*/
+		std::string _materialMultiple;
+
 		bool billboardVisible;
 	};
 

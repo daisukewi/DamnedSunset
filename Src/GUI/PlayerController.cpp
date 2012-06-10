@@ -98,6 +98,20 @@ namespace GUI {
 		
 	bool CPlayerController::mousePressed(const CMouseState &mouseState)
 	{
+		GUI::CInterfazController* controller = GUI::CServer::getSingletonPtr()->getInterfazController();
+
+		if (!controller->isMouseOnInterface()){
+			
+			Logic::MMouseEvent *m_message = new Logic::MMouseEvent();
+			
+			if(mouseState.button == Button::LEFT){
+				m_message->setAction(Logic::TMouseAction::LEFT_PRESSED);	
+			}
+			m_message->setRelPosition(Vector2(mouseState.posRelX, mouseState.posRelY));
+			
+			Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m_message);
+		
+		}
 		return false;
 	} // mousePressed
 
@@ -118,7 +132,7 @@ namespace GUI {
 				m_message->setAction(Logic::TMouseAction::RIGHT_CLICK);
 			else if (mouseState.button == Button::MIDDLE)
 				m_message->setAction(Logic::TMouseAction::MIDDLE_CLICK);
-	
+			m_message->setRelPosition(Vector2(mouseState.posRelX, mouseState.posRelY));
 			Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m_message);
 		}
 		

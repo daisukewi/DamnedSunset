@@ -9,6 +9,8 @@ Contiene la implementación del mensaje para controlar avisar de los eventos del 
 
 #include "MouseEvent.h"
 
+#include "BaseSubsystems/Math.h"
+
 namespace Logic
 {
 
@@ -35,5 +37,16 @@ namespace Logic
 		return _action;
 
 	} // getAction
+	
+	//---------------------------------------------------------
+	void MMouseEvent::setRelPosition(Vector2 relPosition){
+		_relPosition = relPosition;
+	} // setRelPosition
+	
+	//---------------------------------------------------------
+	Vector2 MMouseEvent::getRelPosition(){
+		return _relPosition;
+	}
+
 
 } // namespace Logic
