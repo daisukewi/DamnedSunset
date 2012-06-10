@@ -108,6 +108,11 @@ namespace Logic
 		bool _attack;
 
 		/**
+		Atributo para saber si la entidad tiene que atacar.
+		*/
+		int _attackCoolDown;
+
+		/**
 		Atributo para saber a la entidad que hay que atacar.
 		*/
 		CEntity* _targetEntity;

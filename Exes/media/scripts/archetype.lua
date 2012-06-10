@@ -175,7 +175,7 @@ Archetype = {
 		memInitPoint = true,
 		runLifeThreshold = 50,
 		
-		damage = 1,
+		damage = 20,
 		
 		trigger_shape = "trigger_sphere",
 		trigger_type = "trigger_kinematic",
@@ -183,6 +183,9 @@ Archetype = {
 		trigger_radius = 50,
 		trigger_height = 5,
 		trigger_collision_group = 3,
+		
+		duracionCarga = 1000,
+		coolDownCarga = 10000,
 	},
 	
 	Granada = {

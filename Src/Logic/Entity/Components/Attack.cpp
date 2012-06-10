@@ -97,6 +97,13 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
+		if (_attackCoolDown) {
+			_attackCoolDown -= msecs;
+			if (_attackCoolDown < 0) {
+				_attackCoolDown = 0;
+			}
+		}
+
 		if (_attack)
 		{
 			// Llevamos al jugador hasta donde está la entidad objetivo
@@ -105,16 +112,19 @@ namespace Logic
 				MMoveSteering *m = new MMoveSteering();
 				m->setMovementType(AI::IMovement::MOVEMENT_KINEMATIC_ARRIVE);
 				m->setTarget(_targetEntity->getPosition());
+				m->setExtraVelocity(5.0f);
 				_entity->emitMessage(m, this);
 			}
 			else
 			{
-				MDamaged *m_damage = new MDamaged();
-				// Quitamos 1 punto de vida al enemigo
-				//m_damage->setHurt(msecs / 100.0f);
-				m_damage->setHurt(_damage / msecs);
-				m_damage->setKiller(_entity);
-				_targetEntity->emitMessage(m_damage, this);	
+				if (!_attackCoolDown) {
+					MDamaged *m_damage = new MDamaged();
+					// Quitamos vida al objetivo
+					m_damage->setHurt(_damage);
+					m_damage->setKiller(_entity);
+					_targetEntity->emitMessage(m_damage, this);
+					_attackCoolDown = 1000;
+				}
 			}
 		}
 

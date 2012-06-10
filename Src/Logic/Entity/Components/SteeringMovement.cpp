@@ -54,6 +54,9 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 
+		//Por defecto no hay velocidad extra
+		_extraVelocity = 1.0f;
+
 		if(entityInfo->hasAttribute("speed"))
 			_maxLinearSpeed = entityInfo->getFloatAttribute("speed");
 		if(entityInfo->hasAttribute("angularSpeed"))
@@ -64,6 +67,14 @@ namespace Logic
 			_maxAngularAccel = entityInfo->getFloatAttribute("angularAccel");
 		if (entityInfo->hasAttribute("movementTolerance"))
 			_tolerance = entityInfo->getFloatAttribute("movementTolerance");
+		if (entityInfo->hasAttribute("duracionCarga"))
+			_duracionCarga = entityInfo->getFloatAttribute("duracionCarga");
+		else
+			_duracionCarga = 0;
+		if (entityInfo->hasAttribute("coolDownCarga"))
+			_coolDownCarga = entityInfo->getFloatAttribute("coolDownCarga");
+		else
+			_coolDownCarga = 0;
 
 			// En yaw guardamos el movimiento correspondiente a la rotación de la entidad.
 			// En este caso suponemos que la entidad siempre se mueve hacia adelante, 
@@ -72,7 +83,7 @@ namespace Logic
 		_yaw = AI::IMovement::getMovement(AI::IMovement::MOVEMENT_KINEMATIC_ALIGN_TO_SPEED, 
 			_maxLinearSpeed, _maxAngularSpeed, _maxLinearAccel, _maxAngularAccel); 
 		_yaw->setEntity(entity);
-
+		_coolDownExtraVelocity = 0;
 		return true;
 
 	} // spawn
@@ -124,6 +135,16 @@ namespace Logic
 		//		Actualizar las velocidades usando la aceleración que hemos obtenido en _currentProperties
 		//		Las velocidades que tenemos que actualizar también están en _currentProperties para pasárselas en el siguiente tick al movimiento
 
+		//CoolDown de extraVelocity
+		if (_coolDownExtraVelocity) {
+			_coolDownExtraVelocity -= msecs;
+			if (_coolDownExtraVelocity < _coolDownCarga - _duracionCarga && _extraVelocity != 1.0f) {
+				changeExtraVelocity(1.0f);
+			}
+			if (_coolDownExtraVelocity < 0) {
+				_coolDownExtraVelocity = 0;
+			}
+		}
 
 		// Comprobamos si hay que cambiar de movimiento o destino
 		if (_movType != _currentMovementType || _currentTarget != _target) {
@@ -143,6 +164,16 @@ namespace Logic
 		}
 
 		_arrived = _entity->getPosition().positionEquals(_target, _tolerance);
+
+		while (_arrived && _extraVelocity > 1.0f) {
+			//tenemos que disminuir la velocidad extra
+			float newExtraVelocity = _extraVelocity - 0.1f;
+			if (newExtraVelocity < 1.0f)
+				newExtraVelocity = 1.0f;
+			changeExtraVelocity(newExtraVelocity);
+			_arrived = _entity->getPosition().positionEquals(_target, _tolerance);
+		}
+
 		if (_arrived) {
 			// Enviar un mensaje para informar de que hemos llegado a destino
 			MAStarRoute *m = new MAStarRoute();
@@ -210,6 +241,18 @@ namespace Logic
 		return (message->getType().compare("MMoveSteering") == 0);
 	} // accept
 
+	void CSteeringMovement::changeExtraVelocity(float velocity)
+	{
+		float difVel =  velocity / _extraVelocity;
+
+		_maxLinearSpeed *= difVel;
+		_maxAngularSpeed *= difVel;
+		_maxLinearAccel *= difVel;
+		_maxAngularAccel *= difVel;
+		_tolerance *= difVel;
+
+		_extraVelocity = velocity;
+	}
 	//---------------------------------------------------------
 	/**
 	Si se recibe un mensaje MMoveSteering, almacena el vector como 
@@ -225,6 +268,12 @@ namespace Logic
 			// en el mismo ciclo sólo tendremos en cuenta el último.
 			_target = m->getTarget();
 			_movType = m->getMovementType();
+
+			if (_extraVelocity != m->getExtraVelocity() && m->getExtraVelocity() != 1.0f && !_coolDownExtraVelocity) {
+				changeExtraVelocity(m->getExtraVelocity());
+				_coolDownExtraVelocity = _coolDownCarga;
+			}
+				
 
 			if(m->isFirstMoveOfRoute())
 			{

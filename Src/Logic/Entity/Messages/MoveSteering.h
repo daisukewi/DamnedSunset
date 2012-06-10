@@ -73,6 +73,16 @@ namespace Logic
 		*/
 		void setFirstMoveOfRoute(bool firstMove);
 
+		/*
+		Asignacion de la velocidad extra
+		*/
+		void setExtraVelocity(float velocity) {_extraVelocity = velocity;}
+		
+		/*
+		Get de la velocidad extra
+		*/
+		float getExtraVelocity() {return _extraVelocity;}
+
 	protected:
 
 		/**
@@ -91,6 +101,10 @@ namespace Logic
 		*/
 		bool _firstMoveOfRoute;
 
+		/*
+		Velocidad extra que tendra en un movimiento concreto
+		*/
+		float _extraVelocity;
 	}; // class MMoveSteering
 
 } // namespace Logic

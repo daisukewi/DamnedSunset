@@ -12,10 +12,9 @@ Contiene la implementación del mensaje de un steering movement.
 namespace Logic
 {
 
-	MMoveSteering::MMoveSteering() : IMessage(), _firstMoveOfRoute(false)
+	MMoveSteering::MMoveSteering() : IMessage(), _firstMoveOfRoute(false), _extraVelocity(1.0f)
 	{
 		_type = "MMoveSteering";
-
 	} // MMoveSteering
 
 	//---------------------------------------------------------

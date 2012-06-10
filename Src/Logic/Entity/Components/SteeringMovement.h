@@ -112,6 +112,23 @@ namespace Logic
 		*/
 		void sendAnimationMessage(std::string animation);
 
+		void changeExtraVelocity(float velocity);
+		/**
+		Indica la velocidad extra que tendra para llegar al destino en un movimiento concreto
+		**/
+		float _extraVelocity;
+		/**
+		Tiempo que le falta para poder volver a usar la velocidad extra
+		*/
+		int _coolDownExtraVelocity;
+		/**
+		Tiempo que tardara en poder volver a usar la velocidad extra
+		*/
+		int _coolDownCarga;
+		/**
+		Tiempo que tardara en poder volver a usar la velocidad extra
+		*/
+		int _duracionCarga;
 	};
 
 	REG_FACTORY(CSteeringMovement);
