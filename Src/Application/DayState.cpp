@@ -68,9 +68,6 @@ namespace Application {
 	{
 		CApplicationState::activate();
 
-		// Activamos la ventana de interfaz
-		GUI::CServer::getSingletonPtr()->getInterfazController()->deactivate();
-
 		// Mostramos el ratón
 		CEGUI::MouseCursor::getSingleton().show();
 
