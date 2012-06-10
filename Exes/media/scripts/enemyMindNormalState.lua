@@ -7,6 +7,21 @@ function normalStateEvent(event)
 -- El estado de normal es el estado 1.
 	local nextState
 	
+	if (event == "GeneratorUnderAttack") then
+		-- Obtengo la tabla de spawners para la entidad que me ha enviado el evento.
+		tSpawners = enemyBuildings[enemyMindEventParam.entity].spawners
+		
+		-- Por cada spawner en la lista de spawners, mando spawnear dos enemigos.
+		for spawnIndex, t in pairs(tSpawners) do
+			spawnID = spawners[t.ID].entityID
+			
+			local mensaje = LUA_MSpawnEnemy()
+			mensaje:setNumEnemies(2)
+			mensaje:setEntityTo(spawnID)
+			mensaje:send()
+		end
+	end
+	
 	nextState = 1
 	
 	return nextState

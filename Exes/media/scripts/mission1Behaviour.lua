@@ -39,3 +39,8 @@ end
 function mission1End(entityID)
 	sacarVentana("Mission Successful!")
 end
+
+function generatorUnderAttack(entityID)
+	enemyMindEventParam.entity = entityID
+	enemyMindEvent("GeneratorUnderAttack")
+end

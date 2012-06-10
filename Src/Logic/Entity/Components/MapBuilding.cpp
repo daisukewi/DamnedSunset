@@ -19,6 +19,8 @@ que ocupe un edificio.
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
 
+#include "ScriptManager/Server.h"
+
 
 namespace Logic 
 {
@@ -48,6 +50,33 @@ namespace Logic
 			_endRow = _startRow - _buildingHeight;
 			_endCol = _startCol - _buildingWidth;
 
+		}
+
+		if(entityInfo->hasAttribute("enemyBuilding") && entityInfo->getBoolAttribute("enemyBuilding"))
+		{
+			// Crear la tabla del edificio actual.
+			std::stringstream scriptCreate;
+			scriptCreate << "enemyBuildings[" << _entity->getEntityID() << "] = {}";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreate.str().c_str());
+
+			if(entityInfo->hasAttribute("hasSpawners") && entityInfo->getBoolAttribute("hasSpawners"))
+			{
+				// Crear la tabla de los spawners del edificio actual.
+				std::stringstream scriptCreateSpawn;
+				scriptCreateSpawn << "enemyBuildings[" << _entity->getEntityID() << "].spawners = {}";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreateSpawn.str().c_str());
+
+				int i = 1;
+				while (entityInfo->hasAttribute("spawner" + i))
+				{
+					// Voy añadiendo los spawners uno a uno.
+					std::stringstream scriptAddSpawn;
+					scriptAddSpawn << "enemyBuildings[" << _entity->getEntityID() << "].spawners[" << i << "] = { ID = " << entityInfo->getIntAttribute("spawner" + i) << ", }";
+					ScriptManager::CServer::getSingletonPtr()->executeScript(scriptAddSpawn.str().c_str());
+
+					i++;
+				}
+			}
 		}
 
 		FillMapCells();

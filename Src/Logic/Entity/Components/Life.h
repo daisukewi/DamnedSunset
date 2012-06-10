@@ -131,14 +131,24 @@ namespace Logic
 		virtual void timeElapsed();
 
 		/**
-		Indica si hay que llamar a una función de lua cuando alguna entidad entra en el trigger o no.
+		Indica si hay que llamar a una función de lua cuando esta entidad muera.
 		*/
 		bool _deathFunction;
 
 		/**
-		Nombre de la función de lua que se llamará cuando otra entidad entre en el trigger.
+		Nombre de la función de lua que se llamará cuando esta entidad muera.
 		*/
 		const char *_luaDeathFunction;
+
+		/**
+		Indica si hay que llamar a una función de lua cuando esta entidad esté siendo atacada.
+		*/
+		bool _underAttackFunction;
+
+		/**
+		Nombre de la función de lua que se llamará cuando esta entidad esté siendo atacada.
+		*/
+		const char *_luaUnderAttackFunction;
 
 
 

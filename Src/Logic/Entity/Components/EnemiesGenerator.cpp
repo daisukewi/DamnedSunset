@@ -55,30 +55,66 @@ namespace Logic
 		{
 			_ID = entityInfo->getIntAttribute("ID");
 
-			// Crear la tabla del spawner actual.
-			std::stringstream scriptCreate;
-			scriptCreate << "spawners[" << _ID << "] = {}";
-			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreate.str().c_str());
+			// Si es un spawner de estado de misión creo la tabla normal.
+			if(entityInfo->hasAttribute("stagesSpawner") && entityInfo->getBoolAttribute("stagesSpawner")) 
+			{
+				_specialSpawner = false;
 
-			// Relleno la tabla con el ID de la entidad.
-			std::stringstream script;
-			script << "spawners[" << _ID << "].entityID = " << _entity->getEntityID();
-			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+				// Crear la tabla del spawner actual.
+				std::stringstream scriptCreate;
+				scriptCreate << "spawners[" << _ID << "] = {}";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreate.str().c_str());
 
-			// Creo la tabla de enemigos.
-			std::stringstream scriptCreateEnemies;
-			scriptCreateEnemies << "spawners[" << _ID << "].enemies = {}";
-			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreateEnemies.str().c_str());
+				// Relleno la tabla con el ID de la entidad.
+				std::stringstream script;
+				script << "spawners[" << _ID << "].entityID = " << _entity->getEntityID();
+				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
-			// Inicializo el tiempo de cada spawner.
-			std::stringstream scriptTime;
-			scriptTime << "spawners[" << _ID << "].spawnTime = 0";
-			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptTime.str().c_str());
+				// Creo la tabla de enemigos.
+				std::stringstream scriptCreateEnemies;
+				scriptCreateEnemies << "spawners[" << _ID << "].enemies = {}";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreateEnemies.str().c_str());
 
-			// Inicializo el conteo de enemigos que hay que mandar a atacar de cada spawner.
-			std::stringstream scriptAttack;
-			scriptAttack << "spawners[" << _ID << "].attackEnemies = 0";
-			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptAttack.str().c_str());
+				// Inicializo el tiempo de cada spawner.
+				std::stringstream scriptTime;
+				scriptTime << "spawners[" << _ID << "].spawnTime = 0";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(scriptTime.str().c_str());
+
+				// Inicializo el conteo de enemigos que hay que mandar a atacar de cada spawner.
+				std::stringstream scriptAttack;
+				scriptAttack << "spawners[" << _ID << "].attackEnemies = 0";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(scriptAttack.str().c_str());
+			}
+			// Si es un spawner especial lo añado a la tabla de spawners especiales.
+			else
+			{
+				_specialSpawner = true;
+
+				// Crear la tabla del spawner actual.
+				std::stringstream scriptCreate;
+				scriptCreate << "specialSpawners[" << _ID << "] = {}";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreate.str().c_str());
+
+				// Relleno la tabla con el ID de la entidad.
+				std::stringstream script;
+				script << "specialSpawners[" << _ID << "].entityID = " << _entity->getEntityID();
+				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+				// Creo la tabla de enemigos.
+				std::stringstream scriptCreateEnemies;
+				scriptCreateEnemies << "specialSpawners[" << _ID << "].enemies = {}";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreateEnemies.str().c_str());
+
+				// Inicializo el tiempo de cada spawner.
+				std::stringstream scriptTime;
+				scriptTime << "specialSpawners[" << _ID << "].spawnTime = 0";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(scriptTime.str().c_str());
+
+				// Inicializo el conteo de enemigos que hay que mandar a atacar de cada spawner.
+				std::stringstream scriptAttack;
+				scriptAttack << "specialSpawners[" << _ID << "].attackEnemies = 0";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(scriptAttack.str().c_str());
+			}
 		}
 
 		std::srand(time(NULL));
@@ -140,10 +176,20 @@ namespace Logic
 		Logic::CEntity *ent = Logic::CEntityFactory::getSingletonPtr()->createEntity(enemyInfo, _entity->getMap());
 		ent->activate();
 
-		// Añado un nuevo enemigo a la tabla de enemigos creados por el spawner.
-		std::stringstream script;
-		script << "spawners[" << _ID << "].enemies[" << _enemy << "] = { ID = " << ent->getEntityID() << ", }";
-		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		if (_specialSpawner)
+		{
+			// Añado un nuevo enemigo a la tabla de enemigos creados por el spawner.
+			std::stringstream script;
+			script << "specialSpawners[" << _ID << "].enemies[" << _enemy << "] = { ID = " << ent->getEntityID() << ", }";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
+		else
+		{
+			// Añado un nuevo enemigo a la tabla de enemigos creados por el spawner.
+			std::stringstream script;
+			script << "spawners[" << _ID << "].enemies[" << _enemy << "] = { ID = " << ent->getEntityID() << ", }";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
 
 		//Avisar a los player de la creación del enemigo para que actualicen el componente de percepción y el controlador de la IA
 		MEnemyCreated *m = new MEnemyCreated();

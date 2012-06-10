@@ -75,6 +75,14 @@ namespace Logic
 		}
 		else
 			_deathFunction = false;
+
+		if(entityInfo->hasAttribute("underAttackFunction"))
+		{
+			_underAttackFunction = true;
+			_luaUnderAttackFunction = entityInfo->getStringAttribute("underAttackFunction").c_str();
+		}
+		else
+			_underAttackFunction = false;
 		
 		//Billboard
 		_billboard = new Graphics::CBillboard(_entity);
@@ -130,6 +138,13 @@ namespace Logic
 			//El mensaje de daño solo te deberia afectar si la entidad no esta muerta
 			if (!_death)
 			{
+				if (_underAttackFunction)
+				{
+					std::stringstream scriptUnderAttack;
+					scriptUnderAttack << _luaUnderAttackFunction << "(" << _entity->getEntityID() << ")";
+					ScriptManager::CServer::getSingletonPtr()->executeScript(scriptUnderAttack.str().c_str());
+				}
+
 				MDamaged *md = static_cast <MDamaged*> (message);
 				// Disminuir la vida de la entidad
 				_life -= md->getHurt();

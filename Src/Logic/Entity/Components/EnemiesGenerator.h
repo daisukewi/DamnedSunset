@@ -37,7 +37,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CEnemiesGenerator() : IComponent(), _origen(Vector2::ZERO), _time(0), _enemy(1), _periodo(10000), _spawn(0) {}
+		CEnemiesGenerator() : IComponent(), _origen(Vector2::ZERO), _time(0), _enemy(1), _periodo(10000), _spawn(0), _specialSpawner(false) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -139,6 +139,11 @@ namespace Logic
 		ID del spawner. Debería ser único, pero no se comprueba; simplemente se lee del map.lua.
 		*/
 		int _ID;
+
+		/**
+		Indica si es un spawner especial o de estado de misión.
+		*/
+		bool _specialSpawner;
 
 	}; // class CEnemiesGenerator
 

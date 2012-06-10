@@ -81,7 +81,9 @@ namespace Logic {
 		// Preparo las tablas de lua para que las entidades las rellenen en sus respectivos spawns.
 		ScriptManager::CServer::getSingletonPtr()->executeScript("players = {}");
 		ScriptManager::CServer::getSingletonPtr()->executeScript("spawners = {}");
+		ScriptManager::CServer::getSingletonPtr()->executeScript("specialSpawners = {}");
 		ScriptManager::CServer::getSingletonPtr()->executeScript("enemies = {}");
+		ScriptManager::CServer::getSingletonPtr()->executeScript("enemyBuildings = {}");
 
 		Map::CMapParser::TEntityList::const_iterator it, end;
 		it = entityList.begin();
