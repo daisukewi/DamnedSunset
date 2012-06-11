@@ -269,7 +269,7 @@ Archetype = {
 		trigger_shape = "trigger_sphere",
 		trigger_type = "trigger_kinematic",
 		trigger = true,
-		trigger_radius = 50,
+		trigger_radius = 60,
 		trigger_collision_group = 3,
 		
 		damage = 33,

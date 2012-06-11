@@ -224,6 +224,7 @@ end
 
 -- Función que se llamará en cada tick para ejecutar las acciones que haga falta en el estado actual.
 function playerAIAction(entity)
+	print('PRIMARY: '..entity)
 	local nextState = playerStates[players[entity].state].state.action(entity)
 	players[entity].state = nextState
 end

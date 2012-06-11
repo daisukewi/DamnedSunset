@@ -9,72 +9,93 @@ GodSelected = -1
 
 -- Procesa la selección múltiple. Los tres parámetros corresponden a los 3 personajes. en caso de que valgan -1, ese persnaje no ha sido seleccionado
 function processMultipleSelection(target1, target2, target3)
-
+	local auxSecondSelected = -1
+	local auxThirdSelected = -1
+	local auxSelected = God.Selected
+	local actualTargetNotSelected = false
 	-- Si hay un personaje seleccionado
+	print('zzzzzzzzzzzzzzzzzzzzzzzzzzzzz')
 	if (God.Selected ~= -1) then
-	
+	print('zzzzzzzzzzzzzzzzzzzzzzzzzzzzz')
 		-- Si se ha vuelto a selecionnar uno de los personajes seleccionados.
 		if (target1 == God.Selected) then
-			God.SecondSelected = target2
-			God.ThirdSelected = target3
+			auxSecondSelected = target2
+			auxThirdSelected = target3
 		elseif (target2 == God.Selected) then
-			God.SecondSelected = target1
-			God.ThirdSelected = target3
+			auxSecondSelected = target1
+			auxThirdSelected = target3
 		elseif (target3 == God.Selected) then
-			God.SecondSelected = target1
-			God.ThirdSelected = target2
+			auxSecondSelected = target1
+			auxThirdSelected = target2
 		else
 			-- Si no se ha vuelto a seleccionar ninguno de los ya seleccionados
 			-- Hacer lo mismo que si no se encuentra ningún personaje seleccionado
-			if (target1 ~= -1) then
-				selectNewTarget(target1)
-				God.SecondSelected = target2
-				God.ThirdSelected = target3
-			else
-				if (target2 ~= -1) then
-					selectNewTarget(target2)
-					God.SecondSelected = target1
-					God.ThirdSelected = target3
-				else
-					if (target3 ~= -1) then
-						selectNewTarget(target3)
-						God.SecondSelected = target1
-						God.ThirdSelected = target2
-					end
-				end
-			end
+			actualTargetNotSelected = true
 		end
-		
+		print('zzzzzzzzzzzzzzzzzzzzzzzzzzzzz')
 	-- Si no hay un personaje seleccionado		
 	else
+		actualTargetNotSelected = true
+	end
+	print('zzzzzzzzzzzzzzzzzzzzzzzzzzzzz')
+	
+	if (actualTargetNotSelected == true) then
 		if (target1 ~= -1) then
-			selectNewTarget(target1)
-			God.SecondSelected = target2
-			God.ThirdSelected = target3
+			auxSelected = target1
+			auxSecondSelected = target2
+			auxThirdSelected = target3
 		else
 			if (target2 ~= -1) then
-				selectNewTarget(target2)
-				God.SecondSelected = target1
-				God.ThirdSelected = target3
+				auxSelected = target2
+				auxSecondSelected = target1
+				auxThirdSelected = target3
 			else
 				if (target3 ~= -1) then
-					selectNewTarget(target3)
-					God.SecondSelected = target1
-					God.ThirdSelected = target2
+					auxSelected = target3
+					auxSecondSelected = target1
+					auxThirdSelected = target2
 				end
 			end
 		end
 	end
 	
-	setBillboards()
+	if (auxSelected ~= God.Selected) then
+		unselectCurrentTarget()
+	end
+	print('zzzzzzzzzzzzzzzzzzzzzzzzzzzzz')
+	if (auxSecondSelected ~= God.SecondSelected) then
+		if (God.SecondSelected ~= -1) then
+			unselectSecondSelected()
+		end
+		
+		if (auxSecondSelected ~= -1) then
+			selectSecondSelected(auxSecondSelected)
+		end
+	
+	end
+	print('zzzzzzzzzzzzzzzzzzzzzzzzzzzzz')
+	if (auxThirdSelected ~= God.ThirdSelected) then
+		if (God.ThirdSelected ~= -1) then
+			unselectThirdSelected()
+		end
+		
+		if (auxThirdSelected ~= -1) then
+			selectThirdSelected(auxThirdSelected)
+		end
+	end
+	print('zzzzzzzzzzzzzzzzzzzzzzzzzzzzz')
+	if (auxSelected ~= God.Selected) then
+		selectNewTarget(auxSelected)
+	end
 end
 
 function processSelection(target, point_x, point_y, point_z)
-	deleteBillboards()
-	God.SecondSelected = -1
-	God.ThirdSelected = -1
-	selectNewTarget(target)
-	
+	unselectSecondSelected()
+	unselectThirdSelected()
+	if (God.Selecetd ~= target) then
+		unselectCurrentTarget()
+		selectNewTarget(target)
+	end
 end
 
 function processAction(target, point_x, point_y, point_z)
@@ -90,13 +111,6 @@ function processAction(target, point_x, point_y, point_z)
 end
 
 function selectNewTarget(target)
-	--Unselect current target
-	if God.Selected ~= -1 then
-		local mensaje = LUA_MEntitySelected()
-		mensaje:setEntityTo(God.Selected)
-		mensaje:setSelectedEntity(0)
-		mensaje:send()
-	end
 
 	--Select new target
 	God.Selected = target
@@ -125,6 +139,7 @@ function unselectCurrentTarget()
 		mensaje:setEntityTo(God.Selected)
 		mensaje:setSelectedEntity(0)
 		mensaje:send()
+		God.Selected = -1
 	end
 end
 
@@ -171,70 +186,85 @@ function sendAttack (target)
 	mensaje:setEntityTo(God.Selected)
 	mensaje:send()
 end
-
-function setBillboards()
-	
-	if (God.SecondSelected ~= -1) then
-		local mensaje1 = LUA_MEntitySelected()
-		mensaje1:setEntityTo(God.SecondSelected)
-		mensaje1:setSelectedType("SECONDARY")
-		mensaje1:setSelectedEntity(God.SecondSelected)
-		mensaje1:send()
-	
-	end
-	
-	if (God.ThirdSelected ~= -1 ) then
-		local mensaje3 = LUA_MEntitySelected()
-		mensaje3:setEntityTo(God.ThirdSelected)
-		mensaje3:setSelectedType("SECONDARY")
-		mensaje3:setSelectedEntity(God.ThirdSelected)
-		mensaje3:send()
-	end
-end
-
-function deleteBillboards()
-	if (God.SecondSelected ~= -1) then
-		local mensaje1 = LUA_MEntitySelected()
-		mensaje1:setEntityTo(God.SecondSelected)
-		mensaje1:setSelectedEntity(0)
-		mensaje1:send()
-	
-	end
-	
-	if (God.ThirdSelected ~= -1 ) then
-		local mensaje3 = LUA_MEntitySelected()
-		mensaje3:setEntityTo(God.ThirdSelected)
-		mensaje3:setSelectedEntity(0)
-		mensaje3:send()
-	end
-end
-
 function processKeyboardEvent(key)
 	if (key == "TAB") then
 		alternatePlayer()
-		setBillboards()
 	end
 end
-
 -- Función que se encarga de alternar de jugador cuando se pulsa el tabulador
 function alternatePlayer()
 	if (God.Selected ~= -1) then
+		local aux = -1
+		local aux2 = -1
+		local aux3 = -1
 		if (God.SecondSelected ~= -1) and (God.ThirdSelected ~= -1) then
 			aux = God.Selected
-			selectNewTarget( God.SecondSelected)
-			God.SecondSelected = God.ThirdSelected
-			God.ThirdSelected = aux
+			aux2 = God.SecondSelected
+			aux3 = God.ThirdSelected
+			unselectCurrentTarget()
+			unselectSecondSelected()
+			unselectThirdSelected()
+			selectNewTarget(aux2)
+			selectSecondSelected(aux3)
+			selectThirdSelected(aux)
 		elseif (God.SecondSelected == -1) and (God.ThirdSelected ~= -1) then
-			God.SecondSelected = God.Selected
-			selectNewTarget( God.ThirdSelected)
-			God.ThirdSelected = -1
+			aux = God.Selected
+			aux2 = God.ThirdSelected
+			unselectCurrentTarget()
+			unselectThirdSelected()
+			selectNewTarget(aux2)
+			selectSecondSelected(aux)
 		elseif (God.SecondSelected ~= -1) and (God.ThirdSelected == -1) then
 			aux = God.Selected
-			selectNewTarget( God.SecondSelected )
-			God.SecondSelected = aux
+			aux2 = God.SecondSelected
+			unselectCurrentTarget()
+			unselectSecondSelected()
+			selectNewTarget(aux2)
+			selectSecondSelected(aux)
 		end
-		
 	end
-	
-	
+end
+
+function unselectSecondSelected()
+	if (God.SecondSelected ~= -1) then
+		local unselectSecondMensaje = LUA_MEntitySelected()
+		unselectSecondMensaje:setSelectedType("SECONDARY")
+		unselectSecondMensaje:setEntityTo(God.SecondSelected)
+		unselectSecondMensaje:setSelectedEntity(0)
+		unselectSecondMensaje:send()
+		God.SecondSelected = -1
+	end
+end
+
+function unselectThirdSelected()
+	if (God.ThirdSelected ~= -1) then
+		local unselectThirdMensaje = LUA_MEntitySelected()
+		unselectThirdMensaje:setSelectedType("SECONDARY")
+		unselectThirdMensaje:setEntityTo(God.ThirdSelected)
+		unselectThirdMensaje:setSelectedEntity(0)
+		unselectThirdMensaje:send()
+		God.ThirdSelected = -1
+	end
+end
+
+function selectSecondSelected(SecondSelected)
+	if (SecondSelected ~= -1) then
+		God.SecondSelected = SecondSelected
+		local selectSecondMensaje = LUA_MEntitySelected()
+		selectSecondMensaje:setSelectedType("SECONDARY")
+		selectSecondMensaje:setEntityTo(God.SecondSelected)
+		selectSecondMensaje:setSelectedEntity(God.SecondSelected)
+		selectSecondMensaje:send()
+	end
+end
+
+function selectThirdSelected(ThirdSelected)
+	if (ThirdSelected ~= -1) then
+		God.ThirdSelected = ThirdSelected
+		local selectThirdMensaje = LUA_MEntitySelected()
+		selectThirdMensaje:setSelectedType("SECONDARY")
+		selectThirdMensaje:setEntityTo(God.ThirdSelected)
+		selectThirdMensaje:setSelectedEntity(God.ThirdSelected)
+		selectThirdMensaje:send()
+	end
 end

@@ -250,9 +250,11 @@ namespace Logic
 		bool _scroll;
 
 		/**
-		Indica la altura de la cámara
+		Indica la altura a la que se encuentra actualmente de la cámara
 		*/
 		float _cameraHeight;
+
+		
 
 	}; // class CCameraController
 

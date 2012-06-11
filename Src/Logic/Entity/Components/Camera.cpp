@@ -16,6 +16,7 @@ de una escena.
 #include "Logic/Server.h"
 #include "Logic/Entity/Entity.h"
 #include "Logic/Maps/Map.h"
+#include "Logic/Entity/Messages/UbicarCamara.h"
 #include "Map/MapEntity.h"
 
 #include "Graphics/Scene.h"
@@ -62,6 +63,15 @@ namespace Logic
 		//_target = CServer::getSingletonPtr()->getPlayer();
 		_target = CServer::getSingletonPtr()->getMap()->getEntityByName(_targetName);
 
+		//Almacenar la posición inicial de la cámara
+		Vector3 position = _target->getPosition();
+		Vector3 direction = -_distance * Math::getDirection(_target->getOrientation());
+		direction.y = _height;
+
+		_finalDirection.z = direction.z;
+		_finalDirection.x = direction.x;
+		_finalDirection.y  = direction.y;
+
 		return true;
 
 	} // activate
@@ -75,18 +85,39 @@ namespace Logic
 	} // deactivate
 	
 	//---------------------------------------------------------
+	bool CCamera::accept(IMessage *message){
+		return (!message->getType().compare("MUbicarCamara"));
+	}
+	//---------------------------------------------------------
 
+	void CCamera::process(IMessage *message){
+		if (!message->getType().compare("MUbicarCamara")){
+			MUbicarCamara *m = static_cast <MUbicarCamara*> (message);
+			_finalCameraHeight = m->getHeight() + _height;
+			if (_finalCameraHeight < 150){
+				_finalCameraHeight = 150;
+			}else if (_finalCameraHeight > 300){
+				_finalCameraHeight = 300;
+			}
+			_finalDirection.y = _finalCameraHeight;
+		}
+	}
+	//---------------------------------------------------------
 	void CCamera::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
 
 		if(_target)
 		{
+			float aux = (float)msecs/100.0;
 			// Actualizamos la posición de la cámara.
 			Vector3 position = _target->getPosition();
 			Vector3 direction = -_distance * Math::getDirection(_target->getOrientation());
 			direction.y = _height;
-			_graphicsCamera->setCameraPosition(position + direction);
+
+			Vector3 dir = Math::Lerp( direction,_finalDirection,  aux);
+			_height = dir.y;
+			_graphicsCamera->setCameraPosition(position + dir);
 
 			// Y la posición hacia donde mira la cámara.
 			direction = _targetDistance * Math::getDirection(_target->getOrientation());

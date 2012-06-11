@@ -166,43 +166,54 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
-		//if(true){
-		if (!_entity->getSelected()){
-			_currentExeFrames++;
+		//if (true){
+		if (!_entity->getSelected() || _entity->getSecondarySelected()){
+			
+			_currentExeFrames += msecs;
 
-			// Ejecuto la IA si toca.
-			if (_currentExeFrames >= _exeFrames)
-			{
+			//Ejecuto la perfección si toca
+			if (_currentExeFrames >= _exeFrames){
 				// Reinicio el contador de frames.
 				_currentExeFrames = 0;
 
-				// Actualizo la posición de la entidad y llamo a la función de la IA.
-				std::stringstream script;
-				script	<< "players[" << _entity->getEntityID() << "].posX = " << _entity->getPosition().x << " "
-						<< "players[" << _entity->getEntityID() << "].posY = " << _entity->getPosition().y << " "
-						<< "players[" << _entity->getEntityID() << "].posZ = " << _entity->getPosition().z << " "
-						<< "playerAIAction(" << _entity->getEntityID() << ")";
-				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+				if (_entity->getSecondarySelected()){
+
+					// Actualizo la posición de la entidad y llamo a la función de la IA.
+					std::stringstream script;
+					script	<< "players[" << _entity->getEntityID() << "].posX = " << _entity->getPosition().x << " "
+							<< "players[" << _entity->getEntityID() << "].posY = " << _entity->getPosition().y << " "
+							<< "players[" << _entity->getEntityID() << "].posZ = " << _entity->getPosition().z << " "
+							<< "playerSecondaryAIAction(" << _entity->getEntityID() << ")";
+					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+					
+				}else if (!_entity->getSelected()){
+					
+					// Actualizo la posición de la entidad y llamo a la función de la IA.
+					std::stringstream script;
+					script	<< "players[" << _entity->getEntityID() << "].posX = " << _entity->getPosition().x << " "
+							<< "players[" << _entity->getEntityID() << "].posY = " << _entity->getPosition().y << " "
+							<< "players[" << _entity->getEntityID() << "].posZ = " << _entity->getPosition().z << " "
+							<< "playerAIAction(" << _entity->getEntityID() << ")";
+					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+					
+				}
 			}
-
-		}else if (_entity->getSecondarySelected()){
-			/*// Ejecuto la IA si toca.
-			if (_currentExeFrames >= _exeFrames)
-			{
-				// Reinicio el contador de frames.
-				_currentExeFrames = 0;
-
-				// Actualizo la posición de la entidad y llamo a la función de la IA.
-				std::stringstream script;
-				script	<< "players[" << _entity->getEntityID() << "].posX = " << _entity->getPosition().x << " "
-						<< "players[" << _entity->getEntityID() << "].posY = " << _entity->getPosition().y << " "
-						<< "players[" << _entity->getEntityID() << "].posZ = " << _entity->getPosition().z << " "
-						<< "playerSecondaryAIAction(" << _entity->getEntityID() << ")";
-				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-			}*/
 		}else{
-			_currentExeFrames = 0;
-		}
+				_currentExeFrames += msecs;
+
+				//Ejecuto la perfección si toca
+				if (_currentExeFrames >= _exeFrames){
+					// Reinicio el contador de frames.
+					_currentExeFrames = 0;
+
+					// Actualizo la posición de la entidad
+					std::stringstream script;
+					script	<< "players[" << _entity->getEntityID() << "].posX = " << _entity->getPosition().x << " "
+							<< "players[" << _entity->getEntityID() << "].posY = " << _entity->getPosition().y << " "
+							<< "players[" << _entity->getEntityID() << "].posZ = " << _entity->getPosition().z;
+					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+				}
+			}
 
 	} // tick
 

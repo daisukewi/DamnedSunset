@@ -14,6 +14,7 @@ de una escena.
 #define __Logic_Camera_H
 
 #include "Logic/Entity/Component.h"
+#include "BaseSubsystems/Math.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Graphics 
@@ -52,7 +53,7 @@ namespace Logic
 		Constructor por defecto; en la clase base no hace nada.
 		*/
 		CCamera() : IComponent(), _graphicsCamera(0), _distance(10), _height(7),
-			_targetDistance(7), _targetHeight(3) {}
+			_targetDistance(7), _targetHeight(3), _finalCameraHeight(0), _finalDirection(Vector3(0,0,0)) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -96,6 +97,23 @@ namespace Logic
 		*/
 		virtual void tick(unsigned int msecs);
 
+		/**
+		Método virtual que elige que mensajes son aceptados. Son válidos
+		MUbicarCamara.
+
+		@param message Mensaje a chequear.
+		@return true si el mensaje es aceptado.
+		*/
+		virtual bool accept(IMessage *message);
+
+		/**
+		Método virtual que procesa un mensaje.
+
+		@param message Mensaje a procesar.
+		*/
+		virtual void process(IMessage *message);
+
+
 	protected:
 		
 		/**
@@ -120,6 +138,16 @@ namespace Logic
 		float _height;
 
 		/**
+		Indica la altura final a la que se quiere situar la cámara
+		*/
+		float _finalCameraHeight;
+
+		/**
+		Indica la dirección final a la que tiene que apuntar la cámara
+		*/
+		Vector3 _finalDirection;
+
+		/**
 		Nombre de la entidad a la que mirará la cámara.
 		*/
 		std::string _targetName;
@@ -135,6 +163,8 @@ namespace Logic
 		altura del punto al que mirará la cámara respecto del suelo o plano XZ.
 		*/
 		float _targetHeight;
+
+		
 
 	}; // class CCamera
 

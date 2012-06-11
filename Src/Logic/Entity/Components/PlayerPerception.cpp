@@ -91,17 +91,21 @@ namespace Logic
 					}else{
 					
 						std::cout << "\n ENEMIGO HA SALIDO \n";
-						if(true){
-						//if (!_entity->getSelected()){	
+
+						std::stringstream script;
+						script << "playerEventParam = { target = " << ent->getEntityID() << ", distance = " << 0 << " } ";
 							
-							std::stringstream script;
-							script << "playerEventParam = { target = " << ent->getEntityID() << ", distance = " << 0 << " } ";
+
+						//if(true){
+						if (!_entity->getSelected()){	
 							script << "playerEvent(\"OnEnemyLost\", " << _entity->getEntityID() << ")";
-							ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-
 							
+						}else if (_entity->getSecondarySelected()){
 
+							script << "playerSecondaryEvent(\"OnEnemyLost\", " << _entity->getEntityID() << ")";
 						}
+
+						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
 						//En caso de que salga del trigger y muera, solo se mandaría a LUA el aviso
 						//de que está fuera del trigger, no el de muerte, ya que cuando se analizan las entidades muertas dentro del 
@@ -120,14 +124,14 @@ namespace Logic
 	void CPlayerPerception::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
-		if (true){
-		//if (!_entity->getSelected()){
+		//msecs = 0;
+		//if (true){
+		if (!_entity->getSelected() || _entity->getSecondarySelected()){
 			
-			_perceptionCountTime+=msecs;
+			_perceptionCountTime += msecs;
 
-			// Ejecuto la percepción si toca.
-			if (_perceptionCountTime >=_perceptionTime)
-			{
+			//Ejecuto la perfección si toca
+			if (_perceptionCountTime >= _perceptionTime){
 				// Reinicio el contador de frames.
 				_perceptionCountTime = 0;
 
@@ -175,7 +179,16 @@ namespace Logic
 					//Avisar a LUA de que ha muerto
 					std::stringstream script;
 					script << "playerEventParam = { target = " << (*id) << ", distance = " << 0 << " } ";
-					script << "playerEvent(\"OnEnemyDie\", " << _entity->getEntityID() << ")";
+					
+					if (!_entity->getSelected()){
+					
+						script << "playerEvent(\"OnEnemyDie\", " << _entity->getEntityID() << ")";
+					
+					}else if (_entity->getSecondarySelected()){
+					
+						script << "playerSecondaryEvent(\"OnEnemyDie\", " << _entity->getEntityID() << ")";
+					
+					}
 					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 				}
 
@@ -197,16 +210,27 @@ namespace Logic
 					//std::cout << "\n ENTIDA MAS CERCANA: " << _minDistanceEntity << " :: " << _minDistance<<"\n";
 					std::stringstream script;
 					script << "playerEventParam = { target = " << _minDistanceEntity << ", distance = " << _minDistance << " } ";
-					script << "playerEvent(\"OnEnemySeen\", " << _entity->getEntityID() << ")";
+					
+					if (!_entity->getSelected()){
+					
+						script << "playerEvent(\"OnEnemySeen\", " << _entity->getEntityID() << ")";
+					
+					}else if (_entity->getSecondarySelected()){
+					
+						script << "playerSecondaryEvent(\"OnEnemySeen\", " << _entity->getEntityID() << ")";
+					
+					}
+					
 					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 				}else{
 					_minDistance = 10000;
 				}
-
 			}
+			
 		}else{
 			_perceptionCountTime=0;
 		}
+		
 
 	} // tick
 

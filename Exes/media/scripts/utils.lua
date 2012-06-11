@@ -2,9 +2,9 @@
 function goTo(entity, pointX, pointY, pointZ)
 	local mensaje = LUA_MAStarRoute()
 	mensaje:setEntityTo(entity)
-	--[[mensaje:setDestPointX(pointX)
+	mensaje:setDestPointX(pointX)
 	mensaje:setDestPointY(pointY)
-	mensaje:setDestPointZ(pointZ)]]
+	mensaje:setDestPointZ(pointZ)
 	mensaje:send()
 end
 

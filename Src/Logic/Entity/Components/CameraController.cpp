@@ -206,7 +206,7 @@ namespace Logic
 
 	void CCameraController::zoom(int wheel)
 	{
-	/*	Vector3 direction = _bossEntity->getPosition() - _entity->getPosition();
+		Vector3 direction = _bossEntity->getPosition() - _entity->getPosition();
 		direction.y = 0.0f;
 
 		if (wheel > 0 && _entity->getPosition().y > -35)
@@ -219,7 +219,7 @@ namespace Logic
 			_entity->setPosition(_entity->getPosition() - 0.50 * Vector3(0, _entity->getPosition().y - 35, 0));
 			_entity->setPosition(_entity->getPosition() - 0.25 * direction);
 		}
-		*/
+		
 		
 	} // zoom
 
@@ -280,7 +280,7 @@ namespace Logic
 
 		if (_scroll){
 		
-			
+			/*
 			if (_scrollValue > 0)
 			{
 				Vector3 position = _entity->getPosition();
@@ -292,17 +292,25 @@ namespace Logic
 			{
 				_graphicsCamera->setCameraPosition(Vector3(100,100,100));
 			}
-			/*// Actualizamos la posición de la cámara.
+			// Actualizamos la posición de la cámara.
 
 			float aux = msecs / _zoomVelocity ;
 			Vector3 pos = Math::Lerp( _graphicsCamera->getCameraPosition(),_finalPosition,  aux);
 			
 			_entity->setPosition(pos);
-	*/
+	
 			_scroll = false;
 			//Posicionar el listener de los sonidos
 			Sounds::CServer::getSingletonPtr()->setListenerPos(Vector3(_entity->getPosition().x,_entity->getPosition().y,_entity->getPosition().z));
+			*/
+			float aux = msecs / _cameraVelocity ;
+
+			MUbicarCamara *m = new MUbicarCamara();
+			m->setHeight(_scrollValue*aux*2);
+			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Camera")->emitMessage(m);
+			
 		}	
+		
 	} // tick
 
 } // namespace Logic
