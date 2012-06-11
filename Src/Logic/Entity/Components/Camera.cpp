@@ -93,7 +93,7 @@ namespace Logic
 	void CCamera::process(IMessage *message){
 		if (!message->getType().compare("MUbicarCamara")){
 			MUbicarCamara *m = static_cast <MUbicarCamara*> (message);
-			_finalCameraHeight = m->getHeight() + _height;
+			_finalCameraHeight = -m->getHeight() + _height;
 			if (_finalCameraHeight < 150){
 				_finalCameraHeight = 150;
 			}else if (_finalCameraHeight > 300){

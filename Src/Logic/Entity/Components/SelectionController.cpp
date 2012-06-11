@@ -199,69 +199,76 @@ namespace Logic
 
 
 		//Si la posición del ratón ha variado poco, realizar una selección simple
-
-		Vector2 point2;
-		point2.x = _mousePositionPressed.x;
-		point2.y = _mousePositionReleased.y;
+		float difX = _mousePositionReleased.x - _mousePositionPressed.x;
+		float difY = _mousePositionReleased.y - _mousePositionPressed.y;
+		if ((std::abs(difY) + std::abs(difX)) < 0.025) {
+			prepareSelectionClick();
+		}else{
+			Vector2 point2;
+			point2.x = _mousePositionPressed.x;
+			point2.y = _mousePositionReleased.y;
 		
-		Vector2 point4;
-		point4.x = _mousePositionReleased.x;
-		point4.y = _mousePositionPressed.y;
+			Vector2 point4;
+			point4.x = _mousePositionReleased.x;
+			point4.y = _mousePositionPressed.y;
 		
-		_targetEntityID = -1;
-		_waitingForSelectable = false;
-		_worldCollisionPoint = Vector3(0, -1, 0);
-
-		//Pasar las coordenadas en pantalla a las coordenadas de mundo
-		Vector3 worldCollisionPoint1 = Vector3(0,-1,0);
-		Vector3 worldCollisionPoint2 = Vector3(0,-1,0);
-		Vector3 worldCollisionPoint3 = Vector3(0,-1,0);
-		Vector3 worldCollisionPoint4 = Vector3(0,-1,0);
-
-		Logic::CServer::getSingletonPtr()->raycastFromViewport(_mousePositionPressed,&worldCollisionPoint1, Physics::PG_WORLD);
-		Logic::CServer::getSingletonPtr()->raycastFromViewport(point2,&worldCollisionPoint2, Physics::PG_WORLD);
-		Logic::CServer::getSingletonPtr()->raycastFromViewport(_mousePositionReleased,&worldCollisionPoint3, Physics::PG_WORLD);
-		Logic::CServer::getSingletonPtr()->raycastFromViewport(point4,&worldCollisionPoint4, Physics::PG_WORLD);
-		
-		/*
-		Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_entity->getMap()->getScene(),"","physic_debug_blue50",2,woldCollisionPoint_1);
-		Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_entity->getMap()->getScene(),"","physic_debug_blue50",2,woldCollisionPoint_2);
-		Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_entity->getMap()->getScene(),"","physic_debug_blue50",2,woldCollisionPoint_3);
-		Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_entity->getMap()->getScene(),"","physic_debug_blue50",2,woldCollisionPoint_4);
-		*/
-
-		//Obtener las posiciones de los personajes y del mapa en 2D, x y z
-		Vector2 player1Pos = Vector2(_player1->getPosition().x,_player1->getPosition().z);
-		Vector2 player2Pos = Vector2(_player2->getPosition().x,_player2->getPosition().z);
-		Vector2 player3Pos = Vector2(_player3->getPosition().x,_player3->getPosition().z);
-
-		Vector2 worldPoint1 = Vector2(worldCollisionPoint1.x, worldCollisionPoint1.z);
-		Vector2 worldPoint2 = Vector2(worldCollisionPoint2.x, worldCollisionPoint2.z);
-		Vector2 worldPoint3 = Vector2(worldCollisionPoint3.x, worldCollisionPoint3.z);
-		Vector2 worldPoint4 = Vector2(worldCollisionPoint4.x, worldCollisionPoint4.z);
-
-		//Comprobar si los personajes están dentro del área seleccionada
-		processMultipleSelection(Math::isInsideRectangle(worldPoint1,worldPoint2,worldPoint3,worldPoint4,player1Pos),
-								Math::isInsideRectangle(worldPoint1,worldPoint2,worldPoint3,worldPoint4,player2Pos),
-								Math::isInsideRectangle(worldPoint1,worldPoint2,worldPoint3,worldPoint4,player3Pos));
-
-		
-		std::string aux = "GodSelected";
-		int ID = ScriptManager::CServer::getSingletonPtr()->getGlobal(aux.c_str(),-2);
-		if (ID >= 0){
-			_targetEntityID = ID;
-			_waitingForSelectable = true;
-
-			// No hace falta enviar mensaje, ya se sabe que es selectable porque es un personajes
-			// Send a message to the entity hit to ensure its selectability
-			//MIsSelectable* m_selectable = new MIsSelectable();
-			//m_selectable->setMessageType(SELECTION_REQUEST);
-			//m_selectable->setSenderEntity(_entity);
-			// Send the message as instant. The response must be send instantly as well.
-			//Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_targetEntityID)->emitInstantMessage(m_selectable, this);
-
+			_targetEntityID = -1;
 			_waitingForSelectable = false;
+			_worldCollisionPoint = Vector3(0, -1, 0);
+
+			//Pasar las coordenadas en pantalla a las coordenadas de mundo
+			Vector3 worldCollisionPoint1 = Vector3(0,-1,0);
+			Vector3 worldCollisionPoint2 = Vector3(0,-1,0);
+			Vector3 worldCollisionPoint3 = Vector3(0,-1,0);
+			Vector3 worldCollisionPoint4 = Vector3(0,-1,0);
+
+			Logic::CServer::getSingletonPtr()->raycastFromViewport(_mousePositionPressed,&worldCollisionPoint1, Physics::PG_WORLD);
+			Logic::CServer::getSingletonPtr()->raycastFromViewport(point2,&worldCollisionPoint2, Physics::PG_WORLD);
+			Logic::CServer::getSingletonPtr()->raycastFromViewport(_mousePositionReleased,&worldCollisionPoint3, Physics::PG_WORLD);
+			Logic::CServer::getSingletonPtr()->raycastFromViewport(point4,&worldCollisionPoint4, Physics::PG_WORLD);
+		
+			/*
+			Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_entity->getMap()->getScene(),"","physic_debug_blue50",2,woldCollisionPoint_1);
+			Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_entity->getMap()->getScene(),"","physic_debug_blue50",2,woldCollisionPoint_2);
+			Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_entity->getMap()->getScene(),"","physic_debug_blue50",2,woldCollisionPoint_3);
+			Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_entity->getMap()->getScene(),"","physic_debug_blue50",2,woldCollisionPoint_4);
+			*/
+
+			//Obtener las posiciones de los personajes y del mapa en 2D, x y z
+			Vector2 player1Pos = Vector2(_player1->getPosition().x,_player1->getPosition().z);
+			Vector2 player2Pos = Vector2(_player2->getPosition().x,_player2->getPosition().z);
+			Vector2 player3Pos = Vector2(_player3->getPosition().x,_player3->getPosition().z);
+
+			Vector2 worldPoint1 = Vector2(worldCollisionPoint1.x, worldCollisionPoint1.z);
+			Vector2 worldPoint2 = Vector2(worldCollisionPoint2.x, worldCollisionPoint2.z);
+			Vector2 worldPoint3 = Vector2(worldCollisionPoint3.x, worldCollisionPoint3.z);
+			Vector2 worldPoint4 = Vector2(worldCollisionPoint4.x, worldCollisionPoint4.z);
+
+			//Comprobar si los personajes están dentro del área seleccionada
+			processMultipleSelection(Math::isInsideRectangle(worldPoint1,worldPoint2,worldPoint3,worldPoint4,player1Pos),
+									Math::isInsideRectangle(worldPoint1,worldPoint2,worldPoint3,worldPoint4,player2Pos),
+									Math::isInsideRectangle(worldPoint1,worldPoint2,worldPoint3,worldPoint4,player3Pos));
+
+		
+			std::string aux = "GodSelected";
+			int ID = ScriptManager::CServer::getSingletonPtr()->getGlobal(aux.c_str(),-2);
+			if (ID >= 0){
+				_targetEntityID = ID;
+				_waitingForSelectable = true;
+
+				// No hace falta enviar mensaje, ya se sabe que es selectable porque es un personajes
+				// Send a message to the entity hit to ensure its selectability
+				//MIsSelectable* m_selectable = new MIsSelectable();
+				//m_selectable->setMessageType(SELECTION_REQUEST);
+				//m_selectable->setSenderEntity(_entity);
+				// Send the message as instant. The response must be send instantly as well.
+				//Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_targetEntityID)->emitInstantMessage(m_selectable, this);
+
+				_waitingForSelectable = false;
+			}
 		}
+
+		
 	
 	}
 
