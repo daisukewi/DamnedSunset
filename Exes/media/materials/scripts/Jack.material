@@ -1,0 +1,140 @@
+material Jack_0
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_jack.tga -1
+			}
+		}
+	}
+}
+material Jack_2
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_jack.tga -1
+			}
+		}
+	}
+}
+material Jack_3
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_jack.tga -1
+			}
+		}
+	}
+}
+material Jack_12
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_jack.tga -1
+			}
+		}
+	}
+}
+material Jack_16
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_jack.tga -1
+			}
+		}
+	}
+}
+material Jack_20
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_jack.tga -1
+			}
+		}
+	}
+}
+material Jack_24
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_jack.tga -1
+			}
+		}
+	}
+}
+material Jack_28
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_jack.tga -1
+			}
+		}
+	}
+}
+material Jack_41
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Hair00_00.tga -1
+			}
+		}
+	}
+}
+material Jack_53
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Hair00_00.tga -1
+			}
+		}
+	}
+}

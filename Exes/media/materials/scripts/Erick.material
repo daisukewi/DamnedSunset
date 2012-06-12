@@ -1,0 +1,154 @@
+material Erick_0
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_eric.tga -1
+			}
+		}
+	}
+}
+material Erick_4
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_eric.tga -1
+			}
+		}
+	}
+}
+material Erick_6
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_eric.tga -1
+			}
+		}
+	}
+}
+material Erick_9
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_eric.tga -1
+			}
+		}
+	}
+}
+material Erick_15
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_eric.tga -1
+			}
+		}
+	}
+}
+material Erick_17
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_eric.tga -1
+			}
+		}
+	}
+}
+material Erick_21
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_eric.tga -1
+			}
+		}
+	}
+}
+material Erick_28
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_eric.tga -1
+			}
+		}
+	}
+}
+material Erick_33
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_eric.tga -1
+			}
+		}
+	}
+}
+material Erick_47
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Hair03_01.tga -1
+			}
+		}
+	}
+}
+material Erick_58
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Cape_Robe_PVPHorde_A_01Red.tga -1
+			}
+		}
+	}
+}

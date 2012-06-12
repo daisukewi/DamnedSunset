@@ -1,0 +1,112 @@
+material Norah_0
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_norah.tga -1
+			}
+		}
+	}
+}
+material Norah_2
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_norah.tga -1
+			}
+		}
+	}
+}
+material Norah_4
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_norah.tga -1
+			}
+		}
+	}
+}
+material Norah_10
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_norah.tga -1
+			}
+		}
+	}
+}
+material Norah_15
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_norah.tga -1
+			}
+		}
+	}
+}
+material Norah_21
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_norah.tga -1
+			}
+		}
+	}
+}
+material Norah_25
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Body_norah.tga -1
+			}
+		}
+	}
+}
+material Norah_41
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture Hair01_03.tga -1
+			}
+		}
+	}
+}
