@@ -375,13 +375,10 @@ namespace GUI {
 
 		//CEGUI::Window* guiW = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
 		
-
 		if(!(CEGUI::System::getSingletonPtr()->getWindowContainingMouse()==guiW))
 		{
-			std::cout << "TRUE\n";
 			return true;
-		}else{
-			std::cout << "FALSE\n";
+		} else {
 			return false;
 		}
 	}
