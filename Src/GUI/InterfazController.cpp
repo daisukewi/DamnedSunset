@@ -41,7 +41,6 @@
 // ScriptManager
 #include "ScriptManager\Server.h"
 
-
 namespace GUI {
 
 	CInterfazController::CInterfazController()
@@ -366,12 +365,23 @@ namespace GUI {
 	}
 
 	bool CInterfazController::isMouseOnInterface(){
-		CEGUI::Window* guiW = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
+
+		CEGUI::Window* guiW;
+		if (_interfazDia) {
+			guiW = CEGUI::WindowManager::getSingleton().getWindow("InterfazControles");
+		} else {
+			guiW = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
+		}
+
+		//CEGUI::Window* guiW = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
+		
 
 		if(!(CEGUI::System::getSingletonPtr()->getWindowContainingMouse()==guiW))
 		{
+			std::cout << "TRUE\n";
 			return true;
 		}else{
+			std::cout << "FALSE\n";
 			return false;
 		}
 	}

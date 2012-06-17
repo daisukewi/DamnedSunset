@@ -75,6 +75,7 @@ namespace Application {
 
 		// Activamos la ventana de interfaz
 		GUI::CServer::getSingletonPtr()->getInterfazController()->activate();
+		GUI::CServer::getSingletonPtr()->getInterfazController()->setEsDia(false);
 
 		// Mostramos el ratón
 		CEGUI::MouseCursor::getSingleton().show();

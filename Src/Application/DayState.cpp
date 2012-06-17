@@ -89,6 +89,7 @@ namespace Application {
 
 		//Inicializamos la interfaz
 		GUI::CServer::getSingletonPtr()->getInterfazController()->init();
+		GUI::CServer::getSingletonPtr()->getInterfazController()->setEsDia(true);
 	} // activate
 
 	//--------------------------------------------------------

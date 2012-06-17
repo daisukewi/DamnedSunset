@@ -50,6 +50,9 @@ namespace GUI
 		*/
 		void deactivate();
 
+
+		void setEsDia(bool esDia) {_interfazDia = esDia;}
+
 		void CInterfazController::tick(unsigned int msecs);
 
 
@@ -142,6 +145,11 @@ namespace GUI
 		desde la última vez que se calcularon los FPS.
 		*/
 		unsigned int _nFrames;
+
+		/*
+		Indica si esta la interfaz de dia o de noche
+		*/
+		bool _interfazDia;
 
 	};
 

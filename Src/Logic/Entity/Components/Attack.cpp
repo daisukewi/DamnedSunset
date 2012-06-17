@@ -107,12 +107,14 @@ namespace Logic
 		if (_attack)
 		{
 			// Llevamos al jugador hasta donde está la entidad objetivo
-			if ((_targetEntity->getPosition() - _entity->getPosition()).length() >= 20)
+			int distancia = (_targetEntity->getPosition() - _entity->getPosition()).length();
+			if ( distancia >= 15)
 			{
 				MMoveSteering *m = new MMoveSteering();
 				m->setMovementType(AI::IMovement::MOVEMENT_KINEMATIC_ARRIVE);
 				m->setTarget(_targetEntity->getPosition());
-				m->setExtraVelocity(5.0f);
+				if (distancia <= 70)
+					m->setExtraVelocity(5.0f);
 				_entity->emitMessage(m, this);
 			}
 			else
@@ -123,7 +125,7 @@ namespace Logic
 					m_damage->setHurt(_damage);
 					m_damage->setKiller(_entity);
 					_targetEntity->emitMessage(m_damage, this);
-					_attackCoolDown = 1000;
+					_attackCoolDown = 1500;
 				}
 			}
 		}
