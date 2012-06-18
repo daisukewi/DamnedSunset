@@ -74,8 +74,9 @@ namespace Application {
 		GUI::CServer::getSingletonPtr()->getCameraController()->activate();*/
 
 		// Activamos la ventana de interfaz
-		GUI::CServer::getSingletonPtr()->getInterfazController()->activate();
-		GUI::CServer::getSingletonPtr()->getInterfazController()->setEsDia(false);
+		ScriptManager::CServer::getSingletonPtr()->executeProcedure("activarInterfazNoche");
+		//GUI::CServer::getSingletonPtr()->getInterfazController()->activate();
+		//GUI::CServer::getSingletonPtr()->getInterfazController()->setEsDia(false);
 
 		// Mostramos el ratón
 		CEGUI::MouseCursor::getSingleton().show();

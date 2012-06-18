@@ -122,12 +122,8 @@ namespace GUI
 		unsigned int _vida1;
 		void CInterfazController::ocultarBotones();
 		void CInterfazController::cargarBoton(char numBoton, std::string nombreBoton);	
-
-		
 		
 		void CInterfazController::sendClickMessage(std::string name);
-
-		Logic::CEntity *_entidadDios;
 
 		/**
 		Ventana que muestra los FPS transcurridos cada medio segundo.

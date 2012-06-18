@@ -61,10 +61,6 @@ namespace GUI {
 
 		// Cargamos la interfaz
 		//CEGUI::WindowManager::getSingletonPtr()->loadWindowLayout("Interfaz.layout");
-		//ScriptManager::CServer::getSingletonPtr()->executeProcedure("inicializarInterfazControles");
-		ScriptManager::CServer::getSingletonPtr()->executeProcedure("inicializarInterfazControles");
-
-		ScriptManager::CServer::getSingletonPtr()->executeProcedure("init");
 
 		//_interfazWindow = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
 		//_interfazWindow =  (CEGUI::Window*)(ScriptManager::CServer::getSingletonPtr()->getGlobal("interfazW", error));
@@ -92,8 +88,6 @@ namespace GUI {
 
 	void CInterfazController::activate()
 	{
-		_entidadDios = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("TargetCamera");
-
 		CInputManager::getSingletonPtr()->addKeyListener(this);
 
 		ScriptManager::CServer::getSingletonPtr()->executeProcedure("activate");
@@ -115,12 +109,9 @@ namespace GUI {
 	{
 		CInputManager::getSingletonPtr()->removeKeyListener(this);
 
-		//_fpsWindow->deactivate();
-		//_fpsWindow->setVisible(false);
 
-		ScriptManager::CServer::getSingletonPtr()->executeProcedure("deactivate");
-	//	_interfazWindow->deactivate();
-	//	_interfazWindow->setVisible(false);
+		ScriptManager::CServer::getSingletonPtr()->executeProcedure("desactivarInterfazNoche");
+
 	} // deactivate
 
 	void CInterfazController::tick(unsigned int msecs)
@@ -144,12 +135,6 @@ namespace GUI {
 		
 	}
 
-	//void CInterfazController::actualizarBarraVida(char numPersonaje, float porcentajeVida) {
-	//	std::string urlVida = "Interfaz/iVida";
-	//	urlVida+=numPersonaje;
-	//	_interfazWindow->getChild(urlVida)->setWidth(CEGUI::UDim(porcentajeVida*0.2,.0f));
-	//}
-	//--------------------------------------------------------
 
 	bool CInterfazController::keyPressed(TKey key)
 	{
@@ -365,23 +350,21 @@ namespace GUI {
 	}
 
 	bool CInterfazController::isMouseOnInterface(){
+		CEGUI::Window* guiW1 = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
+		CEGUI::Window* guiW2 = CEGUI::WindowManager::getSingleton().getWindow("InterfazControles");
 
-		CEGUI::Window* guiW;
-		if (_interfazDia) {
-			guiW = CEGUI::WindowManager::getSingleton().getWindow("InterfazControles");
-		} else {
-			guiW = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
-		}
+		CEGUI::Window* guiMouse = CEGUI::System::getSingletonPtr()->getWindowContainingMouse();
 
-		//CEGUI::Window* guiW = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
-		
-		if(!(CEGUI::System::getSingletonPtr()->getWindowContainingMouse()==guiW))
+		/*
+		Si el raton esta sobre una de estas ventanas (ventanas las cuales son transparentes), es que no esta sobre ninguna ventana secundaria.
+		*/
+		if (guiMouse == guiW1 || guiMouse == guiW2)
 		{
-			return true;
-		} else {
+			//printf("FALSE");
 			return false;
+		} else {
+			//printf("TRUE");
+			return true;
 		}
 	}
-
-
 } // namespace GUI

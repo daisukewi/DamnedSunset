@@ -4,5 +4,7 @@
 	<Imageset Filename="Interfaz.imageset" />
 	<Imageset Filename="BotonesIA.imageset" />
 	<Imageset Filename="damnedSet.imageset" />
-  <Imageset Filename="ToSunset.imageset" />
+	<Imageset Filename="ToSunset.imageset" />
+	<Imageset Filename="solenium.imageset" />
+	<Imageset Filename="amanecer.imageset" />
 </GUIScheme>

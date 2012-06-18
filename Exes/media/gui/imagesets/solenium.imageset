@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Imageset Name="soleniumImageset" Imagefile="solenium.jpg" NativeHorzRes="314" NativeVertRes="307" AutoScaled="true" >
+    <Image Name="solenium" XPos="0" YPos="0" Width="314" Height="307" />
+</Imageset>

@@ -1,3 +1,27 @@
+
+function cargarInterfazControlesDia()
+	-- Inicializar botones dia
+	cargarBoton(1,"martillo","construirTorreta")
+	ocultarBoton(2)
+	ocultarBoton(3)
+	cargarBoton(4,"bolazul","cambiarANoche")
+	
+	CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/MenuBotonesIA"):setVisible(false)
+end
+
+function cargarInterfazControlesNoche()
+	-- Inicializar botones dia
+	ocultarBoton(1)
+	ocultarBoton(2)
+	ocultarBoton(3)
+	ocultarBoton(4)
+	
+	cargarBotonIA(1,"BotonIA1", "funcionIA1")
+	cargarBotonIA(2,"BotonIA2", "funcionIA2")
+	cargarBotonIA(3,"BotonIA3", "funcionIA3")
+	CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/MenuBotonesIA"):setVisible(true)
+end
+
 --Las funciones de los botones redirigen a la funcion que asignemos a dicho boton
 --No asignamos directamente las funciones al evento del boton, porque da problemas al cambiar el mismo evento que se esta produciendo
 function clickBoton1()
@@ -123,41 +147,40 @@ end
 
 --Inicializacion de la interfaz de los controles
 function inicializarInterfazControles()
-	print("inicializarInterfazControles")
+	if (interfazControles) then
+		print("WARNING - inicializarInterfazControles - Interfaz ya inicializada")
+	else
+		-- Cargamos la interfaz
+		winMgr:loadWindowLayout("InterfazControles.layout")
+		interfazControles = winMgr:getWindow("InterfazControles")
 
-	-- Cargamos la interfaz
-	CEGUI.WindowManager:getSingleton():loadWindowLayout("InterfazControles.layout")
-	interfazC = CEGUI.WindowManager:getSingleton():getWindow("InterfazControles")
+		--Añadimos la interfaz a la interfaz principal
+		interfazPrincipal:addChildWindow(interfazControles)
+		interfazControles:setVisible(true)
+		interfazControles:activate()
 
-	-- Activamos la ventana de interfaz
-	CEGUI.System:getSingleton():setGUISheet(interfazC)
-	interfazC:setVisible(true)
-	interfazC:activate()
+		--Guargamod los botones en variables para poder acceder facilmente a ellos
+		botonControles1 = winMgr:getWindow("InterfazControles/Menu/b1")
+		botonControles2 = winMgr:getWindow("InterfazControles/Menu/b2")
+		botonControles3 = winMgr:getWindow("InterfazControles/Menu/b3")
+		botonControles4 = winMgr:getWindow("InterfazControles/Menu/b4")
 
-	--Guargamod los botones en variables para poder acceder facilmente a ellos
-	botonControles1 = CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/Menu/b1")
-	botonControles2 = CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/Menu/b2")
-	botonControles3 = CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/Menu/b3")
-	botonControles4 = CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/Menu/b4")
+		--Subscribimos los botones a sus funciones
+		botonControles1:subscribeEvent("Clicked", clickBoton1)
+		botonControles2:subscribeEvent("Clicked", clickBoton2)
+		botonControles3:subscribeEvent("Clicked", clickBoton3)
+		botonControles4:subscribeEvent("Clicked", clickBoton4)
 
-	--Subscribimos los botones a sus funciones
-	botonControles1:subscribeEvent("Clicked", clickBoton1)
-	botonControles2:subscribeEvent("Clicked", clickBoton2)
-	botonControles3:subscribeEvent("Clicked", clickBoton3)
-	botonControles4:subscribeEvent("Clicked", clickBoton4)
+		--Guargamod los botones en variables para poder acceder facilmente a ellos
+		botonIA1 = winMgr:getWindow("InterfazControles/BotonIA1")
+		botonIA2 = winMgr:getWindow("InterfazControles/BotonIA2")
+		botonIA3 = winMgr:getWindow("InterfazControles/BotonIA3")
 
-	--Guargamod los botones en variables para poder acceder facilmente a ellos
-	botonIA1 = CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/BotonIA1")
-	botonIA2 = CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/BotonIA2")
-	botonIA3 = CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/BotonIA3")
+		--Subscribimos los botones a sus funciones
+		botonIA1:subscribeEvent("Clicked", clickBotonIA1)
+		botonIA2:subscribeEvent("Clicked", clickBotonIA2)
+		botonIA3:subscribeEvent("Clicked", clickBotonIA3)
 
-	--Subscribimos los botones a sus funciones
-	botonIA1:subscribeEvent("Clicked", clickBotonIA1)
-	botonIA2:subscribeEvent("Clicked", clickBotonIA2)
-	botonIA3:subscribeEvent("Clicked", clickBotonIA3)
-
-	CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/MenuBotonesIA"):setVisible(false)
-
-	--Inicializamos los botones del dia
-	inicializarBotonesDia()
+		winMgr:getWindow("InterfazControles/MenuBotonesIA"):setVisible(false)
+	end
 end

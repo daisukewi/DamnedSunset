@@ -68,6 +68,8 @@ namespace Application {
 	{
 		CApplicationState::activate();
 
+		ScriptManager::CServer::getSingletonPtr()->executeProcedure("inicializarInterfaz");
+
 		// Mostramos el ratón
 		CEGUI::MouseCursor::getSingleton().show();
 
@@ -88,8 +90,7 @@ namespace Application {
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m2);
 
 		//Inicializamos la interfaz
-		GUI::CServer::getSingletonPtr()->getInterfazController()->init();
-		GUI::CServer::getSingletonPtr()->getInterfazController()->setEsDia(true);
+		ScriptManager::CServer::getSingletonPtr()->executeProcedure("cambiarADia");
 	} // activate
 
 	//--------------------------------------------------------
@@ -118,7 +119,7 @@ namespace Application {
 		Logic::CServer::getSingletonPtr()->tick(msecs);
 
 		//Actualizamos la interfaz
-		GUI::CServer::getSingletonPtr()->getInterfazController()->tick(msecs);
+		//GUI::CServer::getSingletonPtr()->getInterfazController()->tick(msecs);
 	
 	} // tick
 

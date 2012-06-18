@@ -75,9 +75,7 @@ namespace Application {
 		GUI::CServer::getSingletonPtr()->getPlayerController()->activate();
 		GUI::CServer::getSingletonPtr()->getCameraController()->activate();
 
-		/*// Activamos la ventana de interfaz
-		//GUI::CServer::getSingletonPtr()->getInterfazController()->activate();
-
+		/*
 		// Mostramos el ratón
 		CEGUI::MouseCursor::getSingleton().show();
 
@@ -85,10 +83,6 @@ namespace Application {
 		const OIS::MouseState state = GUI::CInputManager::getSingletonPtr()->getMouseState();
 		CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();  
 		CEGUI::System::getSingleton().injectMouseMove(state.X.abs-mousePos.d_x,state.Y.abs-mousePos.d_y);*/
-
-
-		
-
 
 	} // activate
 
@@ -178,6 +172,8 @@ namespace Application {
 		// Cargamos el nivel y los arquetipos a partir de los nombres de los ficheros de script. 
 		if (!Logic::CServer::getSingletonPtr()->loadLevel("map", "archetype"))
 			return false;
+
+
 
 		return true;
 	}

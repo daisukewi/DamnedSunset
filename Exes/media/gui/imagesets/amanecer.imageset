@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Imageset Name="amanecerImageset" Imagefile="amanecer.jpg" NativeHorzRes="1920" NativeVertRes="1080" AutoScaled="true" >
+    <Image Name="Amanecer" XPos="0" YPos="0" Width="360" Height="270" />
+</Imageset>
