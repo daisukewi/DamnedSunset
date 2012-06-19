@@ -92,7 +92,7 @@ namespace GUI {
 
 		//@TODO: Si vemos que tal y nos quedamos con CEGUI poner esta inicialización de CEGUI en el archivo xml
 		// de configuración inicial.
-		ScriptManager::CServer::getSingletonPtr()->loadExeScript("initCEGUI");
+		ScriptManager::CServer::getSingletonPtr()->loadExeScript("interfaz/initCEGUI");
 
 #ifndef NON_EXCLUSIVE_MODE_IN_WINDOW_MODE 
 		// Establecemos cual será el puntero del ratón.

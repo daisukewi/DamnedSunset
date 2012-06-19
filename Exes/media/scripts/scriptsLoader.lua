@@ -19,7 +19,8 @@ function loadScripts()
 	
 	-- Interfaz
 	SManager:loadScript("interfaz/interfazControles")
-	SManager:loadScript("interfaz")
+	SManager:loadScript("interfaz/interfazNoche")
+	SManager:loadScript("interfaz/interfazPrincipal")
 	
 	-- Scripts de misión.
 	SManager:loadScript("mission1StagesConfiguration")
