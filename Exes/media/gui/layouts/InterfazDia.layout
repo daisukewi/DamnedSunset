@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout >
+    <Window Type="DefaultWindow" Name="InterfazDia" >
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{0.1,0}}" />
+        <Window Type="WindowsLook/StaticImage" Name="InterfaDia/Recuros" >
+            <Property Name="Font" Value="DejaVuSans-10" />
+            <Property Name="Image" Value="set:InterfazUtils image:vida" />
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{0.5,0}}" />
+            <Window Type="WindowsLook/StaticImage" Name="InterfaDia/Recuros/iAmanecer" >
+                <Property Name="Image" Value="set:amanecerImageset image:Amanecer" />
+                <Property Name="UnifiedAreaRect" Value="{{0.593542,0},{0.161111,0},{0.658611,0},{0.883333,0}}" />
+            </Window>
+            <Window Type="WindowsLook/StaticText" Name="InterfaDia/Recuros/Amanecer" >
+                <Property Name="Text" Value="10:35" />
+                <Property Name="HorzExtent" Value="49" />
+                <Property Name="VertExtent" Value="19.8618" />
+                <Property Name="UnifiedAreaRect" Value="{{0.670772,0},{0.15,0},{0.730156,0},{0.85,0}}" />
+            </Window>
+            <Window Type="WindowsLook/StaticImage" Name="InterfaDia/Recuros/iSolenium" >
+                <Property Name="Image" Value="set:soleniumImageset image:solenium" />
+                <Property Name="UnifiedAreaRect" Value="{{0.788258,0},{0.136111,0},{0.853327,0},{0.858333,0}}" />
+            </Window>
+            <Window Type="WindowsLook/StaticText" Name="InterfaDia/Recuros/Solenium" >
+                <Property Name="Text" Value="500" />
+                <Property Name="HorzExtent" Value="33" />
+                <Property Name="VertExtent" Value="19.8618" />
+                <Property Name="UnifiedAreaRect" Value="{{0.863489,0},{0.125,0},{0.922873,0},{0.825,0}}" />
+            </Window>
+        </Window>
+        <Window Type="TaharezLook/Button" Name="InterfazDia/BotonAnochecer" >
+            <Property Name="Text" Value="¡ Estoy listo!" />
+            <Property Name="UnifiedAreaRect" Value="{{0.376172,0},{0.586459,0},{0.626172,0},{0.979687,0}}" />
+        </Window>
+    </Window>
+</GUILayout>

@@ -18,23 +18,6 @@ function interfazTick(text)
 
 end
 
-function actualizarHorasAmanecer(timeAmanecer)
-	minutosAmanecer = timeAmanecer
-	local horas = math.floor(minutosAmanecer/60)
-	local minutos = minutosAmanecer - horas * 60
-	local textoIntermedio
-	if (minutos >= 10) then
-		textoIntermedio = ":"
-	else
-		textoIntermedio = ":0"
-	end
-	winMgr:getWindow("Interfaz/Recursos"):setText(horas .. textoIntermedio .. minutos)
-end
-
-function actualizarSolenium(cantidadSolenium)
-	solenium = cantidadSolenium
-end
-
 function inicializarInterfazNoche()
 	if (interfazNoche) then
 		print("WARNING - inicializarInterfazNoche - Interfaz ya inicializada")

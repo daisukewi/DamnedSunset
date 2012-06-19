@@ -23,6 +23,8 @@ function inicializarInterfaz()
 		inicializarInterfazControles()
 
 		inicializarInterfazNoche()
+		
+		inicializarInterfazDia()
 	end
 
 end

@@ -51,6 +51,7 @@ function cambiarANoche()
 	
 	-- Interfaz
 	activarInterfazNoche()
+	desactivarInterfazDia()
 	cargarInterfazControlesNoche()
 end
 
@@ -59,6 +60,10 @@ function cambiarADia()
 	
 	-- Interfaz
 	desactivarInterfazNoche()
+	activarInterfazDia()
 	cargarInterfazControlesDia()
+	
+	actualizarHorasAmanecer(12 * 60)
+	actualizarSolenium(750)
 end
 
