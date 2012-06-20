@@ -132,6 +132,7 @@ Map = {
 		nombreGranada = "Granada",
 		tickFunction = "jackTick",
 		script = "jackScript",
+		model = "Jack.mesh",
 		type = "Player",
 	},
 
@@ -142,6 +143,7 @@ Map = {
 		respawn_position = { 26, 2 },
 		grid_position = { 26, 2 },
 		nombreGranada = "BolaTeltr",
+		model = "Erick.mesh",
 		type = "Player",
 	},
 
@@ -152,6 +154,7 @@ Map = {
 		life = 100.0,
 		grid_position = { 27, 1 },
 		script = "amorScript",
+		model = "Norah.mesh",
 		type = "Player",
 	},
 
