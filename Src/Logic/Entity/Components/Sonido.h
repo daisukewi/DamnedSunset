@@ -33,7 +33,7 @@ namespace Logic
 		Constructor por defecto
 		*/
 
-		CSonido() : IComponent() {numSounds = 4;}
+		CSonido() : IComponent() {numSounds = 10; _path = "media/sounds/";}
 
 		//CSonido() : IComponent(), _Sonido(""), _id(NULL), _position(0,0,0), _SoundType("2D"), _idChannel(0), _loop(false) {}
 
@@ -125,7 +125,13 @@ namespace Logic
 		int countSounds;
 
 		//Lista de sonidos
-		Sounds::CSound* _sound[4];
+		Sounds::CSound* _sound[10];
+
+		/**
+		Ruta de los sonidos
+		*/
+		std::string _path;
+
 
 	}; // class CSonido
 

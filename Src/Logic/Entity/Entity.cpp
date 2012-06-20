@@ -84,7 +84,10 @@ namespace Logic
 			scriptCreate << "players[" << _entityID << "].state = 1 ";
 			scriptCreate << "players[" << _entityID << "].secondaryState = 1 ";
 			scriptCreate << "players[" << _entityID << "].attackEnemy = -1 ";
-			scriptCreate << "players[" << _entityID << "].enemyFollow = false";
+			scriptCreate << "players[" << _entityID << "].enemyFollow = false ";
+			scriptCreate << "players[" << _entityID << "].followPosX = 0.0 ";
+			scriptCreate << "players[" << _entityID << "].followPosY = 0.0 ";
+			scriptCreate << "players[" << _entityID << "].followPosZ = 0.0";
 			ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreate.str().c_str());
 		
 			std::string playerName;

@@ -200,6 +200,12 @@ namespace Logic
 		CEntity* _player2;
 		CEntity* _player3;
 
+		/**
+		Controlar si se está haciendo multiselección
+		*/
+		bool _multiSelection;
+
+
 		
 	}; // class CSelectedController
 

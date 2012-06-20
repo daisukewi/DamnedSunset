@@ -1,4 +1,16 @@
 ------------------------------------------------------
+-- Función que calcula la distancia entre dos puntos. El resultado es la suma de la distancia en x y la distancia en z (unidades de ogre)
+function calculateDistance(p1X, p1Z, p2X, p2Z)
+	local distance = 0
+	local difX = 0
+	local difZ = 0
+	difX = p1X - p2X
+	difZ = p1Z - p2Z
+	distance = (math.abs(difX) + math.abs(difZ))
+	return distance
+end
+
+------------------------------------------------------
 function goTo(entity, pointX, pointY, pointZ)
 	local mensaje = LUA_MAStarRoute()
 	mensaje:setEntityTo(entity)

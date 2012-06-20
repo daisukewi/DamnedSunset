@@ -27,6 +27,7 @@ Contiene la implementación del componente que controla lo que debe hacer una tor
 #include "Logic/Entity/Messages/AttackDistance.h"
 #include "Logic/Entity/Messages/SetAnimation.h"
 #include "Logic/Entity/Messages/StopAnimation.h"
+#include "Logic/Entity/Messages/SoundEffect.h"
 
 namespace Logic
 {
@@ -53,8 +54,19 @@ namespace Logic
 		if (entityInfo->hasAttribute("attackTime")){
 			_attackTime = entityInfo->getIntAttribute("attackTime");
 		}else{
-			_attackTime = 500;
+			_attackTime = 1000;
 		}
+		if (entityInfo->hasAttribute("trigger_radius")){
+			_maxDistance = entityInfo->getFloatAttribute("trigger_radius");
+		}else{
+			_maxDistance = 80;
+		}
+		if (entityInfo->hasAttribute("attackSoundEffect")){
+			_attackSoundEffect = entityInfo->getStringAttribute("attackSoundEffect");
+		}else{
+			_attackSoundEffect = "RifleShot1.ogg";
+		}
+
 
 		return true;
 
@@ -97,29 +109,37 @@ namespace Logic
 			}else{
 				if (!m->getContinue()) {
 					_continue = false;
-					Vector3 origen = _entity->getPosition();
-					Vector3 destino = m->getEntity()->getPosition();
-					destino.y = 3.0f;
-					Vector3 direction = destino - origen;
-					//Descomentar para deviar el disparo a distancia de los personajes
-					//direction.x *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
-					//direction.y *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
-					//direction.z *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
-		
-					direction.normalise();
-					Vector3 impact;
-					Ray disparo = Ray(origen, direction);
-					Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastGroup(disparo, &impact,
-						(Physics::TPhysicGroup)(Physics::TPhysicGroup::PG_ALL & ~Physics::TPhysicGroup::PG_TRIGGER));
-					if (!entity->getTag().compare("enemy"))
-					{
-						MDamaged *m_dam = new MDamaged();
-						m_dam->setHurt((_damage)); ///Descomentar para reducir el daño en base a la distancia de los personajes (100.0f * ((_entity->getPosition() - m->getEntity()->getPosition()).length() + 0.1))) * _damage);
-						m_dam->setKiller(_entity);
-						entity->emitMessage(m_dam, this);
+				
+					if (Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(m->getEntity()->getEntityID())){
+						if (m->getEntity()->getTag().compare("enemy"))
+							{
+								//Posicionarse mirando al enemigo
+								float yaw = atan((_attackEntity->getPosition().x - _entity->getPosition().x) / (_attackEntity->getPosition().z - _entity->getPosition().z));
+								if ((_attackEntity->getPosition().z - _entity->getPosition().z) >= 0)
+									yaw += Math::PI;
+								_entity->setYaw(yaw);
+
+
+								MDamaged *m_dam = new MDamaged();
+								m_dam->setHurt((_damage)); ///Descomentar para reducir el daño en base a la distancia de los personajes (100.0f * ((_entity->getPosition() - m->getEntity()->getPosition()).length() + 0.1))) * _damage);
+								m_dam->setKiller(_entity);
+								m->getEntity()->emitMessage(m_dam, this);
+							
+								MSoundEffect *m_sound = new MSoundEffect();
+								m_sound->setSoundEffect(_attackSoundEffect);
+								_entity->emitMessage(m_sound);
+
+								MSetAnimation *m_anim2  =new MSetAnimation();
+								m_anim2->setAnimationName("AttackRifle");
+								m_anim2->setNextAnimationName("HoldRifle");
+								
+								_entity->emitMessage(m_anim2);
+						
+							}
 					}
 				}else{
 					_continue = true;
+					_attackStart = true;
 					_attackEntity = m->getEntity(); 
 					_IDAttackEntity = m->getEntityID();
 
@@ -137,7 +157,7 @@ namespace Logic
 	{
 
 		IComponent::tick(msecs);
-
+		bool finalizar = false;
 		_attackCountTime += msecs;
 
 		if (_continue){
@@ -145,37 +165,68 @@ namespace Logic
 			
 				_attackCountTime = 0;
 
-			
-				/*Vector3 origen = _entity->getPosition();
-				Vector3 destino =	_attackEntity->getPosition();
-				destino.y = 2.0f;
-				Vector3 direction = destino - origen;
-				//Descomentar para deviar el disparo a distancia de los personajes
-				//direction.x *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
-				//direction.y *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
-				//direction.z *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
-		
-				direction.normalise();
-				Vector3 impact;
-				Ray disparo = Ray(origen, direction);
-				Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastGroup(disparo, &impact,
-					(Physics::TPhysicGroup)(Physics::TPhysicGroup::PG_ALL & ~Physics::TPhysicGroup::PG_TRIGGER));*/
 				if (Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_IDAttackEntity)){	
 					if (!_attackEntity->getType().compare("Enemy"))
 						{
-							MDamaged *m_dam = new MDamaged();
-							m_dam->setHurt((_damage)); ///Descomentar para reducir el daño en base a la distancia de los personajes (100.0f * ((_entity->getPosition() - m->getEntity()->getPosition()).length() + 0.1))) * _damage);
-							m_dam->setKiller(_entity);
-							_attackEntity->emitMessage(m_dam, this);
+							//Si esta a menos de la distancia máxima
+							float difX = _attackEntity->getPosition().x - _entity->getPosition().x;
+							float difZ = _attackEntity->getPosition().z - _entity->getPosition().z;
+
+							if ((_maxDistance*_maxDistance) >= (difX*difX + difZ*difZ)){
+
+								//Posicionarse mirando al enemigo
+								float yaw = atan((_attackEntity->getPosition().x - _entity->getPosition().x) / (_attackEntity->getPosition().z - _entity->getPosition().z));
+								if ((_attackEntity->getPosition().z - _entity->getPosition().z) >= 0)
+									yaw += Math::PI;
+								_entity->setYaw(yaw);
+
+
+								//Empezar la animación si es acaba de comenzar el ataque
+								if (_attackStart){
+									_attackStart = false;
+
+									MSetAnimation *m_anim2  =new MSetAnimation();
+									m_anim2->setAnimationName("AttackRifle");
+									m_anim2->setLoop(true);
+									_entity->emitMessage(m_anim2);
+
+
+								}
+
+
+								MDamaged *m_dam = new MDamaged();
+								m_dam->setHurt((_damage)); ///Descomentar para reducir el daño en base a la distancia de los personajes (100.0f * ((_entity->getPosition() - m->getEntity()->getPosition()).length() + 0.1))) * _damage);
+								m_dam->setKiller(_entity);
+								_attackEntity->emitMessage(m_dam, this);
+
+
+
+								MSoundEffect *m_sound = new MSoundEffect();
+								m_sound->setSoundEffect(_attackSoundEffect);
+								_entity->emitMessage(m_sound);
+							}else{
+								finalizar = true;
+							}
+		
+						}else{
+							finalizar = true;
+					
 						}
 				}else{
-					_continue = false;
-					_attackCountTime = 0;
+					finalizar = true;
 				}
 
 			}
 		}else{
 			_attackCountTime = 0;
+		}
+
+		if (finalizar){
+			_continue = false;
+			_attackCountTime = 0;
+			MSetAnimation *m_anim  =new MSetAnimation();
+			m_anim->setAnimationName("HoldRifle");
+			_entity->emitMessage(m_anim);
 		}
 	} // tick
 

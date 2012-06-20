@@ -90,6 +90,11 @@ namespace Logic
 		*/
 		bool _loop;
 
+		/**
+		Velocidad a la que se quiere mostrar la animación
+		*/
+		float _velocity;
+
 	}; // class MSetAnimation
 
 } // namespace Logic

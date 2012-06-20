@@ -15,6 +15,10 @@ la gestión de la interfaz con el usuario (entrada de periféricos, CEGui...).
 #include "PlayerController.h"
 #include "CameraController.h"
 #include "InterfazController.h"
+#include "InputManager.h"
+
+#include "Ogre.h"
+#include "OgreRoot.h"
 
 #include "BaseSubsystems/Server.h"
 
@@ -206,4 +210,12 @@ namespace GUI {
 
 	} //getMouseRelPos
 
+
+	Vector2 CServer::positionRelToAbs(Vector2 posRel)
+	{
+		float screenWidth = Ogre::Root::getSingleton().getAutoCreatedWindow()->getWidth();
+		float screenHeight = Ogre::Root::getSingleton().getAutoCreatedWindow()->getHeight();
+		return Vector2(posRel.x * screenWidth , posRel.y * screenHeight );
+
+	}//positionRelToAbs
 } // namespace GUI

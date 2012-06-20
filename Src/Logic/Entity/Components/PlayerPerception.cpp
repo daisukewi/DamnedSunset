@@ -102,7 +102,7 @@ namespace Logic
 							
 						}else if (_entity->getSecondarySelected()){
 
-							script << "playerSecondaryEvent(\"OnEnemyLost\", " << _entity->getEntityID() << ")";
+							//script << "playerSecondaryEvent(\"OnEnemyLost\", " << _entity->getEntityID() << ")";
 						}
 
 						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
@@ -186,7 +186,7 @@ namespace Logic
 					
 					}else if (_entity->getSecondarySelected()){
 					
-						script << "playerSecondaryEvent(\"OnEnemyDie\", " << _entity->getEntityID() << ")";
+						//script << "playerSecondaryEvent(\"OnEnemyDie\", " << _entity->getEntityID() << ")";
 					
 					}
 					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
@@ -217,7 +217,7 @@ namespace Logic
 					
 					}else if (_entity->getSecondarySelected()){
 					
-						script << "playerSecondaryEvent(\"OnEnemySeen\", " << _entity->getEntityID() << ")";
+						//script << "playerSecondaryEvent(\"OnEnemySeen\", " << _entity->getEntityID() << ")";
 					
 					}
 					

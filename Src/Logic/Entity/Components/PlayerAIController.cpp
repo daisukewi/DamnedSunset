@@ -184,7 +184,7 @@ namespace Logic
 							<< "players[" << _entity->getEntityID() << "].posY = " << _entity->getPosition().y << " "
 							<< "players[" << _entity->getEntityID() << "].posZ = " << _entity->getPosition().z << " "
 							<< "playerSecondaryAIAction(" << _entity->getEntityID() << ")";
-					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+					//ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 					
 				}else if (!_entity->getSelected()){
 					

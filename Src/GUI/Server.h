@@ -169,6 +169,15 @@ namespace GUI
 		*/
 		Vector2 getMouseRelPos();
 
+		/**
+		Método para convertir de posición relativa en pantalla a absoluta
+		
+		@param posRel posición a convertir
+		@return Vector2 contiene la posición absoluta
+		*/
+		Vector2 positionRelToAbs(Vector2 posRel);
+
+
 	protected:
 
 		/**

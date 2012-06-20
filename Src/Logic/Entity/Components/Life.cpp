@@ -37,6 +37,7 @@ Contiene la implementación del componente que controla la vida de una entidad.
 #include "Logic/Entity/Messages/CureEntity.h"
 #include "Logic/Entity/Messages/EntityDeathListener.h"
 #include "Logic/Entity/Messages/EntityDeath.h"
+#include "Logic/Entity/Messages/ParticleEffect.h"
 
 #include "GUI/Server.h"
 #include "GUI/InterfazController.h"
@@ -83,6 +84,8 @@ namespace Logic
 		}
 		else
 			_underAttackFunction = false;
+
+		
 		
 		//Billboard
 		_billboard = new Graphics::CBillboard(_entity);
@@ -148,6 +151,12 @@ namespace Logic
 				MDamaged *md = static_cast <MDamaged*> (message);
 				// Disminuir la vida de la entidad
 				_life -= md->getHurt();
+
+				//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
+				MParticleEffect *rc_message = new MParticleEffect();
+				rc_message->setPoint(_entity->getPosition());
+				rc_message->setEffect("Blood");
+				_entity->emitInstantMessage(rc_message,this);
 
 				if (_life <= 0) {
 					//Muere la entidad

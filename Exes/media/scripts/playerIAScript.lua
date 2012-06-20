@@ -84,6 +84,7 @@ function playerFollowStateEvent(event, entity)
 		if (players[entity].attackEnemy == playerEventParam.target) then
 			players[entity].attackEnemy = -1
 			players[entity].enemyFollow = false
+			
 			stopGoTo(entity)
 
 			print('LUA: ENEMIGO A MUERTO')
@@ -99,10 +100,13 @@ function playerFollowStateAction(entity)
 	local nextState
 	nextState = 2
 	if (players[entity].enemyFollow == true) then
-	
-		print('LUA: PERSEGUIR')
-		goTo(enemies[players[entity].attackEnemy].posX,enemies[players[entity].attackEnemy].posY,enemies[players[entity].attackEnemy].posZ,entity)
-	
+		if (distance(players[entity].posX, players[entity].posZ, players[entity].followPosX, players[entity].followPosZ) < maxFollowDistance) then
+			print('LUA: PERSEGUIR')
+			goTo(enemies[players[entity].attackEnemy].posX,enemies[players[entity].attackEnemy].posY,enemies[players[entity].attackEnemy].posZ,entity)
+		else
+			print('LUA: VOLVER')
+			goTo(players[entity].followPosX, players[entity].followPosY,players[entity].followPosZ,entity)
+		end
 	end
 	
 	return nextState
@@ -192,6 +196,9 @@ playerJackID = -1
 playerErickID = -1
 playerAmorID = -1
 
+-- Variable que contiene la distancia máxima que puede seguir un personaje
+maxFollowDistance = 30
+
 
 -- Función que recogerá los eventos a los cuales reaccionará la máquina de estados.
 function playerEvent(event, entity)
@@ -205,6 +212,9 @@ function playerEvent(event, entity)
 			print('IDLE')
 		elseif (playerEventParam.state == 'follow') then
 			players[entity].enemyFollow = false
+			players[entity].followPosX = players[entity].posX
+			players[entity].followPosY = players[entity].posY
+			players[entity].followPosZ = players[entity].posZ
 			state = 2
 			print('FOLLOW')
 		elseif (playerEventParam.state == 'hold') then
@@ -224,7 +234,6 @@ end
 
 -- Función que se llamará en cada tick para ejecutar las acciones que haga falta en el estado actual.
 function playerAIAction(entity)
-	print('PRIMARY: '..entity)
 	local nextState = playerStates[players[entity].state].state.action(entity)
 	players[entity].state = nextState
 end

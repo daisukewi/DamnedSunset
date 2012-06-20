@@ -65,6 +65,7 @@ namespace Logic
 
 	bool CSonido::accept(IMessage *message)
 	{
+
 		return (!message->getType().compare("MSetTransform") ||
 			!message->getType().compare("MSoundEffect"));
 
@@ -99,7 +100,7 @@ namespace Logic
 			_sound[countSounds]->setId(id);
 			strcpy (id, _sound[countSounds]->getSound().c_str());
 			
-			_sound[countSounds]->setIdChannel(Sounds::CSoundManager::getSingleton()->createChannel(_sound[countSounds]->getSound().c_str(),false,_sound[countSounds]->getLoop(),_sound[countSounds]->getSoundType()));
+			_sound[countSounds]->setIdChannel(Sounds::CSoundManager::getSingleton()->createChannel((_path + _sound[countSounds]->getSound()).c_str(),false,_sound[countSounds]->getLoop(),_sound[countSounds]->getSoundType()));
 			if (_sound[countSounds]->getIdChannel() == 0){
 				std::cout << "CSonido: no se pudo crear el sonido: " << _sound[countSounds]->getIdChannel() << std::endl;
 			}
@@ -113,7 +114,7 @@ namespace Logic
 
 	void CSonido::tick(unsigned int msecs)
 	{
-
+		IComponent::tick(msecs);
 	}
 
 	//---------------------------------------------------------

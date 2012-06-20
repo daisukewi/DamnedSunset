@@ -37,7 +37,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CDistanceAttack():IComponent(), _attackCountTime(0), _continue(false), _IDAttackEntity(-1){}
+		CDistanceAttack():IComponent(), _attackCountTime(0), _continue(false), _IDAttackEntity(-1), _attackStart(false){}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -130,6 +130,20 @@ namespace Logic
 		*/
 		int _attackCountTime;
 
+		/**
+		Distancia máxima a la que puede atacar
+		*/
+		float _maxDistance;
+
+		/**
+		Controlar cuando se empieza a atacar
+		*/
+		bool _attackStart;
+
+		/**
+		Sonido de ataque
+		*/
+		std::string _attackSoundEffect;
 
 	}; // class CDistanceAtack
 
