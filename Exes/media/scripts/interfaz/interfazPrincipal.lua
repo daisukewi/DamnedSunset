@@ -6,7 +6,6 @@ function inicializarInterfaz()
 		persSelect = 1
 		fpsWindow = 0
 		textWindow = 0
-		textWindow = 0
 		horas = 21
 		minutos = 00
 
@@ -25,6 +24,12 @@ function inicializarInterfaz()
 		inicializarInterfazNoche()
 		
 		inicializarInterfazDia()
+		
+		
+		-- Cargamos la ventana que muestra los FPS
+		winMgr:loadWindowLayout("Time.layout")
+		fpsWindow = winMgr:getWindow("Time")
+		interfazPrincipal:addChildWindow(fpsWindow)
 	end
 
 end

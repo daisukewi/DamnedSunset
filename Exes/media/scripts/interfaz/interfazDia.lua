@@ -8,8 +8,6 @@ function inicializarInterfazDia()
 
 		--Añadimos la interfaz a la interfaz principal
 		interfazPrincipal:addChildWindow(interfazDia)
-
-		interfazDia:addChildWindow(fpsWindow)
 		
 		winMgr:getWindow("InterfazDia/BotonAnochecer"):subscribeEvent("Clicked", "cambiarANoche")
 	end

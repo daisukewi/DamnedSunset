@@ -119,7 +119,7 @@ namespace Application {
 		Logic::CServer::getSingletonPtr()->tick(msecs);
 
 		//Actualizamos la interfaz
-		//GUI::CServer::getSingletonPtr()->getInterfazController()->tick(msecs);
+		GUI::CServer::getSingletonPtr()->getInterfazController()->tick(msecs);
 	
 	} // tick
 

@@ -28,12 +28,7 @@ function inicializarInterfazNoche()
 
 		--Añadimos la interfaz a la interfaz principal
 		interfazPrincipal:addChildWindow(interfazNoche)
-
-		-- Cargamos la ventana que muestra los FPS
-		winMgr:loadWindowLayout("Time.layout")
-		fpsWindow = winMgr:getWindow("Time")
-		interfazNoche:addChildWindow(fpsWindow)
-
+		
 		-- Asociamos los botones del menú con las funciones que se deben ejecutar.
 		winMgr:getWindow("Interfaz/bPersonaje1"):subscribeEvent("Clicked", "sendClickMessage1")
 		winMgr:getWindow("Interfaz/bPersonaje2"):subscribeEvent("Clicked", "sendClickMessage2")
@@ -54,18 +49,11 @@ function activarInterfazNoche()
 		-- Activamos la ventana de interfaz
 		interfazNoche:setVisible(true)
 		interfazNoche:activate()
-
-		-- Activamos la ventana que muestra los FPS
-		fpsWindow:setVisible(true)
-		fpsWindow:activate()
 	end
 end
 
 function desactivarInterfazNoche()
 	if (interfazNoche) then
-		fpsWindow:deactivate()
-		fpsWindow:setVisible(false)
-
 		interfazNoche:deactivate()
 		interfazNoche:setVisible(false)
 	end
