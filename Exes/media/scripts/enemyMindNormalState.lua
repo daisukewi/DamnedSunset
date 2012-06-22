@@ -8,6 +8,7 @@ function normalStateEvent(event)
 	local nextState
 	
 	if (event == "GeneratorUnderAttack") then
+		sacarVentana("Soy la supermente y me ha llegado el evento de que están atacando un generador.")
 		-- Obtengo la tabla de spawners para la entidad que me ha enviado el evento.
 		tSpawners = enemyBuildings[enemyMindEventParam.entity].spawners
 		

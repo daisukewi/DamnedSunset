@@ -50,7 +50,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../Src;../../dependencies/include;../../dependencies/include/OGRE;../../dependencies/include/OIS;../../dependencies/include/cegui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../Src;../../dependencies/include;../../dependencies/include/OGRE;../../dependencies/include/OIS;../../dependencies/include/cegui;../../dependencies/include/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>LUABIND_DYNAMIC_LINK;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -64,7 +64,7 @@
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
     </ProjectReference>
     <Link>
-      <AdditionalDependencies>OgreMain_d.lib;OgreTerrain_d.lib;OIS_d.lib;CEGUIBase_d.lib;CEGUIOgreRenderer_d.lib;NxCharacter.lib;PhysXCooking.lib;PhysXCore.lib;PhysXLoader.lib;%(AdditionalDependencies);lua52_d.lib;luabindd.lib;fmodex_vc.lib;CEGUILuaScriptModule_d.lib</AdditionalDependencies>
+      <AdditionalDependencies>OgreMain_d.lib;OgreTerrain_d.lib;OIS_d.lib;CEGUIBase_d.lib;CEGUIOgreRenderer_d.lib;NxCharacter.lib;PhysXCooking.lib;PhysXCore.lib;PhysXLoader.lib;%(AdditionalDependencies);lua51dll.lib;luabindd.lib;fmodex_vc.lib;CEGUILuaScriptModule_d.lib;tolua++_d.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>..\..\dependencies\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -77,7 +77,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>../../Src;../../dependencies/include;../../dependencies/include/OGRE;../../dependencies/include/OIS;../../dependencies/include/cegui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../Src;../../dependencies/include;../../dependencies/include/OGRE;../../dependencies/include/OIS;../../dependencies/include/cegui;../../dependencies/include/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>LUABIND_DYNAMIC_LINK;WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -90,7 +90,7 @@
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
     </ProjectReference>
     <Link>
-      <AdditionalDependencies>OgreMain.lib;OgreTerrain.lib;OIS.lib;CEGUIBase.lib;CEGUIOgreRenderer.lib;CEGUILuaScriptModule.lib;PhysXCooking.lib;PhysXCore.lib;PhysXLoader.lib;NxCharacter.lib;%(AdditionalDependencies);lua52.lib;luabind.lib;fmodex_vc.lib</AdditionalDependencies>
+      <AdditionalDependencies>OgreMain.lib;OgreTerrain.lib;OIS.lib;CEGUIBase.lib;CEGUIOgreRenderer.lib;CEGUILuaScriptModule.lib;PhysXCooking.lib;PhysXCore.lib;PhysXLoader.lib;NxCharacter.lib;%(AdditionalDependencies);lua51dll.lib;luabind.lib;fmodex_vc.lib;tolua++.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>..\..\dependencies\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>

@@ -99,7 +99,6 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemiesGenerator.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Life.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\MapUnit.cpp" />
-    <ClCompile Include="..\..\Src\Logic\Entity\Components\Minimap.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Move.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\ParticleController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Perception.cpp" />
@@ -211,7 +210,6 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Life.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MapBuilding.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MapUnit.h" />
-    <ClInclude Include="..\..\Src\Logic\Entity\Components\Minimap.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Move.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\ParticleController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Perception.h" />

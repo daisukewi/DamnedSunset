@@ -22,9 +22,9 @@ function processMap(map)
 				elseif (type(v) == "table") then
 					-- Si el valor que estoy leyendo es de tipo tabla, primero compruebo si la longitud es menor que tres ya que
 					-- de ser así se trata de un vector.
-					if (rawlen(v) <= 3) then
+					if (table.maxn(v) <= 3) then
 						s = (v[1] .. " " .. v[2])
-						if (rawlen(v) == 3) then
+						if (table.maxn(v) == 3) then
 							s = (s .. " " .. v[3])
 						end
 					-- Si la longitud de la tabla es mayor de tres, entonces es la definición de las casillas del mapa.
@@ -54,7 +54,7 @@ end
 
 function processGrid(grid, cParser)
 	-- Aviso que empiezo el parseo de las celdas del mapa.
-	cParser:beginGrid(rawlen(grid), rawlen(grid[1]))
+	cParser:beginGrid(table.maxn(grid), table.maxn(grid[1]))
 	
 	-- Hago el parseo en sí con un doble for.
 	for y, val1 in pairs(grid) do

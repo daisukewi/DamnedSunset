@@ -150,7 +150,7 @@ namespace ScriptManager
 	{
 		if (_lua)
 		{
-			//lua_close(_lua);
+			lua_close(_lua);
 		}
 
 		_scriptList.clear();
@@ -595,13 +595,6 @@ namespace ScriptManager
 
 			return false;
 		}
-		// Error chungo de no se qué de metamethod
-		else if (errorType == LUA_ERRGCMM)
-		{
-			showErrorMessage("ERROR DE LUA! - Error chungo de lua al cargar el script \"" + std::string(script) + "\" : Error chungo de no se qué de metamethod.");
-
-			return false;
-		}
 
 		return true;
 		
@@ -641,13 +634,6 @@ namespace ScriptManager
 		else if (errorType == LUA_ERRERR)
 		{
 			showErrorMessage("ERROR DE LUA! - Error chungo de lua al ejecutar el script \"" + std::string(script) + "\" : Error ejecutando el message handler.");
-
-			return false;
-		}
-		// Error chungo de no se qué de metamethod
-		else if (errorType == LUA_ERRGCMM)
-		{
-			showErrorMessage("ERROR DE LUA! - Error chungo de lua al ejecutar el script \"" + std::string(script) + "\" : Error chungo de no se qué de metamethod.");
 
 			return false;
 		}
