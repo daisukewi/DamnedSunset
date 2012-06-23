@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="CEGUISILLYImageCodec"
-	ProjectGUID="{D77EC2D7-03FE-AB42-9C7A-A7DA05400862}"
+	ProjectGUID="{44015975-580F-3747-BEA7-F7BC62917667}"
 	RootNamespace="CEGUISILLYImageCodec"
 	Keyword="Win32Proj"
 	>

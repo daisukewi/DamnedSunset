@@ -3,8 +3,8 @@ Map = {
 	Sand = {
 		normal_texture = "toon_desertb.jpg",
 		height = 0,
-		is_texture_base = true,
 		max_height = 0,
+		is_texture_base = true,
 		texture_size = 128,
 		difuse_texture = "toon_desert.jpg",
 		cost = 0,
@@ -72,37 +72,68 @@ Map = {
 		},
 	},
 
+	StageManager = {
+		dimension = { 1, 1 },
+		grid_position = { 2, 29 },
+		type = "StageManager",
+		script = "mission1StagesConfiguration",
+	},
+
 	PlayerGod = {
 		isPlayer = true,
 		orientation = 225,
-		cameraVelocity = 500,
 		isTargetCamera = true,
+		cameraVelocity = 500,
 		grid_position = { 29, 0 },
-		script = "godScript",
 		type = "PlayerGod",
+		script = "godScript",
 		dimension = { 1, 1 },
 		cameraDistance = 10,
 		mouseVelocity = 4,
 		mouseDistance = 100,
 	},
 
-	Camera = {
+	ScriptsLoader = {
 		dimension = { 1, 1 },
+		activateFunction = "loadScripts",
+		grid_position = { 1, 29 },
+		type = "ScriptsLoader",
+		script = "scriptsLoader",
+	},
+
+	EnemiesSpawner2 = {
+		model = "esfera.mesh",
+		dimension = { 1, 1 },
+		grid_position = { 9, 23 },
+		ID = 2,
+		type = "Enemies",
+	},
+
+	Camera = {
 		distance = 150,
-		height = 250,
+		dimension = { 1, 1 },
+		height = 300,
 		grid_position = { 28, 0 },
 		targetHeight = 7,
 		targetName = "PlayerGod",
-		type = "Camera",
 		targetDistance = 10,
+		type = "Camera",
+	},
+
+	EnemiesSpawner1 = {
+		model = "esfera.mesh",
+		dimension = { 1, 1 },
+		grid_position = { 21, 23 },
+		ID = 1,
+		type = "Enemies",
 	},
 
 	World = {
 		position = { 0, 0, 0 },
 		orientation = 0,
 		physic_entity = "simple",
-		static = true,
 		physic_height = 1,
+		static = true,
 		physic_normal = { 0, 1, 0 },
 		type = "World",
 		physic_type = "static",
@@ -114,11 +145,11 @@ Map = {
 
 	Sun = {
 		position = { 0, 10, -100 },
-		scale = 30.0,
 		orientation = 0,
+		scale = 30.0,
 		dimension = { 1, 1 },
-		speed = 5.0,
 		grid_position = { 28, 29 },
+		speed = 5.0,
 		inclination = 120.0,
 		type = "Sun",
 	},
@@ -127,12 +158,10 @@ Map = {
 		afectaEmpujar = 50,
 		dimension = { 1, 1 },
 		life = 100.0,
-		respawn_position = { 28, 2},
 		grid_position = { 28, 2 },
 		nombreGranada = "Granada",
 		tickFunction = "jackTick",
 		script = "jackScript",
-		model = "Jack.mesh",
 		type = "Player",
 	},
 
@@ -140,67 +169,26 @@ Map = {
 		afectaEmpujar = 100,
 		dimension = { 1, 1 },
 		life = 100.0,
-		respawn_position = { 26, 2 },
 		grid_position = { 26, 2 },
 		nombreGranada = "BolaTeltr",
-		model = "Erick.mesh",
 		type = "Player",
 	},
 
 	Amor = {
 		afectaEmpujar = 150,
 		dimension = { 1, 1 },
-		respawn_position = { 27, 1},
 		life = 100.0,
 		grid_position = { 27, 1 },
-		script = "amorScript",
-		model = "Norah.mesh",
 		type = "Player",
+		script = "amorScript",
 	},
 
 	EnemyMind = {
 		dimension = { 1, 1 },
-		initStage = 1,
 		grid_position = { 0, 29 },
+		initStage = 1,
 		type = "EnemyMind",
 		initState = 1,
-	},
-
-	StageManager = {
-		dimension = { 1, 1 },
-		grid_position = { 2, 29 },
-		script = "mission1StagesConfiguration",
-		type = "StageManager",
-	},
-
-	ScriptsLoader = {
-		dimension = { 1, 1 },
-		activateFunction = "loadScripts",
-		grid_position = { 1, 29 },
-		script = "scriptsLoader",
-		type = "ScriptsLoader",
-	},
-
-	EnemiesSpawner2 = {
-		dimension = { 1, 1 },
-		model = "esfera.mesh",
-		grid_position = { 9, 23 },
-		ID = 2,
-		type = "Enemies",
-	},
-
-	EnemiesSpawner1 = {
-		dimension = { 1, 1 },
-		model = "esfera.mesh",
-		grid_position = { 21, 23 },
-		ID = 1,
-		type = "Enemies",
-	},
-
-	CentroMando = {
-		dimension = { 5, 5 },
-		grid_position = { 17, 18 },
-		type = "CentroMando",
 	},
 
 }

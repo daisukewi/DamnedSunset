@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="CEGUIExpatParser"
-	ProjectGUID="{B495C901-1D5E-204A-B835-275B728775FC}"
+	ProjectGUID="{F587037D-4D46-C54F-A093-9EFC31D014E4}"
 	RootNamespace="CEGUIExpatParser"
 	Keyword="Win32Proj"
 	>

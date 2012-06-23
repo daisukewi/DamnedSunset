@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="CEGUIBase"
-	ProjectGUID="{9C3DF8D2-BA95-F24C-8B13-BEDCAA6E1C34}"
+	ProjectGUID="{5BFBC90D-BE49-3F41-90BA-9CE6AA47939D}"
 	RootNamespace="CEGUIBase"
 	Keyword="Win32Proj"
 	>
@@ -1850,10 +1850,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\cegui\include\CEGUIXMLSerializer.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\cegui\include\config.h"
 					>
 				</File>
 			</Filter>

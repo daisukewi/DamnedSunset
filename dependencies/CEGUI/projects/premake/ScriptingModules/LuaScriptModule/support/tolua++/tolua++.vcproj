@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="tolua++"
-	ProjectGUID="{8717ABE1-B18F-C44B-80CE-08DC17986DB6}"
+	ProjectGUID="{A15A1F20-CFFA-6A44-B592-C69D56C3EFDD}"
 	RootNamespace="tolua++"
 	Keyword="Win32Proj"
 	>
