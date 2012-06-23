@@ -122,6 +122,9 @@ description="Genera la documentación, si la hay.">
 <copy todir="../lib/Debug">
 <fileset dir="./bin/Debug" includes="lua51dll.lib"/>
 </copy>
+<copy todir="../lib/Release">
+<fileset dir="./bin/Debug" includes="lua51dll.lib"/>
+</copy>
 <copy todir="../bin/Debug">
 <fileset dir="./bin/Debug" includes="lua51.dll"/>
 </copy>
@@ -132,6 +135,9 @@ description="Genera la documentación, si la hay.">
 
 <copy todir="../lib/Release">
 <fileset dir="./bin/Release" includes="lua51dll.lib"/>
+</copy>
+<copy todir="../lib/Debug">
+<fileset dir="./bin/Debug" includes="lua51dll.lib"/>
 </copy>
 <copy todir="../bin/Release">
 <fileset dir="./bin/Release" includes="lua51.dll"/>
