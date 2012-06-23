@@ -69,6 +69,30 @@ namespace AI
 
 	}; // class CDynamicArrive
 
+	/**
+	Movimiento Avoid. 
+	Intenta llegar a un punto de destino evitando los obstáculos.
+	*/
+	class CDynamicAvoid : public IMovement
+	{
+	public:
+
+		/**
+		Constructor
+		*/
+		CDynamicAvoid(float maxLinearSpeed, float maxAngularSpeed, float maxLinearAccel, float maxAngularAccel) : 
+			IMovement(maxLinearSpeed, maxAngularSpeed, maxLinearAccel, maxAngularAccel) { };
+		/**
+		Efectúa el movimiento.
+		
+		@param msecs Tiempo que dura el movimiento.
+		@param currentProperties Parámetro de entrada/salida donde se reciben las velocidades actuales y 
+		en él devuelve los nuevos valores de aceleración.
+		*/
+		void move(unsigned int msecs, DynamicMovement& currentProperties);
+
+	}; // class CDynamicAvoid
+
 } //namespace AI 
 
 #endif // __AI_DynamicMovement_H

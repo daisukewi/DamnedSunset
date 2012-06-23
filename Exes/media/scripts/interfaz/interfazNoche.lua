@@ -77,28 +77,77 @@ function sendClickMessage3()
 end
 
 function cambiarBotones(pers)
-	n = 6 - persSelect - pers
 
-	winMgr:getWindow("Interfaz/bPersonaje" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.15,0},{0.09,0},{0.23,0}}")
-	interfazNoche:getChild("Interfaz/iVida" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.11,0},{0.09,0},{0.13,0}}")
-	interfazNoche:getChild("Interfaz/iEnergia" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.13,0},{0.09,0},{0.15,0}}")
-	interfazNoche:getChild("Interfaz/BotonIA1" .. pers):setProperty("UnifiedAreaRect","{{0.09,0},{0.15,0},{0.11,0},{0.17,0}}")
-	interfazNoche:getChild("Interfaz/BotonIA2" .. pers):setProperty("UnifiedAreaRect","{{0.09,0},{0.17,0},{0.11,0},{0.2,0}}")
-	interfazNoche:getChild("Interfaz/BotonIA3" .. pers):setProperty("UnifiedAreaRect","{{0.09,0},{0.2,0},{0.11,0},{0.23,0}}")
+	if pers == 1 then
 
-	winMgr:getWindow("Interfaz/bPersonaje" .. n):setProperty("UnifiedAreaRect","{{0.01,0},{0.26,0},{0.06,0},{0.31,0}}")
-	interfazNoche:getChild("Interfaz/iVida" .. n):setProperty("UnifiedAreaRect","{{0.01,0},{0.24,0},{0.06,0},{0.25,0}}")
-	interfazNoche:getChild("Interfaz/iEnergia" .. n):setProperty("UnifiedAreaRect","{{0.01,0},{0.25,0},{0.06,0},{0.26,0}}")
-	interfazNoche:getChild("Interfaz/BotonIA1" .. n):setProperty("UnifiedAreaRect","{{0.06,0},{0.26,0},{0.07,0},{0.28,0}}")
-	interfazNoche:getChild("Interfaz/BotonIA2" .. n):setProperty("UnifiedAreaRect","{{0.06,0},{0.28,0},{0.07,0},{0.3,0}}")
-	interfazNoche:getChild("Interfaz/BotonIA3" .. n):setProperty("UnifiedAreaRect","{{0.06,0},{0.3,0},{0.07,0},{0.31,0}}")
+		winMgr:getWindow("Interfaz/bPersonaje" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.15,0},{0.09,0},{0.23,0}}")
+		interfazNoche:getChild("Interfaz/iVida" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.11,0},{0.09,0},{0.13,0}}")
+		interfazNoche:getChild("Interfaz/iEnergia" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.13,0},{0.09,0},{0.15,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA1" .. pers):setProperty("UnifiedAreaRect","{{0.09,0},{0.15,0},{0.11,0},{0.17,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA2" .. pers):setProperty("UnifiedAreaRect","{{0.09,0},{0.17,0},{0.11,0},{0.2,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA3" .. pers):setProperty("UnifiedAreaRect","{{0.09,0},{0.2,0},{0.11,0},{0.23,0}}")
 
-	winMgr:getWindow("Interfaz/bPersonaje" .. persSelect):setProperty("UnifiedAreaRect","{{0.01,0},{0.34,0},{0.06,0},{0.39,0}}")
-	interfazNoche:getChild("Interfaz/iVida" .. persSelect):setProperty("UnifiedAreaRect","{{0.01,0},{0.32,0},{0.06,0},{0.33,0}}")
-	interfazNoche:getChild("Interfaz/iEnergia" .. persSelect):setProperty("UnifiedAreaRect","{{0.01,0},{0.33,0},{0.06,0},{0.34,0}}")
-	interfazNoche:getChild("Interfaz/BotonIA1" .. persSelect):setProperty("UnifiedAreaRect","{{0.06,0},{0.34,0},{0.07,0},{0.35,0}}")
-	interfazNoche:getChild("Interfaz/BotonIA2" .. persSelect):setProperty("UnifiedAreaRect","{{0.06,0},{0.35,0},{0.07,0},{0.37,0}}")
-	interfazNoche:getChild("Interfaz/BotonIA3" .. persSelect):setProperty("UnifiedAreaRect","{{0.06,0},{0.37,0},{0.07,0},{0.39,0}}")
+		winMgr:getWindow("Interfaz/bPersonaje2"):setProperty("UnifiedAreaRect","{{0.01,0},{0.26,0},{0.06,0},{0.31,0}}")
+		interfazNoche:getChild("Interfaz/iVida2"):setProperty("UnifiedAreaRect","{{0.01,0},{0.24,0},{0.06,0},{0.25,0}}")
+		interfazNoche:getChild("Interfaz/iEnergia2"):setProperty("UnifiedAreaRect","{{0.01,0},{0.25,0},{0.06,0},{0.26,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA12"):setProperty("UnifiedAreaRect","{{0.06,0},{0.26,0},{0.07,0},{0.28,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA22"):setProperty("UnifiedAreaRect","{{0.06,0},{0.28,0},{0.07,0},{0.3,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA32"):setProperty("UnifiedAreaRect","{{0.06,0},{0.3,0},{0.07,0},{0.31,0}}")
+
+		winMgr:getWindow("Interfaz/bPersonaje3"):setProperty("UnifiedAreaRect","{{0.01,0},{0.34,0},{0.06,0},{0.39,0}}")
+		interfazNoche:getChild("Interfaz/iVida3"):setProperty("UnifiedAreaRect","{{0.01,0},{0.32,0},{0.06,0},{0.33,0}}")
+		interfazNoche:getChild("Interfaz/iEnergia3"):setProperty("UnifiedAreaRect","{{0.01,0},{0.33,0},{0.06,0},{0.34,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA13"):setProperty("UnifiedAreaRect","{{0.06,0},{0.34,0},{0.07,0},{0.35,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA23"):setProperty("UnifiedAreaRect","{{0.06,0},{0.35,0},{0.07,0},{0.37,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA33"):setProperty("UnifiedAreaRect","{{0.06,0},{0.37,0},{0.07,0},{0.39,0}}")
+
+	elseif pers == 2 then
+
+		winMgr:getWindow("Interfaz/bPersonaje1"):setProperty("UnifiedAreaRect","{{0.01,0},{0.13,0},{0.06,0},{0.18,0}}")
+		interfazNoche:getChild("Interfaz/iVida1"):setProperty("UnifiedAreaRect","{{0.01,0},{0.11,0},{0.06,0},{0.12,0}}")
+		interfazNoche:getChild("Interfaz/iEnergia1"):setProperty("UnifiedAreaRect","{{0.01,0},{0.12,0},{0.06,0},{0.13,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA11"):setProperty("UnifiedAreaRect","{{0.06,0},{0.13,0},{0.07,0},{0.15,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA21"):setProperty("UnifiedAreaRect","{{0.06,0},{0.15,0},{0.07,0},{0.16,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA31"):setProperty("UnifiedAreaRect","{{0.06,0},{0.16,0},{0.07,0},{0.18,0}}")
+
+		winMgr:getWindow("Interfaz/bPersonaje" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.23,0},{0.09,0},{0.31,0}}")
+		interfazNoche:getChild("Interfaz/iVida" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.19,0},{0.09,0},{0.21,0}}")
+		interfazNoche:getChild("Interfaz/iEnergia" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.21,0},{0.09,0},{0.23,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA1" .. pers):setProperty("UnifiedAreaRect","{{0.09,0},{0.23,0},{0.11,0},{0.25,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA2" .. pers):setProperty("UnifiedAreaRect","{{0.09,0},{0.25,0},{0.11,0},{0.28,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA3" .. pers):setProperty("UnifiedAreaRect","{{0.09,0},{0.28,0},{0.11,0},{0.31,0}}")
+
+		winMgr:getWindow("Interfaz/bPersonaje3"):setProperty("UnifiedAreaRect","{{0.01,0},{0.34,0},{0.06,0},{0.39,0}}")
+		interfazNoche:getChild("Interfaz/iVida3"):setProperty("UnifiedAreaRect","{{0.01,0},{0.32,0},{0.06,0},{0.33,0}}")
+		interfazNoche:getChild("Interfaz/iEnergia3"):setProperty("UnifiedAreaRect","{{0.01,0},{0.33,0},{0.06,0},{0.34,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA13"):setProperty("UnifiedAreaRect","{{0.06,0},{0.34,0},{0.07,0},{0.35,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA23"):setProperty("UnifiedAreaRect","{{0.06,0},{0.35,0},{0.07,0},{0.37,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA33"):setProperty("UnifiedAreaRect","{{0.06,0},{0.37,0},{0.07,0},{0.39,0}}")
+
+	elseif pers == 3 then
+
+		winMgr:getWindow("Interfaz/bPersonaje1"):setProperty("UnifiedAreaRect","{{0.01,0},{0.13,0},{0.06,0},{0.18,0}}")
+		interfazNoche:getChild("Interfaz/iVida1"):setProperty("UnifiedAreaRect","{{0.01,0},{0.11,0},{0.06,0},{0.12,0}}")
+		interfazNoche:getChild("Interfaz/iEnergia1"):setProperty("UnifiedAreaRect","{{0.01,0},{0.12,0},{0.06,0},{0.13,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA11"):setProperty("UnifiedAreaRect","{{0.06,0},{0.13,0},{0.07,0},{0.15,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA21"):setProperty("UnifiedAreaRect","{{0.06,0},{0.15,0},{0.07,0},{0.16,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA31"):setProperty("UnifiedAreaRect","{{0.06,0},{0.16,0},{0.07,0},{0.18,0}}")
+
+		winMgr:getWindow("Interfaz/bPersonaje2"):setProperty("UnifiedAreaRect","{{0.01,0},{0.21,0},{0.06,0},{0.26,0}}")
+		interfazNoche:getChild("Interfaz/iVida2"):setProperty("UnifiedAreaRect","{{0.01,0},{0.19,0},{0.06,0},{0.2,0}}")
+		interfazNoche:getChild("Interfaz/iEnergia2"):setProperty("UnifiedAreaRect","{{0.01,0},{0.2,0},{0.06,0},{0.21,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA12"):setProperty("UnifiedAreaRect","{{0.06,0},{0.21,0},{0.07,0},{0.23,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA22"):setProperty("UnifiedAreaRect","{{0.06,0},{0.23,0},{0.07,0},{0.25,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA32"):setProperty("UnifiedAreaRect","{{0.06,0},{0.25,0},{0.07,0},{0.26,0}}")
+
+		winMgr:getWindow("Interfaz/bPersonaje" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.31,0},{0.09,0},{0.39,0}}")
+		interfazNoche:getChild("Interfaz/iVida" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.27,0},{0.09,0},{0.29,0}}")
+		interfazNoche:getChild("Interfaz/iEnergia" .. pers):setProperty("UnifiedAreaRect","{{0.01,0},{0.29,0},{0.09,0},{0.31,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA1" .. pers):setProperty("UnifiedAreaRect","{{0.09,0},{0.31,0},{0.11,0},{0.33,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA2" .. pers):setProperty("UnifiedAreaRect","{{0.09,0},{0.33,0},{0.11,0},{0.36,0}}")
+		interfazNoche:getChild("Interfaz/BotonIA3" .. pers):setProperty("UnifiedAreaRect","{{0.09,0},{0.36,0},{0.11,0},{0.39,0}}")
+
+	end
 
 	persSelect = pers
 end

@@ -32,11 +32,17 @@ namespace AI {
 				case MOVEMENT_KINEMATIC_ALIGN_TO_SPEED:
 					return  new CKinematicAlignToSpeed(maxLinearSpeed, maxAngularSpeed, maxLinearAccel, maxAngularAccel);
 					break;
+				case MOVEMENT_KINEMATIC_AVOID:
+					return new CKinematicAvoid(maxLinearSpeed, maxAngularSpeed, maxLinearAccel, maxAngularAccel);
+					break;
 				case MOVEMENT_DYNAMIC_SEEK:
 					return  new CDynamicSeek(maxLinearSpeed, maxAngularSpeed, maxLinearAccel, maxAngularAccel);
 					break;
 				case MOVEMENT_DYNAMIC_ARRIVE:
 					return  new CDynamicArrive(maxLinearSpeed, maxAngularSpeed, maxLinearAccel, maxAngularAccel);
+					break;
+				case MOVEMENT_DYNAMIC_AVOID:
+					return  new CDynamicAvoid(maxLinearSpeed, maxAngularSpeed, maxLinearAccel, maxAngularAccel);
 					break;
 				default:
 					return 0;

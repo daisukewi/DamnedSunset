@@ -239,6 +239,18 @@ namespace Math
 	} // Proy
 
 	/**
+	Producto escalar de dos vectores.
+
+	@param v1 Vector 1.
+	@param v2 Vector 2.
+	@return float producto escalar.
+	*/
+	static float ProdEscalar(const Vector3 v1, const Vector3 v2)
+	{
+		return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z;
+	} // ProdEscalar
+
+	/**
 	Potencia de un número.
 
 	@param base Base de la potencia.

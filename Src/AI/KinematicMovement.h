@@ -89,6 +89,29 @@ namespace AI
 		void move(unsigned int msecs, DynamicMovement& currentProperties);
 	}; // class CKinematicAlignToSpeed
 
+	/**
+	Movimiento Avoid. 
+	Intenta llegar a un punto de destino evitando los obstáculos.
+	*/
+	class CKinematicAvoid : public IMovement
+	{
+	public:
+		/**
+		Constructor
+		*/
+		CKinematicAvoid(float maxLinearSpeed, float maxAngularSpeed, float maxLinearAccel, float maxAngularAccel) : 
+		  IMovement(maxLinearSpeed, maxAngularSpeed, maxLinearAccel, maxAngularAccel) { };
+		/**
+		Efectúa el movimiento.
+		
+		@param msecs Tiempo que dura el movimiento.
+		@param currentProperties Parámetro de entrada/salida donde se reciben las velocidades actuales y 
+		en él se devuelven los nuevos valores de velocidad.
+		*/
+		void move(unsigned int msecs, DynamicMovement& currentProperties);
+
+	}; // class CKinematicAvoid
+
 } //namespace AI 
 
 #endif // __AI_KinematicMovement_H
