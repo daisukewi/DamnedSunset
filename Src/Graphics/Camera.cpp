@@ -53,6 +53,7 @@ namespace Graphics
 		// Deberían poder configurarse.
 		_camera->setNearClipDistance(0.1);
 		_camera->setFarClipDistance(500);
+		//_camera->setPolygonMode(Ogre::PM_WIREFRAME);
 		if (BaseSubsystems::CServer::getSingletonPtr()->getOgreRoot()->getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_INFINITE_FAR_PLANE))
 		{
 			//_camera->setFarClipDistance(0);   // enable infinite far clip distance if we can

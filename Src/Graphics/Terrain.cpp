@@ -35,7 +35,7 @@ namespace Graphics
 		_sceneMgr = sceneMgr;
 		_terrainMap = terrainMap;
 		_worldSize = _terrainMap->getMapSize();
-		_mapSize = 257.0f;
+		_mapSize = 129.0f;
 		_terrainsImported = false;
 
 		_nTerrains = terrainList->size();
@@ -50,7 +50,7 @@ namespace Graphics
 		}
 
 		Ogre::MaterialManager::getSingleton().setDefaultTextureFiltering(Ogre::TFO_ANISOTROPIC);
-		Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(7);
+		Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(1);
 
 		// TerrainSystem initialization..
 		printf("Terrain: Creating new terrain.\n");
@@ -196,7 +196,7 @@ namespace Graphics
 		// Configure global
 		_terrainGlobals->setMaxPixelError(8);
 		// testing composite map
-		_terrainGlobals->setCompositeMapDistance(3000);
+		_terrainGlobals->setCompositeMapDistance(6000);
 
 		// Important to set these so that the terrain knows what to use for derived (non-realtime) data
 		_terrainGlobals->setLightMapDirection(Vector3(0.0, -1.0, 0.0));

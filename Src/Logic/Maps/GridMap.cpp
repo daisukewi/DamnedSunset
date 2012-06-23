@@ -125,7 +125,15 @@ namespace Logic {
 		int col = (int)(x + _halfMapWidth) >> _gridSize;
 		int row = (int)(y + _halfMapHeight) >> _gridSize;
 
-		assert(row >= 0 && row < _nMapRows && col >= 0 && col < _nMapCols);
+		//assert(row >= 0 && row < _nMapRows && col >= 0 && col < _nMapCols);
+		if (row < 0)
+			row = 0;
+		else if (row >= _nMapRows)
+			row = _nMapRows - 1;
+		if (col < 0)
+			col = 0;
+		else if (col >= _nMapCols)
+			col = _nMapCols - 1;
 
 		return getTileFromCoord(row, col);
 

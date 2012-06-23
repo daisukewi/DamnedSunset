@@ -31,6 +31,8 @@ de los edificios sobre el escenario, cuando se van a construir.
 #include "Logic/Entity/Messages/MouseMove.h"
 #include "Logic/Entity/Messages/MouseEvent.h"
 
+#include "ScriptManager/Server.h"
+
 #include "Graphics/ModelFactory.h"
 
 
@@ -219,6 +221,8 @@ namespace Logic
 		MEmplaceBuilding *b_message = new MEmplaceBuilding();
 		b_message->setAction(BuildingAction::FINISH_BUILDING);
 		_entity->emitMessage(b_message, this);
+
+		ScriptManager::CServer::getSingletonPtr()->executeScript("finishBuildingState()");
 
 		_building = false;
 

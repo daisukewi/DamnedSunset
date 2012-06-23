@@ -38,6 +38,14 @@ namespace Graphics
 	CScene::CScene(const std::string& name) : _viewport(0), 
 			_staticGeometry(0), _directionalLight(0), _terrain(0)
 	{
+//#if defined(_DEBUG)
+//		_root->loadPlugin("Plugin_CgProgramManager_d");        
+//		_root->loadPlugin("Plugin_OctreeSceneManager_d");
+//#else
+//		_root->loadPlugin("Plugin_CgProgramManager");        
+//		_root->loadPlugin("Plugin_OctreeSceneManager");
+//#endif
+
 		_root = BaseSubsystems::CServer::getSingletonPtr()->getOgreRoot();
 		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, name);
 		_camera = new CCamera(name,this);

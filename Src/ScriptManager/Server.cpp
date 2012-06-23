@@ -22,6 +22,7 @@ la gestión de los scripts del juego.
 #include "ScriptManager\Classes\Messages\LUA_SetPlayerState.h"
 
 #include "ScriptManager/Classes/LUA_EntityFunctions.h"
+#include "ScriptManager/Classes/LUA_MessageFunctions.h"
 
 // Incluímos las cabedceras de Lua.
 // Como es código C (no C++), hay que indicarselo al
@@ -176,6 +177,8 @@ namespace ScriptManager
 			return false;
 		}
 
+		_scriptList.push_back(script);
+
 		// Cargo el script.
 		if (!loadScript(script, false))
 			return false;
@@ -185,7 +188,7 @@ namespace ScriptManager
 			return false;
 
 		// Si he llegado aquí es que todo ha ido bien, por lo tanto me guardo el script y muestro un mensaje de confirmación.
-		_scriptList.push_back(script);
+		
 		showMessage("Fichero \"" + std::string(script) + "\" cargado y ejecutado correctamente");
 
 		return true;
@@ -801,6 +804,18 @@ namespace ScriptManager
 		luabind::module(_lua)
 			[
 				luabind::def("deleteEntity", &deleteEntity)
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("startBuild", &startBuild)
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("cancelBuild", &cancelBuild)
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("emplaceBuild", &emplaceBuild)
 			];
 
 		//---------------------------------------------------------

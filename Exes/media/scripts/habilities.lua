@@ -15,8 +15,28 @@ function habilidadCurar()
 	print("habilidad Curar")
 end
 
-function construirTorreta()
+function startBuildTurrent()
 	print("construir Torreta")
+	setBuildingState()
+	startBuild("Turret")
+end
+
+function keyEscPress()
+	cancelBuild()
+	finishBuildingState()
+end
+
+function inicializarBotonesDia()
+	print("inicializarBotonesDia")
+	cargarBoton(1,"martillo","startBuildTurrent")
+	ocultarBoton(2)
+	ocultarBoton(3)
+	cargarBoton(4,"bolazul","cambiarANoche")
+	print("fin inicializarBotonesDia")
+	
+	cargarBotonIA(1,"BotonIA1", "funcionIA1")
+	cargarBotonIA(2,"BotonIA2", "funcionIA2")
+	cargarBotonIA(3,"BotonIA3", "funcionIA3")
 end
 
 function funcionIA1()
