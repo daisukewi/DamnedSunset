@@ -21,7 +21,7 @@ namespace Logic
 	std::cout << "ESTADO FREE" << "\n";
 		if (button == TMouseAction::LEFT_CLICK){
 		
-			if (!entity->getType().compare("Player"))
+			if (!entity->getTag().compare("Player"))
 			{
 				//_selectionController->changeSelectedEntity(entity);
 				//_selectionController->changeState(State::PLAYER_SELECTED);

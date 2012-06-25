@@ -166,6 +166,18 @@ namespace Logic
 		@return Entidad con el nombre pedido, NULL si no se encuentra.
 		*/
 		CEntity *getEntityByType(const std::string &type, CEntity *start = 0);
+		
+		/*
+		Recupera una entidad del mapa a partir de su tag
+
+		@param tag tag de la entidad a recuperar.
+		@param start Entidad desde la que se debe empezar a buscar
+		en la lista. Útil si se tienen varias entidades del mismo tipo
+		y desde fuera se quiere ir accediendo a ellas una a una.
+		Si no se especifica se empieza desde el principio.
+		@return Entidad con el nombre pedido, NULL si no se encuentra.
+		*/
+		CEntity *getEntityByTag(const std::string &tag, CEntity *start = 0);
 
 		/**
 		Crea un nuevo terreno en el mapa con las dimensiones pasadas

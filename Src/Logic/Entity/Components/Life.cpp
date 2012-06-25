@@ -103,7 +103,7 @@ namespace Logic
 		_billboard->setPosicionImagen(num/*inicioX*/, 0.0f, num + 0.5f/*finX*/, 1.0f);
 
 		// Relleno la tabla con la información del jugador.
-		if (!_entity->getType().compare("Player"))
+		if (!_entity->getTag().compare("Player"))
 		{
 			//Crear la tabla
 			std::stringstream script;
@@ -301,7 +301,7 @@ namespace Logic
 		}
 
 		// Relleno la tabla con la información del jugador.
-		if (!_entity->getType().compare("Player"))
+		if (!_entity->getTag().compare("Player"))
 		{
 			//Crear la tabla
 			std::stringstream script;

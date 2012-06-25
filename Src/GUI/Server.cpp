@@ -216,6 +216,5 @@ namespace GUI {
 		float screenWidth = Ogre::Root::getSingleton().getAutoCreatedWindow()->getWidth();
 		float screenHeight = Ogre::Root::getSingleton().getAutoCreatedWindow()->getHeight();
 		return Vector2(posRel.x * screenWidth , posRel.y * screenHeight );
-
 	}//positionRelToAbs
 } // namespace GUI

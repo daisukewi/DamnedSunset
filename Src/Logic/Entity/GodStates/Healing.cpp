@@ -26,7 +26,7 @@ namespace Logic
 	void CHealing::click(CEntity* entity, Vector3 point, int button){
 		std::cout << "ESTADO HEALING" << "\n";
 		if (button == TMouseAction::RIGHT_CLICK){
-			if (!entity->getType().compare("Player"))
+			if (!entity->getTag().compare("Player"))
 			{
 			/*CEntity* selectedEntity = _selectionController->getSelectedEntity();
 

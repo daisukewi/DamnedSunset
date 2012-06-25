@@ -77,7 +77,7 @@ namespace Logic
 			_tag = "none";
 
 		// Creo la tabla con la información del jugador.
-		if (!_type.compare("Player"))
+		if (!_tag.compare("Player"))
 		{
 			std::stringstream scriptCreate;
 			scriptCreate << "players[" << _entityID << "] = {} ";
@@ -213,7 +213,7 @@ namespace Logic
 		}
 
 		// Relleno la tabla con la información del jugador.
-		if (!_type.compare("Player"))
+		if (!_tag.compare("Player"))
 		{
 			std::stringstream script;
 			script	<< "players[" << _entityID << "].name = \"" << _name << "\" "

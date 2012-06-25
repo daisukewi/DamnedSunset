@@ -193,13 +193,14 @@ namespace Logic
 
 		//Avisar a los player de la creación del enemigo para que actualicen el componente de percepción y el controlador de la IA
 		MEnemyCreated *m = new MEnemyCreated();
-		Logic::CEntity *player = _entity->getMap()->getEntityByType("Player");
+		
+		Logic::CEntity *player = _entity->getMap()->getEntityByTag("Player");
 		m->setCreatedEnemy(ent);
 		m->addPtr();
 		while (player != NULL)
 		{
 			//player->emitMessage(m);
-			player = _entity->getMap()->getEntityByType("Player", player);
+			player = _entity->getMap()->getEntityByTag("Player", player);
 		}
 		m->removePtr();
 		_enemy++;

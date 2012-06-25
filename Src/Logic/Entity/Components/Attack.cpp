@@ -140,9 +140,9 @@ namespace Logic
 		Implementación del método que va a ser llamado cuando muera la entidad.
 		*/
 		_attack = false;
-
+		
 		// Si la entidad que se ha muerto es un jugador, también aviso a lua de la muerte del mismo.
-		if (!entity->getType().compare("Player"))
+		if (!entity->getTag().compare("Player"))
 		{
 			std::stringstream script;
 			script << "enemyEventParam = { playerDeath = " << entity->getEntityID() <<  " } ";

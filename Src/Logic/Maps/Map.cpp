@@ -314,6 +314,36 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
+	CEntity* CMap::getEntityByTag(const std::string &tag, CEntity *start)
+	{
+		TEntityMap::const_iterator it, end;
+		end = _entityMap.end();
+
+		// Si se definió entidad desde la que comenzar la búsqueda 
+		// cogemos su posición y empezamos desde la siguiente.
+		if (start)
+		{
+			it = _entityMap.find(start->getEntityID());
+			// si la entidad no existe devolvemos NULL.
+			if(it == end)
+				return 0;
+			it++;
+		}
+		else
+			it = _entityMap.begin();
+
+		for(; it != end; it++)
+		{
+			// si hay coincidencia de nombres devolvemos la entidad.
+			if (!(*it).second->getTag().compare(tag))
+				return (*it).second;
+		}
+		// si no se encontró la entidad devolvemos NULL.
+		return 0;
+
+	} // getEntityByTag
+	//--------------------------------------------------------
+
 	void CMap::addTerrainTile(CTerrainTile* terrain_tile)
 	{
 		_terrainList->push_back(terrain_tile);

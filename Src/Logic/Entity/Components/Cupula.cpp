@@ -91,13 +91,13 @@ namespace Logic
 				for(; it != end; it++)
 				{
 					std::string aux = (*it).second->getType();
-
+					std::string aux2 = (*it).second->getTag();
 					//Comprobar el tipo de entidad
-					if (!aux.compare("Enemy") || !aux.compare("Player")){
+					if (!aux.compare("Enemy") || !aux2.compare("Player")){
 						
 						//Comprobar la distancia del centro a la que se encuentra
 						if (_position.distance((*it).second->getPosition()) > _radius)
-							if (!aux.compare("Player")){
+							if (!aux2.compare("Player")){
 								
 							}else{
 								(*it).second->emitMessage(damageMessage);

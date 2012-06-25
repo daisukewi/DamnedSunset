@@ -43,11 +43,11 @@ namespace Logic
 	bool CPerception::activate()
 	{
 		// Busco todas las entidades de tipo Player del mapa.
-		Logic::CEntity *ent = _entity->getMap()->getEntityByType("Player");
+		Logic::CEntity *ent = _entity->getMap()->getEntityByTag("Player");
 		while (ent != NULL)
 		{
 			_playerEntities.push_back(std::pair<Logic::CEntity*, bool>(ent, false));
-			ent = _entity->getMap()->getEntityByType("Player", ent);
+			ent = _entity->getMap()->getEntityByTag("Player", ent);
 		}
 
 		// Construyo la estructura de datos que me va a servir para saber a que jugadores veo.
@@ -98,7 +98,7 @@ namespace Logic
 			MIsTouched *m = static_cast <MIsTouched*> (message);
 			if (m->getTouched())
 			{
-				if (!m->getEntity()->getType().compare("Player"))
+				if (!m->getEntity()->getTag().compare("Player"))
 				{
 					std::stringstream script;
 					script << "enemyEventParam = { target = " << m->getEntity()->getEntityID() << " } ";
@@ -116,7 +116,7 @@ namespace Logic
 			}
 			else
 			{
-				if (!m->getEntity()->getType().compare("Player"))
+				if (!m->getEntity()->getTag().compare("Player"))
 				{
 					std::stringstream script;
 					script << "enemyEventParam = { target = " << m->getEntity()->getEntityID() << " } ";
@@ -136,7 +136,7 @@ namespace Logic
 
 			/*if (m->getTouched())
 			{
-				if (!m->getEntity()->getType().compare("Player"))
+				if (!m->getEntity()->getTag().compare("Player"))
 				{
 					// Busco al jugador que he visto.
 					TPlayerList::iterator it = _playerEntities.begin();
@@ -162,7 +162,7 @@ namespace Logic
 			}
 			else
 			{
-				if (!m->getEntity()->getType().compare("Player"))
+				if (!m->getEntity()->getTag().compare("Player"))
 				{
 					// Busco al jugador que he dejado de ver.
 					TPlayerList::iterator it = _playerEntities.begin();

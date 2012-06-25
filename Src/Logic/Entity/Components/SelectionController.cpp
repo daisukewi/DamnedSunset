@@ -33,7 +33,7 @@ entidades se actua cuando se hace click derecho.
 #include "Physics/Server.h"
 #include "GUI/Server.h"
 
-#include "Graphics/ModelFactory.h"
+//#include "Graphics/f.h"
 
 
 #include <assert.h>
@@ -157,45 +157,45 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
-		//Si se está haciendo multiselección mandar dibujar a LUA el cuadrado de selección
-		if (_multiSelection){
-			//Obtener las posición actual del ratón
-			Vector2 mousePosition = GUI::CServer::getSingletonPtr()->getMouseRelPos();
+		////Si se está haciendo multiselección mandar dibujar a LUA el cuadrado de selección
+		//if (_multiSelection){
+		//	//Obtener las posición actual del ratón
+		//	Vector2 mousePosition = GUI::CServer::getSingletonPtr()->getMouseRelPos();
 
-			//Cambiar de posición relativa a absoluta de las posiciones del ratón y el cuadrado de selección
+		//	//Cambiar de posición relativa a absoluta de las posiciones del ratón y el cuadrado de selección
 
-			//Punto 1 del cuadrado de selección
-			Vector2 aux1 = GUI::CServer::getSingletonPtr()->positionRelToAbs(_mousePositionPressed);
-			
-			//Punto 2 del cuadrado de selección
-			Vector2 point2;
-			point2.x = _mousePositionPressed.x;
-			point2.y = mousePosition.y;
-			Vector2 aux2 = GUI::CServer::getSingletonPtr()->positionRelToAbs(point2);
+		//	//Punto 1 del cuadrado de selección
+		//	Vector2 aux1 //GUI::CServer::getSingletonPtr()->positionRelToAbs(_mousePositionPressed);
+		//	
+		//	//Punto 2 del cuadrado de selección
+		//	Vector2 point2;
+		//	point2.x = _mousePositionPressed.x;
+		//	point2.y = mousePosition.y;
+		//	Vector2 aux2 = GUI::CServer::getSingletonPtr()->positionRelToAbs(point2);
 
-			//Punto 3 del cuadrado de selección
-			Vector2 aux3 = GUI::CServer::getSingletonPtr()->positionRelToAbs(mousePosition);
-			
-			//Punto 4 del cuadrado de selección
-			Vector2 point4;
-			point4.x = mousePosition.x;
-			point4.y = _mousePositionPressed.y;
-			Vector2 aux4 = GUI::CServer::getSingletonPtr()->positionRelToAbs(point4);
+		//	//Punto 3 del cuadrado de selección
+		//	Vector2 aux3 = GUI::CServer::getSingletonPtr()->positionRelToAbs(mousePosition);
+		//	
+		//	//Punto 4 del cuadrado de selección
+		//	Vector2 point4;
+		//	point4.x = mousePosition.x;
+		//	point4.y = _mousePositionPressed.y;
+		//	Vector2 aux4 = GUI::CServer::getSingletonPtr()->positionRelToAbs(point4);
 
-			
-		
-			
-			
-			std::stringstream procSelec;
+		//	
+		//
+		//	
+		//	
+		//	std::stringstream procSelec;
 
-			procSelec << "drawSquare("<< aux1.x  << "," << aux1.y << ","<<   
-										 aux2.x  << "," << aux2.y << ","<< 
-										 aux3.x  << "," << aux3.y << ","<<
-										 aux4.x  << "," << aux4.y << ","<<")";
+		//	procSelec << "drawSquare("<< aux1.x  << "," << aux1.y << ","<<   
+		//								 aux2.x  << "," << aux2.y << ","<< 
+		//								 aux3.x  << "," << aux3.y << ","<<
+		//								 aux4.x  << "," << aux4.y << ","<<")";
 
-			ScriptManager::CServer::getSingletonPtr()->executeScript(procSelec.str().c_str());
+		//	ScriptManager::CServer::getSingletonPtr()->executeScript(procSelec.str().c_str());
 
-		}
+		//}
 
 	} // tick
 

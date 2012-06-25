@@ -30,7 +30,7 @@ namespace Logic
 		if (button == TMouseAction::LEFT_CLICK)
 		{
 		
-			if (!entity->getType().compare("Player"))
+			if (!entity->getTag().compare("Player"))
 			{
 				//_selectionController->changeSelectedEntity(entity);
 
