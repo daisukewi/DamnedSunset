@@ -38,6 +38,8 @@ de juego. Es una colección de componentes.
 
 #include "BaseSubsystems/Server.h"
 
+#include "BaseSubsystems/Estadisticas.h"
+
 namespace Logic 
 {
 	CEntity::CEntity(TEntityID entityID) : _entityID(entityID), 
@@ -304,16 +306,21 @@ namespace Logic
 
 	void CEntity::tick(unsigned int msecs) 
 	{
+
 		TComponentList::const_iterator it;
 
 		for( it = _components.begin(); it != _components.end(); ++it )
 		{
+			BEGIN_STATS( (*it)->getType() );
+
 			if ((*it)->isActive())
 				(*it)->tick( _realTime ? BaseSubsystems::CServer::getSingletonPtr()->getLastRealFrameDuration() : msecs); //Tambien se procesan los mensajes dentro del tick
 			else
 				(*it)->processMessages();
-		}
 
+			END_STATS();
+		}
+		PRINT_STATS();
 	} // tick
 
 	//---------------------------------------------------------

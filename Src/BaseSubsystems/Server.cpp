@@ -589,4 +589,14 @@ namespace BaseSubsystems
 	{
 		_appClock->setFactorRalentizar(f);
 	}
+
+	//--------------------------------------------------------
+
+	unsigned long  CServer::getActualTime()
+	{
+		//static_cast<COgreClock*>(_appClock);
+		//((COgreClock*)_appClock)->
+		//return _appClock->getPhysicalTime();
+		return _appClock->getActualTime();
+	}
 } // namespace BaseSubsystems

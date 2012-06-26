@@ -121,6 +121,11 @@ namespace BaseSubsystems
 
 
 		void setFactorRalentizar(float f) { _factorRalentizar = f;}
+
+		/*
+			Devuelve el tiempo exacto en un momento dado
+		*/
+		unsigned long getActualTime();
 	protected:
 
 		/**

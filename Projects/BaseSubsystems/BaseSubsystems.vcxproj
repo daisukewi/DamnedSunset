@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\BaseSubsystems\Clock.cpp" />
+    <ClCompile Include="..\..\Src\BaseSubsystems\Estadisticas.cpp" />
     <ClCompile Include="..\..\Src\BaseSubsystems\OgreClock.cpp" />
     <ClCompile Include="..\..\Src\BaseSubsystems\Server.cpp" />
   </ItemGroup>
@@ -85,6 +86,7 @@
     <ClInclude Include="..\..\Src\BaseSubsystems\Clock.h" />
     <ClInclude Include="..\..\Src\BaseSubsystems\ClockListener.h" />
     <ClInclude Include="..\..\Src\BaseSubsystems\Documentation.h" />
+    <ClInclude Include="..\..\Src\BaseSubsystems\Estadisticas.h" />
     <ClInclude Include="..\..\Src\BaseSubsystems\Factory.h" />
     <ClInclude Include="..\..\Src\BaseSubsystems\Math.h" />
     <ClInclude Include="..\..\Src\BaseSubsystems\OgreClock.h" />

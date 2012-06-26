@@ -116,6 +116,10 @@ namespace BaseSubsystems
 		*/
 		static void Release();
 
+		/*
+			Devuelve el tiempo exacto en un momento dado
+		*/
+		unsigned long  getActualTime();
 		/**
 		Devuelve el temporizador de la aplicación.
 
