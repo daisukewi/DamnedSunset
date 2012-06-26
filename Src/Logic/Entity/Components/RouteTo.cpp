@@ -92,7 +92,7 @@ namespace Logic
 				m->setRouteFailed(true);
 				_entity->emitMessage(m, this);
 				// Paramos la animación
-				sendAnimationMessage("Idle");
+				sendAnimationMessage("Stand");
 			} else {
 				_currentNode = 0; //Indicamos que vamos a empezar en el primer nodo.
 				_currentNode = getNextRoutePoint(); //Nos devuelve el siguiente nodo al que debemos viajar.
@@ -120,7 +120,7 @@ namespace Logic
 					m->setRouteFailed(false);
 					_entity->emitMessage(m, this);
 					// Paramos la animación
-					sendAnimationMessage("Idle");
+					sendAnimationMessage("Stand");
 
 				//} else if (_currentNode == _currentRoute->size() - 1) {
 				//	// Es el penúltimo nodo. Nos acercamos con Arrive

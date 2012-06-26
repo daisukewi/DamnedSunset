@@ -87,7 +87,7 @@ namespace Logic
 			}
 			else
 			{
-				m_anim->setAnimationName("Idle");
+				m_anim->setAnimationName("Stand");
 			}
 			_entity->emitMessage(m_anim, this);
 		} else if (!message->getType().compare("MCureEntity"))
@@ -154,7 +154,7 @@ namespace Logic
 		{
 			MSetAnimation *m = new MSetAnimation();
 
-			m->setAnimationName("Idle");
+			m->setAnimationName("Stand");
 			m->setLoop(true);
 
 			_entity->emitMessage(m, this);
@@ -222,7 +222,7 @@ namespace Logic
 		{
 			MSetAnimation *m = new MSetAnimation();
 
-			m->setAnimationName("Idle");
+			m->setAnimationName("Stand");
 			m->setLoop(true);
 
 			_entity->emitMessage(m, this);

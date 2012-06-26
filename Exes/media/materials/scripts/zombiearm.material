@@ -1,0 +1,42 @@
+material zombiearm_0
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture ZombieSkinBlack.tga -1
+			}
+		}
+	}
+}
+material zombiearm_1
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture ZombieSkinBlack.tga -1
+			}
+		}
+	}
+}
+material zombiearm_2
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.7 0.7 0.7
+			texture_unit
+			{
+				texture ZombieSkinBlack.tga -1
+			}
+		}
+	}
+}

@@ -85,7 +85,7 @@ namespace Logic
 			}
 			else
 			{
-				m_anim->setAnimationName("Idle");
+				m_anim->setAnimationName("Stand");
 			}
 			_entity->emitMessage(m_anim, this);
 		}
@@ -126,6 +126,12 @@ namespace Logic
 					m_damage->setKiller(_entity);
 					_targetEntity->emitMessage(m_damage, this);
 					_attackCoolDown = 1500;
+					
+					MSetAnimation *m_anim = new MSetAnimation();
+					m_anim->setAnimationName("Attack1H");
+					m_anim->setNextAnimationName("Stand");
+					_entity->emitMessage(m_anim);
+
 				}
 			}
 		}
