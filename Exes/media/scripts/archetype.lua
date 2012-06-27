@@ -28,10 +28,11 @@ Archetype = {
 		tag = "world",
 		position = {0, -1, 0},
 		physic_entity = "simple",
-		physic_type = "static",
+		physic_type = "kinematic",
 		physic_shape = "box",
 		physic_dimensions = { 8, 16, 8 },
 		physic_collision_group = 1,
+		disableComponent = "CPhysicEntity"
 	},
 	
 	Entity = {

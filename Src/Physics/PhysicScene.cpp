@@ -471,13 +471,13 @@ int CPhysicScene::detectCollisions(Vector3 point, float maxDist, IPhysicObj * *&
 	{
 		if( result[i] != NULL )
 		{
-			printf("Shape!!!");
+			//printf("Shape!!!");
 			//Solo nos interesan las capsulas
 			if (result[i]->isCapsule()) {
 				NxShape* capsula = result[i];
 				TActorInfo* pActorInfo = (TActorInfo*) capsula->getActor().userData;
 				
-				printf("Capsul!!!");
+				//printf("Capsul!!!");
 
 				IPhysicObj * entidadFisica = pActorInfo->pPhysicObj;
 				resultado[numEntidades] = entidadFisica;

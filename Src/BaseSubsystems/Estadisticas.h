@@ -24,15 +24,17 @@
 	#include <string>
 	#include <iostream>
 
-	#ifdef ACTIVAR_ESTADISTICAS
+	#ifdef ACTIVAR_ESTADISTICAS 
 		//Definimos las funciones
-		void BEGIN_STATS(std::string componentName);
+		void BEGIN_STATS(std::string name);
 		void END_STATS();
 		void PRINT_STATS();
+		void PRINT_STATS(unsigned int msecs);
 	#else
 		//Definimos las funciones, para que las detecte pero que se reemplacen por nada
 		#define BEGIN_STATS()
 		#define END_STATS()
+		#define PRINT_STATS(x)
 		#define PRINT_STATS()
 	#endif
 #endif

@@ -34,6 +34,9 @@ Contiene la implementación del estado de juego.
 #include <CEGUIWindow.h>
 #include <elements/CEGUIPushButton.h>
 
+
+#include "BaseSubsystems\Estadisticas.h"
+
 namespace GUI 
 {
 	class CInterfazController;
@@ -126,6 +129,8 @@ namespace Application {
 
 		//Actualizamos la interfaz
 		GUI::CServer::getSingletonPtr()->getInterfazController()->tick(msecs);
+
+		PRINT_STATS(msecs);
 	} // tick
 
 	//--------------------------------------------------------

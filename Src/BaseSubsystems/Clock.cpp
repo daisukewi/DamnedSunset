@@ -77,8 +77,4 @@ namespace BaseSubsystems {
 
 	//--------------------------------------------------------
 
-	unsigned long IClock::getActualTime()
-	{
-		return getPhysicalTime();
-	}
 } // namespace BaseSubsystems

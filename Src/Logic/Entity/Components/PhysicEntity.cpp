@@ -65,6 +65,8 @@ bool CPhysicEntity::spawn(CEntity *entity, CMap *map, const Map::CEntity *entity
 	// Anotar su posición y rotación actual
 	_transform = _entity->getTransform();
 
+	_needsTransform = true;
+
 	return (_physicObj != NULL);
 } 
 
@@ -88,6 +90,7 @@ void CPhysicEntity::process(IMessage *message)
 		// sólo tendremos en cuenta el último
 		_transform = m->getTransform();
 		_forceApplyTransform = m->getForce();
+		_needsTransform = true;
 	} else if (!message->getType().compare("MAplicarVelocidad")) {
 		MAplicarVelocidad *m = static_cast <MAplicarVelocidad*> (message);
 		_physicObj->SetLinearVelocity(m->getVelocity(), 0);
@@ -103,18 +106,25 @@ void CPhysicEntity::tick(unsigned int msecs)
 
 	// Si el objeto físico es kinemático intentamos moverlo a la posición
 	// recibida en el último mensaje de tipo MSetTransform
-	if (_physicObj->IsKinematic()) {
-		_physicServer->move(_physicObj, _transform);
-	} else {
-		if (_forceApplyTransform)
-		{
-			_forceApplyTransform = false;
-			_physicServer->setStaticObjectPosition(_physicObj, _transform.getTrans());
+	if (_needsTransform)
+	{
+		if (_physicObj->IsKinematic()) {
+			_physicServer->move(_physicObj, _transform);
+			_needsTransform = false;
 		}
-		// Actualizar la posición y la orientación de la entidad lógica usando la 
-		// información proporcionada por el motor de física
-		_entity->setPosition(_physicServer->getPosition(_physicObj));
-		_entity->setOrientation(_physicServer->getOrientation(_physicObj, 0));
+		else
+		{
+			if (_forceApplyTransform)
+			{
+				_forceApplyTransform = false;
+				_physicServer->setStaticObjectPosition(_physicObj, _transform.getTrans());
+			}
+			// Actualizar la posición y la orientación de la entidad lógica usando la 
+			// información proporcionada por el motor de física
+			_entity->setPosition(_physicServer->getPosition(_physicObj));
+			_entity->setOrientation(_physicServer->getOrientation(_physicObj, 0));
+			_needsTransform = false;
+		}
 	}
 }
 
