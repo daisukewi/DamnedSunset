@@ -64,7 +64,7 @@ public class NewMapPanel extends JPanel implements KeyListener {
 				
 				int n = Integer.valueOf(text.getText() + Character.toString(e.getKeyChar()));
 			
-				if ((n > 99) || (n == 0))
+				if ((n > 200) || (n == 0))
 					e.consume();
 				
 			}
