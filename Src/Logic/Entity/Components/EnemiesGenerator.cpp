@@ -153,6 +153,9 @@ namespace Logic
 		{
 			MSpawnEnemy *m = static_cast <MSpawnEnemy*> (message);
 			_spawn += m->getNumEnemies();
+
+			if (_spawn > _maxSpawn)
+				_spawn = _maxSpawn;
 		}
 
 	} // process
@@ -166,11 +169,10 @@ namespace Logic
 		name << "Enemy" << _enemy << "_" << _entity->getEntityID();
 		enemyInfo->setName(name.str());
 
-		int offsetX = 0;//rand() % 4 + 1;
-		int offsetY = 0;//rand() % 4 + 1;
-						
+		TOffset offset = calculateOffset();
+				
 		std::stringstream pos;
-		pos << _origen.x + offsetX << ' ' << _origen.y + offsetY << ' ';
+		pos << _origen.x + offset.offsetX << ' ' << _origen.y + offset.offsetY << ' ';
 		enemyInfo->setAttribute("grid_position", pos.str());
 
 		Logic::CEntity *ent = Logic::CEntityFactory::getSingletonPtr()->createEntity(enemyInfo, _entity->getMap());
@@ -203,6 +205,7 @@ namespace Logic
 			player = _entity->getMap()->getEntityByTag("Player", player);
 		}
 		m->removePtr();
+
 		_enemy++;
 
 		return ent;
@@ -236,6 +239,57 @@ namespace Logic
 		}
 
 	} // tick
+
+	//---------------------------------------------------------
+
+	CEnemiesGenerator::TOffset CEnemiesGenerator::calculateOffset()
+	{
+		TOffset offset;
+
+		int posOffset = _enemy % _maxSpawn;
+		switch (posOffset)
+		{
+		case 0:
+			offset.offsetX = 0;
+			offset.offsetY = 0;
+			break;
+		case 1:
+			offset.offsetX = -1;
+			offset.offsetY = -1;
+			break;
+		case 2:
+			offset.offsetX = 0;
+			offset.offsetY = -1;
+			break;
+		case 3:
+			offset.offsetX = 1;
+			offset.offsetY = -1;
+			break;
+		case 4:
+			offset.offsetX = -1;
+			offset.offsetY = 0;
+			break;
+		case 5:
+			offset.offsetX = 1;
+			offset.offsetY = 0;
+			break;
+		case 6:
+			offset.offsetX = -1;
+			offset.offsetY = 1;
+			break;
+		case 7:
+			offset.offsetX = 0;
+			offset.offsetY = 1;
+			break;
+		case 8:
+			offset.offsetX = 1;
+			offset.offsetY = 1;
+			break;
+		}
+
+		return offset;
+
+	} // calculateOffset
 
 	//---------------------------------------------------------
 

@@ -37,7 +37,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CEnemiesGenerator() : IComponent(), _origen(Vector2::ZERO), _time(0), _enemy(1), _periodo(10000), _spawn(0), _specialSpawner(false) {}
+		CEnemiesGenerator() : IComponent(), _origen(Vector2::ZERO), _time(0), _enemy(1), _periodo(10000), _spawn(0), _maxSpawn(9), _specialSpawner(false) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -104,6 +104,20 @@ namespace Logic
 	protected:
 
 		/**
+		Estructura de datos para guardar el offset para spawnear a los enemigos.
+		*/
+		struct TOffset
+		{
+			int offsetX;
+			int offsetY;
+		};
+
+		/**
+		Calcula el offset de posición para el número de enemigo actual.
+		*/
+		TOffset calculateOffset();
+
+		/**
 		Atributo para saber el lugar donde se crea el enemigo.
 		*/
 		Vector2 _origen;
@@ -134,6 +148,11 @@ namespace Logic
 		Hecho para no spawnear mas de un enemigo por tick.
 		*/
 		int _spawn;
+
+		/**
+		Cantidad máxima de enemigos esperando para ser spawneados.
+		*/
+		int _maxSpawn;
 
 		/**
 		ID del spawner. Debería ser único, pero no se comprueba; simplemente se lee del map.lua.
