@@ -175,11 +175,6 @@ namespace Logic
 		Matrix4 _transform;
 
 		/**
-			Indica que es necesario mover la entidad
-		*/
-		bool _needsTransform;
-
-		/**
 		Indica si la transformación almacenada, se tiene que forzar a aplicar
 		aunque sea un objeto estático.
 		*/
