@@ -89,7 +89,7 @@ namespace Logic
 			if ((_targetEntity->getPosition() - _entity->getPosition()).length() >= 10)
 			{
 				MMoveSteering *m = new MMoveSteering();
-				m->setMovementType(AI::IMovement::MOVEMENT_KINEMATIC_ARRIVE);
+				m->setMovementType(AI::IMovement::MOVEMENT_KINEMATIC_AVOID);
 				m->setTarget(_targetEntity->getPosition());
 				_entity->emitMessage(m, this);
 			}

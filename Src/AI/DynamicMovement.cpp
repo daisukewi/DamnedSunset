@@ -108,7 +108,7 @@ namespace AI
 		//	(Physics::TPhysicGroup)(Physics::TPhysicGroup::PG_CHARACTERS));
 
 		Logic::CEntity* * entidadesColision;
-		int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions(_entity->getPosition(), 20, entidadesColision);
+		int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions(_entity->getPosition(), 100, entidadesColision);
 		int i = 0;
 		bool obstacle = false;
 		while (i < numColisiones && !obstacle)
@@ -125,7 +125,7 @@ namespace AI
 		if (obstacle)
 		//	((impact - _entity->getPosition()).length() < currentProperties.linearSpeed.length()*70)
 		{
-			Matrix4 *rotation = new Matrix4(Math::Cos(0.5f),0,Math::Sin(0.5f),0,0,1,0,0,-Math::Sin(0.5f),0,Math::Cos(0.05f),0,0,0,0,1);
+			Matrix4 *rotation = new Matrix4(Math::Cos(0.5f),0,Math::Sin(0.5f),0,0,1,0,0,-Math::Sin(0.5f),0,Math::Cos(0.5f),0,0,0,0,1);
 			currentProperties.linearAccel = rotation->operator*(currentProperties.linearAccel);
 		}
 		

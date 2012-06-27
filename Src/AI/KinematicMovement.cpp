@@ -105,24 +105,42 @@ namespace AI
 		// currentProperties es un parámetro de entrada/salida en el que se recibe las velocidades/aceleraciones
 		// actuales y se modifica con los nuevos valores de velocidad/aceleración
 		//_target = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack")->getPosition();
+
 		currentProperties.linearSpeed = _target - _entity->getPosition();
-		currentProperties.linearSpeed.y += 3.0f - _target.y;
-		currentProperties.linearSpeed.normalise();
-		Vector3 impact;
-		Ray disparo = Ray(_entity->getPosition(), currentProperties.linearSpeed);
-		Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastGroup(disparo, &impact, 
-			(Physics::TPhysicGroup)(Physics::TPhysicGroup::PG_CHARACTERS));
-		if ((impact - _entity->getPosition()).length() < currentProperties.linearSpeed.length()*70)
+		//currentProperties.linearSpeed.y += 3.0f - _target.y;
+		//currentProperties.linearSpeed.normalise();
+		//Vector3 impact;
+		//Ray disparo = Ray(_entity->getPosition(), currentProperties.linearSpeed);
+		//Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastGroup(disparo, &impact, 
+		//	(Physics::TPhysicGroup)(Physics::TPhysicGroup::PG_CHARACTERS));
+		_time += msecs;
+		if (_time >= 1000)
 		{
-			Matrix4 *rotation = new Matrix4(Math::Cos(0.5f),0,Math::Sin(0.5f),0,0,1,0,0,-Math::Sin(0.5f),0,Math::Cos(0.05f),0,0,0,0,1);
+			Logic::CEntity* * entidadesColision;
+			int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions(_entity->getPosition(), 100, entidadesColision);
+			int i = 0;
+			_obstacle = false;
+			while (i < numColisiones && !_obstacle)
+			{
+				_obstacle = Math::ProdEscalar(entidadesColision[i]->getPosition() - _entity->getPosition(), currentProperties.linearSpeed) > 0
+					&& currentProperties.linearSpeed.squaredLength() > (entidadesColision[i]->getPosition() - _entity->getPosition()).squaredLength();
+				i++;
+			}
+			_time = 0;
+		}
+
+		if (_obstacle)
+			//(impact - _entity->getPosition()).length() < currentProperties.linearSpeed.length()*70)
+		{
+			Matrix4 *rotation = new Matrix4(Math::Cos(0.5f),0,Math::Sin(0.5f),0,0,1,0,0,-Math::Sin(0.5f),0,Math::Cos(0.5f),0,0,0,0,1);
 			currentProperties.linearSpeed = rotation->operator*(currentProperties.linearSpeed);
 		}
 		if (currentProperties.linearSpeed.length() > _maxLinearSpeed) {
 			currentProperties.linearSpeed.normalise();
 			currentProperties.linearSpeed *= _maxLinearSpeed;
 		}
-		std::cout << "Destino: " << _target << "\n";
-		std::cout << "Posición: " << _entity->getPosition() << "\n";
-		std::cout << "Velocidad: " << currentProperties.linearSpeed << "\n";
+		//std::cout << "Destino: " << _target << "\n";
+		//std::cout << "Posición: " << _entity->getPosition() << "\n";
+		//std::cout << "Velocidad: " << currentProperties.linearSpeed << "\n";
 	}
 } //namespace AI

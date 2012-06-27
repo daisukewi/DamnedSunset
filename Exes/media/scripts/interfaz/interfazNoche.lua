@@ -28,7 +28,7 @@ function inicializarInterfazNoche()
 
 		--Añadimos la interfaz a la interfaz principal
 		interfazPrincipal:addChildWindow(interfazNoche)
-		
+
 		-- Asociamos los botones del menú con las funciones que se deben ejecutar.
 		winMgr:getWindow("Interfaz/bPersonaje1"):subscribeEvent("Clicked", "sendClickMessage1")
 		winMgr:getWindow("Interfaz/bPersonaje2"):subscribeEvent("Clicked", "sendClickMessage2")
@@ -77,6 +77,8 @@ function sendClickMessage3()
 end
 
 function cambiarBotones(pers)
+
+	print("Botonesssss")
 
 	if pers == 1 then
 

@@ -100,7 +100,7 @@ namespace AI
 		Constructor
 		*/
 		CKinematicAvoid(float maxLinearSpeed, float maxAngularSpeed, float maxLinearAccel, float maxAngularAccel) : 
-		  IMovement(maxLinearSpeed, maxAngularSpeed, maxLinearAccel, maxAngularAccel) { };
+		  IMovement(maxLinearSpeed, maxAngularSpeed, maxLinearAccel, maxAngularAccel), _time(1000), _obstacle(false) { };
 		/**
 		Efectúa el movimiento.
 		
@@ -109,6 +109,16 @@ namespace AI
 		en él se devuelven los nuevos valores de velocidad.
 		*/
 		void move(unsigned int msecs, DynamicMovement& currentProperties);
+
+	private:
+		/**
+		Intervalo de tiempo transcurrido desde el último detectCollisions.
+		*/
+		unsigned int _time;
+		/**
+		Indica si hay un obstáculo en medio de la ruta.
+		*/
+		bool _obstacle;
 
 	}; // class CKinematicAvoid
 

@@ -111,7 +111,7 @@ namespace Logic
 			if ( distancia >= 15)
 			{
 				MMoveSteering *m = new MMoveSteering();
-				m->setMovementType(AI::IMovement::MOVEMENT_KINEMATIC_ARRIVE);
+				m->setMovementType(AI::IMovement::MOVEMENT_KINEMATIC_AVOID);
 				m->setTarget(_targetEntity->getPosition());
 				if (distancia <= 70)
 					m->setExtraVelocity(5.0f);
