@@ -35,6 +35,102 @@ Archetype = {
 		disableComponent = "CPhysicEntity"
 	},
 	
+	Obstacle90x1 = {
+		type = "Obstacle90x1",
+		tag = "world",
+		position = {0, -1, 0},
+		physic_entity = "simple",
+		physic_type = "kinematic",
+		physic_shape = "box",
+		physic_dimensions = { 8, 16, 8 },
+		physic_collision_group = 1,
+		disableComponent = "CPhysicEntity"
+	},
+	
+	Obstacle1x90 = {
+		type = "Obstacle1x90",
+		tag = "world",
+		position = {0, -1, 0},
+		physic_entity = "simple",
+		physic_type = "kinematic",
+		physic_shape = "box",
+		physic_dimensions = { 8, 16, 8 },
+		physic_collision_group = 1,
+		disableComponent = "CPhysicEntity"
+	},
+	
+	Obstacle5x1 = {
+		type = "Obstacle5x1",
+		tag = "world",
+		position = {0, -1, 0},
+		physic_entity = "simple",
+		physic_type = "kinematic",
+		physic_shape = "box",
+		physic_dimensions = { 8, 16, 8 },
+		physic_collision_group = 1,
+		disableComponent = "CPhysicEntity"
+	},
+	
+	Obstacle10x1 = {
+		type = "Obstacle10x1",
+		tag = "world",
+		position = {0, -1, 0},
+		physic_entity = "simple",
+		physic_type = "kinematic",
+		physic_shape = "box",
+		physic_dimensions = { 8, 16, 8 },
+		physic_collision_group = 1,
+		disableComponent = "CPhysicEntity"
+	},
+	
+	Obstacle2x1 = {
+		type = "Obstacle2x1",
+		tag = "world",
+		position = {0, -1, 0},
+		physic_entity = "simple",
+		physic_type = "kinematic",
+		physic_shape = "box",
+		physic_dimensions = { 8, 16, 8 },
+		physic_collision_group = 1,
+		disableComponent = "CPhysicEntity"
+	},
+	
+	Obstacle1x5 = {
+		type = "Obstacle1x5",
+		tag = "world",
+		position = {0, -1, 0},
+		physic_entity = "simple",
+		physic_type = "kinematic",
+		physic_shape = "box",
+		physic_dimensions = { 8, 16, 8 },
+		physic_collision_group = 1,
+		disableComponent = "CPhysicEntity"
+	},
+	
+	Obstacle1x10 = {
+		type = "Obstacle1x10",
+		tag = "world",
+		position = {0, -1, 0},
+		physic_entity = "simple",
+		physic_type = "kinematic",
+		physic_shape = "box",
+		physic_dimensions = { 8, 16, 8 },
+		physic_collision_group = 1,
+		disableComponent = "CPhysicEntity"
+	},
+	
+	Obstacle1x2 = {
+		type = "Obstacle1x2",
+		tag = "world",
+		position = {0, -1, 0},
+		physic_entity = "simple",
+		physic_type = "kinematic",
+		physic_shape = "box",
+		physic_dimensions = { 8, 16, 8 },
+		physic_collision_group = 1,
+		disableComponent = "CPhysicEntity"
+	},
+	
 	Entity = {
 		type = "Entity",
 		position = {0, 0, 0},

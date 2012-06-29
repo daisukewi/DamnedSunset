@@ -38,7 +38,7 @@ function inicializarInterfazNoche()
 		winMgr:loadWindowLayout("VentanaText.layout")
 		textWindow = winMgr:getWindow("VentanaText/Ventana")
 
-		sacarVentana("Mision 1: Encontrar una forma de salir.")
+		sacarVentana("Mision 1: Tenemos que encontrar la forma de salir de aqui.")
 		actualizarHorasAmanecer(1000)
 	end
 end

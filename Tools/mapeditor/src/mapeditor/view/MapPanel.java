@@ -50,6 +50,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseWheelListene
 	private Color _selectedColorEntity;
 	private int _selectedEntityHeight, _selectedEntityWidth;
 	private int _mouseX, _mouseY;
+	private boolean _mousePressed;
 	
 	public MapPanel(int zoom, System system) {
 		
@@ -72,6 +73,8 @@ public class MapPanel extends JPanel implements MouseListener, MouseWheelListene
 		
 		_colorCellMap = null;
 		_colorEntityMap = null;
+		
+		_mousePressed = false;
 		
 		changeZoom(zoom);
 
@@ -297,6 +300,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseWheelListene
 			// If complejo pero necesario para calcular que el click del ratón no caiga en un borde.
 				if ((e.getX() > ((x * _grid) + (_border - 1))) && (e.getX() < ((x * _grid) + (_grid - (_border - 1)))) && 
 					(e.getY() > ((y * _grid) + (_border - 1))) && (e.getY() < ((y * _grid) + (_grid - (_border - 1))))) {
+					_mousePressed = true;
 					_system.clicked(new Position(x, y));
 				}
 		
@@ -312,7 +316,10 @@ public class MapPanel extends JPanel implements MouseListener, MouseWheelListene
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
+		if (e.getButton() == MouseEvent.BUTTON1) {
+			_mousePressed = false;
+		}
 		
 	}
 
@@ -449,7 +456,20 @@ public class MapPanel extends JPanel implements MouseListener, MouseWheelListene
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
+
+		if (_mousePressed) {
+			
+			int x = e.getX() / _grid;
+			int y = e.getY() / _grid;
+			
+			if ((x < _width) && (y < _height))
+			// If complejo pero necesario para calcular que el click del ratón no caiga en un borde.
+				if ((e.getX() > ((x * _grid) + (_border - 1))) && (e.getX() < ((x * _grid) + (_grid - (_border - 1)))) && 
+					(e.getY() > ((y * _grid) + (_border - 1))) && (e.getY() < ((y * _grid) + (_grid - (_border - 1))))) {
+					_system.clicked(new Position(x, y));
+				}
+		
+		}
 		
 	}
 

@@ -6,6 +6,7 @@ package mapeditor.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -15,6 +16,8 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 import mapeditor.controler.System;
 import mapeditor.util.CellType;
 import mapeditor.util.ControllerListener;
@@ -35,6 +38,7 @@ public class PalettePanel extends JPanel implements ControllerListener {
 	
 	private JLabel _labelEntities, _labelCells, _labelEmpty, _labelElementSelected;
 	private JPanel _panelElements, _panelEntities, _panelCells, _panelElementSelected, _panelColorElementSelected;
+	private JScrollPane _panelEntitiesWrapper, _panelCellsWrapper;
 	
 	private Vector<TypeButtonGroup> _cellTypes;
 	private Vector<TypeButtonGroup> _entityTypes;
@@ -56,9 +60,13 @@ public class PalettePanel extends JPanel implements ControllerListener {
 		_panelElements.setLayout(new GridLayout(0, 1));
 		add(_panelElements, BorderLayout.NORTH);
 		
+		_panelCellsWrapper = new JScrollPane();
+		
 		_panelCells = new JPanel();
 		_panelCells.setLayout(new GridLayout(0, 2));
-		_panelElements.add(_panelCells);
+		_panelCellsWrapper.setViewportView(_panelCells);
+		
+		_panelElements.add(_panelCellsWrapper);
 		
 		_labelCells = new JLabel("Celdas:");
 		_panelCells.add(_labelCells);
@@ -66,9 +74,13 @@ public class PalettePanel extends JPanel implements ControllerListener {
 		_labelEmpty = new JLabel(" ");
 		_panelCells.add(_labelEmpty);
 		
+		_panelEntitiesWrapper = new JScrollPane();
+		
 		_panelEntities = new JPanel();
 		_panelEntities.setLayout(new GridLayout(0, 2));
-		_panelElements.add(_panelEntities);
+		_panelEntitiesWrapper.setViewportView(_panelEntities);
+		
+		_panelElements.add(_panelEntitiesWrapper);
 		
 		_labelEntities = new JLabel("Entidades:");
 		_panelEntities.add(_labelEntities);
@@ -84,6 +96,9 @@ public class PalettePanel extends JPanel implements ControllerListener {
 		
 		_panelColorElementSelected = new JPanel();
 		_panelElementSelected.add(_panelColorElementSelected);
+		
+		_panelCellsWrapper.setPreferredSize(new Dimension(360, 300));
+		_panelEntitiesWrapper.setPreferredSize(new Dimension(360, 300));
 		
 	}
 	
