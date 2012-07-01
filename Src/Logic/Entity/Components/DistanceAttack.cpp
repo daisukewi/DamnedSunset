@@ -166,7 +166,7 @@ namespace Logic
 				_attackCountTime = 0;
 
 				if (Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_IDAttackEntity)){	
-					if (!_attackEntity->getType().compare("Enemy"))
+					if (!_attackEntity->getTag().compare("enemy"))
 						{
 							//Si esta a menos de la distancia máxima
 							float difX = _attackEntity->getPosition().x - _entity->getPosition().x;

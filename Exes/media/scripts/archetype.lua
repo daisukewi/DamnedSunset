@@ -167,7 +167,7 @@ Archetype = {
 		trigger_height = 1,
 		trigger_collision_group = 3,
 		precision = 0.1,
-		damage = 10,
+		damage = 50,
 		
 		billboardLifeMaterial = "barraVida",
 		billboardLifeWith = 10.0,
@@ -272,7 +272,7 @@ Archetype = {
 		memInitPoint = true,
 		runLifeThreshold = 50,
 		
-		damage = 5,
+		damage = 1,
 		
 		trigger_shape = "trigger_sphere",
 		trigger_type = "trigger_kinematic",
@@ -300,7 +300,7 @@ Archetype = {
 		physic_mass = 1,
 		physic_collision_group = 6,
 		
-		damage = 20.0,
+		damage = 60.0,
 		timeEmpujar = 0.3,
 		distEmpujarSeg = 150.0,
 	},
@@ -366,7 +366,7 @@ Archetype = {
 		trigger_shape = "trigger_sphere",
 		trigger_type = "trigger_kinematic",
 		trigger = true,
-		trigger_radius = 80,
+		trigger_radius = 150,
 		trigger_collision_group = 3,
 		
 		damage = 33,

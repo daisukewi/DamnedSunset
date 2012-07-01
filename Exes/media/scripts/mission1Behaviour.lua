@@ -40,6 +40,6 @@ function mission1End(entityID)
 end
 
 function generatorUnderAttack(entityID)
-	enemyMindEventParam.entity = entityID
+	enemyMindEventParam = { entity = entityID }
 	enemyMindEvent("GeneratorUnderAttack")
 end

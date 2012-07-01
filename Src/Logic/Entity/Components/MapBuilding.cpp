@@ -67,14 +67,18 @@ namespace Logic
 				ScriptManager::CServer::getSingletonPtr()->executeScript(scriptCreateSpawn.str().c_str());
 
 				int i = 1;
-				while (entityInfo->hasAttribute("spawner" + i))
+				std::ostringstream spawner;
+				spawner << "spawner" << i ;
+				while (entityInfo->hasAttribute(spawner.str()))
 				{
 					// Voy añadiendo los spawners uno a uno.
 					std::stringstream scriptAddSpawn;
-					scriptAddSpawn << "enemyBuildings[" << _entity->getEntityID() << "].spawners[" << i << "] = { ID = " << entityInfo->getIntAttribute("spawner" + i) << ", }";
+					scriptAddSpawn << "enemyBuildings[" << _entity->getEntityID() << "].spawners[" << i << "] = { ID = " << entityInfo->getIntAttribute(spawner.str()) << ", }";
 					ScriptManager::CServer::getSingletonPtr()->executeScript(scriptAddSpawn.str().c_str());
 
 					i++;
+					spawner.str("");
+					spawner << "spawner" << i;
 				}
 			}
 		}

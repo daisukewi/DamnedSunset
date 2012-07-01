@@ -108,7 +108,7 @@ namespace Logic
 		{
 			// Llevamos al jugador hasta donde está la entidad objetivo
 			int distancia = (_targetEntity->getPosition() - _entity->getPosition()).length();
-			if ( distancia >= 15)
+			if ( distancia >= 30)
 			{
 				MMoveSteering *m = new MMoveSteering();
 				m->setMovementType(AI::IMovement::MOVEMENT_KINEMATIC_AVOID);

@@ -65,14 +65,12 @@ function decideAttackBuilding(attacker)
 	end
 	
 	if (enemies[attacker].target ~= nil) then
-		print("Decido atacar a un edificio. Edificio: " .. enemies[attacker].target)
 		local mensaje = LUA_MAttackEntity()
 		mensaje:setAttack(true)
 		mensaje:setEntity(enemies[attacker].target)
 		mensaje:setEntityTo(attacker)
 		mensaje:send()
 	else
-		print("Decido NO atacar a un edificio.")
 		local mensaje = LUA_MAttackEntity()
 		mensaje:setAttack(false)
 		mensaje:setEntityTo(attacker)
