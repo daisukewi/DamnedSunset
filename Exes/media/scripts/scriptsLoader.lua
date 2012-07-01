@@ -1,4 +1,5 @@
 function loadScripts()
+	SManager:loadScript("parametersLoader")
 	SManager:loadScript("utils")
 	
 	-- Scripts de la máquina de estados de la IA de los personajes
@@ -18,7 +19,8 @@ function loadScripts()
 	SManager:loadScript("godBuildingState")
 	
 	-- Scripts de la máquina de estados de la IA de la supermente.
-	SManager:loadScript("enemyMindNormalState")
+	SManager:loadScript("enemyMindNightState")
+	SManager:loadScript("enemyMindDayState")
 	SManager:loadScript("enemyMindScript")
 	
 	-- Interfaz

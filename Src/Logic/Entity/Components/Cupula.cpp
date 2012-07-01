@@ -16,10 +16,13 @@
 
 #include "Graphics/ModelFactory.h"
 
+#include <sstream>
+
 
 namespace Logic 
 {
 	IMP_FACTORY(CCupula);
+
 	//---------------------------------------------------------
 
 	bool CCupula::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
@@ -40,6 +43,10 @@ namespace Logic
 			_position.x = relativePosition.x;
 			_position.z = relativePosition.y;
 			_position.y = 0.0;
+
+			std::stringstream script;
+			script << "playerBase = { position = { x = " << _position.x << ", y = " << _position.y << ", z = " << _position.z << " } }";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
 
 
@@ -47,6 +54,7 @@ namespace Logic
 		return true;
 	} // spawn
 
+	//---------------------------------------------------------
 
 	bool CCupula::activate()
 	{
@@ -65,6 +73,7 @@ namespace Logic
 		
 		return true;
 	} // activate
+
 	//---------------------------------------------------------
 
 	bool CCupula::accept(IMessage *message)
@@ -110,11 +119,16 @@ namespace Logic
 		}
 	} // process
 
+	//---------------------------------------------------------
+
 	void CCupula::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
 
 	
 	}
+
+	//---------------------------------------------------------
+
 } // namespace Logic
 

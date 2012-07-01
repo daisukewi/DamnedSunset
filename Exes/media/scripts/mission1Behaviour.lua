@@ -1,5 +1,4 @@
 function mission1DoorTrigger(entityID)
-	print("He recibido el evento del trigger.")
 	player = players[entityID]
 	
 	if ((player ~= nil) and (currentStage == 1)) then

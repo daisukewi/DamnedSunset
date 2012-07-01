@@ -65,6 +65,9 @@ end
 
 function cambiarANoche()
 	print("\nANOCHECER\n")
+	
+	day = false
+	
 	local mensaje = LUA_MCambiarDiaNoche()
 	mensaje:setCambiarADia(false)
 	mensaje:send()
@@ -77,6 +80,12 @@ end
 
 function cambiarADia()
 	print("\nAMANECER\n")
+	
+	day = true
+	
+	local mensaje = LUA_MCambiarDiaNoche()
+	mensaje:setCambiarADia(true)
+	mensaje:send()
 	
 	-- Interfaz
 	desactivarInterfazNoche()

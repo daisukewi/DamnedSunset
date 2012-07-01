@@ -14,11 +14,13 @@ end
 --------------------------------------------------
 
 -- Definición de los distintos estados y sus acciones.
-normalState = { event = normalStateEvent, action = normalStateAction }
+nightState = { event = nightStateEvent, action = nightStateAction }
+dayState = { event = dayStateEvent, action = dayStateAction }
 
 -- Tabla con todos los estados.
 enemyMindStates = {
-	{ name = "normal", state = normalState },
+	{ name = "night", state = nightState },
+	{ name = "day", state = dayState },
 }
 
 -- Función que recogerá los eventos a los cuales reaccionará la máquina de estados de la supermente.

@@ -41,9 +41,13 @@ namespace ScriptManager
 	void LUA_MCambiarDiaNoche::send()
 	{
 		Logic::MDayNight *m = new Logic::MDayNight();
-		m->setTime(Logic::TIME_TYPE::NIGHT);
+		if (!_cambiarADia)
+			m->setTime(Logic::TIME_TYPE::NIGHT);
+		else
+			m->setTime(Logic::TIME_TYPE::DAY);
 		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m);
-	} // sendKFF
+
+	} // send
 
 	//---------------------------------------------------------
 
