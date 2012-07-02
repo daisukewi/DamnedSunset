@@ -10,11 +10,6 @@ implementan distintos tipos de movimiento cinemáticos.
 #include "KinematicMovement.h"
 #include "Server.h"
 #include "Physics\Server.h"
-#include "Logic\Server.h"
-#include "Logic/Entity/Entity.h"
-#include "Logic/Maps/EntityFactory.h"
-#include "Logic/Maps/Map.h"
-#include "Map/MapEntity.h"
 
 namespace AI 
 {
@@ -107,6 +102,7 @@ namespace AI
 		//_target = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack")->getPosition();
 
 		currentProperties.linearSpeed = _target - _entity->getPosition();
+		float angle = 0.5f;
 		//currentProperties.linearSpeed.y += 3.0f - _target.y;
 		//currentProperties.linearSpeed.normalise();
 		//Vector3 impact;
@@ -126,13 +122,17 @@ namespace AI
 					&& currentProperties.linearSpeed.squaredLength() > (entidadesColision[i]->getPosition() - _entity->getPosition()).squaredLength();
 				i++;
 			}
+			if (_obstacle &&
+				Math::ZProdVect(entidadesColision[i-1]->getPosition() - _entity->getPosition(), currentProperties.linearSpeed) > 0)
+			{
+				angle *= -1;
+			}
 			_time = 0;
 		}
 
 		if (_obstacle)
-			//(impact - _entity->getPosition()).length() < currentProperties.linearSpeed.length()*70)
 		{
-			Matrix4 *rotation = new Matrix4(Math::Cos(0.5f),0,Math::Sin(0.5f),0,0,1,0,0,-Math::Sin(0.5f),0,Math::Cos(0.5f),0,0,0,0,1);
+			Matrix4 *rotation = new Matrix4(Math::Cos(angle),0,Math::Sin(angle),0,0,1,0,0,-Math::Sin(angle),0,Math::Cos(angle),0,0,0,0,1);
 			currentProperties.linearSpeed = rotation->operator*(currentProperties.linearSpeed);
 		}
 		if (currentProperties.linearSpeed.length() > _maxLinearSpeed) {
