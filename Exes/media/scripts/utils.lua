@@ -82,12 +82,12 @@ end
 
 -- Función utilizada por la IA de los enemigos para decidir en cada momento a qué atacar.
 function decideAttack(attacker)
-	-- Primero decido si voy a atacar a algún jugador.
-	decideAttackPlayer(attacker)
+	-- Primero decido si voy a atacar a algún edificio.
+	decideAttackBuilding(attacker)
 	
-	-- Si he decidido no atacar a ningún jugador, ataco a un edificio.
+	-- Si he decidido no atacar a ningún edificio, ataco a un jugador.
 	if (enemies[attacker].target == nil) then
-		decideAttackBuilding(attacker)
+		decideAttackPlayer(attacker)
 	end
 end
 

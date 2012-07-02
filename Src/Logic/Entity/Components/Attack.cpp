@@ -40,6 +40,9 @@ namespace Logic
 		if(entityInfo->hasAttribute("damage"))
 			_damage = entityInfo->getFloatAttribute("damage");
 
+		if (entityInfo->hasAttribute("attackCoolDown"))
+			_maxAttackCoolDown = entityInfo->getFloatAttribute("attackCoolDown");
+
 		return true;
 
 	} // spawn
@@ -125,7 +128,7 @@ namespace Logic
 					m_damage->setHurt(_damage);
 					m_damage->setKiller(_entity);
 					_targetEntity->emitMessage(m_damage, this);
-					_attackCoolDown = 1500;
+					_attackCoolDown = _maxAttackCoolDown;
 					
 					MSetAnimation *m_anim = new MSetAnimation();
 					m_anim->setAnimationName("Attack1H");

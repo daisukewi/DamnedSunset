@@ -35,7 +35,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CAttack() : IComponent(), IDeathListener(), _attack(false), _damage(0) {}
+		CAttack() : IComponent(), IDeathListener(), _attack(false), _damage(0), _attackCoolDown(0), _maxAttackCoolDown(0) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -110,7 +110,12 @@ namespace Logic
 		/**
 		Atributo para saber si la entidad tiene que atacar.
 		*/
-		int _attackCoolDown;
+		float _attackCoolDown;
+
+		/**
+		Cooldown del ataque.
+		*/
+		float _maxAttackCoolDown;
 
 		/**
 		Atributo para saber a la entidad que hay que atacar.

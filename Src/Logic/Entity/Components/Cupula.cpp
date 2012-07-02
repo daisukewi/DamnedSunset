@@ -69,7 +69,7 @@ namespace Logic
 		*/
 
 		//HACK, solo para ver que funciona bien
-		Graphics::CModelFactory::getSingletonPtr()->CreateCapsule(_entity->getMap()->getScene(),"","physic_debug_blue50",_radius,_position,0.5);
+		//Graphics::CModelFactory::getSingletonPtr()->CreateCapsule(_entity->getMap()->getScene(),"","physic_debug_blue50",_radius,_position,0.5);
 		
 		return true;
 	} // activate

@@ -45,6 +45,9 @@ namespace Logic
 		if (entityInfo->hasAttribute("damage"))
 			_damage = entityInfo->getIntAttribute("damage");
 
+		if (entityInfo->hasAttribute("timeBetweenShoots"))
+			_timeBetweenShoots = entityInfo->getFloatAttribute("timeBetweenShoots");
+
 		return true;
 
 	} // spawn
@@ -134,8 +137,12 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 		
-		if (_attacking)
+		_currentTime += msecs;
+
+		if ((_attacking) && (_currentTime > _timeBetweenShoots))
 		{
+			_currentTime = 0;
+
 			//Buscamos la entidad a la que disparar de la lista de entidades que han entrado en su rango
 			Logic::CEntity * targetEntity;
 			do {
@@ -147,19 +154,19 @@ namespace Logic
 
 			if (targetEntity)
 			{
-				Vector3 origen = _entity->getPosition();
+				/*Vector3 origen = _entity->getPosition();
 				Vector3 destino = targetEntity->getPosition();
 				destino.y = 3.0f;
 				Vector3 direction = destino - origen;
 				direction.x *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
 				direction.y *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
-				direction.z *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);
+				direction.z *= (_precision + 1) * (1 / ((rand() % 100) + 1) + 1);*/
 				/*
 				std::cout << _enemies->back()->getPosition() << '\n';
 				std::cout << origen << '\n';
 				std::cout << origen +  1 * direction << '\n';
 				*/
-				direction.normalise();
+				/*direction.normalise();
 				Vector3 impact;
 				Ray disparo = Ray(origen, direction);
 				Logic::CEntity *entity = Physics::CServer::getSingletonPtr()->raycastGroup(disparo, &impact,
@@ -175,7 +182,12 @@ namespace Logic
 				else
 				{
 					std::cout << "Fallo!!!\n";
-				}
+				}*/
+
+				MDamaged *m_dam = new MDamaged();
+				m_dam->setHurt(_damage);
+				m_dam->setKiller(_entity);
+				targetEntity->emitMessage(m_dam, this);
 			}
 			else 
 			{

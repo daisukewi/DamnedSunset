@@ -167,7 +167,7 @@ Archetype = {
 		trigger_height = 1,
 		trigger_collision_group = 3,
 		precision = 0.1,
-		damage = 50,
+		damage = 2,
 		
 		billboardLifeMaterial = "barraVida",
 		billboardLifeWith = 10.0,
@@ -176,12 +176,15 @@ Archetype = {
 		
 		life = 100.0,
 		maxLife = 100.0,
+		
+		timeBetweenShoots = 5.0,
 	},
 	
 	EnemyEnergyGenerator = {
 		type = "EnemyEnergyGenerator",
 		tag = "enemy",
 		position = {0, 0, 0},
+		scale = 10.0,
 		orientation = 0,
 		model = "torreta_pie.mesh",
 		physic_entity = "simple",
@@ -232,6 +235,7 @@ Archetype = {
 		type = "Enemies",
 		periodo = 10000,
 		automaticSpawn = false,
+		model = "esfera.mesh"
 	},
 
 	Enemy = {
@@ -272,7 +276,8 @@ Archetype = {
 		memInitPoint = true,
 		runLifeThreshold = 50,
 		
-		damage = 1,
+		damage = 2,
+		attackCoolDown = 250,
 		
 		trigger_shape = "trigger_sphere",
 		trigger_type = "trigger_kinematic",
@@ -485,9 +490,9 @@ Archetype = {
 		tag = "playerBuilding",
 		position = {0, 0, 0},
 		cupulaRadius = 150.0,
-		scale = 1.0,
-		orientation = 0,
-		model = "torreta_pie.mesh",
+		scale = 10.0,
+		orientation = 180,
+		model = "centro_informatico.mesh",
 		physic_entity = "simple",
 		physic_type = "kinematic",
 		physic_shape = "box",
@@ -511,7 +516,7 @@ Archetype = {
 		position = {0, 0, 0},
 		cupulaPosition = {0, 0, 0},
 		cupulaRadius = 100.0,
-		scale = 1.0,
+		scale = 10.0,
 		orientation = 0,
 		model = "torreta_pie.mesh",
 		physic_entity = "simple",

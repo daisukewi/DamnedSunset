@@ -36,7 +36,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CTurretController() : IComponent(), _attacking(false), _precision(50) {}
+		CTurretController() : IComponent(), _attacking(false), _precision(50), _currentTime(0), _timeBetweenShoots(0) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -91,6 +91,16 @@ namespace Logic
 		virtual void process(IMessage *message);
 
 	protected:
+
+		/**
+		Tiempo actual entre disparos.
+		*/
+		float _currentTime;
+
+		/**
+		Tiempo total entre disparos.
+		*/
+		float _timeBetweenShoots;
 
 		/**
 		Daño de la torreta.

@@ -16,7 +16,7 @@ function nightStateEvent(event)
 			spawnID = specialSpawners[t.ID].entityID
 			
 			local mensaje = LUA_MSpawnEnemy()
-			mensaje:setNumEnemies(2)
+			mensaje:setNumEnemies(1)
 			mensaje:setEntityTo(spawnID)
 			mensaje:send()
 		end
