@@ -240,7 +240,7 @@ namespace GUI {
 	//}
 	//bool CInterfazController::clickPersonaje3(const CEGUI::EventArgs& e)
 	//{
-	//	this->sendClickMessage("Amor");
+	//	this->sendClickMessage("Norah");
 	//	return true;
 	//}
 	//bool CInterfazController::clickB1(const CEGUI::EventArgs& e)

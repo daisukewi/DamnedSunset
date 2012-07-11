@@ -75,7 +75,7 @@ function loadPlayerGUI (player)
 	elseif name == "Erick" then
 		cargarBoton(2, "granada", "habilidadGranada")
 		cargarBoton(3, "bolazul", "habilidadRalentizarTiempo")
-	elseif name == "Amor" then
+	elseif name == "Norah" then
 		cargarBoton(2, "granada", "habilidadGranada")
 		cargarBoton(4, "jeringa", "habilidadCurar")
 	end

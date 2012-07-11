@@ -97,7 +97,7 @@ namespace Logic
 				playerName = "playerJackID";
 			}else if (!_name.compare("Erick")){
 				playerName = "playerErickID";
-			}else if (!_name.compare("Amor")){
+			}else if (!_name.compare("Norah")){
 				playerName = "playerAmorID";
 			}
 			bool aux;

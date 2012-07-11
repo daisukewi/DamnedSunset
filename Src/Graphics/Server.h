@@ -30,6 +30,7 @@ namespace Ogre
 	class RenderWindow;
 	class Timer;
 	class ParticleSystem;
+	class ManualObject;
 }
 namespace Graphics 
 {
@@ -210,9 +211,19 @@ namespace Graphics
 
 		/**
 		Crear un efecto de partículas en la posición de la entidad que se el envía
+		@param effect efecto a creear
+		@param point posición del efecto
 		*/
 		void createParticleEffect(std::string &effect, Vector3 &point);
 		
+		/**
+		Función para dibujar un cuadrado en pantalla
+		@param point1
+		@param point2
+		@param point3
+		@param point4
+		*/
+		void createSquare(float &point1, float &point2, float &point3, float &point4);
 
 		/**
 		Método heredado de la interfaz IClockListener que será llamado

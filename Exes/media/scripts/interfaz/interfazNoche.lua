@@ -73,7 +73,7 @@ function sendClickMessage2()
 end
 
 function sendClickMessage3()
-	processSelection(getEntityID("Amor"),0,0,0)
+	processSelection(getEntityID("Norah"),0,0,0)
 end
 
 function cambiarBotones(pers)

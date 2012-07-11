@@ -32,6 +32,7 @@ entidades se actua cuando se hace click derecho.
 
 #include "Physics/Server.h"
 #include "GUI/Server.h"
+#include "Graphics/Server.h"
 
 //#include "Graphics/f.h"
 
@@ -61,7 +62,7 @@ namespace Logic
 		//Obtener los IDs de los personajes
 		_player1 = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack");
 		_player2 = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick");
-		_player3 = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor");
+		_player3 = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Norah");
 		_multiSelection = false;
 		return true;
 
@@ -196,6 +197,10 @@ namespace Logic
 		//	ScriptManager::CServer::getSingletonPtr()->executeScript(procSelec.str().c_str());
 
 		//}
+		float aux = 1.0;
+		if (_multiSelection){
+			Graphics::CServer::getSingletonPtr()->createSquare(aux,aux,aux,aux);
+		}
 
 	} // tick
 

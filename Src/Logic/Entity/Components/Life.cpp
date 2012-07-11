@@ -216,7 +216,7 @@ namespace Logic
 						BaseSubsystems::CServer::getSingletonPtr()->addClockListener(1000, this);
 
 					}
-					else if (!_entity->getName().compare("Jack") || !_entity->getName().compare("Erick") || !_entity->getName().compare("Amor"))
+					else if (!_entity->getName().compare("Jack") || !_entity->getName().compare("Erick") || !_entity->getName().compare("Norah"))
 					{
 						MSetAnimation *m_anim = new MSetAnimation();
 						m_anim->setAnimationName("Death");
@@ -258,7 +258,7 @@ namespace Logic
 					script << "actualizarBarraVida" << "(2," << _life/_maxLife << ")";
 					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 				}
-				if (!_entity->getName().compare("Amor"))
+				if (!_entity->getName().compare("Norah"))
 				{
 					//Actualizamos la vida en la interfaz
 					//GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('3',_life/_maxLife);

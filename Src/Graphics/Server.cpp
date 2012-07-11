@@ -33,22 +33,18 @@ la ventana, etc.
 #include "OgreParticleSystem.h"
 #include "OgreSceneNode.h"
 
+#include "OgreManualObject.h"
+
 namespace Graphics 
 {
 	CServer *CServer::_instance = 0;
 
-	CServer::CServer() : _root(0), _renderWindow(0), _activeScene(0), _dummyScene(0), _numParticles(30)
+	CServer::CServer() : _root(0), _renderWindow(0), _activeScene(0), _dummyScene(0), _numParticles(60)
 	{
 		assert(!_instance && "Segunda inicialización de Graphics::CServer no permitida!");
 
 		_instance = this;
 
-		for (int i =0; i < _numParticles;i++){
-			_particleNode[i] = 0;
-		}
-
-		_countParticles = 0;
-		_particleToDelete = 0;
 
 	} // CServer
 
@@ -102,12 +98,18 @@ namespace Graphics
 		_root = BaseSubsystems::CServer::getSingletonPtr()->getOgreRoot();
 
 		_renderWindow = BaseSubsystems::CServer::getSingletonPtr()->getRenderWindow();
-
 		// Creamos la escena dummy para cuando no hay ninguna activa.
 		_dummyScene = createScene("dummy_scene");
 		
 		// Por defecto la escena activa es la dummy
 		setScene(_dummyScene);
+
+		for (int i =0; i < _numParticles;i++){
+			_particleNode[i] = 0;
+		}
+
+		_countParticles = 0;
+		_particleToDelete = 0;
 
 		return true;
 
@@ -252,7 +254,7 @@ namespace Graphics
 
 	void CServer::createParticleEffect(std::string &effect, Vector3 &point)
 	{
-		assert(!_particleNode[_countParticles] && "No existe espacio para crear más efectos de partículas.");
+		//assert(!_particleNode[_countParticles] && "No existe espacio para crear más efectos de partículas.");
 
 		std::stringstream auxString1;
 		auxString1 << effect << "_name" << _countParticles;
@@ -287,6 +289,10 @@ namespace Graphics
 		_particleToDelete++;
 		if (_particleToDelete == _numParticles)
 			_particleToDelete = 0;
+	}
+
+	void CServer::createSquare(float &point1, float &point2, float &point3, float &point4){
+		
 	}
 
 } // namespace Graphics

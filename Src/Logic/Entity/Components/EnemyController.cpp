@@ -144,7 +144,7 @@ namespace Logic
 				_player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick");
 				break;
 			case 2:
-				_player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor");
+				_player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Norah");
 				break;
 		}
 		m_at->setEntity(_player);
@@ -187,7 +187,7 @@ namespace Logic
 					_player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick");
 					break;
 				case 2:
-					_player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Amor");
+					_player = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Norah");
 					break;
 			}
 			m_at->setEntity(_player);

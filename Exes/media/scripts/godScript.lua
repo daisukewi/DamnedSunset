@@ -60,7 +60,7 @@ function processMultipleSelection(target1, target2, target3)
 	end
 	
 	if (auxSelected ~= God.Selected) then
-		unselectCurrentTarget()
+		unselectCurrentTarget2()
 	end
 
 	if (auxSecondSelected ~= God.SecondSelected) then
@@ -85,7 +85,7 @@ function processMultipleSelection(target1, target2, target3)
 	end
 
 	if (auxSelected ~= God.Selected) then
-		selectNewTarget(auxSelected)
+		selectNewTarget2(auxSelected)
 	end
 end
 
@@ -93,8 +93,8 @@ function processSelection(target, point_x, point_y, point_z)
 	unselectSecondSelected()
 	unselectThirdSelected()
 	if (God.Selecetd ~= target) then
-		unselectCurrentTarget()
-		selectNewTarget(target)
+		unselectCurrentTarget2()
+		selectNewTarget2(target)
 	end
 end
 
@@ -102,29 +102,32 @@ function processAction(target, point_x, point_y, point_z)
 	if point_y ~= -1 then
 		if God.Selected ~= -1 and isPlayer(God.Selected) then
 			if target ~= -1 and isEnemy(target) then
-				sendAttack(target, God.Selected)
+				sendAttack2(target, God.Selected)
 				-- Si hay varios personajes seleccionados enviarles la misma acción
 				if (God.SecondSelected ~= -1) then
-					sendAttack(target, God.SecondSelected)
+					sendAttack2(target, God.SecondSelected)
 				end
 				if (God.ThirdSelected ~= -1) then
-					sendAttack(target, God.ThirdSelected)
+					sendAttack2(target, God.ThirdSelected)
 				end
 			else
-				sendMovement(point_x, point_y, point_z, God.Selected)
+			print("Mensaje movimiento enviado a Selected")
+				sendMovement2(point_x, point_y, point_z, God.Selected)
 				-- Si hay varios personajes seleccionados enviarles la misma acción
 				if (God.SecondSelected ~= -1) then
-					sendMovement(point_x, point_y, point_z, God.SecondSelected)
+					print("Mensaje movimiento enviado a Second")
+					sendMovement2(point_x, point_y, point_z, God.SecondSelected)
 				end
 				if (God.ThirdSelected ~= -1) then
-					sendMovement(point_x, point_y, point_z, God.ThirdSelected)
+					print("Mensaje movimiento enviado a Third")
+					sendMovement2(point_x, point_y, point_z, God.ThirdSelected)
 				end
 			end
 		end
 	end
 end
 
-function selectNewTarget(target)
+function selectNewTarget2(target)
 
 	--Select new target
 	God.Selected = target
@@ -147,7 +150,7 @@ function selectNewTarget(target)
 
 end
 
-function unselectCurrentTarget()
+function unselectCurrentTarget2()
 	if God.Selected ~= -1 then
 		local mensaje = LUA_MEntitySelected()
 		mensaje:setEntityTo(God.Selected)
@@ -175,7 +178,7 @@ function loadPlayerGUI (player)
 		if persSelect ~= 2 then
 			cambiarBotones(2)
 		end
-	elseif name == "Amor" then
+	elseif name == "Norah" then
 		cargarBoton(2, "granada", "habilidadGranada")
 		cargarBoton(4, "jeringa", "habilidadCurar")
 		if persSelect ~= 3 then
@@ -184,7 +187,7 @@ function loadPlayerGUI (player)
 	end
 end
 
-function sendMovement(point_x, point_y, point_z, entity)
+function sendMovement2(point_x, point_y, point_z, entity)
 	local mensaje = LUA_MAStarRoute()
 	mensaje:setDestPointX(point_x)
 	mensaje:setDestPointY(point_y)
@@ -193,7 +196,7 @@ function sendMovement(point_x, point_y, point_z, entity)
 	mensaje:send()
 end
 
-function sendAttack (target, entity)
+function sendAttack2 (target, entity)
 	local mensaje = LUA_MAttackDistance()
 	mensaje:setEntity(target)
 	mensaje:setAttack(true)
