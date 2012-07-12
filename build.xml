@@ -359,7 +359,7 @@ Parametros:
 
 <target name="CruiseControl"
         description="Compilacion para CruiseControl."
-        depends="clean">
+        depends="build, buildTools">
 </target>
 
 </project>
