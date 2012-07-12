@@ -36,7 +36,7 @@ function destroyGenerator2(entityID)
 end
 
 function mission1End(entityID)
-	sacarVentana("Mission Successful!")
+	sacarVentana("Mission Successful!!")
 end
 
 function generatorUnderAttack(entityID)
