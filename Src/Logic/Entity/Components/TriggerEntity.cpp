@@ -264,6 +264,8 @@ namespace Logic
 		} else if (shape == STR_TRIGGER_BOX) {
 			Vector2 dimensions2D = entityInfo->getVector2Attribute("dimension");
 			int gridSize = _entity->getMap()->getGridMap()->getGridSize();
+			// HACK: pongo la altrua a mano porque no nos interesa que sea configurable.
+			// Vamos a querer que todas las entidades tengan la misma altura (muy alta) para que no haya problemas con el A*.
 			Ogre::Vector3 dimensions3D = Ogre::Vector3(dimensions2D.y * (gridSize / 2), 50, dimensions2D.x * (gridSize / 2));
 
 			_physicServer->createBoxShape(model, dimensions3D * scale, group);

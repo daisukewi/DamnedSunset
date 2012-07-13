@@ -206,11 +206,16 @@ namespace Logic
 						_entity->emitMessage(m_death);
 
 
-
-						MSetAnimation *m_anim = new MSetAnimation();
-						m_anim->setAnimationName("Death");
-						m_anim->setLoop(false);
-						_entity->emitMessage(m_anim, this);
+						
+						// HACK GORDO: pongo esto como arreglo provisional a la diferenciación de enemigos y edificios enemigos.
+						// Cuando esté terminado el selection controller habrá que diferenciarlo aquí y allí.
+						if (!_entity->getType().compare("Enemy"))
+						{
+							MSetAnimation *m_anim = new MSetAnimation();
+							m_anim->setAnimationName("Death");
+							m_anim->setLoop(false);
+							_entity->emitMessage(m_anim, this);
+						}
 
 						//Destruimos la entidad en unos pocos milisegundos
 						BaseSubsystems::CServer::getSingletonPtr()->addClockListener(1000, this);
