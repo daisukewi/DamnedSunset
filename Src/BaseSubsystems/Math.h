@@ -212,6 +212,18 @@ namespace Math
 	} // Sin
 
 	/**
+	Dado un ángulo en radianes entre -PI y PI devuelve el ángulo equivalente entre 0 y 2*PI.
+
+	@param angle Angulo a transformar.
+	@return AnglePos ángulo positivo.
+	*/
+	static float AnglePos(const float angle)
+	{
+		if (angle < 0) {return 2 * PI + angle;}
+		else {return angle;}
+	} // AnglePos
+
+	/**
 	Hace una interpolación lineal entre dos vectores.
 
 	@param v1 Vector desde el que se empieza a interpolar.

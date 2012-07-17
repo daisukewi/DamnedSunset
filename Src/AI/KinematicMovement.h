@@ -100,7 +100,7 @@ namespace AI
 		Constructor
 		*/
 		CKinematicAvoid(float maxLinearSpeed, float maxAngularSpeed, float maxLinearAccel, float maxAngularAccel) : 
-		  IMovement(maxLinearSpeed, maxAngularSpeed, maxLinearAccel, maxAngularAccel), _time(1000), _obstacle(false) { };
+		  IMovement(maxLinearSpeed, maxAngularSpeed, maxLinearAccel, maxAngularAccel), _time(1000), _obstacle(false), _girarDcha(false) { };
 		/**
 		Efectúa el movimiento.
 		
@@ -119,6 +119,10 @@ namespace AI
 		Indica si hay un obstáculo en medio de la ruta.
 		*/
 		bool _obstacle;
+		/**
+		Indica si hay que girar a la derecha.
+		*/
+		bool _girarDcha;
 
 	}; // class CKinematicAvoid
 
