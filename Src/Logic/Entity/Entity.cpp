@@ -98,7 +98,7 @@ namespace Logic
 			}else if (!_name.compare("Erick")){
 				playerName = "playerErickID";
 			}else if (!_name.compare("Norah")){
-				playerName = "playerAmorID";
+				playerName = "playerNorahID";
 			}
 			bool aux;
 			std::stringstream scriptID;

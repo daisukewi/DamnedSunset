@@ -216,16 +216,54 @@ namespace Logic
 		if (Logic::CServer::getSingletonPtr()->raycastFromViewport(&_worldCollisionPoint, Physics::PG_WORLD) == NULL)
 			return;
 
-		Vector3 point;
 
-		CEntity* targetedEntity = Logic::CServer::getSingletonPtr()->raycastFromViewport(&point, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
-		if (targetedEntity == NULL)
+		//Para tener más precisión en la selección se van a lanzar 5 raycast por cada click. El primero de ellos se lanza desde la posición del ratón.
+		//Los demás tendrán un desplazamiento hacia la izquierda, derecha, arriba y abajo.
+		/*
+		6 4 7
+		2 1 3
+		8 5 9
+		*/
+		//Los raycast de las diagonales solo se lanzan sy los demás no han acertado.
+		//De esta forma no hace falta hacer click exactamente donde se encuentra la entidad a seleccionar
+		Vector3 point1;
+		Vector3 point2;
+		Vector3 point3;
+		Vector3 point4;
+		Vector3 point5;
+
+		CEntity* targetedEntity1 = Logic::CServer::getSingletonPtr()->raycastFromViewport(_mousePositionReleased,&point1, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
+	
+		CEntity* targetedEntity2 = Logic::CServer::getSingletonPtr()->raycastFromViewport(Vector2(_mousePositionReleased.x-0.015,_mousePositionReleased.y),&point2, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
+		
+		CEntity* targetedEntity3 = Logic::CServer::getSingletonPtr()->raycastFromViewport(Vector2(_mousePositionReleased.x+0.015,_mousePositionReleased.y),&point3, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
+		
+		CEntity* targetedEntity4 = Logic::CServer::getSingletonPtr()->raycastFromViewport(Vector2(_mousePositionReleased.x,_mousePositionReleased.y-0.015),&point4, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
+		
+		CEntity* targetedEntity5 = Logic::CServer::getSingletonPtr()->raycastFromViewport(Vector2(_mousePositionReleased.x,_mousePositionReleased.y+0.015),&point5, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
+
+		CEntity* auxEntity = checkClick(targetedEntity1,targetedEntity2,targetedEntity3,targetedEntity4,targetedEntity5);
+		
+		if (auxEntity == NULL)
 		{
-			processSelectionClick();
-			return;
+			//Lanzar raycast de las diagonales
+			CEntity* targetedEntity6 = Logic::CServer::getSingletonPtr()->raycastFromViewport(Vector2(_mousePositionReleased.x-0.015,_mousePositionReleased.y-0.015),&point1, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
+	
+			CEntity* targetedEntity7 = Logic::CServer::getSingletonPtr()->raycastFromViewport(Vector2(_mousePositionReleased.x+0.015,_mousePositionReleased.y-0.015),&point2, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
+		
+			CEntity* targetedEntity8 = Logic::CServer::getSingletonPtr()->raycastFromViewport(Vector2(_mousePositionReleased.x-0.015,_mousePositionReleased.y+0.015),&point3, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
+		
+			CEntity* targetedEntity9 = Logic::CServer::getSingletonPtr()->raycastFromViewport(Vector2(_mousePositionReleased.x+0.015,_mousePositionReleased.y+0.015),&point4, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
+		
+			auxEntity = checkClick(targetedEntity6,targetedEntity7,targetedEntity8,targetedEntity9,NULL);
+			
+			if (auxEntity == NULL){
+				processSelectionClick();
+				return;
+			}
 		}
 
-		_targetEntityID = targetedEntity->getEntityID();
+		_targetEntityID = auxEntity->getEntityID();
 		_waitingForSelectable = true;
 
 		// Send a message to the entity hit to ensure its selectability
@@ -233,11 +271,44 @@ namespace Logic
 		m_selectable->setMessageType(SELECTION_REQUEST);
 		m_selectable->setSenderEntity(_entity);
 		// Send the message as instant. The response must be send instantly as well.
-		targetedEntity->emitInstantMessage(m_selectable, this);
+		auxEntity->emitInstantMessage(m_selectable, this);
 
 		_waitingForSelectable = false;
 
 	} // prepareSelectionClick
+	
+	CEntity* CSelectionController::checkClick(CEntity *entity1, CEntity* entity2, CEntity* entity3, CEntity* entity4, CEntity* entity5)
+	{
+		if (entity1 == NULL)
+		{
+			if (entity2 == NULL)
+			{
+				if (entity3 == NULL)
+				{
+					if (entity4 == NULL)
+					{
+						if(entity5 == NULL){
+							return NULL;
+						}
+						else{
+							return entity5;
+						}
+					}else{
+						return entity4;
+					}
+				}else{
+					return entity3;
+				}
+
+			}else{
+				return entity2;
+			}
+		}else{
+			return entity1;
+		}
+		
+		return NULL;
+	}
 
 	void CSelectionController::prepareMultipleSelectionClick(){
 		
@@ -273,13 +344,6 @@ namespace Logic
 			Logic::CServer::getSingletonPtr()->raycastFromViewport(point2,&worldCollisionPoint2, Physics::PG_WORLD);
 			Logic::CServer::getSingletonPtr()->raycastFromViewport(_mousePositionReleased,&worldCollisionPoint3, Physics::PG_WORLD);
 			Logic::CServer::getSingletonPtr()->raycastFromViewport(point4,&worldCollisionPoint4, Physics::PG_WORLD);
-		
-			/*
-			Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_entity->getMap()->getScene(),"","physic_debug_blue50",2,woldCollisionPoint_1);
-			Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_entity->getMap()->getScene(),"","physic_debug_blue50",2,woldCollisionPoint_2);
-			Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_entity->getMap()->getScene(),"","physic_debug_blue50",2,woldCollisionPoint_3);
-			Graphics::CModelFactory::getSingletonPtr()->CreateSphere(_entity->getMap()->getScene(),"","physic_debug_blue50",2,woldCollisionPoint_4);
-			*/
 
 			//Obtener las posiciones de los personajes y del mapa en 2D, x y z
 			Vector2 player1Pos = Vector2(_player1->getPosition().x,_player1->getPosition().z);

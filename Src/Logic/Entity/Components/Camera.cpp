@@ -72,6 +72,8 @@ namespace Logic
 		_finalDirection.x = direction.x;
 		_finalDirection.y  = direction.y;
 
+		_finalDirection.y = 200;
+
 		return true;
 
 	} // activate
@@ -94,8 +96,8 @@ namespace Logic
 		if (!message->getType().compare("MUbicarCamara")){
 			MUbicarCamara *m = static_cast <MUbicarCamara*> (message);
 			_finalCameraHeight = -m->getHeight() + _height;
-			if (_finalCameraHeight < 150){
-				_finalCameraHeight = 150;
+			if (_finalCameraHeight < 75){
+				_finalCameraHeight = 75;
 			}else if (_finalCameraHeight > 300){
 				_finalCameraHeight = 300;
 			}

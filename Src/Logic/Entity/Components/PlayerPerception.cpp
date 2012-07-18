@@ -125,8 +125,8 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 		//msecs = 0;
-		//if (true){
-		if (!_entity->getSelected() || _entity->getSecondarySelected()){
+		if (true){
+		//if (!_entity->getSelected() || _entity->getSecondarySelected()){
 			
 			_perceptionCountTime += msecs;
 
@@ -186,7 +186,7 @@ namespace Logic
 					
 					}else if (_entity->getSecondarySelected()){
 					
-						//script << "playerSecondaryEvent(\"OnEnemyDie\", " << _entity->getEntityID() << ")";
+						script << "playerSecondaryEvent(\"OnEnemyDie\", " << _entity->getEntityID() << ")";
 					
 					}
 					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
@@ -211,13 +211,14 @@ namespace Logic
 					std::stringstream script;
 					script << "playerEventParam = { target = " << _minDistanceEntity << ", distance = " << _minDistance << " } ";
 					
-					if (!_entity->getSelected()){
+					if (true){
+					//if (!_entity->getSelected()){
 					
 						script << "playerEvent(\"OnEnemySeen\", " << _entity->getEntityID() << ")";
 					
 					}else if (_entity->getSecondarySelected()){
 					
-						//script << "playerSecondaryEvent(\"OnEnemySeen\", " << _entity->getEntityID() << ")";
+						script << "playerSecondaryEvent(\"OnEnemySeen\", " << _entity->getEntityID() << ")";
 					
 					}
 					

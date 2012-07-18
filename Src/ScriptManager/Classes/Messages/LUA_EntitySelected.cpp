@@ -60,7 +60,7 @@ namespace ScriptManager
 		Logic::CEntity *selectedEntity = NULL;
 		Logic::MEntitySelected *m = new Logic::MEntitySelected();
 
-		if (_selectedEntityID != 0)
+		if (_selectedEntityID >= 0)
 			selectedEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_selectedEntityID);
 		else
 			selectedEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName(_selectedEntity);

@@ -206,7 +206,7 @@ namespace Logic
 
 	void CCameraController::zoom(int wheel)
 	{
-		Vector3 direction = _bossEntity->getPosition() - _entity->getPosition();
+		/*Vector3 direction = _bossEntity->getPosition() - _entity->getPosition();
 		direction.y = 0.0f;
 
 		if (wheel > 0 && _entity->getPosition().y > -35)
@@ -218,7 +218,7 @@ namespace Logic
 		{
 			_entity->setPosition(_entity->getPosition() - 0.50 * Vector3(0, _entity->getPosition().y - 35, 0));
 			_entity->setPosition(_entity->getPosition() - 0.25 * direction);
-		}
+		}*/
 		
 		
 	} // zoom
@@ -235,6 +235,9 @@ namespace Logic
 			Vector3 bossPositionAct  = _bossEntity->getPosition();
 			Vector3 cuerda = bossPositionAct - _bossPosition;
 			
+			_movement.z = 0;
+			_movement.x = 0;
+
 			if (_up || _upMouse){
 				_movement.z = _mouseDistance;
 				_movement.x = _mouseDistance;
@@ -253,6 +256,13 @@ namespace Logic
 				_movement.z = _mouseDistance;
 			}
 			
+			//Sumar lo que ocupa la interfaz
+			//Interfaz inferior
+			_movement.x -= 10;
+			_movement.z -= 10;
+			
+
+			//Interfaz inferior
 			cuerda.normalise();
 
 			if (_bossPosition == bossPositionAct){
@@ -267,6 +277,8 @@ namespace Logic
 
 			//Posición a la que tiene que llegar a mirar la cámara
 			_finalPosition = _bossPosition + cuerda + _movement;
+
+		
 
 			float aux = msecs / _cameraVelocity ;
 			Vector3 pos = Math::Lerp( _entity->getPosition(),_finalPosition,  aux);
@@ -306,9 +318,10 @@ namespace Logic
 			float aux = msecs / _cameraVelocity ;
 
 			MUbicarCamara *m = new MUbicarCamara();
-			m->setHeight(_scrollValue*aux*2);
+			m->setHeight(_scrollValue*aux*8);
 			Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Camera")->emitMessage(m);
-			
+			_scroll = false;
+
 		}	
 		
 	} // tick

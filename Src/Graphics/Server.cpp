@@ -256,7 +256,7 @@ namespace Graphics
 	{
 		//assert(!_particleNode[_countParticles] && "No existe espacio para crear más efectos de partículas.");
 
-		std::stringstream auxString1;
+		/*std::stringstream auxString1;
 		auxString1 << effect << "_name" << _countParticles;
 		
 		//crear la partícula
@@ -271,10 +271,10 @@ namespace Graphics
 		_particleNode[_countParticles]->attachObject(_particleSystem[_countParticles]);
 
 		_countParticles++;
-		if(_countParticles == _numParticles)
+		if(_countParticles >= _numParticles)
 			_countParticles = 0;
 
-		BaseSubsystems::CServer::getSingletonPtr()->addClockListener(5000, this);
+		BaseSubsystems::CServer::getSingletonPtr()->addClockListener(5000, this);*/
 	}
 
 	void CServer::timeElapsed()
@@ -287,7 +287,7 @@ namespace Graphics
 		_particleSystem[_particleToDelete] = 0;
 
 		_particleToDelete++;
-		if (_particleToDelete == _numParticles)
+		if (_particleToDelete >= _numParticles)
 			_particleToDelete = 0;
 	}
 

@@ -126,6 +126,11 @@ namespace Logic
 
 
 		/**
+		Método par obtener la entidad  que debe ser seleccionada
+		*/
+		CEntity* checkClick(CEntity *entity1, CEntity* entity2, CEntity* entity3, CEntity* entity4, CEntity* entity5);
+		
+		/**
 		Metodo que se encarga de comprobar hecho una selección múltiplea, en caso contrario, llamar a prepareSelectionClick
 		*/
 		void prepareMultipleSelectionClick();
