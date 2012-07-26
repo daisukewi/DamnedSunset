@@ -66,7 +66,8 @@ namespace Logic
 		}else{
 			_attackSoundEffect = "RifleShot1.ogg";
 		}
-
+		
+		_damage = 4.0;
 
 		return true;
 
@@ -106,6 +107,8 @@ namespace Logic
 			//Cuando se está atacando continuamente es necesario indicar enviar un mensaje con la variable attack a false para indicar que se deje de atacar
 			if (!m->getAttack()){
 				_continue = false;
+				MSetAnimation *m_anim2  =new MSetAnimation();
+				m_anim2->setAnimationName("HoldRifle");
 			}else{
 				if (!m->getContinue()) {
 					_continue = false;

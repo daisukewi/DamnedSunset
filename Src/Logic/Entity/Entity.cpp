@@ -225,7 +225,7 @@ namespace Logic
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
 
-		// Creo la tabla con la información del enemigo.
+		// Relleno la tabla con la información del enemigo.
 		if (!_tag.compare("enemy"))
 		{
 			std::stringstream script;
@@ -234,6 +234,8 @@ namespace Logic
 					<< "enemies[" << _entityID << "].posZ = " << getPosition().z;
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
+
+		
 
 		return correct;
 

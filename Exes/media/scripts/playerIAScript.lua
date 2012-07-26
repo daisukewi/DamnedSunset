@@ -6,13 +6,26 @@
 function playerIdleStateEvent(event, entity)
 -- El estado de idle es el estado 1.
 	local nextState
-
+	
 	return 1
 end
 
 -- Acción del estado idle.
 function playerIdleStateAction(entity)
 	local nextState
+	
+	-- Si estaba atacando parar de atacar
+	local mensajeStop = LUA_MAttackDistance()
+	mensajeStop:setAttack(false)
+	mensajeStop:setEntityTo(entity)
+	mensajeStop:send()
+	
+	--Parar de moverese
+	--stopGoTo(entity)
+	
+	print('plyerIdleStateAction')
+	
+	
 	return 1
 end
 
@@ -99,6 +112,7 @@ end
 function playerFollowStateAction(entity)
 	local nextState
 	nextState = 2
+
 	if (players[entity].enemyFollow == true) then
 		if (distance(players[entity].posX, players[entity].posZ, players[entity].followPosX, players[entity].followPosZ) < maxFollowDistance) then
 			print('LUA: PERSEGUIR')
@@ -108,6 +122,7 @@ function playerFollowStateAction(entity)
 			goTo(players[entity].followPosX, players[entity].followPosY,players[entity].followPosZ,entity)
 		end
 	end
+
 	
 	return nextState
 end
@@ -197,7 +212,7 @@ playerErickID = -1
 playerAmorID = -1
 
 -- Variable que contiene la distancia máxima que puede seguir un personaje
-maxFollowDistance = 30
+maxFollowDistance = 60
 
 
 -- Función que recogerá los eventos a los cuales reaccionará la máquina de estados.

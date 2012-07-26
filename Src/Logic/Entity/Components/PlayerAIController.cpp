@@ -166,8 +166,8 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
-		if (true){
-		//if (!_entity->getSelected() || _entity->getSecondarySelected()){
+		//if (_entity->getSelected()){
+		if (!_entity->getSelected() || _entity->getSecondarySelected()){
 			
 			_currentExeFrames += msecs;
 

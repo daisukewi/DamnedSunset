@@ -125,8 +125,8 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 		//msecs = 0;
-		if (true){
-		//if (!_entity->getSelected() || _entity->getSecondarySelected()){
+		//if (_entity->getSelected()){
+		if (!_entity->getSelected() || _entity->getSecondarySelected()){
 			
 			_perceptionCountTime += msecs;
 
@@ -211,8 +211,8 @@ namespace Logic
 					std::stringstream script;
 					script << "playerEventParam = { target = " << _minDistanceEntity << ", distance = " << _minDistance << " } ";
 					
-					if (true){
-					//if (!_entity->getSelected()){
+					//if (true){
+					if (!_entity->getSelected()){
 					
 						script << "playerEvent(\"OnEnemySeen\", " << _entity->getEntityID() << ")";
 					

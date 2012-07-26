@@ -121,7 +121,9 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Teletransport.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\TiempoBala.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\TriggerEntity.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\TurretAIController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\TurretController.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\TurretPerception.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\Building.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\BuildSelected.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GodStates\Free.cpp" />
@@ -232,7 +234,9 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Teletransport.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\TiempoBala.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\TriggerEntity.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\TurretAIController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\TurretController.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\TurretPerception.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\DeathListener.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Healing.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\LanzandoGranada.h" />

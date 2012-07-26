@@ -53,6 +53,20 @@ namespace Logic
 		_OkBuildMaterial = new Graphics::CMaterial("BuildingCanEmplace");
 		_NokBuildMaterial = new Graphics::CMaterial("BuildingCannotEmplace");
 
+
+		std::stringstream script;
+		script	<< "buildings[" << _entity->getEntityID() << "] = {}";
+		script << "buildings[" << _entity->getEntityID()  << "].attackEnemy = -1 ";
+		script << "buildings[" << _entity->getEntityID()  << "].activate = true ";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		
+		std::stringstream script2;
+		script2	<< "buildings[" << _entity->getEntityID() << "].posX = " << _entity->getPosition().x << " "
+				<< "buildings[" << _entity->getEntityID() << "].posY = " << _entity->getPosition().y << " "
+				<< "buildings[" << _entity->getEntityID() << "].posZ = " << _entity->getPosition().z;
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script2.str().c_str());
+
+
 		return true;
 
 	} // spawna
