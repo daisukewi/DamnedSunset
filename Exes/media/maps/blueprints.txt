@@ -32,6 +32,7 @@ ScriptsLoader CScript
 StageManager CScript
 DoorStage2Trigger CTriggerEntity
 EnemyEnergyGenerator CPhysicEntity CMapBuilding CSelectable CAnimatedGraphics CLife
+PanelSolar CPhysicEntity CMapBuilding CSelectable CAnimatedGraphics CLife CPanelSolarController
 CentroMando CCupula CPhysicEntity CMapBuilding CSelectable CAnimatedGraphics CLife
 EnemyDoor CPhysicEntity CMapBuilding CSelectable CAnimatedGraphics
 EnemyBoss CAttack CAnimatedGraphics CLife CBillboardSelected CPhysicCharacter CSteeringMovement CRouteTo CSelectable CScript CEmpujable CPerception CEnemyAIController CTriggerEntity

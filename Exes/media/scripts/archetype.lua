@@ -10,7 +10,7 @@ Archetype = {
 		position = {0, 0, 0},
 		orientation = 0,
 	},
-	
+
 	PlayerGod = {
 		type = "PlayerGod",
 		mouseDistance = 100,
@@ -22,7 +22,7 @@ Archetype = {
 		nightTime = 1000000,
 		speed = 0.15,
 	},
-	
+
 	Obstacle = {
 		type = "Obstacle",
 		tag = "world",
@@ -34,7 +34,7 @@ Archetype = {
 		physic_collision_group = 1,
 		disableComponent = "CPhysicEntity"
 	},
-	
+
 	Obstacle90x1 = {
 		type = "Obstacle90x1",
 		tag = "world",
@@ -46,7 +46,7 @@ Archetype = {
 		physic_collision_group = 1,
 		disableComponent = "CPhysicEntity"
 	},
-	
+
 	Obstacle1x90 = {
 		type = "Obstacle1x90",
 		tag = "world",
@@ -58,7 +58,7 @@ Archetype = {
 		physic_collision_group = 1,
 		disableComponent = "CPhysicEntity"
 	},
-	
+
 	Obstacle5x1 = {
 		type = "Obstacle5x1",
 		tag = "world",
@@ -70,7 +70,7 @@ Archetype = {
 		physic_collision_group = 1,
 		disableComponent = "CPhysicEntity"
 	},
-	
+
 	Obstacle10x1 = {
 		type = "Obstacle10x1",
 		tag = "world",
@@ -82,7 +82,7 @@ Archetype = {
 		physic_collision_group = 1,
 		disableComponent = "CPhysicEntity"
 	},
-	
+
 	Obstacle2x1 = {
 		type = "Obstacle2x1",
 		tag = "world",
@@ -94,7 +94,7 @@ Archetype = {
 		physic_collision_group = 1,
 		disableComponent = "CPhysicEntity"
 	},
-	
+
 	Obstacle1x5 = {
 		type = "Obstacle1x5",
 		tag = "world",
@@ -106,7 +106,7 @@ Archetype = {
 		physic_collision_group = 1,
 		disableComponent = "CPhysicEntity"
 	},
-	
+
 	Obstacle1x10 = {
 		type = "Obstacle1x10",
 		tag = "world",
@@ -118,7 +118,7 @@ Archetype = {
 		physic_collision_group = 1,
 		disableComponent = "CPhysicEntity"
 	},
-	
+
 	Obstacle1x2 = {
 		type = "Obstacle1x2",
 		tag = "world",
@@ -130,14 +130,14 @@ Archetype = {
 		physic_collision_group = 1,
 		disableComponent = "CPhysicEntity"
 	},
-	
+
 	Entity = {
 		type = "Entity",
 		position = {0, 0, 0},
 		orientation = 0,
 		model = "torreta_pie.mesh",
 	},
-	
+
 	PhantomTurret = {
 		type = "PhantomTurret",
 		position = {0, -50, 0},
@@ -145,7 +145,7 @@ Archetype = {
 		dimension = { 1, 1 },
 		model = "torreta_pie.mesh",
 	},
-	
+
 	Turret = {
 		type = "Turret",
 		tag = "playerBuilding",
@@ -168,18 +168,44 @@ Archetype = {
 		trigger_collision_group = 3,
 		precision = 0.1,
 		damage = 2,
-		
+
 		billboardLifeMaterial = "barraVida",
 		billboardLifeWith = 10.0,
 		billboardLifeHeight = 0.5,
 		billboardLifePosition = {0.0,12.0,0.0},
-		
+
 		life = 100.0,
 		maxLife = 100.0,
-		
+
 		timeBetweenShoots = 5.0,
 	},
-	
+
+	PanelSolar = {
+		type = "PanelSolar",
+		tag = "playerBuilding",
+		position = {0, 0, 0},
+		orientation = 0,
+		building_size = "1 1",
+		model = "torreta_pie.mesh",
+		physic_entity = "simple",
+		physic_type = "kinematic",
+		physic_shape = "box",
+		physic_dimensions = { 8, 8, 8 },
+		physic_height = 16,
+		physic_radius = 16,
+		physic_collision_group = 2,
+
+		radioEnergy = 100.0,
+
+		billboardLifeMaterial = "barraVida",
+		billboardLifeWith = 10.0,
+		billboardLifeHeight = 0.5,
+		billboardLifePosition = {0.0,12.0,0.0},
+
+		life = 100.0,
+		maxLife = 100.0,
+	},
+
 	EnemyEnergyGenerator = {
 		type = "EnemyEnergyGenerator",
 		tag = "enemy",
@@ -194,16 +220,16 @@ Archetype = {
 		physic_height = 16,
 		physic_radius = 16,
 		physic_collision_group = 2,
-		
+
 		billboardLifeMaterial = "barraVida",
 		billboardLifeWith = 10.0,
 		billboardLifeHeight = 0.5,
 		billboardLifePosition = {0.0,12.0,0.0},
-		
+
 		life = 100.0,
 		maxLife = 100.0,
 	},
-	
+
 	DoorStage2Trigger = {
 		type = "DoorStage2Trigger",
 		trigger = true,
@@ -211,7 +237,7 @@ Archetype = {
 		trigger_type = "trigger_static",
 		trigger_collision_group = 3,
 	},
-	
+
 	Barril = {
 		type = "Barril",
 		position = {0, 1, 0},
@@ -226,11 +252,11 @@ Archetype = {
 		physic_mass = 1,
 		physic_collision_group = 6,
 	},
-	
+
 	EnemyMind = {
 		type = "EnemyMind",
 	},
-	
+
 	Enemies = {
 		type = "Enemies",
 		periodo = 10000,
@@ -258,38 +284,38 @@ Archetype = {
 		accel = 0.001,
 		angularAccel = 0.0001,
 		movementTolerance = 7.0,
-		
+
 		billboardLifeMaterial = "barraVida",
 		billboardLifeWith = 10.0,
 		billboardLifeHeight = 0.5,
 		billboardLifePosition = {0.0,25.0,0.0},
-		
+
 		billboardSeleccionMaterial = "circuloSeleccion",
 		billboardSeleccionWith = 15.0,
 		billboardSeleccionHeight = 15.0,
-		
+
 		afectaEmpujar = 100,
-		
+
 		distOfView = 100,
-		
+
 		initState = 1,
 		memInitPoint = true,
 		runLifeThreshold = 50,
-		
+
 		damage = 2,
 		attackCoolDown = 250,
-		
+
 		trigger_shape = "trigger_sphere",
 		trigger_type = "trigger_kinematic",
 		trigger = true,
 		trigger_radius = 50,
 		trigger_height = 5,
 		trigger_collision_group = 3,
-		
+
 		duracionCarga = 1000,
 		coolDownCarga = 10000,
 	},
-	
+
 	Granada = {
 		type = "Granada",
 		position = {0, 3, 0},
@@ -304,7 +330,7 @@ Archetype = {
 		physic_radius = 0.5,
 		physic_mass = 1,
 		physic_collision_group = 6,
-		
+
 		damage = 60.0,
 		timeEmpujar = 0.3,
 		distEmpujarSeg = 150.0,
@@ -326,7 +352,7 @@ Archetype = {
 		physic_collision_group = 6,
 		distEmpujarSeg = 150.0,
 	},
-	
+
 	Jack = {
 		type = "Jack",
 		tag = "Player",
@@ -348,35 +374,35 @@ Archetype = {
 		accel = 0.001,
 		angularAccel = 11.0,
 		movementTolerance = 3.0,
-		
+
 		billboardLifeMaterial = "barraVida",
 		billboardLifeWith = 8.0,
 		billboardLifeHeight = 1.0,
 		billboardLifePosition = {0.0,20.0,0.0},
-		
+
 		billboardSeleccionMaterial = "circuloSeleccion",
 		billboardMultipleSeleccionMaterial = "circuloMultipleSeleccion",
 		billboardSeleccionWith = 10.0,
 		billboardSeleccionHeight = 10.0,
-		
+
 		billboardLanzamientoMaterial = "circuloSeleccion",
 		billboardLanzamientoWith = 150.0,
 		billboardLanzamientoHeight = 150.0,
 		alcanceGranada = 70.0,
-		
+
 		afectaEmpujar = 100,
-		
+
 		initState = 1,
-		
+
 		trigger_shape = "trigger_sphere",
 		trigger_type = "trigger_kinematic",
 		trigger = true,
 		trigger_radius = 150,
 		trigger_collision_group = 3,
-		
+
 		damage = 33,
 	},
-	
+
 	Erick = {
 		type = "Erick",
 		tag = "Player",
@@ -398,35 +424,35 @@ Archetype = {
 		accel = 0.001,
 		angularAccel = 11.0,
 		movementTolerance = 3.0,
-		
+
 		billboardLifeMaterial = "barraVida",
 		billboardLifeWith = 8.0,
 		billboardLifeHeight = 1.0,
 		billboardLifePosition = {0.0,20.0,0.0},
-		
+
 		billboardSeleccionMaterial = "circuloSeleccion",
 		billboardMultipleSeleccionMaterial = "circuloMultipleSeleccion",
 		billboardSeleccionWith = 10.0,
 		billboardSeleccionHeight = 10.0,
-		
+
 		billboardLanzamientoMaterial = "circuloSeleccion",
 		billboardLanzamientoWith = 150.0,
 		billboardLanzamientoHeight = 150.0,
 		alcanceGranada = 70.0,
-		
+
 		afectaEmpujar = 100,
-		
+
 		initState = 1,
-		
+
 		trigger_shape = "trigger_sphere",
 		trigger_type = "trigger_kinematic",
 		trigger = true,
 		trigger_radius = 80,
 		trigger_collision_group = 3,
-		
+
 		damage = 33,
 	},
-	
+
 	Norah = {
 		type = "Norah",
 		tag = "Player",
@@ -448,35 +474,35 @@ Archetype = {
 		accel = 0.001,
 		angularAccel = 11.0,
 		movementTolerance = 3.0,
-		
+
 		billboardLifeMaterial = "barraVida",
 		billboardLifeWith = 8.0,
 		billboardLifeHeight = 1.0,
 		billboardLifePosition = {0.0,20.0,0.0},
-		
+
 		billboardSeleccionMaterial = "circuloSeleccion",
 		billboardMultipleSeleccionMaterial = "circuloMultipleSeleccion",
 		billboardSeleccionWith = 10.0,
 		billboardSeleccionHeight = 10.0,
-		
+
 		billboardLanzamientoMaterial = "circuloSeleccion",
 		billboardLanzamientoWith = 150.0,
 		billboardLanzamientoHeight = 150.0,
 		alcanceGranada = 70.0,
-		
+
 		afectaEmpujar = 100,
-		
+
 		initState = 1,
-		
+
 		trigger_shape = "trigger_sphere",
 		trigger_type = "trigger_kinematic",
 		trigger = true,
 		trigger_radius = 80,
 		trigger_collision_group = 3,
-		
+
 		damage = 33,
 	},
-	
+
 	Waypoint = {
 		type = "Waypoint",
 		position = {0, 0, 0},
@@ -484,7 +510,7 @@ Archetype = {
 		model = "Esfera.mesh",
 		scale = 8.0,
 	},
-	
+
 	CentroMando = {
 		type = "CentroMando",
 		tag = "playerBuilding",
@@ -500,16 +526,16 @@ Archetype = {
 		physic_height = 16,
 		physic_radius = 16,
 		physic_collision_group = 2,
-		
+
 		billboardLifeMaterial = "barraVida",
 		billboardLifeWith = 10.0,
 		billboardLifeHeight = 0.5,
 		billboardLifePosition = {0.0,12.0,0.0},
-		
+
 		life = 100.0,
 		maxLife = 100.0,
 	},
-	
+
 	EnemyDoor = {
 		type = "EnemyDoor",
 		tag = "enemy",
@@ -527,7 +553,7 @@ Archetype = {
 		physic_radius = 16,
 		physic_collision_group = 2,
 	},
-	
+
 	EnemyBoss = {
 		type = "EnemyBoss",
 		tag = "enemy",
@@ -548,26 +574,26 @@ Archetype = {
 		accel = 0.001,
 		angularAccel = 0.0001,
 		movementTolerance = 7.0,
-		
+
 		billboardLifeMaterial = "barraVida",
 		billboardLifeWith = 10.0,
 		billboardLifeHeight = 0.5,
 		billboardLifePosition = {0.0,12.0,0.0},
-		
+
 		billboardSeleccionMaterial = "circuloSeleccion",
 		billboardSeleccionWith = 15.0,
 		billboardSeleccionHeight = 15.0,
-		
+
 		afectaEmpujar = 100,
-		
+
 		distOfView = 100,
-		
+
 		initState = 1,
 		memInitPoint = true,
 		runLifeThreshold = 0,
-		
+
 		damage = 30,
-		
+
 		trigger_shape = "trigger_sphere",
 		trigger_type = "trigger_kinematic",
 		trigger = true,
@@ -575,5 +601,5 @@ Archetype = {
 		trigger_height = 5,
 		trigger_collision_group = 3,
 	},
-	
+
 }

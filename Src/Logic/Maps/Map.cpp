@@ -84,6 +84,7 @@ namespace Logic {
 		ScriptManager::CServer::getSingletonPtr()->executeScript("specialSpawners = {}");
 		ScriptManager::CServer::getSingletonPtr()->executeScript("enemies = {}");
 		ScriptManager::CServer::getSingletonPtr()->executeScript("enemyBuildings = {}");
+		ScriptManager::CServer::getSingletonPtr()->executeScript("buildings = {}");
 
 		Map::CMapParser::TEntityList::const_iterator it, end;
 		it = entityList.begin();
