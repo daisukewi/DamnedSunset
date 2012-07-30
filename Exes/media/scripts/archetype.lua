@@ -351,6 +351,8 @@ Archetype = {
 		physic_mass = 1,
 		physic_collision_group = 6,
 		distEmpujarSeg = 150.0,
+		
+		dimension = {1, 1},
 	},
 
 	Jack = {

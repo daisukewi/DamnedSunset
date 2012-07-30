@@ -15,8 +15,10 @@ function loadScripts()
 	SManager:loadScript("enemyScript")
 
 	-- Scripts de la maquina de estados de God
-	SManager:loadScript("godSelectionState")
-	SManager:loadScript("godBuildingState")
+	SManager:loadScript("godIdleState")
+	SManager:loadScript("godSelectedState")
+	SManager:loadScript("godSkillState")
+	SManager:loadScript("godScript")
 
 	-- Scripts de la máquina de estados de la IA de la supermente.
 	SManager:loadScript("enemyMindNightState")

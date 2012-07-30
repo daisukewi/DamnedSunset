@@ -266,7 +266,7 @@ namespace Logic
 			int gridSize = _entity->getMap()->getGridMap()->getGridSize();
 			// HACK: pongo la altrua a mano porque no nos interesa que sea configurable.
 			// Vamos a querer que todas las entidades tengan la misma altura (muy alta) para que no haya problemas con el A*.
-			Ogre::Vector3 dimensions3D = Ogre::Vector3(dimensions2D.y * (gridSize / 2), 50, dimensions2D.x * (gridSize / 2));
+			Ogre::Vector3 dimensions3D = Ogre::Vector3(dimensions2D.y * (gridSize / 2), 15, dimensions2D.x * (gridSize / 2));
 
 			_physicServer->createBoxShape(model, dimensions3D * scale, group);
 

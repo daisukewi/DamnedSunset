@@ -803,6 +803,10 @@ namespace ScriptManager
 			];
 		luabind::module(_lua)
 			[
+				luabind::def("getTag", &getTag)
+			];
+		luabind::module(_lua)
+			[
 				luabind::def("deleteEntity", &deleteEntity)
 			];
 		luabind::module(_lua)
@@ -816,6 +820,18 @@ namespace ScriptManager
 		luabind::module(_lua)
 			[
 				luabind::def("emplaceBuild", &emplaceBuild)
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("startGrenade", &startGrenade)
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("cancelGrenade", &cancelGrenade)
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("launchGrenade", &launchGrenade)
 			];
 
 		//---------------------------------------------------------

@@ -15,6 +15,7 @@ LUA
 #include "Logic/Maps/Map.h"
 
 #include "Logic/Entity/Messages/EmplaceBuilding.h"
+#include "Logic/Entity/Messages/LanzarGranada.h"
 
 #include "Logic/Server.h"
 
@@ -29,6 +30,8 @@ namespace ScriptManager
 		Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(build);
 	}
 
+	//---------------------------------------------------------
+
 	void cancelBuild()
 	{
 		Logic::MEmplaceBuilding* build = new Logic::MEmplaceBuilding();
@@ -36,11 +39,54 @@ namespace ScriptManager
 		Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(build);
 	}
 
+	//---------------------------------------------------------
+
 	void emplaceBuild()
 	{
 		Logic::MEmplaceBuilding* build = new Logic::MEmplaceBuilding();
 		build->setAction(Logic::BuildingAction::EMPLACE_BUILDING);
 		Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(build);
 	}
+
+	//---------------------------------------------------------
+
+	void startGrenade(unsigned int entityID)
+	{
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+
+		Logic::MLanzarGranada *m = new Logic::MLanzarGranada();
+		m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
+		m->setOrdenGranada(Logic::OrdenGranada::mostrar);
+
+		entity->emitMessage(m);
+	}
+
+	//---------------------------------------------------------
+
+	void cancelGrenade(unsigned int entityID)
+	{
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+
+		Logic::MLanzarGranada *m = new Logic::MLanzarGranada();
+		m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
+		m->setOrdenGranada(Logic::OrdenGranada::ocultar);
+
+		entity->emitMessage(m);
+	}
+
+	//---------------------------------------------------------
+
+	void launchGrenade(unsigned int entityID)
+	{
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+
+		Logic::MLanzarGranada *m = new Logic::MLanzarGranada();
+		m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
+		m->setOrdenGranada(Logic::OrdenGranada::lanzar);
+
+		entity->emitMessage(m);
+	}
+
+	//---------------------------------------------------------
 
 } // namespace ScriptManager

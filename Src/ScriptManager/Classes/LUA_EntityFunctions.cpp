@@ -63,7 +63,7 @@ namespace ScriptManager
 
 		return 0;
 	}
-	
+
 	//---------------------------------------------------------
 
 	std::string getName (unsigned int entityID)
@@ -72,6 +72,19 @@ namespace ScriptManager
 		if (entity != NULL)
 		{
 			return entity->getName();
+		}
+
+		return "";
+	}
+
+	//---------------------------------------------------------
+
+	std::string getTag (unsigned int entityID)
+	{
+		Logic::CEntity* entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+		if (entity != NULL)
+		{
+			return entity->getTag();
 		}
 
 		return "";

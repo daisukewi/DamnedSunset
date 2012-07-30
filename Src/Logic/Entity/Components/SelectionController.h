@@ -33,7 +33,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CSelectionController() : IComponent() {}
+		CSelectionController() : IComponent(), _exeFrames(10), _currentExeFrames(0) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -199,7 +199,7 @@ namespace Logic
 		Vector2 _mousePositionReleased;
 
 		/**
-		Atributos que almacenan los IDs de los personajes
+		Atributos que almacenan los punteros a los personajes
 		*/
 		CEntity* _player1;
 		CEntity* _player2;
@@ -209,6 +209,16 @@ namespace Logic
 		Controlar si se está haciendo multiselección
 		*/
 		bool _multiSelection;
+
+		/**
+		Cada cuántos frames se ejecuta el tick del selection controller en LUA.
+		*/
+		int _exeFrames;
+
+		/**
+		Cuenta de cuántos frames van ejecutados sin hacer el tick del selection controller en LUA.
+		*/
+		int _currentExeFrames;
 
 
 		

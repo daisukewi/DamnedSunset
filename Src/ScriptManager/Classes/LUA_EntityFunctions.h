@@ -20,6 +20,7 @@ namespace ScriptManager
 	bool isEnemy (unsigned int entityID);
 	unsigned int getEntityID (std::string entityName);
 	std::string getName (unsigned int entityID);
+	std::string getTag (unsigned int entityID);
 	
 
 } // namespace Logic

@@ -51,6 +51,24 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 
+		std::stringstream script;
+		script << "god = {} ";
+		script << "god.selected = -1";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+		if (entityInfo->hasAttribute("initState"))
+		{
+			std::stringstream godScript;
+			godScript << "god.state = " << entityInfo->getIntAttribute("initState");
+			ScriptManager::CServer::getSingletonPtr()->executeScript(godScript.str().c_str());
+		}
+		else
+		{
+			std::stringstream godScript;
+			godScript << "god.state = 1";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(godScript.str().c_str());
+		}
+
 		return true;
 
 	} // spawn
@@ -157,6 +175,20 @@ namespace Logic
 	void CSelectionController::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
+
+		_currentExeFrames++;
+
+		// Ejecuto la IA si toca.
+		if (_currentExeFrames >= _exeFrames)
+		{
+			// Reinicio el contador de frames.
+			_currentExeFrames = 0;
+
+			// LLamo al tick del selection controller en LUA.
+			std::stringstream script;
+			script	<< "godAction()";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
 
 		////Si se está haciendo multiselección mandar dibujar a LUA el cuadrado de selección
 		//if (_multiSelection){
@@ -276,6 +308,8 @@ namespace Logic
 		_waitingForSelectable = false;
 
 	} // prepareSelectionClick
+
+	//---------------------------------------------------------
 	
 	CEntity* CSelectionController::checkClick(CEntity *entity1, CEntity* entity2, CEntity* entity3, CEntity* entity4, CEntity* entity5)
 	{
@@ -309,6 +343,8 @@ namespace Logic
 		
 		return NULL;
 	}
+
+	//---------------------------------------------------------
 
 	void CSelectionController::prepareMultipleSelectionClick(){
 		
@@ -360,14 +396,14 @@ namespace Logic
 									Math::isInsideRectangle(worldPoint1,worldPoint2,worldPoint3,worldPoint4,player2Pos),
 									Math::isInsideRectangle(worldPoint1,worldPoint2,worldPoint3,worldPoint4,player3Pos));
 
-		
+			
 			std::string aux = "GodSelected";
 			int ID = ScriptManager::CServer::getSingletonPtr()->getGlobal(aux.c_str(),-2);
 			if (ID >= 0){
 				_targetEntityID = ID;
 				_waitingForSelectable = true;
 
-				// No hace falta enviar mensaje, ya se sabe que es selectable porque es un personajes
+				// No hace falta enviar mensaje, ya se sabe que es selectable porque es un personaje
 				// Send a message to the entity hit to ensure its selectability
 				//MIsSelectable* m_selectable = new MIsSelectable();
 				//m_selectable->setMessageType(SELECTION_REQUEST);
@@ -427,11 +463,16 @@ namespace Logic
 		_waitingForSelectable = false;
 
 		//Send a message with the Selection petition, the world mouse click point, and the entity.
-		std::stringstream procSelec;
+		/*std::stringstream procSelec;
 		procSelec << "processSelection(" << _targetEntityID << ", " << _worldCollisionPoint.x << ", " << _worldCollisionPoint.y << ", " << _worldCollisionPoint.z << ")";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(procSelec.str().c_str());*/
+
+		std::stringstream procSelec;
+		procSelec << "selectionParameters = { target = " << _targetEntityID << ", point_x = " << _worldCollisionPoint.x << ", point_y = " << _worldCollisionPoint.y << ", point_z = " << _worldCollisionPoint.z << " } ";
+		procSelec << "godEvent(\"OnSelectionClick\")";
 		ScriptManager::CServer::getSingletonPtr()->executeScript(procSelec.str().c_str());
 
-	} // processSelectionClick done <-- by Pedro
+	} // processSelectionClick
 
 	//---------------------------------------------------------
 
@@ -440,11 +481,18 @@ namespace Logic
 		_waitingForActuable = false;
 
 		// Send a message with the Action petition, the world mouse richt-click point, and the entity.
-		std::stringstream procSelec;
+		/*std::stringstream procSelec;
 		procSelec << "processAction(" << _targetEntityID << ", " << _worldCollisionPoint.x << ", " << _worldCollisionPoint.y << ", " << _worldCollisionPoint.z << ")";
-		ScriptManager::CServer::getSingletonPtr()->executeScript(procSelec.str().c_str());
+		ScriptManager::CServer::getSingletonPtr()->executeScript(procSelec.str().c_str());*/
+
+		std::stringstream procAction;
+		procAction << "actionParameters = { target = " << _targetEntityID << ", point_x = " << _worldCollisionPoint.x << ", point_y = " << _worldCollisionPoint.y << ", point_z = " << _worldCollisionPoint.z << " } ";
+		procAction << "godEvent(\"OnActionClick\")";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(procAction.str().c_str());
 
 	} // processActionClick
+
+	//---------------------------------------------------------
 
 	void CSelectionController::processMultipleSelection(bool player1inside, bool player2inside, bool player3inside){
 		_waitingForSelectable = false;
@@ -460,6 +508,8 @@ namespace Logic
 
 	} // processMultipleSelecion
 
+	//---------------------------------------------------------
+
 	void CSelectionController::processKeyboardEvent(GUI::Key::TKeyID key){
 		std::string aux;
 		std::stringstream procKey;
@@ -470,5 +520,6 @@ namespace Logic
 		ScriptManager::CServer::getSingletonPtr()->executeScript(procKey.str().c_str());
 	} //processKeyboardEvent
 
+	//---------------------------------------------------------
 
 } // namespace Logic

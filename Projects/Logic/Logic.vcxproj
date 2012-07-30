@@ -113,6 +113,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Script.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Selectable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SelectionController.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\SkillsController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Sonido.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\StateMachineExecutor.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SteeringMovement.cpp" />
@@ -227,6 +228,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Script.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Selectable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SelectionController.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\SkillsController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Sonido.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\StateMachineExecutor.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SteeringMovement.h" />

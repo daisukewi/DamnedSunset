@@ -18,6 +18,10 @@ namespace ScriptManager
 	void cancelBuild();
 	void emplaceBuild();
 
+	void startGrenade(unsigned int entityID);
+	void cancelGrenade(unsigned int entityID);
+	void launchGrenade(unsigned int entityID);
+
 } // namespace Logic
 
 #endif // __Logic_LUA_MessageFunctions_H

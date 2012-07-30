@@ -65,15 +65,36 @@ function actualizarBarraVida(numPersonaje, porcentajeVida)
 end
 
 function sendClickMessage1()
-	processSelection(getEntityID("Jack"),0,0,0)
+	selectionParameters = { 
+		target = getEntityID("Jack"),
+		point_x = 0,
+		point_y = 0,
+		point_z = 0
+	}
+	
+	godEvent("OnSelectionClick")
 end
 
 function sendClickMessage2()
-	processSelection(getEntityID("Erick"),0,0,0)
+	selectionParameters = { 
+		target = getEntityID("Erick"),
+		point_x = 0,
+		point_y = 0,
+		point_z = 0
+	}
+	
+	godEvent("OnSelectionClick")
 end
 
 function sendClickMessage3()
-	processSelection(getEntityID("Norah"),0,0,0)
+	selectionParameters = { 
+		target = getEntityID("Norah"),
+		point_x = 0,
+		point_y = 0,
+		point_z = 0
+	}
+	
+	godEvent("OnSelectionClick")
 end
 
 function cambiarBotones(pers)

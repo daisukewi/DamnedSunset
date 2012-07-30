@@ -92,3 +92,102 @@ function decideAttack(attacker)
 end
 
 ------------------------------------------------------
+
+-- Función que carga en la interfaz los botones que tiene que utilizar un personaje para realizar sus acciones o habilidades.
+function loadPlayerGUI (player)
+	ocultarBoton(1)
+	ocultarBoton(2)
+	ocultarBoton(3)
+	ocultarBoton(4)
+	
+	players[player].showGUISkills()
+
+	--[[name = getName(player)
+	if name == "Jack" then
+		cargarBoton(2, "granada", "habilidadGranada")
+		if persSelect ~= 1 then
+			cambiarBotones(1)
+		end
+	elseif name == "Erick" then
+		cargarBoton(2, "granada", "habilidadGranada")
+		cargarBoton(3, "bolazul", "habilidadRalentizarTiempo")
+		if persSelect ~= 2 then
+			cambiarBotones(2)
+		end
+	elseif name == "Norah" then
+		cargarBoton(2, "granada", "habilidadGranada")
+		cargarBoton(4, "jeringa", "habilidadCurar")
+		if persSelect ~= 3 then
+			cambiarBotones(3)
+		end
+	end]]
+end
+
+------------------------------------------------------
+
+-- Función que selecciona un nuevo objetivo, actualiza la entidad Dios y manda al GUI mostrar las opciones correspondientes.
+-- Devuelve si se ha seleccionado algo o no.
+function selectNewTarget(target)
+
+	local selected = false
+
+	--Send selected to new target
+	if ((target ~= -1) and (isPlayer(target))) then
+		--Select new target
+		god.selected = target
+	
+		local mensaje = LUA_MEntitySelected()
+		mensaje:setEntityTo(target)
+		mensaje:setSelectedEntity(target)
+		mensaje:send()
+
+		local mensaje = LUA_MUbicarCamara()
+		mensaje:setTarget(target)
+		mensaje:send()
+
+		loadPlayerGUI(target)
+		
+		selected = true
+	end
+	
+	return selected
+
+end
+
+------------------------------------------------------
+
+-- Función que deselecciona el objetivo actual de la entidad Dios.
+function unselectCurrentTarget()
+	if (god.selected ~= -1) then
+		local mensaje = LUA_MEntitySelected()
+		mensaje:setEntityTo(god.selected)
+		mensaje:setSelectedEntity(0)
+		mensaje:send()
+		god.selected = -1
+	end
+end
+
+------------------------------------------------------
+
+-- Función que envía un mensaje de movimiento a una entidad concreta.
+function sendMovement(point_x, point_y, point_z, entity)
+	local mensaje = LUA_MAStarRoute()
+	mensaje:setDestPointX(point_x)
+	mensaje:setDestPointY(point_y)
+	mensaje:setDestPointZ(point_z)
+	mensaje:setEntityTo(entity)
+	mensaje:send()
+end
+
+------------------------------------------------------
+
+-- Función que envía un mensaje de ataque a una entidad concreta.
+function sendAttack(target, entity)
+	local mensaje = LUA_MAttackDistance()
+	mensaje:setEntity(target)
+	mensaje:setAttack(true)
+	mensaje:setEntityTo(entity)
+	mensaje:send()
+end
+
+------------------------------------------------------

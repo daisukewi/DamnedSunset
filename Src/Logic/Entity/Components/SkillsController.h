@@ -1,36 +1,37 @@
 /**
-@file Script.h
+@file SkillsController.h
 
-Contiene la declaración del componente que contiene el control y la ejecución de los
-scripts asociados a una entidad.
+Contiene la declaración del componente que controla las habilidades de los personajes.
 
 @author Alberto Plaza
-@date Enero, 2012
+@date Julio, 2012
 */
-
-#ifndef __Logic_Script_H
-#define __Logic_Script_H
+#ifndef __Logic_SkillsController_H
+#define __Logic_SkillsController_H
 
 #include "Logic/Entity/Component.h"
 
-namespace Logic
+//declaración de la clase
+namespace Logic 
 {
-	/**
-	Clase encargada de almacenar y controlar la ejecución de los scripts
-	asociados a una entidad.
+/**
+	Componente encargado de controlar las habilidades de los personajes.
+	
+    @ingroup logicGroup
 
 	@author Alberto Plaza
-	@date Enero, 2012
-	*/
-	class CScript : public IComponent
+	@date Julio, 2012
+*/
+	class CSkillsController : public IComponent
 	{
-		DEC_FACTORY(CScript);
+		DEC_FACTORY(CSkillsController);
 	public:
 
 		/**
-		Constructor por defecto.
+		Constructor por defecto; inicializa los atributos a su valor por 
+		defecto.
 		*/
-		CScript() : IComponent() {}
+		CSkillsController() : IComponent() {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -48,9 +49,6 @@ namespace Logic
 		Método que activa el componente; invocado cuando se activa
 		el mapa donde está la entidad a la que pertenece el componente.
 		<p>
-		Si el componente pertenece a la entidad del jugador, el componente
-		se registra así mismo en el controlador del GUI para que las ordenes 
-		se reciban a partir de los eventos de teclado y ratón.
 
 		@return true si todo ha ido correctamente.
 		*/
@@ -62,25 +60,21 @@ namespace Logic
 		componente. Se invocará siempre, independientemente de si estamos
 		activados o no.
 		<p>
-		Si el componente pertenece a la entidad del jugador, el componente
-		se deregistra así mismo en el controlador del GUI para dejar de
-		recibir las ordenes dadas a partir de los eventos de teclado y ratón.
+
 		*/
 		virtual void deactivate();
 
 		/**
 		Método llamado en cada frame que actualiza el estado del componente.
 		<p>
-		Se encarga de mover la entidad en cada vuelta de ciclo cuando es
-		necesario (cuando está andando o desplazándose lateralmente).
+		Se encarga de crear un enemigo según ciertas condiciones.
 
 		@param msecs Milisegundos transcurridos desde el último tick.
 		*/
 		virtual void tick(unsigned int msecs);
 
 		/**
-		Método virtual que elige que mensajes son aceptados. Son válidos
-		MCameraControl.
+		Método virtual que elige que mensajes son aceptados.
 
 		@param message Mensaje a chequear.
 		@return true si el mensaje es aceptado.
@@ -94,32 +88,22 @@ namespace Logic
 		*/
 		virtual void process(IMessage *message);
 
-	private:
+	protected:
 
 		/**
-		Indica si hay que llamar a una función de lua en el tick o no.
+		Indica si hay que llamar a una función de lua para activar las skills del personaje o no.
 		*/
-		bool _tickFunction;
+		bool _activateSkillsFunction;
 
 		/**
-		Indica si hay que llamar a una función de lua en el activate o no.
+		Nombre de la función de lua que se llamará para activar las skills del personaje.
 		*/
-		bool _activateFunction;
+		const char *_luaActivateSkillsFunction;
 
-		/**
-		Nombre de la función de lua que se llamará en cada tick.
-		*/
-		const char *_luaTickFunction;
+	}; // class CSkillsController
 
-		/**
-		Nombre de la función de lua que se llamará en el activate.
-		*/
-		const char *_luaActivateFunction;
-
-	}; // class CScript
-
-	REG_FACTORY(CScript);
+	REG_FACTORY(CSkillsController);
 
 } // namespace Logic
 
-#endif // __Logic_Script_H
+#endif // __Logic_SkillsController_H
