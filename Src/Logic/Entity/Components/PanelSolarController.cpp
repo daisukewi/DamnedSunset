@@ -71,7 +71,7 @@ namespace Logic
 			if (m_anochecer->getTime() == TIME_TYPE::NIGHT)
 			{
 				std::stringstream script;
-				script	<< "activarEdificiosCercanos(" << _entity->getEntityID() << ", " << _radioEnergy << ", " << "true" << ")";
+				script	<< "activarEdificiosCercanos(" << _entity->getEntityID() << ", " << "true" << ")";
 				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 			}
 		}

@@ -217,6 +217,13 @@ namespace Logic
 							_entity->emitMessage(m_anim, this);
 						}
 
+						if (!_entity->getType().compare("PanelSolar"))
+						{
+							std::stringstream script;
+							script	<< "activarEdificiosCercanos(" << _entity->getEntityID() << ", " << "false" << ")";
+							ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+						}
+
 						//Destruimos la entidad en unos pocos milisegundos
 						BaseSubsystems::CServer::getSingletonPtr()->addClockListener(1000, this);
 
