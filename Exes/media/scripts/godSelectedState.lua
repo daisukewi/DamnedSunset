@@ -43,15 +43,24 @@ function godSelectedStateEvent(event)
 		nextState = 2
 	-- Evento de click en una habilidad del personaje seleccionado.
 	elseif (event == "OnSkillClick") then
-		-- Empiezo la habilidad.
-		god.startSkillFunction()
+		-- Si el cooldown de la habilidad es cero o menos la hago.
+		if (players[god.selected].currentSkillsCooldown[skillParameters.skill] <= 0) then
+			-- Empiezo la habilidad.
+			god.startSkillFunction()
+			
+			-- Me guardo el índice de la habilidad
+			god.currentSkill = skillParameters.skill
+			
+			-- Me guardo en otra variable distinta la función de cancelación de la habilidad actual
+			-- por si hay que cancelarla porque se ha pulsado en otra habilidad distinta.
+			god.previousCancelSkillFunction = god.cancelSkillFunction
 		
-		-- Me guardo en otra variable distinta la función de cancelación de la habilidad actual
-		-- por si hay que cancelarla porque se ha pulsado en otra habilidad distinta.
-		god.previousCancelSkillFunction = god.cancelSkillFunction
-	
-		-- Paso al estado de gestión de la habilidad.
-		nextState = 3
+			-- Paso al estado de gestión de la habilidad.
+			nextState = 3
+		else
+			-- En el caso de que la habiliad esté todavía en tiempo de cooldown me quedo en el estado actual sin hacer nada.
+			nextState = 2
+		end
 	else
 		nextState = 2
 	end

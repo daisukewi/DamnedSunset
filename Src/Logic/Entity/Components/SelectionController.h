@@ -33,7 +33,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CSelectionController() : IComponent(), _exeFrames(10), _currentExeFrames(0) {}
+		CSelectionController() : IComponent(), _exeFrames(10), _currentExeFrames(0), _godDeltaTime(0) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -219,6 +219,11 @@ namespace Logic
 		Cuenta de cuántos frames van ejecutados sin hacer el tick del selection controller en LUA.
 		*/
 		int _currentExeFrames;
+
+		/**
+		Delta time de los frames en los que se llama al selection controller de LUA.
+		*/
+		unsigned int _godDeltaTime;
 
 
 		

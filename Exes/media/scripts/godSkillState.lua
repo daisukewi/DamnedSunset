@@ -11,6 +11,9 @@ function godSkillStateEvent(event)
 	if (event == "OnSelectionClick") then
 		-- Si el objetivo de la habilidad es un punto en el terreno, relleno la información del punto y llamo al final de la habilidad.
 		if (god.clickTarget == nil) then
+			-- Actualizo su cooldown para que empiece a contar.
+			players[god.selected].currentSkillsCooldown[god.currentSkill] = players[god.selected].skillsCooldown[god.currentSkill]
+		
 			skillParameters = selectionParameters
 			god.finishSkillFunction()
 			
@@ -18,6 +21,9 @@ function godSkillStateEvent(event)
 			nextState = 2
 		-- Si el objetivo de la habilidad coincide con el objetivo seleccionado entonces lanzo la habilidad.
 		elseif (god.clickTarget == getTag(selectionParameters.target)) then
+			-- Actualizo su cooldown para que empiece a contar.
+			players[god.selected].currentSkillsCooldown[god.currentSkill] = players[god.selected].skillsCooldown[god.currentSkill]
+		
 			skillParameters = selectionParameters
 			god.finishSkillFunction()
 			
@@ -35,17 +41,23 @@ function godSkillStateEvent(event)
 		nextState = 2
 	-- Evento de click en una habilidad del personaje seleccionado.
 	elseif (event == "OnSkillClick") then
-		-- Primero cancelo la habilidad activada anteriormente.
-		god.previousCancelSkillFunction()
-		
-		-- Después empiezo la nueva habilidad.
-		god.startSkillFunction()
-	
+		-- Si el cooldown de la habilidad es cero o menos la hago, sino, me quedo como estaba;
+		-- esperando la respuesta del jugador parar completar la habilidad actual.
+		if (players[god.selected].currentSkillsCooldown[skillParameters.skill] <= 0) then
+			-- Primero cancelo la habilidad activada anteriormente.
+			god.previousCancelSkillFunction()
+			
+			-- Después empiezo la nueva habilidad.
+			god.startSkillFunction()
 
-		-- Me vuelvo a guardar una copia de la función de cancelación por si vuelve a ocurrir el mismo caso.
-		god.previousCancelSkillFunction = god.cancelSkillFunction
-	
-		-- Paso al estado de gestión de la habilidad.
+			-- Me guardo el índice de la habilidad
+			god.currentSkill = skillParameters.skill			
+
+			-- Me vuelvo a guardar una copia de la función de cancelación por si vuelve a ocurrir el mismo caso.
+			god.previousCancelSkillFunction = god.cancelSkillFunction
+		end
+		
+		-- Me quedo en el estado actual en cualquier caso.
 		nextState = 3
 	else
 		nextState = 3

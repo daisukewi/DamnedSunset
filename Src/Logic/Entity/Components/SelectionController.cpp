@@ -178,7 +178,7 @@ namespace Logic
 
 		_currentExeFrames++;
 
-		// Ejecuto la IA si toca.
+		// Ejecuto el selection controller de LUA si toca.
 		if (_currentExeFrames >= _exeFrames)
 		{
 			// Reinicio el contador de frames.
@@ -186,9 +186,17 @@ namespace Logic
 
 			// LLamo al tick del selection controller en LUA.
 			std::stringstream script;
+			script << "godActionParameters = { deltaTime = " << _godDeltaTime << " } ";
 			script	<< "godAction()";
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+			_godDeltaTime = 0;
 		}
+		else
+		{
+			_godDeltaTime += msecs;
+		}
+
 
 		////Si se está haciendo multiselección mandar dibujar a LUA el cuadrado de selección
 		//if (_multiSelection){

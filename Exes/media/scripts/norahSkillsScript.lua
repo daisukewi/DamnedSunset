@@ -2,6 +2,15 @@
 -- las habilidades de Norah
 function activateNorahSkills(playerID)
 	players[playerID].showGUISkills = showNorahSkills
+	
+	-- Configuración de los cooldowns de las habilidades.
+	-- Cada índice corresponde a una habilidad y el valor es el tiempo del cooldown en segundos.
+	players[playerID].skillsCooldown = { 
+	}
+	
+	-- Tabla auxiliar para llevar la cuenta del cooldown actual de cada habilidad.
+	players[playerID].currentSkillsCooldown = {
+	}
 end
 
 -- Función que mostrará las habilidades de Norah en el GUI con sus correspondientes

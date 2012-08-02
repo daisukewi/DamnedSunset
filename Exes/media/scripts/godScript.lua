@@ -22,6 +22,9 @@ end
 
 -- Función que se llamará en cada tick para ejecutar las acciones que haga falta en el estado actual.
 function godAction()
+	-- Antes de llamar a la función de transición de la máquina de estados, actualizo los cooldowns de todas las habilidades de todos los personajes.
+	updateSkillsCooldown(godActionParameters.deltaTime)
+
 	local nextState = godStates[god.state].state.action()
 	god.state = nextState
 end

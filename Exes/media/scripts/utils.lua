@@ -101,26 +101,6 @@ function loadPlayerGUI (player)
 	ocultarBoton(4)
 	
 	players[player].showGUISkills()
-
-	--[[name = getName(player)
-	if name == "Jack" then
-		cargarBoton(2, "granada", "habilidadGranada")
-		if persSelect ~= 1 then
-			cambiarBotones(1)
-		end
-	elseif name == "Erick" then
-		cargarBoton(2, "granada", "habilidadGranada")
-		cargarBoton(3, "bolazul", "habilidadRalentizarTiempo")
-		if persSelect ~= 2 then
-			cambiarBotones(2)
-		end
-	elseif name == "Norah" then
-		cargarBoton(2, "granada", "habilidadGranada")
-		cargarBoton(4, "jeringa", "habilidadCurar")
-		if persSelect ~= 3 then
-			cambiarBotones(3)
-		end
-	end]]
 end
 
 ------------------------------------------------------
@@ -188,6 +168,21 @@ function sendAttack(target, entity)
 	mensaje:setAttack(true)
 	mensaje:setEntityTo(entity)
 	mensaje:send()
+end
+
+------------------------------------------------------
+
+-- Función que resta actualiza el cooldown de todas las habilidades de todos los personajes con el deltaTime
+function updateSkillsCooldown(deltaTime)
+	for ID, t in pairs(players) do
+		for index, value in pairs(t.currentSkillsCooldown) do
+			if (players[ID].currentSkillsCooldown[index] > 0) then
+				players[ID].currentSkillsCooldown[index] = players[ID].currentSkillsCooldown[index] - (deltaTime / 1000)
+			else
+				players[ID].currentSkillsCooldown[index] = 0
+			end
+		end
+	end
 end
 
 ------------------------------------------------------
