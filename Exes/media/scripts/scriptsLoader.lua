@@ -37,4 +37,8 @@ function loadScripts()
 
 	-- Scipt del panel solar
 	SManager:loadScript("panelSolar")
+	
+	-- Script para inicializar las variables
+	-- Debe ser el ultimo script cargado
+	SManager:loadScript("mission1Parameters")
 end

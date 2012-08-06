@@ -171,8 +171,6 @@ namespace Application {
 		// Crear la escena física.
 		Physics::CServer::getSingletonPtr()->createScene();
 
-		//ScriptManager::CServer::getSingletonPtr()->CreateNewState();
-
 		// Cargamos el archivo con las definiciones de las entidades del nivel.
 		if (!Logic::CEntityFactory::getSingletonPtr()->loadBluePrints("blueprints.txt"))
 			return false;
@@ -180,6 +178,8 @@ namespace Application {
 		// Cargamos el nivel y los arquetipos a partir de los nombres de los ficheros de script. 
 		if (!Logic::CServer::getSingletonPtr()->loadLevel("map", "archetype"))
 			return false;
+
+		ScriptManager::CServer::getSingletonPtr()->loadExeScript("InitMissionParameters()");
 
 		return true;
 	}

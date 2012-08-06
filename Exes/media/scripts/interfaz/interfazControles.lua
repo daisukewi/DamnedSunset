@@ -152,35 +152,36 @@ function inicializarInterfazControles()
 	else
 		-- Cargamos la interfaz
 		winMgr:loadWindowLayout("InterfazControles.layout")
-		interfazControles = winMgr:getWindow("InterfazControles")
-
-		--Añadimos la interfaz a la interfaz principal
-		interfazPrincipal:addChildWindow(interfazControles)
-		interfazControles:setVisible(true)
-		interfazControles:activate()
-
-		--Guargamod los botones en variables para poder acceder facilmente a ellos
-		botonControles1 = winMgr:getWindow("InterfazControles/Menu/b1")
-		botonControles2 = winMgr:getWindow("InterfazControles/Menu/b2")
-		botonControles3 = winMgr:getWindow("InterfazControles/Menu/b3")
-		botonControles4 = winMgr:getWindow("InterfazControles/Menu/b4")
-
-		--Subscribimos los botones a sus funciones
-		botonControles1:subscribeEvent("Clicked", clickBoton1)
-		botonControles2:subscribeEvent("Clicked", clickBoton2)
-		botonControles3:subscribeEvent("Clicked", clickBoton3)
-		botonControles4:subscribeEvent("Clicked", clickBoton4)
-
-		--Guargamod los botones en variables para poder acceder facilmente a ellos
-		botonIA1 = winMgr:getWindow("InterfazControles/BotonIA1")
-		botonIA2 = winMgr:getWindow("InterfazControles/BotonIA2")
-		botonIA3 = winMgr:getWindow("InterfazControles/BotonIA3")
-
-		--Subscribimos los botones a sus funciones
-		botonIA1:subscribeEvent("Clicked", clickBotonIA1)
-		botonIA2:subscribeEvent("Clicked", clickBotonIA2)
-		botonIA3:subscribeEvent("Clicked", clickBotonIA3)
-
-		winMgr:getWindow("InterfazControles/MenuBotonesIA"):setVisible(false)
 	end
+	
+	interfazControles = winMgr:getWindow("InterfazControles")
+
+	--Añadimos la interfaz a la interfaz principal
+	interfazPrincipal:addChildWindow(interfazControles)
+	interfazControles:setVisible(true)
+	interfazControles:activate()
+
+	--Guargamod los botones en variables para poder acceder facilmente a ellos
+	botonControles1 = winMgr:getWindow("InterfazControles/Menu/b1")
+	botonControles2 = winMgr:getWindow("InterfazControles/Menu/b2")
+	botonControles3 = winMgr:getWindow("InterfazControles/Menu/b3")
+	botonControles4 = winMgr:getWindow("InterfazControles/Menu/b4")
+
+	--Subscribimos los botones a sus funciones
+	botonControles1:subscribeEvent("Clicked", clickBoton1)
+	botonControles2:subscribeEvent("Clicked", clickBoton2)
+	botonControles3:subscribeEvent("Clicked", clickBoton3)
+	botonControles4:subscribeEvent("Clicked", clickBoton4)
+
+	--Guargamod los botones en variables para poder acceder facilmente a ellos
+	botonIA1 = winMgr:getWindow("InterfazControles/BotonIA1")
+	botonIA2 = winMgr:getWindow("InterfazControles/BotonIA2")
+	botonIA3 = winMgr:getWindow("InterfazControles/BotonIA3")
+
+	--Subscribimos los botones a sus funciones
+	botonIA1:subscribeEvent("Clicked", clickBotonIA1)
+	botonIA2:subscribeEvent("Clicked", clickBotonIA2)
+	botonIA3:subscribeEvent("Clicked", clickBotonIA3)
+
+	winMgr:getWindow("InterfazControles/MenuBotonesIA"):setVisible(false)
 end
