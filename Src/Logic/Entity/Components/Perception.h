@@ -11,6 +11,8 @@ Contiene la declaración del componente que controla la percepción de los enemigo
 
 #include "Logic/Entity/Component.h"
 
+#include "BaseSubsystems/ClockListener.h"
+
 // Predeclaración de clases.
 namespace Logic
 {
@@ -29,7 +31,7 @@ namespace Logic
 	@author Alberto Plaza
 	@date Mayo, 2012
 */
-	class CPerception : public IComponent
+	class CPerception : public IComponent, public BaseSubsystems::IClockListener
 	{
 		DEC_FACTORY(CPerception);
 	public:
@@ -94,6 +96,13 @@ namespace Logic
 		@param message Mensaje a procesar.
 		*/
 		virtual void process(IMessage *message);
+
+		/**
+		Método heredado de la interfaz IClockListener que será llamado
+		por el temporizador cuando se acabe el tiempo de espera
+		especificado.
+		*/
+		virtual void timeElapsed();
 
 	protected:
 

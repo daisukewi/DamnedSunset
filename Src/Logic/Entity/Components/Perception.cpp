@@ -18,6 +18,10 @@ Contiene la implementación del componente que controla la percepción de los enem
 #include "Logic/Entity/Messages/AttackEntity.h"
 #include "Logic/Entity/Messages/IsTouched.h"
 
+#include "BaseSubsystems/Server.h"
+
+#include "Logic/Entity/Messages/IASleep.h"
+
 #include <sstream>
 
 namespace Logic
@@ -70,6 +74,13 @@ namespace Logic
 		script2 << "enemies[" << _entity->getEntityID() << "].buildingsSeen = {}";
 		ScriptManager::CServer::getSingletonPtr()->executeScript(script2.str().c_str());
 
+
+		// Variable que va a contener el estado anterior en el que se encontraba la IA antes de dormirla
+		std::stringstream script3;
+		script3 << "enemies[" << _entity->getEntityID() << "].previousState = 0";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script3.str().c_str());
+
+
 		return true;
 
 	} // activate
@@ -85,7 +96,8 @@ namespace Logic
 
 	bool CPerception::accept(IMessage *message)
 	{
-		return !message->getType().compare("MIsTouched");
+		return !message->getType().compare("MIsTouched")
+		|| !message->getType().compare("MIASleep");
 
 	} // accept
 	
@@ -132,6 +144,16 @@ namespace Logic
 					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 				}
 			}
+		}else if(!message->getType().compare("MIASleep")){
+
+			MIASleep *m = static_cast <MIASleep*> (message);
+
+			std::stringstream script;
+			script << "enemyEvent(\"IASleep\", " << _entity->getEntityID() << ")";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+			BaseSubsystems::CServer::getSingletonPtr()->addClockListener(m->getTime(), this);
+				
 		}
 
 			/*if (m->getTouched())
@@ -244,6 +266,15 @@ namespace Logic
 	} // tick
 
 	//---------------------------------------------------------
+
+
+	void CPerception::timeElapsed()
+	{
+		std::stringstream script;
+		script << "enemyEvent(\"IAAwake\", " << _entity->getEntityID() << ")";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+	} // timeElapsed
+
 
 } // namespace Logic
 

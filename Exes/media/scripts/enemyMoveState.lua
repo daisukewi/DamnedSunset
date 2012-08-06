@@ -48,6 +48,12 @@ function moveStateEvent(event, entity)
 		else
 			nextState = 2
 		end
+	elseif (event == "IASleep") then
+		enemies[entity].previousState = 3
+		
+		stopGoTo(entity)
+		
+		nextState = 5
 	else
 		-- Como no me interesa ningún evento me quedo en el estado actual.
 		nextState = 3

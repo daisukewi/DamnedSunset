@@ -7,6 +7,7 @@ idleState = { event = idleStateEvent, action = idleStateAction }
 attackState = { event = attackStateEvent, action = attackStateAction }
 moveState = { event = moveStateEvent, action = moveStateAction }
 runState = { event = runStateEvent, action = runStateAction }
+pauseState = { event = pauseStateEvent, action = pauseStateAction }
 
 -- Tabla con todos los estados.
 states = {
@@ -14,6 +15,7 @@ states = {
 	{ name = "attack", state = attackState },
 	{ name = "move", state = moveState },
 	{ name = "run", state = runState }
+	{ name = "pause", state = pauseState}
 }
 
 -- Función que recogerá los eventos a los cuales reaccionará la máquina de estados.

@@ -63,6 +63,15 @@ function attackStateEvent(event, entity)
 		else
 			nextState = 2
 		end
+	elseif (event == "IASleep") then
+		enemies[entity].previousState = 2
+		
+		local mensaje = LUA_MAttackEntity()
+		mensaje:setAttack(false)
+		mensaje:setEntityTo(attacker)
+		mensaje:send()
+		
+		nextState = 5
 	else
 		-- Como no me interesa ningún evento me quedo en el estado actual.
 		nextState = 2

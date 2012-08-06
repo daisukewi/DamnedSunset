@@ -67,6 +67,10 @@ function idleStateEvent(event, entity)
 		
 		-- Como me estoy moviendo paso al estado de moviéndome.
 		nextState = 3
+	elseif (event == "IASleep") then
+		enemies[entity].previousState = 1
+		
+		nextState = 5
 	else
 		-- No me ha interesado ningún evento, me quedo en el estado de idle.
 		nextState = 1
