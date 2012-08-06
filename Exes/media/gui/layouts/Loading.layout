@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout >
+    <Window Type="DefaultWindow" Name="Loading" >
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Window Type="WindowsLook/StaticImage" Name="Loading/BackGround" >
+            <Property Name="Font" Value="FairChar-30" />
+			<Property Name="Text" ></Property>
+			<Property Name="Image" Value="set:loadingImageset image:Background" />
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        </Window>
+    </Window>
+</GUILayout>

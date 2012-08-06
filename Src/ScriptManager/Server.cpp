@@ -147,6 +147,14 @@ namespace ScriptManager
 
 	//---------------------------------------------------------
 
+	void CServer::ResetCurrentState()
+	{
+		_scriptList.clear();
+
+	}
+
+	//---------------------------------------------------------
+
 	void CServer::UnloadCurrentState()
 	{
 		if (_lua)

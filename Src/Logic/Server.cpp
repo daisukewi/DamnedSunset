@@ -183,8 +183,4 @@ namespace Logic {
 		return Physics::CServer::getSingletonPtr()->raycastGroup(mouseRay, point, (Physics::TPhysicGroup)groups, maxDist);
 	}
 
-
-
-	
-
 } // namespace Logic

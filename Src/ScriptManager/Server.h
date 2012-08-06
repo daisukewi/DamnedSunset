@@ -70,6 +70,12 @@ namespace ScriptManager
 		bool CreateNewState();
 
 		/**
+		Borra la lista de scripts cargados previamente, haciendo una simulacion
+		de reseteo del estado de Lua.
+		*/
+		void ResetCurrentState();
+
+		/**
 		Descarga el estado actual de LUA liberando toda la memoria que haya
 		reservado anteriormente.
 		Este método debe ser llamado antes de volver a crear un nuevo estado.

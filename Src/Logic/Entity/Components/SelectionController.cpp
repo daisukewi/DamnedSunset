@@ -257,6 +257,37 @@ namespace Logic
 			return;
 
 
+		/*
+										 uuuuuuu
+									 uu$$$$$$$$$$$uu
+								  uu$$$$$$$$$$$$$$$$$uu
+								 u$$$$$$$$$$$$$$$$$$$$$u
+								u$$$$$$$$$$$$$$$$$$$$$$$u
+							   u$$$$$$$$$$$$$$$$$$$$$$$$$u
+							   u$$$$$$$$$$$$$$$$$$$$$$$$$u
+							   u$$$$$$"   "$$$"   "$$$$$$u
+							   "$$$$"      u$u       $$$$"
+								$$$u       u$u       u$$$
+								$$$u      u$$$u      u$$$
+								 "$$$$uu$$$   $$$uu$$$$"
+								  "$$$$$$$"   "$$$$$$$"
+									u$$$$$$$u$$$$$$$u
+									 u$"$"$"$"$"$"$u
+						  uuu        $$u$ $ $ $ $u$$       uuu
+						 u$$$$        $$$$$u$u$u$$$       u$$$$
+						  $$$$$uu      "$$$$$$$$$"     uu$$$$$$
+						u$$$$$$$$$$$uu    """""    uuuu$$$$$$$$$$
+						$$$$"""$$$$$$$$$$uuu   uu$$$$$$$$$"""$$$"
+						 """      ""$$$$$$$$$$$uu ""$"""
+								   uuuu ""$$$$$$$$$$uuu
+						  u$$$uuu$$$$$$$$$uu ""$$$$$$$$$$$uuu$$$
+						  $$$$$$$$$$""""           ""$$$$$$$$$$$"
+						   "$$$$$"                      ""$$$$""
+							 $$$"                         $$$$"
+		
+		*/
+		// PERO QUE MIERDA ES ESTA???? No se puede ampliar la capsula de colisión de las entidades??? es tan dificil?
+
 		//Para tener más precisión en la selección se van a lanzar 5 raycast por cada click. El primero de ellos se lanza desde la posición del ratón.
 		//Los demás tendrán un desplazamiento hacia la izquierda, derecha, arriba y abajo.
 		/*

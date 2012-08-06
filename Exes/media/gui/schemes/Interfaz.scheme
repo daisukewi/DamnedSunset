@@ -7,4 +7,5 @@
 	<Imageset Filename="ToSunset.imageset" />
 	<Imageset Filename="solenium.imageset" />
 	<Imageset Filename="amanecer.imageset" />
+	<Imageset Filename="loading.imageset" />
 </GUIScheme>

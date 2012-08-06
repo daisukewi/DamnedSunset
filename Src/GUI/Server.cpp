@@ -129,7 +129,6 @@ namespace GUI {
 		_GUISystem->injectKeyDown(key.keyId);    
 		_GUISystem->injectChar(key.text);    
 
-		
 		// Queremos que si hay más oyentes también reciban el evento
 		return false;
 
@@ -141,7 +140,6 @@ namespace GUI {
 	{
 		_GUISystem->injectKeyUp(key.keyId);
 
-		
 		// Queremos que si hay más oyentes también reciban el evento
 		return false;
 

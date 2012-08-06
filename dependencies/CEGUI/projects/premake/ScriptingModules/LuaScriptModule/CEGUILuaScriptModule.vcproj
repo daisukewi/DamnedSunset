@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="CEGUILuaScriptModule"
-	ProjectGUID="{FE6BB6A5-80C9-CB4C-BBC8-0205429F0DA0}"
+	ProjectGUID="{87D535F6-77EC-044E-888B-4C47563B1EE6}"
 	RootNamespace="CEGUILuaScriptModule"
 	Keyword="Win32Proj"
 	>

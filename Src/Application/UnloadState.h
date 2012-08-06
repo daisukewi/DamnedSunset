@@ -171,6 +171,11 @@ namespace Application
 	private:
 
 		/**
+		Ventana CEGUI.
+		*/
+		CEGUI::Window* _window;
+
+		/**
 		Unloads the previously created scene, releasing all memory.
 		*/
 		void UnloadLevel();

@@ -172,6 +172,11 @@ namespace Application
 	private:
 
 		/**
+		Ventana CEGUI.
+		*/
+		CEGUI::Window* _window;
+
+		/**
 		Loads a new level creating a scene and a new physics scene.
 		*/
 		bool LoadLevel();

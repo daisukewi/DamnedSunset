@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="CEGUIOgreRenderer"
-	ProjectGUID="{2F6F1602-B203-5741-8CBC-E80D9EA3F5FD}"
+	ProjectGUID="{AD7597B2-1CDC-3746-A997-0D14209100B5}"
 	RootNamespace="CEGUIOgreRenderer"
 	Keyword="Win32Proj"
 	>

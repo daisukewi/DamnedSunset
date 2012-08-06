@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout >
+    <Window Type="DefaultWindow" Name="Saving" >
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Window Type="OgreTray/StaticImage" Name="Saving/BackGround" >
+            <Property Name="Font" Value="FairChar-30" />
+            <Property Name="Text" Value="SAVING..." />
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+            <Window Type="OgreTray/Title" Name="Saving/BackGround/" >
+                <Property Name="Font" Value="FairChar-30" />
+                <Property Name="Text" Value="Saving..." />
+                <Property Name="AlwaysOnTop" Value="True" />
+                <Property Name="UnifiedAreaRect" Value="{{0.2,0},{0.2,0},{0.8,0},{0.4,0}}" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

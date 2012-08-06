@@ -153,7 +153,6 @@ namespace Application {
 		
 	bool CMenuState::startReleased(const CEGUI::EventArgs& e)
 	{
-
 		//Ir al estado de carga de los recursos
 		//_app->setState("game");
 		_app->setState("load");

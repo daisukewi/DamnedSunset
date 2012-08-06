@@ -18,10 +18,10 @@ y C++.
 
 namespace ScriptManager
 {
+	bool _registered = false;
 
 	CParser::CParser()
 	{
-		
 		
 	} // CParser
 
@@ -30,24 +30,26 @@ namespace ScriptManager
 	CParser::~CParser()
 	{
 
-		
 	} // ~CParser
 
 	//--------------------------------------------------------
 
 	void CParser::registerClass()
 	{
-		luabind::module(CServer::getSingletonPtr()->getLuaState())
-		[
-			luabind::class_<CParser>("Parser")
-				.def(luabind::constructor<>())
-				.def("beginGrid", (void (CParser::*) (int, int)) &CParser::beginGrid)
-				.def("newTile", (void (CParser::*) (const char*, int, int)) &CParser::newTile)
-				.def("beginEntity", (void (CParser::*) (const char*)) &CParser::beginEntity)
-				.def("newAttrib", (void (CParser::*) (const char*, const char*)) &CParser::newAttrib)
-				.def("endEntity", &CParser::endEntity)
-		];
-
+		if (!_registered)
+		{
+			luabind::module(CServer::getSingletonPtr()->getLuaState())
+				[
+					luabind::class_<CParser>("Parser")
+					.def(luabind::constructor<>())
+					.def("beginGrid", (void (CParser::*) (int, int)) &CParser::beginGrid)
+					.def("newTile", (void (CParser::*) (const char*, int, int)) &CParser::newTile)
+					.def("beginEntity", (void (CParser::*) (const char*)) &CParser::beginEntity)
+					.def("newAttrib", (void (CParser::*) (const char*, const char*)) &CParser::newAttrib)
+					.def("endEntity", &CParser::endEntity)
+				];
+			_registered = true;
+		}
 	} // registerClass
 
 	//--------------------------------------------------------

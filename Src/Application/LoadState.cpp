@@ -43,18 +43,20 @@ namespace Application {
 	bool CLoadState::init() 
 	{
 		CApplicationState::init();
+
+		// Cargamos la ventana que muestra una pantalla de carga
+		CEGUI::WindowManager::getSingletonPtr()->loadWindowLayout("Loading.layout");
+		
+		_window = CEGUI::WindowManager::getSingleton().getWindow("Loading");
 		
 		return true;
 
 	} // init
 
-
 	//--------------------------------------------------------
 
 	void CLoadState::release() 
 	{
-
-
 		CApplicationState::release();
 
 	} // release
@@ -65,6 +67,18 @@ namespace Application {
 	{
 		CApplicationState::activate();
 
+		// Activamos la ventana que nos muestra el menú y activamos el ratón.
+		CEGUI::System::getSingletonPtr()->setGUISheet(_window);
+		_window->setVisible(true);
+		_window->activate();
+		CEGUI::MouseCursor::getSingleton().hide();
+
+	} // activate
+
+	//--------------------------------------------------------
+
+	void CLoadState::deactivate() 
+	{
 		//Cargar el nivel
 		LoadLevel();
 
@@ -74,23 +88,16 @@ namespace Application {
 		// Queremos que el GUI maneje al jugador y la cámara.
 		GUI::CServer::getSingletonPtr()->getPlayerController()->activate();
 		GUI::CServer::getSingletonPtr()->getCameraController()->activate();
-
+		
 		/*
 		// Mostramos el ratón
 		CEGUI::MouseCursor::getSingleton().show();
-
+		
 		// El siguiente código es para sincronizar el ratón de CEGUI con el de OIS.
 		const OIS::MouseState state = GUI::CInputManager::getSingletonPtr()->getMouseState();
 		CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();  
 		CEGUI::System::getSingleton().injectMouseMove(state.X.abs-mousePos.d_x,state.Y.abs-mousePos.d_y);*/
 
-	} // activate
-
-	//--------------------------------------------------------
-
-	void CLoadState::deactivate() 
-	{
-		
 		CApplicationState::deactivate();
 
 	} // deactivate
@@ -99,6 +106,8 @@ namespace Application {
 
 	void CLoadState::tick(unsigned int msecs) 
 	{
+		CApplicationState::tick(msecs);
+
 		//Incializar el estado de día del juego
 		//para hacer pruebas, esperar a pulsar la tecla esc para inicializar el juego
 		_app->setState("day");
@@ -121,9 +130,8 @@ namespace Application {
 		switch(key.keyId)
 		{
 		case GUI::Key::RETURN:
-			
-		
 			break;
+
 		default:
 			return false;
 		}
@@ -172,8 +180,6 @@ namespace Application {
 		// Cargamos el nivel y los arquetipos a partir de los nombres de los ficheros de script. 
 		if (!Logic::CServer::getSingletonPtr()->loadLevel("map", "archetype"))
 			return false;
-
-
 
 		return true;
 	}

@@ -43,16 +43,20 @@ namespace Application {
 	bool CUnloadState::init() 
 	{
 		CApplicationState::init();
+
+		// Cargamos la ventana que muestra una pantalla de carga
+		CEGUI::WindowManager::getSingletonPtr()->loadWindowLayout("Saving.layout");
+
+		_window = CEGUI::WindowManager::getSingleton().getWindow("Saving");
+
 		return true;
 
 	} // init
-
 
 	//--------------------------------------------------------
 
 	void CUnloadState::release() 
 	{
-
 		CApplicationState::release();
 
 	} // release
@@ -63,8 +67,13 @@ namespace Application {
 	{
 		CApplicationState::activate();
 
-		
+		// Activamos la ventana que nos muestra el menú y activamos el ratón.
+		CEGUI::System::getSingletonPtr()->setGUISheet(_window);
+		_window->setVisible(true);
+		_window->activate();
 
+		// Desactivamos la ventana de tiempo y el ratón.
+		CEGUI::MouseCursor::getSingleton().hide();
 
 	} // activate
 
@@ -72,12 +81,6 @@ namespace Application {
 
 	void CUnloadState::deactivate() 
 	{
-		
-		CApplicationState::deactivate();
-
-		// Desactivamos la ventana de tiempo y el ratón.
-		CEGUI::MouseCursor::getSingleton().hide();
-
 		// Desactivamos la ventana de interfaz
 		GUI::CServer::getSingletonPtr()->getInterfazController()->deactivate();
 
@@ -85,11 +88,13 @@ namespace Application {
 		// controlar al jugador y la cámara.
 		GUI::CServer::getSingletonPtr()->getCameraController()->deactivate();
 		GUI::CServer::getSingletonPtr()->getPlayerController()->deactivate();
-		
+
 		// Desactivamos el mapa de la partida.
-		Logic::CServer::getSingletonPtr()->deactivateMap();
+		//Logic::CServer::getSingletonPtr()->unLoadLevel();
 
 		UnloadLevel();
+
+		CApplicationState::deactivate();
 
 	} // deactivate
 
@@ -97,6 +102,8 @@ namespace Application {
 
 	void CUnloadState::tick(unsigned int msecs) 
 	{
+		CApplicationState::tick(msecs);
+
 		//Después de descargar la escena, volver al menú
 		_app->setState("menu");
 
@@ -114,7 +121,6 @@ namespace Application {
 
 	bool CUnloadState::keyReleased(GUI::TKey key)
 	{
-
 		switch(key.keyId)
 		{
 		case GUI::Key::RETURN:
@@ -123,7 +129,6 @@ namespace Application {
 			return false;
 		}
 		return true;
-
 
 	} // keyReleased
 
@@ -151,7 +156,6 @@ namespace Application {
 
 	} // mouseReleased
 
-
 	//--------------------------------------------------------
 
 	void CUnloadState::UnloadLevel()
@@ -160,12 +164,12 @@ namespace Application {
 
 		Logic::CEntityFactory::getSingletonPtr()->unloadBluePrints();
 
-		//ScriptManager::CServer::getSingletonPtr()->UnloadCurrentState();
 		Map::CMapParser::getSingletonPtr()->releaseEntityList();
 
+		ScriptManager::CServer::getSingletonPtr()->ResetCurrentState();
+		
 		// Liberamos la escena física.
 		Physics::CServer::getSingletonPtr()->destroyScene();
 	}
-
 
 } // namespace Application
