@@ -340,6 +340,18 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SkillsController.cpp">
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\IASleep.cpp">
+      <Filter>Entity\Messages\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\DetonadorGranadaAturdir.cpp">
+      <Filter>Entity\Components\Abilities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Poison.cpp">
+      <Filter>Entity\Components\Abilities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\Venom.cpp">
+      <Filter>Entity\Messages\Abilities\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Entity\CommunicationPort.h">
@@ -696,6 +708,18 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SkillsController.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\IASleep.h">
+      <Filter>Entity\Messages\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\DetonadorGranadaAturdir.h">
+      <Filter>Entity\Components\Abilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Poison.h">
+      <Filter>Entity\Components\Abilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\Venom.h">
+      <Filter>Entity\Messages\Abilities\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Entity">
@@ -727,9 +751,6 @@
     </Filter>
     <Filter Include="Entity\Messages\Header Files">
       <UniqueIdentifier>{0c102a3a-1a98-426b-be9f-42228fe9302d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Entity\Messages\Source Files">
-      <UniqueIdentifier>{22b440eb-82c9-43b5-a92d-262f8b50bae8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Entity\GodStates\Source Files">
       <UniqueIdentifier>{8c4bd6df-8974-42e0-a0f8-8e008edabe4d}</UniqueIdentifier>
@@ -766,6 +787,9 @@
     </Filter>
     <Filter Include="Entity\Messages\Abilities\Source Files">
       <UniqueIdentifier>{274c13ad-e8ea-4dd3-a142-aaa6d020c3cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Messages\Source Files">
+      <UniqueIdentifier>{22b440eb-82c9-43b5-a92d-262f8b50bae8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
