@@ -841,6 +841,10 @@ namespace ScriptManager
 			[
 				luabind::def("launchGrenade", &launchGrenade)
 			];
+		luabind::module(_lua)
+			[
+				luabind::def("empujarCircle", &empujarCircle)
+			];
 
 		//---------------------------------------------------------
 

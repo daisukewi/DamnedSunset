@@ -349,6 +349,12 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\Venom.cpp">
       <Filter>Entity\Messages\Abilities\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\EmpujarEntidades.cpp">
+      <Filter>Entity\Components\Abilities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\PushEntities.cpp">
+      <Filter>Entity\Messages\Abilities\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Entity\CommunicationPort.h">
@@ -712,6 +718,12 @@
       <Filter>Entity\Components\Abilities\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\Venom.h">
+      <Filter>Entity\Messages\Abilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\EmpujarEntidades.h">
+      <Filter>Entity\Components\Abilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\PushEntities.h">
       <Filter>Entity\Messages\Abilities\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

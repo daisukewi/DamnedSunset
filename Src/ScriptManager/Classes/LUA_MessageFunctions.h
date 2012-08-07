@@ -21,6 +21,7 @@ namespace ScriptManager
 	void startGrenade(unsigned int entityID);
 	void cancelGrenade(unsigned int entityID);
 	void launchGrenade(unsigned int entityID);
+	void empujarCircle(unsigned int entityID);
 
 } // namespace Logic
 

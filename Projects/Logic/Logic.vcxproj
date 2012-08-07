@@ -89,6 +89,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DetonadorGranadaAturdir.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DistanceAttack.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Empujable.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\EmpujarEntidades.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyAIController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyMindAIController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Heal.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AStarRoute.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MoveTo.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ParticleEffect.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\PushEntities.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetAnimation.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetEmpujarPropiedades.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\SetPlayerState.cpp" />
@@ -209,6 +211,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DetonadorGranadaAturdir.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DistanceAttack.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Empujable.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\EmpujarEntidades.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemiesGenerator.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemyAIController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemyMindAIController.h" />
@@ -285,6 +288,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AStarRoute.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MoveTo.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ParticleEffect.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\PushEntities.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetAnimation.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetEmpujarPropiedades.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\SetPlayerState.h" />

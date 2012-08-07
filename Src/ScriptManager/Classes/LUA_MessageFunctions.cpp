@@ -16,6 +16,7 @@ LUA
 
 #include "Logic/Entity/Messages/EmplaceBuilding.h"
 #include "Logic/Entity/Messages/LanzarGranada.h"
+#include "Logic/Entity/Messages/PushEntities.h"
 
 #include "Logic/Server.h"
 
@@ -83,6 +84,17 @@ namespace ScriptManager
 		Logic::MLanzarGranada *m = new Logic::MLanzarGranada();
 		m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
 		m->setOrdenGranada(Logic::OrdenGranada::lanzar);
+
+		entity->emitMessage(m);
+	}
+
+	//---------------------------------------------------------
+
+	void empujarCircle(unsigned int entityID)
+	{
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+
+		Logic::MPushEntities *m = new Logic::MPushEntities();
 
 		entity->emitMessage(m);
 	}

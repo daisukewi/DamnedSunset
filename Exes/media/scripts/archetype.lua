@@ -351,7 +351,7 @@ Archetype = {
 		physic_mass = 1,
 		physic_collision_group = 6,
 		distEmpujarSeg = 150.0,
-		
+
 		dimension = {1, 1},
 	},
 
@@ -393,6 +393,9 @@ Archetype = {
 		alcanceGranada = 70.0,
 
 		afectaEmpujar = 100,
+
+		timeRabia = 0.3,
+		distRabiaSeg = 80.0,
 
 		initState = 1,
 
