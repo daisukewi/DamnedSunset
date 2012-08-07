@@ -346,9 +346,6 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DetonadorGranadaAturdir.cpp">
       <Filter>Entity\Components\Abilities\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Logic\Entity\Components\Poison.cpp">
-      <Filter>Entity\Components\Abilities\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\Venom.cpp">
       <Filter>Entity\Messages\Abilities\Source Files</Filter>
     </ClCompile>
@@ -712,9 +709,6 @@
       <Filter>Entity\Messages\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DetonadorGranadaAturdir.h">
-      <Filter>Entity\Components\Abilities\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Logic\Entity\Components\Poison.h">
       <Filter>Entity\Components\Abilities\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\Venom.h">
