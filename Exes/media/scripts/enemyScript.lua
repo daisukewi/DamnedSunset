@@ -14,7 +14,7 @@ states = {
 	{ name = "idle", state = idleState },
 	{ name = "attack", state = attackState },
 	{ name = "move", state = moveState },
-	{ name = "run", state = runState }
+	{ name = "run", state = runState },
 	{ name = "pause", state = pauseState}
 }
 

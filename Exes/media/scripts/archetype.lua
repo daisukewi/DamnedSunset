@@ -152,6 +152,7 @@ Archetype = {
 		position = {0, 0, 0},
 		orientation = 0,
 		building_size = "1 1",
+		dimension = { 1, 1 },
 		model = "torreta_pie.mesh",
 		physic_entity = "simple",
 		physic_type = "kinematic",

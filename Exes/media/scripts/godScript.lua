@@ -6,12 +6,14 @@
 godIdleState = { event = godIdleStateEvent, action = godIdleStateAction }
 godSelectedState = { event = godSelectedStateEvent, action = godSelectedStateAction }
 godSkillState = { event = godSkillStateEvent, action = godSkillStateAction }
+godBuildingState = { event = godBuildingStateEvent, action = godBuildingStateAction }
 
 -- Tabla con todos los estados.
 godStates = {
 	{ name = "idle", state = godIdleState },
 	{ name = "selected", state = godSelectedState },
-	{ name = "skill", state = godSkillState }
+	{ name = "skill", state = godSkillState },
+	{ name = "build", state = godBuildingState }
 }
 
 -- Función que recogerá los eventos a los cuales reaccionará la máquina de estados.

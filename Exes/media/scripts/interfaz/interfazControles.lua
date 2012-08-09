@@ -1,7 +1,7 @@
 
 function cargarInterfazControlesDia()
 	-- Inicializar botones dia
-	cargarBoton(1,"martillo","construirTorreta")
+	cargarBoton(1,"martillo","buildTurret")
 	ocultarBoton(2)
 	ocultarBoton(3)
 	cargarBoton(4,"bolazul","cambiarANoche")

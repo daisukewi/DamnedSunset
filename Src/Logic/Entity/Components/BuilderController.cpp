@@ -135,9 +135,12 @@ namespace Logic
 		}
 
 		_building = true;
+		_buildingName = buildingType;
 
 		// Creamos una nueva entidad sacada de los arquetipos
-		Map::CEntity * buildInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("PhantomTurret");
+		std::string phantomBuildingName = "Phantom" + _buildingName;
+		//Map::CEntity * buildInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("PhantomTurret");
+		Map::CEntity * buildInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo(phantomBuildingName);
 		buildInfo->setName("PhantomBuilding");
 
 		// Obtenemos el tamaño que ocupa el edificio a construir de los arquetipos.
@@ -181,6 +184,7 @@ namespace Logic
 		FreeResources();
 
 		_building = false;
+		_buildingName = "";
 
 	} // cancelBuilding
 
@@ -208,8 +212,8 @@ namespace Logic
 		// y el plano que indica si se puede construir o no
 		FreeResources();
 
-		// Creamos una nueva entidad con su entidad trigger sacada de los arquetipos
-		Map::CEntity * buildInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo("Turret");
+		// Creamos una nueva entidad sacada de los arquetipos
+		Map::CEntity * buildInfo = Map::CMapParser::getSingletonPtr()->getEntityInfo(_buildingName);
 
 		// Le ponemos un nuevo nombre para poder hacer spawn y la posición del edificio fantasma
 		buildInfo->setName(buildingName.str());
@@ -221,8 +225,6 @@ namespace Logic
 		MEmplaceBuilding *b_message = new MEmplaceBuilding();
 		b_message->setAction(BuildingAction::FINISH_BUILDING);
 		_entity->emitMessage(b_message, this);
-
-		ScriptManager::CServer::getSingletonPtr()->executeScript("finishBuildingState()");
 
 		_building = false;
 

@@ -352,13 +352,15 @@ namespace GUI {
 	bool CInterfazController::isMouseOnInterface(){
 		CEGUI::Window* guiW1 = CEGUI::WindowManager::getSingleton().getWindow("Interfaz");
 		CEGUI::Window* guiW2 = CEGUI::WindowManager::getSingleton().getWindow("InterfazControles");
+		CEGUI::Window* guiW3 = CEGUI::WindowManager::getSingleton().getWindow("InterfazDia");
+		CEGUI::Window* guiW4 = CEGUI::WindowManager::getSingleton().getWindow("InterfazPrincipal");
 
 		CEGUI::Window* guiMouse = CEGUI::System::getSingletonPtr()->getWindowContainingMouse();
 
 		/*
 		Si el raton esta sobre una de estas ventanas (ventanas las cuales son transparentes), es que no esta sobre ninguna ventana secundaria.
 		*/
-		if (guiMouse == guiW1 || guiMouse == guiW2)
+		if (guiMouse == guiW1 || guiMouse == guiW2 || guiMouse == guiW3 || guiMouse == guiW4)
 		{
 			//printf("FALSE");
 			return false;
