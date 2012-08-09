@@ -80,11 +80,6 @@ namespace Logic
 			Logic::CEntity* * entidadesColision;
 			int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions(_entity->getPosition(),20,entidadesColision);
 
-			for (int i =0; i < numColisiones; ++i)
-			{
-				std::string a = entidadesColision[i]->getName();
-			}
-
 			//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
 			MParticleEffect *rc_message = new MParticleEffect();
 			rc_message->setPoint(_entity->getPosition());

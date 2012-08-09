@@ -17,6 +17,7 @@ LUA
 #include "Logic/Entity/Messages/EmplaceBuilding.h"
 #include "Logic/Entity/Messages/LanzarGranada.h"
 #include "Logic/Entity/Messages/PushEntities.h"
+#include "Logic/Entity/Messages/DisparosPotentes.h"
 
 #include "Logic/Server.h"
 
@@ -95,6 +96,45 @@ namespace ScriptManager
 		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
 
 		Logic::MPushEntities *m = new Logic::MPushEntities();
+
+		entity->emitMessage(m);
+	}
+
+	//---------------------------------------------------------
+
+	void startPowerShoot(unsigned int entityID)
+	{
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+
+		Logic::MDisparosPotentes *m = new Logic::MDisparosPotentes();
+		m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
+		m->setOrdenDisparos(Logic::OrdenDisparos::mostrarCono);
+
+		entity->emitMessage(m);
+	}
+
+	//---------------------------------------------------------
+
+	void cancelPowerShoot(unsigned int entityID)
+	{
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+
+		Logic::MDisparosPotentes *m = new Logic::MDisparosPotentes();
+		m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
+		m->setOrdenDisparos(Logic::OrdenDisparos::ocultarCono);
+
+		entity->emitMessage(m);
+	}
+
+	//---------------------------------------------------------
+
+	void launchPowerShoot(unsigned int entityID)
+	{
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+
+		Logic::MDisparosPotentes *m = new Logic::MDisparosPotentes();
+		m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
+		m->setOrdenDisparos(Logic::OrdenDisparos::disparar);
 
 		entity->emitMessage(m);
 	}

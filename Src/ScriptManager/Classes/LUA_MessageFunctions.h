@@ -23,6 +23,10 @@ namespace ScriptManager
 	void launchGrenade(unsigned int entityID);
 	void empujarCircle(unsigned int entityID);
 
+	void startPowerShoot(unsigned int entityID);
+	void launchPowerShoot(unsigned int entityID);
+	void cancelPowerShoot(unsigned int entityID);
+
 } // namespace Logic
 
 #endif // __Logic_LUA_MessageFunctions_H

@@ -49,14 +49,17 @@ function startJackGrenade()
 	god.clickTarget = nil
 
 	startGrenade(god.selected)
+	print("startJackGrenade")
 end
 
 function explodeJackGrenade()
 	launchGrenade(god.selected)
+	print("explodeJackGrenade")
 end
 
 function cancelJackGrenade()
 	cancelGrenade(god.selected)
+	print("cancelJackGrenade")
 end
 
 --------------------------------------------------

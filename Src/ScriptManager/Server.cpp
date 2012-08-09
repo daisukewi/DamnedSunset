@@ -845,6 +845,18 @@ namespace ScriptManager
 			[
 				luabind::def("empujarCircle", &empujarCircle)
 			];
+		luabind::module(_lua)
+			[
+				luabind::def("startPowerShoot", &startPowerShoot)
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("cancelPowerShoot", &cancelPowerShoot)
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("launchPowerShoot", &launchPowerShoot)
+			];
 
 		//---------------------------------------------------------
 
