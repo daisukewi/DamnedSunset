@@ -30,3 +30,13 @@ function godAction()
 	local nextState = godStates[god.state].state.action()
 	god.state = nextState
 end
+
+-- TODO HACK - Superhack de la muerte para poner los recursos iniciales del jugador. Lo pongo aquí de forma provisional hasta que Dani termine su movida de
+-- inicialización de parámetros. Esto está fatalmente hecho, no lo hagáis en ningún sitio, que conste que es provisional nada mas.
+
+-- El recurso del tiempo son doce horas pero lo pongo en minutos para poder hacer que haya edificios que cuesten una hora y cuarenta minutos o algo así.
+-- Para luego mostrarla bastaría con dividir entre 60.
+god.dayTime = 720
+
+-- Solenium, ahora mismo lo pongo un poco el primer número que se me ocurre porque no sé ni lo que van a valer los edificios.
+god.solenium = 1000

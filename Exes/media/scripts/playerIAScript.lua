@@ -23,7 +23,7 @@ function playerIdleStateAction(entity)
 	--Parar de moverese
 	--stopGoTo(entity)
 	
-	print('plyerIdleStateAction')
+	--print('plyerIdleStateAction')
 	
 	
 	return 1

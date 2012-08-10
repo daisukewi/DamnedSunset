@@ -92,7 +92,9 @@ function cambiarADia()
 	activarInterfazDia()
 	cargarInterfazControlesDia()
 	
-	actualizarHorasAmanecer(12 * 60)
-	actualizarSolenium(750)
+	--actualizarHorasAmanecer(12 * 60)
+	actualizarHorasAmanecer(god.dayTime)
+	--actualizarSolenium(750)
+	actualizarSolenium(god.solenium)
 end
 

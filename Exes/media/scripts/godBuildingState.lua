@@ -12,6 +12,14 @@ function godBuildingStateEvent(event)
 		-- Si recibo un evento de selección (click izquierdo) mando construir el edificio actual.
 		emplaceBuild()
 		
+		-- Resto los recursos del edificio.
+		god.dayTime = god.dayTime - buildingsCost[buildParameters.building].dayTime
+		god.solenium = god.solenium - buildingsCost[buildParameters.building].solenium
+		
+		-- Aviso a la interfaz que refresque la cantidad de recursos.
+		actualizarHorasAmanecer(god.dayTime)
+		actualizarSolenium(god.solenium)
+		
 		-- Paso al estado idle.
 		nextState = 1
 	-- Evento de click de acción.
