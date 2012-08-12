@@ -209,7 +209,7 @@ Archetype = {
 
 	EnemyEnergyGenerator = {
 		type = "EnemyEnergyGenerator",
-		tag = "enemy",
+		tag = "enemyBuilding",
 		position = {0, 0, 0},
 		scale = 10.0,
 		orientation = 0,
@@ -552,7 +552,7 @@ Archetype = {
 
 	EnemyDoor = {
 		type = "EnemyDoor",
-		tag = "enemy",
+		tag = "enemyBuilding",
 		position = {0, 0, 0},
 		cupulaPosition = {0, 0, 0},
 		cupulaRadius = 100.0,

@@ -803,6 +803,14 @@ namespace ScriptManager
 			];
 		luabind::module(_lua)
 			[
+				luabind::def("isEnemyBuilding", &isEnemyBuilding)
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("isPlayerBuilding", &isPlayerBuilding)
+			];
+		luabind::module(_lua)
+			[
 				luabind::def("getEntityID", &getEntityID)
 			];
 		luabind::module(_lua)

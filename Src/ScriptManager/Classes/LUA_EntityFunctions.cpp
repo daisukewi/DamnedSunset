@@ -53,6 +53,32 @@ namespace ScriptManager
 
 	//---------------------------------------------------------
 
+	bool isEnemyBuilding(unsigned int entityID)
+	{
+		Logic::CEntity* entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+		if (entity != NULL)
+		{
+			return !entity->getTag().compare("enemyBuilding");
+		}
+
+		return false;
+	}
+
+	//---------------------------------------------------------
+
+	bool isPlayerBuilding(unsigned int entityID)
+	{
+		Logic::CEntity* entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+		if (entity != NULL)
+		{
+			return !entity->getTag().compare("playerBuilding");
+		}
+
+		return false;
+	}
+
+	//---------------------------------------------------------
+
 	unsigned int getEntityID (std::string entityName)
 	{
 		Logic::CEntity* entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName(entityName);

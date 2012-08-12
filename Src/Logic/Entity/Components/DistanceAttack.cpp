@@ -114,31 +114,28 @@ namespace Logic
 					_continue = false;
 				
 					if (Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(m->getEntity()->getEntityID())){
-						if (m->getEntity()->getTag().compare("enemy"))
-							{
-								//Posicionarse mirando al enemigo
-								float yaw = atan((_attackEntity->getPosition().x - _entity->getPosition().x) / (_attackEntity->getPosition().z - _entity->getPosition().z));
-								if ((_attackEntity->getPosition().z - _entity->getPosition().z) >= 0)
-									yaw += Math::PI;
-								_entity->setYaw(yaw);
+						//Posicionarse mirando al enemigo
+						float yaw = atan((_attackEntity->getPosition().x - _entity->getPosition().x) / (_attackEntity->getPosition().z - _entity->getPosition().z));
+						if ((_attackEntity->getPosition().z - _entity->getPosition().z) >= 0)
+							yaw += Math::PI;
+						_entity->setYaw(yaw);
 
 
-								MDamaged *m_dam = new MDamaged();
-								m_dam->setHurt((_damage)); ///Descomentar para reducir el daño en base a la distancia de los personajes (100.0f * ((_entity->getPosition() - m->getEntity()->getPosition()).length() + 0.1))) * _damage);
-								m_dam->setKiller(_entity);
-								m->getEntity()->emitMessage(m_dam, this);
+						MDamaged *m_dam = new MDamaged();
+						m_dam->setHurt((_damage)); ///Descomentar para reducir el daño en base a la distancia de los personajes (100.0f * ((_entity->getPosition() - m->getEntity()->getPosition()).length() + 0.1))) * _damage);
+						m_dam->setKiller(_entity);
+						m->getEntity()->emitMessage(m_dam, this);
 							
-								MSoundEffect *m_sound = new MSoundEffect();
-								m_sound->setSoundEffect(_attackSoundEffect);
-								_entity->emitMessage(m_sound);
+						MSoundEffect *m_sound = new MSoundEffect();
+						m_sound->setSoundEffect(_attackSoundEffect);
+						_entity->emitMessage(m_sound);
 
-								MSetAnimation *m_anim2  =new MSetAnimation();
-								m_anim2->setAnimationName("AttackRifle");
-								m_anim2->setNextAnimationName("HoldRifle");
+						MSetAnimation *m_anim2  =new MSetAnimation();
+						m_anim2->setAnimationName("AttackRifle");
+						m_anim2->setNextAnimationName("HoldRifle");
 								
-								_entity->emitMessage(m_anim2);
+						_entity->emitMessage(m_anim2);
 						
-							}
 					}
 				}else{
 					_continue = true;
@@ -169,52 +166,46 @@ namespace Logic
 				_attackCountTime = 0;
 
 				if (Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(_IDAttackEntity)){	
-					if (!_attackEntity->getTag().compare("enemy"))
-						{
-							//Si esta a menos de la distancia máxima
-							float difX = _attackEntity->getPosition().x - _entity->getPosition().x;
-							float difZ = _attackEntity->getPosition().z - _entity->getPosition().z;
+					//Si esta a menos de la distancia máxima
+					float difX = _attackEntity->getPosition().x - _entity->getPosition().x;
+					float difZ = _attackEntity->getPosition().z - _entity->getPosition().z;
 
-							if ((_maxDistance*_maxDistance) >= (difX*difX + difZ*difZ)){
+					if ((_maxDistance*_maxDistance) >= (difX*difX + difZ*difZ)){
 
-								//Posicionarse mirando al enemigo
-								float yaw = atan((_attackEntity->getPosition().x - _entity->getPosition().x) / (_attackEntity->getPosition().z - _entity->getPosition().z));
-								if ((_attackEntity->getPosition().z - _entity->getPosition().z) >= 0)
-									yaw += Math::PI;
-								_entity->setYaw(yaw);
+						//Posicionarse mirando al enemigo
+						float yaw = atan((_attackEntity->getPosition().x - _entity->getPosition().x) / (_attackEntity->getPosition().z - _entity->getPosition().z));
+						if ((_attackEntity->getPosition().z - _entity->getPosition().z) >= 0)
+							yaw += Math::PI;
+						_entity->setYaw(yaw);
 
 
-								//Empezar la animación si es acaba de comenzar el ataque
-								if (_attackStart){
-									_attackStart = false;
+						//Empezar la animación si es acaba de comenzar el ataque
+						if (_attackStart){
+							_attackStart = false;
 
-									MSetAnimation *m_anim2  =new MSetAnimation();
-									m_anim2->setAnimationName("AttackRifle");
-									m_anim2->setLoop(true);
-									_entity->emitMessage(m_anim2);
-
-
-								}
+							MSetAnimation *m_anim2  =new MSetAnimation();
+							m_anim2->setAnimationName("AttackRifle");
+							m_anim2->setLoop(true);
+							_entity->emitMessage(m_anim2);
 
 
-								MDamaged *m_dam = new MDamaged();
-								m_dam->setHurt((_damage)); ///Descomentar para reducir el daño en base a la distancia de los personajes (100.0f * ((_entity->getPosition() - m->getEntity()->getPosition()).length() + 0.1))) * _damage);
-								m_dam->setKiller(_entity);
-								_attackEntity->emitMessage(m_dam, this);
-
-
-
-								MSoundEffect *m_sound = new MSoundEffect();
-								m_sound->setSoundEffect(_attackSoundEffect);
-								_entity->emitMessage(m_sound);
-							}else{
-								finalizar = true;
-							}
-		
-						}else{
-							finalizar = true;
-					
 						}
+
+
+						MDamaged *m_dam = new MDamaged();
+						m_dam->setHurt((_damage)); ///Descomentar para reducir el daño en base a la distancia de los personajes (100.0f * ((_entity->getPosition() - m->getEntity()->getPosition()).length() + 0.1))) * _damage);
+						m_dam->setKiller(_entity);
+						_attackEntity->emitMessage(m_dam, this);
+
+
+
+						MSoundEffect *m_sound = new MSoundEffect();
+						m_sound->setSoundEffect(_attackSoundEffect);
+						_entity->emitMessage(m_sound);
+					}else{
+						finalizar = true;
+					}
+
 				}else{
 					finalizar = true;
 				}

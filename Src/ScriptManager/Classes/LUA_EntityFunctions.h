@@ -18,6 +18,8 @@ namespace ScriptManager
 	void deleteEntity(unsigned int entityID);
 	bool isPlayer (unsigned int entityID);
 	bool isEnemy (unsigned int entityID);
+	bool isEnemyBuilding (unsigned int entityID);
+	bool isPlayerBuilding (unsigned int entityID);
 	unsigned int getEntityID (std::string entityName);
 	std::string getName (unsigned int entityID);
 	std::string getTag (unsigned int entityID);

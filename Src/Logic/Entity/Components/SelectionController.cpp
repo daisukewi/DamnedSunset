@@ -53,7 +53,7 @@ namespace Logic
 
 		std::stringstream script;
 		script << "god = {} ";
-		script << "god.selected = -1";
+		script << "god.playersSelected = {}";
 		ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
 		if (entityInfo->hasAttribute("initState"))
@@ -502,10 +502,6 @@ namespace Logic
 		_waitingForSelectable = false;
 
 		//Send a message with the Selection petition, the world mouse click point, and the entity.
-		/*std::stringstream procSelec;
-		procSelec << "processSelection(" << _targetEntityID << ", " << _worldCollisionPoint.x << ", " << _worldCollisionPoint.y << ", " << _worldCollisionPoint.z << ")";
-		ScriptManager::CServer::getSingletonPtr()->executeScript(procSelec.str().c_str());*/
-
 		std::stringstream procSelec;
 		procSelec << "selectionParameters = { target = " << _targetEntityID << ", point_x = " << _worldCollisionPoint.x << ", point_y = " << _worldCollisionPoint.y << ", point_z = " << _worldCollisionPoint.z << " } ";
 		procSelec << "godEvent(\"OnSelectionClick\")";
@@ -520,10 +516,6 @@ namespace Logic
 		_waitingForActuable = false;
 
 		// Send a message with the Action petition, the world mouse richt-click point, and the entity.
-		/*std::stringstream procSelec;
-		procSelec << "processAction(" << _targetEntityID << ", " << _worldCollisionPoint.x << ", " << _worldCollisionPoint.y << ", " << _worldCollisionPoint.z << ")";
-		ScriptManager::CServer::getSingletonPtr()->executeScript(procSelec.str().c_str());*/
-
 		std::stringstream procAction;
 		procAction << "actionParameters = { target = " << _targetEntityID << ", point_x = " << _worldCollisionPoint.x << ", point_y = " << _worldCollisionPoint.y << ", point_z = " << _worldCollisionPoint.z << " } ";
 		procAction << "godEvent(\"OnActionClick\")";
@@ -533,16 +525,17 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CSelectionController::processMultipleSelection(bool player1inside, bool player2inside, bool player3inside){
+	void CSelectionController::processMultipleSelection(bool player1inside, bool player2inside, bool player3inside)
+	{
 		_waitingForSelectable = false;
-		//Avisar a LUA de la selección múltiple
-		std::stringstream procSelec;
+
 		int id1 = player1inside?_player1->getEntityID():-1; 
 		int id2 = player2inside?_player2->getEntityID():-1; 
-		int id3 = player3inside?_player3->getEntityID():-1; 
-		procSelec << "processMultipleSelection(" << id1 << "," 
-												 << id2 << "," 
-												 << id3 << ")";
+		int id3 = player3inside?_player3->getEntityID():-1;
+
+		std::stringstream procSelec;
+		procSelec << "multiSelectionParameters = { player1 = " << id1 << ", player2 = " << id2 << ", player3 = " << id3 << " } ";
+		procSelec << "godEvent(\"OnMultiSelectionClick\")";
 		ScriptManager::CServer::getSingletonPtr()->executeScript(procSelec.str().c_str());
 
 	} // processMultipleSelecion

@@ -11,17 +11,42 @@ function godIdleStateEvent(event)
 	if (event == "OnSelectionClick") then
 		-- Solo proceso los clicks de selección en el caso de que sea de noche.
 		if (not(day)) then
-			-- Solo proceso la selección si el objetivo es distinto del que tengo seleccionado ahora mismo.
-			if (god.selected ~= selectionParameters.target) then
-				-- Primero deselecciono el objetivo actual.
-				unselectCurrentTarget()
-				if (selectNewTarget(selectionParameters.target)) then
-					-- Si se ha podido seleccionar un objetivo nuevo paso al estado de seleccionado.
-					nextState = 2
-				else
-					-- Si no se ha podido seleccionar nada me quedo en el estado actual.
-					nextState = 1
+			-- Primero deselecciono todos los objetivos actuales
+			unselectCurrentTargets()
+			-- Intento seleccionar el nuevo objetivo
+			if (selectNewTarget(selectionParameters.target)) then
+				-- Si se ha podido seleccionar un objetivo nuevo paso al estado de seleccionado.
+				nextState = 2
+			else
+				-- Si no se ha podido seleccionar nada me quedo en el estado actual.
+				nextState = 1
+			end
+		else
+			nextState = 1
+		end
+	-- Evento de selección múltiple
+	elseif (event == "OnMultiSelectionClick") then
+		-- Solo proceso los clicks de selección en el caso de que sea de noche.
+		if (not(day)) then
+			-- Primero deselecciono todos los objetivos actuales
+			unselectCurrentTargets()
+			
+			-- Hago una búsqueda por los objetivos seleccionados buscando al mismo tiempo cual es el primero
+			local primarySelected = false
+			for key, playerID in pairs(multiSelectionParameters) do
+				if (playerID ~= -1) then 
+					if (not(primarySelected)) then
+						if (selectNewTarget(playerID)) then
+							primarySelected = true
+						end
+					else
+						selectNewSecondTarget(playerID)
+					end
 				end
+			end
+			
+			if (primarySelected) then
+				nextState = 2
 			else
 				nextState = 1
 			end

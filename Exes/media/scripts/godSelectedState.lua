@@ -9,32 +9,55 @@ function godSelectedStateEvent(event)
 	
 	-- Evento de click de selección.
 	if (event == "OnSelectionClick") then
-		-- Solo proceso la selección si el objetivo es distinto del que tengo seleccionado ahora mismo.
-		if (god.selected ~= selectionParameters.target) then
-			-- Primero deselecciono el objetivo actual.
-			unselectCurrentTarget()
-			if (selectNewTarget(selectionParameters.target)) then
-				-- Si se ha podido seleccionar un objetivo nuevo, me quedo en el estado actual.
-				nextState = 2
-			else
-				-- Si no se ha podido seleccionar nada paso al estado de idle.
-				nextState = 1
-			end
-		else
-			-- Si el objetivo de la selección es el mismo que ya tengo seleccionado, no hago nada y me quedo en el estado actual.
+		-- Primero deselecciono todos los objetivos actuales
+		unselectCurrentTargets()
+		-- Intento seleccionar el nuevo objetivo
+		if (selectNewTarget(selectionParameters.target)) then
+			-- Si se ha podido seleccionar un objetivo nuevo, me quedo en el estado actual.
 			nextState = 2
+		else
+			-- Si no se ha podido seleccionar nada paso al estado de idle.
+			nextState = 1
+		end
+	-- Evento de selección múltiple
+	elseif (event == "OnMultiSelectionClick") then
+		-- Primero deselecciono todos los objetivos actuales
+		unselectCurrentTargets()
+		
+		-- Hago una búsqueda por los objetivos seleccionados buscando al mismo tiempo cual es el primero
+		local primarySelected = false
+		for key, playerID in pairs(multiSelectionParameters) do
+			if (playerID ~= -1) then 
+				if (not(primarySelected)) then
+					if (selectNewTarget(playerID)) then
+						primarySelected = true
+					end
+				else
+					selectNewSecondTarget(playerID)
+				end
+			end
+		end
+		
+		if (primarySelected) then
+			nextState = 2
+		else
+			nextState = 1
 		end
 	-- Evento de click de acción.
 	elseif (event == "OnActionClick") then
 		if (actionParameters.point_y ~= -1) then
-			-- Primero compruebo si el objetivo seleccionado es un personaje.
-			if ((god.selected ~= -1) and (isPlayer(god.selected))) then
-				-- Si el objetivo de la acción es un enemigo le mando una orden de ataque al personaje seleccionado.
-				if ((actionParameters.target ~= -1) and (isEnemy(actionParameters.target))) then
-					sendAttack(actionParameters.target, god.selected)
+			-- Primero compruebo si el primer objetivo seleccionado es un personaje.
+			if ((god.playersSelected[1] ~= -1) and (isPlayer(god.playersSelected[1]))) then
+				-- Si el objetivo de la acción es un enemigo le mando una orden de ataque al todos los personajes seleccionados
+				if ((actionParameters.target ~= -1) and ((isEnemy(actionParameters.target)) or (isEnemyBuilding(actionParameters.target)))) then
+					for i, playerID in pairs(god.playersSelected) do
+						sendAttack(actionParameters.target, playerID)
+					end
 				else
-					-- Si el objetivo de la acción no es ningún entidad o no es un enemigo le mando una orden de movimiento al personaje seleccionado.
-					sendMovement(actionParameters.point_x, actionParameters.point_y, actionParameters.point_z, god.selected)
+					-- Si el objetivo de la acción no es ningún entidad o no es un enemigo le mando una orden de movimiento a todos los personajes seleccionados.
+					for i, playerID in pairs(god.playersSelected) do
+						sendMovement(actionParameters.point_x, actionParameters.point_y, actionParameters.point_z, playerID)
+					end
 				end
 			end
 		end
@@ -44,7 +67,7 @@ function godSelectedStateEvent(event)
 	-- Evento de click en una habilidad del personaje seleccionado.
 	elseif (event == "OnSkillClick") then
 		-- Si el cooldown de la habilidad es cero o menos la hago.
-		if (players[god.selected].currentSkillsCooldown[skillParameters.skill] <= 0) then
+		if (players[god.playersSelected[1]].currentSkillsCooldown[skillParameters.skill] <= 0) then
 			-- Empiezo la habilidad.
 			god.startSkillFunction()
 			

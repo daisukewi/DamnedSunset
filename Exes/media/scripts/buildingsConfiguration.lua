@@ -9,7 +9,7 @@ buildingsCost = {}
 
 buildingsCost["Turret"] = {
 	dayTime = 90,
-	solenium = 500,
+	solenium = 100,
 }
 
 function buildTurret()

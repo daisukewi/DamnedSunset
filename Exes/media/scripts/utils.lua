@@ -114,7 +114,7 @@ function selectNewTarget(target)
 	--Send selected to new target
 	if ((target ~= -1) and (isPlayer(target))) then
 		--Select new target
-		god.selected = target
+		table.insert(god.playersSelected, target)
 	
 		local mensaje = LUA_MEntitySelected()
 		mensaje:setEntityTo(target)
@@ -136,15 +136,40 @@ end
 
 ------------------------------------------------------
 
--- Función que deselecciona el objetivo actual de la entidad Dios.
-function unselectCurrentTarget()
-	if (god.selected ~= -1) then
+-- Función que selecciona un objetivo secundario y actualiza la entidad Dios.
+-- elve si se ha seleccionado algo o no.
+function selectNewSecondTarget(target)
+
+	local selected = false
+
+	if ((target ~= -1) and (isPlayer(target))) then
+		--Select new target
+		table.insert(god.playersSelected, target)
+	
+		local selectSecondMensaje = LUA_MEntitySelected()
+		selectSecondMensaje:setSelectedType("SECONDARY")
+		selectSecondMensaje:setEntityTo(target)
+		selectSecondMensaje:setSelectedEntity(target)
+		selectSecondMensaje:send()
+		
+		selected = true
+	end
+	
+	return selected
+end
+
+------------------------------------------------------
+
+-- Función que deselecciona todos los jugadores seleccionados.
+function unselectCurrentTargets()
+	for i, playerID in pairs(god.playersSelected) do
 		local mensaje = LUA_MEntitySelected()
-		mensaje:setEntityTo(god.selected)
+		mensaje:setEntityTo(playerID)
 		mensaje:setSelectedEntity(0)
 		mensaje:send()
-		god.selected = -1
 	end
+	
+	god.playersSelected = {}
 end
 
 ------------------------------------------------------

@@ -48,17 +48,17 @@ function startJackGrenade()
 	god.cancelSkillFunction = cancelJackGrenade
 	god.clickTarget = nil
 
-	startGrenade(god.selected)
+	startGrenade(god.playersSelected[1])
 	print("startJackGrenade")
 end
 
 function explodeJackGrenade()
-	launchGrenade(god.selected)
+	launchGrenade(god.playersSelected[1])
 	print("explodeJackGrenade")
 end
 
 function cancelJackGrenade()
-	cancelGrenade(god.selected)
+	cancelGrenade(god.playersSelected[1])
 	print("cancelJackGrenade")
 end
 
@@ -74,6 +74,6 @@ function jackEmpuje()
 	--}
 	--godEvent("OnSkillClick")
 
-	empujarCircle(god.selected)
+	empujarCircle(god.playersSelected[1])
 	print("jackEmpuje")
 end
