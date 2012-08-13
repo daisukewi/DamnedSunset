@@ -24,8 +24,8 @@ namespace ScriptManager
 	void launchGrenade(unsigned int entityID, float point_x, float point_y, float point_z);
 	void empujarCircle(unsigned int entityID);
 
-	void startPowerShoot(unsigned int entityID);
-	void launchPowerShoot(unsigned int entityID);
+	void startPowerShoot(unsigned int entityID, float point_x, float point_y, float point_z);
+	void launchPowerShoot(unsigned int entityID, float point_x, float point_y, float point_z);
 	void cancelPowerShoot(unsigned int entityID);
 
 } // namespace Logic

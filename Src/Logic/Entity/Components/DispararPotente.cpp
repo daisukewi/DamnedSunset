@@ -111,10 +111,7 @@ namespace Logic
 				// Posicion destino solo con X, Y.
 				Vector2 posDestino = *m_disp->getPosition();
 				// Posicion destino con X, Y, Z.
-				//Vector3 posDestino3 = Vector3(posDestino.x,4,posDestino.y);
-				std::cout << posDestino;
-				std::cout << _entity->getPosition();
-				Vector3 posDestino3 = ((_entity->getPosition().length() + _radioAction)/(_entity->getPosition().length())) * _entity->getPosition();
+				Vector3 posDestino3 = Vector3(posDestino.x,4,posDestino.y);
 
 				// Calculamos el vector de direccion al que apunta el ratón
 				Vector3 v = Vector3(posDestino3.x - _entity->getPosition().x, 0, posDestino3.z - _entity->getPosition().z);
@@ -142,7 +139,7 @@ namespace Logic
 					Vector3 targ = entidad->getPosition() - _entity->getPosition();
 
 					// Si está en el sector circular seleccionado se daña a la entidad
-					if ((v.angleBetween(targ)).valueDegrees() < _angleAction/2.0f)
+					if ((v.angleBetween(targ)).valueDegrees() < _angleAction/2.0f && _entity->getEntityID() != entidad->getEntityID())
 					{
 						// Enviamos mensaje de daño a la entidad
 						MDamaged *mDamaged = new MDamaged();

@@ -96,6 +96,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Heal.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LanzadorGranadas.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyController.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\LanzadorLlamas.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\MapBuilding.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\CameraController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DamageTrigger.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\IsTouched.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\KeyboardEvent.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\LanzarGranada.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\LanzarLlamas.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MouseEvent.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MouseMove.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\MoveSteering.cpp" />
@@ -221,6 +223,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Heal.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LanzadorGranadas.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemyController.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\LanzadorLlamas.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Life.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MapBuilding.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MapUnit.h" />
@@ -285,6 +288,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\IsTouched.h" />
     <ClInclude Include="..\..\src\logic\entity\messages\KeyboardEvent.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\LanzarGranada.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\LanzarLlamas.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MouseEvent.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MouseMove.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\MoveSteering.h" />

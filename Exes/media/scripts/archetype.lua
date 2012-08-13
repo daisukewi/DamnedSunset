@@ -450,11 +450,20 @@ Archetype = {
 		billboardDisparoWith = 150.0,
 		billboardDisparoHeight = 150.0,
 
+		billboardLlamasMaterial = "circuloSeleccion",
+		billboardLlamasWith = 150.0,
+		billboardLlamasHeight = 150.0,
+
 		afectaEmpujar = 100,
 
-		angleDisparoPotente = 15,
+		angleDisparoPotente = 60,
 		radioDisparoPotente = 100,
 		damageDisparoPotente = 60,
+
+		angleLanzallamas = 15,
+		radioLanzallamas = 80,
+		damageLanzallamas = 20,
+		timeLanzallamas = 3,
 
 		initState = 1,
 

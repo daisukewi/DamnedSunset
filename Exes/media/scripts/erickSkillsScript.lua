@@ -72,16 +72,16 @@ function startErickPowerShoot()
 	god.cancelSkillFunction = cancelErickPowerShoot
 	god.clickTarget = nil
 
-	startPowerShoot(god.playersSelected[1])
+	startPowerShoot(god.playersSelected[1], 0, 0, 0)
 	print("startErickPowerShoot")
 end
 
 function explodeErickPowerShoot()
-	launchPowerShoot(god.playersSelected[1])
+	launchPowerShoot(god.playersSelected[1], skillParameters.point_x, skillParameters.point_y, skillParameters.point_z)
 	--print("god.selected")
 	--print(god.selected)
 end
 
 function cancelErickPowerShoot()
-	cancelPowerShoot(god.playersSelected[1])
+	cancelPowerShoot(god.playersSelected[1], 0, 0, 0)
 end

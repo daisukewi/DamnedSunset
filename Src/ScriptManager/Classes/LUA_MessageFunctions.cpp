@@ -86,7 +86,7 @@ namespace ScriptManager
 
 		Logic::MLanzarGranada *m = new Logic::MLanzarGranada();
 		//m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
-		m->setPosition(Vector2(point_x, point_y));
+		m->setPosition(Vector2(point_x, point_z));
 		m->setOrdenGranada(Logic::OrdenGranada::lanzar);
 
 		entity->emitMessage(m);
@@ -105,12 +105,12 @@ namespace ScriptManager
 
 	//---------------------------------------------------------
 
-	void startPowerShoot(unsigned int entityID)
+	void startPowerShoot(unsigned int entityID, float point_x, float point_y, float point_z)
 	{
 		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
 
 		Logic::MDisparosPotentes *m = new Logic::MDisparosPotentes();
-		m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
+		m->setPosition(Vector2(point_x, point_z));
 		m->setOrdenDisparos(Logic::OrdenDisparos::mostrarCono);
 
 		entity->emitMessage(m);
@@ -123,7 +123,7 @@ namespace ScriptManager
 		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
 
 		Logic::MDisparosPotentes *m = new Logic::MDisparosPotentes();
-		m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
+		m->setPosition(Vector2(0, 0));
 		m->setOrdenDisparos(Logic::OrdenDisparos::ocultarCono);
 
 		entity->emitMessage(m);
@@ -131,12 +131,12 @@ namespace ScriptManager
 
 	//---------------------------------------------------------
 
-	void launchPowerShoot(unsigned int entityID)
+	void launchPowerShoot(unsigned int entityID, float point_x, float point_y, float point_z)
 	{
 		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
 
 		Logic::MDisparosPotentes *m = new Logic::MDisparosPotentes();
-		m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
+		m->setPosition(Vector2(point_x, point_z));
 		m->setOrdenDisparos(Logic::OrdenDisparos::disparar);
 
 		entity->emitMessage(m);
