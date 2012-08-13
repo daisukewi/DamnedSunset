@@ -87,6 +87,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DetonadorBolaTeltr.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DetonadorGranada.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DetonadorGranadaAturdir.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\DetonadorGranadaEnvenenar.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DispararPotente.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DistanceAttack.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Empujable.cpp" />
@@ -112,6 +113,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PlayerAIController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PlayerPerception.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Poison.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\RaycastController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\RouteTo.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Script.cpp" />
@@ -213,6 +215,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DetonadorBolaTeltr.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DetonadorGranada.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DetonadorGranadaAturdir.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\DetonadorGranadaEnvenenar.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DispararPotente.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DistanceAttack.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Empujable.h" />
@@ -236,6 +239,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PlayerAIController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PlayerPerception.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Poison.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RaycastController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RouteTo.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Script.h" />

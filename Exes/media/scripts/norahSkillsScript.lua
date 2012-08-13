@@ -6,10 +6,14 @@ function activateNorahSkills(playerID)
 	-- Configuración de los cooldowns de las habilidades.
 	-- Cada índice corresponde a una habilidad y el valor es el tiempo del cooldown en segundos.
 	players[playerID].skillsCooldown = { 
+		[1] = 5, 
+		[2] = 5,
 	}
 	
 	-- Tabla auxiliar para llevar la cuenta del cooldown actual de cada habilidad.
 	players[playerID].currentSkillsCooldown = {
+		[1] = 0,
+		[2] = 5,
 	}
 end
 
@@ -30,15 +34,27 @@ end
 -- La habilidad de la granada es de tipo NO INMEDIATO
 
 function norahGrenade()
+	god.startSkillFunction = startNorahGrenade
+	skillParameters = {
+		skill = 1,
+	}
+	godEvent("OnSkillClick")
 end
 
 function startNorahGrenade()
+	god.finishSkillFunction = explodeNorahGrenade
+	god.cancelSkillFunction = cancelNorahGrenade
+	god.clickTarget = nil
+	
+	startGrenade(god.playersSelected[1], 0, 0, 0)
 end
 
 function explodeNorahGrenade()
+	launchGrenade(god.playersSelected[1], 0, 0, 0)
 end
 
 function cancelNorahGrenade()
+	cancelGrenade(god.playersSelected[1], 0, 0, 0)
 end
 
 --------------------------------------------------

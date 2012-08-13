@@ -6,11 +6,13 @@ function activateErickSkills(playerID)
 	-- Configuración de los cooldowns de las habilidades.
 	-- Cada índice corresponde a una habilidad y el valor es el tiempo del cooldown en segundos.
 	players[playerID].skillsCooldown = {
+		[1] = 5, 
 		[3] = 5,
 	}
 
 	-- Tabla auxiliar para llevar la cuenta del cooldown actual de cada habilidad.
 	players[playerID].currentSkillsCooldown = {
+		[1] = 0,
 		[3] = 0,
 	}
 end
@@ -33,15 +35,27 @@ end
 -- La habilidad de la granada es de tipo NO INMEDIATO
 
 function erickGrenade()
+	god.startSkillFunction = startNorahGrenade
+	skillParameters = {
+		skill = 1,
+	}
+	godEvent("OnSkillClick")
 end
 
 function startErickGrenade()
+	god.finishSkillFunction = explodeErickGrenade
+	god.cancelSkillFunction = cancelErickGrenade
+	god.clickTarget = nil
+	
+	startGrenade(god.playersSelected[1], 0, 0, 0)
 end
 
 function explodeErickGrenade()
+	launchGrenade(god.playersSelected[1], 0, 0, 0)
 end
 
 function cancelErickGrenade()
+	cancelGrenade(god.playersSelected[1], 0, 0, 0)
 end
 
 --------------------------------------------------

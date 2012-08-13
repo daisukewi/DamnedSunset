@@ -12,6 +12,7 @@ namespace Logic
 		mostrar = 0,
 		ocultar = 1,
 		lanzar = 2,
+
 	};
 
 	class MLanzarGranada : public IMessage

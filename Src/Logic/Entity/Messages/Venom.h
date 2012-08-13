@@ -30,14 +30,14 @@ namespace Logic
 
 		@return int
 		*/
-		int getVenomDamage();
+		float getVenomDamage();
 
 		/**
 		Método que establece el daño del veneno
 
 		@param venomDamage
 		*/
-		void setVenomDamage(int venomDamage);
+		void setVenomDamage(float venomDamage);
 
 		/**
 		Método que devuelve el daño del veneno
@@ -58,30 +58,30 @@ namespace Logic
 
 		@return int
 		*/
-		int getCount();
+		float getCount();
 
 		/**
 		Método que establece en cuantas veces se reparte el daño del veneno
 
 		@param count
 		*/
-		void setCount(int count);
+		void setCount(float count);
 
 	private:
 		/**
 		Daño del veneno
 		*/
-		int _venomDamage; //Daño del veneno
+		float _venomDamage; //Daño del veneno
 
 		/**
 		Tiempo envenenado
 		*/
-		int _venomTime;
+		float _venomTime;
 
 		/**
 		En cuantas veces se reparte el daño del veneno
 		*/
-		int _count;
+		float _venomCount;
 
 		
 	};

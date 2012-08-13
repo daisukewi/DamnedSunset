@@ -303,7 +303,7 @@ Archetype = {
 		memInitPoint = true,
 		runLifeThreshold = 50,
 
-		damage = 2,
+		damage = 0,
 		attackCoolDown = 250,
 
 		trigger_shape = "trigger_sphere",
@@ -335,6 +335,44 @@ Archetype = {
 		damage = 60.0,
 		timeEmpujar = 0.3,
 		distEmpujarSeg = 150.0,
+	},
+	
+	GranadaAturdir = {
+		type = "GranadaAturdir",
+		position = {0, 3, 0},
+		orientation = 0,
+		model = "Esfera.mesh",
+		scale = 12.0,
+		physic_entity = "simple",
+		physic_type = "dynamic",
+		physic_shape = "box",
+		physic_dimensions = { 1.0, 1.0, 1.0 },
+		physic_height = 2.0,
+		physic_radius = 0.5,
+		physic_mass = 1,
+		physic_collision_group = 6,
+
+		time = 3.0,
+	},
+	
+	GranadaEnvenenar = {
+		type = "GranadaEnvenenar",
+		position = {0, 3, 0},
+		orientation = 0,
+		model = "Esfera.mesh",
+		scale = 12.0,
+		physic_entity = "simple",
+		physic_type = "dynamic",
+		physic_shape = "box",
+		physic_dimensions = { 1.0, 1.0, 1.0 },
+		physic_height = 2.0,
+		physic_radius = 0.5,
+		physic_mass = 1,
+		physic_collision_group = 6,
+
+		time = 10.0,
+		damage = 20.0,
+		count = 4.0,
 	},
 
 	BolaTeltr = {
@@ -392,6 +430,7 @@ Archetype = {
 		billboardLanzamientoWith = 150.0,
 		billboardLanzamientoHeight = 150.0,
 		alcanceGranada = 70.0,
+		nombreGranada = "Granada",
 
 		afectaEmpujar = 100,
 
@@ -406,7 +445,7 @@ Archetype = {
 		trigger_radius = 150,
 		trigger_collision_group = 3,
 
-		damage = 33,
+		damage = 10,
 	},
 
 	Erick = {
@@ -445,6 +484,7 @@ Archetype = {
 		billboardLanzamientoWith = 150.0,
 		billboardLanzamientoHeight = 150.0,
 		alcanceGranada = 70.0,
+		nombreGranada = "GranadaAturdir",
 
 		billboardDisparoMaterial = "circuloSeleccion",
 		billboardDisparoWith = 150.0,
@@ -512,6 +552,7 @@ Archetype = {
 		billboardLanzamientoWith = 150.0,
 		billboardLanzamientoHeight = 150.0,
 		alcanceGranada = 70.0,
+		nombreGranada = "GranadaEnvenenar",
 
 		afectaEmpujar = 100,
 

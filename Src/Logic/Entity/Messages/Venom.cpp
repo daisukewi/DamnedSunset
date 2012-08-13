@@ -24,11 +24,11 @@ namespace Logic
 	} // MVenom
 
 
-	int MVenom::getVenomDamage(){
+	float MVenom::getVenomDamage(){
 		return _venomDamage;
 	}
 
-	void MVenom::setVenomDamage(int venomDamage){
+	void MVenom::setVenomDamage(float venomDamage){
 		_venomDamage = venomDamage;
 	}
 
@@ -43,12 +43,12 @@ namespace Logic
 		_venomTime = venomTime;
 	}
 
-	int MVenom::getCount(){
-		return _count;
+	float MVenom::getCount(){
+		return _venomCount;
 	}
 
-	void MVenom::setCount(int count){
-		_count = count;
+	void MVenom::setCount(float count){
+		_venomCount = count;
 	}
 
 
