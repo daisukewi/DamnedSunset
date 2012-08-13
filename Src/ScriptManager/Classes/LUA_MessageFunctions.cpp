@@ -52,12 +52,13 @@ namespace ScriptManager
 
 	//---------------------------------------------------------
 
-	void startGrenade(unsigned int entityID)
+	void startGrenade(unsigned int entityID, float point_x, float point_y, float point_z)
 	{
 		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
 
 		Logic::MLanzarGranada *m = new Logic::MLanzarGranada();
-		m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
+		//m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
+		m->setPosition(Vector2(point_x, point_y));
 		m->setOrdenGranada(Logic::OrdenGranada::mostrar);
 
 		entity->emitMessage(m);
@@ -65,12 +66,13 @@ namespace ScriptManager
 
 	//---------------------------------------------------------
 
-	void cancelGrenade(unsigned int entityID)
+	void cancelGrenade(unsigned int entityID, float point_x, float point_y, float point_z)
 	{
 		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
 
 		Logic::MLanzarGranada *m = new Logic::MLanzarGranada();
-		m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
+		//m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
+		m->setPosition(Vector2(point_x, point_y));
 		m->setOrdenGranada(Logic::OrdenGranada::ocultar);
 
 		entity->emitMessage(m);
@@ -78,12 +80,13 @@ namespace ScriptManager
 
 	//---------------------------------------------------------
 
-	void launchGrenade(unsigned int entityID)
+	void launchGrenade(unsigned int entityID, float point_x, float point_y, float point_z)
 	{
 		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
 
 		Logic::MLanzarGranada *m = new Logic::MLanzarGranada();
-		m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
+		//m->setPosition(Vector2(entity->getPosition().x, entity->getPosition().y));
+		m->setPosition(Vector2(point_x, point_y));
 		m->setOrdenGranada(Logic::OrdenGranada::lanzar);
 
 		entity->emitMessage(m);

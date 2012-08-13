@@ -18,9 +18,10 @@ namespace ScriptManager
 	void cancelBuild();
 	void emplaceBuild();
 
-	void startGrenade(unsigned int entityID);
-	void cancelGrenade(unsigned int entityID);
-	void launchGrenade(unsigned int entityID);
+	//void startGrenade(unsigned int entityID);
+	void startGrenade(unsigned int entityID, float point_x, float point_y, float point_z);
+	void cancelGrenade(unsigned int entityID, float point_x, float point_y, float point_z);
+	void launchGrenade(unsigned int entityID, float point_x, float point_y, float point_z);
 	void empujarCircle(unsigned int entityID);
 
 	void startPowerShoot(unsigned int entityID);
