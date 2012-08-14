@@ -5,12 +5,12 @@ function inicializarInterfazDia()
 		-- Cargamos la interfaz
 		winMgr:loadWindowLayout("InterfazDia.layout")
 	end
-	
+
 	interfazDia = winMgr:getWindow("InterfazDia")
 
 	--Añadimos la interfaz a la interfaz principal
 	interfazPrincipal:addChildWindow(interfazDia)
-	
+
 	winMgr:getWindow("InterfazDia/BotonAnochecer"):subscribeEvent("Clicked", "cambiarANoche")
 end
 

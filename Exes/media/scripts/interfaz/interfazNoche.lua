@@ -24,11 +24,11 @@ function inicializarInterfazNoche()
 	else
 		-- Cargamos la interfaz
 		winMgr:loadWindowLayout("Interfaz.layout")
-		
+
 		-- Cargamos la ventana de texto
 		winMgr:loadWindowLayout("VentanaText.layout")
 	end
-	
+
 	interfazNoche = winMgr:getWindow("Interfaz")
 
 	--Añadimos la interfaz a la interfaz principal
@@ -41,7 +41,6 @@ function inicializarInterfazNoche()
 
 	textWindow = winMgr:getWindow("VentanaText/Ventana")
 
-	sacarVentana("Mision 1: Tenemos que encontrar la forma de salir de aqui.")
 	actualizarHorasAmanecer(1000)
 end
 
@@ -67,41 +66,39 @@ function actualizarBarraVida(numPersonaje, porcentajeVida)
 end
 
 function sendClickMessage1()
-	selectionParameters = { 
+	selectionParameters = {
 		target = getEntityID("Jack"),
 		point_x = 0,
 		point_y = 0,
 		point_z = 0
 	}
-	
+
 	godEvent("OnSelectionClick")
 end
 
 function sendClickMessage2()
-	selectionParameters = { 
+	selectionParameters = {
 		target = getEntityID("Erick"),
 		point_x = 0,
 		point_y = 0,
 		point_z = 0
 	}
-	
+
 	godEvent("OnSelectionClick")
 end
 
 function sendClickMessage3()
-	selectionParameters = { 
+	selectionParameters = {
 		target = getEntityID("Norah"),
 		point_x = 0,
 		point_y = 0,
 		point_z = 0
 	}
-	
+
 	godEvent("OnSelectionClick")
 end
 
 function cambiarBotones(pers)
-
-	print("Botonesssss")
 
 	if pers == 1 then
 
@@ -181,7 +178,7 @@ function sacarVentana(text)
 	print("Sacar ventana " .. text)
 
 	-- Activamos la ventana del texto
-	interfazNoche:addChildWindow(textWindow)
+	interfazPrincipal:addChildWindow(textWindow)
 	textWindow:setVisible(true)
 	textWindow:activate()
 	winMgr:getWindow("VentanaText/Ventana/Text"):setText(text)
