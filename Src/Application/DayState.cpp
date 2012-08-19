@@ -15,6 +15,7 @@ Contiene la implementación del estado en el que se realiza la fase de día
 */
 
 #include "DayState.h"
+#include "PauseState.h"
 
 #include "Logic/Server.h"
 #include "Logic/Maps/EntityFactory.h"
@@ -139,7 +140,9 @@ namespace Application {
 		switch(key.keyId)
 		{
 		case GUI::Key::ESCAPE:
-			_app->setState("unload");
+			//_app->setState("unload");
+			CPauseState::returnState = "day";
+			_app->setState("pause");
 			break;
 		case GUI::Key::G:{
 

@@ -15,6 +15,7 @@ Contiene la implementación del estado de juego.
 */
 
 #include "GameState.h"
+#include "PauseState.h"
 
 #include "Logic/Server.h"
 #include "Logic/Maps/EntityFactory.h"
@@ -148,7 +149,8 @@ namespace Application {
 		switch(key.keyId)
 		{
 		case GUI::Key::ESCAPE:
-			_app->setState("unload");
+			CPauseState::returnState = "game";
+			_app->setState("pause");
 			break;
 		case GUI::Key::D:
 			//_app->setState("day");

@@ -23,6 +23,7 @@ basadas en Ogre. Esta clase maneja la ejecución de todo el juego.
 #include "LoadState.h"
 #include "UnloadState.h"
 #include "DayState.h"
+#include "PauseState.h"
 
 namespace Application {
 
@@ -72,8 +73,10 @@ namespace Application {
 		if (!addState("unload", new CUnloadState(this)))
 			return false;
 
+		//Estado que muestra un menu de pausa
+		if (!addState("pause", new CPauseState(this)))
+			return false;
 		
-
 		if(!setState("menu"))
 			return false;
 
