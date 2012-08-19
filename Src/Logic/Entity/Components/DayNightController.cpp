@@ -16,6 +16,8 @@ Contiene la implementación del componente que controla el cambio del día a la no
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
 
+#include "Graphics/Server.h"
+#include "Graphics/Scene.h"
 #include "Graphics/ModelFactory.h"
 
 #include "Logic/Entity/Messages/DayNight.h"
@@ -40,12 +42,10 @@ namespace Logic
 		
 		if(entityInfo->hasAttribute("dayTime")){
 			_dayTime = entityInfo->getFloatAttribute("dayTime");
-			
 		}
 
 		if(entityInfo->hasAttribute("dayTimeAlarm")){
 			_dayTimeAlarm = entityInfo->getFloatAttribute("dayTimeAlarm");
-			
 		}
 
 		if (entityInfo->hasAttribute("nightTime")){
@@ -64,7 +64,6 @@ namespace Logic
 
 	bool CDayNightController::activate()
 	{
-
 		_timeType = TIME_TYPE::DAY;
 		return true;
 	} // activate
@@ -112,13 +111,11 @@ namespace Logic
 				_entity->emitMessage(m1);
 				_entity->emitMessage(m2);
 
+				Graphics::CScene* sm = Graphics::CServer::getSingletonPtr()->getActiveScene();
+				sm->setAmbientLight(0.40f, 0.40f, 0.58f);
 
 				Application::CGaleonApplication::getSingletonPtr()->setState("game");
-
-
 			}
-			
-		
 		}
 	} // process
 	
@@ -127,8 +124,6 @@ namespace Logic
 	void CDayNightController::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
-
-
 
 	} // tick
 
@@ -141,12 +136,13 @@ namespace Logic
 				dayNightMessage->setTime(TIME_TYPE::DAY_ALARM);
 				Logic::CServer::getSingletonPtr()->getMap()->sendMessageAll(dayNightMessage, _entity);
 
-
 				BaseSubsystems::CServer::getSingletonPtr()->addClockListener(_dayTimeAlarm, this);
+
+				Graphics::CScene* sm = Graphics::CServer::getSingletonPtr()->getActiveScene();
+				sm->setAmbientLight( 0.65f, 0.63f, 0.60f );
 
 				_timeType = TIME_TYPE::DAY_ALARM;
 				break;
-
 			}
 			case TIME_TYPE::DAY_ALARM:{
 
@@ -155,17 +151,16 @@ namespace Logic
 				dayNightMessage->setTime(TIME_TYPE::DAY);
 				Logic::CServer::getSingletonPtr()->getMap()->sendMessageAll(dayNightMessage, _entity);
 
-				
+				Graphics::CScene* sm = Graphics::CServer::getSingletonPtr()->getActiveScene();
+				sm->setAmbientLight(0.75f, 0.75f, 0.96f);
 
 				_timeType = TIME_TYPE::DAY;
 				Application::CGaleonApplication::getSingletonPtr()->setState("day");
 				
 				break;
-
 			}
 		}
 	}
-
 
 	//---------------------------------------------------------
 
