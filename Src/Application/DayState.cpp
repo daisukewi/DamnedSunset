@@ -102,8 +102,6 @@ namespace Application {
 		// Desactivamos la ventana de tiempo y el ratón.
 		CEGUI::MouseCursor::getSingleton().hide();
 
-
-		
 		CApplicationState::deactivate();
 
 	} // deactivate
@@ -138,7 +136,6 @@ namespace Application {
 
 	bool CDayState::keyReleased(GUI::TKey key)
 	{
-
 		switch(key.keyId)
 		{
 		case GUI::Key::ESCAPE:
@@ -156,7 +153,6 @@ namespace Application {
 			return false;
 		}
 		return true;
-
 
 	} // keyReleased
 
@@ -185,6 +181,5 @@ namespace Application {
 	} // mouseReleased
 
 	//--------------------------------------------------------
-
 
 } // namespace Application

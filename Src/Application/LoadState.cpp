@@ -179,7 +179,7 @@ namespace Application {
 		if (!Logic::CServer::getSingletonPtr()->loadLevel("map", "archetype"))
 			return false;
 
-		ScriptManager::CServer::getSingletonPtr()->loadExeScript("InitMissionParameters()");
+		//ScriptManager::CServer::getSingletonPtr()->loadExeScript("mission1Parameters");
 
 		return true;
 	}
