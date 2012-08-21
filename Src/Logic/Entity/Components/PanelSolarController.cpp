@@ -74,6 +74,12 @@ namespace Logic
 				script	<< "activarEdificiosCercanos(" << _entity->getEntityID() << ", " << "true" << ")";
 				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 			}
+			else if (m_anochecer->getTime() == TIME_TYPE::DAY)
+			{
+				std::stringstream script;
+				script	<< "activarEdificiosCercanos(" << _entity->getEntityID() << ", " << "false" << ")";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+			}
 		}
 
 	} // process
