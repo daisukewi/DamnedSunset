@@ -865,6 +865,18 @@ namespace ScriptManager
 			[
 				luabind::def("launchPowerShoot", &launchPowerShoot)
 			];
+		luabind::module(_lua)
+			[
+				luabind::def("startFlameThrower", &startFlameThrower)
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("cancelFlameThrower", &cancelFlameThrower)
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("launchFlameThrower", &launchFlameThrower)
+			];
 
 		//---------------------------------------------------------
 

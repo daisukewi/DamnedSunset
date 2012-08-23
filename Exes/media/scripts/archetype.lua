@@ -336,7 +336,7 @@ Archetype = {
 		timeEmpujar = 0.3,
 		distEmpujarSeg = 150.0,
 	},
-	
+
 	GranadaAturdir = {
 		type = "GranadaAturdir",
 		position = {0, 3, 0},
@@ -354,7 +354,7 @@ Archetype = {
 
 		time = 3.0,
 	},
-	
+
 	GranadaEnvenenar = {
 		type = "GranadaEnvenenar",
 		position = {0, 3, 0},
@@ -500,10 +500,11 @@ Archetype = {
 		radioDisparoPotente = 100,
 		damageDisparoPotente = 60,
 
-		angleLanzallamas = 15,
+		angleLanzallamas = 25,
 		radioLanzallamas = 80,
-		damageLanzallamas = 20,
-		timeLanzallamas = 3,
+		damageLanzallamas = 15,
+		timeLanzallamas = 3000,
+		frecDamageLlamas = 750,
 
 		initState = 1,
 

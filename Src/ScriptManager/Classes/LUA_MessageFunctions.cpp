@@ -18,6 +18,7 @@ LUA
 #include "Logic/Entity/Messages/LanzarGranada.h"
 #include "Logic/Entity/Messages/PushEntities.h"
 #include "Logic/Entity/Messages/DisparosPotentes.h"
+#include "Logic/Entity/Messages/LanzarLlamas.h"
 
 #include "Logic/Server.h"
 
@@ -138,6 +139,45 @@ namespace ScriptManager
 		Logic::MDisparosPotentes *m = new Logic::MDisparosPotentes();
 		m->setPosition(Vector2(point_x, point_z));
 		m->setOrdenDisparos(Logic::OrdenDisparos::disparar);
+
+		entity->emitMessage(m);
+	}
+
+	//---------------------------------------------------------
+
+	void startFlameThrower(unsigned int entityID)
+	{
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+
+		Logic::MLanzarLlamas *m = new Logic::MLanzarLlamas();
+		m->setPosition(Vector2(0, 0));
+		m->setOrdenLlamas(Logic::OrdenLlamas::mostrarBLlamas);
+
+		entity->emitMessage(m);
+	}
+
+	//---------------------------------------------------------
+
+	void cancelFlameThrower(unsigned int entityID)
+	{
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+
+		Logic::MLanzarLlamas *m = new Logic::MLanzarLlamas();
+		m->setPosition(Vector2(0, 0));
+		m->setOrdenLlamas(Logic::OrdenLlamas::ocultarBLamas);
+
+		entity->emitMessage(m);
+	}
+
+	//---------------------------------------------------------
+
+	void launchFlameThrower(unsigned int entityID, float point_x, float point_y, float point_z)
+	{
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+
+		Logic::MLanzarLlamas *m = new Logic::MLanzarLlamas();
+		m->setPosition(Vector2(point_x, point_z));
+		m->setOrdenLlamas(Logic::OrdenLlamas::lanzarLlamas);
 
 		entity->emitMessage(m);
 	}

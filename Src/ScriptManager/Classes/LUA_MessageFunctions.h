@@ -28,6 +28,10 @@ namespace ScriptManager
 	void launchPowerShoot(unsigned int entityID, float point_x, float point_y, float point_z);
 	void cancelPowerShoot(unsigned int entityID);
 
+	void startFlameThrower(unsigned int entityID);
+	void launchFlameThrower(unsigned int entityID, float point_x, float point_y, float point_z);
+	void cancelFlameThrower(unsigned int entityID);
+
 } // namespace Logic
 
 #endif // __Logic_LUA_MessageFunctions_H

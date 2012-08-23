@@ -79,6 +79,14 @@ namespace Logic
 		*/
 		float _timeAcc;
 		/*
+		Acumula tiempo hasta llegar a 500 milisegundos.
+		*/
+		float _secsAcc;
+		/*
+		Cada cuántos milisegundos el fuego causa daño.
+		*/
+		float _frecDamage;
+		/*
 		Vector que nos indica la dirección del lanzallamas.
 		*/
 		Vector3 * _flamesDirection;

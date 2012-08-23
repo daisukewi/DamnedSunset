@@ -65,8 +65,11 @@ namespace Logic
 			_damageSecs = entityInfo->getFloatAttribute("damageLanzallamas");
 		if(entityInfo->hasAttribute("timeLanzallamas"))
 			_timeAction = entityInfo->getFloatAttribute("timeLanzallamas");
+		if(entityInfo->hasAttribute("frecDamageLlamas"))
+			_frecDamage = entityInfo->getFloatAttribute("frecDamageLlamas");
 
 		_timeAcc = 0;
+		_secsAcc = 0;
 		_flamesOn = false;
 
 		return true;
@@ -109,19 +112,19 @@ namespace Logic
 			else if (m_flames->getOrdenLlamas() == lanzarLlamas)
 			{
 				// PULSAMOS EL LANZALLAMAS
+				std::cout << "Lanzando llamas\n";
 
 				// Ocultamos el billboard
 				_billboard->setVisible(false);
 				_flamesOn = true;
+				_timeAcc = 0;
+				_secsAcc = 0;
 
 				// Posicion destino solo con X, Y.
 				Vector2 posDestino = *m_flames->getPosition();
 				// Posicion destino con X, Y, Z.
-				//Vector3 posDestino3 = Vector3(posDestino.x,4,posDestino.y);
-				std::cout << posDestino;
-				std::cout << _entity->getPosition();
-				Vector3 posDestino3 = ((_entity->getPosition().length() + _radioAction)/(_entity->getPosition().length())) * _entity->getPosition();
-
+				Vector3 posDestino3 = Vector3(posDestino.x, 4, posDestino.y);
+				
 				// Calculamos el vector de direccion al que apunta el ratón
 				_flamesDirection = new Vector3(posDestino3.x - _entity->getPosition().x, 0, posDestino3.z - _entity->getPosition().z);
 				_flamesDirection->normalise();
@@ -148,7 +151,8 @@ namespace Logic
 					Vector3 targ = entidad->getPosition() - _entity->getPosition();
 
 					// Si está en el sector circular seleccionado se daña a la entidad
-					if ((_flamesDirection->angleBetween(targ)).valueDegrees() < _angleAction/2.0f)
+					if ((_flamesDirection->angleBetween(targ)).valueDegrees() < _angleAction/2.0f
+						 && _entity->getEntityID() != entidad->getEntityID())
 					{
 						// Enviamos mensaje de daño a la entidad
 						MDamaged *mDamaged = new MDamaged();
@@ -171,9 +175,12 @@ namespace Logic
 		if (_flamesOn)
 		{
 			_timeAcc += msecs;
+			_secsAcc += msecs;
+			_flamesOn = _timeAcc <= _timeAction;
 
-			if (_timeAcc >= 1000)
+			if (_secsAcc >= _frecDamage)
 			{
+				_secsAcc = 0;
 				Logic::CEntity* * entidadesColision;
 				int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions(_entity->getPosition(),
 						_radioAction, entidadesColision);
@@ -185,7 +192,8 @@ namespace Logic
 					Vector3 targ = entidad->getPosition() - _entity->getPosition();
 				
 					// Si está en el sector circular seleccionado se daña a la entidad
-					if ((_flamesDirection->angleBetween(targ)).valueDegrees() < _angleAction/2.0f)
+					if ((_flamesDirection->angleBetween(targ)).valueDegrees() < _angleAction/2.0f
+						 && _entity->getEntityID() != entidad->getEntityID())
 					{
 						// Enviamos mensaje de daño a la entidad
 						MDamaged *mDamaged = new MDamaged();

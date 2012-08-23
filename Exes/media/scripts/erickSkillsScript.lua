@@ -6,13 +6,15 @@ function activateErickSkills(playerID)
 	-- Configuración de los cooldowns de las habilidades.
 	-- Cada índice corresponde a una habilidad y el valor es el tiempo del cooldown en segundos.
 	players[playerID].skillsCooldown = {
-		[1] = 5, 
+		[1] = 5,
+		[2] = 5,
 		[3] = 5,
 	}
 
 	-- Tabla auxiliar para llevar la cuenta del cooldown actual de cada habilidad.
 	players[playerID].currentSkillsCooldown = {
 		[1] = 0,
+		[2] = 0,
 		[3] = 0,
 	}
 end
@@ -23,6 +25,7 @@ function showErickSkills()
 	cargarBoton(2, "granada", "erickGrenade")
 	cargarBoton(3, "bolazul", "bulletTime")
 	cargarBoton(4, "granada", "erickPowerShoot")
+	cargarBoton(1, "bolazul", "erickFlameThrower")
 
 	if persSelect ~= 2 then
 		cambiarBotones(2)
@@ -46,7 +49,7 @@ function startErickGrenade()
 	god.finishSkillFunction = explodeErickGrenade
 	god.cancelSkillFunction = cancelErickGrenade
 	god.clickTarget = nil
-	
+
 	startGrenade(god.playersSelected[1], 0, 0, 0)
 end
 
@@ -77,7 +80,6 @@ function erickPowerShoot()
 	skillParameters = {
 		skill = 3,
 	}
-	print("erickPowerShoot")
 	godEvent("OnSkillClick")
 end
 
@@ -87,15 +89,43 @@ function startErickPowerShoot()
 	god.clickTarget = nil
 
 	startPowerShoot(god.playersSelected[1], 0, 0, 0)
-	print("startErickPowerShoot")
 end
 
 function explodeErickPowerShoot()
 	launchPowerShoot(god.playersSelected[1], skillParameters.point_x, skillParameters.point_y, skillParameters.point_z)
-	--print("god.selected")
-	--print(god.selected)
 end
 
 function cancelErickPowerShoot()
 	cancelPowerShoot(god.playersSelected[1], 0, 0, 0)
+end
+
+--------------------------------------------------
+--	      Habilidad lanzallamas de Erick		--
+--------------------------------------------------
+-- La habilidad lanzallamas es la número 2
+-- La habilidad lanzallamas es de tipo NO INMEDIATO
+
+function erickFlameThrower()
+	god.startSkillFunction = startErickFlameThrower
+	skillParameters = {
+		skill = 2,
+	}
+	print("erickFlameThrower")
+	godEvent("OnSkillClick")
+end
+
+function startErickFlameThrower()
+	god.finishSkillFunction = burnErickFlameThrower
+	god.cancelSkillFunction = cancelErickFlameThrower
+	god.clickTarget = nil
+
+	startFlameThrower(god.playersSelected[1])
+end
+
+function burnErickFlameThrower()
+	launchFlameThrower(god.playersSelected[1], skillParameters.point_x, skillParameters.point_y, skillParameters.point_z)
+end
+
+function cancelErickFlameThrower()
+	cancelFlameThrower(god.playersSelected[1])
 end
