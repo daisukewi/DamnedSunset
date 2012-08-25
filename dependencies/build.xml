@@ -20,9 +20,9 @@
 
       <ant antfile="build.xml" target="${targetUsed}" dir="./OgreDependencies"/>
       <ant antfile="build.xml" target="${targetUsed}" dir="./Ogre"/>
-	  <ant antfile="build.xml" target="${targetUsed}" dir="./lua"/>
+	  <!--<ant antfile="build.xml" target="${targetUsed}" dir="./lua"/>
 	  <ant antfile="build.xml" target="${targetUsed}" dir="./luabind"/>
-	  <ant antfile="build.xml" target="${targetUsed}" dir="./CEGUI"/>
+	  <ant antfile="build.xml" target="${targetUsed}" dir="./CEGUI"/>-->
 	  <!--<ant antfile="build.xml" target="${targetUsed}" dir="./VisualLeakDetector"/>-->
 
 </target>
