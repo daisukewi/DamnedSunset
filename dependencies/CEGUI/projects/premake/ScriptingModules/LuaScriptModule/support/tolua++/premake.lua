@@ -19,4 +19,6 @@ package.files =
 
 include(rootdir.."cegui/include/"..pkgdir)
 
-library("lua51dll", "")
+library("lua51", "")
+tinsert(debug.libpaths, rootdir.."../lib/Debug")
+tinsert(release.libpaths, rootdir.."../lib/Release")

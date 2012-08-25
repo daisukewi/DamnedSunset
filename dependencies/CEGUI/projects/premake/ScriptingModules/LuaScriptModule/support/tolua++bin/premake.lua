@@ -14,8 +14,10 @@ package.files =
 include(rootdir.."cegui/include/"..pkgdir.."../tolua++")
 
 dependency("tolua++")
-library("lua51dll","")
-library_static("lua51dll","", "")
+library("lua51","")
+library_static("lua51","", "")
+tinsert(debug.libpaths, rootdir.."../lib/Debug")
+tinsert(release.libpaths, rootdir.."../lib/Release")
 
 if TOLUA_STATIC then
     define("TOLUA_STATIC")

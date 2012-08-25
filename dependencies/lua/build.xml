@@ -86,7 +86,9 @@ description="Elimina los ficheros de la compilacion en Release">
 <target name="clean"
 description="Elimina ficheros de compilación"
 depends="cleanDebug, cleanRelease">
-
+	<delete failonerror="false">
+		<fileset dir="./vcproject" includes="*.user" />
+	</delete>
 </target>
 
 <!-- ================================ -->
@@ -120,10 +122,7 @@ description="Genera la documentación, si la hay.">
 <target name="publishLibBinDebug">
 
 <copy todir="../lib/Debug">
-<fileset dir="./bin/Debug" includes="lua51dll.lib"/>
-</copy>
-<copy todir="../lib/Release">
-<fileset dir="./bin/Debug" includes="lua51dll.lib"/>
+<fileset dir="./bin/Debug" includes="lua51.lib"/>
 </copy>
 <copy todir="../bin/Debug">
 <fileset dir="./bin/Debug" includes="lua51.dll"/>
@@ -134,10 +133,7 @@ description="Genera la documentación, si la hay.">
 <target name="publishLibBinRelease">
 
 <copy todir="../lib/Release">
-<fileset dir="./bin/Release" includes="lua51dll.lib"/>
-</copy>
-<copy todir="../lib/Debug">
-<fileset dir="./bin/Debug" includes="lua51dll.lib"/>
+<fileset dir="./bin/Release" includes="lua51.lib"/>
 </copy>
 <copy todir="../bin/Release">
 <fileset dir="./bin/Release" includes="lua51.dll"/>

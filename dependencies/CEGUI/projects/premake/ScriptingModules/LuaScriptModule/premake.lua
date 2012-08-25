@@ -17,8 +17,10 @@ include(rootdir.."cegui/include/"..pkgdir.."support/tolua++")
 dependency("CEGUIBase")
 dependency("tolua++")
 
-library("lua51dll", "")
-library_static("lua51dll","","")
+library("lua51", "")
+library_static("lua51","","")
+tinsert(debug.libpaths, rootdir.."../lib/Debug")
+tinsert(release.libpaths, rootdir.."../lib/Release")
 
 define("CEGUILUA_EXPORTS")
 

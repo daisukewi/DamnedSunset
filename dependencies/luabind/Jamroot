@@ -54,7 +54,7 @@ if [ os.name ] = NT
 
     if [ GLOB $(LUA_PATH) : lib ]
     {
-		lib lua : : <link>shared <name>lua51dll <search>$(LUA_PATH)/bin/$(INCLUDE_PATH) : : <include>$(includes) ;
+		lib lua : : <link>shared <name>lua51 <search>$(LUA_PATH)/bin/$(INCLUDE_PATH) : : <include>$(includes) ;
     }
     else if [ GLOB $(LUA_PATH) : dll ]
     {

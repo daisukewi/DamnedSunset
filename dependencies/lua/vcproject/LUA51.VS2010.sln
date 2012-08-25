@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua51dll", "lua51dll.vcxproj", "{EF0B22C0-9700-43F7-AD52-F7858AE916E0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua51", "lua51dll.vcxproj", "{EF0B22C0-9700-43F7-AD52-F7858AE916E0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua51lib", "lua51lib.vcxproj", "{AE62F5B2-93A3-4C08-9A4C-90FF0C8223A1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EF0B22C0-9700-43F7-AD52-F7858AE916E0} = {EF0B22C0-9700-43F7-AD52-F7858AE916E0}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
