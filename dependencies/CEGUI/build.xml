@@ -173,7 +173,7 @@ Parametros:
   <delete file = "${vslogfile}"/>
   <delete dir="${basedir}/include"/>
   <delete includeemptydirs="true" failonerror="false">
-      <fileset dir="${basedir}/projects/premake" includes="**/obj/,**/*.vcxproj,**/*.vcxproj.filters,UpgradeLog*.XML,CEGUI.sln"/>
+      <fileset dir="${basedir}/projects/premake" includes="**/obj/,**/*.vcproj,**/*.vcxproj,**/*.vcxproj.filters,**/*.vcxproj.user,UpgradeLog*.XML,CEGUI.sln"/>
       <fileset dir="${basedir}/cegui/include" includes="config.h"/>
    </delete>
    <delete verbose="true" dir="${basedir}/projects/premake/Backup"/>
