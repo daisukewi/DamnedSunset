@@ -11,9 +11,11 @@ function loadScripts()
 	SManager:loadScript("enemyIdleState")
 	SManager:loadScript("enemyAttackState")
 	SManager:loadScript("enemyMoveState")
-	SManager:loadScript("enemyRunState")
 	SManager:loadScript("enemyPauseState")
+	SManager:loadScript("enemyAttackingOtherEnemiesState")
+	
 	SManager:loadScript("enemyScript")
+	
 
 	-- Scripts de la maquina de estados de God
 	SManager:loadScript("godIdleState")

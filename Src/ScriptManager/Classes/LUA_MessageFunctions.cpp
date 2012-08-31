@@ -22,6 +22,10 @@ LUA
 
 #include "Logic/Server.h"
 
+#include "Physics/Server.h"
+
+#include "ScriptManager/Server.h"
+
 namespace ScriptManager
 {
 
@@ -102,6 +106,40 @@ namespace ScriptManager
 		Logic::MPushEntities *m = new Logic::MPushEntities();
 
 		entity->emitMessage(m);
+	}
+
+		//---------------------------------------------------------
+
+	void enemigosContraEnemigos(unsigned int entityID)
+	{
+		Logic::CEntity * norah = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+		printf("c++ enemigosContraEnemigos\n");
+
+		Logic::CEntity* * entidadesColision;
+		int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions( norah->getPosition(),40,entidadesColision);
+
+		//Iniciamos la tabla de los enemigos afectados
+		std::stringstream script1;
+		script1 << "enemigosConfundidos = {}";
+		ScriptManager::CServer::getSingletonPtr()->executeScript(script1.str().c_str());
+
+
+		for(int i = 0; i < numColisiones; ++i)
+		{
+			if ( !entidadesColision[i]->getTag().compare("enemy") ) {
+				//Entidad enemiga que atacara a otros enemigos
+				Logic::CEntity * entidad = entidadesColision[i];
+
+				std::stringstream script2;
+				script2 << "enemyEvent(\"AttackOtherEnemies\", " << entidad->getEntityID() << ")";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(script2.str().c_str());
+
+				//Añadimos el enemigo a la tabla de los enemigos afectados
+				std::stringstream script3;
+				script3 << "enemigosConfundidos[" << i+1 << "] = " << entidad->getEntityID();
+				ScriptManager::CServer::getSingletonPtr()->executeScript(script3.str().c_str());
+			}
+		}
 	}
 
 	//---------------------------------------------------------

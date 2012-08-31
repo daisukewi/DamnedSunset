@@ -72,10 +72,16 @@ function attackStateEvent(event, entity)
 		mensaje:send()
 		
 		nextState = 5
+	elseif (event == "AttackOtherEnemies") then
+		enemies[entity].previousState = 2
+		nextState = 6
 	else
 		-- Como no me interesa ningún evento me quedo en el estado actual.
 		nextState = 2
 	end
+	
+	
+	
 	
 	return nextState
 end

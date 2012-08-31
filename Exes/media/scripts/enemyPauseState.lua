@@ -9,6 +9,9 @@ function pauseStateEvent(event, entity)
 	
 	if (event == "IAAwake") then
 		nextState = enemies[entity].previousState
+	elseif (event == "AttackOtherEnemies") then
+		enemies[entity].previousState = 5
+		nextState = 6
 	end
 	
 	return nextState

@@ -20,12 +20,22 @@ end
 -- Función que mostrará las habilidades de Norah en el GUI con sus correspondientes
 -- llamadas a las funciones correspondientes.
 function showNorahSkills()
+	cargarBoton(1, "bolazul", "norahEnemigosContraEnemigos")
 	cargarBoton(2, "granada", "norahGrenade")
 	cargarBoton(4, "jeringa", "norahHeal")
 	
 	if persSelect ~= 3 then
 		cambiarBotones(3)
 	end
+end
+
+--------------------------------------------------
+--			Habilidad enemigos contra enemigos de Norah			--
+--------------------------------------------------
+-- La habilidad de nemigos contra enemigos es de tipo NO INMEDIATO
+function norahEnemigosContraEnemigos()
+	--Aunque no es de tipo inmediato, de momento hago como si lo fuese y afecta a los de alrededor de ella
+	enemigosContraEnemigos(god.playersSelected[1])
 end
 
 --------------------------------------------------

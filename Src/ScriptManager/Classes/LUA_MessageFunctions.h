@@ -32,6 +32,7 @@ namespace ScriptManager
 	void launchFlameThrower(unsigned int entityID, float point_x, float point_y, float point_z);
 	void cancelFlameThrower(unsigned int entityID);
 
+	void enemigosContraEnemigos(unsigned int entityID);
 } // namespace Logic
 
 #endif // __Logic_LUA_MessageFunctions_H

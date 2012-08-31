@@ -71,6 +71,9 @@ function idleStateEvent(event, entity)
 		enemies[entity].previousState = 1
 		
 		nextState = 5
+	elseif (event == "AttackOtherEnemies") then
+		enemies[entity].previousState = 1
+		nextState = 6
 	else
 		-- No me ha interesado ningún evento, me quedo en el estado de idle.
 		nextState = 1

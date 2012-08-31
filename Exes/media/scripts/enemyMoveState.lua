@@ -54,6 +54,9 @@ function moveStateEvent(event, entity)
 		stopGoTo(entity)
 		
 		nextState = 5
+	elseif (event == "AttackOtherEnemies") then
+		enemies[entity].previousState = 3
+		nextState = 6
 	else
 		-- Como no me interesa ningún evento me quedo en el estado actual.
 		nextState = 3

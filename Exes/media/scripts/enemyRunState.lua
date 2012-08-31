@@ -23,6 +23,9 @@ function runStateEvent(event, entity)
 		enemies[entity].previousState = 4
 		stopGoTo(entity)
 		nextState = 5
+	elseif (event == "AttackOtherEnemies") then
+		enemies[entity].previousState = 4
+		nextState = 6
 	end
 	
 	return nextState

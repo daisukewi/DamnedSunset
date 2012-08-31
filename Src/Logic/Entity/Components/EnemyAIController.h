@@ -101,6 +101,11 @@ namespace Logic
 		*/
 		int _currentExeFrames;
 
+		/**
+		Tiempo que ha pasado desde el ultimo tick que realmente se ha ejecutado
+		*/
+		int _deltaTime;
+
 	}; // class CEnemyAIController
 
 	REG_FACTORY(CEnemyAIController);

@@ -68,6 +68,8 @@ namespace Logic
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 		}
 
+		_deltaTime = 0;
+
 		return true;
 
 	} // spawn
@@ -110,6 +112,8 @@ namespace Logic
 
 		_currentExeFrames++;
 
+		_deltaTime += msecs;
+
 		// Ejecuto la IA si toca.
 		if (_currentExeFrames >= _exeFrames)
 		{
@@ -121,8 +125,11 @@ namespace Logic
 			script	<< "enemies[" << _entity->getEntityID() << "].posX = " << _entity->getPosition().x << " "
 					<< "enemies[" << _entity->getEntityID() << "].posY = " << _entity->getPosition().y << " "
 					<< "enemies[" << _entity->getEntityID() << "].posZ = " << _entity->getPosition().z << " "
+					<< "enemies[" << _entity->getEntityID() << "].deltaTime = " << _deltaTime << " "
 					<< "AIAction(" << _entity->getEntityID() << ")";
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+			_deltaTime = 0;
 		}
 
 	} // tick
