@@ -373,6 +373,21 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Poison.cpp">
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\ReduceDamage.cpp">
+      <Filter>Entity\Components\Abilities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateReduceDamage.cpp">
+      <Filter>Entity\Messages\Abilities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\HealZone.cpp">
+      <Filter>Entity\Components\Abilities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\SelectionCapsule.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateHealZone.cpp">
+      <Filter>Entity\Messages\Abilities\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Entity\CommunicationPort.h">
@@ -761,6 +776,21 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Poison.h">
       <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\ReduceDamage.h">
+      <Filter>Entity\Components\Abilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateReduceDamage.h">
+      <Filter>Entity\Messages\Abilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\HealZone.h">
+      <Filter>Entity\Components\Abilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\SelectionCapsule.h">
+      <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateHealZone.h">
+      <Filter>Entity\Messages\Abilities\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

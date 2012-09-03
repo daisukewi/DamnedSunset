@@ -256,38 +256,6 @@ namespace Logic
 		if (Logic::CServer::getSingletonPtr()->raycastFromViewport(&_worldCollisionPoint, Physics::PG_WORLD) == NULL)
 			return;
 
-
-		/*
-										 uuuuuuu
-									 uu$$$$$$$$$$$uu
-								  uu$$$$$$$$$$$$$$$$$uu
-								 u$$$$$$$$$$$$$$$$$$$$$u
-								u$$$$$$$$$$$$$$$$$$$$$$$u
-							   u$$$$$$$$$$$$$$$$$$$$$$$$$u
-							   u$$$$$$$$$$$$$$$$$$$$$$$$$u
-							   u$$$$$$"   "$$$"   "$$$$$$u
-							   "$$$$"      u$u       $$$$"
-								$$$u       u$u       u$$$
-								$$$u      u$$$u      u$$$
-								 "$$$$uu$$$   $$$uu$$$$"
-								  "$$$$$$$"   "$$$$$$$"
-									u$$$$$$$u$$$$$$$u
-									 u$"$"$"$"$"$"$u
-						  uuu        $$u$ $ $ $ $u$$       uuu
-						 u$$$$        $$$$$u$u$u$$$       u$$$$
-						  $$$$$uu      "$$$$$$$$$"     uu$$$$$$
-						u$$$$$$$$$$$uu    """""    uuuu$$$$$$$$$$
-						$$$$"""$$$$$$$$$$uuu   uu$$$$$$$$$"""$$$"
-						 """      ""$$$$$$$$$$$uu ""$"""
-								   uuuu ""$$$$$$$$$$uuu
-						  u$$$uuu$$$$$$$$$uu ""$$$$$$$$$$$uuu$$$
-						  $$$$$$$$$$""""           ""$$$$$$$$$$$"
-						   "$$$$$"                      ""$$$$""
-							 $$$"                         $$$$"
-		
-		*/
-		// PERO QUE MIERDA ES ESTA???? No se puede ampliar la capsula de colisión de las entidades??? es tan dificil?
-
 		//Para tener más precisión en la selección se van a lanzar 5 raycast por cada click. El primero de ellos se lanza desde la posición del ratón.
 		//Los demás tendrán un desplazamiento hacia la izquierda, derecha, arriba y abajo.
 		/*
@@ -297,7 +265,7 @@ namespace Logic
 		*/
 		//Los raycast de las diagonales solo se lanzan sy los demás no han acertado.
 		//De esta forma no hace falta hacer click exactamente donde se encuentra la entidad a seleccionar
-		Vector3 point1;
+		/*Vector3 point1;
 		Vector3 point2;
 		Vector3 point3;
 		Vector3 point4;
@@ -344,7 +312,30 @@ namespace Logic
 		// Send the message as instant. The response must be send instantly as well.
 		auxEntity->emitInstantMessage(m_selectable, this);
 
+		_waitingForSelectable = false;*/
+
+		Vector3 point1;
+
+		CEntity *auxEntity = Logic::CServer::getSingletonPtr()->raycastFromViewport(_mousePositionReleased,&point1, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
+			
+		if (auxEntity == NULL){
+			processSelectionClick();
+			return;
+		}
+		
+
+		_targetEntityID = auxEntity->getEntityID();
+		_waitingForSelectable = true;
+
+		// Send a message to the entity hit to ensure its selectability
+		MIsSelectable* m_selectable = new MIsSelectable();
+		m_selectable->setMessageType(SELECTION_REQUEST);
+		m_selectable->setSenderEntity(_entity);
+		// Send the message as instant. The response must be send instantly as well.
+		auxEntity->emitInstantMessage(m_selectable, this);
+
 		_waitingForSelectable = false;
+
 
 	} // prepareSelectionClick
 

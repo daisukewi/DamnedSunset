@@ -446,6 +446,17 @@ Archetype = {
 		trigger_collision_group = 3,
 
 		damage = 10,
+		
+		selection_shape = "trigger_capsule",
+		selection_type = "trigger_kinematic",
+		selection_trigger = true,
+		selection_radius = 100,
+		selection_height = 12,
+		selection_collision_group = 4,
+		
+		reduceDamageTime = 5000,
+		reduceDamageDistance = 100,
+		reduceDamage = -1.0,
 	},
 
 	Erick = {
@@ -566,6 +577,11 @@ Archetype = {
 		trigger_collision_group = 3,
 
 		damage = 33,
+		
+		healZoneTime = 5000,
+		healZoneDistance = 100,
+		healZoneValue = 30,
+		
 	},
 
 	Waypoint = {

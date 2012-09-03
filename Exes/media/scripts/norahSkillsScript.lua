@@ -8,12 +8,14 @@ function activateNorahSkills(playerID)
 	players[playerID].skillsCooldown = { 
 		[1] = 5, 
 		[2] = 5,
+		[3] = 5,
 	}
 	
 	-- Tabla auxiliar para llevar la cuenta del cooldown actual de cada habilidad.
 	players[playerID].currentSkillsCooldown = {
 		[1] = 0,
 		[2] = 5,
+		[3] = 0,
 	}
 end
 
@@ -22,7 +24,9 @@ end
 function showNorahSkills()
 	cargarBoton(1, "bolazul", "norahEnemigosContraEnemigos")
 	cargarBoton(2, "granada", "norahGrenade")
+	cargarBoton(3, "granada", "norahHealZone")
 	cargarBoton(4, "jeringa", "norahHeal")
+	
 	
 	if persSelect ~= 3 then
 		cambiarBotones(3)
@@ -82,4 +86,14 @@ function executeNorahHeal()
 end
 
 function cancelNorahHeal()
+end
+
+--------------------------------------------------
+--			Habilidad zon de curación de Norah	--
+--------------------------------------------------
+-- La habilidad curar es de tipo INMEDIATO
+
+function norahHealZone()
+
+	activateHealZone(god.playersSelected[1])
 end

@@ -123,8 +123,6 @@ namespace Logic
 		*/
 		IPhysicObj *_physicObj;
 
-	private:
-
 		/**
 		Tranforma posiciones lógicas a posiciones físicas.
 		 */
@@ -143,7 +141,7 @@ namespace Logic
 		@param entityInfo Descripción de la entidad en el fichero de mapa.
 		@return Tipo de entidad física: estática, dinámica o kinemática.
 		*/
-		Physics::TPhysicMode getTriggerMode(const Map::CEntity *entityInfo);
+		virtual Physics::TPhysicMode getTriggerMode(const Map::CEntity *entityInfo);
 
 		/**
 		Este método construye y devuelve un modelo que describe un tipo de entidad física simple.
@@ -152,7 +150,7 @@ namespace Logic
 		@param entityInfo Descripción de la entidad en el fichero de mapa.
 		@return Modelo que describe una entidad física simple.
 		*/
-		CPhysicModelSimple* createTriggerModel(const Map::CEntity *entityInfo);
+		virtual CPhysicModelSimple* createTriggerModel(const Map::CEntity *entityInfo);
 
 		/**
 		Este método añade un volumen de colisión (shape) a un modelo físco simple. El tipo de volumen
@@ -163,7 +161,7 @@ namespace Logic
 		@param model Modelo físico que describe un tipo de entidad física simple.
 		@param scale Factor que permite escalar el tamaño del volumen de colision creado.
 		*/
-		void createTriggerShape(const Map::CEntity *entityInfo, CPhysicModelSimple *model, float scale);
+		virtual void createTriggerShape(const Map::CEntity *entityInfo, CPhysicModelSimple *model, float scale);
 
 
 		/**

@@ -877,11 +877,18 @@ namespace ScriptManager
 		luabind::module(_lua)
 			[
 				luabind::def("launchFlameThrower", &launchFlameThrower)
+			];		luabind::module(_lua)
+			[
+				luabind::def("activateReduceDamage", &activateReduceDamage)
 			];
 		luabind::module(_lua)
 			[
 				luabind::def("enemigosContraEnemigos", &enemigosContraEnemigos)
-			];		//---------------------------------------------------------
+			];		
+		luabind::module(_lua)
+			[
+				luabind::def("activateHealZone", &activateHealZone)
+			];//---------------------------------------------------------
 
 	}
 

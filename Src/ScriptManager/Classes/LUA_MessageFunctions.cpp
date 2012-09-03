@@ -19,6 +19,8 @@ LUA
 #include "Logic/Entity/Messages/PushEntities.h"
 #include "Logic/Entity/Messages/DisparosPotentes.h"
 #include "Logic/Entity/Messages/LanzarLlamas.h"
+#include "Logic/Entity/Messages/ActivateReduceDamage.h"
+#include "Logic/Entity/Messages/ActivateHealZone.h"
 
 #include "Logic/Server.h"
 
@@ -217,6 +219,26 @@ namespace ScriptManager
 		m->setPosition(Vector2(point_x, point_z));
 		m->setOrdenLlamas(Logic::OrdenLlamas::lanzarLlamas);
 
+		entity->emitMessage(m);
+	}
+
+	//---------------------------------------------------------
+	
+	void activateReduceDamage(unsigned int entityID)
+	{
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+
+		Logic::MActivateReduceDamage *m = new Logic::MActivateReduceDamage();
+		entity->emitMessage(m);
+	}
+
+	//---------------------------------------------------------
+
+	void activateHealZone(unsigned int entityID)
+	{
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+
+		Logic::MActivateHealZone *m = new Logic::MActivateHealZone();
 		entity->emitMessage(m);
 	}
 

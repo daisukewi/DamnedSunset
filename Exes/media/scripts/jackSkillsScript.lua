@@ -8,12 +8,14 @@ function activateJackSkills(playerID)
 	players[playerID].skillsCooldown = {
 		[1] = 5,
 		[2] = 5,
+		[3] = 5,
 	}
 
 	-- Tabla auxiliar para llevar la cuenta del cooldown actual de cada habilidad.
 	players[playerID].currentSkillsCooldown = {
 		[1] = 0,
 		[2] = 0,
+		[3] = 0,
 	}
 end
 
@@ -22,6 +24,7 @@ end
 function showJackSkills()
 	cargarBoton(2, "granada", "jackGrenade")
 	cargarBoton(3, "bolazul", "jackEmpuje")
+	cargarBoton(4, "granada", "jackReduceDamage")
 
 	if persSelect ~= 1 then
 		cambiarBotones(1)
@@ -73,4 +76,14 @@ function jackEmpuje()
 
 	empujarCircle(god.playersSelected[1])
 	print("jackEmpuje")
+end
+
+--------------------------------------------------
+--			Habilidad reducir daño				--
+--------------------------------------------------
+
+function jackReduceDamage()
+
+	activateReduceDamage(god.playersSelected[1])
+	print("jackReduceDamage")
 end

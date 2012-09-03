@@ -95,6 +95,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyAIController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyMindAIController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Heal.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\HealZone.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LanzadorGranadas.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\EnemyController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LanzadorLlamas.cpp" />
@@ -115,9 +116,11 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PlayerPerception.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Poison.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\RaycastController.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\ReduceDamage.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\RouteTo.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Script.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Selectable.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\SelectionCapsule.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SelectionController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SkillsController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Sonido.cpp" />
@@ -141,6 +144,8 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Message.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivarComponente.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivarTiempoBala.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateHealZone.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateReduceDamage.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AplicarVelocidad.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttackDistance.cpp" />
@@ -224,6 +229,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemyAIController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemyMindAIController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Heal.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\HealZone.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LanzadorGranadas.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EnemyController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LanzadorLlamas.h" />
@@ -241,9 +247,11 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PlayerPerception.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Poison.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RaycastController.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\ReduceDamage.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RouteTo.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Script.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Selectable.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\SelectionCapsule.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SelectionController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SkillsController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Sonido.h" />
@@ -263,6 +271,8 @@
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\LanzandoGranada.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivarComponente.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivarTiempoBala.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateHealZone.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateReduceDamage.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Building.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AplicarVelocidad.h" />

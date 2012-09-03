@@ -150,6 +150,11 @@ namespace Logic
 		*/
 		const char *_luaUnderAttackFunction;
 
+		/**
+		Modificación de daño
+		*/
+		float _damageModification;
+
 
 
 	}; // class CLife
