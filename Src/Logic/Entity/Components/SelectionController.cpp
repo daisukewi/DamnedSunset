@@ -256,67 +256,10 @@ namespace Logic
 		if (Logic::CServer::getSingletonPtr()->raycastFromViewport(&_worldCollisionPoint, Physics::PG_WORLD) == NULL)
 			return;
 
-		//Para tener más precisión en la selección se van a lanzar 5 raycast por cada click. El primero de ellos se lanza desde la posición del ratón.
-		//Los demás tendrán un desplazamiento hacia la izquierda, derecha, arriba y abajo.
-		/*
-		6 4 7
-		2 1 3
-		8 5 9
-		*/
-		//Los raycast de las diagonales solo se lanzan sy los demás no han acertado.
-		//De esta forma no hace falta hacer click exactamente donde se encuentra la entidad a seleccionar
-		/*Vector3 point1;
-		Vector3 point2;
-		Vector3 point3;
-		Vector3 point4;
-		Vector3 point5;
-
-		CEntity* targetedEntity1 = Logic::CServer::getSingletonPtr()->raycastFromViewport(_mousePositionReleased,&point1, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
-	
-		CEntity* targetedEntity2 = Logic::CServer::getSingletonPtr()->raycastFromViewport(Vector2(_mousePositionReleased.x-0.015,_mousePositionReleased.y),&point2, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
-		
-		CEntity* targetedEntity3 = Logic::CServer::getSingletonPtr()->raycastFromViewport(Vector2(_mousePositionReleased.x+0.015,_mousePositionReleased.y),&point3, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
-		
-		CEntity* targetedEntity4 = Logic::CServer::getSingletonPtr()->raycastFromViewport(Vector2(_mousePositionReleased.x,_mousePositionReleased.y-0.015),&point4, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
-		
-		CEntity* targetedEntity5 = Logic::CServer::getSingletonPtr()->raycastFromViewport(Vector2(_mousePositionReleased.x,_mousePositionReleased.y+0.015),&point5, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
-
-		CEntity* auxEntity = checkClick(targetedEntity1,targetedEntity2,targetedEntity3,targetedEntity4,targetedEntity5);
-		
-		if (auxEntity == NULL)
-		{
-			//Lanzar raycast de las diagonales
-			CEntity* targetedEntity6 = Logic::CServer::getSingletonPtr()->raycastFromViewport(Vector2(_mousePositionReleased.x-0.015,_mousePositionReleased.y-0.015),&point1, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
-	
-			CEntity* targetedEntity7 = Logic::CServer::getSingletonPtr()->raycastFromViewport(Vector2(_mousePositionReleased.x+0.015,_mousePositionReleased.y-0.015),&point2, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
-		
-			CEntity* targetedEntity8 = Logic::CServer::getSingletonPtr()->raycastFromViewport(Vector2(_mousePositionReleased.x-0.015,_mousePositionReleased.y+0.015),&point3, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
-		
-			CEntity* targetedEntity9 = Logic::CServer::getSingletonPtr()->raycastFromViewport(Vector2(_mousePositionReleased.x+0.015,_mousePositionReleased.y+0.015),&point4, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
-		
-			auxEntity = checkClick(targetedEntity6,targetedEntity7,targetedEntity8,targetedEntity9,NULL);
-			
-			if (auxEntity == NULL){
-				processSelectionClick();
-				return;
-			}
-		}
-
-		_targetEntityID = auxEntity->getEntityID();
-		_waitingForSelectable = true;
-
-		// Send a message to the entity hit to ensure its selectability
-		MIsSelectable* m_selectable = new MIsSelectable();
-		m_selectable->setMessageType(SELECTION_REQUEST);
-		m_selectable->setSenderEntity(_entity);
-		// Send the message as instant. The response must be send instantly as well.
-		auxEntity->emitInstantMessage(m_selectable, this);
-
-		_waitingForSelectable = false;*/
 
 		Vector3 point1;
 
-		CEntity *auxEntity = Logic::CServer::getSingletonPtr()->raycastFromViewport(_mousePositionReleased,&point1, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
+		CEntity *auxEntity = Logic::CServer::getSingletonPtr()->raycastFromViewport(_mousePositionReleased,&point1, Physics::PG_SELECTION | Physics::PG_CHARACTERS | Physics::PG_BUILDING);
 			
 		if (auxEntity == NULL){
 			processSelectionClick();

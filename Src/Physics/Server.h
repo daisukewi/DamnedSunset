@@ -67,6 +67,7 @@ namespace Physics {
 		PG_HERO				= 1 << 4, //4
 		PG_ENEMY			= 1 << 5, //5
 		PG_OTHER			= 1 << 6, //6
+		PG_SELECTION		= 1 << 7,
 		PG_ALL				= 0xffffffff
 	};
 	
