@@ -6,14 +6,17 @@
 function pauseStateEvent(event, entity)
 	local nextState
 	nextState = 5
-	
+
 	if (event == "IAAwake") then
 		nextState = enemies[entity].previousState
 	elseif (event == "AttackOtherEnemies") then
 		enemies[entity].previousState = 5
 		nextState = 6
+	elseif (event == "AttackJack") then
+		enemies[entity].previousState = 5
+		nextState = 7
 	end
-	
+
 	return nextState
 end
 
@@ -21,6 +24,6 @@ end
 function pauseStateAction(entity)
 	local nextState
 	nextState = 5
-	
+
 	return nextState
 end

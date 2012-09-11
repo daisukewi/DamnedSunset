@@ -328,6 +328,12 @@ namespace Logic
 			MHealed *mh = static_cast <MHealed*> (message);
 			// Aumentar la vida de la entidad
 			_life += mh->getHeal();
+
+			//Actualizamos la barra de vida
+			float porcentajeVida = _life/_maxLife;
+			float num = 0.5f - porcentajeVida/2.0f;
+			_billboard->setPosicionImagen(num/*inicioX*/, 0.0f, num + 0.5f/*finX*/, 1.0f);
+
 			// Si la entidad se ha curado del todo paramos
 			if (_life >= _maxLife)
 			{

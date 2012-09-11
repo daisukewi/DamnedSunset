@@ -9,6 +9,7 @@ moveState = { event = moveStateEvent, action = moveStateAction }
 runState = { event = runStateEvent, action = runStateAction }
 pauseState = { event = pauseStateEvent, action = pauseStateAction }
 attackingOtherEnemiesState = { name = "attackingOtherEnemies estado", event = attackingOtherEnemiesStateEvent, action = attackingOtherEnemiesStateAction }
+attackingJackState = { event = attackingJackStateEvent, action = attackingJackStateAction }
 
 -- Tabla con todos los estados.
 states = {
@@ -17,7 +18,8 @@ states = {
 	{ name = "move", state = moveState },
 	{ name = "run", state = runState },
 	{ name = "pause", state = pauseState},
-	{ name = "attackingOtherEnemies", state = attackingOtherEnemiesState}
+	{ name = "attackingOtherEnemies", state = attackingOtherEnemiesState},
+	{ name = "attackingJack", state = attackingJackState}
 }
 
 -- Función que recogerá los eventos a los cuales reaccionará la máquina de estados.

@@ -10,7 +10,7 @@ function moveStateEvent(event, entity)
 	if (event == "OnPlayerSeen") then
 		enemies[entity].playersSeen[enemyEventParam.target] = true
 		decideAttackPlayer(entity)
-		
+
 		-- Decido a que estado voy en base a si tengo objetivo o no.
 		if (enemies[entity].target == nil) then
 			nextState = 1
@@ -20,7 +20,7 @@ function moveStateEvent(event, entity)
 	elseif (event == "OnPlayerLost") then
 		-- Teóricamente este caso no se debería dar nunca. Aún así pongo la comprobación.
 		enemies[entity].playersSeen[enemyEventParam.target] = false
-		
+
 		-- Decido a que estado voy en base a si tengo objetivo o no.
 		if (enemies[entity].target == nil) then
 			nextState = 1
@@ -30,7 +30,7 @@ function moveStateEvent(event, entity)
 	elseif (event == "OnBuildingSeen") then
 		enemies[entity].buildingsSeen[enemyEventParam.target] = true
 		decideAttack(entity)
-		
+
 		-- Decido a que estado voy en base a si tengo objetivo o no.
 		if (enemies[entity].target == nil) then
 			nextState = 1
@@ -41,7 +41,7 @@ function moveStateEvent(event, entity)
 		-- Teóricamente este caso no se debería dar nunca. Aún así pongo la comprobación.
 		enemies[entity].buildingsSeen[enemyEventParam.target] = false
 		decideAttack(entity)
-		
+
 		-- Decido a que estado voy en base a si tengo objetivo o no.
 		if (enemies[entity].target == nil) then
 			nextState = 1
@@ -50,18 +50,21 @@ function moveStateEvent(event, entity)
 		end
 	elseif (event == "IASleep") then
 		enemies[entity].previousState = 3
-		
+
 		stopGoTo(entity)
-		
+
 		nextState = 5
 	elseif (event == "AttackOtherEnemies") then
 		enemies[entity].previousState = 3
 		nextState = 6
+	elseif (event == "AttackJack") then
+		enemies[entity].previousState = 3
+		nextState = 7
 	else
 		-- Como no me interesa ningún evento me quedo en el estado actual.
 		nextState = 3
 	end
-	
+
 	return nextState
 end
 
@@ -69,7 +72,7 @@ end
 function moveStateAction(entity)
 -- El estado de moviendo es el estado 3.
 	local nextState
-	
+
 	-- Si mi vida es menor que el umbral empiezo a huir.
 	-- Hago esta comprobación antes que nada porque quiero que el estado de huir sea el mas prioritario de todos.
 	if (enemies[entity].life <= enemies[entity].runLifeThreshold) then
@@ -80,7 +83,7 @@ function moveStateAction(entity)
 		mensaje:setDestPointZ(enemies[entity].initPoint.z)
 		mensaje:setEntityTo(entity)
 		mensaje:send()
-		
+
 		nextState = 4
 	elseif ((math.abs(enemies[entity].destPoint.x - enemies[entity].posX) < 10) and (math.abs(enemies[entity].destPoint.z - enemies[entity].posZ) < 10)) then
 		-- Como ya he llegado a mi destino paso al estado de idle.
@@ -89,6 +92,6 @@ function moveStateAction(entity)
 		-- Si todavía no he llegado a mi destino me quedo en el estado actual.
 		nextState = 3
 	end
-	
+
 	return nextState
 end

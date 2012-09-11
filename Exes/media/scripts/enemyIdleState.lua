@@ -10,7 +10,7 @@ function idleStateEvent(event, entity)
 	if (event == "OnPlayerSeen") then
 		enemies[entity].playersSeen[enemyEventParam.target] = true
 		decideAttack(entity)
-		
+
 		-- Decido a que estado voy en base a si tengo objetivo o no.
 		if (enemies[entity].target == nil) then
 			nextState = 1
@@ -21,7 +21,7 @@ function idleStateEvent(event, entity)
 		-- Teóricamente este caso no se debería dar nunca. Aún así pongo la comprobación.
 		enemies[entity].playersSeen[enemyEventParam.target] = false
 		decideAttack(entity)
-		
+
 		-- Decido a que estado voy en base a si tengo objetivo o no.
 		if (enemies[entity].target == nil) then
 			nextState = 1
@@ -31,7 +31,7 @@ function idleStateEvent(event, entity)
 	elseif (event == "OnBuildingSeen") then
 		enemies[entity].buildingsSeen[enemyEventParam.target] = true
 		decideAttack(entity)
-		
+
 		-- Decido a que estado voy en base a si tengo objetivo o no.
 		if (enemies[entity].target == nil) then
 			nextState = 1
@@ -42,7 +42,7 @@ function idleStateEvent(event, entity)
 		-- Teóricamente este caso no se debería dar nunca. Aún así pongo la comprobación.
 		enemies[entity].buildingsSeen[enemyEventParam.target] = false
 		decideAttack(entity)
-		
+
 		-- Decido a que estado voy en base a si tengo objetivo o no.
 		if (enemies[entity].target == nil) then
 			nextState = 1
@@ -56,7 +56,7 @@ function idleStateEvent(event, entity)
 			y = enemyEventParam.y,
 			z = enemyEventParam.z
 		}
-		
+
 		-- Envío el mensaje de movimiento.
 		local mensaje = LUA_MAStarRoute()
 		mensaje:setDestPointX(enemies[entity].destPoint.x)
@@ -64,21 +64,24 @@ function idleStateEvent(event, entity)
 		mensaje:setDestPointZ(enemies[entity].destPoint.z)
 		mensaje:setEntityTo(entity)
 		mensaje:send()
-		
+
 		-- Como me estoy moviendo paso al estado de moviéndome.
 		nextState = 3
 	elseif (event == "IASleep") then
 		enemies[entity].previousState = 1
-		
+
 		nextState = 5
 	elseif (event == "AttackOtherEnemies") then
 		enemies[entity].previousState = 1
 		nextState = 6
+	elseif (event == "AttackJack") then
+		enemies[entity].previousState = 1
+		nextState = 7
 	else
 		-- No me ha interesado ningún evento, me quedo en el estado de idle.
 		nextState = 1
 	end
-	
+
 	return nextState
 end
 
@@ -86,7 +89,7 @@ end
 function idleStateAction(entity)
 -- El estado de idle es el estado 1.
 	local nextState
-	
+
 	-- Si mi vida es menor que el umbral empiezo a huir.
 	-- Hago esta comprobación antes que nada porque quiero que el estado de huir sea el mas prioritario de todos.
 	if (enemies[entity].life <= enemies[entity].runLifeThreshold) then
@@ -97,7 +100,7 @@ function idleStateAction(entity)
 		mensaje:setDestPointZ(enemies[entity].initPoint.z)
 		mensaje:setEntityTo(entity)
 		mensaje:send()
-		
+
 		nextState = 4
 	-- Compruebo si me tengo que mover a mi punto inicial y si estoy en él. En caso de no ser así me muevo hasta allí.
 	elseif (enemies[entity].backToInitPoint) then
@@ -108,7 +111,7 @@ function idleStateAction(entity)
 				y = enemies[entity].initPoint.y,
 				z = enemies[entity].initPoint.z
 			}
-			
+
 			-- Envío el mensaje de movimiento.
 			local mensaje = LUA_MAStarRoute()
 			mensaje:setDestPointX(enemies[entity].destPoint.x)
@@ -116,7 +119,7 @@ function idleStateAction(entity)
 			mensaje:setDestPointZ(enemies[entity].destPoint.z)
 			mensaje:setEntityTo(entity)
 			mensaje:send()
-			
+
 			-- Como me estoy moviendo paso al estado de moviéndome.
 			nextState = 3
 		else
@@ -132,13 +135,13 @@ function idleStateAction(entity)
 			mensaje:setDestPointZ(enemies[entity].destPoint.z)
 			mensaje:setEntityTo(entity)
 			mensaje:send()
-			
+
 			-- Como me estoy moviendo paso al estado de moviéndome.
 			nextState = 3
 	else
 		-- Si no me tengo que mover no cambio de estado
 		nextState = 1
 	end
-	
+
 	return nextState
 end

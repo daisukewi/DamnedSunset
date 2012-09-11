@@ -40,7 +40,8 @@ namespace Logic
 	CLanzadorLlamas::~CLanzadorLlamas() {
 		if (_billboard)
 			delete _billboard;
-		delete _flamesDirection;
+		if (_flamesDirection)
+			delete _flamesDirection;
 	}
 
 	bool CLanzadorLlamas::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
@@ -71,6 +72,8 @@ namespace Logic
 		_timeAcc = 0;
 		_secsAcc = 0;
 		_flamesOn = false;
+
+		_flamesDirection = new Vector3(Vector3::ZERO);
 
 		return true;
 	} // spawn

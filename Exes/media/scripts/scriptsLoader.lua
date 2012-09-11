@@ -13,9 +13,10 @@ function loadScripts()
 	SManager:loadScript("enemyMoveState")
 	SManager:loadScript("enemyPauseState")
 	SManager:loadScript("enemyAttackingOtherEnemiesState")
-	
+	SManager:loadScript("enemyAttackingJackState")
+
 	SManager:loadScript("enemyScript")
-	
+
 
 	-- Scripts de la maquina de estados de God
 	SManager:loadScript("godIdleState")
@@ -23,7 +24,7 @@ function loadScripts()
 	SManager:loadScript("godSkillState")
 	SManager:loadScript("godBuildingState")
 	SManager:loadScript("godScript")
-	
+
 	-- Scripts de los edificios
 	SManager:loadScript("buildingsConfiguration")
 	SManager:loadScript("panelSolar")
@@ -42,7 +43,7 @@ function loadScripts()
 	-- Scripts de misión.
 	SManager:loadScript("mission1StagesConfiguration")
 	SManager:loadScript("mission1Behaviour")
-	
+
 	-- Script para inicializar las variables
 	-- Debe ser el ultimo script cargado
 	SManager:loadScript("mission1Parameters")

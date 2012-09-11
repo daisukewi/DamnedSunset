@@ -19,6 +19,8 @@ LUA
 #include "Logic/Entity/Messages/PushEntities.h"
 #include "Logic/Entity/Messages/DisparosPotentes.h"
 #include "Logic/Entity/Messages/LanzarLlamas.h"
+#include "Logic/Entity/Messages/CureEntity.h"
+#include "Logic/Entity/Messages/AttackEntity.h"
 #include "Logic/Entity/Messages/ActivateReduceDamage.h"
 #include "Logic/Entity/Messages/ActivateHealZone.h"
 
@@ -146,6 +148,34 @@ namespace ScriptManager
 
 	//---------------------------------------------------------
 
+	void atacarJack(unsigned int entityID)
+	{
+		Logic::CEntity * jack = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+
+		Logic::CEntity* * entidadesColision;
+		int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions(jack->getPosition(), 40, entidadesColision);
+
+		for(int i = 0; i < numColisiones; ++i)
+		{
+			if (!entidadesColision[i]->getTag().compare("enemy")) 
+			{
+				//Entidad enemiga que atacará a Jack
+				Logic::CEntity * entidad = entidadesColision[i];
+
+				std::stringstream script;
+				script << "enemyEvent(\"AttackJack\", " << entidad->getEntityID() << ")";
+				ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+				Logic::MAttackEntity *message = new Logic::MAttackEntity();
+				message->setAttack(true);
+				message->setEntity(jack);
+				entidad->emitMessage(message);
+			}
+		}
+	}
+
+	//---------------------------------------------------------
+
 	void startPowerShoot(unsigned int entityID, float point_x, float point_y, float point_z)
 	{
 		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
@@ -239,6 +269,32 @@ namespace ScriptManager
 		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
 
 		Logic::MActivateHealZone *m = new Logic::MActivateHealZone();
+		entity->emitMessage(m);
+	}
+
+	//---------------------------------------------------------
+
+	void startCure(unsigned int entityID, unsigned int entityIDTarget)
+	{
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+		Logic::CEntity *entityTarget = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityIDTarget);
+
+		Logic::MCureEntity *m = new Logic::MCureEntity();
+		m->setEntity(entityTarget);
+		m->setCure(true);
+
+		entity->emitMessage(m);
+	}
+
+	//---------------------------------------------------------
+
+	void cancelCure(unsigned int entityID)
+	{
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+		
+		Logic::MCureEntity *m = new Logic::MCureEntity();
+		m->setCure(false);
+
 		entity->emitMessage(m);
 	}
 

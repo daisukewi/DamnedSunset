@@ -26,8 +26,11 @@ function runStateEvent(event, entity)
 	elseif (event == "AttackOtherEnemies") then
 		enemies[entity].previousState = 4
 		nextState = 6
+	elseif (event == "AttackJack") then
+		enemies[entity].previousState = 4
+		nextState = 7
 	end
-	
+
 	return nextState
 end
 
@@ -35,7 +38,7 @@ end
 function runStateAction(entity)
 -- El estado de huyendo es el estado 4.
 	local nextState
-	
+
 	if (enemies[entity].life > enemies[entity].runLifeThreshold) then
 		-- Si en algún momento mi vida es mayor que el umbral vuelvo al estado de idle.
 		nextState = 1
@@ -43,6 +46,6 @@ function runStateAction(entity)
 		-- En cualquier otro caso sigo huyendo, por lo que me quedo en el estado actual.
 		nextState = 4
 	end
-	
+
 	return nextState
 end

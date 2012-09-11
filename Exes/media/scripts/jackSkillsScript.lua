@@ -25,6 +25,7 @@ function showJackSkills()
 	cargarBoton(2, "granada", "jackGrenade")
 	cargarBoton(3, "bolazul", "jackEmpuje")
 	cargarBoton(4, "granada", "jackReduceDamage")
+	cargarBoton(1, "bolazul", "jackBurla")
 
 	if persSelect ~= 1 then
 		cambiarBotones(1)
@@ -86,4 +87,14 @@ function jackReduceDamage()
 
 	activateReduceDamage(god.playersSelected[1])
 	print("jackReduceDamage")
+end
+
+--------------------------------------------------
+--			Habilidad burla de Jack	            --
+--------------------------------------------------
+-- La habilidad del círculo empuje es de tipo INMEDIATO
+
+function jackBurla()
+	atacarJack(god.playersSelected[1])
+	print("atacarJack")
 end

@@ -72,6 +72,7 @@ namespace Logic
 			if (_cure)
 			{
 				_targetEntity = m_cure->getEntity();
+				std::cout << (_targetEntity->getPosition() - _entity->getPosition()).length();
 			}
 		}
 
@@ -100,6 +101,7 @@ namespace Logic
 				m_heal->setHeal(msecs / 100.0f);
 				m_heal->setHealer(_entity);
 				_targetEntity->emitMessage(m_heal, this);
+				std::cout << _targetEntity->getName();
 			}
 		}
 	} // tick

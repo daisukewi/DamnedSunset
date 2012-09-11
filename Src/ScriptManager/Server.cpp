@@ -883,6 +883,18 @@ namespace ScriptManager
 			];
 		luabind::module(_lua)
 			[
+				luabind::def("startCure", &startCure)
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("cancelCure", &cancelCure)
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("atacarJack", &atacarJack)
+			];
+		luabind::module(_lua)
+			[
 				luabind::def("enemigosContraEnemigos", &enemigosContraEnemigos)
 			];		
 		luabind::module(_lua)

@@ -36,7 +36,12 @@ namespace ScriptManager
 
 	void activateHealZone(unsigned int entityID);
 
+	void startCure(unsigned int entityID, unsigned int entityIDTarget);
+	void cancelCure(unsigned int entityID);
+
 	void enemigosContraEnemigos(unsigned int entityID);
+
+	void atacarJack(unsigned int entityID);
 } // namespace Logic
 
 #endif // __Logic_LUA_MessageFunctions_H

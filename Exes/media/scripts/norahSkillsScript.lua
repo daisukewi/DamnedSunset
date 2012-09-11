@@ -2,15 +2,15 @@
 -- las habilidades de Norah
 function activateNorahSkills(playerID)
 	players[playerID].showGUISkills = showNorahSkills
-	
+
 	-- Configuración de los cooldowns de las habilidades.
 	-- Cada índice corresponde a una habilidad y el valor es el tiempo del cooldown en segundos.
-	players[playerID].skillsCooldown = { 
-		[1] = 5, 
+	players[playerID].skillsCooldown = {
+		[1] = 5,
 		[2] = 5,
 		[3] = 5,
 	}
-	
+
 	-- Tabla auxiliar para llevar la cuenta del cooldown actual de cada habilidad.
 	players[playerID].currentSkillsCooldown = {
 		[1] = 0,
@@ -26,8 +26,7 @@ function showNorahSkills()
 	cargarBoton(2, "granada", "norahGrenade")
 	cargarBoton(3, "granada", "norahHealZone")
 	cargarBoton(4, "jeringa", "norahHeal")
-	
-	
+
 	if persSelect ~= 3 then
 		cambiarBotones(3)
 	end
@@ -59,7 +58,7 @@ function startNorahGrenade()
 	god.finishSkillFunction = explodeNorahGrenade
 	god.cancelSkillFunction = cancelNorahGrenade
 	god.clickTarget = nil
-	
+
 	startGrenade(god.playersSelected[1], 0, 0, 0)
 end
 
@@ -77,15 +76,25 @@ end
 -- La habilidad curar es de tipo NO INMEDIATO
 
 function norahHeal()
+	god.startSkillFunction = startNorahHeal
+	skillParameters = {
+		skill = 3,
+	}
+	godEvent("OnSkillClick")
 end
 
 function startNorahHeal()
+	god.finishSkillFunction = executeNorahHeal
+	god.cancelSkillFunction = cancelNorahHeal
+	god.clickTarget = nil
 end
 
 function executeNorahHeal()
+	startCure(god.playersSelected[1], skillParameters.target)
 end
 
 function cancelNorahHeal()
+	cancelCure(god.playersSelected[1])
 end
 
 --------------------------------------------------
