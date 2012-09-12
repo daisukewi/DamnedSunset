@@ -136,6 +136,7 @@ namespace Logic
 				{
 					// Entidad que se encuentra dentro del círculo de acción
 					CEntity * entidad = entidadesColision[i];
+
 					Vector3 targ = entidad->getPosition() - _entity->getPosition();
 
 					// Si está en el sector circular seleccionado se daña a la entidad

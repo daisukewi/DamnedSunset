@@ -70,6 +70,9 @@ namespace Logic
 		*/
 		virtual void process(IMessage *message);
 
+		void actualizarVidaInterfaz();
+		void actualizarVidaBillboard();
+
 	protected:
 
 		/**

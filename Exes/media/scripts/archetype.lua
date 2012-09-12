@@ -437,6 +437,8 @@ Archetype = {
 		timeRabia = 0.3,
 		distRabiaSeg = 80.0,
 
+		timeBurla = 5000,
+
 		initState = 1,
 
 		trigger_shape = "trigger_sphere",
@@ -446,14 +448,14 @@ Archetype = {
 		trigger_collision_group = 3,
 
 		damage = 10,
-		
+
 		selection_shape = "trigger_capsule",
 		selection_type = "trigger_kinematic",
 		selection_trigger = true,
 		selection_radius = 8,
 		selection_height = 12,
 		selection_collision_group = 7,
-		
+
 		reduceDamageTime = 5000,
 		reduceDamageDistance = 100,
 		reduceDamage = -1.0,
@@ -509,7 +511,7 @@ Archetype = {
 
 		angleDisparoPotente = 60,
 		radioDisparoPotente = 100,
-		damageDisparoPotente = 60,
+		damageDisparoPotente = 20,
 
 		angleLanzallamas = 25,
 		radioLanzallamas = 80,
@@ -526,7 +528,7 @@ Archetype = {
 		trigger_collision_group = 3,
 
 		damage = 33,
-		
+
 		selection_shape = "trigger_capsule",
 		selection_type = "trigger_kinematic",
 		selection_trigger = true,
@@ -584,20 +586,20 @@ Archetype = {
 		trigger_collision_group = 3,
 
 		damage = 33,
-		
-		
+
+
 		selection_shape = "trigger_capsule",
 		selection_type = "trigger_kinematic",
 		selection_trigger = true,
 		selection_radius = 8,
 		selection_height = 12,
 		selection_collision_group = 7,
-		
-		
+
+
 		healZoneTime = 5000,
 		healZoneDistance = 100,
 		healZoneValue = 30,
-		
+
 	},
 
 	Waypoint = {

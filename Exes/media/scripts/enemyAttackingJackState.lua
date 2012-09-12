@@ -41,7 +41,7 @@ end
 -- Acción del estado attackingJack.
 function attackingJackStateAction(entity)
 	if (not enemies[entity].stopEffect) then
-		enemies[entity].stopEffect = 5000
+		enemies[entity].stopEffect = Archetype.Jack.timeBurla
 	end
 
 	enemies[entity].stopEffect = enemies[entity].stopEffect - enemies[entity].deltaTime

@@ -142,7 +142,7 @@ namespace Logic
 		{
 			MDamaged *md = static_cast <MDamaged*> (message);
 
-			if (!md->getDamageAction() == DamageMessage::DamageAction::DAMAGE)
+			if (md->getDamageAction() == DamageMessage::DamageAction::DAMAGE)
 			{
 				//El mensaje de daño solo te deberia afectar si la entidad no esta muerta
 				if (!_death)
@@ -254,37 +254,11 @@ namespace Logic
 						}
 					}
 
-					//Actualizamos la barra de vida
-					float porcentajeVida = _life/_maxLife;
-					float num = 0.5f - porcentajeVida/2.0f;
-					_billboard->setPosicionImagen(num/*inicioX*/, 0.0f, num + 0.5f/*finX*/, 1.0f);
+					// Actualizamos la barra de vida
+					actualizarVidaBillboard();
 
-					//Actualizamos la barra de vida en la interfaz
-					if (!_entity->getName().compare("Jack"))
-					{
-						//Actualizamos la vida en la interfaz
-						//GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('1',_life/_maxLife);
-						std::stringstream script;
-						script << "actualizarBarraVida" << "(1," << _life/_maxLife << ")";
-						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-					}
-					if (!_entity->getName().compare("Erick"))
-					{
-						//Actualizamos la vida en la interfaz
-						//GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('2',_life/_maxLife);
-						std::stringstream script;
-						script << "actualizarBarraVida" << "(2," << _life/_maxLife << ")";
-						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-					}
-					if (!_entity->getName().compare("Norah"))
-					{
-						//Actualizamos la vida en la interfaz
-						//GUI::CServer::getSingletonPtr()->getInterfazController()->actualizarBarraVida('3',_life/_maxLife);
-						std::stringstream script;
-						script << "actualizarBarraVida" << "(3," << _life/_maxLife << ")";
-						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-					}
-
+					// Actualizamos la barra de vida en la interfaz
+					actualizarVidaInterfaz();
 
 					// @todo Poner la animación de herido.
 					// @todo Si la vida es menor que 0 poner animación de morir.
@@ -329,11 +303,6 @@ namespace Logic
 			// Aumentar la vida de la entidad
 			_life += mh->getHeal();
 
-			//Actualizamos la barra de vida
-			float porcentajeVida = _life/_maxLife;
-			float num = 0.5f - porcentajeVida/2.0f;
-			_billboard->setPosicionImagen(num/*inicioX*/, 0.0f, num + 0.5f/*finX*/, 1.0f);
-
 			// Si la entidad se ha curado del todo paramos
 			if (_life >= _maxLife)
 			{
@@ -342,6 +311,10 @@ namespace Logic
 				m->setCure(false);
 				mh->getHealer()->emitMessage(m, this);
 			}
+
+			//Actualizamos la barra de vida
+			actualizarVidaBillboard();
+			actualizarVidaInterfaz();
 		}
 
 		// Relleno la tabla con la información del jugador.
@@ -400,6 +373,42 @@ namespace Logic
 	{
 		//Eliminamos la entidad en el siguiente tick
 		CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
+	}
+
+	//---------------------------------------------------------
+
+	void CLife::actualizarVidaBillboard()
+	{
+		float porcentajeVida = _life/_maxLife;
+		float num = 0.5f - porcentajeVida/2.0f;
+		_billboard->setPosicionImagen(num/*inicioX*/, 0.0f, num + 0.5f/*finX*/, 1.0f);
+	}
+
+	//---------------------------------------------------------
+
+	void CLife::actualizarVidaInterfaz()
+	{
+		if (!_entity->getName().compare("Jack"))
+		{
+			//Actualizamos la vida en la interfaz
+			std::stringstream script;
+			script << "actualizarBarraVida" << "(" << _entity->getEntityID() << ",1," << _life/_maxLife << ")";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
+		if (!_entity->getName().compare("Erick"))
+		{
+			//Actualizamos la vida en la interfaz
+			std::stringstream script;
+			script << "actualizarBarraVida" << "(" << _entity->getEntityID() << ",2," << _life/_maxLife << ")";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
+		if (!_entity->getName().compare("Norah"))
+		{
+			//Actualizamos la vida en la interfaz
+			std::stringstream script;
+			script << "actualizarBarraVida" << "(" << _entity->getEntityID() << ",3," << _life/_maxLife << ")";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+		}
 	}
 
 } // namespace Logic
