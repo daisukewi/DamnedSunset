@@ -72,7 +72,6 @@ namespace Logic
 			if (_cure)
 			{
 				_targetEntity = m_cure->getEntity();
-				std::cout << (_targetEntity->getPosition() - _entity->getPosition()).length();
 			}
 		}
 
@@ -87,7 +86,7 @@ namespace Logic
 		if (_cure)
 		{
 			// Llevamos al jugador hasta donde está la entidad objetivo
-			if ((_targetEntity->getPosition() - _entity->getPosition()).length() >= 10)
+			if ((_targetEntity->getPosition() - _entity->getPosition()).length() >= 30)
 			{
 				MMoveSteering *m = new MMoveSteering();
 				m->setMovementType(AI::IMovement::MOVEMENT_KINEMATIC_AVOID);
@@ -101,7 +100,6 @@ namespace Logic
 				m_heal->setHeal(msecs / 100.0f);
 				m_heal->setHealer(_entity);
 				_targetEntity->emitMessage(m_heal, this);
-				std::cout << _targetEntity->getName();
 			}
 		}
 	} // tick

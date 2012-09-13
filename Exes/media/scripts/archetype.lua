@@ -303,7 +303,7 @@ Archetype = {
 		memInitPoint = true,
 		runLifeThreshold = 50,
 
-		damage = 0,
+		damage = 10,
 		attackCoolDown = 250,
 
 		trigger_shape = "trigger_sphere",

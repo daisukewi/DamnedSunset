@@ -27,7 +27,7 @@ function showJackSkills()
 	cargarBoton(4, "granada", "jackReduceDamage")
 	cargarBoton(1, "bolazul", "jackBurla")
 
-	if persSelect ~= 1 then
+	if persSelect ~= 1 or god.playersSelected[1] == getEntityID("Jack") then
 		cambiarBotones(1)
 	end
 end
