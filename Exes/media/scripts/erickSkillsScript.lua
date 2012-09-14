@@ -67,6 +67,8 @@ end
 -- La habilidad de bullet time es de tipo INMEDIATO
 
 function bulletTime()
+	activateBulletTime(god.playersSelected[1])
+	print("bulletTime")
 end
 
 --------------------------------------------------

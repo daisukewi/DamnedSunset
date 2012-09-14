@@ -865,6 +865,10 @@ namespace ScriptManager
 			[
 				luabind::def("launchPowerShoot", &launchPowerShoot)
 			];
+		luabind::module(_lua)
+			[
+				luabind::def("activateBulletTime", &activateBulletTime)
+			];
 
 		luabind::module(_lua)
 			[

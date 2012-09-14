@@ -23,6 +23,7 @@ LUA
 #include "Logic/Entity/Messages/AttackEntity.h"
 #include "Logic/Entity/Messages/ActivateReduceDamage.h"
 #include "Logic/Entity/Messages/ActivateHealZone.h"
+#include "Logic/Entity/Messages/ActivarTiempoBala.h"
 
 #include "Logic/Server.h"
 
@@ -172,6 +173,24 @@ namespace ScriptManager
 				entidad->emitMessage(message);
 			}
 		}
+	}
+
+	//---------------------------------------------------------
+
+	void activateBulletTime(unsigned int entityID)
+	{
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+
+		Logic::MActivarTiempoBala *m = new Logic::MActivarTiempoBala();
+		m->setTime(5.0f);
+		unsigned int norah = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Norah")->getEntityID();
+		unsigned int jack = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack")->getEntityID();
+		unsigned int erick = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick")->getEntityID();
+		m->addEntity(norah);
+		m->addEntity(jack);
+		m->addEntity(erick);
+		
+		entity->emitMessage(m);
 	}
 
 	//---------------------------------------------------------

@@ -61,6 +61,7 @@ namespace Logic
 			for (int i = 0; i < _numEntities; ++i)
 			{
 				unsigned int id = _entitiesID[i];
+				std::cout << "desactivando a: " << Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(id)->getName() << '\n';
 				Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(id)->emitMessage(msrt);
 			}
 			//Aplicamos el efecto bala

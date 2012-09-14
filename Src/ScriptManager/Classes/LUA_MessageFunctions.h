@@ -31,6 +31,8 @@ namespace ScriptManager
 	void startFlameThrower(unsigned int entityID);
 	void launchFlameThrower(unsigned int entityID, float point_x, float point_y, float point_z);
 	void cancelFlameThrower(unsigned int entityID);
+
+	void activateBulletTime(unsigned int entityID);
 	
 	void activateReduceDamage(unsigned int entityID);
 
