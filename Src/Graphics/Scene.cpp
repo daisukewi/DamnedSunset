@@ -50,6 +50,8 @@ namespace Graphics
 		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, name);
 		_camera = new CCamera(name,this);
 		_name = name;
+		
+		configureScene();
 
 	} // CScene
 
@@ -118,17 +120,18 @@ namespace Graphics
 						->addViewport(_camera->getCamera());
 		_viewport->setBackgroundColour(Ogre::ColourValue::Black);
 
-		_sceneMgr->setAmbientLight(Ogre::ColourValue(0.75f, 0.75f, 0.96f));
+		_sceneMgr->setAmbientLight(Ogre::ColourValue(0.65f, 0.65f, 0.76f));
 
 		// Además de la luz ambiente creamos una luz direccional que 
 		// hace que se vean mejor los volúmenes de las entidades.
 		_directionalLight = _sceneMgr->createLight("directional light");
 		_directionalLight->setDiffuseColour(.5f,.5f,.5f);
-		_directionalLight->setSpecularColour(.5f,.5f,.5f);
+		_directionalLight->setSpecularColour(.1f,.1f,.15f);
 		_directionalLight->setType(Ogre::Light::LT_DIRECTIONAL);
-		_directionalLight->setDirection(0, -150, 0);
-		_directionalLight->setType(Ogre::Light::LT_POINT);
-		_directionalLight->setPosition(0, 500, 0);
+		Vector3 light_direction = Vector3(-0.4, -1.0, -0.5);
+		light_direction.normalise();
+		_directionalLight->setDirection(light_direction);
+		_directionalLight->setCastShadows(true);
 
 	} // activate
 
@@ -214,5 +217,24 @@ namespace Graphics
 		}
 
 	} // buildStaticGeometry
+
+	void CScene::configureScene()
+	{
+		// General scene setup
+		_sceneMgr->setShadowTexturePixelFormat(Ogre::PF_FLOAT16_R);
+		_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_ADDITIVE);
+		_sceneMgr->setShadowFarDistance(1000);
+
+		// 3 textures per directional light (PSSM)
+		//_sceneMgr->setShadowTextureCountPerLightType(Ogre::Light::LT_DIRECTIONAL, 3);
+
+		//_sceneMgr->setShadowTextureCount(3);
+		//_sceneMgr->setShadowTextureConfig(0, 2048, 2048, Ogre::PF_X8B8G8R8);
+		//_sceneMgr->setShadowTextureConfig(1, 1024, 1024, Ogre::PF_X8B8G8R8);
+		//_sceneMgr->setShadowTextureConfig(2, 1024, 1024, Ogre::PF_X8B8G8R8);
+		_sceneMgr->setShadowTextureSelfShadow(false);
+		_sceneMgr->setShadowCasterRenderBackFaces(false);
+		_sceneMgr->setShadowTextureCasterMaterial(Ogre::StringUtil::BLANK);
+	}
 
 } // namespace Graphics

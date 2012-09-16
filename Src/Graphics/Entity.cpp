@@ -103,6 +103,7 @@ namespace Graphics
 		}
 		_entityNode = _scene->getSceneMgr()->getRootSceneNode()->
 								createChildSceneNode(_name + "_node");
+		_entity->setCastShadows(true);
 		_entityNode->attachObject(_entity);
 		_loaded = true;
 		return true;

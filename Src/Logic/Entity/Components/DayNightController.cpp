@@ -152,7 +152,7 @@ namespace Logic
 				Logic::CServer::getSingletonPtr()->getMap()->sendMessageAll(dayNightMessage, _entity);
 
 				Graphics::CScene* sm = Graphics::CServer::getSingletonPtr()->getActiveScene();
-				sm->setAmbientLight(0.75f, 0.75f, 0.96f);
+				sm->setAmbientLight(0.65f, 0.65f, 0.76f);
 
 				_timeType = TIME_TYPE::DAY;
 				Application::CGaleonApplication::getSingletonPtr()->setState("day");

@@ -52,11 +52,11 @@ namespace Graphics
 		//HACK: Valores cableados de las distancias para reenderizar. 
 		// Deberían poder configurarse.
 		_camera->setNearClipDistance(0.1);
-		_camera->setFarClipDistance(500);
+		_camera->setFarClipDistance(700);
 		//_camera->setPolygonMode(Ogre::PM_WIREFRAME);
 		if (BaseSubsystems::CServer::getSingletonPtr()->getOgreRoot()->getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_INFINITE_FAR_PLANE))
 		{
-			//_camera->setFarClipDistance(0);   // enable infinite far clip distance if we can
+			_camera->setFarClipDistance(0);   // enable infinite far clip distance if we can
 		}
 		// Finalmente adjuntamos la cámara a su nodo.
 		_cameraNode->attachObject (_camera);

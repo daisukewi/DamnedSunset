@@ -250,7 +250,8 @@ namespace Graphics
 		@return Puntero a la geometría estática de la escena de Ogre.
 		*/
 		Ogre::StaticGeometry *getStaticGeometry() {return _staticGeometry;}
-		
+		void configureScene();
+
 		/**
 		Nombre de la escena.
 		*/

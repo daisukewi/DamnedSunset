@@ -82,6 +82,8 @@ namespace Graphics
 
 		void configureTerrainDefaults();
 
+		void configureShadows();
+
 	}; // class CTerrain
 
 } // namespace Graphics

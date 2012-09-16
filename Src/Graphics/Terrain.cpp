@@ -22,6 +22,9 @@ Contiene la implementación de la clase que define un terreno
 #include <OgreRoot.h>
 #include <OgreTerrain.h>
 #include <OgreTerrainGroup.h>
+#include <OgreTerrainQuadTreeNode.h>
+#include <OgreTerrainMaterialGeneratorA.h>
+#include <OgreTerrainPaging.h>
 
 #include <stdio.h>
 
@@ -50,7 +53,7 @@ namespace Graphics
 		}
 
 		Ogre::MaterialManager::getSingleton().setDefaultTextureFiltering(Ogre::TFO_ANISOTROPIC);
-		Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(1);
+		Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(7);
 
 		// TerrainSystem initialization..
 		printf("Terrain: Creating new terrain.\n");
@@ -84,6 +87,8 @@ namespace Graphics
 
 		while (_terrainGroup->isDerivedDataUpdateInProgress());
 		_terrainGroup->saveAllTerrains(true);
+
+		configureShadows();
 
 	} // CTerrain
 
@@ -196,13 +201,15 @@ namespace Graphics
 		// Configure global
 		_terrainGlobals->setMaxPixelError(8);
 		// testing composite map
-		_terrainGlobals->setCompositeMapDistance(6000);
+		_terrainGlobals->setCompositeMapDistance(3000);
 
 		// Important to set these so that the terrain knows what to use for derived (non-realtime) data
-		_terrainGlobals->setLightMapDirection(Vector3(0.0, -1.0, 0.0));
-		_terrainGlobals->setCompositeMapAmbient(Ogre::ColourValue(0.2, 0.2, 0.2));
-		_terrainGlobals->setCompositeMapDiffuse(Ogre::ColourValue::White);
-		_terrainGlobals->setCastsDynamicShadows(true);
+		_terrainGlobals->setCastsDynamicShadows(false);
+		Vector3 light_direction = Vector3(-0.5, -0.45, -0.8);
+		light_direction.normalise();
+		_terrainGlobals->setLightMapDirection(light_direction);
+		_terrainGlobals->setCompositeMapAmbient(Ogre::ColourValue(0.65f, 0.65f, 0.76f));
+		_terrainGlobals->setCompositeMapDiffuse(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
 
 		// Configure default import settings for if we use imported image
 		Ogre::Terrain::ImportData& defaultimp = _terrainGroup->getDefaultImportSettings();
@@ -233,6 +240,19 @@ namespace Graphics
 			++i;
 		}
 
+	}
+
+	void CTerrain::configureShadows()
+	{
+		Ogre::TerrainMaterialGeneratorA::SM2Profile* matProfile = 
+			static_cast<Ogre::TerrainMaterialGeneratorA::SM2Profile*>(_terrainGlobals->getDefaultMaterialGenerator()->getActiveProfile());
+		matProfile->setReceiveDynamicShadowsEnabled(true);
+		matProfile->setReceiveDynamicShadowsLowLod(true);
+		
+		matProfile->setReceiveDynamicShadowsDepth(false);
+		//matProfile->setReceiveDynamicShadowsPSSM(static_cast<Ogre::PSSMShadowCameraSetup*>(mPSSMSetup.get()));
+
+		//addTextureShadowDebugOverlay(TL_RIGHT, 3);
 	}
 
 } // namespace Graphics
