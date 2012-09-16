@@ -330,7 +330,7 @@ Archetype = {
 		physic_height = 2.0,
 		physic_radius = 0.5,
 		physic_mass = 1,
-		physic_collision_group = 6,
+		physic_collision_group = 9,
 
 		damage = 60.0,
 		timeEmpujar = 0.3,
@@ -350,7 +350,7 @@ Archetype = {
 		physic_height = 2.0,
 		physic_radius = 0.5,
 		physic_mass = 1,
-		physic_collision_group = 6,
+		physic_collision_group = 9,
 
 		time = 3.0,
 	},
@@ -368,7 +368,7 @@ Archetype = {
 		physic_height = 2.0,
 		physic_radius = 0.5,
 		physic_mass = 1,
-		physic_collision_group = 6,
+		physic_collision_group = 9,
 
 		time = 10.0,
 		damage = 20.0,
@@ -388,7 +388,7 @@ Archetype = {
 		physic_height = 2.0,
 		physic_radius = 0.5,
 		physic_mass = 1,
-		physic_collision_group = 6,
+		physic_collision_group = 9,
 		distEmpujarSeg = 150.0,
 
 		dimension = {1, 1},

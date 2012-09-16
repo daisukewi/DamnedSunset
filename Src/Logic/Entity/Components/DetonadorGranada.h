@@ -29,6 +29,12 @@ namespace Logic
 		virtual bool activate();
 
 		/**
+		Método llamado en cada frame que actualiza el estado del componente.
+
+		@param msecs Milisegundos transcurridos desde el último tick.
+		*/
+		virtual void tick(unsigned int msecs);
+		/**
 		Método heredado de la interfaz IClockListener que será llamado
 		por el temporizador cuando se acabe el tiempo de espera
 		especificado.

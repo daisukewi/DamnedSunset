@@ -113,7 +113,7 @@ namespace Logic
 
 				//Ponemos la posicion de la granada en el mismo sitio que la entidad
 				std::stringstream pos;
-				pos << _entity->getPosition().x << ' ' << _entity->getPosition().y + 15<< ' ' << (_entity->getPosition().z );
+				pos << _entity->getPosition().x << ' ' << _entity->getPosition().y + 25 << ' ' << (_entity->getPosition().z );
 				entityInfo->setAttribute("position", pos.str());
 
 				////Ponemos la posicion de la granada en el destino

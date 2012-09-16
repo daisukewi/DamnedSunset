@@ -63,7 +63,7 @@ function startNorahGrenade()
 end
 
 function explodeNorahGrenade()
-	launchGrenade(god.playersSelected[1], 0, 0, 0)
+	launchGrenade(god.playersSelected[1], skillParameters.point_x, skillParameters.point_y, skillParameters.point_z)
 end
 
 function cancelNorahGrenade()

@@ -45,6 +45,14 @@ namespace Logic
 		return true;
 	} // spawn
 
+	void CDetonadorGranadaAturdir::tick(unsigned int msecs)
+	{
+		IComponent::tick(msecs);
+
+		if ( _entity->getPosition().y < 0 ) {
+			_entity->setPosition( Vector3(_entity->getPosition().x, 0 , _entity->getPosition().z) );
+		}
+	}
 
 	bool CDetonadorGranadaAturdir::activate()
 	{	

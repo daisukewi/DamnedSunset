@@ -134,6 +134,7 @@ void CServer::createScene ()
 	// Grupo 1 -> El laberinto
 	// Grupo 2 -> Barriles
 	scene->GetNxScene()->setGroupCollisionFlag(0,1,false);
+	scene->GetNxScene()->setGroupCollisionFlag(3,9,false);
 }
 
 //--------------------------------------------------------
