@@ -478,12 +478,47 @@ namespace Logic
 
 	void CSelectionController::processKeyboardEvent(GUI::Key::TKeyID key){
 		std::string aux;
-		std::stringstream procKey;
-		if (GUI::Key::TKeyID::TAB){
+
+		switch (key){
+
+		case GUI::Key::TKeyID::TAB:
 			aux = "TAB";
+			break;
+
+		case GUI::Key::TKeyID::NUMBER0:
+			aux = "NUMBER0";
+			break;
+
+		case GUI::Key::TKeyID::NUMBER1:
+			aux = "NUMBER1";
+			break;
+
+		case GUI::Key::TKeyID::NUMBER2:
+			aux = "NUMBER2";
+			break;
+
+		case GUI::Key::TKeyID::NUMBER3:
+			aux = "NUMBER3";
+			break;
+
+		case GUI::Key::TKeyID::NUMBER4:
+			aux = "NUMBER4";
+			break;
+
+		case GUI::Key::TKeyID::NUMBER5:
+			aux = "NUMBER5";
+			break;
+
+		default:
+			aux = "NONE";
+			break;
 		}
-		procKey << "processKeyboardEvent(\"" << aux <<"\")" ;
+
+		std::stringstream procKey;
+		procKey << "keyEventParameters = { key = \"" << aux << "\" } " ;
+		procKey << "godEvent(\"OnKeyEvent\")" ;
 		ScriptManager::CServer::getSingletonPtr()->executeScript(procKey.str().c_str());
+
 	} //processKeyboardEvent
 
 	//---------------------------------------------------------

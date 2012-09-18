@@ -84,6 +84,35 @@ function godSelectedStateEvent(event)
 			-- En el caso de que la habiliad esté todavía en tiempo de cooldown me quedo en el estado actual sin hacer nada.
 			nextState = 2
 		end
+	-- Evento de teclado
+	elseif (event == "OnKeyEvent") then
+		local entityID = 0;
+		
+		-- Miro que tecla numérica ha pulsado el usuario y me guardo el ID de la entidad.
+		if (keyEventParameters.key == "NUMBER1") then
+			entityID = getEntityID("Jack")
+		elseif (keyEventParameters.key == "NUMBER2") then
+			entityID = getEntityID("Erick")
+		elseif (keyEventParameters.key == "NUMBER3") then
+			entityID = getEntityID("Norah")
+		end
+		
+		-- Si el ID es alguno válido es porque se ha pulsado una tecla que corresponde a un personaje, por lo tanto procedo a seleccionarlo.
+		if (entityID ~= 0) then
+			-- Primero deselecciono todos los objetivos actuales
+			unselectCurrentTargets()
+			-- Intento seleccionar el nuevo objetivo
+			if (selectNewTarget(entityID)) then
+				-- Si se ha podido seleccionar un objetivo nuevo me quedo en el estado actual.
+				nextState = 2
+			else
+				-- Si no se ha podido seleccionar nada paso al estado de idle.
+				nextState = 1
+			end
+		else
+			-- Si no se ha pulsado una tecla correspondiente a un personaje me quedo en el estado actual.
+			nextState = 2
+		end
 	else
 		nextState = 2
 	end
