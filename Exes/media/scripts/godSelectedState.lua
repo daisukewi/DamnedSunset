@@ -6,7 +6,7 @@
 function godSelectedStateEvent(event)
 -- El estado de seleccionado es el estado 2.
 	local nextState
-	
+
 	-- Evento de click de selección.
 	if (event == "OnSelectionClick") then
 		-- Primero deselecciono todos los objetivos actuales
@@ -23,11 +23,11 @@ function godSelectedStateEvent(event)
 	elseif (event == "OnMultiSelectionClick") then
 		-- Primero deselecciono todos los objetivos actuales
 		unselectCurrentTargets()
-		
+
 		-- Hago una búsqueda por los objetivos seleccionados buscando al mismo tiempo cual es el primero
 		local primarySelected = false
 		for key, playerID in pairs(multiSelectionParameters) do
-			if (playerID ~= -1) then 
+			if (playerID ~= -1) then
 				if (not(primarySelected)) then
 					if (selectNewTarget(playerID)) then
 						primarySelected = true
@@ -37,7 +37,7 @@ function godSelectedStateEvent(event)
 				end
 			end
 		end
-		
+
 		if (primarySelected) then
 			nextState = 2
 		else
@@ -48,6 +48,12 @@ function godSelectedStateEvent(event)
 		if (actionParameters.point_y ~= -1) then
 			-- Primero compruebo si el primer objetivo seleccionado es un personaje.
 			if ((god.playersSelected[1] ~= -1) and (isPlayer(god.playersSelected[1]))) then
+
+				-- Chapuza para que Norah deje de curar si se le ordena moverse o atacar
+				if god.playersSelected[1] == getEntityID("Norah") then
+					cancelCure(god.playersSelected[1])
+				end
+
 				-- Si el objetivo de la acción es un enemigo le mando una orden de ataque al todos los personajes seleccionados
 				if ((actionParameters.target ~= -1) and ((isEnemy(actionParameters.target)) or (isEnemyBuilding(actionParameters.target)))) then
 					for i, playerID in pairs(god.playersSelected) do
@@ -61,7 +67,7 @@ function godSelectedStateEvent(event)
 				end
 			end
 		end
-		
+
 		-- Sea la acción que sea la que se haya hecho sobre el objetivo me quedo en el estado actual ya que no influye sobre la selección.
 		nextState = 2
 	-- Evento de click en una habilidad del personaje seleccionado.
@@ -70,14 +76,14 @@ function godSelectedStateEvent(event)
 		if (players[god.playersSelected[1]].currentSkillsCooldown[skillParameters.skill] <= 0) then
 			-- Empiezo la habilidad.
 			god.startSkillFunction()
-			
+
 			-- Me guardo el índice de la habilidad
 			god.currentSkill = skillParameters.skill
-			
+
 			-- Me guardo en otra variable distinta la función de cancelación de la habilidad actual
 			-- por si hay que cancelarla porque se ha pulsado en otra habilidad distinta.
 			god.previousCancelSkillFunction = god.cancelSkillFunction
-		
+
 			-- Paso al estado de gestión de la habilidad.
 			nextState = 3
 		else
@@ -87,7 +93,7 @@ function godSelectedStateEvent(event)
 	-- Evento de teclado
 	elseif (event == "OnKeyEvent") then
 		local entityID = 0;
-		
+
 		-- Miro que tecla numérica ha pulsado el usuario y me guardo el ID de la entidad.
 		if (keyEventParameters.key == "NUMBER1") then
 			entityID = getEntityID("Jack")
@@ -96,7 +102,7 @@ function godSelectedStateEvent(event)
 		elseif (keyEventParameters.key == "NUMBER3") then
 			entityID = getEntityID("Norah")
 		end
-		
+
 		-- Si el ID es alguno válido es porque se ha pulsado una tecla que corresponde a un personaje, por lo tanto procedo a seleccionarlo.
 		if (entityID ~= 0) then
 			-- Primero deselecciono todos los objetivos actuales
@@ -116,7 +122,7 @@ function godSelectedStateEvent(event)
 	else
 		nextState = 2
 	end
-	
+
 	return nextState
 end
 
@@ -124,6 +130,6 @@ end
 function godSelectedStateAction()
 -- El estado de seleccionado es el estado 2.
 	local nextState = 2
-	
+
 	return nextState
 end

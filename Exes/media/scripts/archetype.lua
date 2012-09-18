@@ -542,7 +542,7 @@ Archetype = {
 
 		angleDisparoPotente = 60,
 		radioDisparoPotente = 100,
-		damageDisparoPotente = 20,
+		damageDisparoPotente = 5,
 
 		angleLanzallamas = 25,
 		radioLanzallamas = 80,
