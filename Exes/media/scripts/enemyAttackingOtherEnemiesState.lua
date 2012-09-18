@@ -19,6 +19,9 @@ function attackingOtherEnemiesStateAction(entity)
 	
 	if ( enemies[entity].stopEffect) then
 		--print("Second time")
+		if (enemies[entity].target == nil) then
+			decideAttackOtherEnemy(entity)
+		end
 	else
 		print("ENTRAMOS AL ESTADO attackingOtherEnemiesStateAction")
 		decideAttackOtherEnemy(entity)
@@ -30,7 +33,7 @@ function attackingOtherEnemiesStateAction(entity)
 	local nextState
 	nextState = 6
 	
-	if (enemies[entity].stopEffect < 0) then
+	if (enemies[entity].stopEffect < 0 or enemies[entity].target == nil) then
 		print("SALIMOS DEL ESTADO attackingOtherEnemiesStateAction")
 		enemies[entity].stopEffect = nil
 		

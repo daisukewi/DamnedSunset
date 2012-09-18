@@ -121,7 +121,7 @@ namespace ScriptManager
 		printf("c++ enemigosContraEnemigos\n");
 
 		Logic::CEntity* * entidadesColision;
-		int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions( norah->getPosition(),40,entidadesColision);
+		int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions( norah->getPosition(),80,entidadesColision);
 
 		//Iniciamos la tabla de los enemigos afectados
 		std::stringstream script1;
@@ -135,11 +135,20 @@ namespace ScriptManager
 				//Entidad enemiga que atacara a otros enemigos
 				Logic::CEntity * entidad = entidadesColision[i];
 
-				std::stringstream script2;
-				script2 << "enemyEvent(\"AttackOtherEnemies\", " << entidad->getEntityID() << ")";
-				ScriptManager::CServer::getSingletonPtr()->executeScript(script2.str().c_str());
+				float distX = entidad->getPosition().x - norah->getPosition().x;
+				float distZ = entidad->getPosition().z - norah->getPosition().z;
+				float distance2 = distX * distX + distZ * distZ;
 
-				//Añadimos el enemigo a la tabla de los enemigos afectados
+				//Solo entraran al estado los que esten a una distancia menor de 40
+				if (distance2 < 40 * 40) {
+					std::stringstream script2;
+					script2 << "enemyEvent(\"AttackOtherEnemies\", " << entidad->getEntityID() << ")";
+					ScriptManager::CServer::getSingletonPtr()->executeScript(script2.str().c_str());
+				}
+
+				//Atacaran hasta a los que esten a una distancia de 80
+
+				//Añadimos el enemigo a la tabla de los enemigos afectados entre los que se pueden atacar
 				std::stringstream script3;
 				script3 << "enemigosConfundidos[" << i+1 << "] = " << entidad->getEntityID();
 				ScriptManager::CServer::getSingletonPtr()->executeScript(script3.str().c_str());
