@@ -41,6 +41,11 @@ namespace Logic
 		float _count;
 	
 		bool _poison;
+
+
+		//sonido y efecto
+		std::string _poisonSound;
+		std::string _poisonEffect;
 	};
 
 	REG_FACTORY(CPoison);

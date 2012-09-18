@@ -35,6 +35,14 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 
+		if(entityInfo->hasAttribute("healSound"))
+			_healSound = entityInfo->getFloatAttribute("healSound");
+
+
+		if(entityInfo->hasAttribute("healEffect"))
+			_healEffect = entityInfo->getFloatAttribute("healEffect");
+
+
 		return true;
 
 	} // spawn

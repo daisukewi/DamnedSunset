@@ -143,7 +143,12 @@ namespace Logic
 		/**
 		Sonido de ataque
 		*/
-		std::string _attackSoundEffect;
+		std::string _distanceAttackSound;
+
+		/**
+		Efecto particulas
+		*/
+		std::string _distanceAttackEffect;
 
 	}; // class CDistanceAtack
 

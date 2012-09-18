@@ -32,6 +32,12 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 
+		if(entityInfo->hasAttribute("poisonSound"))
+			_poisonSound = entityInfo->getFloatAttribute("poisonSound");
+
+		if(entityInfo->hasAttribute("poisonEffect"))
+			_poisonEffect = entityInfo->getFloatAttribute("poisonEffect");
+
 		return true;
 	} // spawn
 

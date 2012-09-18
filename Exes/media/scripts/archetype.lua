@@ -315,6 +315,20 @@ Archetype = {
 
 		duracionCarga = 1000,
 		coolDownCarga = 10000,
+		
+		lifeCureSound = "",
+		lifeCureEffect = "",
+		lifeDamageSound = "",
+		lifeDamageEffect = "Blood",
+		
+		distanceAttackSound = "RifleShot1.ogg",
+		distanceAttackEffect = "",
+		
+		healSound = "",
+		healEffect = "",
+		
+		poisonSound = "",
+		poisonEffect = "",
 	},
 
 	Granada = {
@@ -459,6 +473,23 @@ Archetype = {
 		reduceDamageTime = 5000,
 		reduceDamageDistance = 100,
 		reduceDamage = -1.0,
+		
+		
+		lifeCureSound = "",
+		lifeCureEffect = "",
+		lifeDamageSound = "",
+		lifeDamageEffect = "Blood",
+		
+		distanceAttackSound = "RifleShot1.ogg",
+		distanceAttackEffect = "",
+		
+		healSound = "",
+		healEffect = "",
+		
+		poisonSound = "",
+		poisonEffect = "",
+		
+		
 	},
 
 	Erick = {
@@ -535,6 +566,20 @@ Archetype = {
 		selection_radius = 8,
 		selection_height = 12,
 		selection_collision_group = 7,
+		
+		lifeCureSound = "",
+		lifeCureEffect = "",
+		lifeDamageSound = "",
+		lifeDamageEffect = "Blood",
+		
+		distanceAttackSound = "RifleShot1.ogg",
+		distanceAttackEffect = "",
+		
+		healSound = "",
+		healEffect = "",
+		
+		poisonSound = "",
+		poisonEffect = "",
 	},
 
 	Norah = {
@@ -600,6 +645,20 @@ Archetype = {
 		healZoneDistance = 100,
 		healZoneValue = 30,
 
+		lifeCureSound = "",
+		lifeCureEffect = "",
+		lifeDamageSound = "",
+		lifeDamageEffect = "Blood",
+		
+		distanceAttackSound = "RifleShot1.ogg",
+		distanceAttackEffect = "",
+		
+		healSound = "",
+		healEffect = "",
+		
+		poisonSound = "",
+		poisonEffect = "",
+		
 	},
 
 	Waypoint = {

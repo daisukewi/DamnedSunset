@@ -38,6 +38,7 @@ Contiene la implementación del componente que controla la vida de una entidad.
 #include "Logic/Entity/Messages/EntityDeathListener.h"
 #include "Logic/Entity/Messages/EntityDeath.h"
 #include "Logic/Entity/Messages/ParticleEffect.h"
+#include "Logic/Entity/Messages/SoundEffect.h"
 
 #include "GUI/Server.h"
 #include "GUI/InterfazController.h"
@@ -68,6 +69,19 @@ namespace Logic
 			_life = entityInfo->getFloatAttribute("life");
 		if(entityInfo->hasAttribute("maxLife"))
 			_maxLife = entityInfo->getFloatAttribute("maxLife");
+
+		std::string _lifeDamageSound;
+		std::string _lifeDamageEffect;
+		std::string _lifeCureSound;
+		std::string _lifeCureEffect;
+		if(entityInfo->hasAttribute("lifeDamageSound"))
+			_lifeDamageSound = entityInfo->getFloatAttribute("lifeDamageSound");
+		if(entityInfo->hasAttribute("lifeDamageEffect"))
+			_lifeDamageEffect = entityInfo->getFloatAttribute("lifeDamageEffect");
+		if(entityInfo->hasAttribute("lifeCureSound"))
+			_lifeCureSound = entityInfo->getFloatAttribute("lifeCureSound");
+		if(entityInfo->hasAttribute("lifeCureEffect"))
+			_lifeCureEffect = entityInfo->getFloatAttribute("lifeCureEffect");
 
 		if(entityInfo->hasAttribute("deathFunction"))
 		{
@@ -161,8 +175,13 @@ namespace Logic
 					//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
 					MParticleEffect *rc_message = new MParticleEffect();
 					rc_message->setPoint(_entity->getPosition());
-					rc_message->setEffect("Blood");
+					rc_message->setEffect(_lifeDamageEffect);
 					_entity->emitInstantMessage(rc_message,this);
+
+					//Sonido
+					MSoundEffect *m_sound = new MSoundEffect();
+					m_sound->setSoundEffect(_lifeDamageSound);
+					_entity->emitMessage(m_sound);
 
 					if (_life <= 0) {
 						//Muere la entidad
@@ -311,6 +330,17 @@ namespace Logic
 				m->setCure(false);
 				mh->getHealer()->emitMessage(m, this);
 			}
+
+			//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
+			MParticleEffect *rc_message = new MParticleEffect();
+			rc_message->setPoint(_entity->getPosition());
+			rc_message->setEffect(_lifeCureEffect);
+			_entity->emitInstantMessage(rc_message,this);
+
+			//Sonido
+			MSoundEffect *m_sound = new MSoundEffect();
+			m_sound->setSoundEffect(_lifeCureSound);
+			_entity->emitMessage(m_sound);
 
 			//Actualizamos la barra de vida
 			actualizarVidaBillboard();

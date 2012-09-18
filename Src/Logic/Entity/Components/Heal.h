@@ -99,6 +99,13 @@ namespace Logic
 		*/
 		CEntity* _targetEntity;
 
+		/**
+		Sonido y efecto particulas
+		*/
+		std::string _healSound;
+		std::string _healEffect;
+
+
 	}; // class CHeal
 
 	REG_FACTORY(CHeal);

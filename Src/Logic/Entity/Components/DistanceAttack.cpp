@@ -61,10 +61,8 @@ namespace Logic
 		}else{
 			_maxDistance = 80;
 		}
-		if (entityInfo->hasAttribute("attackSoundEffect")){
-			_attackSoundEffect = entityInfo->getStringAttribute("attackSoundEffect");
-		}else{
-			_attackSoundEffect = "RifleShot1.ogg";
+		if (entityInfo->hasAttribute("distanceAttackSound")){
+			_distanceAttackSound = entityInfo->getStringAttribute("distanceAttackSound");
 		}
 		
 		_damage = 4.0;
@@ -127,7 +125,7 @@ namespace Logic
 						m->getEntity()->emitMessage(m_dam, this);
 							
 						MSoundEffect *m_sound = new MSoundEffect();
-						m_sound->setSoundEffect(_attackSoundEffect);
+						m_sound->setSoundEffect(_distanceAttackSound);
 						_entity->emitMessage(m_sound);
 
 						MSetAnimation *m_anim2  =new MSetAnimation();
@@ -200,7 +198,7 @@ namespace Logic
 
 
 						MSoundEffect *m_sound = new MSoundEffect();
-						m_sound->setSoundEffect(_attackSoundEffect);
+						m_sound->setSoundEffect(_distanceAttackSound);
 						_entity->emitMessage(m_sound);
 					}else{
 						finalizar = true;

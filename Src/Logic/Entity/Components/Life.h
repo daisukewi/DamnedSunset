@@ -158,6 +158,12 @@ namespace Logic
 		*/
 		float _damageModification;
 
+		//Efectos de sonido y particulas
+		std::string _lifeDamageSound;
+		std::string _lifeDamageEffect;
+		std::string _lifeCureSound;
+		std::string _lifeCureEffect;
+
 
 
 	}; // class CLife
