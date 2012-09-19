@@ -205,8 +205,6 @@ function updateSkillsCooldown(deltaTime)
 			
 			urlImageCoolDown = "InterfazControles/Menu/b" .. index .. "/b" .. index .. "cd"
 			
-			print("urlImageCoolDown: " .. urlImageCoolDown)
-			
 			if (players[ID].currentSkillsCooldown[index] > 0) then
 
 				porcentaje = players[ID].currentSkillsCooldown[index]/players[ID].skillsCooldown[index]
@@ -215,9 +213,6 @@ function updateSkillsCooldown(deltaTime)
 				
 				if (ID == god.playersSelected[1]) then
 
-					
-
-					print("Porcentaje: ".. porcentaje)
 					
 					InterfazControles:getChild(urlImageCoolDown):setHeight(CEGUI.UDim(porcentaje,0))
 				end
