@@ -22,10 +22,10 @@ end
 -- Función que mostrará las habilidades de Norah en el GUI con sus correspondientes
 -- llamadas a las funciones correspondientes.
 function showNorahSkills()
-	cargarBoton(1, "bolazul", "norahEnemigosContraEnemigos")
-	cargarBoton(2, "granada", "norahGrenade")
-	cargarBoton(3, "granada", "norahHealZone")
-	cargarBoton(4, "jeringa", "norahHeal")
+	cargarBoton(1, "confuse", "norahEnemigosContraEnemigos")
+	cargarBoton(2, "norahGrenade", "norahGrenade")
+	cargarBoton(3, "healZone", "norahHealZone")
+	cargarBoton(4, "heal", "norahHeal")
 
 	if persSelect ~= 3 then
 		cambiarBotones(3)

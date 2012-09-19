@@ -5,7 +5,7 @@ function cargarInterfazControlesDia()
 	ocultarBoton(2)
 	ocultarBoton(3)
 	cargarBoton(4,"bolazul","cambiarANoche")
-	
+
 	CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/MenuBotonesIA"):setVisible(false)
 end
 
@@ -15,7 +15,7 @@ function cargarInterfazControlesNoche()
 	ocultarBoton(2)
 	ocultarBoton(3)
 	ocultarBoton(4)
-	
+
 	cargarBotonIA(1,"BotonIA1", "funcionIA1")
 	cargarBotonIA(2,"BotonIA2", "funcionIA2")
 	cargarBotonIA(3,"BotonIA3", "funcionIA3")
@@ -85,13 +85,13 @@ function cargarBoton(numBoton,imageName,funcion)
     end
 
 	--Cargamos las imagenes al boton
-	local imageNameComun = "set:InterfazUtils image:"
+	local imageNameComun = "set:BotonesHabilidades image:"
 	local imageNameFinal = imageNameComun .. imageName
 
 	boton:setProperty("NormalImage",imageNameFinal)
-	imageNameFinal = imageNameComun .. imageName .. 2
+	imageNameFinal = imageNameComun .. imageName .. 'h'
 	boton:setProperty("HoverImage",imageNameFinal)
-	imageNameFinal = imageNameComun .. imageName .. 3
+	imageNameFinal = imageNameComun .. imageName .. 'p'
 	boton:setProperty("PushedImage",imageNameFinal)
 	boton:setVisible(true)
 end
@@ -153,7 +153,7 @@ function inicializarInterfazControles()
 		-- Cargamos la interfaz
 		winMgr:loadWindowLayout("InterfazControles.layout")
 	end
-	
+
 	interfazControles = winMgr:getWindow("InterfazControles")
 
 	--Añadimos la interfaz a la interfaz principal

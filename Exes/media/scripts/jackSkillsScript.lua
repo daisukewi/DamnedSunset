@@ -22,10 +22,10 @@ end
 -- Función que mostrará las habilidades de Jack en el GUI con sus correspondientes
 -- llamadas a las funciones correspondientes.
 function showJackSkills()
-	cargarBoton(2, "granada", "jackGrenade")
-	cargarBoton(3, "bolazul", "jackEmpuje")
-	cargarBoton(4, "granada", "jackReduceDamage")
-	cargarBoton(1, "bolazul", "jackBurla")
+	cargarBoton(2, "jackGrenade", "jackGrenade")
+	cargarBoton(3, "rabia", "jackEmpuje")
+	cargarBoton(4, "energy", "jackReduceDamage")
+	cargarBoton(1, "burla", "jackBurla")
 
 	if persSelect ~= 1 or god.playersSelected[1] == getEntityID("Jack") then
 		cambiarBotones(1)

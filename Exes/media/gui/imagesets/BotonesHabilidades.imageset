@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Imageset Name="BotonesHabilidades" Imagefile="BotonesHabilidades.png" NativeHorzRes="800" NativeVertRes="600" AutoScaled="true" >
+	<Image Name="bulletTime" XPos="0" YPos="0" Width="64" Height="64" />
+	<Image Name="bulletTimeh" XPos="0" YPos="64" Width="64" Height="64" />
+	<Image Name="bulletTimep" XPos="0" YPos="128" Width="64" Height="64" />
+
+  <Image Name="dispPotentes" XPos="64" YPos="0" Width="64" Height="64" />
+  <Image Name="dispPotentesh" XPos="64" YPos="64" Width="64" Height="64" />
+  <Image Name="dispPotentesp" XPos="64" YPos="128" Width="64" Height="64" />
+
+  <Image Name="erickGrenade" XPos="128" YPos="0" Width="64" Height="64" />
+  <Image Name="erickGrenadeh" XPos="128" YPos="64" Width="64" Height="64" />
+  <Image Name="erickGrenadep" XPos="128" YPos="128" Width="64" Height="64" />
+
+  <Image Name="lanzallamas" XPos="192" YPos="0" Width="64" Height="64" />
+  <Image Name="lanzallamash" XPos="192" YPos="64" Width="64" Height="64" />
+  <Image Name="lanzallamasp" XPos="192" YPos="128" Width="64" Height="64" />
+
+  <Image Name="burla" XPos="256" YPos="0" Width="64" Height="64" />
+  <Image Name="burlah" XPos="256" YPos="64" Width="64" Height="64" />
+  <Image Name="burlap" XPos="256" YPos="128" Width="64" Height="64" />
+
+  <Image Name="energy" XPos="320" YPos="0" Width="64" Height="64" />
+  <Image Name="energyh" XPos="320" YPos="64" Width="64" Height="64" />
+  <Image Name="energyp" XPos="320" YPos="128" Width="64" Height="64" />
+
+  <Image Name="rabia" XPos="384" YPos="0" Width="64" Height="64" />
+  <Image Name="rabiah" XPos="384" YPos="64" Width="64" Height="64" />
+  <Image Name="rabiap" XPos="384" YPos="128" Width="64" Height="64" />
+
+  <Image Name="jackGrenade" XPos="448" YPos="0" Width="64" Height="64" />
+  <Image Name="jackGrenadeh" XPos="448" YPos="64" Width="64" Height="64" />
+  <Image Name="jackGrenadep" XPos="448" YPos="128" Width="64" Height="64" />
+
+  <Image Name="healZone" XPos="512" YPos="0" Width="64" Height="64" />
+  <Image Name="healZoneh" XPos="512" YPos="64" Width="64" Height="64" />
+  <Image Name="healZonep" XPos="512" YPos="128" Width="64" Height="64" />
+
+  <Image Name="heal" XPos="576" YPos="0" Width="64" Height="64" />
+  <Image Name="healh" XPos="576" YPos="64" Width="64" Height="64" />
+  <Image Name="healp" XPos="576" YPos="128" Width="64" Height="64" />
+
+  <Image Name="confuse" XPos="640" YPos="0" Width="64" Height="64" />
+  <Image Name="confuseh" XPos="640" YPos="64" Width="64" Height="64" />
+  <Image Name="confusep" XPos="640" YPos="128" Width="64" Height="64" />
+
+  <Image Name="norahGrenade" XPos="704" YPos="0" Width="64" Height="64" />
+  <Image Name="norahGrenadeh" XPos="704" YPos="64" Width="64" Height="64" />
+  <Image Name="norahGrenadep" XPos="704" YPos="128" Width="64" Height="64" />
+</Imageset>

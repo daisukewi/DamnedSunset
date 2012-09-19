@@ -22,10 +22,10 @@ end
 -- Función que mostrará las habilidades de Erick en el GUI con sus correspondientes
 -- llamadas a las funciones correspondientes.
 function showErickSkills()
-	cargarBoton(2, "granada", "erickGrenade")
-	cargarBoton(3, "bolazul", "bulletTime")
-	cargarBoton(4, "granada", "erickPowerShoot")
-	cargarBoton(1, "bolazul", "erickFlameThrower")
+	cargarBoton(2, "erickGrenade", "erickGrenade")
+	cargarBoton(3, "bulletTime", "bulletTime")
+	cargarBoton(4, "dispPotentes", "erickPowerShoot")
+	cargarBoton(1, "lanzallamas", "erickFlameThrower")
 
 	if persSelect ~= 2 then
 		cambiarBotones(2)
