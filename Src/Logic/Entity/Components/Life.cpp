@@ -101,7 +101,7 @@ namespace Logic
 
 		
 		
-		//Billboard
+		//Billboard de vida
 		_billboard = new Graphics::CBillboard(_entity);
 		if(entityInfo->hasAttribute("billboardLifeMaterial"))
 			_billboard->setMaterial(entityInfo->getStringAttribute("billboardLifeMaterial"));
@@ -116,6 +116,35 @@ namespace Logic
 		float num = 0.5f - porcentajeVida/2.0f;
 		_billboard->setPosicionImagen(num/*inicioX*/, 0.0f, num + 0.5f/*finX*/, 1.0f);
 		
+
+		//Billboard que indica si se tiene protección cuando es atacado
+		_billboardReduceDamage = new Graphics::CBillboard(_entity);
+		if(entityInfo->hasAttribute("billboardReduceDamageMaterial"))
+			_billboardReduceDamage->setMaterial(entityInfo->getStringAttribute("billboardReduceDamageMaterial"));
+		if(entityInfo->hasAttribute("billboardReduceDamageWith") && entityInfo->hasAttribute("billboardReduceDamageHeight"))
+			_billboardReduceDamage->setDimensions(entityInfo->getFloatAttribute("billboardReduceDamageWith"),entityInfo->getFloatAttribute("billboardReduceDamageHeight"));
+		if(entityInfo->hasAttribute("billboardReduceDamagePosition"))
+		{
+			Vector3 v = entityInfo->getVector3Attribute("billboardReduceDamagePosition");
+			_billboardReduceDamage->setPosition(v.x,v.y,v.z);
+		}
+		_billboardReduceDamage->setVisible(false);
+
+
+		//Billboard que indica si está confundido
+		_billboardConfusion = new Graphics::CBillboard(_entity);
+		if(entityInfo->hasAttribute("billboardConfusionMaterial"))
+			_billboardConfusion->setMaterial(entityInfo->getStringAttribute("billboardConfusionMaterial"));
+		if(entityInfo->hasAttribute("billboardConfusionWith") && entityInfo->hasAttribute("billboardConfusionHeight"))
+			_billboardConfusion->setDimensions(entityInfo->getFloatAttribute("billboardConfusionWith"),entityInfo->getFloatAttribute("billboardConfusionHeight"));
+		if(entityInfo->hasAttribute("billboardConfusionPosition"))
+		{
+			Vector3 v = entityInfo->getVector3Attribute("billboardConfusionPosition");
+			_billboardConfusion->setPosition(v.x,v.y,v.z);
+		}
+
+		_billboardConfusion->setVisible(false);
+
 		_damageModification = 1.0;
 		
 		// Relleno la tabla con la información del jugador.
@@ -305,6 +334,11 @@ namespace Logic
 
 			if (_damageModification < 0)
 					_damageModification = 0;
+
+			if (_damageModification < 1.0)
+				_billboardReduceDamage->setVisible(true);
+			else 
+				_billboardReduceDamage->setVisible(false);
 
 		} else if (!message->getType().compare("MEntityDeathListener")) {
 			// Si en un mensaje de listener se mira si hay que añadirlo o borrarlo y se hace.

@@ -7,6 +7,11 @@
 
 #include "BaseSubsystems/ClockListener.h"
 
+namespace Graphics 
+{
+	class CBillboard;
+}
+
 // Los componentes pertenecen al namespace Logic
 namespace Logic 
 {
@@ -42,6 +47,10 @@ namespace Logic
 	
 		bool _poison;
 
+		/*
+		Billboard que muestra cuando está envenenado
+		*/
+		Graphics::CBillboard * _billboard;
 
 		//sonido y efecto
 		std::string _poisonSound;

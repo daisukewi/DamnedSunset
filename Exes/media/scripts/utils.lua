@@ -201,10 +201,35 @@ end
 function updateSkillsCooldown(deltaTime)
 	for ID, t in pairs(players) do
 		for index, value in pairs(t.currentSkillsCooldown) do
+			InterfazControles = winMgr:getWindow("InterfazControles/Menu/b" .. index)
+			
+			urlImageCoolDown = "InterfazControles/Menu/b" .. index .. "/b" .. index .. "cd"
+			
+			print("urlImageCoolDown: " .. urlImageCoolDown)
+			
 			if (players[ID].currentSkillsCooldown[index] > 0) then
+
+				porcentaje = players[ID].currentSkillsCooldown[index]/players[ID].skillsCooldown[index]
+				
 				players[ID].currentSkillsCooldown[index] = players[ID].currentSkillsCooldown[index] - (deltaTime / 1000)
+				
+				if (ID == god.playersSelected[1]) then
+
+					
+
+					print("Porcentaje: ".. porcentaje)
+					
+					InterfazControles:getChild(urlImageCoolDown):setHeight(CEGUI.UDim(porcentaje,0))
+				end
+				
 			else
 				players[ID].currentSkillsCooldown[index] = 0
+				
+				if (ID == god.playersSelected[1]) then
+					InterfazControles:getChild(urlImageCoolDown):setHeight(CEGUI.UDim(0,0))
+				end
+				
+				
 			end
 		end
 	end

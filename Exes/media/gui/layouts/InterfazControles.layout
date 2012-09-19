@@ -12,25 +12,54 @@
                 <Property Name="NormalImage" Value="set:InterfazUtils image:martillo" />
                 <Property Name="PushedImage" Value="set:InterfazUtils image:martillo3" />
                 <Property Name="UnifiedAreaRect" Value="{{0.0443217,0},{0.0906998,0},{0.162803,0},{0.439509,0}}" />
-            </Window>
+				
+				<Window Type="WindowsLook/StaticImage" Name="InterfazControles/Menu/b1/b1cd" >
+					<Property Name="Image" Value="set:InterfazUtils image:coolDown" />
+				</Window>
+				
+			</Window>
+			
+			
+            
+			
             <Window Type="TaharezLook/ImageButton" Name="InterfazControles/Menu/b2" >
                 <Property Name="HoverImage" Value="set:InterfazUtils image:Personaje1" />
                 <Property Name="NormalImage" Value="set:InterfazUtils image:martillo" />
                 <Property Name="PushedImage" Value="set:InterfazUtils image:Personaje1p" />
                 <Property Name="UnifiedAreaRect" Value="{{0.192006,0},{0.0948533,0},{0.310488,0},{0.443662,0}}" />
+				
+				<Window Type="WindowsLook/StaticImage" Name="InterfazControles/Menu/b2/b2cd" >
+					<Property Name="Image" Value="set:InterfazUtils image:coolDown" />
+				</Window>
+			
+			
             </Window>
+			
             <Window Type="TaharezLook/ImageButton" Name="InterfazControles/Menu/b3" >
                 <Property Name="HoverImage" Value="set:InterfazUtils image:martillo2" />
                 <Property Name="NormalImage" Value="set:InterfazUtils image:martillo" />
                 <Property Name="PushedImage" Value="set:InterfazUtils image:martillo3" />
                 <Property Name="UnifiedAreaRect" Value="{{0.347936,0},{0.0906996,0},{0.466418,0},{0.439509,0}}" />
+				
+				<Window Type="WindowsLook/StaticImage" Name="InterfazControles/Menu/b3/b3cd" >
+					<Property Name="Image" Value="set:InterfazUtils image:coolDown" />
+				</Window>
+			
+			
             </Window>
+			
             <Window Type="TaharezLook/ImageButton" Name="InterfazControles/Menu/b4" >
                 <Property Name="HoverImage" Value="set:InterfazUtils image:Personaje1" />
                 <Property Name="NormalImage" Value="set:InterfazUtils image:martillo" />
                 <Property Name="PushedImage" Value="set:InterfazUtils image:Personaje1p" />
                 <Property Name="UnifiedAreaRect" Value="{{0.49826,0},{0.0856842,0},{0.616743,0},{0.434493,0}}" />
+				
+				<Window Type="WindowsLook/StaticImage" Name="InterfazControles/Menu/b4/b4cd" >
+					<Property Name="Image" Value="set:InterfazUtils image:coolDown" />
+				</Window>
+				
             </Window>
+			
         </Window>
         <Window Type="Vanilla/StaticImage" Name="InterfazControles/MenuBotonesIA" >
             <Property Name="AlwaysOnTop" Value="True" />

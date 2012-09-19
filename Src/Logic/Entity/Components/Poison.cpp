@@ -14,6 +14,8 @@
 
 #include "Logic/Entity/Messages/Damaged.h"
 
+#include "Graphics/Billboard.h"
+
 namespace Logic 
 {
 	IMP_FACTORY(CPoison);
@@ -25,6 +27,8 @@ namespace Logic
 	}
 
 	CPoison::~CPoison() {
+		if (_billboard)
+			delete _billboard;
 	}
 
 	bool CPoison::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
@@ -37,6 +41,23 @@ namespace Logic
 
 		if(entityInfo->hasAttribute("poisonEffect"))
 			_poisonEffect = entityInfo->getFloatAttribute("poisonEffect");
+
+
+		//Billboard
+
+		_billboard = new Graphics::CBillboard(_entity);
+		if(entityInfo->hasAttribute("billboardPoisonMaterial"))
+			_billboard->setMaterial(entityInfo->getStringAttribute("billboardPoisonMaterial"));
+		if(entityInfo->hasAttribute("billboardPoisonWith") && entityInfo->hasAttribute("billboardPoisonHeight"))
+			_billboard->setDimensions(entityInfo->getFloatAttribute("billboardPoisonWith"),entityInfo->getFloatAttribute("billboardPoisonHeight"));
+		if(entityInfo->hasAttribute("billboardPoisonPosition"))
+		{
+			Vector3 v = entityInfo->getVector3Attribute("billboardPoisonPosition");
+			_billboard->setPosition(v.x,v.y,v.z);
+		}	
+
+		_billboard->setVisible(false);
+
 
 		return true;
 	} // spawn
@@ -67,11 +88,15 @@ namespace Logic
 		if (!message->getType().compare("MVenom"))
 		{
 			if (!_poison){
+
+
 				MVenom *m = static_cast <MVenom*> (message);
 				_damage = m->getVenomDamage();
 				_time = m->getVenomTime();
 				_count = m->getCount();
 			
+				_billboard->setVisible(true);
+
 				BaseSubsystems::CServer::getSingletonPtr()->addClockListener(_time, this);
 				
 				_poison = true;
@@ -102,6 +127,7 @@ namespace Logic
 			_count--;
 			if (_count == 0){
 				_poison =  false;
+				_billboard->setVisible(false);
 			}	else{
 			
 				BaseSubsystems::CServer::getSingletonPtr()->addClockListener(_time, this);

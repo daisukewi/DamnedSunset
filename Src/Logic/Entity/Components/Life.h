@@ -65,6 +65,7 @@ namespace Logic
 		*/
 		virtual bool accept(IMessage *message);
 
+
 		/**
 		Al recibir un mensaje MDamaged la vida de la entidad disminuye.
 		*/
@@ -112,9 +113,19 @@ namespace Logic
 		float _death;
 
 		/*
+		Billboard que indica si se tiene protección cuando es atacado
+		*/
+		Graphics::CBillboard * _billboardReduceDamage;
+
+		/*
 		Billboard que muestra la vida
 		*/
 		Graphics::CBillboard * _billboard;
+
+		/*
+		Billboard que indica si está confundido
+		*/
+		Graphics::CBillboard * _billboardConfusion;
 
 		/**
 		Tipo Lista de oyentes de la muerte de la entidad.

@@ -27,4 +27,7 @@
 	<Image Name="volver" XPos="300" YPos="5" Width="100" Height="100" />
 	<Image Name="volver2" XPos="300" YPos="105" Width="100" Height="100" />
 	<Image Name="volver3" XPos="300" YPos="205" Width="100" Height="100" />
+	
+	<Image Name="coolDown" XPos="600" YPos="205" Width="100" Height="100" />
+
 </Imageset>
