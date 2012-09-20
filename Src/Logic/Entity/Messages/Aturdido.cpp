@@ -9,7 +9,7 @@ namespace Logic
 	{
 		IMessage();
 		_aturdido = true;
-		_type = "MLanzarGranada";
+		_type = "MAturdido";
 	}
 
 	MAturdido::~MAturdido() 
