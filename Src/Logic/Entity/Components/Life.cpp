@@ -39,6 +39,7 @@ Contiene la implementación del componente que controla la vida de una entidad.
 #include "Logic/Entity/Messages/EntityDeath.h"
 #include "Logic/Entity/Messages/ParticleEffect.h"
 #include "Logic/Entity/Messages/SoundEffect.h"
+#include "Logic/Entity/Messages/Aturdido.h"
 
 #include "GUI/Server.h"
 #include "GUI/InterfazController.h"
@@ -172,7 +173,8 @@ namespace Logic
 	bool CLife::accept(IMessage *message)
 	{
 		return (!message->getType().compare("MDamaged")) || !message->getType().compare("MSendBillboard")
-			   || !message->getType().compare("MHealed") || !message->getType().compare("MEntityDeathListener");
+			   || !message->getType().compare("MHealed") || !message->getType().compare("MEntityDeathListener")
+			   || !message->getType().compare("MAturdido");
 
 	} // accept
 	
@@ -379,6 +381,10 @@ namespace Logic
 			//Actualizamos la barra de vida
 			actualizarVidaBillboard();
 			actualizarVidaInterfaz();
+		}else if (!message->getType().compare("MAturdido"))
+		{
+			MAturdido *m = static_cast <MAturdido*> (message);
+			_billboardConfusion->setVisible(m->getAturdido());
 		}
 
 		// Relleno la tabla con la información del jugador.

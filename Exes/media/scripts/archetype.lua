@@ -295,6 +295,11 @@ Archetype = {
 		billboardSeleccionWith = 15.0,
 		billboardSeleccionHeight = 15.0,
 		
+		billboardPoisonMaterial = "imagePosion",
+		billboardPoisonWith = 1.0,
+		billboardPoisonHeight = 1.0,
+		billboardPoisonPosition = {-4.0,26.0,0.0},
+		
 		billboardConfusionMaterial = "imageConfusion",
 		billboardConfusionWith = 1.0,
 		billboardConfusionHeight = 1.0,
