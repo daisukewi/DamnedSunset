@@ -38,6 +38,8 @@ namespace ScriptManager
 
 	void activateHealZone(unsigned int entityID);
 
+	void activateMassHeal(unsigned int entityID, float heal);
+
 	void startCure(unsigned int entityID, unsigned int entityIDTarget);
 	void cancelCure(unsigned int entityID);
 

@@ -908,7 +908,11 @@ namespace ScriptManager
 		luabind::module(_lua)
 			[
 				luabind::def("activateHealZone", &activateHealZone)
-			];//---------------------------------------------------------
+			];
+		luabind::module(_lua)
+			[
+				luabind::def("activateMassHeal", &activateMassHeal)
+			];
 
 	}
 

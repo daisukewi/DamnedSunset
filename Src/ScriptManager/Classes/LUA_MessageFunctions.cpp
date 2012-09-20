@@ -25,6 +25,7 @@ LUA
 #include "Logic/Entity/Messages/ActivateHealZone.h"
 #include "Logic/Entity/Messages/ActivarTiempoBala.h"
 #include "Logic/Entity/Messages/Aturdido.h"
+#include "Logic/Entity/Messages/Healed.h"
 
 
 #include "Logic/Server.h"
@@ -313,6 +314,31 @@ namespace ScriptManager
 
 		Logic::MActivateHealZone *m = new Logic::MActivateHealZone();
 		entity->emitMessage(m);
+	}
+
+	//---------------------------------------------------------
+
+	void activateMassHeal(unsigned int entityID, float heal)
+	{
+		Logic::CEntity *healer = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+
+		/*Logic::CEntity *jackEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack");
+		Logic::CEntity *erickEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick");
+		Logic::CEntity *norahEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Norah");
+
+		Logic::MHealed *m_heal = new Logic::MHealed();
+		m_heal->setHeal(heal);
+		m_heal->setHealer(healer);*/
+
+		Logic::CEntity *playerEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByTag("Player");
+		while (playerEntity != NULL) {
+			Logic::MHealed *m_heal = new Logic::MHealed();
+			m_heal->setHeal(heal);
+			m_heal->setHealer(healer);
+			playerEntity->emitMessage(m_heal);
+
+			playerEntity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByTag("Player", playerEntity);
+		}
 	}
 
 	//---------------------------------------------------------

@@ -9,6 +9,7 @@ function activateErickSkills(playerID)
 		[1] = 5,
 		[2] = 5,
 		[3] = 5,
+		[4] = 5,
 	}
 
 	-- Tabla auxiliar para llevar la cuenta del cooldown actual de cada habilidad.
@@ -16,16 +17,17 @@ function activateErickSkills(playerID)
 		[1] = 0,
 		[2] = 0,
 		[3] = 0,
+		[4] = 0,
 	}
 end
 
 -- Función que mostrará las habilidades de Erick en el GUI con sus correspondientes
 -- llamadas a las funciones correspondientes.
 function showErickSkills()
-	cargarBoton(2, "erickGrenade", "erickGrenade")
-	cargarBoton(3, "bulletTime", "bulletTime")
-	cargarBoton(4, "dispPotentes", "erickPowerShoot")
-	cargarBoton(1, "lanzallamas", "erickFlameThrower")
+	cargarBoton(1, "erickGrenade", "erickGrenade")
+	cargarBoton(2, "dispPotentes", "erickPowerShoot")
+	cargarBoton(3, "lanzallamas", "erickFlameThrower")
+	cargarBoton(4, "bulletTime", "bulletTime")
 
 	if persSelect ~= 2 then
 		cambiarBotones(2)
@@ -35,6 +37,7 @@ end
 --------------------------------------------------
 --			Habilidad granada de Erick			--
 --------------------------------------------------
+-- La habilidad de la granada es la número 1
 -- La habilidad de la granada es de tipo NO INMEDIATO
 
 function erickGrenade()
@@ -62,25 +65,15 @@ function cancelErickGrenade()
 end
 
 --------------------------------------------------
---		Habilidad bullet time de Erick			--
---------------------------------------------------
--- La habilidad de bullet time es de tipo INMEDIATO
-
-function bulletTime()
-	activateBulletTime(god.playersSelected[1])
-	print("bulletTime")
-end
-
---------------------------------------------------
 --	  Habilidad disparos potentes de Erick		--
 --------------------------------------------------
--- La habilidad disparos potentes es la número 3
+-- La habilidad disparos potentes es la número 2
 -- La habilidad disparos potentes es de tipo NO INMEDIATO
 
 function erickPowerShoot()
 	god.startSkillFunction = startErickPowerShoot
 	skillParameters = {
-		skill = 3,
+		skill = 2,
 	}
 	godEvent("OnSkillClick")
 end
@@ -104,13 +97,13 @@ end
 --------------------------------------------------
 --	      Habilidad lanzallamas de Erick		--
 --------------------------------------------------
--- La habilidad lanzallamas es la número 2
+-- La habilidad lanzallamas es la número 3
 -- La habilidad lanzallamas es de tipo NO INMEDIATO
 
 function erickFlameThrower()
 	god.startSkillFunction = startErickFlameThrower
 	skillParameters = {
-		skill = 2,
+		skill = 3,
 	}
 	print("erickFlameThrower")
 	godEvent("OnSkillClick")
@@ -130,4 +123,20 @@ end
 
 function cancelErickFlameThrower()
 	cancelFlameThrower(god.playersSelected[1])
+end
+
+--------------------------------------------------
+--		Habilidad bullet time de Erick			--
+--------------------------------------------------
+-- La habilidad de bullet time es la número 4
+-- La habilidad de bullet time es de tipo INMEDIATO
+
+function bulletTime()
+	-- Miro si la habilidad está en cooldown, si lo está no hago nada.
+	if (players[god.playersSelected[1]].currentSkillsCooldown[4] <= 0) then
+		activateBulletTime(god.playersSelected[1])
+		
+		-- Activo el cooldown de la habilidad
+		players[god.playersSelected[1]].currentSkillsCooldown[4] = players[god.playersSelected[1]].skillsCooldown[4]
+	end
 end

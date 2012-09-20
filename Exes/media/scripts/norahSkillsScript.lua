@@ -9,23 +9,25 @@ function activateNorahSkills(playerID)
 		[1] = 5,
 		[2] = 5,
 		[3] = 5,
+		[4] = 5,
 	}
 
 	-- Tabla auxiliar para llevar la cuenta del cooldown actual de cada habilidad.
 	players[playerID].currentSkillsCooldown = {
 		[1] = 0,
-		[2] = 5,
+		[2] = 0,
 		[3] = 0,
+		[4] = 0,
 	}
 end
 
 -- Función que mostrará las habilidades de Norah en el GUI con sus correspondientes
 -- llamadas a las funciones correspondientes.
 function showNorahSkills()
-	cargarBoton(1, "confuse", "norahEnemigosContraEnemigos")
-	cargarBoton(2, "norahGrenade", "norahGrenade")
-	cargarBoton(3, "healZone", "norahHealZone")
-	cargarBoton(4, "heal", "norahHeal")
+	cargarBoton(1, "norahGrenade", "norahGrenade")
+	cargarBoton(2, "confuse", "norahEnemigosContraEnemigos")
+	cargarBoton(3, "heal", "norahHeal")
+	cargarBoton(4, "healZone", "norahHealZone")
 
 	if persSelect ~= 3 then
 		cambiarBotones(3)
@@ -33,17 +35,9 @@ function showNorahSkills()
 end
 
 --------------------------------------------------
---			Habilidad enemigos contra enemigos de Norah			--
---------------------------------------------------
--- La habilidad de nemigos contra enemigos es de tipo NO INMEDIATO
-function norahEnemigosContraEnemigos()
-	--Aunque no es de tipo inmediato, de momento hago como si lo fuese y afecta a los de alrededor de ella
-	enemigosContraEnemigos(god.playersSelected[1])
-end
-
---------------------------------------------------
 --			Habilidad granada de Norah			--
 --------------------------------------------------
+-- La habilidad de la granada es la número 1
 -- La habilidad de la granada es de tipo NO INMEDIATO
 
 function norahGrenade()
@@ -71,9 +65,27 @@ function cancelNorahGrenade()
 end
 
 --------------------------------------------------
+--		Habilidad confusión de Norah			--
+--------------------------------------------------
+-- La habilidad de confusión es la número 2
+-- La habilidad de confusión es de tipo INMEDIATO
+
+function norahEnemigosContraEnemigos()
+	-- Miro si la habilidad está en cooldown, si lo está no hago nada.
+	if (players[god.playersSelected[1]].currentSkillsCooldown[2] <= 0) then
+		--Aunque no es de tipo inmediato, de momento hago como si lo fuese y afecta a los de alrededor de ella
+		enemigosContraEnemigos(god.playersSelected[1])
+		
+		-- Activo el cooldown de la habilidad
+		players[god.playersSelected[1]].currentSkillsCooldown[2] = players[god.playersSelected[1]].skillsCooldown[2]
+	end
+end
+
+--------------------------------------------------
 --			Habilidad curar de Norah			--
 --------------------------------------------------
--- La habilidad curar es de tipo NO INMEDIATO
+-- La habilidad de curar es la número 3
+-- La habilidad de curar es de tipo NO INMEDIATO
 
 function norahHeal()
 	god.startSkillFunction = startNorahHeal
@@ -98,11 +110,18 @@ function cancelNorahHeal()
 end
 
 --------------------------------------------------
---			Habilidad zon de curación de Norah	--
+--		Habilidad curación de masas de Norah	--
 --------------------------------------------------
--- La habilidad curar es de tipo INMEDIATO
+-- La habilidad de cuarción de masas es la número 4
+-- La habilidad de curación de masas es de tipo INMEDIATO
 
 function norahHealZone()
-
-	activateHealZone(god.playersSelected[1])
+	-- Miro si la habilidad está en cooldown, si lo está no hago nada.
+	if (players[god.playersSelected[1]].currentSkillsCooldown[4] <= 0) then
+		-- HACK: pongo la cantidad de curación que hago con la curación de masas aquí directamente. Es una guarrada superlativa pero no hay tiempo para otra cosa.
+		activateMassHeal(god.playersSelected[1], 100)
+		
+		-- Activo el cooldown de la habilidad
+		players[god.playersSelected[1]].currentSkillsCooldown[4] = players[god.playersSelected[1]].skillsCooldown[4]
+	end
 end

@@ -9,6 +9,7 @@ function activateJackSkills(playerID)
 		[1] = 5,
 		[2] = 5,
 		[3] = 5,
+		[4] = 5,
 	}
 
 	-- Tabla auxiliar para llevar la cuenta del cooldown actual de cada habilidad.
@@ -16,16 +17,17 @@ function activateJackSkills(playerID)
 		[1] = 0,
 		[2] = 0,
 		[3] = 0,
+		[4] = 0,
 	}
 end
 
 -- Función que mostrará las habilidades de Jack en el GUI con sus correspondientes
 -- llamadas a las funciones correspondientes.
 function showJackSkills()
-	cargarBoton(2, "jackGrenade", "jackGrenade")
-	cargarBoton(3, "rabia", "jackEmpuje")
+	cargarBoton(1, "jackGrenade", "jackGrenade")
+	cargarBoton(2, "rabia", "jackEmpuje")
+	cargarBoton(3, "burla", "jackBurla")
 	cargarBoton(4, "energy", "jackReduceDamage")
-	cargarBoton(1, "burla", "jackBurla")
 
 	if persSelect ~= 1 or god.playersSelected[1] == getEntityID("Jack") then
 		cambiarBotones(1)
@@ -70,31 +72,43 @@ end
 -- La habilidad del círculo empuje es de tipo INMEDIATO
 
 function jackEmpuje()
-	--skillParameters = {
-	--	skill = 2,
-	--}
-	--godEvent("OnSkillClick")
-
-	empujarCircle(god.playersSelected[1])
-	print("jackEmpuje")
-end
-
---------------------------------------------------
---			Habilidad reducir daño				--
---------------------------------------------------
-
-function jackReduceDamage()
-
-	activateReduceDamage(god.playersSelected[1])
-	print("jackReduceDamage")
+	-- Miro si la habilidad está en cooldown, si lo está no hago nada.
+	if (players[god.playersSelected[1]].currentSkillsCooldown[2] <= 0) then
+		empujarCircle(god.playersSelected[1])
+		
+		-- Activo el cooldown de la habilidad
+		players[god.playersSelected[1]].currentSkillsCooldown[2] = players[god.playersSelected[1]].skillsCooldown[2]
+	end
 end
 
 --------------------------------------------------
 --			Habilidad burla de Jack	            --
 --------------------------------------------------
--- La habilidad del círculo empuje es de tipo INMEDIATO
+-- La habilidad de burla es la número 3
+-- La habilidad de burla es de tipo INMEDIATO
 
 function jackBurla()
-	atacarJack(god.playersSelected[1])
-	print("atacarJack")
+	-- Miro si la habilidad está en cooldown, si lo está no hago nada.
+	if (players[god.playersSelected[1]].currentSkillsCooldown[3] <= 0) then
+		atacarJack(god.playersSelected[1])
+		
+		-- Activo el cooldown de la habilidad
+		players[god.playersSelected[1]].currentSkillsCooldown[3] = players[god.playersSelected[1]].skillsCooldown[3]
+	end
+end
+
+--------------------------------------------------
+--			Habilidad reducir daño				--
+--------------------------------------------------
+-- La habilidad de reducir daño es la número 4
+-- La habilidad de reducir daño es de tipo INMEDIATO
+
+function jackReduceDamage()
+	-- Miro si la habilidad está en cooldown, si lo está no hago nada.
+	if (players[god.playersSelected[1]].currentSkillsCooldown[4] <= 0) then
+		activateReduceDamage(god.playersSelected[1])
+		
+		-- Activo el cooldown de la habilidad
+		players[god.playersSelected[1]].currentSkillsCooldown[4] = players[god.playersSelected[1]].skillsCooldown[4]
+	end
 end
