@@ -1,0 +1,17 @@
+material imageConfusion
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			depth_write off
+			lighting off
+			texture_unit
+			{
+				texture imageConfusion.png
+				filtering none
+			}
+		}
+	}
+}

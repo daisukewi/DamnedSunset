@@ -1,0 +1,17 @@
+material imagePosion
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			depth_write off
+			lighting off
+			texture_unit
+			{
+				texture imagePosion.png
+				filtering none
+			}
+		}
+	}
+}
