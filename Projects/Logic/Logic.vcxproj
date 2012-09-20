@@ -149,6 +149,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateSkill.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AplicarVelocidad.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\AttackDistance.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\Aturdido.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\DayNight.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\DisparosPotentes.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\EnemyCreated.cpp" />
@@ -277,6 +278,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\GodStates\Building.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AplicarVelocidad.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\AttackDistance.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\Aturdido.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\DayNight.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\DisparosPotentes.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\EnemyCreated.h" />

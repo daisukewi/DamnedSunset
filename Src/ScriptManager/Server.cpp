@@ -903,6 +903,10 @@ namespace ScriptManager
 			];		
 		luabind::module(_lua)
 			[
+				luabind::def("detenerEnemigosContraEnemigos", &detenerEnemigosContraEnemigos)
+			];
+		luabind::module(_lua)
+			[
 				luabind::def("activateHealZone", &activateHealZone)
 			];//---------------------------------------------------------
 

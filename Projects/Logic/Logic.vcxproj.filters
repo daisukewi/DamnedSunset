@@ -388,6 +388,9 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Messages\ActivateHealZone.cpp">
       <Filter>Entity\Messages\Abilities\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Messages\Aturdido.cpp">
+      <Filter>Entity\Messages\Abilities\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Entity\CommunicationPort.h">
@@ -790,6 +793,9 @@
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Messages\ActivateHealZone.h">
+      <Filter>Entity\Messages\Abilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Messages\Aturdido.h">
       <Filter>Entity\Messages\Abilities\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -42,6 +42,8 @@ namespace ScriptManager
 	void cancelCure(unsigned int entityID);
 
 	void enemigosContraEnemigos(unsigned int entityID);
+	void detenerEnemigosContraEnemigos(unsigned int entityID);
+	
 
 	void atacarJack(unsigned int entityID);
 } // namespace Logic

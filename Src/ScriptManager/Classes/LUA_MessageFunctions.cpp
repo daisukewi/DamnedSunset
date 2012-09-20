@@ -24,6 +24,8 @@ LUA
 #include "Logic/Entity/Messages/ActivateReduceDamage.h"
 #include "Logic/Entity/Messages/ActivateHealZone.h"
 #include "Logic/Entity/Messages/ActivarTiempoBala.h"
+#include "Logic/Entity/Messages/Aturdido.h"
+
 
 #include "Logic/Server.h"
 
@@ -118,7 +120,6 @@ namespace ScriptManager
 	void enemigosContraEnemigos(unsigned int entityID)
 	{
 		Logic::CEntity * norah = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
-		printf("c++ enemigosContraEnemigos\n");
 
 		Logic::CEntity* * entidadesColision;
 		int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions( norah->getPosition(),80,entidadesColision);
@@ -144,6 +145,11 @@ namespace ScriptManager
 					std::stringstream script2;
 					script2 << "enemyEvent(\"AttackOtherEnemies\", " << entidad->getEntityID() << ")";
 					ScriptManager::CServer::getSingletonPtr()->executeScript(script2.str().c_str());
+
+					//Mandamos un mensaje para que salga el icono de aturdido
+					Logic::MAturdido *message = new Logic::MAturdido();
+					message->setAturdido(true);
+					entidad->emitMessage(message);
 				}
 
 				//Atacaran hasta a los que esten a una distancia de 80
@@ -156,6 +162,15 @@ namespace ScriptManager
 		}
 	}
 
+	void detenerEnemigosContraEnemigos(unsigned int entityID)
+	{
+		//Mandamos un mensaje para que salga el icono de aturdido
+		Logic::MAturdido *message = new Logic::MAturdido();
+		message->setAturdido(false);
+		Logic::CEntity *entity = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(entityID);
+		if (entity)
+			entity->emitMessage(message);
+	}
 	//---------------------------------------------------------
 
 	void atacarJack(unsigned int entityID)

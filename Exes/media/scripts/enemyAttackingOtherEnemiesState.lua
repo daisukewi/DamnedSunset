@@ -42,7 +42,9 @@ function attackingOtherEnemiesStateAction(entity)
 		mensaje:setAttack(false)
 		mensaje:setEntityTo(entity)
 		mensaje:send()
-			
+		
+		detenerEnemigosContraEnemigos(entity)
+		
 		nextState = 1
 		--nextState = enemies[entity].previousState
 	end
