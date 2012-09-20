@@ -96,6 +96,9 @@ namespace Graphics
 		try
 		{
 			_entity = _scene->getSceneMgr()->createEntity(_name, _mesh);
+			_entity->setCastShadows(true);
+			_entity->getMesh()->setAutoBuildEdgeLists(true);
+			_entity->getMesh()->buildEdgeList();
 		}
 		catch(std::exception e)
 		{
@@ -103,7 +106,6 @@ namespace Graphics
 		}
 		_entityNode = _scene->getSceneMgr()->getRootSceneNode()->
 								createChildSceneNode(_name + "_node");
-		_entity->setCastShadows(true);
 		_entityNode->attachObject(_entity);
 		_loaded = true;
 		return true;

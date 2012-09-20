@@ -221,8 +221,8 @@ namespace Graphics
 	void CScene::configureScene()
 	{
 		// General scene setup
-		_sceneMgr->setShadowTexturePixelFormat(Ogre::PF_FLOAT16_R);
-		_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_ADDITIVE);
+		_sceneMgr->setShadowTexturePixelFormat(Ogre::PF_FLOAT32_R);
+		_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_MODULATIVE);
 		_sceneMgr->setShadowFarDistance(1000);
 
 		// 3 textures per directional light (PSSM)
