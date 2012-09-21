@@ -43,3 +43,8 @@ function generatorUnderAttack(entityID)
 	enemyMindEventParam = { entity = entityID }
 	enemyMindEvent("GeneratorUnderAttack")
 end
+
+function enemyDeath()
+	-- Recompensa en solenium por cada enemigo muerto. En este caso 20.
+	god.solenium = god.solenium + 20
+end

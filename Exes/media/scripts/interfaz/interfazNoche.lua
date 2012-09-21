@@ -15,6 +15,8 @@ function interfazTick(text)
 			horas = 00
 		end
 	end
+	
+	winMgr:getWindow("Interfaz/Recursos"):setText("Solenium: " .. god.solenium)
 
 end
 

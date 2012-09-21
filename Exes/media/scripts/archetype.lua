@@ -168,17 +168,17 @@ Archetype = {
 		trigger_height = 1,
 		trigger_collision_group = 3,
 		precision = 0.1,
-		damage = 2,
+		damage = 50,
 
 		billboardLifeMaterial = "barraVida",
 		billboardLifeWith = 10.0,
 		billboardLifeHeight = 0.5,
 		billboardLifePosition = {0.0,12.0,0.0},
 
-		life = 100.0,
-		maxLife = 100.0,
+		life = 500.0,
+		maxLife = 500.0,
 
-		timeBetweenShoots = 5.0,
+		timeBetweenShoots = 10.0,
 	},
 
 	PanelSolar = {
@@ -269,8 +269,8 @@ Archetype = {
 		type = "Enemy",
 		tag = "enemy",
 		orientation = 0,
-		life = 100.0,
-		maxLife = 100.0,
+		life = 500.0,
+		maxLife = 500.0,
 		isPlayer = false,
 		model = "zombiearm.mesh",
 		defaultAnimation = "Stand",
@@ -314,8 +314,8 @@ Archetype = {
 		memInitPoint = true,
 		runLifeThreshold = 50,
 
-		damage = 10,
-		attackCoolDown = 250,
+		damage = 50,
+		attackCoolDown = 2500,
 
 		trigger_shape = "trigger_sphere",
 		trigger_type = "trigger_kinematic",
@@ -340,6 +340,8 @@ Archetype = {
 		
 		poisonSound = "",
 		poisonEffect = "",
+		
+		deathFunction = "enemyDeath"
 	},
 
 	Granada = {
@@ -357,7 +359,7 @@ Archetype = {
 		physic_mass = 1,
 		physic_collision_group = 9,
 
-		damage = 60.0,
+		damage = 250.0,
 		timeEmpujar = 0.3,
 		distEmpujarSeg = 150.0,
 	},
@@ -396,8 +398,8 @@ Archetype = {
 		physic_collision_group = 9,
 
 		time = 10.0,
-		damage = 20.0,
-		count = 4.0,
+		damage = 50.0,
+		count = 5.0,
 	},
 
 	BolaTeltr = {
@@ -424,8 +426,8 @@ Archetype = {
 		tag = "Player",
 		position = {0, 5, 0},
 		orientation = 270,
-		life = 100.0,
-		maxLife = 100.0,
+		life = 1000.0,
+		maxLife = 1000.0,
 		isPlayer = false,
 		model = "Jack.mesh",
 		defaultAnimation = "Stand",
@@ -483,7 +485,7 @@ Archetype = {
 		trigger_radius = 150,
 		trigger_collision_group = 3,
 
-		damage = 10,
+		damage = 100,
 
 		selection_shape = "trigger_capsule",
 		selection_type = "trigger_kinematic",
@@ -519,8 +521,8 @@ Archetype = {
 		tag = "Player",
 		position = {0, 5, 0},
 		orientation = 270,
-		life = 100.0,
-		maxLife = 100.0,
+		life = 1000.0,
+		maxLife = 1000.0,
 		isPlayer = false,
 		model = "Erick.mesh",
 		defaultAnimation = "Stand",
@@ -590,7 +592,7 @@ Archetype = {
 		trigger_radius = 80,
 		trigger_collision_group = 3,
 
-		damage = 33,
+		damage = 100,
 
 		selection_shape = "trigger_capsule",
 		selection_type = "trigger_kinematic",
@@ -619,8 +621,8 @@ Archetype = {
 		tag = "Player",
 		position = {0, 5, 0},
 		orientation = 270,
-		life = 100.0,
-		maxLife = 100.0,
+		life = 1000.0,
+		maxLife = 1000.0,
 		isPlayer = false,
 		model = "Norah.mesh",
 		defaultAnimation = "Stand",
@@ -674,7 +676,7 @@ Archetype = {
 		trigger_radius = 80,
 		trigger_collision_group = 3,
 
-		damage = 33,
+		damage = 100,
 
 
 		selection_shape = "trigger_capsule",

@@ -35,7 +35,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CAttack() : IComponent(), IDeathListener(), _attack(false), _damage(0), _attackCoolDown(0), _maxAttackCoolDown(0) {}
+		CAttack() : IComponent(), IDeathListener(), _attack(false), _damage(0), _attackCoolDown(0), _maxAttackCoolDown(0), _targetEntity(0) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de

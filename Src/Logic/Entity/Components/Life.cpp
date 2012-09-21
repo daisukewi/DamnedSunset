@@ -431,7 +431,8 @@ namespace Logic
 		end = _listeners.end();
 
 		for (; it != end; it++)
-			(*it)->entityDeath(_entity);
+			if ((*it) != NULL)
+				(*it)->entityDeath(_entity);
 
 		_listeners.clear();
 		

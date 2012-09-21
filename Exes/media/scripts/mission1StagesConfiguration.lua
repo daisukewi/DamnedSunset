@@ -6,20 +6,20 @@ stages = {
 		-- Enemigos spawneados por cada spawn point
 		spawnEnemies = {
 			
-			[1] = 5,
-			[2] = 5,
-			[3] = 6,
-			[4] = 5,
+			[1] = 2,
+			[2] = 2,
+			[3] = 2,
+			[4] = 2,
 			
 		},
 		
 		-- Tiempo entre spawn de enemigos de cada spawn point (en segundos)
 		spawnTime = {
 			
-			[1] = 40,
-			[2] = 40,
-			[3] = 50,
-			[4] = 50,
+			[1] = 60,
+			[2] = 60,
+			[3] = 60,
+			[4] = 60,
 			
 		},
 		

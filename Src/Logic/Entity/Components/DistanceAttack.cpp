@@ -64,8 +64,6 @@ namespace Logic
 		if (entityInfo->hasAttribute("distanceAttackSound")){
 			_distanceAttackSound = entityInfo->getStringAttribute("distanceAttackSound");
 		}
-		
-		_damage = 4.0;
 
 		return true;
 
@@ -191,7 +189,7 @@ namespace Logic
 
 
 						MDamaged *m_dam = new MDamaged();
-						m_dam->setHurt((_damage)); ///Descomentar para reducir el daño en base a la distancia de los personajes (100.0f * ((_entity->getPosition() - m->getEntity()->getPosition()).length() + 0.1))) * _damage);
+						m_dam->setHurt(_damage); ///Descomentar para reducir el daño en base a la distancia de los personajes (100.0f * ((_entity->getPosition() - m->getEntity()->getPosition()).length() + 0.1))) * _damage);
 						m_dam->setKiller(_entity);
 						_attackEntity->emitMessage(m_dam, this);
 
