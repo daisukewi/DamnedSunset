@@ -99,12 +99,15 @@ namespace Logic
 			//Entidad que daña la granada
 			CEntity * entidad = entidadesColision[i];
 
-			//Enviamos mensaje de dormir la IA de la entidad
-			MIASleep *m = new MIASleep();
-			m->setTime(_time);
-			entidad->emitMessage(m, this);
+			if (!(entidad->getTag() == "Player"))
+			{
+				//Enviamos mensaje de dormir la IA de la entidad
+				MIASleep *m = new MIASleep();
+				m->setTime(_time);
+				entidad->emitMessage(m, this);
 
-			printf("SLEEP IA");
+				printf("SLEEP IA");
+			}
 
 		}
 		//Eliminamos la entidad en el siguiente tick

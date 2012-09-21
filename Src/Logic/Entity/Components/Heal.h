@@ -34,7 +34,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CHeal() : IComponent(), _cure(false) {}
+		CHeal() : IComponent(), _cure(false), _lifeToHeal(50.0f) {}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -93,6 +93,11 @@ namespace Logic
 		Atributo para saber si la entidad tiene que curar.
 		*/
 		bool _cure;
+
+		/**
+		Puntos de vida a curar.
+		*/
+		float _lifeToHeal;
 
 		/**
 		Atributo para saber la entidad que hay que curar.

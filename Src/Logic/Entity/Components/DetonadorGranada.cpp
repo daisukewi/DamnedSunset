@@ -100,34 +100,37 @@ namespace Logic
 			//Entidad que daña la granada
 			CEntity * entidad = entidadesColision[i];
 
-			//Enviamos mensaje de daño a la entidad
-			MDamaged *mDamaged = new MDamaged();
-			mDamaged->setHurt(_damage);
-			mDamaged->setKiller(0);
-			entidad->emitMessage(mDamaged, this);
+			if (!(entidad->getTag() == "Player"))
+			{
+				//Enviamos mensaje de daño a la entidad
+				MDamaged *mDamaged = new MDamaged();
+				mDamaged->setHurt(_damage);
+				mDamaged->setKiller(0);
+				entidad->emitMessage(mDamaged, this);
 
-			printf("DAÑO GRANADA");
+				printf("DAÑO GRANADA");
 
-			//EMPUJAR
+				//EMPUJAR
 			
-			//Activamos el componente de empujar
-			MActivarComponente *mActivar = new MActivarComponente();
-			mActivar->setActivar(true);
-			mActivar->setNombreComponente("CEmpujable");
-			entidad->emitInstantMessage(mActivar, this); //Tiene que ser instantaneo, sino no se empujara ya q no esta activo
+				//Activamos el componente de empujar
+				MActivarComponente *mActivar = new MActivarComponente();
+				mActivar->setActivar(true);
+				mActivar->setNombreComponente("CEmpujable");
+				entidad->emitInstantMessage(mActivar, this); //Tiene que ser instantaneo, sino no se empujara ya q no esta activo
 
-			//Calculamos la direccion a la que tenemos que empujar
-			Vector3 pos1 = entidad->getPosition();
-			Vector3 pos2 = _entity->getPosition();
-			Vector3 direccion = Vector3(pos1.x-pos2.x,pos1.y-pos2.y,pos1.z-pos2.z);
-			direccion.normalise();
-			//----
-			MSetEmpujarPropiedades *m = new MSetEmpujarPropiedades();
-			m->setDirection(direccion.x,direccion.y,direccion.z);
-			m->setTime(_timeEmpujar);
-			m->setDistanciaPorSegundo(_distEmpujarSeg);
+				//Calculamos la direccion a la que tenemos que empujar
+				Vector3 pos1 = entidad->getPosition();
+				Vector3 pos2 = _entity->getPosition();
+				Vector3 direccion = Vector3(pos1.x-pos2.x,pos1.y-pos2.y,pos1.z-pos2.z);
+				direccion.normalise();
+				//----
+				MSetEmpujarPropiedades *m = new MSetEmpujarPropiedades();
+				m->setDirection(direccion.x,direccion.y,direccion.z);
+				m->setTime(_timeEmpujar);
+				m->setDistanciaPorSegundo(_distEmpujarSeg);
 
-			entidad->emitMessage(m, this);
+				entidad->emitMessage(m, this);
+			}
 		}
 		//Eliminamos la entidad en el siguiente tick
 		CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);

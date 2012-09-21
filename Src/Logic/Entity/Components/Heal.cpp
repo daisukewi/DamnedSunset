@@ -42,6 +42,9 @@ namespace Logic
 		if(entityInfo->hasAttribute("healEffect"))
 			_healEffect = entityInfo->getFloatAttribute("healEffect");
 
+		if(entityInfo->hasAttribute("healLife"))
+			_lifeToHeal = entityInfo->getFloatAttribute("healLife");
+
 
 		return true;
 
@@ -104,10 +107,11 @@ namespace Logic
 			else
 			{	
 				MHealed *m_heal = new MHealed();
-				// Curamos 1 punto de vida al compañero
-				m_heal->setHeal(msecs / 100.0f);
+				// Curamos _lifeToHeal puntos de vida al compañero
+				m_heal->setHeal(_lifeToHeal);
 				m_heal->setHealer(_entity);
 				_targetEntity->emitMessage(m_heal, this);
+				_cure = false;
 			}
 		}
 	} // tick

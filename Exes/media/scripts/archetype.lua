@@ -294,18 +294,18 @@ Archetype = {
 		billboardSeleccionMaterial = "circuloSeleccion",
 		billboardSeleccionWith = 15.0,
 		billboardSeleccionHeight = 15.0,
-		
+
 		billboardPoisonMaterial = "imagePosion",
 		billboardPoisonWith = 1.0,
 		billboardPoisonHeight = 1.0,
 		billboardPoisonPosition = {-4.0,26.0,0.0},
-		
+
 		billboardConfusionMaterial = "imageConfusion",
 		billboardConfusionWith = 1.0,
 		billboardConfusionHeight = 1.0,
 		billboardConfusionPosition = {4.0,26.0,0.0},
-		
-		
+
+
 		afectaEmpujar = 100,
 
 		distOfView = 100,
@@ -326,18 +326,18 @@ Archetype = {
 
 		duracionCarga = 1000,
 		coolDownCarga = 10000,
-		
+
 		lifeCureSound = "",
 		lifeCureEffect = "",
 		lifeDamageSound = "",
 		lifeDamageEffect = "Blood",
-		
+
 		distanceAttackSound = "RifleShot1.ogg",
 		distanceAttackEffect = "",
-		
+
 		healSound = "",
 		healEffect = "",
-		
+
 		poisonSound = "",
 		poisonEffect = "",
 		
@@ -457,17 +457,17 @@ Archetype = {
 		billboardLanzamientoWith = 150.0,
 		billboardLanzamientoHeight = 150.0,
 		alcanceGranada = 70.0,
-		
+
 		billboardPoisonMaterial = "imagePosion",
 		billboardPoisonWith = 1.0,
 		billboardPoisonHeight = 1.0,
 		billboardPoisonPosition = {-4.0,26.0,0.0},
-		
+
 		billboardReduceDamageMaterial = "imageReduceDamage",
 		billboardReduceDamageWith = 1.0,
 		billboardReduceDamageHeight = 1.0,
 		billboardReduceDamagePosition = {0.0,26.0,0.0},
-		
+
 		nombreGranada = "Granada",
 
 		afectaEmpujar = 100,
@@ -497,23 +497,23 @@ Archetype = {
 		reduceDamageTime = 5000,
 		reduceDamageDistance = 100,
 		reduceDamage = -1.0,
-		
-		
+
+
 		lifeCureSound = "",
 		lifeCureEffect = "",
 		lifeDamageSound = "",
 		lifeDamageEffect = "Blood",
-		
+
 		distanceAttackSound = "RifleShot1.ogg",
 		distanceAttackEffect = "",
-		
+
 		healSound = "",
 		healEffect = "",
-		
+
 		poisonSound = "",
 		poisonEffect = "",
-		
-		
+
+
 	},
 
 	Erick = {
@@ -553,12 +553,12 @@ Archetype = {
 		billboardLanzamientoHeight = 150.0,
 		alcanceGranada = 70.0,
 		nombreGranada = "GranadaAturdir",
-		
+
 		billboardPoisonMaterial = "imagePosion",
 		billboardPoisonWith = 1.0,
 		billboardPoisonHeight = 1.0,
 		billboardPoisonPosition = {-4.0,21.5,0.0},
-		
+
 		billboardReduceDamageMaterial = "imageReduceDamage",
 		billboardReduceDamageWith = 1.0,
 		billboardReduceDamageHeight = 1.0,
@@ -600,18 +600,18 @@ Archetype = {
 		selection_radius = 8,
 		selection_height = 12,
 		selection_collision_group = 7,
-		
+
 		lifeCureSound = "",
 		lifeCureEffect = "",
 		lifeDamageSound = "",
 		lifeDamageEffect = "Blood",
-		
+
 		distanceAttackSound = "RifleShot1.ogg",
 		distanceAttackEffect = "",
-		
+
 		healSound = "",
 		healEffect = "",
-		
+
 		poisonSound = "",
 		poisonEffect = "",
 	},
@@ -651,18 +651,18 @@ Archetype = {
 		billboardLanzamientoMaterial = "circuloSeleccion",
 		billboardLanzamientoWith = 150.0,
 		billboardLanzamientoHeight = 150.0,
-		
+
 		billboardPoisonMaterial = "imagePosion",
 		billboardPoisonWith = 1.0,
 		billboardPoisonHeight = 1.0,
 		billboardPoisonPosition = {-4.0,21.5,0.0},
-		
+
 		billboardReduceDamageMaterial = "imageReduceDamage",
 		billboardReduceDamageWith = 1.0,
 		billboardReduceDamageHeight = 1.0,
 		billboardReduceDamagePosition = {0.0,26.0,0.0},
-		
-		
+
+
 		alcanceGranada = 70.0,
 		nombreGranada = "GranadaEnvenenar",
 
@@ -695,16 +695,17 @@ Archetype = {
 		lifeCureEffect = "",
 		lifeDamageSound = "",
 		lifeDamageEffect = "Blood",
-		
+
 		distanceAttackSound = "RifleShot1.ogg",
 		distanceAttackEffect = "",
-		
+
 		healSound = "",
 		healEffect = "",
-		
+		healLife = 30,
+
 		poisonSound = "",
 		poisonEffect = "",
-		
+
 	},
 
 	Waypoint = {

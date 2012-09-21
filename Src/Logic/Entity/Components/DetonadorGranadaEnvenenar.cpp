@@ -106,14 +106,18 @@ namespace Logic
 			//Entidad que daña la granada
 			CEntity * entidad = entidadesColision[i];
 
-			//Enviamos mensaje de envenenar a la entidad
-			MVenom *m = new MVenom();
-			m->setVenomTime(_venomTime);
-			m->setVenomDamage(_venomDamage);
-			m->setCount(_venomCount);
-			entidad->emitMessage(m, this);
+			if (!(entidad->getTag() == "Player"))
+			{
 
-			printf("VENOM");
+				//Enviamos mensaje de envenenar a la entidad
+				MVenom *m = new MVenom();
+				m->setVenomTime(_venomTime);
+				m->setVenomDamage(_venomDamage);
+				m->setCount(_venomCount);
+				entidad->emitMessage(m, this);
+
+				printf("VENOM");
+			}
 
 		}
 		//Eliminamos la entidad en el siguiente tick

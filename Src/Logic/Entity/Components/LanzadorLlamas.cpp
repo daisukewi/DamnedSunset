@@ -151,17 +151,21 @@ namespace Logic
 				{
 					// Entidad que se encuentra dentro del círculo de acción
 					CEntity * entidad = entidadesColision[i];
-					Vector3 targ = entidad->getPosition() - _entity->getPosition();
 
-					// Si está en el sector circular seleccionado se daña a la entidad
-					if ((_flamesDirection->angleBetween(targ)).valueDegrees() < _angleAction/2.0f
-						 && _entity->getEntityID() != entidad->getEntityID())
+					if (!(entidad->getTag() == "Player"))
 					{
-						// Enviamos mensaje de daño a la entidad
-						MDamaged *mDamaged = new MDamaged();
-						mDamaged->setHurt(_damageSecs);
-						mDamaged->setKiller(0);
-						entidad->emitMessage(mDamaged, this);
+						Vector3 targ = entidad->getPosition() - _entity->getPosition();
+
+						// Si está en el sector circular seleccionado se daña a la entidad
+						if ((_flamesDirection->angleBetween(targ)).valueDegrees() < _angleAction/2.0f
+							 && _entity->getEntityID() != entidad->getEntityID())
+						{
+							// Enviamos mensaje de daño a la entidad
+							MDamaged *mDamaged = new MDamaged();
+							mDamaged->setHurt(_damageSecs);
+							mDamaged->setKiller(0);
+							entidad->emitMessage(mDamaged, this);
+						}
 					}
 				}
 			}
@@ -192,17 +196,21 @@ namespace Logic
 				{
 					// Entidad que se encuentra dentro del círculo de acción
 					CEntity * entidad = entidadesColision[i];
-					Vector3 targ = entidad->getPosition() - _entity->getPosition();
-				
-					// Si está en el sector circular seleccionado se daña a la entidad
-					if ((_flamesDirection->angleBetween(targ)).valueDegrees() < _angleAction/2.0f
-						 && _entity->getEntityID() != entidad->getEntityID())
+
+					if (!(entidad->getTag() == "Player"))
 					{
-						// Enviamos mensaje de daño a la entidad
-						MDamaged *mDamaged = new MDamaged();
-						mDamaged->setHurt(_damageSecs);
-						mDamaged->setKiller(0);
-						entidad->emitMessage(mDamaged, this);
+						Vector3 targ = entidad->getPosition() - _entity->getPosition();
+				
+						// Si está en el sector circular seleccionado se daña a la entidad
+						if ((_flamesDirection->angleBetween(targ)).valueDegrees() < _angleAction/2.0f
+							 && _entity->getEntityID() != entidad->getEntityID())
+						{
+							// Enviamos mensaje de daño a la entidad
+							MDamaged *mDamaged = new MDamaged();
+							mDamaged->setHurt(_damageSecs);
+							mDamaged->setKiller(0);
+							entidad->emitMessage(mDamaged, this);
+						}
 					}
 				}
 			}
