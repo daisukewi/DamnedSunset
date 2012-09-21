@@ -19,6 +19,8 @@ function activarInterfazDia()
 		-- Activamos la ventana de interfaz
 		interfazDia:setVisible(true)
 		interfazDia:activate()
+		
+		resetCooldowns()
 	end
 end
 
@@ -50,3 +52,4 @@ function actualizarSolenium(cantidadSolenium)
 		winMgr:getWindow("InterfaDia/Recuros/Solenium"):setText(solenium)
 	end
 end
+

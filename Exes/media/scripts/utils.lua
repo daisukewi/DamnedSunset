@@ -231,3 +231,17 @@ function updateSkillsCooldown(deltaTime)
 end
 
 ------------------------------------------------------
+-- Función que reinicia los Cooldowns
+function resetCooldowns()
+	for ID, t in pairs(players) do
+		for index, value in pairs(t.currentSkillsCooldown) do
+			InterfazControles = winMgr:getWindow("InterfazControles/Menu/b" .. index)
+			
+			urlImageCoolDown = "InterfazControles/Menu/b" .. index .. "/b" .. index .. "cd"
+			
+			players[ID].currentSkillsCooldown[index] = 0
+			
+			InterfazControles:getChild(urlImageCoolDown):setVisible(false)
+		end
+	end
+end
