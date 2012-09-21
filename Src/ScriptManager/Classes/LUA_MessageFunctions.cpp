@@ -214,6 +214,9 @@ namespace ScriptManager
 		m->addEntity(norah);
 		m->addEntity(jack);
 		m->addEntity(erick);
+
+		unsigned int playerGod = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->getEntityID();
+		m->addEntity(playerGod);
 		
 		entity->emitMessage(m);
 	}
