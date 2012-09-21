@@ -215,6 +215,7 @@ function updateSkillsCooldown(deltaTime)
 
 					
 					InterfazControles:getChild(urlImageCoolDown):setHeight(CEGUI.UDim(porcentaje,0))
+					InterfazControles:getChild(urlImageCoolDown):setVisible(true)
 				end
 				
 			else
@@ -222,6 +223,7 @@ function updateSkillsCooldown(deltaTime)
 				
 				if (ID == god.playersSelected[1]) then
 					InterfazControles:getChild(urlImageCoolDown):setHeight(CEGUI.UDim(0,0))
+					InterfazControles:getChild(urlImageCoolDown):setVisible(false)
 				end
 				
 				
