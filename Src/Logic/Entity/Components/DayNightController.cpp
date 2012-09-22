@@ -112,7 +112,7 @@ namespace Logic
 				_entity->emitMessage(m2);
 
 				Graphics::CScene* sm = Graphics::CServer::getSingletonPtr()->getActiveScene();
-				sm->setAmbientLight(0.40f, 0.40f, 0.58f);
+				sm->setAmbientLight(0.30f, 0.30f, 0.48f);
 
 				Application::CGaleonApplication::getSingletonPtr()->setState("game");
 			}
@@ -139,7 +139,7 @@ namespace Logic
 				BaseSubsystems::CServer::getSingletonPtr()->addClockListener(_dayTimeAlarm, this);
 
 				Graphics::CScene* sm = Graphics::CServer::getSingletonPtr()->getActiveScene();
-				sm->setAmbientLight( 0.65f, 0.63f, 0.60f );
+				sm->setAmbientLight( 0.75f, 0.73f, 0.70f );
 
 				_timeType = TIME_TYPE::DAY_ALARM;
 				break;
@@ -152,7 +152,7 @@ namespace Logic
 				Logic::CServer::getSingletonPtr()->getMap()->sendMessageAll(dayNightMessage, _entity);
 
 				Graphics::CScene* sm = Graphics::CServer::getSingletonPtr()->getActiveScene();
-				sm->setAmbientLight(0.65f, 0.65f, 0.76f);
+				sm->setAmbientLight(0.75f, 0.75f, 0.86f);
 
 				_timeType = TIME_TYPE::DAY;
 				Application::CGaleonApplication::getSingletonPtr()->setState("day");

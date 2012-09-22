@@ -110,5 +110,12 @@ namespace Graphics
 		_targetNode->setPosition(newPosition);
 	}
 
+	//--------------------------------------------------------
+
+	void CCamera::setFogDistance(const int distance)
+	{
+		_scene->setFogDistance(distance);
+	}
+
 
 } // namespace Graphics

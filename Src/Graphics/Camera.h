@@ -97,6 +97,12 @@ namespace Graphics
 		*/
 		void setTargetCameraPosition(const Vector3 &newPosition);
 		
+		/**
+		Cambia la distancia máxima de la niebla.
+
+		@param distance distancia máxima a la que se alcanza ver con la niebla.
+		*/
+		void setFogDistance(const int distance);
 
 		/**
 		Devuelve la cámara de Ogre.

@@ -125,6 +125,8 @@ namespace Logic
 			direction = _targetDistance * Math::getDirection(_target->getOrientation());
 			direction.y = _targetHeight;
 			_graphicsCamera->setTargetCameraPosition(position + direction);
+
+			_graphicsCamera->setFogDistance((_height / 225) * 125 + 325);
 		}
 
 	} // tick

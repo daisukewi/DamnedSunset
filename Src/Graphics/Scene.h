@@ -159,6 +159,13 @@ namespace Graphics
 		void setAmbientLight(const float r, const float g, const float b);
 
 		/**
+		Cambia la distancia máxima de la niebla.
+
+		@param distance distancia máxima a la que se alcanza ver con la niebla.
+		*/
+		void setFogDistance(const int distance);
+
+		/**
 		Genera un nuevo terreno en el mapa con las dimensiones pasadas
 		como parámetro.
 

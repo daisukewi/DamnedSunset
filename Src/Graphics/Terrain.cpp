@@ -205,10 +205,10 @@ namespace Graphics
 
 		// Important to set these so that the terrain knows what to use for derived (non-realtime) data
 		_terrainGlobals->setCastsDynamicShadows(false);
-		Vector3 light_direction = Vector3(-0.5, -0.45, -0.8);
+		Vector3 light_direction = Vector3(0.2, -0.8, 0.6);
 		light_direction.normalise();
 		_terrainGlobals->setLightMapDirection(light_direction);
-		_terrainGlobals->setCompositeMapAmbient(Ogre::ColourValue(0.65f, 0.65f, 0.76f));
+		_terrainGlobals->setCompositeMapAmbient(Ogre::ColourValue(0.75f, 0.75f, 0.86f));
 		_terrainGlobals->setCompositeMapDiffuse(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
 
 		// Configure default import settings for if we use imported image

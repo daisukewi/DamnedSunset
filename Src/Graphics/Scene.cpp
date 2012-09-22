@@ -28,6 +28,7 @@ de una escena.
 
 #include <OgreRoot.h>
 #include <OgreSceneManager.h>
+#include <OgreCompositorManager.h>
 #include <OgreRenderWindow.h>
 #include <OgreViewport.h>
 #include <OgreStaticGeometry.h>
@@ -120,18 +121,22 @@ namespace Graphics
 						->addViewport(_camera->getCamera());
 		_viewport->setBackgroundColour(Ogre::ColourValue::Black);
 
-		_sceneMgr->setAmbientLight(Ogre::ColourValue(0.65f, 0.65f, 0.76f));
+		_sceneMgr->setAmbientLight(Ogre::ColourValue(0.75f, 0.75f, 0.86f));
 
 		// Además de la luz ambiente creamos una luz direccional que 
 		// hace que se vean mejor los volúmenes de las entidades.
 		_directionalLight = _sceneMgr->createLight("directional light");
-		_directionalLight->setDiffuseColour(.5f,.5f,.5f);
+		_directionalLight->setDiffuseColour(.7f,.7f,.75f);
 		_directionalLight->setSpecularColour(.1f,.1f,.15f);
 		_directionalLight->setType(Ogre::Light::LT_DIRECTIONAL);
-		Vector3 light_direction = Vector3(-0.4, -1.0, -0.5);
+		Vector3 light_direction = Vector3(0.2, -0.8, 0.6);
 		light_direction.normalise();
 		_directionalLight->setDirection(light_direction);
 		_directionalLight->setCastShadows(true);
+
+		Ogre::ColourValue fadeColour(0.06f, 0.05f, 0.08f);
+		_viewport->setBackgroundColour(fadeColour);
+		_sceneMgr->setFog(Ogre::FOG_LINEAR, fadeColour, 0.0, 10, 450);
 
 	} // activate
 
@@ -179,6 +184,14 @@ namespace Graphics
 		_sceneMgr->setAmbientLight(Ogre::ColourValue(r, g, b));
 
 	} // setAmbientLight
+
+	//--------------------------------------------------------
+
+	void CScene::setFogDistance(const int distance)
+	{
+		Ogre::ColourValue fadeColour(0.06f, 0.05f, 0.08f);
+		_sceneMgr->setFog(Ogre::FOG_LINEAR, fadeColour, 0.0, 10, distance);
+	}
 
 	//--------------------------------------------------------
 
