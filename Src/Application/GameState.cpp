@@ -21,6 +21,8 @@ Contiene la implementación del estado de juego.
 #include "Logic/Maps/EntityFactory.h"
 #include "Logic/Maps/Map.h"
 
+#include "Logic\Entity\Messages\ActivarComponente.h"
+
 #include "GUI/Server.h"
 #include "GUI/PlayerController.h"
 #include "GUI/CameraController.h"
@@ -68,17 +70,10 @@ namespace Application {
 	{
 		CApplicationState::activate();
 
-		//LoadLevel();
-	/*	
-		// Activamos el mapa que ha sido cargado para la partida.
-		Logic::CServer::getSingletonPtr()->activateMap();
-
-		// Queremos que el GUI maneje al jugador y la cámara.
-		GUI::CServer::getSingletonPtr()->getPlayerController()->activate();
-		GUI::CServer::getSingletonPtr()->getCameraController()->activate();*/
+		ScriptManager::CServer::getSingletonPtr()->executeProcedure("inicializarInterfaz");
 
 		// Activamos la ventana de interfaz
-		ScriptManager::CServer::getSingletonPtr()->executeProcedure("activarInterfazNoche");
+		//ScriptManager::CServer::getSingletonPtr()->executeProcedure("activarInterfazNoche");
 		//GUI::CServer::getSingletonPtr()->getInterfazController()->activate();
 		//GUI::CServer::getSingletonPtr()->getInterfazController()->setEsDia(false);
 
@@ -90,6 +85,15 @@ namespace Application {
 		CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();  
 		CEGUI::System::getSingleton().injectMouseMove(state.X.abs-mousePos.d_x,state.Y.abs-mousePos.d_y);
 
+		//Activar el componente de control de la cámara de noche
+		Logic::MActivarComponente *m = new Logic::MActivarComponente();
+		m->setActivar(true);
+		m->setNombreComponente("CCameraController");
+		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m);
+
+		//Inicializamos la interfaz
+		ScriptManager::CServer::getSingletonPtr()->executeProcedure("cambiarANoche");
+
 	} // activate
 
 	//--------------------------------------------------------
@@ -97,10 +101,10 @@ namespace Application {
 	void CGameState::deactivate() 
 	{
 		// Desactivamos la ventana de tiempo y el ratón.
-		CEGUI::MouseCursor::getSingleton().hide();
+		//CEGUI::MouseCursor::getSingleton().hide();
 
 		// Desactivamos la ventana de interfaz
-		GUI::CServer::getSingletonPtr()->getInterfazController()->deactivate();
+		//GUI::CServer::getSingletonPtr()->getInterfazController()->deactivate();
 
 		/*// Desactivamos la clase que procesa eventos de entrada para 
 		// controlar al jugador y la cámara.
@@ -111,6 +115,12 @@ namespace Application {
 		Logic::CServer::getSingletonPtr()->deactivateMap();
 		*/
 		//UnloadLevel();
+
+		// Desactivar el componente de control de la cámara de noche
+		Logic::MActivarComponente *m = new Logic::MActivarComponente();
+		m->setActivar(false);
+		m->setNombreComponente("CCameraController");
+		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m);
 		
 		CApplicationState::deactivate();
 

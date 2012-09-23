@@ -82,7 +82,7 @@ namespace Application {
 		CEGUI::System::getSingleton().injectMouseMove(state.X.abs-mousePos.d_x,state.Y.abs-mousePos.d_y);
 
 
-		//Activar el componente de control de la cámara de día y desacticar el de noche
+		//Activar el componente de control de la cámara de día
 		Logic::MActivarComponente *m1 = new Logic::MActivarComponente();
 		m1->setActivar(true);
 		m1->setNombreComponente("CDayCameraController");
@@ -102,6 +102,12 @@ namespace Application {
 	{
 		// Desactivamos la ventana de tiempo y el ratón.
 		CEGUI::MouseCursor::getSingleton().hide();
+
+		// Desactivar el componente de control de la cámara de dia
+		Logic::MActivarComponente *m = new Logic::MActivarComponente();
+		m->setActivar(false);
+		m->setNombreComponente("CDayCameraController");
+		Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("PlayerGod")->emitMessage(m);
 
 		CApplicationState::deactivate();
 
