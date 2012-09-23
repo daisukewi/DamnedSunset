@@ -148,14 +148,14 @@ namespace Logic {
 	{
 		Graphics::CServer::getSingletonPtr()->setScene(_scene);
 
-		TEntityMap::const_iterator it, end;
-		end = _entityMap.end();
-		it = _entityMap.begin();
+		TEntityMap::const_iterator it;
+		_entend = _entityMap.end();
+		_entbegin = it = _entityMap.begin();
 
 		bool correct = true;
 
 		// Activamos todas las entidades registradas en el mapa.
-		for(; it != end; it++)
+		for(; it != _entend; it++)
 			correct = (*it).second->activate() && correct;
 
 		return correct;
@@ -166,12 +166,8 @@ namespace Logic {
 
 	void CMap::deactivate()
 	{
-		TEntityMap::const_iterator it, end;
-		end = _entityMap.end();
-		it = _entityMap.begin();
-
 		// Desactivamos todas las entidades activas registradas en el mapa.
-		for(; it != end; it++)
+		for(TEntityMap::const_iterator it = _entbegin; it != _entend; it++)
 			if((*it).second->isActivated())
 				(*it).second->deactivate();
 
@@ -183,9 +179,7 @@ namespace Logic {
 
 	void CMap::tick(unsigned int msecs) 
 	{
-		TEntityMap::const_iterator it;
-
-		for( it = _entityMap.begin(); it != _entityMap.end(); ++it )
+		for(TEntityMap::const_iterator it = _entbegin; it != _entend; ++it )
 			(*it).second->tick(msecs);
 
 	} // tick

@@ -253,6 +253,8 @@ namespace Logic
 		*/
 		std::list<CTerrainTile*>* _terrainList;
 
+		TEntityMap::const_iterator _entbegin, _entend;
+
 	}; // class CMap
 
 } // namespace Logic

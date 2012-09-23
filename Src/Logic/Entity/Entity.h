@@ -464,6 +464,9 @@ namespace Logic
 		bool _isTargetCamera;
 
 		bool _realTime;
+
+		TComponentList::const_iterator _compbegin, _compend;
+
 	}; // class CEntity
 
 } // namespace Logic

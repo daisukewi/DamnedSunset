@@ -264,12 +264,14 @@ namespace Logic
 
 		// Activamos los componentes
 		TComponentList::const_iterator it;
+		_compend = _components.end();
+		_compbegin = it = _components.begin();
 
 		// Solo si se activan todos los componentes correctamente nos
 		// consideraremos activados.
 		_activated = true;
 
-		for( it = _components.begin(); it != _components.end(); ++it )
+		for(; it != _compend; ++it )
 		{
 			//Solo activamos los componentes que esten esten inicialmente activados
 			if ((*it)->isActive())
@@ -293,11 +295,8 @@ namespace Logic
 			CServer::getSingletonPtr()->setPlayer(0);
 		}
 
-
-		TComponentList::const_iterator it;
-
 		// Desactivamos los componentes
-		for( it = _components.begin(); it != _components.end(); ++it )
+		for(TComponentList::const_iterator it = _compbegin; it != _compend; ++it )
 			(*it)->deactivate();
 
 		_activated = false;
@@ -308,19 +307,14 @@ namespace Logic
 
 	void CEntity::tick(unsigned int msecs) 
 	{
+		unsigned int realmsecs = BaseSubsystems::CServer::getSingletonPtr()->getLastRealFrameDuration();
 
-		TComponentList::const_iterator it;
-
-		for( it = _components.begin(); it != _components.end(); ++it )
+		for(TComponentList::const_iterator it = _compbegin; it != _compend; ++it )
 		{
-			BEGIN_STATS( (*it)->getType() );
-
 			if ((*it)->isActive())
-				(*it)->tick( _realTime ? BaseSubsystems::CServer::getSingletonPtr()->getLastRealFrameDuration() : msecs); //Tambien se procesan los mensajes dentro del tick
+				(*it)->tick( _realTime ? realmsecs : msecs); //Tambien se procesan los mensajes dentro del tick
 			else
 				(*it)->processMessages();
-
-			END_STATS();
 		}
 	} // tick
 
