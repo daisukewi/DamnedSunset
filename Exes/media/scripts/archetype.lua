@@ -362,6 +362,9 @@ Archetype = {
 		damage = 250.0,
 		timeEmpujar = 0.3,
 		distEmpujarSeg = 150.0,
+		
+		detonadorGranadaEffect = "Explosion",
+		detonadorGranadaSound = "rocket_explosion.wav";
 	},
 
 	GranadaAturdir = {
@@ -380,6 +383,9 @@ Archetype = {
 		physic_collision_group = 9,
 
 		time = 3.0,
+		
+		detonadorGranadaAturdirEffect = "Aturdir",
+		detonadorGranadaAturdirSound = "rocket_explosion.wav",
 	},
 
 	GranadaEnvenenar = {
@@ -400,6 +406,9 @@ Archetype = {
 		time = 10.0,
 		damage = 50.0,
 		count = 5.0,
+		
+		detonadorGranadaEnvenenarEffect = "Poison";
+		detonadorGranadaEnvenenarSound = "rocket_explosion.wav";
 	},
 
 	BolaTeltr = {

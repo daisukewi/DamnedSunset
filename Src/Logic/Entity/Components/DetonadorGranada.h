@@ -50,6 +50,9 @@ namespace Logic
 		float _damage;
 		float _timeEmpujar;
 		float _distEmpujarSeg;
+
+		std::string _detonadorGranadaEffect;
+		std::string _detonadorGranadaSound;
 	};
 
 	REG_FACTORY(CDetonadorGranada);

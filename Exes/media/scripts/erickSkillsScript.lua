@@ -41,7 +41,7 @@ end
 -- La habilidad de la granada es de tipo NO INMEDIATO
 
 function erickGrenade()
-	god.startSkillFunction = startNorahGrenade
+	god.startSkillFunction = startErickGrenade
 	skillParameters = {
 		skill = 1,
 	}

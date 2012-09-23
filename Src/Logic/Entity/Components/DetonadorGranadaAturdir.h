@@ -49,6 +49,9 @@ namespace Logic
 
 		int _time;
 
+		std::string _detonadorGranadaAturdirEffect;
+		std::string _detonadorGranadaAturdirSound;
+
 	};
 
 	REG_FACTORY(CDetonadorGranadaAturdir);

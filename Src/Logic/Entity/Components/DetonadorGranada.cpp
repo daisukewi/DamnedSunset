@@ -40,6 +40,11 @@ namespace Logic
 		if(entityInfo->hasAttribute("distEmpujarSeg"))
 			_distEmpujarSeg = entityInfo->getFloatAttribute("distEmpujarSeg");
 
+		if(entityInfo->hasAttribute("detonadorGranadaEffect"))
+			_detonadorGranadaEffect = entityInfo->getStringAttribute("detonadorGranadaEffect");
+		if(entityInfo->hasAttribute("detonadorGranadaSound"))
+			_detonadorGranadaSound = entityInfo->getStringAttribute("detonadorGranadaSound");
+
 		BaseSubsystems::CServer::getSingletonPtr()->addClockListener(2000, this);
 		return true;
 	} // spawn
@@ -87,12 +92,12 @@ namespace Logic
 		//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
 		MParticleEffect *rc_message = new MParticleEffect();
 		rc_message->setPoint(_entity->getPosition());
-		rc_message->setEffect("Explosion");
+		rc_message->setEffect(_detonadorGranadaEffect);
 		_entity->emitInstantMessage(rc_message,this);
 
 		//Envío del mensaje al componente que se encarga de reproducir los sonidos
 		MSoundEffect *rc2_message = new MSoundEffect();
-		rc2_message->setSoundEffect("media/sounds/rocket_explosion.wav");
+		rc2_message->setSoundEffect("media/sounds/" + _detonadorGranadaSound);
 		_entity->emitInstantMessage(rc2_message,this);
 
 		for(int i = 0; i < numColisiones; ++i)
