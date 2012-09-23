@@ -4,23 +4,31 @@
 #include "Map/MapEntity.h"
 
 #include "Graphics\Server.h"
+#include "Graphics\ParticleEffect.h"
+
 #include "Physics\Server.h"
 
 #include "Logic/Maps/EntityFactory.h"
 
 #include "Logic/Entity/Messages/ParticleEffect.h"
 
+#include "Logic/Entity/Messages/SetTransform.h"
+
+#include "BaseSubsystems/Server.h"
+
 namespace Logic 
 {
 	IMP_FACTORY(CParticleController);
 	
 	//---------------------------------------------------------
-
+	CParticleController::CParticleController()  : IComponent() {
+	}
 	bool CParticleController::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
 	{
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 
+		_countParticles = 0;
 		return true;
 
 	} // spawn
@@ -43,7 +51,9 @@ namespace Logic
 
 	bool CParticleController::accept(IMessage *message)
 	{
-		return !message->getType().compare("MParticleEffect");
+		return (!message->getType().compare("MSetTransform")
+		//	 || !message->getType().compare("MParticleEffect")
+		);
 
 	} // accept
 
@@ -53,8 +63,27 @@ namespace Logic
 	{
 		if (!message->getType().compare("MParticleEffect")){
 
+			//MParticleEffect *m = static_cast <MParticleEffect*> (message);
+			//Graphics::CServer::getSingletonPtr()->createParticleEffect(m->getEffect(),m->getPoint());
+
 			MParticleEffect *m = static_cast <MParticleEffect*> (message);
-			Graphics::CServer::getSingletonPtr()->createParticleEffect(m->getEffect(),m->getPoint());
+			
+			std::stringstream aux;
+			aux << m->getEffect() << "_" << _entity->getEntityID() << _countParticles;
+			_particleList.push_back(new Graphics::CParticleEffect(aux.str(), m->getEffect(),m->getPoint()));
+
+			_countParticles++;
+
+			BaseSubsystems::CServer::getSingletonPtr()->addClockListener(5000, this);
+
+		}else if (!message->getType().compare("MSetTransform")){
+
+			MSetTransform *m = static_cast <MSetTransform*> (message);
+			TParticleList::const_iterator it = _particleList.begin();
+			TParticleList::const_iterator end = _particleList.end();
+
+			for(; it != end; it++)
+				(*it)->setPosition(m->getTransform().getTrans());
 		}
 	} // process
 
@@ -66,4 +95,11 @@ namespace Logic
 
 	} // tick
 
+	void CParticleController::timeElapsed(){
+
+		Graphics::CParticleEffect *aux = _particleList.front();
+		_particleList.pop_front();
+		delete aux;
+	
+	}
 } // namespace Logic

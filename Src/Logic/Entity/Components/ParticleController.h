@@ -13,6 +13,10 @@ los efectos de partículas
 #define __Logic_ParticleController_H
 
 #include "Logic/Entity/Component.h"
+#include "Graphics/ParticleEffect.h"
+
+#include "BaseSubsystems/ClockListener.h"
+
 
 //declaración de la clase
 namespace Logic 
@@ -26,7 +30,7 @@ namespace Logic
 	@author Alberto Ortega
 	@date Marzo, 2012
 */
-	class CParticleController : public IComponent
+	class CParticleController : public IComponent, public BaseSubsystems::IClockListener
 	{
 		DEC_FACTORY(CParticleController);
 	public:
@@ -35,7 +39,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CParticleController() : IComponent() {};
+		CParticleController();
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -102,10 +106,22 @@ namespace Logic
 		@param message Mensaje a procesar.
 		*/
 		virtual void process(IMessage *message);
+
+		/**
+		Método heredado de la interfaz IClockListener que será llamado
+		por el temporizador cuando se acabe el tiempo de espera
+		especificado.
+		*/
+		virtual void timeElapsed();
 		
 	private:
 
+		typedef std::list<Graphics::CParticleEffect*> TParticleList;
 
+		TParticleList _particleList;
+
+		int _countParticles;
+		
 
 	}; // class CParticleController
 
