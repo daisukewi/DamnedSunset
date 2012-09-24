@@ -149,7 +149,7 @@ namespace Logic
 		_buildingHeight = size.y;
 
 		_buildingEntity = Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap());
-		if (!_buildingEntity)
+		if (!_buildingEntity || !_buildingEntity->activate())
 		{
 			_building = false;
 			return;
@@ -169,6 +169,7 @@ namespace Logic
 	void CBuilderController::FreeResources()
 	{
 		// Borrar la entidad que se estaba construyendo antes
+		_buildingEntity->deactivate();
 		Logic::CEntityFactory::getSingletonPtr()->deleteEntity(_buildingEntity);
 		_entity->getMap()->getScene()->removeEntity(_plane);
 		delete(_plane);
@@ -220,7 +221,7 @@ namespace Logic
 		buildInfo->setAttribute("position", vecPos.str());
 		buildInfo->setAttribute("grid_position", gridPos.str());
 
-		Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap());
+		Logic::CEntityFactory::getSingletonPtr()->createEntity(buildInfo, _entity->getMap())->activate();
 
 		MEmplaceBuilding *b_message = new MEmplaceBuilding();
 		b_message->setAction(BuildingAction::FINISH_BUILDING);
