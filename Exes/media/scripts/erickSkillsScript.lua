@@ -91,7 +91,7 @@ function explodeErickPowerShoot()
 end
 
 function cancelErickPowerShoot()
-	cancelPowerShoot(god.playersSelected[1], 0, 0, 0)
+	cancelPowerShoot(god.playersSelected[1])
 end
 
 --------------------------------------------------
@@ -135,7 +135,7 @@ function bulletTime()
 	-- Miro si la habilidad está en cooldown, si lo está no hago nada.
 	if (players[god.playersSelected[1]].currentSkillsCooldown[4] <= 0) then
 		activateBulletTime(god.playersSelected[1])
-		
+
 		-- Activo el cooldown de la habilidad
 		players[god.playersSelected[1]].currentSkillsCooldown[4] = players[god.playersSelected[1]].skillsCooldown[4]
 	end

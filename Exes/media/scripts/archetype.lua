@@ -340,7 +340,7 @@ Archetype = {
 
 		poisonSound = "",
 		poisonEffect = "",
-		
+
 		deathFunction = "enemyDeath"
 	},
 
@@ -573,14 +573,6 @@ Archetype = {
 		billboardReduceDamageHeight = 1.0,
 		billboardReduceDamagePosition = {0.0,26.0,0.0},
 
-		billboardDisparoMaterial = "circuloSeleccion",
-		billboardDisparoWith = 150.0,
-		billboardDisparoHeight = 150.0,
-
-		billboardLlamasMaterial = "circuloSeleccion",
-		billboardLlamasWith = 150.0,
-		billboardLlamasHeight = 150.0,
-
 		afectaEmpujar = 100,
 
 		angleDisparoPotente = 60,
@@ -592,6 +584,14 @@ Archetype = {
 		damageLanzallamas = 15,
 		timeLanzallamas = 3000,
 		frecDamageLlamas = 750,
+
+		billboardDisparoMaterial = "circuloSeleccion",
+		billboardDisparoWith = radioDisparoPotente,
+		billboardDisparoHeight = radioDisparoPotente,
+
+		billboardLlamasMaterial = "circuloSeleccion",
+		billboardLlamasWith = radioLanzallamas,
+		billboardLlamasHeight = radioLanzallamas,
 
 		initState = 1,
 
