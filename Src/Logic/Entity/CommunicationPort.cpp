@@ -39,8 +39,12 @@ namespace Logic {
 
 	void CCommunicationPort::processMessages()
 	{
+		if (_messages.empty()) return;
+
 		TMessageList::const_iterator it = _messages.begin();
-		for(; it != _messages.end(); it++)
+		TMessageList::const_iterator itend = _messages.end();
+
+		for(; it != itend; it++)
 		{
 			processPadre(*it);
 			(*it)->removePtr();

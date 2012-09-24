@@ -32,6 +32,7 @@ Archetype = {
 		physic_shape = "box",
 		physic_dimensions = { 8, 16, 8 },
 		physic_collision_group = 1,
+		disable_tick = true,
 		disableComponent = "CPhysicEntity"
 	},
 
@@ -44,6 +45,7 @@ Archetype = {
 		physic_shape = "box",
 		physic_dimensions = { 8, 16, 8 },
 		physic_collision_group = 1,
+		disable_tick = true,
 		disableComponent = "CPhysicEntity"
 	},
 
@@ -56,6 +58,7 @@ Archetype = {
 		physic_shape = "box",
 		physic_dimensions = { 8, 16, 8 },
 		physic_collision_group = 1,
+		disable_tick = true,
 		disableComponent = "CPhysicEntity"
 	},
 
@@ -68,6 +71,7 @@ Archetype = {
 		physic_shape = "box",
 		physic_dimensions = { 8, 16, 8 },
 		physic_collision_group = 1,
+		disable_tick = true,
 		disableComponent = "CPhysicEntity"
 	},
 
@@ -80,6 +84,7 @@ Archetype = {
 		physic_shape = "box",
 		physic_dimensions = { 8, 16, 8 },
 		physic_collision_group = 1,
+		disable_tick = true,
 		disableComponent = "CPhysicEntity"
 	},
 
@@ -92,6 +97,7 @@ Archetype = {
 		physic_shape = "box",
 		physic_dimensions = { 8, 16, 8 },
 		physic_collision_group = 1,
+		disable_tick = true,
 		disableComponent = "CPhysicEntity"
 	},
 
@@ -104,6 +110,7 @@ Archetype = {
 		physic_shape = "box",
 		physic_dimensions = { 8, 16, 8 },
 		physic_collision_group = 1,
+		disable_tick = true,
 		disableComponent = "CPhysicEntity"
 	},
 
@@ -116,6 +123,7 @@ Archetype = {
 		physic_shape = "box",
 		physic_dimensions = { 8, 16, 8 },
 		physic_collision_group = 1,
+		disable_tick = true,
 		disableComponent = "CPhysicEntity"
 	},
 
@@ -128,6 +136,7 @@ Archetype = {
 		physic_shape = "box",
 		physic_dimensions = { 8, 16, 8 },
 		physic_collision_group = 1,
+		disable_tick = true,
 		disableComponent = "CPhysicEntity"
 	},
 
@@ -506,8 +515,6 @@ Archetype = {
 		reduceDamageTime = 5000,
 		reduceDamageDistance = 100,
 		reduceDamage = -1.0,
-
-
 		lifeCureSound = "",
 		lifeCureEffect = "",
 		lifeDamageSound = "",
@@ -521,8 +528,6 @@ Archetype = {
 
 		poisonSound = "",
 		poisonEffect = "",
-
-
 	},
 
 	Erick = {
@@ -671,7 +676,6 @@ Archetype = {
 		billboardReduceDamageHeight = 1.0,
 		billboardReduceDamagePosition = {0.0,26.0,0.0},
 
-
 		alcanceGranada = 70.0,
 		nombreGranada = "GranadaEnvenenar",
 
@@ -687,14 +691,12 @@ Archetype = {
 
 		damage = 100,
 
-
 		selection_shape = "trigger_capsule",
 		selection_type = "trigger_kinematic",
 		selection_trigger = true,
 		selection_radius = 8,
 		selection_height = 12,
 		selection_collision_group = 7,
-
 
 		healZoneTime = 5000,
 		healZoneDistance = 100,
@@ -714,7 +716,6 @@ Archetype = {
 
 		poisonSound = "",
 		poisonEffect = "",
-
 	},
 
 	Waypoint = {

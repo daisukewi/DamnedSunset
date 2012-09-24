@@ -465,6 +465,8 @@ namespace Logic
 
 		bool _realTime;
 
+		bool _hasTickDisabled;
+
 		TComponentList::const_iterator _compbegin, _compend;
 
 	}; // class CEntity

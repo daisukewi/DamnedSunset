@@ -45,7 +45,7 @@ namespace Logic
 	CEntity::CEntity(TEntityID entityID) : _entityID(entityID), 
 				_map(0), _type(""), _name(""), _transform(Matrix4::IDENTITY),
 				_isPlayer(false), _activated(false), _isTargetCamera(false), _realTime(false), _isSecondarySelected(false),
-				_isSelected(false)
+				_isSelected(false), _hasTickDisabled(false)
 	{
 
 	} // CEntity
@@ -77,6 +77,9 @@ namespace Logic
 			_tag = entityInfo->getStringAttribute("tag");
 		else
 			_tag = "none";
+
+		if(entityInfo->hasAttribute("disable_tick"))
+			_hasTickDisabled = true;
 
 		// Creo la tabla con la información del jugador.
 		if (!_tag.compare("Player"))
@@ -307,6 +310,8 @@ namespace Logic
 
 	void CEntity::tick(unsigned int msecs) 
 	{
+		if (_hasTickDisabled) return;
+
 		unsigned int realmsecs = BaseSubsystems::CServer::getSingletonPtr()->getLastRealFrameDuration();
 
 		for(TComponentList::const_iterator it = _compbegin; it != _compend; ++it )
