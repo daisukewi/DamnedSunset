@@ -68,6 +68,12 @@ namespace Logic
 			_timeAction = entityInfo->getFloatAttribute("timeLanzallamas");
 		if(entityInfo->hasAttribute("frecDamageLlamas"))
 			_frecDamage = entityInfo->getFloatAttribute("frecDamageLlamas");
+		
+		if(entityInfo->hasAttribute("lanzadorLlamasEffect"))
+			_lanzadorLlamasEffect = entityInfo->getStringAttribute("lanzadorLlamasEffect");
+		if(entityInfo->hasAttribute("lanzadorLlamasSound"))
+			_lanzadorLlamasSound = entityInfo->getStringAttribute("lanzadorLlamasSound");
+
 
 		_timeAcc = 0;
 		_secsAcc = 0;
@@ -125,7 +131,7 @@ namespace Logic
 
 				// Posicion destino solo con X, Y.
 				Vector2 posDestino = *m_flames->getPosition();
-				// Posicion destino con X, Y, Z.
+				// Posicion destino con X, Y, Z.  
 				Vector3 posDestino3 = Vector3(posDestino.x, 4, posDestino.y);
 				
 				// Calculamos el vector de direccion al que apunta el ratón
@@ -136,15 +142,26 @@ namespace Logic
 				int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions(_entity->getPosition(),
 					_radioAction, entidadesColision);
 
+				//Orientar la entidad
+				float yaw = atan((posDestino3.x - _entity->getPosition().x) / (posDestino3.z - _entity->getPosition().z));
+						if ((posDestino3.z - _entity->getPosition().z) >= 0)
+							yaw += Math::PI;
+
+				_entity->setYaw(yaw);
+
 				// Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
 				MParticleEffect *rc_message = new MParticleEffect();
-				rc_message->setPoint(_entity->getPosition());
-				rc_message->setEffect("Explosion");
+				Vector3 aux = _entity->getPosition();
+				rc_message->setAltura(10);
+				rc_message->setPoint(aux);
+				rc_message->setEffect(_lanzadorLlamasEffect);
+				//rc_message->setOrientation(Vector4(1, _posDestino.x,_posDestino.y + 10,_posDestino.z));
+				rc_message->setOrientation(Vector4( 0,1,0,yaw+Math::PI/2));//(Math::PI) * 180 / Math::PI));
 				_entity->emitInstantMessage(rc_message,this);
 
 				// Envío del mensaje al componente que se encarga de reproducir los sonidos
 				MSoundEffect *rc2_message = new MSoundEffect();
-				rc2_message->setSoundEffect("media/sounds/Lanzallamas.ogg");
+				rc2_message->setSoundEffect("media/sounds/" + _lanzadorLlamasSound);
 				_entity->emitInstantMessage(rc2_message,this);
 
 				for(int i = 0; i < numColisiones; ++i)

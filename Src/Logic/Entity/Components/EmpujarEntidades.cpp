@@ -50,6 +50,12 @@ namespace Logic
 		if(entityInfo->hasAttribute("distRabiaSeg"))
 			_distEmpujarSeg = entityInfo->getFloatAttribute("distRabiaSeg");
 
+		if(entityInfo->hasAttribute("empujarEffect"))
+			_empujarEffect = entityInfo->getStringAttribute("empujarEffect");
+		if(entityInfo->hasAttribute("empujarSound"))
+			_empujarSound = entityInfo->getStringAttribute("empujarSound");
+
+
 		return true;
 	} // spawn
 
@@ -83,12 +89,12 @@ namespace Logic
 			//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
 			MParticleEffect *rc_message = new MParticleEffect();
 			rc_message->setPoint(_entity->getPosition());
-			rc_message->setEffect("Explosion");
+			rc_message->setEffect(_empujarEffect);
 			_entity->emitInstantMessage(rc_message,this);
 
 			//Envío del mensaje al componente que se encarga de reproducir los sonidos
 			MSoundEffect *rc2_message = new MSoundEffect();
-			rc2_message->setSoundEffect("media/sounds/empuje.mp3");
+			rc2_message->setSoundEffect("media/sounds/" + _empujarSound);
 			_entity->emitInstantMessage(rc2_message,this);
 
 			for(int i = 0; i < numColisiones; ++i)

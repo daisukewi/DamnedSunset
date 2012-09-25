@@ -52,6 +52,9 @@ namespace Logic
 
 		float _timeEmpujar;
 		float _distEmpujarSeg;
+
+		std::string _empujarEffect;
+		std::string _empujarSound;
 	};
 
 	REG_FACTORY(CEmpujarEntidades);

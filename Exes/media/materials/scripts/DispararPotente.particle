@@ -1,0 +1,46 @@
+particle_system DispararPotente
+{
+	material Particles/Aturdir
+	particle_width 2.0
+	particle_height 2.0
+	quota 200
+	cull_each false
+	sorted false
+	local_space true
+	iteration_interval 0.0
+	nonvisible_update_timeout 0.0
+	billboard_type point
+	billboard_origin center
+	billboard_rotation_type texcoord
+	point_rendering false
+	accurate_facing false
+
+	emitter Point
+	{
+		position 5.0 0.0 0.0
+		direction 0.0 0.0 0.0
+		angle 0
+		emission_rate 50
+		velocity_min 0
+		velocity_max 0
+		time_to_live_min 0.2
+		time_to_live_max 0.2
+		duration_min 0.2
+		duration_max 0.2
+		repeat_delay_min 0
+		repeat_delay_max 0
+		colour_range_start 1 1 1 1
+		colour_range_end 0 0 0 1
+	}
+
+	affector Scaler
+	{
+		rate 10
+	}
+
+	affector LinearForce
+	{
+		force_vector 100.0 0.0 0.0
+		force_application add
+	}
+}

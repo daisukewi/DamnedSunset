@@ -32,7 +32,20 @@ namespace Graphics
 	CParticleEffect::CParticleEffect(std::string &name,std::string &effect, Vector3 &point)
 	{
 		_particleSystem = Graphics::CServer::getSingletonPtr()->getActiveScene()->getSceneMgr()->createParticleSystem(name, effect);
-		
+		_altura = 0;
+		//Crear el nodo de escena que contendrá la partícula
+		std::stringstream auxString;
+		auxString << name <<"_node";
+		_sceneNode = Graphics::CServer::getSingletonPtr()->getActiveScene()->getSceneMgr()->getRootSceneNode()->createChildSceneNode(auxString.str());
+		_sceneNode->setPosition(point);
+		_sceneNode->attachObject(_particleSystem);
+
+	}
+
+	CParticleEffect::CParticleEffect(std::string &name,std::string &effect, Vector3 &point,float altura)
+	{
+		_particleSystem = Graphics::CServer::getSingletonPtr()->getActiveScene()->getSceneMgr()->createParticleSystem(name, effect);
+		_altura = altura;
 		//Crear el nodo de escena que contendrá la partícula
 		std::stringstream auxString;
 		auxString << name <<"_node";
@@ -58,7 +71,21 @@ namespace Graphics
 
 	void CParticleEffect::setPosition(Vector3 &position)
 	{
-		_sceneNode->setPosition(position);
+		if (_altura > 0)
+			_sceneNode->setPosition(position.x, position.y + _altura,position.z);
+		else
+			_sceneNode->setPosition(position.x, position.y,position.z);
 	}
+
+	void CParticleEffect::setOrientation(Vector4 &orientation)
+	{
+		/*_orientation = orientation;
+
+		_sceneNode->setOrientation(orientation.w,orientation.x,orientation.y,orientation.z);
+		*/
+
+		_sceneNode->yaw(Ogre::Radian(orientation.w));
+	}
+
 
 }

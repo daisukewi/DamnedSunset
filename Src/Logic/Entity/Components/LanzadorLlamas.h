@@ -94,6 +94,9 @@ namespace Logic
 		Booleano que nos indica si el lanzallamas está encendido o no.
 		*/
 		bool _flamesOn;
+
+		std::string _lanzadorLlamasEffect;
+		std::string _lanzadorLlamasSound;
 	};
 
 	REG_FACTORY(CLanzadorLlamas);

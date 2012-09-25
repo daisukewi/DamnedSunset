@@ -20,8 +20,6 @@ Contiene la implementación del componente que controla la percepción de los play
 
 #include "Logic/Server.h"
 
-
-
 #include <sstream>
 #include <iostream>
 

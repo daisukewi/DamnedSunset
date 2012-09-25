@@ -48,6 +48,7 @@ namespace Graphics
 		Constructor de la clase.
 		*/
 		CParticleEffect(std::string &name,std::string &effect, Vector3 &point);
+		CParticleEffect(std::string &name,std::string &effect, Vector3 &point, float altura);
 		
 		/**
 		Destructor de la clase.
@@ -55,6 +56,8 @@ namespace Graphics
 		virtual ~CParticleEffect();
 
 		void setPosition(Vector3 &point);
+
+		void setOrientation(Vector4 &orientation);
 
 	protected:
 		friend class CScene;
@@ -65,6 +68,11 @@ namespace Graphics
 
 		Ogre::SceneNode* _sceneNode;
 
+		Vector4 _orientation;
+		/**
+		Poder mantener una altura inicial constante
+		*/
+		float _altura;
 	};
 
 }

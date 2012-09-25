@@ -56,13 +56,23 @@ namespace Logic
 		*/
 		std::string getEffect();
 
+		/**
+		*/
+		void setOrientation(Vector4 &orientation);
+		Vector4 getOrientation();
+
+		void setAltura(float altura);
+		float getAltura();
+
 	protected:
 
 		/**
 		Atributo que contiene el punto donde se quiere mostrar el efecto de partículas
 		*/
 		Vector3 _point;
+		Vector4 _orientation;
 
+		float _altura;
 		/**
 		Efecto de partículas a mostrar
 		*/

@@ -25,6 +25,7 @@ en quitar vida a las entidades contenidas en el sector circular del que lanza lo
 #include "Logic/Entity/Messages/Damaged.h"
 #include "Logic/Entity/Messages/ParticleEffect.h"
 #include "Logic/Entity/Messages/SoundEffect.h"
+#include "Logic/Entity/Messages/SetAnimation.h"
 
 #include "Physics/Server.h"
 
@@ -63,6 +64,12 @@ namespace Logic
 			_radioAction = entityInfo->getFloatAttribute("radioDisparoPotente");
 		if(entityInfo->hasAttribute("damageDisparoPotente"))
 			_damagePowerShoot = entityInfo->getFloatAttribute("damageDisparoPotente");
+
+		if(entityInfo->hasAttribute("dispararPotenteEffect"))
+			_dispararPotenteEffect = entityInfo->getStringAttribute("dispararPotenteEffect");
+		if(entityInfo->hasAttribute("dispararPotenteSound"))
+			_dispararPotenteSound = entityInfo->getStringAttribute("dispararPotenteSound");
+
 
 		return true;
 	} // spawn
@@ -121,16 +128,32 @@ namespace Logic
 				int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions(_entity->getPosition(),
 					_radioAction, entidadesColision);
 
+				//Orientar la entidad
+				float yaw = atan((posDestino3.x - _entity->getPosition().x) / (posDestino3.z - _entity->getPosition().z));
+						if ((posDestino3.z - _entity->getPosition().z) >= 0)
+							yaw += Math::PI;
+
+				_entity->setYaw(yaw);
+
 				// Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
 				MParticleEffect *rc_message = new MParticleEffect();
-				rc_message->setPoint(_entity->getPosition());
-				rc_message->setEffect("Explosion");
+				Vector3 aux = _entity->getPosition();
+				rc_message->setAltura(10);
+				rc_message->setPoint(aux);
+				rc_message->setEffect(_dispararPotenteEffect);
+				rc_message->setOrientation(Vector4( 0,1,0,yaw+Math::PI/2));
 				_entity->emitInstantMessage(rc_message,this);
 
 				// Envío del mensaje al componente que se encarga de reproducir los sonidos
 				MSoundEffect *rc2_message = new MSoundEffect();
-				rc2_message->setSoundEffect("media/sounds/empuje.mp3");
+				rc2_message->setSoundEffect("media/sounds/" + _dispararPotenteSound);
 				_entity->emitInstantMessage(rc2_message,this);
+
+				MSetAnimation *m_anim2  =new MSetAnimation();
+				m_anim2->setAnimationName("AttackRifle");
+				m_anim2->setNextAnimationName("HoldRifle");
+								
+				_entity->emitMessage(m_anim2);
 
 				for(int i = 0; i < numColisiones; ++i)
 				{

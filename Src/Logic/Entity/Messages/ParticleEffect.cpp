@@ -16,6 +16,9 @@ namespace Logic
 		IMessage();
 
 		_type = "MParticleEffect";
+		_altura = 0;
+		_orientation.x = 0; _orientation.y = 0; _orientation.z = 0;
+
 	
 	} // MIsSelectable
 
@@ -38,6 +41,27 @@ namespace Logic
 	{
 		_effect = effect;
 	}
+
+	void MParticleEffect::setOrientation(Vector4 &orientation)
+	{
+		_orientation = orientation;
+	}
+
+	Vector4 MParticleEffect::getOrientation()
+	{
+		return _orientation;
+	}
+
+	void MParticleEffect::setAltura(float altura)
+	{
+		_altura = altura;
+	}
+
+	float MParticleEffect::getAltura()
+	{
+		return _altura;
+	}
+
 
 
 } // namespace Logic

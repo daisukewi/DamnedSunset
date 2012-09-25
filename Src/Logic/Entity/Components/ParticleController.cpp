@@ -33,6 +33,11 @@ namespace Logic
 
 	} // spawn
 	
+	CParticleController::~CParticleController(){
+
+		
+		
+	}
 	//---------------------------------------------------------
 
 	bool CParticleController::activate()
@@ -52,7 +57,7 @@ namespace Logic
 	bool CParticleController::accept(IMessage *message)
 	{
 		return (!message->getType().compare("MSetTransform")
-		//	 || !message->getType().compare("MParticleEffect")
+			 || !message->getType().compare("MParticleEffect")
 		);
 
 	} // accept
@@ -70,7 +75,11 @@ namespace Logic
 			
 			std::stringstream aux;
 			aux << m->getEffect() << "_" << _entity->getEntityID() << _countParticles;
-			_particleList.push_back(new Graphics::CParticleEffect(aux.str(), m->getEffect(),m->getPoint()));
+			Graphics::CParticleEffect *particle = new Graphics::CParticleEffect(aux.str(),m->getEffect(),m->getPoint(),m->getAltura());
+
+			if (!((m->getOrientation().x != 0) && (m->getOrientation().x != 0) && (m->getOrientation().x != 0)))
+				particle->setOrientation(m->getOrientation());
+			_particleList.push_back(particle);
 
 			_countParticles++;
 

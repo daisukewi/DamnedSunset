@@ -62,6 +62,9 @@ namespace Logic
 		float _angleAction;
 		float _radioAction;
 		float _damagePowerShoot;
+
+		std::string _dispararPotenteEffect;
+		std::string _dispararPotenteSound;
 	};
 
 	REG_FACTORY(CDispararPotente);

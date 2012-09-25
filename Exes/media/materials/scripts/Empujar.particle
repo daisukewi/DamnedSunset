@@ -1,0 +1,43 @@
+particle_system Empujar
+{
+	material Particles/Flare.000
+	particle_width 2.0
+	particle_height 2.0
+	quota 1000
+	cull_each false
+	sorted false
+	local_space false
+	iteration_interval 0.0
+	nonvisible_update_timeout 0.0
+	billboard_type point
+	billboard_origin top_right
+	billboard_rotation_type vertex
+	point_rendering false
+	accurate_facing false
+
+	emitter Box
+	{
+		position 0.0 0.0 0.0
+		direction 0.0 0.0 1.0
+		angle 172.42
+		width 10
+		height 10
+		depth 10
+		emission_rate 1000
+		velocity_min 200
+		velocity_max 200
+		time_to_live_min 0.1
+		time_to_live_max 0.1
+		duration_min 0.1
+		duration_max 0.1
+		repeat_delay_min 0
+		repeat_delay_max 0
+		colour_range_start 1 1 1 1
+		colour_range_end 0 0 1 1
+	}
+
+	affector Scaler
+	{
+		rate 0.0
+	}
+}

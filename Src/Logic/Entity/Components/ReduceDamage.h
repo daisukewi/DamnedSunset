@@ -8,6 +8,12 @@
 
 #include "BaseSubsystems/ClockListener.h"
 
+// Predeclaración de clases.
+namespace Logic
+{
+	class CEntity;
+}
+
 // Los componentes pertenecen al namespace Logic
 namespace Logic 
 {
@@ -36,6 +42,7 @@ namespace Logic
 		virtual void timeElapsed();
 	protected:
 
+
 		/**
 		Entidades que estan en el rango de la reducción de daño
 		*/
@@ -45,6 +52,10 @@ namespace Logic
 		float _reduceTime;
 		float _reduceDistance;
 		float _reduceDamage;
+		float _auxReduceTime;
+
+		std::string _reduceDamageEffect;
+		std::string _reduceDamageSound;
 	};
 
 	REG_FACTORY(CReduceDamage);

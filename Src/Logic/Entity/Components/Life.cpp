@@ -71,18 +71,14 @@ namespace Logic
 		if(entityInfo->hasAttribute("maxLife"))
 			_maxLife = entityInfo->getFloatAttribute("maxLife");
 
-		std::string _lifeDamageSound;
-		std::string _lifeDamageEffect;
-		std::string _lifeCureSound;
-		std::string _lifeCureEffect;
 		if(entityInfo->hasAttribute("lifeDamageSound"))
 			_lifeDamageSound = entityInfo->getFloatAttribute("lifeDamageSound");
 		if(entityInfo->hasAttribute("lifeDamageEffect"))
 			_lifeDamageEffect = entityInfo->getFloatAttribute("lifeDamageEffect");
 		if(entityInfo->hasAttribute("lifeCureSound"))
-			_lifeCureSound = entityInfo->getFloatAttribute("lifeCureSound");
+			_lifeCureSound = entityInfo->getStringAttribute("lifeCureSound");
 		if(entityInfo->hasAttribute("lifeCureEffect"))
-			_lifeCureEffect = entityInfo->getFloatAttribute("lifeCureEffect");
+			_lifeCureEffect = entityInfo->getStringAttribute("lifeCureEffect");
 
 		if(entityInfo->hasAttribute("deathFunction"))
 		{
@@ -319,23 +315,25 @@ namespace Logic
 			}else if (md->getDamageAction() == DamageMessage::DamageAction::SET_DAMAGE_MODIFICATION){
 				_damageModification = md->getDamageModification();
 
-				std::cout << _entity->getName() << " SET: " << md->getDamageModification() << " "  << _damageModification << "\n";
+				//std::cout << _entity->getName() << " SET: " << md->getDamageModification() << " "  << _damageModification << "\n";
 
 			}else if (md->getDamageAction() == DamageMessage::DamageAction::ADD_DAMAGE_MODIFICATION)
 			{
 				_damageModification += md->getDamageModification(); 
 
-				std::cout << _entity->getName() << " ADD: " << md->getDamageModification() << " " << _damageModification << "\n";
+				//std::cout << _entity->getName() << " ADD: " << md->getDamageModification() << " " << _damageModification << "\n";
 				
 			}else if (md->getDamageAction() == DamageMessage::DamageAction::RESET_DAMAGE_MODIFICATION)
 			{
 				_damageModification = 1.0; 
 			
-				std::cout << _entity->getName() << " RESET: " << _damageModification << "\n";
+				//std::cout << _entity->getName() << " RESET: " << _damageModification << "\n";
 			}
 
 			if (_damageModification < 0)
 					_damageModification = 0;
+			if (_damageModification > 1)
+				_damageModification = 1.0;
 
 			if (_damageModification < 1.0)
 				_billboardReduceDamage->setVisible(true);
@@ -371,7 +369,7 @@ namespace Logic
 			MParticleEffect *rc_message = new MParticleEffect();
 			rc_message->setPoint(_entity->getPosition());
 			rc_message->setEffect(_lifeCureEffect);
-			_entity->emitInstantMessage(rc_message,this);
+			_entity->emitMessage(rc_message,this);
 
 			//Sonido
 			MSoundEffect *m_sound = new MSoundEffect();

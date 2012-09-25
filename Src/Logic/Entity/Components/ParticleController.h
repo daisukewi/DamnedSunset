@@ -40,6 +40,8 @@ namespace Logic
 		defecto.
 		*/
 		CParticleController();
+
+		virtual ~CParticleController();
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de

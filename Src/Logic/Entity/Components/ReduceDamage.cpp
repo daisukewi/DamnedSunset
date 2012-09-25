@@ -1,6 +1,9 @@
 #include "ReduceDamage.h"
 
 #include "Logic/Server.h"
+#include "Logic/Entity/Entity.h"
+#include "Logic/Maps/Map.h"
+
 #include "BaseSubsystems/Server.h"
 #include "Logic/Maps/EntityFactory.h"
 
@@ -14,6 +17,8 @@
 
 #include "Logic/Entity/Messages/ActivarComponente.h"
 #include "Logic/Entity/Messages/SetEmpujarPropiedades.h"
+
+
 
 namespace Logic 
 {
@@ -39,6 +44,11 @@ namespace Logic
 			_reduceDistance = entityInfo->getFloatAttribute("reduceDamageDistance");
 		if(entityInfo->hasAttribute("reduceDamage"))
 			_reduceDamage = entityInfo->getFloatAttribute("reduceDamage");
+		_auxReduceTime = _reduceTime;
+		if(entityInfo->hasAttribute("reduceDamageEffect"))
+			_reduceDamageEffect = entityInfo->getStringAttribute("reduceDamageEffect");
+		if(entityInfo->hasAttribute("reduceDamageSound"))
+			_reduceDamageSound = entityInfo->getStringAttribute("reduceDamageSound");
 
 		return true;
 	} // spawn
@@ -63,6 +73,19 @@ namespace Logic
 		if (!message->getType().compare("MActivateReduceDamage")){
 
 			_numEnt = Physics::CServer::getSingletonPtr()->detectCollisions( _entity->getPosition(),_reduceDistance,_entidades);
+
+
+			//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
+			MParticleEffect *rc_message = new MParticleEffect();
+			rc_message->setPoint(_entity->getPosition());
+			rc_message->setEffect(_reduceDamageEffect);
+			_entity->emitInstantMessage(rc_message,this);
+
+			//Envío del mensaje al componente que se encarga de reproducir los sonidos
+			MSoundEffect *rc2_message = new MSoundEffect();
+			rc2_message->setSoundEffect("media/sounds/" + _reduceDamageSound);
+			_entity->emitInstantMessage(rc2_message,this);
+
 
 			MDamaged *message = new MDamaged();
 			message->setDamageModification(_reduceDamage);
@@ -101,7 +124,7 @@ namespace Logic
 		}
 		message->removePtr();
 
-		if (_reduceTime > 0){
+		if (_auxReduceTime > 0){
 
 			_numEnt = Physics::CServer::getSingletonPtr()->detectCollisions( _entity->getPosition(),_reduceDistance,_entidades);
 
@@ -112,19 +135,20 @@ namespace Logic
 			message2->addPtr();
 			for (int i =0; i < _numEnt; ++i)
 			{
+
 				if (!_entidades[i]->getTag().compare("Player") ){
 					
 					_entidades[i]->emitMessage(message2);
-					
 				}
+					
 			}
 			message2->removePtr();
 			
 			BaseSubsystems::CServer::getSingletonPtr()->addClockListener(1000, this);
-			_reduceTime-=1000;
+			_auxReduceTime-=1000;
 
 		}else{
-			
+			_auxReduceTime = _reduceTime;
 		}
 		
 		

@@ -304,15 +304,15 @@ Archetype = {
 		billboardSeleccionWith = 15.0,
 		billboardSeleccionHeight = 15.0,
 
-		billboardPoisonMaterial = "imagePosion",
-		billboardPoisonWith = 1.0,
-		billboardPoisonHeight = 1.0,
-		billboardPoisonPosition = {-4.0,26.0,0.0},
+		billboardPoisonMaterial = "imagePoison",
+		billboardPoisonWith = 3.0,
+		billboardPoisonHeight = 3.0,
+		billboardPoisonPosition = {-5.0,25.0,0.0},
 
 		billboardConfusionMaterial = "imageConfusion",
-		billboardConfusionWith = 1.0,
-		billboardConfusionHeight = 1.0,
-		billboardConfusionPosition = {4.0,26.0,0.0},
+		billboardConfusionWith = 3.0,
+		billboardConfusionHeight = 3.0,
+		billboardConfusionPosition = {5.0,25.0,0.0},
 
 
 		afectaEmpujar = 100,
@@ -337,7 +337,7 @@ Archetype = {
 		coolDownCarga = 10000,
 
 		lifeCureSound = "",
-		lifeCureEffect = "",
+		lifeCureEffect = "Heal",
 		lifeDamageSound = "",
 		lifeDamageEffect = "Blood",
 
@@ -476,15 +476,10 @@ Archetype = {
 		billboardLanzamientoHeight = 150.0,
 		alcanceGranada = 70.0,
 
-		billboardPoisonMaterial = "imagePosion",
-		billboardPoisonWith = 1.0,
-		billboardPoisonHeight = 1.0,
-		billboardPoisonPosition = {-4.0,26.0,0.0},
-
 		billboardReduceDamageMaterial = "imageReduceDamage",
-		billboardReduceDamageWith = 1.0,
-		billboardReduceDamageHeight = 1.0,
-		billboardReduceDamagePosition = {0.0,26.0,0.0},
+		billboardReduceDamageWith = 3.0,
+		billboardReduceDamageHeight = 3.0,
+		billboardReduceDamagePosition = {0.0,25.0,0.0},
 
 		nombreGranada = "Granada",
 
@@ -513,21 +508,22 @@ Archetype = {
 		selection_collision_group = 7,
 
 		reduceDamageTime = 5000,
-		reduceDamageDistance = 100,
+		reduceDamageDistance = 10,
 		reduceDamage = -1.0,
 		lifeCureSound = "",
-		lifeCureEffect = "",
+		lifeCureEffect = "Heal",
 		lifeDamageSound = "",
 		lifeDamageEffect = "Blood",
 
 		distanceAttackSound = "RifleShot1.ogg",
 		distanceAttackEffect = "",
 
-		healSound = "",
-		healEffect = "",
+		reduceDamageEffect = "ReduceDamage",
+		reduceDamageSound = "",
+		
+		empujarSound = "empuje.mp3",
+		empujarEffect = "Empujar",
 
-		poisonSound = "",
-		poisonEffect = "",
 	},
 
 	Erick = {
@@ -568,15 +564,10 @@ Archetype = {
 		alcanceGranada = 70.0,
 		nombreGranada = "GranadaAturdir",
 
-		billboardPoisonMaterial = "imagePosion",
-		billboardPoisonWith = 1.0,
-		billboardPoisonHeight = 1.0,
-		billboardPoisonPosition = {-4.0,21.5,0.0},
-
 		billboardReduceDamageMaterial = "imageReduceDamage",
-		billboardReduceDamageWith = 1.0,
-		billboardReduceDamageHeight = 1.0,
-		billboardReduceDamagePosition = {0.0,26.0,0.0},
+		billboardReduceDamageWith = 3.0,
+		billboardReduceDamageHeight = 3.0,
+		billboardReduceDamagePosition = {0.0,25.0,0.0},
 
 		afectaEmpujar = 100,
 
@@ -589,6 +580,9 @@ Archetype = {
 		damageLanzallamas = 15,
 		timeLanzallamas = 3000,
 		frecDamageLlamas = 750,
+		
+		lanzadorLlamasEffect = "FlameThrower",
+		lanzadorLlamasSound = "Lanzallamas.ogg",
 
 		billboardDisparoMaterial = "circuloSeleccion",
 		billboardDisparoWith = radioDisparoPotente,
@@ -616,18 +610,17 @@ Archetype = {
 		selection_collision_group = 7,
 
 		lifeCureSound = "",
-		lifeCureEffect = "",
+		lifeCureEffect = "Heal",
 		lifeDamageSound = "",
 		lifeDamageEffect = "Blood",
 
 		distanceAttackSound = "RifleShot1.ogg",
 		distanceAttackEffect = "",
+		
+		dispararPotenteEffect = "DispararPotente",
+		dispararPotenteSound = "empuje.mp3",
 
-		healSound = "",
-		healEffect = "",
 
-		poisonSound = "",
-		poisonEffect = "",
 	},
 
 	Norah = {
@@ -666,15 +659,10 @@ Archetype = {
 		billboardLanzamientoWith = 150.0,
 		billboardLanzamientoHeight = 150.0,
 
-		billboardPoisonMaterial = "imagePosion",
-		billboardPoisonWith = 1.0,
-		billboardPoisonHeight = 1.0,
-		billboardPoisonPosition = {-4.0,21.5,0.0},
-
 		billboardReduceDamageMaterial = "imageReduceDamage",
-		billboardReduceDamageWith = 1.0,
-		billboardReduceDamageHeight = 1.0,
-		billboardReduceDamagePosition = {0.0,26.0,0.0},
+		billboardReduceDamageWith = 3.0,
+		billboardReduceDamageHeight = 3.0,
+		billboardReduceDamagePosition = {0.0,25.0,0.0},
 
 		alcanceGranada = 70.0,
 		nombreGranada = "GranadaEnvenenar",
@@ -701,21 +689,19 @@ Archetype = {
 		healZoneTime = 5000,
 		healZoneDistance = 100,
 		healZoneValue = 30,
+		healZoneEffect = "HealZone",
+		healZoneDamageSound = "",
 
 		lifeCureSound = "",
-		lifeCureEffect = "",
+		lifeCureEffect = "Heal",
 		lifeDamageSound = "",
 		lifeDamageEffect = "Blood",
 
 		distanceAttackSound = "RifleShot1.ogg",
 		distanceAttackEffect = "",
 
-		healSound = "",
-		healEffect = "",
 		healLife = 30,
 
-		poisonSound = "",
-		poisonEffect = "",
 	},
 
 	Waypoint = {

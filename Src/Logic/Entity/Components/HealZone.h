@@ -46,6 +46,9 @@ namespace Logic
 		float _healTime;
 		float _healDistance;
 		float _healValue;
+
+		std::string _healZoneEffect;
+		std::string _healZoneSound;
 	};
 
 	REG_FACTORY(CHealZone);

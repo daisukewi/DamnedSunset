@@ -1,0 +1,17 @@
+material imagePoison
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			depth_write off
+			lighting off
+			texture_unit
+			{
+				texture imagePoison.png
+				filtering none
+			}
+		}
+	}
+}

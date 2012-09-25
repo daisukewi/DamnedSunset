@@ -88,7 +88,7 @@ namespace Logic
 			
 		}else if (!message->getType().compare("MSoundEffect")){
 
-			/*MSoundEffect *m = static_cast <MSoundEffect*> (message);
+			MSoundEffect *m = static_cast <MSoundEffect*> (message);
 
 			
 			countSounds++;
@@ -103,7 +103,7 @@ namespace Logic
 			_sound[countSounds]->setIdChannel(Sounds::CSoundManager::getSingleton()->createChannel((_path + _sound[countSounds]->getSound()).c_str(),false,_sound[countSounds]->getLoop(),_sound[countSounds]->getSoundType()));
 			if (_sound[countSounds]->getIdChannel() == 0){
 				std::cout << "CSonido: no se pudo crear el sonido: " << _sound[countSounds]->getIdChannel() << std::endl;
-			}*/
+			}
 
 		}
 
