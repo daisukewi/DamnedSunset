@@ -86,12 +86,24 @@ function cargarBoton(numBoton,imageName,funcion)
 
 	--Cargamos las imagenes al boton
 	local imageNameComun = "set:BotonesHabilidades image:"
+
+	if day then
+		imageNameComun = "set:InterfazUtils image:"
+	end
+
 	local imageNameFinal = imageNameComun .. imageName
 
 	boton:setProperty("NormalImage",imageNameFinal)
 	imageNameFinal = imageNameComun .. imageName .. 'h'
+	if day then
+		imageNameFinal = imageNameComun .. imageName .. 2
+	end
+
 	boton:setProperty("HoverImage",imageNameFinal)
 	imageNameFinal = imageNameComun .. imageName .. 'p'
+	if day then
+		imageNameFinal = imageNameComun .. imageName .. 3
+	end
 	boton:setProperty("PushedImage",imageNameFinal)
 	boton:setVisible(true)
 end

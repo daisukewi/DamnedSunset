@@ -38,7 +38,7 @@ function decideAttackPlayer(attacker)
 			enemies[attacker].target = playerID
 		end
 	end
-	
+
 	if (enemies[attacker].target ~= nil) then
 		local mensaje = LUA_MAttackEntity()
 		mensaje:setAttack(true)
@@ -63,7 +63,7 @@ function decideAttackBuilding(attacker)
 			enemies[attacker].target = buildingID
 		end
 	end
-	
+
 	if (enemies[attacker].target ~= nil) then
 		local mensaje = LUA_MAttackEntity()
 		mensaje:setAttack(true)
@@ -84,7 +84,7 @@ end
 function decideAttack(attacker)
 	-- Primero decido si voy a atacar a algún edificio.
 	decideAttackBuilding(attacker)
-	
+
 	-- Si he decidido no atacar a ningún edificio, ataco a un jugador.
 	if (enemies[attacker].target == nil) then
 		decideAttackPlayer(attacker)
@@ -99,7 +99,7 @@ function loadPlayerGUI (player)
 	ocultarBoton(2)
 	ocultarBoton(3)
 	ocultarBoton(4)
-	
+
 	players[player].showGUISkills()
 end
 
@@ -115,7 +115,7 @@ function selectNewTarget(target)
 	if ((target ~= -1) and (isPlayer(target))) then
 		--Select new target
 		table.insert(god.playersSelected, target)
-	
+
 		local mensaje = LUA_MEntitySelected()
 		mensaje:setEntityTo(target)
 		mensaje:setSelectedEntity(target)
@@ -126,10 +126,10 @@ function selectNewTarget(target)
 		mensaje:send()
 
 		loadPlayerGUI(target)
-		
+
 		selected = true
 	end
-	
+
 	return selected
 
 end
@@ -145,16 +145,16 @@ function selectNewSecondTarget(target)
 	if ((target ~= -1) and (isPlayer(target))) then
 		--Select new target
 		table.insert(god.playersSelected, target)
-	
+
 		local selectSecondMensaje = LUA_MEntitySelected()
 		selectSecondMensaje:setSelectedType("SECONDARY")
 		selectSecondMensaje:setEntityTo(target)
 		selectSecondMensaje:setSelectedEntity(target)
 		selectSecondMensaje:send()
-		
+
 		selected = true
 	end
-	
+
 	return selected
 end
 
@@ -168,7 +168,7 @@ function unselectCurrentTargets()
 		mensaje:setSelectedEntity(0)
 		mensaje:send()
 	end
-	
+
 	god.playersSelected = {}
 end
 
@@ -202,31 +202,31 @@ function updateSkillsCooldown(deltaTime)
 	for ID, t in pairs(players) do
 		for index, value in pairs(t.currentSkillsCooldown) do
 			InterfazControles = winMgr:getWindow("InterfazControles/Menu/b" .. index)
-			
+
 			urlImageCoolDown = "InterfazControles/Menu/b" .. index .. "/b" .. index .. "cd"
-			
+
 			if (players[ID].currentSkillsCooldown[index] > 0) then
 
 				porcentaje = players[ID].currentSkillsCooldown[index]/players[ID].skillsCooldown[index]
-				
+
 				players[ID].currentSkillsCooldown[index] = players[ID].currentSkillsCooldown[index] - (deltaTime / 1000)
-				
+
 				if (ID == god.playersSelected[1]) then
 
-					
+
 					InterfazControles:getChild(urlImageCoolDown):setHeight(CEGUI.UDim(porcentaje,0))
 					InterfazControles:getChild(urlImageCoolDown):setVisible(true)
 				end
-				
+
 			else
 				players[ID].currentSkillsCooldown[index] = 0
-				
+
 				if (ID == god.playersSelected[1]) then
 					InterfazControles:getChild(urlImageCoolDown):setHeight(CEGUI.UDim(0,0))
 					InterfazControles:getChild(urlImageCoolDown):setVisible(false)
 				end
-				
-				
+
+
 			end
 		end
 	end
@@ -238,12 +238,13 @@ function resetCooldowns()
 	for ID, t in pairs(players) do
 		for index, value in pairs(t.currentSkillsCooldown) do
 			InterfazControles = winMgr:getWindow("InterfazControles/Menu/b" .. index)
-			
+
 			urlImageCoolDown = "InterfazControles/Menu/b" .. index .. "/b" .. index .. "cd"
-			
+
 			players[ID].currentSkillsCooldown[index] = 0
-			
+
 			InterfazControles:getChild(urlImageCoolDown):setVisible(false)
 		end
 	end
+	interfazDia:setVisible(true)
 end
