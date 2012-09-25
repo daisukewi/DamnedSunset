@@ -4,7 +4,7 @@ function cargarInterfazControlesDia()
 	cargarBoton(1,"martillo","buildTurret")
 	ocultarBoton(2)
 	ocultarBoton(3)
-	cargarBoton(4,"bolazul","cambiarANoche")
+	ocultarBoton(4)
 
 	CEGUI.WindowManager:getSingleton():getWindow("InterfazControles/MenuBotonesIA"):setVisible(false)
 end

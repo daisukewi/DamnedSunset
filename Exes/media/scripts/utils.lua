@@ -246,5 +246,4 @@ function resetCooldowns()
 			InterfazControles:getChild(urlImageCoolDown):setVisible(false)
 		end
 	end
-	interfazDia:setVisible(true)
 end
