@@ -83,7 +83,7 @@ namespace Logic
 
 		//Envío del mensaje al componente que se encarga de reproducir los sonidos
 		MSoundEffect *rc2_message = new MSoundEffect();
-		rc2_message->setSoundEffect("media/sounds/teletransporte.mp3");
+		rc2_message->setSoundEffect("teletransporte.mp3");
 		_entity->emitInstantMessage(rc2_message,this);
 
 

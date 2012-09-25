@@ -94,7 +94,7 @@ namespace Logic
 
 			//Envío del mensaje al componente que se encarga de reproducir los sonidos
 			MSoundEffect *rc2_message = new MSoundEffect();
-			rc2_message->setSoundEffect("media/sounds/" + _empujarSound);
+			rc2_message->setSoundEffect(_empujarSound);
 			_entity->emitInstantMessage(rc2_message,this);
 
 			for(int i = 0; i < numColisiones; ++i)
