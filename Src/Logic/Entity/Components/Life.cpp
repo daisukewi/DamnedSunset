@@ -72,9 +72,9 @@ namespace Logic
 			_maxLife = entityInfo->getFloatAttribute("maxLife");
 
 		if(entityInfo->hasAttribute("lifeDamageSound"))
-			_lifeDamageSound = entityInfo->getFloatAttribute("lifeDamageSound");
+			_lifeDamageSound = entityInfo->getStringAttribute("lifeDamageSound");
 		if(entityInfo->hasAttribute("lifeDamageEffect"))
-			_lifeDamageEffect = entityInfo->getFloatAttribute("lifeDamageEffect");
+			_lifeDamageEffect = entityInfo->getStringAttribute("lifeDamageEffect");
 		if(entityInfo->hasAttribute("lifeCureSound"))
 			_lifeCureSound = entityInfo->getStringAttribute("lifeCureSound");
 		if(entityInfo->hasAttribute("lifeCureEffect"))
