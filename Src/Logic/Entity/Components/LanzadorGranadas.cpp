@@ -122,6 +122,7 @@ namespace Logic
 				//entityInfo->setAttribute("position", pos.str());
 
 				Logic::CEntity *entityGranada = CEntityFactory::getSingletonPtr()->createEntity(entityInfo,Logic::CServer::getSingletonPtr()->getMap());
+				entityGranada->activate();
 
 
 				//Calculamos el vector de direccion a la que tiene que ir la granada
