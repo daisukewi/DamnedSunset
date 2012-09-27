@@ -49,3 +49,14 @@ function enemyDeath()
 	-- Recompensa en solenium por cada enemigo muerto. En este caso 5.
 	god.solenium = god.solenium + 5
 end
+
+function playerDeath()
+	playersDeath = playersDeath + 1
+	
+	if (playersDeath >= 3) then
+		gameOver()
+	end
+end
+
+-- HACK - Inicialización super guarra de una variable que voy a necesitar.
+playersDeath = 0
