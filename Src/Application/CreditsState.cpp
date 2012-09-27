@@ -1,22 +1,21 @@
 //---------------------------------------------------------------------------
-// MenuState.cpp
+// CreditsState.cpp
 //---------------------------------------------------------------------------
 
 /**
-@file MenuState.cpp
+@file CreditsState.cpp
 
-Contiene la implementación del estado de menú.
+Contiene la implementación del estado de game over.
 
 @see Application::CApplicationState
-@see Application::CMenuState
+@see Application::CCreditsState
 
 @author David Llansó
 @date Agosto, 2010
 */
 
-#include "MenuState.h"
+#include "CreditsState.h"
 
-#include "Logic/Server.h"
 #include "GUI/Server.h"
 
 #include <CEGUISystem.h>
@@ -26,28 +25,23 @@ Contiene la implementación del estado de menú.
 
 namespace Application {
 
-	CMenuState::~CMenuState() 
+	CCreditsState::~CCreditsState() 
 	{
-	} // ~CMenuState
+	} // ~CGameOverState
 
 	//--------------------------------------------------------
 
-	bool CMenuState::init() 
+	bool CCreditsState::init() 
 	{
 		CApplicationState::init();
 
 		// Cargamos la ventana que muestra el menú
-		CEGUI::WindowManager::getSingletonPtr()->loadWindowLayout("Menu.layout");
-		_menuWindow = CEGUI::WindowManager::getSingleton().getWindow("Menu");
+		CEGUI::WindowManager::getSingletonPtr()->loadWindowLayout("Credits.layout");
+		_gameOverWindow = CEGUI::WindowManager::getSingleton().getWindow("Credits");
 		
-		// Asociamos los botones del menú con las funciones que se deben ejecutar.
-		CEGUI::WindowManager::getSingleton().getWindow("Menu/Start")->
+		/*CEGUI::WindowManager::getSingleton().getWindow("GameOver/Exit")->
 			subscribeEvent(CEGUI::PushButton::EventClicked, 
-				CEGUI::SubscriberSlot(&CMenuState::startReleased, this));
-		
-		CEGUI::WindowManager::getSingleton().getWindow("Menu/Exit")->
-			subscribeEvent(CEGUI::PushButton::EventClicked, 
-				CEGUI::SubscriberSlot(&CMenuState::exitReleased, this));
+				CEGUI::SubscriberSlot(&CCreditsState::exitReleased, this));*/
 	
 		return true;
 
@@ -55,7 +49,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CMenuState::release() 
+	void CCreditsState::release() 
 	{
 		CApplicationState::release();
 
@@ -63,26 +57,26 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CMenuState::activate() 
+	void CCreditsState::activate() 
 	{
 		CApplicationState::activate();
 
 		// Activamos la ventana que nos muestra el menú y activamos el ratón.
-		CEGUI::System::getSingletonPtr()->setGUISheet(_menuWindow);
-		_menuWindow->setVisible(true);
-		_menuWindow->activate();
+		CEGUI::System::getSingletonPtr()->setGUISheet(_gameOverWindow);
+		_gameOverWindow->setVisible(true);
+		_gameOverWindow->activate();
 		CEGUI::MouseCursor::getSingleton().show();
 
 	} // activate
 
 	//--------------------------------------------------------
 
-	void CMenuState::deactivate() 
+	void CCreditsState::deactivate() 
 	{		
 		// Desactivamos la ventana GUI con el menú y el ratón.
 		CEGUI::MouseCursor::getSingleton().hide();
-		_menuWindow->deactivate();
-		_menuWindow->setVisible(false);
+		_gameOverWindow->deactivate();
+		_gameOverWindow->setVisible(false);
 		
 		CApplicationState::deactivate();
 
@@ -90,7 +84,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CMenuState::tick(unsigned int msecs) 
+	void CCreditsState::tick(unsigned int msecs) 
 	{
 		CApplicationState::tick(msecs);
 
@@ -98,7 +92,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	bool CMenuState::keyPressed(GUI::TKey key)
+	bool CCreditsState::keyPressed(GUI::TKey key)
 	{
 		return false;
 
@@ -106,16 +100,12 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	bool CMenuState::keyReleased(GUI::TKey key)
+	bool CCreditsState::keyReleased(GUI::TKey key)
 	{
 		switch(key.keyId)
 		{
 		case GUI::Key::ESCAPE:
 			_app->exitRequest();
-			break;
-		case GUI::Key::RETURN:
-			//_app->setState("game");
-			_app->setState("load");
 			break;
 		default:
 			return false;
@@ -126,7 +116,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 	
-	bool CMenuState::mouseMoved(const GUI::CMouseState &mouseState)
+	bool CCreditsState::mouseMoved(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
@@ -134,7 +124,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 		
-	bool CMenuState::mousePressed(const GUI::CMouseState &mouseState)
+	bool CCreditsState::mousePressed(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
@@ -143,28 +133,17 @@ namespace Application {
 	//--------------------------------------------------------
 
 
-	bool CMenuState::mouseReleased(const GUI::CMouseState &mouseState)
+	bool CCreditsState::mouseReleased(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
 	} // mouseReleased
 			
 	//--------------------------------------------------------
-		
-	bool CMenuState::startReleased(const CEGUI::EventArgs& e)
-	{
-		//Ir al estado de carga de los recursos
-		//_app->setState("game");
-		_app->setState("load");
-		return true;
 
-	} // startReleased
-			
-	//--------------------------------------------------------
-
-	bool CMenuState::exitReleased(const CEGUI::EventArgs& e)
+	bool CCreditsState::exitReleased(const CEGUI::EventArgs& e)
 	{
-		_app->setState("credits");
+		_app->exitRequest();
 		return true;
 
 	} // exitReleased

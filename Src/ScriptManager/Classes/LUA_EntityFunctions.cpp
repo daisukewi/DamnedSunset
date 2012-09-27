@@ -9,13 +9,15 @@ LUA
 
 #include <cassert>
 
+#include "BaseSubsystems/Server.h"
 #include "BaseSubsystems/Math.h"
 
 #include "Logic/Entity/Entity.h"
 #include "Logic/Maps/Map.h"
 #include "Logic/Maps/EntityFactory.h"
-
 #include "Logic/Server.h"
+
+#include "Application/GaleonApplication.h"
 
 namespace ScriptManager
 {
@@ -114,6 +116,13 @@ namespace ScriptManager
 		}
 
 		return "";
+	}
+
+	//---------------------------------------------------------
+	
+	void gameOver ()
+	{
+		Application::CGaleonApplication::getSingletonPtr()->setState("gameOver");
 	}
 
 } // namespace ScriptManager

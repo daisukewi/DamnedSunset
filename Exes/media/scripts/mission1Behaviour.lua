@@ -37,6 +37,7 @@ end
 
 function mission1End(entityID)
 	sacarVentana("Mission Successful!!")
+	gameOver()
 end
 
 function generatorUnderAttack(entityID)

@@ -913,6 +913,10 @@ namespace ScriptManager
 			[
 				luabind::def("activateMassHeal", &activateMassHeal)
 			];
+		luabind::module(_lua)
+			[
+				luabind::def("gameOver", &gameOver)
+			];
 
 	}
 

@@ -1,9 +1,9 @@
 //---------------------------------------------------------------------------
-// GameOverState.h
+// CreditsState.h
 //---------------------------------------------------------------------------
 
 /**
-@file GameOverState.h
+@file CreditsState.h
 
 Contiene la declaración del estado de game over.
 
@@ -14,8 +14,8 @@ Contiene la declaración del estado de game over.
 @date Agosto, 2010
 */
 
-#ifndef __Application_GameOverState_H
-#define __Application_GameOverState_H
+#ifndef __Application_CreditsState_H
+#define __Application_CreditsState_H
 
 #include "ApplicationState.h"
 
@@ -50,19 +50,19 @@ namespace Application
 	@author David Llansó
 	@date Agosto, 2010
 	*/
-	class CGameOverState : public CApplicationState 
+	class CCreditsState : public CApplicationState 
 	{
 	public:
 		/** 
 		Constructor de la clase 
 		*/
-		CGameOverState(CBaseApplication *app) : CApplicationState(app)
+		CCreditsState(CBaseApplication *app) : CApplicationState(app)
 				{}
 
 		/** 
 		Destructor 
 		*/
-		virtual ~CGameOverState();
+		virtual ~CCreditsState();
 
 		/**
 		Función llamada cuando se crea el estado (se "engancha" en la
@@ -174,10 +174,8 @@ namespace Application
 		*/
 		bool exitReleased(const CEGUI::EventArgs& e);
 
-		void UnloadLevel();
-
-	}; // CGameOverState
+	}; // CCreditsState
 
 } // namespace Application
 
-#endif //  __Application_GameOverState_H
+#endif //  __Application_CreditaState_H

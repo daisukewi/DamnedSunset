@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout >
+   <Window Type="DefaultWindow" Name="Credits" >
+       <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+       <Window Type="WindowsLook/StaticText" Name="Credits/Text" >
+           <Property Name="Text" >Texto que quieras introducir</Property>
+           <Property Name="HorzExtent" Value="2430" />
+           <Property Name="VertExtent" Value="496.545" />
+           <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+       </Window>
+   </Window>
+</GUILayout>

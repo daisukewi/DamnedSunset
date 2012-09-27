@@ -103,6 +103,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\Src\Application\3DApplication.cpp" />
     <ClCompile Include="..\..\Src\Application\BaseApplication.cpp" />
+    <ClCompile Include="..\..\Src\Application\CreditsState.cpp" />
     <ClCompile Include="..\..\Src\Application\DayState.cpp" />
     <ClCompile Include="..\..\Src\Application\Galeon.cpp" />
     <ClCompile Include="..\..\Src\Application\GaleonApplication.cpp" />
@@ -119,6 +120,7 @@
     <ClInclude Include="..\..\Src\Application\3DApplication.h" />
     <ClInclude Include="..\..\Src\Application\ApplicationState.h" />
     <ClInclude Include="..\..\Src\Application\BaseApplication.h" />
+    <ClInclude Include="..\..\Src\Application\CreditsState.h" />
     <ClInclude Include="..\..\Src\Application\DayState.h" />
     <ClInclude Include="..\..\Src\Application\Documentation.h" />
     <ClInclude Include="..\..\Src\Application\ExitState.h" />
