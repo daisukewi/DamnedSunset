@@ -313,6 +313,13 @@ Archetype = {
 		billboardConfusionWith = 3.0,
 		billboardConfusionHeight = 3.0,
 		billboardConfusionPosition = {5.0,25.0,0.0},
+		
+		selection_shape = "trigger_capsule",
+		selection_type = "trigger_kinematic",
+		selection_trigger = true,
+		selection_radius = 8,
+		selection_height = 12,
+		selection_collision_group = 7,
 
 
 		afectaEmpujar = 100,
@@ -372,6 +379,8 @@ Archetype = {
 		timeEmpujar = 0.3,
 		distEmpujarSeg = 150.0,
 		
+		radius = 20,
+		
 		detonadorGranadaEffect = "Explosion",
 		detonadorGranadaSound = "rocket_explosion.wav";
 	},
@@ -392,6 +401,8 @@ Archetype = {
 		physic_collision_group = 9,
 
 		time = 3.0,
+		
+		radius = 20,
 		
 		detonadorGranadaAturdirEffect = "Aturdir",
 		detonadorGranadaAturdirSound = "rocket_explosion.wav",
@@ -415,6 +426,8 @@ Archetype = {
 		time = 10.0,
 		damage = 50.0,
 		count = 5.0,
+		
+		radius = 20,
 		
 		detonadorGranadaEnvenenarEffect = "Poison";
 		detonadorGranadaEnvenenarSound = "rocket_explosion.wav";

@@ -46,6 +46,11 @@ namespace Logic
 		if(entityInfo->hasAttribute("detonadorGranadaSound"))
 			_detonadorGranadaSound = entityInfo->getStringAttribute("detonadorGranadaSound");
 
+
+		if(entityInfo->hasAttribute("radius"))
+			_radius = entityInfo->getFloatAttribute("radius");
+
+
 		BaseSubsystems::CServer::getSingletonPtr()->addClockListener(2000, this);
 		_exploited = false;
 
@@ -90,7 +95,7 @@ namespace Logic
 		if (!_exploited){
 
 			Logic::CEntity* * entidadesColision;
-			int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions( _entity->getPosition(),20,entidadesColision);
+			int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions( _entity->getPosition(),_radius,entidadesColision);
 
 			for (int i =0; i < numColisiones; ++i)
 			{

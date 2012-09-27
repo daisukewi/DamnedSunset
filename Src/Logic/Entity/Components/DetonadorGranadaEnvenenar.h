@@ -64,7 +64,7 @@ namespace Logic
 
 		std::string _detonadorGranadaEnvenenarEffect;
 		std::string _detonadorGranadaEnvenenarSound;
-
+		float _radius;
 		bool _exploited;
 	};
 

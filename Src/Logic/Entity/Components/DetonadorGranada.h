@@ -54,6 +54,7 @@ namespace Logic
 		//Controlar si ha explotado la granada
 		bool _exploited;
 
+		float _radius;
 
 		std::string _detonadorGranadaEffect;
 		std::string _detonadorGranadaSound;
