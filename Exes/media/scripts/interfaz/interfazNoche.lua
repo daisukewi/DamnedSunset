@@ -1,5 +1,5 @@
 function interfazTick(text)
-	fpsWindow:setText(text)
+	--fpsWindow:setText(text)
 	minutos = minutos + 1
 
 	if minutos <= 9 and minutos >= 0 then
@@ -15,7 +15,7 @@ function interfazTick(text)
 			horas = 00
 		end
 	end
-	
+
 	winMgr:getWindow("Interfaz/Recursos"):setText("Solenium: " .. god.solenium)
 
 end

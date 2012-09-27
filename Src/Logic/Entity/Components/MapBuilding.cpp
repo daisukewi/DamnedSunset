@@ -47,8 +47,8 @@ namespace Logic
 			_startRow = currentTilePos.y;
 			_startCol = currentTilePos.x;
 
-			_endRow = _startRow + _buildingHeight;
-			_endCol = _startCol + _buildingWidth;
+			_endRow = _startRow - _buildingHeight;
+			_endCol = _startCol - _buildingWidth;
 
 		}
 
