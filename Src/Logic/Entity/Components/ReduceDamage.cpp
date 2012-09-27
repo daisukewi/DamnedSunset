@@ -90,17 +90,22 @@ namespace Logic
 			MDamaged *message = new MDamaged();
 			message->setDamageModification(_reduceDamage);
 			message->setDamageAction(DamageMessage::ADD_DAMAGE_MODIFICATION);
-
-			message->addPtr();
-			for (int i =0; i < _numEnt; ++i)
-			{
-				if (!_entidades[i]->getTag().compare("Player") ){
+			try {
+				message->addPtr();
+				for (int i =0; i < _numEnt; ++i)
+				{
+					if (!_entidades[i]->getTag().compare("Player") ){
 					
-					_entidades[i]->emitMessage(message);
+						_entidades[i]->emitMessage(message);
 					
+					}
 				}
+				message->removePtr();
 			}
-			message->removePtr();
+		   catch( char * str ) {
+			  cout << "Exception Reduce Damage   " << str << '\n';
+		   }
+			
 
 			BaseSubsystems::CServer::getSingletonPtr()->addClockListener(1000, this);
 		}
