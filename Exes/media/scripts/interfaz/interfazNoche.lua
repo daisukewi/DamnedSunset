@@ -53,6 +53,10 @@ function activarInterfazNoche()
 		interfazNoche:setVisible(true)
 		interfazNoche:activate()
 	end
+	
+	if (currentStage == 1) then
+		sacarVentana("Se han detectado muchos vampiros alrededor, tenemos que atravesar la puerta que hay mas adelante y salir de aqui.")
+	end
 end
 
 function desactivarInterfazNoche()

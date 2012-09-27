@@ -19,7 +19,7 @@ Archetype = {
 		mouseVelocity = 4,
 		dayTime = 10000,
 		dayTimeAlarm = 1000,
-		nightTime = 1000000,
+		nightTime = 120000,
 		speed = 0.15,
 	},
 
@@ -184,10 +184,10 @@ Archetype = {
 		billboardLifeHeight = 0.5,
 		billboardLifePosition = {0.0,12.0,0.0},
 
-		life = 500.0,
-		maxLife = 500.0,
+		life = 200.0,
+		maxLife = 200.0,
 
-		timeBetweenShoots = 10.0,
+		timeBetweenShoots = 100.0,
 	},
 
 	PanelSolar = {
@@ -220,8 +220,8 @@ Archetype = {
 		type = "EnemyEnergyGenerator",
 		tag = "enemyBuilding",
 		position = {0, 0, 0},
-		scale = 10.0,
-		orientation = 0,
+		scale = 5.0,
+		orientation = 180,
 		model = "torreta_pie.mesh",
 		physic_entity = "simple",
 		physic_type = "kinematic",
@@ -236,8 +236,8 @@ Archetype = {
 		billboardLifeHeight = 0.5,
 		billboardLifePosition = {0.0,12.0,0.0},
 
-		life = 100.0,
-		maxLife = 100.0,
+		life = 1000.0,
+		maxLife = 1000.0,
 	},
 
 	DoorStage2Trigger = {
@@ -321,7 +321,6 @@ Archetype = {
 		selection_height = 12,
 		selection_collision_group = 7,
 
-
 		afectaEmpujar = 100,
 
 		distOfView = 100,
@@ -330,7 +329,7 @@ Archetype = {
 		memInitPoint = true,
 		runLifeThreshold = 50,
 
-		damage = 50,
+		damage = 25,
 		attackCoolDown = 2500,
 
 		trigger_shape = "trigger_sphere",
@@ -375,11 +374,11 @@ Archetype = {
 		physic_mass = 1,
 		physic_collision_group = 9,
 
-		damage = 250.0,
+		damage = 400.0,
 		timeEmpujar = 0.3,
 		distEmpujarSeg = 150.0,
 		
-		radius = 20,
+		radius = 40,
 		
 		detonadorGranadaEffect = "Explosion",
 		detonadorGranadaSound = "rocket_explosion.wav";
@@ -402,7 +401,7 @@ Archetype = {
 
 		time = 3.0,
 		
-		radius = 20,
+		radius = 40,
 		
 		detonadorGranadaAturdirEffect = "Aturdir",
 		detonadorGranadaAturdirSound = "rocket_explosion.wav",
@@ -427,7 +426,7 @@ Archetype = {
 		damage = 50.0,
 		count = 5.0,
 		
-		radius = 20,
+		radius = 40,
 		
 		detonadorGranadaEnvenenarEffect = "Poison";
 		detonadorGranadaEnvenenarSound = "rocket_explosion.wav";
@@ -511,7 +510,7 @@ Archetype = {
 		trigger_radius = 150,
 		trigger_collision_group = 3,
 
-		damage = 100,
+		damage = 200,
 
 		selection_shape = "trigger_capsule",
 		selection_type = "trigger_kinematic",
@@ -582,17 +581,17 @@ Archetype = {
 		billboardReduceDamageHeight = 3.0,
 		billboardReduceDamagePosition = {0.0,25.0,0.0},
 
-		afectaEmpujar = 100,
+		afectaEmpujar = 200,
 
 		angleDisparoPotente = 60,
 		radioDisparoPotente = 100,
-		damageDisparoPotente = 5,
+		damageDisparoPotente = 300,
 
-		angleLanzallamas = 25,
+		angleLanzallamas = 30,
 		radioLanzallamas = 80,
-		damageLanzallamas = 15,
-		timeLanzallamas = 3000,
-		frecDamageLlamas = 750,
+		damageLanzallamas = 100,
+		timeLanzallamas = 1500,
+		frecDamageLlamas = 500,
 		
 		lanzadorLlamasEffect = "FlameThrower",
 		lanzadorLlamasSound = "Lanzallamas.ogg",
@@ -613,7 +612,7 @@ Archetype = {
 		trigger_radius = 80,
 		trigger_collision_group = 3,
 
-		damage = 100,
+		damage = 200,
 
 		selection_shape = "trigger_capsule",
 		selection_type = "trigger_kinematic",
@@ -690,7 +689,7 @@ Archetype = {
 		trigger_radius = 80,
 		trigger_collision_group = 3,
 
-		damage = 100,
+		damage = 200,
 
 		selection_shape = "trigger_capsule",
 		selection_type = "trigger_kinematic",
@@ -713,7 +712,7 @@ Archetype = {
 		distanceAttackSound = "RifleShot1.ogg",
 		distanceAttackEffect = "",
 
-		healLife = 30,
+		healLife = 300,
 
 	},
 
@@ -746,8 +745,8 @@ Archetype = {
 		billboardLifeHeight = 0.5,
 		billboardLifePosition = {0.0,12.0,0.0},
 
-		life = 100.0,
-		maxLife = 100.0,
+		life = 1000.0,
+		maxLife = 1000.0,
 	},
 
 	EnemyDoor = {
@@ -772,8 +771,8 @@ Archetype = {
 		type = "EnemyBoss",
 		tag = "enemy",
 		orientation = 0,
-		life = 500.0,
-		maxLife = 500.0,
+		life = 1000.0,
+		maxLife = 1000.0,
 		isPlayer = false,
 		model = "loco.mesh",
 		defaultAnimation = "Stand",
@@ -797,6 +796,23 @@ Archetype = {
 		billboardSeleccionMaterial = "circuloSeleccion",
 		billboardSeleccionWith = 15.0,
 		billboardSeleccionHeight = 15.0,
+		
+		billboardPoisonMaterial = "imagePoison",
+		billboardPoisonWith = 3.0,
+		billboardPoisonHeight = 3.0,
+		billboardPoisonPosition = {-5.0,25.0,0.0},
+
+		billboardConfusionMaterial = "imageConfusion",
+		billboardConfusionWith = 3.0,
+		billboardConfusionHeight = 3.0,
+		billboardConfusionPosition = {5.0,25.0,0.0},
+		
+		selection_shape = "trigger_capsule",
+		selection_type = "trigger_kinematic",
+		selection_trigger = true,
+		selection_radius = 8,
+		selection_height = 12,
+		selection_collision_group = 7,
 
 		afectaEmpujar = 100,
 
@@ -806,7 +822,8 @@ Archetype = {
 		memInitPoint = true,
 		runLifeThreshold = 0,
 
-		damage = 30,
+		damage = 100,
+		attackCoolDown = 1500,
 
 		trigger_shape = "trigger_sphere",
 		trigger_type = "trigger_kinematic",
@@ -814,6 +831,25 @@ Archetype = {
 		trigger_radius = 75,
 		trigger_height = 5,
 		trigger_collision_group = 3,
+		
+		duracionCarga = 1000,
+		coolDownCarga = 10000,
+
+		lifeCureSound = "",
+		lifeCureEffect = "Heal",
+		lifeDamageSound = "",
+		lifeDamageEffect = "Blood",
+
+		distanceAttackSound = "RifleShot1.ogg",
+		distanceAttackEffect = "",
+
+		healSound = "",
+		healEffect = "",
+
+		poisonSound = "",
+		poisonEffect = "",
+
+		deathFunction = "enemyDeath"
 	},
 
 }

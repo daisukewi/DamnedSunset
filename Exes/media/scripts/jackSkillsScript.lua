@@ -6,10 +6,10 @@ function activateJackSkills(playerID)
 	-- Configuración de los cooldowns de las habilidades.
 	-- Cada índice corresponde a una habilidad y el valor es el tiempo del cooldown en segundos.
 	players[playerID].skillsCooldown = {
-		[1] = 5,
-		[2] = 5,
-		[3] = 5,
-		[4] = 5,
+		[1] = 30,
+		[2] = 10,
+		[3] = 10,
+		[4] = 60,
 	}
 
 	-- Tabla auxiliar para llevar la cuenta del cooldown actual de cada habilidad.

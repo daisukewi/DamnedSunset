@@ -38,5 +38,5 @@ end
 -- Al mismo tiempo se adapta a la forma de mostrarla ya que la función de actualizar tiempo espera el tiempo en minutos.
 god.dayTime = 720
 
--- Solenium, ahora mismo lo pongo un poco el primer número que se me ocurre porque no sé ni lo que van a valer los edificios.
-god.solenium = 1000
+-- Solenium inicial
+god.solenium = 400

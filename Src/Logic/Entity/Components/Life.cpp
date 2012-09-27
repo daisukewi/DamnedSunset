@@ -222,7 +222,7 @@ namespace Logic
 							ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 						}
 
-						if (!_entity->getTag().compare("enemy") || !_entity->getTag().compare("playerBuilding"))
+						if (!_entity->getTag().compare("enemy") || !_entity->getTag().compare("playerBuilding") || !_entity->getTag().compare("enemyBuilding"))
 						{
 							/*MUERE UN ENEMIGO O UN EDIFICIO*/
 

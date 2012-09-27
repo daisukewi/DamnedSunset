@@ -57,8 +57,14 @@ namespace BaseSubsystems {
 			// Si el cronómetro ha llegado a cero o menos, notifico al listener y lo anoto para borrarlo de la lista.
 			if (it->first <= 0)
 			{
-				it->second->timeElapsed();
-				_deferredRemoveListenersList.push_front(*it);
+				try
+				{
+					it->second->timeElapsed();
+					_deferredRemoveListenersList.push_front(*it);
+				}
+				catch (char *str)
+				{
+				}
 			}
 		}
 

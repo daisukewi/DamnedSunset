@@ -2,20 +2,20 @@ function mission1DoorTrigger(entityID)
 	player = players[entityID]
 	
 	if ((player ~= nil) and (currentStage == 1)) then
-		sacarVentana("Mision 2: Destruir 2 generadores.")
+		sacarVentana("Hemos encontrado la puerta. Hay que destruir los dos generadores para abrirla.")
 		currentStage = 2
 	end
 end
 
 function destroyGenerator1(entityID)
 	if (currentStage == 1) then
-		sacarVentana("Mision 2: Destruir el generador restante.")
+		sacarVentana("Hemos destruido un generador esto deberia abrir la puerta.")
 		currentStage = 3
 	elseif (currentStage == 2) then
-		sacarVentana("Mision 3: Destruir el generador restante.")
+		sacarVentana("Hemos destruido el primer generador, solo queda uno.")
 		currentStage = 3
 	elseif (currentStage == 3) then
-		sacarVentana("Mision 4: Matar al vampiro jefe")
+		sacarVentana("Hemos destruido los dos generadores. Matemos al vampiro jefe y larguemonos.")
 		deleteEntity(getEntityID("EnemyDoor"))
 		currentStage = 4
 	end
@@ -23,20 +23,20 @@ end
 
 function destroyGenerator2(entityID)
 	if (currentStage == 1) then
-		sacarVentana("Mision 2: Destruir el generador restante.")
+		sacarVentana("Hemos destruido un generador esto deberia abrir la puerta.")
 		currentStage = 3
 	elseif (currentStage == 2) then
-		sacarVentana("Mision 3: Destruir el generador restante.")
+		sacarVentana("Hemos destruido el primer generador, solo queda uno.")
 		currentStage = 3
 	elseif (currentStage == 3) then
-		sacarVentana("Mision 4: Matar al vampiro jefe")
+		sacarVentana("Hemos destruido los dos generadores. Matemos al vampiro jefe y larguemonos.")
 		deleteEntity(getEntityID("EnemyDoor"))
 		currentStage = 4
 	end
 end
 
 function mission1End(entityID)
-	sacarVentana("Mission Successful!!")
+	sacarVentana("Via libre. Vamonos de aqui antes de que vengan mas chupasangres.")
 	gameOver()
 end
 
@@ -46,6 +46,6 @@ function generatorUnderAttack(entityID)
 end
 
 function enemyDeath()
-	-- Recompensa en solenium por cada enemigo muerto. En este caso 20.
-	god.solenium = god.solenium + 20
+	-- Recompensa en solenium por cada enemigo muerto. En este caso 5.
+	god.solenium = god.solenium + 5
 end

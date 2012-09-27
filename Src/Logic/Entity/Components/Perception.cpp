@@ -128,20 +128,26 @@ namespace Logic
 			}
 			else
 			{
-				if (!m->getEntity()->getTag().compare("Player"))
+				try
 				{
-					std::stringstream script;
-					script << "enemyEventParam = { target = " << m->getEntity()->getEntityID() << " } ";
-					script << "enemyEvent(\"OnPlayerLost\", " << _entity->getEntityID() << ")";
-					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-				}
+					if (!m->getEntity()->getTag().compare("Player"))
+					{
+						std::stringstream script;
+						script << "enemyEventParam = { target = " << m->getEntity()->getEntityID() << " } ";
+						script << "enemyEvent(\"OnPlayerLost\", " << _entity->getEntityID() << ")";
+						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+					}
 
-				if (!m->getEntity()->getTag().compare("playerBuilding"))
+					if (!m->getEntity()->getTag().compare("playerBuilding"))
+					{
+						std::stringstream script;
+						script << "enemyEventParam = { target = " << m->getEntity()->getEntityID() << " } ";
+						script << "enemyEvent(\"OnBuildingLost\", " << _entity->getEntityID() << ")";
+						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+					}
+				}
+				catch (char *str)
 				{
-					std::stringstream script;
-					script << "enemyEventParam = { target = " << m->getEntity()->getEntityID() << " } ";
-					script << "enemyEvent(\"OnBuildingLost\", " << _entity->getEntityID() << ")";
-					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 				}
 			}
 		}else if(!message->getType().compare("MIASleep")){

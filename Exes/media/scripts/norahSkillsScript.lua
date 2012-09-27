@@ -6,10 +6,10 @@ function activateNorahSkills(playerID)
 	-- Configuración de los cooldowns de las habilidades.
 	-- Cada índice corresponde a una habilidad y el valor es el tiempo del cooldown en segundos.
 	players[playerID].skillsCooldown = {
-		[1] = 5,
-		[2] = 5,
-		[3] = 5,
-		[4] = 5,
+		[1] = 20,
+		[2] = 30,
+		[3] = 30,
+		[4] = 70,
 	}
 
 	-- Tabla auxiliar para llevar la cuenta del cooldown actual de cada habilidad.
@@ -119,7 +119,7 @@ function norahHealZone()
 	-- Miro si la habilidad está en cooldown, si lo está no hago nada.
 	if (players[god.playersSelected[1]].currentSkillsCooldown[4] <= 0) then
 		-- HACK: pongo la cantidad de curación que hago con la curación de masas aquí directamente. Es una guarrada superlativa pero no hay tiempo para otra cosa.
-		activateMassHeal(god.playersSelected[1], 100)
+		activateMassHeal(god.playersSelected[1], 500)
 		
 		-- Activo el cooldown de la habilidad
 		players[god.playersSelected[1]].currentSkillsCooldown[4] = players[god.playersSelected[1]].skillsCooldown[4]

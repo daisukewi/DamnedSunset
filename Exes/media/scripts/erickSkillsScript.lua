@@ -6,10 +6,10 @@ function activateErickSkills(playerID)
 	-- Configuración de los cooldowns de las habilidades.
 	-- Cada índice corresponde a una habilidad y el valor es el tiempo del cooldown en segundos.
 	players[playerID].skillsCooldown = {
-		[1] = 5,
-		[2] = 5,
-		[3] = 5,
-		[4] = 5,
+		[1] = 10,
+		[2] = 25,
+		[3] = 20,
+		[4] = 70,
 	}
 
 	-- Tabla auxiliar para llevar la cuenta del cooldown actual de cada habilidad.

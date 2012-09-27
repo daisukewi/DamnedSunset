@@ -6,10 +6,10 @@ stages = {
 		-- Enemigos spawneados por cada spawn point
 		spawnEnemies = {
 			
-			[1] = 2,
-			[2] = 2,
-			[3] = 2,
-			[4] = 2,
+			[1] = 1,
+			[2] = 1,
+			[3] = 1,
+			[4] = 1,
 			
 		},
 		
@@ -31,10 +31,10 @@ stages = {
 		-- Enemigos spawneados por cada spawn point
 		spawnEnemies = {
 			
-			[1] = 5,
-			[2] = 5,
-			[3] = 6,
-			[4] = 5,
+			[1] = 1,
+			[2] = 1,
+			[3] = 1,
+			[4] = 1,
 			
 		},
 		
@@ -43,8 +43,8 @@ stages = {
 			
 			[1] = 30,
 			[2] = 30,
-			[3] = 40,
-			[4] = 40,
+			[3] = 30,
+			[4] = 30,
 			
 		},
 		
@@ -56,20 +56,20 @@ stages = {
 		-- Enemigos spawneados por cada spawn point
 		spawnEnemies = {
 			
-			[1] = 5,
-			[2] = 5,
-			[3] = 6,
-			[4] = 5,
+			[1] = 2,
+			[2] = 2,
+			[3] = 2,
+			[4] = 2,
 			
 		},
 		
 		-- Tiempo entre spawn de enemigos de cada spawn point
 		spawnTime = {
 			
-			[1] = 20,
-			[2] = 20,
-			[3] = 30,
-			[4] = 30,
+			[1] = 60,
+			[2] = 60,
+			[3] = 60,
+			[4] = 60,
 			
 		},
 		
@@ -81,20 +81,20 @@ stages = {
 		-- Enemigos spawneados por cada spawn point
 		spawnEnemies = {
 			
-			[1] = 5,
-			[2] = 5,
-			[3] = 6,
-			[4] = 5,
+			[1] = 2,
+			[2] = 2,
+			[3] = 2,
+			[4] = 2,
 			
 		},
 		
 		-- Tiempo entre spawn de enemigos de cada spawn point
 		spawnTime = {
 			
-			[1] = 10,
-			[2] = 10,
-			[3] = 20,
-			[4] = 20,
+			[1] = 30,
+			[2] = 30,
+			[3] = 30,
+			[4] = 30,
 			
 		},
 		

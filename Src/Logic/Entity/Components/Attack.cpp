@@ -89,8 +89,14 @@ namespace Logic
 			else
 			{
 				m_anim->setAnimationName("Stand");
-				if (_targetEntity)
-					_targetEntity->removeDeathListener(this);
+				try
+				{
+					if (_targetEntity)
+						_targetEntity->removeDeathListener(this);
+				}
+				catch (char *str)
+				{
+				}
 			}
 			_entity->emitMessage(m_anim, this);
 		}
