@@ -87,5 +87,13 @@ namespace Graphics
 		_sceneNode->yaw(Ogre::Radian(orientation.w));
 	}
 
+	void CParticleEffect::setStatic(bool statc){
+		_static = statc;
+	}
+
+	bool CParticleEffect::getStatic(){
+		return _static;
+	}
+
 
 }

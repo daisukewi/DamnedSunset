@@ -64,6 +64,9 @@ namespace Logic
 		void setAltura(float altura);
 		float getAltura();
 
+		void setStatic(bool Static);
+		bool getStatic();
+
 	protected:
 
 		/**
@@ -77,6 +80,11 @@ namespace Logic
 		Efecto de partículas a mostrar
 		*/
 		std::string _effect;
+
+		/**
+		No mover el efecto con la entidad
+		*/
+		bool _static;
 	};
 
 

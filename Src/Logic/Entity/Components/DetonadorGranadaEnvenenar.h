@@ -64,6 +64,8 @@ namespace Logic
 
 		std::string _detonadorGranadaEnvenenarEffect;
 		std::string _detonadorGranadaEnvenenarSound;
+
+		bool _exploited;
 	};
 
 	REG_FACTORY(CDetonadorGranadaEnvenenar);

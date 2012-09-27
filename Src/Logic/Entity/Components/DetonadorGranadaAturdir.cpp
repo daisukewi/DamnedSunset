@@ -9,6 +9,7 @@
 #include "Logic/Entity/Messages/IASleep.h"
 #include "Logic/Entity/Messages/ParticleEffect.h"
 #include "Logic/Entity/Messages/SoundEffect.h"
+#include "Logic/Entity/Messages/ActivarComponente.h"
 
 #include "Physics/Server.h"
 
@@ -47,6 +48,10 @@ namespace Logic
 
 
 		BaseSubsystems::CServer::getSingletonPtr()->addClockListener(2000, this);
+
+		_exploited = false;
+
+
 		return true;
 	} // spawn
 
@@ -79,44 +84,50 @@ namespace Logic
 
 	void CDetonadorGranadaAturdir::timeElapsed()
 	{
+		if (!_exploited){
+			Logic::CEntity* * entidadesColision;
+			int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions( _entity->getPosition(),20,entidadesColision);
 
-		Logic::CEntity* * entidadesColision;
-		int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions( _entity->getPosition(),20,entidadesColision);
-
-		for (int i =0; i < numColisiones; ++i)
-		{
-			std::string a = entidadesColision[i]->getName();
-		}
-
-		//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
-		MParticleEffect *rc_message = new MParticleEffect();
-		rc_message->setPoint(_entity->getPosition());
-		rc_message->setEffect(_detonadorGranadaAturdirEffect);
-		_entity->emitInstantMessage(rc_message,this);
-
-		//Envío del mensaje al componente que se encarga de reproducir los sonidos
-		MSoundEffect *rc2_message = new MSoundEffect();
-		rc2_message->setSoundEffect("media/sounds/" + _detonadorGranadaAturdirSound);
-		_entity->emitInstantMessage(rc2_message,this);
-
-		for(int i = 0; i < numColisiones; ++i)
-		{
-			//Entidad que daña la granada
-			CEntity * entidad = entidadesColision[i];
-
-			if (!(entidad->getTag() == "Player"))
+			for (int i =0; i < numColisiones; ++i)
 			{
-				//Enviamos mensaje de dormir la IA de la entidad
-				MIASleep *m = new MIASleep();
-				m->setTime(_time);
-				entidad->emitMessage(m, this);
-
-				printf("SLEEP IA");
+				std::string a = entidadesColision[i]->getName();
 			}
 
-		}
-		//Eliminamos la entidad en el siguiente tick
-		CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
+			//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
+			MParticleEffect *rc_message = new MParticleEffect();
+			rc_message->setPoint(_entity->getPosition());
+			rc_message->setEffect(_detonadorGranadaAturdirEffect);
+			rc_message->setStatic(true);
+			_entity->emitInstantMessage(rc_message,this);
+
+			//Envío del mensaje al componente que se encarga de reproducir los sonidos
+			MSoundEffect *rc2_message = new MSoundEffect();
+			rc2_message->setSoundEffect(_detonadorGranadaAturdirSound);
+			_entity->emitInstantMessage(rc2_message,this);
+
+			for(int i = 0; i < numColisiones; ++i)
+			{
+				//Entidad que daña la granada
+				CEntity * entidad = entidadesColision[i];
+
+				if (!(entidad->getTag() == "Player"))
+				{
+					//Enviamos mensaje de dormir la IA de la entidad
+					MIASleep *m = new MIASleep();
+					m->setTime(_time);
+					entidad->emitMessage(m, this);
+
+					printf("SLEEP IA");
+				}
+
+			}
+
+			_exploited = true;
+			
+		}else{
+			//Eliminamos la entidad en el siguiente tick
+			CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
+		}	
 	} // timeElapsed
 
 } // namespace Logic

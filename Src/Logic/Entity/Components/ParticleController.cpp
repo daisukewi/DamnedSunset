@@ -73,16 +73,18 @@ namespace Logic
 
 			MParticleEffect *m = static_cast <MParticleEffect*> (message);
 			
+			
 			std::stringstream aux;
 			aux << m->getEffect() << "_" << _entity->getEntityID() << _countParticles;
 			Graphics::CParticleEffect *particle = new Graphics::CParticleEffect(aux.str(),m->getEffect(),m->getPoint(),m->getAltura());
 
 			if (!((m->getOrientation().x != 0) && (m->getOrientation().x != 0) && (m->getOrientation().x != 0)))
 				particle->setOrientation(m->getOrientation());
+			particle->setStatic(m->getStatic());
 			_particleList.push_back(particle);
 
 			_countParticles++;
-
+	
 			BaseSubsystems::CServer::getSingletonPtr()->addClockListener(5000, this);
 
 		}else if (!message->getType().compare("MSetTransform")){
@@ -92,6 +94,7 @@ namespace Logic
 			TParticleList::const_iterator end = _particleList.end();
 
 			for(; it != end; it++)
+				if (!(*it)->getStatic())
 				(*it)->setPosition(m->getTransform().getTrans());
 		}
 	} // process

@@ -9,6 +9,7 @@
 #include "Logic/Entity/Messages/Venom.h"
 #include "Logic/Entity/Messages/ParticleEffect.h"
 #include "Logic/Entity/Messages/SoundEffect.h"
+#include "Logic/Entity/Messages/ActivarComponente.h"
 
 #include "Physics/Server.h"
 
@@ -52,6 +53,10 @@ namespace Logic
 			_detonadorGranadaEnvenenarSound = entityInfo->getStringAttribute("detonadorGranadaEnvenenarSound");
 
 		BaseSubsystems::CServer::getSingletonPtr()->addClockListener(2000, this);
+
+		_exploited = false;
+
+
 		return true;
 	} // spawn
 
@@ -85,47 +90,53 @@ namespace Logic
 
 	void CDetonadorGranadaEnvenenar::timeElapsed()
 	{
+		if (!_exploited){
+			Logic::CEntity* * entidadesColision;
+			int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions( _entity->getPosition(),20,entidadesColision);
 
-		Logic::CEntity* * entidadesColision;
-		int numColisiones = Physics::CServer::getSingletonPtr()->detectCollisions( _entity->getPosition(),20,entidadesColision);
-
-		for (int i =0; i < numColisiones; ++i)
-		{
-			std::string a = entidadesColision[i]->getName();
-		}
-
-		//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
-		MParticleEffect *rc_message = new MParticleEffect();
-		rc_message->setPoint(_entity->getPosition());
-		rc_message->setEffect(_detonadorGranadaEnvenenarEffect);
-		_entity->emitInstantMessage(rc_message,this);
-
-		//Envío del mensaje al componente que se encarga de reproducir los sonidos
-		MSoundEffect *rc2_message = new MSoundEffect();
-		rc2_message->setSoundEffect("media/sounds/" + _detonadorGranadaEnvenenarSound);
-		_entity->emitInstantMessage(rc2_message,this);
-
-		for(int i = 0; i < numColisiones; ++i)
-		{
-			//Entidad que daña la granada
-			CEntity * entidad = entidadesColision[i];
-
-			if (!(entidad->getTag() == "Player"))
+			for (int i =0; i < numColisiones; ++i)
 			{
-
-				//Enviamos mensaje de envenenar a la entidad
-				MVenom *m = new MVenom();
-				m->setVenomTime(_venomTime);
-				m->setVenomDamage(_venomDamage);
-				m->setCount(_venomCount);
-				entidad->emitMessage(m, this);
-
-				printf("VENOM");
+				std::string a = entidadesColision[i]->getName();
 			}
 
+			//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
+			MParticleEffect *rc_message = new MParticleEffect();
+			rc_message->setPoint(_entity->getPosition());
+			rc_message->setEffect(_detonadorGranadaEnvenenarEffect);
+			rc_message->setStatic(true);
+			_entity->emitInstantMessage(rc_message,this);
+
+			//Envío del mensaje al componente que se encarga de reproducir los sonidos
+			MSoundEffect *rc2_message = new MSoundEffect();
+			rc2_message->setSoundEffect(_detonadorGranadaEnvenenarSound);
+			_entity->emitInstantMessage(rc2_message,this);
+
+			for(int i = 0; i < numColisiones; ++i)
+			{
+				//Entidad que daña la granada
+				CEntity * entidad = entidadesColision[i];
+
+				if (!(entidad->getTag() == "Player"))
+				{
+
+					//Enviamos mensaje de envenenar a la entidad
+					MVenom *m = new MVenom();
+					m->setVenomTime(_venomTime);
+					m->setVenomDamage(_venomDamage);
+					m->setCount(_venomCount);
+					entidad->emitMessage(m, this);
+
+					printf("VENOM");
+				}
+
+			}
+
+
+			_exploited = true;
+		}else{
+			//Eliminamos la entidad en el siguiente tick
+			CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 		}
-		//Eliminamos la entidad en el siguiente tick
-		CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 	} // timeElapsed
 
 } // namespace Logic

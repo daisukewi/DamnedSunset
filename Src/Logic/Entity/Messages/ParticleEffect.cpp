@@ -18,7 +18,7 @@ namespace Logic
 		_type = "MParticleEffect";
 		_altura = 0;
 		_orientation.x = 0; _orientation.y = 0; _orientation.z = 0;
-
+		_static= false;
 	
 	} // MIsSelectable
 
@@ -60,6 +60,16 @@ namespace Logic
 	float MParticleEffect::getAltura()
 	{
 		return _altura;
+	}
+
+	bool MParticleEffect::getStatic()
+	{
+		return _static;
+	}
+
+	void MParticleEffect::setStatic(bool statc)
+	{
+		_static = statc;
 	}
 
 

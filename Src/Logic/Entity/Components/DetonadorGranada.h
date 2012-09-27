@@ -51,6 +51,10 @@ namespace Logic
 		float _timeEmpujar;
 		float _distEmpujarSeg;
 
+		//Controlar si ha explotado la granada
+		bool _exploited;
+
+
 		std::string _detonadorGranadaEffect;
 		std::string _detonadorGranadaSound;
 	};

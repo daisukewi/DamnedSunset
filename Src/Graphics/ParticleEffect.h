@@ -59,6 +59,10 @@ namespace Graphics
 
 		void setOrientation(Vector4 &orientation);
 
+		void setStatic(bool statc);
+
+		bool getStatic();
+
 	protected:
 		friend class CScene;
 		
@@ -73,6 +77,8 @@ namespace Graphics
 		Poder mantener una altura inicial constante
 		*/
 		float _altura;
+
+		bool _static;
 	};
 
 }
