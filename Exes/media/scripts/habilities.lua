@@ -40,27 +40,24 @@ function inicializarBotonesDia()
 end
 
 function funcionIA1()
-	local mensaje = LUA_MSetPlayerState()
-	mensaje:setPlayerState("idle")
-	mensaje:setEntityTo(God.Selected)
-	mensaje:send()
-	print("Enviado mensaje IDLE")
+	if (god.playersSelected[1]  ~= 0) then
+		playerEventParam = { state = 'idle' }
+		playerEvent("StateChange",god.playersSelected[1])
+	end
 end
 
 function funcionIA2()
-	local mensaje = LUA_MSetPlayerState()
-	mensaje:setPlayerState("hold")
-	mensaje:setEntityTo(God.Selected)
-	mensaje:send()
-	print("Enviado mensaje HOLD")
+	if (god.playersSelected[1]  ~= 0) then
+		playerEventParam = { state = 'follow' } 
+		playerEvent("StateChange",god.playersSelected[1])
+	end
 end
 
 function funcionIA3()
-	local mensaje = LUA_MSetPlayerState()
-	mensaje:setPlayerState("follow")
-	mensaje:setEntityTo(God.Selected)
-	mensaje:send()
-	print("Enviado mensaje FOLLOW")
+	if (god.playersSelected[1]  ~= 0) then
+		playerEventParam = { state = 'hold' } 
+		playerEvent("StateChange",god.playersSelected[1])
+	end
 end
 
 function cambiarANoche()
