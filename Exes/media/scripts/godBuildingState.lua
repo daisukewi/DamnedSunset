@@ -42,8 +42,20 @@ function godBuildingStateEvent(event)
 		-- Cancelo el edificio actual.
 		cancelBuild()
 		
-		-- Paso al estado de idle.
-		nextState = 1
+		-- Busco el ID de Jack.
+		local jackID = -1
+	
+		for playerID, t in pairs(players) do
+			if (t.name == "Jack") then
+				jackID = playerID
+			end
+		end
+	
+		-- Al empezar la noche selecciono a Jack por defecto.
+		selectNewTarget(jackID)
+		
+		-- Paso al estado de seleccionado.
+		nextState = 2
 	else
 		nextState = 4
 	end

@@ -146,6 +146,12 @@ end
 function godSelectedStateAction()
 -- El estado de seleccionado es el estado 2.
 	local nextState = 2
+	
+	if (firstNightEvent) then
+		selectNewTarget(god.playersSelected[1])
+		
+		firstNightEvent = false
+	end
 
 	return nextState
 end

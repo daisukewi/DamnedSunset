@@ -39,4 +39,7 @@ end
 god.dayTime = 720
 
 -- Solenium inicial
-god.solenium = 400
+god.solenium = 420
+
+-- HACK - Movida super guarra para que un personaje se seleccione por defecto cuando empieza la noche.
+firstNightEvent = true

@@ -122,8 +122,14 @@ namespace Logic
 		message->addPtr();
 		for (int i =0; i < _numEnt; ++i)
 		{
-			if (!_entidades[i]->getTag().compare("Player") ){
-				_entidades[i]->emitMessage(message);
+			try 
+			{
+				if (!_entidades[i]->getTag().compare("Player") ){
+					_entidades[i]->emitMessage(message);
+				}
+			}
+			catch (char *str)
+			{
 			}
 
 		}

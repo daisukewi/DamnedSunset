@@ -97,6 +97,22 @@ function godIdleStateEvent(event)
 			-- Si no se ha pulsado una tecla correspondiente a un personaje me quedo en el estado actual.
 			nextState = 1
 		end
+	-- Evento de que empieza la noche.
+	elseif (event == "OnNightStart") then
+		-- Busco el ID de Jack.
+		local jackID = -1
+	
+		for playerID, t in pairs(players) do
+			if (t.name == "Jack") then
+				jackID = playerID
+			end
+		end
+	
+		-- Al empezar la noche selecciono a Jack por defecto.
+		selectNewTarget(jackID)
+		
+		-- Paso al estado de seleccionado.
+		nextState = 2
 	else
 		nextState = 1
 	end
