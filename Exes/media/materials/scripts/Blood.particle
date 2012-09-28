@@ -1,6 +1,6 @@
 particle_system Blood
 {
-	material Particles/Flare.000
+	material Particles/Blood
 	particle_width 1.0
 	particle_height 1.0
 	quota 70
