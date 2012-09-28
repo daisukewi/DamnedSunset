@@ -9,6 +9,9 @@ function godSelectedStateEvent(event)
 
 	-- Evento de click de selección.
 	if (event == "OnSelectionClick") then
+		-- Me guardo el seleccionado actualmente para no permitir la deseleccion de personajes.
+		local selected = god.playersSelected[1]
+	
 		-- Primero deselecciono todos los objetivos actuales
 		unselectCurrentTargets()
 		-- Intento seleccionar el nuevo objetivo
@@ -16,11 +19,15 @@ function godSelectedStateEvent(event)
 			-- Si se ha podido seleccionar un objetivo nuevo, me quedo en el estado actual.
 			nextState = 2
 		else
-			-- Si no se ha podido seleccionar nada paso al estado de idle.
-			nextState = 1
+			-- Si no se ha podido seleccionar nada continuo con el seleccionado anteriormente y me quedo en el estado actual.
+			selectNewTarget(selected)
+			nextState = 2
 		end
 	-- Evento de selección múltiple
 	elseif (event == "OnMultiSelectionClick") then
+		-- Me guardo el seleccionado actualmente para no permitir la deseleccion de personajes.
+		local selected = god.playersSelected[1]
+	
 		-- Primero deselecciono todos los objetivos actuales
 		unselectCurrentTargets()
 
@@ -41,7 +48,9 @@ function godSelectedStateEvent(event)
 		if (primarySelected) then
 			nextState = 2
 		else
-			nextState = 1
+			-- Si no se ha podido seleccionar nada continuo con el seleccionado anteriormente y me quedo en el estado actual.
+			selectNewTarget(selected)
+			nextState = 2
 		end
 	-- Evento de click de acción.
 	elseif (event == "OnActionClick") then

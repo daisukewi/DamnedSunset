@@ -22,6 +22,8 @@ function activarInterfazDia()
 		
 		resetCooldowns()
 	end
+	
+	godEvent("OnDayStart")
 end
 
 function desactivarInterfazDia()
