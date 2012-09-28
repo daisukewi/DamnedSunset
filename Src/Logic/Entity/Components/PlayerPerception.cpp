@@ -87,30 +87,35 @@ namespace Logic
 					
 					//Si ha salido, eliminar de la lista y avisar a LUA(si está deseleccionado la entidad) de que lo ha dejado de ver
 					}else{
-					
-						std::cout << "\n ENEMIGO HA SALIDO \n";
+						try
+						{
+							std::cout << "\n ENEMIGO HA SALIDO \n";
 
-						std::stringstream script;
-						script << "playerEventParam = { target = " << ent->getEntityID() << ", distance = " << 0 << " } ";
+							std::stringstream script;
+							script << "playerEventParam = { target = " << ent->getEntityID() << ", distance = " << 0 << " } ";
 							
 
-						//if(true){
-						if (!_entity->getSelected()){	
-							script << "playerEvent(\"OnEnemyLost\", " << _entity->getEntityID() << ")";
+							//if(true){
+							if (!_entity->getSelected()){	
+								script << "playerEvent(\"OnEnemyLost\", " << _entity->getEntityID() << ")";
 							
-						}else if (_entity->getSecondarySelected()){
+							}else if (_entity->getSecondarySelected()){
 
-							//script << "playerSecondaryEvent(\"OnEnemyLost\", " << _entity->getEntityID() << ")";
+								//script << "playerSecondaryEvent(\"OnEnemyLost\", " << _entity->getEntityID() << ")";
+							}
+
+							ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+
+							//En caso de que salga del trigger y muera, solo se mandaría a LUA el aviso
+							//de que está fuera del trigger, no el de muerte, ya que cuando se analizan las entidades muertas dentro del 
+							//trigger, está ya no existe por haberla sacado de la lista. Así que es necesario hacer una lista de entidades a 
+							//borrar por haber salido fuera del trigger, y tenerla en cuenta después de eliminar las entidades muertas 
+							//ya que una vez muerta no importa lo que ha pasado con ella.
+							_enemyTriggerOut.push_back(ent->getEntityID());
 						}
-
-						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-
-						//En caso de que salga del trigger y muera, solo se mandaría a LUA el aviso
-						//de que está fuera del trigger, no el de muerte, ya que cuando se analizan las entidades muertas dentro del 
-						//trigger, está ya no existe por haberla sacado de la lista. Así que es necesario hacer una lista de entidades a 
-						//borrar por haber salido fuera del trigger, y tenerla en cuenta después de eliminar las entidades muertas 
-						//ya que una vez muerta no importa lo que ha pasado con ella.
-						_enemyTriggerOut.push_back(ent->getEntityID());
+						catch (char *str)
+						{
+						}
 					}
 				}
 			
