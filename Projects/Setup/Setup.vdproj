@@ -315,6 +315,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1EDDCE8ACD6948348D6AF764CE25A709"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_1F1141E240FA4AB195CD6043ECA18FC8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -855,6 +861,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_56262EB30E1E499E93F0875A0EE4851B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_566AC82547AE45D480D3D582B704E7D1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1126,6 +1138,12 @@
         "Entry"
         {
         "MsmKey" = "8:_7072E66B83E14610862323BB373A0087"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_709385406A6744BF9535E776D542899B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2589,18 +2607,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F7601E6524E44CC9BE261DF6CE0BD391"
-        "OwnerKey" = "8:_88A5C09C066E403BB94B1D9EB3CA8F28"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F7601E6524E44CC9BE261DF6CE0BD391"
-        "OwnerKey" = "8:_DE732A722D8A4571AC8B26B8B9770884"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_F784768A27A9433092BC3ED4340DE592"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -3706,6 +3712,26 @@
             "TargetName" = "8:fmodexL64.dll"
             "Tag" = "8:"
             "Folder" = "8:_06C50904B4AD4BD6A97D38CBFFCA74E3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1EDDCE8ACD6948348D6AF764CE25A709"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\scripts\\Blood.particle"
+            "TargetName" = "8:Blood.particle"
+            "Tag" = "8:"
+            "Folder" = "8:_8E05FE4888934620B3ECC8CA2A368352"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5500,6 +5526,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_56262EB30E1E499E93F0875A0EE4851B"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\Blood.png"
+            "TargetName" = "8:Blood.png"
+            "Tag" = "8:"
+            "Folder" = "8:_838383EE60EF45FF9120A5D03508E5A4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_566AC82547AE45D480D3D582B704E7D1"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\toon_desert.jpg"
@@ -6406,6 +6452,26 @@
             "TargetName" = "8:fuente.mesh"
             "Tag" = "8:"
             "Folder" = "8:_15B6F07DBDAB42FD9576CCF10674FD1A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_709385406A6744BF9535E776D542899B"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\materials\\scripts\\Blood.material"
+            "TargetName" = "8:Blood.material"
+            "Tag" = "8:"
+            "Folder" = "8:_8E05FE4888934620B3ECC8CA2A368352"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -12316,20 +12382,6 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_F7601E6524E44CC9BE261DF6CE0BD391"
-            {
-            "UseDynamicProperties" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:Microsoft_VC100_CRT_x86.msm"
-                "Properties"
-                {
-                }
-            "LanguageId" = "3:0"
-            "Exclude" = "11:FALSE"
-            "Folder" = "8:"
-            "Feature" = "8:"
-            "IsolateTo" = "8:"
-            }
         }
         "ProjectOutput"
         {
