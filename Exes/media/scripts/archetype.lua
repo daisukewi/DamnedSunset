@@ -342,21 +342,16 @@ Archetype = {
 		duracionCarga = 1000,
 		coolDownCarga = 10000,
 
-		lifeCureSound = "",
+		lifeCureSound = "teletransporte.mp3",
 		lifeCureEffect = "Heal",
 		lifeDamageSound = "",
 		lifeDamageEffect = "Blood",
 
 		distanceAttackSound = "RifleShot1.ogg",
 		distanceAttackEffect = "",
+		
 
-		healSound = "",
-		healEffect = "",
-
-		poisonSound = "",
-		poisonEffect = "",
-
-		deathFunction = "enemyDeath"
+		deathFunction = "enemyDeath",
 	},
 
 	Granada = {
@@ -381,7 +376,7 @@ Archetype = {
 		radius = 40,
 		
 		detonadorGranadaEffect = "Explosion",
-		detonadorGranadaSound = "rocket_explosion.wav";
+		detonadorGranadaSound = "rocket_explosion.wav",
 	},
 
 	GranadaAturdir = {
@@ -428,8 +423,8 @@ Archetype = {
 		
 		radius = 40,
 		
-		detonadorGranadaEnvenenarEffect = "Poison";
-		detonadorGranadaEnvenenarSound = "rocket_explosion.wav";
+		detonadorGranadaEnvenenarEffect = "Poison",
+		detonadorGranadaEnvenenarSound = "rocket_explosion.wav",
 	},
 
 	BolaTeltr = {
@@ -522,7 +517,7 @@ Archetype = {
 		reduceDamageTime = 5000,
 		reduceDamageDistance = 10,
 		reduceDamage = -1.0,
-		lifeCureSound = "",
+		lifeCureSound = "teletransporte.mp3",
 		lifeCureEffect = "Heal",
 		lifeDamageSound = "",
 		lifeDamageEffect = "Blood",
@@ -535,6 +530,7 @@ Archetype = {
 		
 		empujarSound = "empuje.mp3",
 		empujarEffect = "Empujar",
+		
 
 	},
 
@@ -621,7 +617,7 @@ Archetype = {
 		selection_height = 12,
 		selection_collision_group = 7,
 
-		lifeCureSound = "",
+		lifeCureSound = "teletransporte.mp3",
 		lifeCureEffect = "Heal",
 		lifeDamageSound = "",
 		lifeDamageEffect = "Blood",
@@ -631,6 +627,7 @@ Archetype = {
 		
 		dispararPotenteEffect = "DispararPotente",
 		dispararPotenteSound = "empuje.mp3",
+		
 
 
 	},
@@ -704,7 +701,7 @@ Archetype = {
 		healZoneEffect = "HealZone",
 		healZoneDamageSound = "",
 
-		lifeCureSound = "",
+		lifeCureSound = "teletransporte.mp3",
 		lifeCureEffect = "Heal",
 		lifeDamageSound = "",
 		lifeDamageEffect = "Blood",
@@ -713,6 +710,7 @@ Archetype = {
 		distanceAttackEffect = "",
 
 		healLife = 300,
+		
 
 	},
 
