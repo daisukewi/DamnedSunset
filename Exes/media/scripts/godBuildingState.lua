@@ -37,6 +37,13 @@ function godBuildingStateEvent(event)
 
 		-- Me quedo en el estado actual.
 		nextState = 4
+	-- Evento de que empieza la noche.
+	elseif (event == "OnNightStart") then
+		-- Cancelo el edificio actual.
+		cancelBuild()
+		
+		-- Paso al estado de idle.
+		nextState = 1
 	else
 		nextState = 4
 	end

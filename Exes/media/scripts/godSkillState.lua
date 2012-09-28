@@ -59,6 +59,16 @@ function godSkillStateEvent(event)
 		
 		-- Me quedo en el estado actual en cualquier caso.
 		nextState = 3
+	-- Evento de que empieza el día
+	elseif (event == "OnDayStart") then
+		-- Cancelo la habilidad
+		god.cancelSkillFunction()
+	
+		-- Deselecciono todos los personajes.
+		unselectCurrentTargets()
+		
+		-- Paso al estado de idle.
+		nextState = 1
 	else
 		nextState = 3
 	end

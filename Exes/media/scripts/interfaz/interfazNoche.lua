@@ -54,6 +54,8 @@ function activarInterfazNoche()
 		interfazNoche:activate()
 	end
 	
+	godEvent("OnNightStart")
+	
 	if (currentStage == 1) then
 		sacarVentana("Se han detectado muchos vampiros alrededor, tenemos que atravesar la puerta que hay mas adelante y salir de aqui.")
 	end

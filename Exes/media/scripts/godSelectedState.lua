@@ -128,6 +128,13 @@ function godSelectedStateEvent(event)
 			-- Si no se ha pulsado una tecla correspondiente a un personaje me quedo en el estado actual.
 			nextState = 2
 		end
+	-- Evento de que empieza el día
+	elseif (event == "OnDayStart") then
+		-- Deselecciono todos los personajes.
+		unselectCurrentTargets()
+		
+		-- Paso al estado de idle.
+		nextState = 1
 	else
 		nextState = 2
 	end
