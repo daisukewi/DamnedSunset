@@ -2,12 +2,30 @@
 
 <GUILayout >
    <Window Type="DefaultWindow" Name="Credits" >
-       <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
-       <Window Type="WindowsLook/StaticText" Name="Credits/Text" >
-           <Property Name="Text" >Texto que quieras introducir</Property>
-           <Property Name="HorzExtent" Value="2430" />
-           <Property Name="VertExtent" Value="496.545" />
-           <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
-       </Window>
-   </Window>
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Window Type="WindowsLook/StaticImage" Name="Credits/Credits0" >
+			<Property Name="Image" Value="set:credits1 image:background" />
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        </Window>
+		<Window Type="WindowsLook/StaticImage" Name="Credits/Credits1" >
+			<Property Name="Image" Value="set:credits2 image:background" />
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        </Window>
+		<Window Type="WindowsLook/StaticImage" Name="Credits/Credits2" >
+			<Property Name="Image" Value="set:credits3 image:background" />
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        </Window>
+		<Window Type="WindowsLook/StaticImage" Name="Credits/Credits3" >
+			<Property Name="Image" Value="set:credits4 image:background" />
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        </Window>
+		<Window Type="WindowsLook/StaticImage" Name="Credits/Credits4" >
+			<Property Name="Image" Value="set:credits5 image:background" />
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        </Window>
+		<Window Type="WindowsLook/StaticImage" Name="Credits/Credits5" >
+			<Property Name="Image" Value="set:credits6 image:background" />
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        </Window>
+    </Window>
 </GUILayout>

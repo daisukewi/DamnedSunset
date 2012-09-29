@@ -9,4 +9,10 @@
 	<Imageset Filename="solenium.imageset" />
 	<Imageset Filename="amanecer.imageset" />
 	<Imageset Filename="loading.imageset" />
+	<Imageset Filename="credits1.imageset" />
+	<Imageset Filename="credits2.imageset" />
+	<Imageset Filename="credits3.imageset" />
+	<Imageset Filename="credits4.imageset" />
+	<Imageset Filename="credits5.imageset" />
+	<Imageset Filename="credits6.imageset" />
 </GUIScheme>

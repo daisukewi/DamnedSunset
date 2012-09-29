@@ -56,8 +56,8 @@ namespace Application
 		/** 
 		Constructor de la clase 
 		*/
-		CCreditsState(CBaseApplication *app) : CApplicationState(app)
-				{}
+		CCreditsState(CBaseApplication *app) : CApplicationState(app), _currentWindow(0), _acuTime(0)
+		{}
 
 		/** 
 		Destructor 
@@ -163,16 +163,24 @@ namespace Application
 
 	private:
 
+		static const int nCreditWindows;
+		static const unsigned int transitionTime;
+
 		/**
 		Ventana CEGUI que muestra el menú.
 		*/
-		CEGUI::Window* _gameOverWindow;
+		CEGUI::Window* _mainWindow;
+		std::vector<CEGUI::Window*> _creditsWindow;
 
 		/**
 		Función que se quiere realizar cuando se pulse el botón exit.
 		Simplemente termina la aplicación.
 		*/
 		bool exitReleased(const CEGUI::EventArgs& e);
+
+		int _currentWindow;
+
+		unsigned int _acuTime;
 
 	}; // CCreditsState
 
