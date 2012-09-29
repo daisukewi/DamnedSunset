@@ -375,6 +375,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2A521ABFB9DB489FAB941E1AB38C51D6"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_2B118B99C247494C93868096B514547F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -424,6 +430,12 @@
         "Entry"
         {
         "MsmKey" = "8:_308095BDE32E4720BE9E3E2FA2EE4BDB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_30AA98B9371B4A2F9430C14AC5D61543"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -519,6 +531,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_3675E69822A14C988637AB6A6CE14E8F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_36CF2A1159394A42B6F36298BCB57125"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -604,6 +622,12 @@
         "Entry"
         {
         "MsmKey" = "8:_3E72C191E09C4A8CA8DA37A085706160"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3F1957C206234E0B9CD64D265B346319"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -730,6 +754,12 @@
         "Entry"
         {
         "MsmKey" = "8:_4ED428CFCAA946A7A7717B8BDD1D69C8"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4F360D39574C4C70BFD2C37973A4331F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1113,6 +1143,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_77F99F5A71844F4DA1C53668DE356103"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_7812ADA16E22488B8F18CFE52C03ACC7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1306,13 +1342,13 @@
         "Entry"
         {
         "MsmKey" = "8:_8A8A24E9DCB3900863FB4F3E74FB84AB"
-        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
+        "OwnerKey" = "8:_3B1888B1216948749E00DA69A29EA9DD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_8A8A24E9DCB3900863FB4F3E74FB84AB"
-        "OwnerKey" = "8:_3B1888B1216948749E00DA69A29EA9DD"
+        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1348,6 +1384,12 @@
         "Entry"
         {
         "MsmKey" = "8:_8D75B83221EB40D99C98A4042E8E8099"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8ECA33441B5D4A97A03181F22FB2D699"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1611,6 +1653,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_A3E14B7186D04AC4A8808CD5249E610C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_A428D994B8E0405880AE4BC94291F234"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1713,6 +1761,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_AF2775DD2A0B4E8CA0710F9ED06AB851"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_AFB4B39CA1E84730841C6D9FCC9F3D05"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1767,6 +1821,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_B6B59920A9CF4F1C97C6083114AE2E15"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_B758CD4ECF5D4DB085C70EA016DBB592"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1804,6 +1864,12 @@
         "Entry"
         {
         "MsmKey" = "8:_B9305F2512A547348B26530D21D586C2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B95CFCC2E7A249B292B241338E66BBE9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1959,18 +2025,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C71DEBF013FE4650B8AFCC8765774472"
-        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C71DEBF013FE4650B8AFCC8765774472"
-        "OwnerKey" = "8:_3B1888B1216948749E00DA69A29EA9DD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_C79CCA5FF83843438EFA2090720FDB45"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2045,6 +2099,18 @@
         {
         "MsmKey" = "8:_CEE321BC4EDF44F59E5ACF03841EA97A"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CF9ED1417E9041E2929EF3D3E4188835"
+        "OwnerKey" = "8:_3B1888B1216948749E00DA69A29EA9DD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CF9ED1417E9041E2929EF3D3E4188835"
+        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -2475,6 +2541,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_F21DDE797FC24470BB4396649D113BF6"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_F2671CE4D4A3420D9D29358B1FABB454"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2599,6 +2671,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -2615,6 +2695,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -3824,6 +3912,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2A521ABFB9DB489FAB941E1AB38C51D6"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\credits5.imageset"
+            "TargetName" = "8:credits5.imageset"
+            "Tag" = "8:"
+            "Folder" = "8:_C0D7652BF2B24E55BA1659B7FE7B43F3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2B118B99C247494C93868096B514547F"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\nvidia\\growth_weirdfungus-03_normalheight.dds"
@@ -3970,6 +4078,26 @@
             "TargetName" = "8:caja_Spec.tga"
             "Tag" = "8:"
             "Folder" = "8:_37EBFA13FD054269BB704D376D6FA490"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_30AA98B9371B4A2F9430C14AC5D61543"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\credits4.imageset"
+            "TargetName" = "8:credits4.imageset"
+            "Tag" = "8:"
+            "Folder" = "8:_C0D7652BF2B24E55BA1659B7FE7B43F3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4284,6 +4412,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3675E69822A14C988637AB6A6CE14E8F"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\credits4.jpg"
+            "TargetName" = "8:credits4.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_C0D7652BF2B24E55BA1659B7FE7B43F3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_36CF2A1159394A42B6F36298BCB57125"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\sounds\\RifleShot1.ogg"
@@ -4550,6 +4698,26 @@
             "TargetName" = "8:puertas.tga"
             "Tag" = "8:"
             "Folder" = "8:_37EBFA13FD054269BB704D376D6FA490"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3F1957C206234E0B9CD64D265B346319"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\credits2.jpg"
+            "TargetName" = "8:credits2.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_C0D7652BF2B24E55BA1659B7FE7B43F3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4970,6 +5138,26 @@
             "TargetName" = "8:Body_norah.tga"
             "Tag" = "8:"
             "Folder" = "8:_37EBFA13FD054269BB704D376D6FA490"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4F360D39574C4C70BFD2C37973A4331F"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\credits6.imageset"
+            "TargetName" = "8:credits6.imageset"
+            "Tag" = "8:"
+            "Folder" = "8:_C0D7652BF2B24E55BA1659B7FE7B43F3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -6224,6 +6412,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_77F99F5A71844F4DA1C53668DE356103"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\credits1.imageset"
+            "TargetName" = "8:credits1.imageset"
+            "Tag" = "8:"
+            "Folder" = "8:_C0D7652BF2B24E55BA1659B7FE7B43F3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7812ADA16E22488B8F18CFE52C03ACC7"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\rejas_Spec.tga"
@@ -6970,6 +7178,26 @@
             "TargetName" = "8:VanillaSkin.scheme"
             "Tag" = "8:"
             "Folder" = "8:_1443D3A268D34C37ABC726F82E18DECA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8ECA33441B5D4A97A03181F22FB2D699"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\credits3.jpg"
+            "TargetName" = "8:credits3.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_C0D7652BF2B24E55BA1659B7FE7B43F3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -7844,6 +8072,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A3E14B7186D04AC4A8808CD5249E610C"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\credits1.jpg"
+            "TargetName" = "8:credits1.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_C0D7652BF2B24E55BA1659B7FE7B43F3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A428D994B8E0405880AE4BC94291F234"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\gui\\fonts\\fkp.de.pcf"
@@ -8184,6 +8432,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AF2775DD2A0B4E8CA0710F9ED06AB851"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\credits2.imageset"
+            "TargetName" = "8:credits2.imageset"
+            "Tag" = "8:"
+            "Folder" = "8:_C0D7652BF2B24E55BA1659B7FE7B43F3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AFB4B39CA1E84730841C6D9FCC9F3D05"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\TilePared2.jpg"
@@ -8364,6 +8632,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B6B59920A9CF4F1C97C6083114AE2E15"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\credits5.jpg"
+            "TargetName" = "8:credits5.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_C0D7652BF2B24E55BA1659B7FE7B43F3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B758CD4ECF5D4DB085C70EA016DBB592"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\programs\\metal\\cubeCathRefl.dds"
@@ -8490,6 +8778,26 @@
             "TargetName" = "8:stars5.jpg"
             "Tag" = "8:"
             "Folder" = "8:_37EBFA13FD054269BB704D376D6FA490"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B95CFCC2E7A249B292B241338E66BBE9"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\credits3.imageset"
+            "TargetName" = "8:credits3.imageset"
+            "Tag" = "8:"
+            "Folder" = "8:_C0D7652BF2B24E55BA1659B7FE7B43F3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -10584,6 +10892,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F21DDE797FC24470BB4396649D113BF6"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\credits6.jpg"
+            "TargetName" = "8:credits6.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_C0D7652BF2B24E55BA1659B7FE7B43F3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F2671CE4D4A3420D9D29358B1FABB454"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\scripts\\esfera.material"
@@ -11711,7 +12039,7 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_C71DEBF013FE4650B8AFCC8765774472"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_CF9ED1417E9041E2929EF3D3E4188835"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
