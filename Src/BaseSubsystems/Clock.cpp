@@ -64,6 +64,13 @@ namespace BaseSubsystems {
 
 	//--------------------------------------------------------
 
+	void IClock::clearAllListeners()
+	{
+		_listeners.clear();
+	}
+
+	//--------------------------------------------------------
+
 	void IClock::notifyListeners()
 	{
 		TListenersList::iterator it, end;

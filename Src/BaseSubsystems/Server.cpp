@@ -577,6 +577,14 @@ namespace BaseSubsystems
 
 	//--------------------------------------------------------
 
+	void CServer::clearClockListeners()
+	{
+		_appClock->clearAllListeners();
+
+	} // updateClock
+
+	//--------------------------------------------------------
+
 	void CServer::updateClock()
 	{
 		_appClock->updateTime();

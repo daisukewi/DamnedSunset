@@ -119,6 +119,7 @@ namespace BaseSubsystems
 		*/
 		void addListener(int clock, IClockListener* listener);
 
+		void clearAllListeners();
 
 		void setFactorRalentizar(float f) { _factorRalentizar = f;}
 	protected:

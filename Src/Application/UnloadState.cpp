@@ -16,6 +16,9 @@ Contiene la declaración del estado en el que se cargan los recursos
 
 #include "UnloadState.h"
 
+#include "BaseSubsystems/Server.h"
+#include "BaseSubsystems/Clock.h"
+
 #include "Logic/Server.h"
 #include "Logic/Maps/EntityFactory.h"
 #include "Logic/Maps/Map.h"
@@ -81,6 +84,8 @@ namespace Application {
 
 	void CUnloadState::deactivate() 
 	{
+		BaseSubsystems::CServer::getSingletonPtr()->clearClockListeners();
+
 		// Desactivamos la ventana de interfaz
 		GUI::CServer::getSingletonPtr()->getInterfazController()->deactivate();
 

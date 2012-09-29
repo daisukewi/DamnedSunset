@@ -214,6 +214,8 @@ namespace BaseSubsystems
 		*/
 		void updateClock();
 
+		void clearClockListeners();
+
 		void setFactorRalentizar(float f);
 	protected:
 
