@@ -255,6 +255,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_17673462FC95459AB7D1CEAE143F6ECA"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_1B801977CE6D41769070F57A24E4068C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -417,6 +423,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2F98ABA0812B45E0881A8CB6FC300A40"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_2FDC72D081B74055BAAD59CC93BFEA7B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -543,6 +555,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_3706A56FB7EF659D2830EB41FE2783FE"
+        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_38551A8A96F2469CBE020C45950632C3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_38823CB132FE4B46AB52DC6BBCD683FC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -663,6 +687,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_44B5B2EDDE6746F5B9D9F97A36133531"
+        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_45930D0D021142A0A5372BB75E041547"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -729,12 +759,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4D2BD46EC0EA5A053441119374B7CBF8"
-        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_4D4CA4D7F0D6403DA1E515394D239FE4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -783,6 +807,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_532A6F07406BF479099F180DE9DD451B"
+        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_536BB44FA10847CF8A2A004EA817F0A1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -791,6 +821,12 @@
         {
         "MsmKey" = "8:_53ACDE861D064507BA422C9DD2EF11E5"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_53B932A0DC21E345CA52302A418ED773"
+        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -815,18 +851,6 @@
         {
         "MsmKey" = "8:_5730D02CEC164A58B1DA81EE65BD0938"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_579654E5356BBCFB28597B1C9D8E4FAD"
-        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_57D7ADD6F5484A2C01261B15AD04652E"
-        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -923,12 +947,6 @@
         {
         "MsmKey" = "8:_61A90856AE9743DC81860306E863AA68"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_623538AB7CFB1359295B5A094070CD7E"
-        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1037,12 +1055,6 @@
         {
         "MsmKey" = "8:_6C9EDEBB495348D7A4FE843F604F5E4C"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6D05830CAD6981C5C3537A2264F74EB3"
-        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1179,12 +1191,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_79CE8E64D3312C47A718FB9B35479607"
-        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_79F397AC88234DDAA662CEA66C5624E0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1247,6 +1253,12 @@
         {
         "MsmKey" = "8:_7F6050393AE043668B1BB4126FC26702"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8108D7EA6A65A8FB258D99F6273A7AD1"
+        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1337,18 +1349,6 @@
         {
         "MsmKey" = "8:_8A64C96C94B24C04A29C43222920C739"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8A8A24E9DCB3900863FB4F3E74FB84AB"
-        "OwnerKey" = "8:_3B1888B1216948749E00DA69A29EA9DD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8A8A24E9DCB3900863FB4F3E74FB84AB"
-        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1479,12 +1479,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9A6EB8DCD861D62D7F3CB7E02A4ACF45"
-        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_9A85E32995014CDFAE7DA1D439C604F4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1505,12 +1499,6 @@
         {
         "MsmKey" = "8:_9AF474AB11CC4EC0B4A2324CD002E0C1"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9B5F457C91DAB72D1E47456B6F3639D7"
-        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1707,6 +1695,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_A7BDF1B2DFAA8ABBC359CBE587C61936"
+        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_A7EF19DBB2804396BECAF4CE4B34691D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1793,6 +1787,12 @@
         {
         "MsmKey" = "8:_B2CAB70A70D64E98A91B61E2943FCFD9"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B5627AEF54560446665A71120C87A0DF"
+        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1907,12 +1907,6 @@
         {
         "MsmKey" = "8:_BCD12F8387DB4319A99833E92208DF39"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BDB291E566593AA6607B8FF06A59BB56"
-        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -2079,6 +2073,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_CE5D29DFB1E58B065B0CC2A99EED2095"
+        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_CE9121B1CFB14F228401AAB1E8736FB9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2103,20 +2103,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_CF9ED1417E9041E2929EF3D3E4188835"
-        "OwnerKey" = "8:_3B1888B1216948749E00DA69A29EA9DD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CF9ED1417E9041E2929EF3D3E4188835"
-        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_CFB07172448446569A88C55B75DF0ACB"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CFE543B54E336C8870E6E2967B4514C1"
+        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -2433,13 +2427,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_E989392C874CC2CC523B411A817AA249"
-        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
+        "MsmKey" = "8:_E91B97FF7C8290C6FE5A11FDA58F1E6A"
+        "OwnerKey" = "8:_3B1888B1216948749E00DA69A29EA9DD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_EAEE2DD8B20C254B1A5E3FD743548C03"
+        "MsmKey" = "8:_E91B97FF7C8290C6FE5A11FDA58F1E6A"
         "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2475,6 +2469,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_EDE5237DD2F9271C118ED4B2872B1A77"
+        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2489,6 +2489,12 @@
         {
         "MsmKey" = "8:_EF041422B611416C875BDE3ED694B957"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_EF9A1D1A6C7B8A0813F55A3296526078"
+        "OwnerKey" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -2643,12 +2649,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_FFEC5918E663476FB07313A50B93C534"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_C6CADFFC667D44E8B2C0D702F5B5298C"
         "MsmSig" = "8:_UNDEFINED"
@@ -2678,6 +2678,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
         "Release"
@@ -2702,6 +2715,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
     }
@@ -3532,6 +3558,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_17673462FC95459AB7D1CEAE143F6ECA"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\DamnedSunset.ico"
+            "TargetName" = "8:DamnedSunset.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1B801977CE6D41769070F57A24E4068C"
             {
             "SourcePath" = "8:..\\..\\Exes\\CEGUISILLYImageCodec.dll"
@@ -4032,6 +4078,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2F98ABA0812B45E0881A8CB6FC300A40"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\Plugin_OctreeSceneManager.dll"
+            "TargetName" = "8:Plugin_OctreeSceneManager.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2FDC72D081B74055BAAD59CC93BFEA7B"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\gui\\looknfeel\\Vanilla.looknfeel"
@@ -4452,6 +4518,46 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3706A56FB7EF659D2830EB41FE2783FE"
+            {
+            "SourcePath" = "8:CEGUIBase.dll"
+            "TargetName" = "8:CEGUIBase.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_38551A8A96F2469CBE020C45950632C3"
+            {
+            "SourcePath" = "8:..\\..\\Exes\\OgrePaging.dll"
+            "TargetName" = "8:OgrePaging.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_38823CB132FE4B46AB52DC6BBCD683FC"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\road2.jpg"
@@ -4832,6 +4938,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_44B5B2EDDE6746F5B9D9F97A36133531"
+            {
+            "SourcePath" = "8:NxCharacter.dll"
+            "TargetName" = "8:NxCharacter.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_45930D0D021142A0A5372BB75E041547"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\InterfazUtils2.png"
@@ -5052,26 +5178,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4D2BD46EC0EA5A053441119374B7CBF8"
-            {
-            "SourcePath" = "8:CEGUIBase.dll"
-            "TargetName" = "8:CEGUIBase.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4D4CA4D7F0D6403DA1E515394D239FE4"
             {
             "SourcePath" = "8:..\\..\\Exes\\SILLY.dll"
@@ -5232,6 +5338,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_532A6F07406BF479099F180DE9DD451B"
+            {
+            "SourcePath" = "8:fmodex.dll"
+            "TargetName" = "8:fmodex.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_536BB44FA10847CF8A2A004EA817F0A1"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\programs\\metal\\oshHelm_n.dds"
@@ -5270,6 +5396,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_53B932A0DC21E345CA52302A418ED773"
+            {
+            "SourcePath" = "8:CEGUILuaScriptModule.dll"
+            "TargetName" = "8:CEGUILuaScriptModule.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_54ABB448A668477E8BA889500328ED83"
@@ -5350,46 +5496,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_579654E5356BBCFB28597B1C9D8E4FAD"
-            {
-            "SourcePath" = "8:OgreTerrain.dll"
-            "TargetName" = "8:OgreTerrain.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_57D7ADD6F5484A2C01261B15AD04652E"
-            {
-            "SourcePath" = "8:CEGUIOgreRenderer.dll"
-            "TargetName" = "8:CEGUIOgreRenderer.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_588776443578480889B2561D996A38A0"
@@ -5710,26 +5816,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_623538AB7CFB1359295B5A094070CD7E"
-            {
-            "SourcePath" = "8:PhysXLoader.dll"
-            "TargetName" = "8:PhysXLoader.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_62AB588245D443C68B7091A9F870FD06"
@@ -6070,26 +6156,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6D05830CAD6981C5C3537A2264F74EB3"
-            {
-            "SourcePath" = "8:lua51.dll"
-            "TargetName" = "8:lua51.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6D3A2458AF6D4C8495641B4A47E79A1C"
@@ -6532,26 +6598,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_79CE8E64D3312C47A718FB9B35479607"
-            {
-            "SourcePath" = "8:CEGUILuaScriptModule.dll"
-            "TargetName" = "8:CEGUILuaScriptModule.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_79F397AC88234DDAA662CEA66C5624E0"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\gui\\imagesets\\loading.imageset"
@@ -6770,6 +6816,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8108D7EA6A65A8FB258D99F6273A7AD1"
+            {
+            "SourcePath" = "8:OgreTerrain.dll"
+            "TargetName" = "8:OgreTerrain.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_821104CE39924130A29659CA1DD67769"
@@ -7070,26 +7136,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8A8A24E9DCB3900863FB4F3E74FB84AB"
-            {
-            "SourcePath" = "8:OgreMain.dll"
-            "TargetName" = "8:OgreMain.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8AA7FEC9CDCC4736848A883DC1DC7383"
@@ -7492,26 +7538,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9A6EB8DCD861D62D7F3CB7E02A4ACF45"
-            {
-            "SourcePath" = "8:luabind.dll"
-            "TargetName" = "8:luabind.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9A85E32995014CDFAE7DA1D439C604F4"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\Poison.png"
@@ -7590,26 +7616,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9B5F457C91DAB72D1E47456B6F3639D7"
-            {
-            "SourcePath" = "8:PhysXCooking.dll"
-            "TargetName" = "8:PhysXCooking.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9C84B719CF044323A816B27859E05ACB"
@@ -8252,6 +8258,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A7BDF1B2DFAA8ABBC359CBE587C61936"
+            {
+            "SourcePath" = "8:PhysXLoader.dll"
+            "TargetName" = "8:PhysXLoader.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A7EF19DBB2804396BECAF4CE4B34691D"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\armas.Nbump.tga"
@@ -8550,6 +8576,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B5627AEF54560446665A71120C87A0DF"
+            {
+            "SourcePath" = "8:lua51.dll"
+            "TargetName" = "8:lua51.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B59160D85AC043579EADBC4D110C97F8"
@@ -8930,26 +8976,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BDB291E566593AA6607B8FF06A59BB56"
-            {
-            "SourcePath" = "8:fmodex.dll"
-            "TargetName" = "8:fmodex.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BE59EEDB85D246488FEB3920B8A3081E"
@@ -9452,6 +9478,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CE5D29DFB1E58B065B0CC2A99EED2095"
+            {
+            "SourcePath" = "8:luabind.dll"
+            "TargetName" = "8:luabind.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CE9121B1CFB14F228401AAB1E8736FB9"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\materials\\textures\\imageReduceDamage.png"
@@ -9550,6 +9596,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CFE543B54E336C8870E6E2967B4514C1"
+            {
+            "SourcePath" = "8:OIS.dll"
+            "TargetName" = "8:OIS.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D05BB4510D50487DBA556E0248656281"
@@ -10572,30 +10638,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E989392C874CC2CC523B411A817AA249"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E91B97FF7C8290C6FE5A11FDA58F1E6A"
             {
-            "SourcePath" = "8:NxCharacter.dll"
-            "TargetName" = "8:NxCharacter.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EAEE2DD8B20C254B1A5E3FD743548C03"
-            {
-            "SourcePath" = "8:OIS.dll"
-            "TargetName" = "8:OIS.dll"
+            "SourcePath" = "8:OgreMain.dll"
+            "TargetName" = "8:OgreMain.dll"
             "Tag" = "8:"
             "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
             "Condition" = "8:"
@@ -10692,6 +10738,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EDE5237DD2F9271C118ED4B2872B1A77"
+            {
+            "SourcePath" = "8:CEGUIOgreRenderer.dll"
+            "TargetName" = "8:CEGUIOgreRenderer.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EEE233C836AD488EBEA8B06368C2C5DF"
             {
             "SourcePath" = "8:..\\..\\Exes\\media\\models\\bioshock.mesh"
@@ -10730,6 +10796,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EF9A1D1A6C7B8A0813F55A3296526078"
+            {
+            "SourcePath" = "8:PhysXCooking.dll"
+            "TargetName" = "8:PhysXCooking.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EFCE7EAEBC5743B58BC60497ACC80729"
@@ -11212,26 +11298,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FFEC5918E663476FB07313A50B93C534"
-            {
-            "SourcePath" = "8:..\\..\\Exes\\RenderSystem_Direct3D11.dll"
-            "TargetName" = "8:RenderSystem_Direct3D11.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
         }
         "FileType"
         {
@@ -11509,7 +11575,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Damned Sunset"
         "ProductCode" = "8:{17EE46D1-51A1-4DA7-B053-916438869BFC}"
-        "PackageCode" = "8:{6D7E20BE-08A2-4255-95E2-A033241D435D}"
+        "PackageCode" = "8:{7FC866CE-CA78-469A-9B35-CC04A63C37C0}"
         "UpgradeCode" = "8:{D2E9DE31-198C-4F6F-9FC5-E6A29F9BBB16}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -11526,7 +11592,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_17673462FC95459AB7D1CEAE143F6ECA"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -11640,7 +11706,7 @@
             "Target" = "8:_EE5200B8AFA54FFC9210218C75AF6FE4"
             "Folder" = "8:_F8123DF2283D4E7D9462EB7302AB64D5"
             "WorkingFolder" = "8:_B5FD9E435D4A4120B13CDCB7388BB238"
-            "Icon" = "8:"
+            "Icon" = "8:_17673462FC95459AB7D1CEAE143F6ECA"
             "Feature" = "8:"
             }
         }
@@ -12039,20 +12105,6 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_CF9ED1417E9041E2929EF3D3E4188835"
-            {
-            "UseDynamicProperties" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:Microsoft_VC100_CRT_x86.msm"
-                "Properties"
-                {
-                }
-            "LanguageId" = "3:0"
-            "Exclude" = "11:FALSE"
-            "Folder" = "8:"
-            "Feature" = "8:"
-            "IsolateTo" = "8:"
-            }
         }
         "ProjectOutput"
         {
