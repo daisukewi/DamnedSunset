@@ -1,11 +1,18 @@
 function interfazTick(text)
 	--fpsWindow:setText(text)
 	
+	local textTime = ""
+	
 	if ((segundos <= 9) and (segundos >= 0)) then
-		winMgr:getWindow("Interfaz/ToSunsetText"):setText("0" .. minutos .. " : 0" .. segundos)
+		--winMgr:getWindow("Interfaz/ToSunsetText"):setText("0" .. minutos .. " : 0" .. segundos)
+		textTime = string.format("0%i : 0%1.0f", minutos, segundos)
 	else
-		winMgr:getWindow("Interfaz/ToSunsetText"):setText("0" .. minutos .. " : " .. segundos)
+		--winMgr:getWindow("Interfaz/ToSunsetText"):setText("0" .. minutos .. " : " .. segundos)
+		textTime = string.format("0%i : %2.0f", minutos, segundos)
+		
 	end
+	
+	winMgr:getWindow("Interfaz/ToSunsetText"):setText(textTime)
 	
 	segundos = segundos - (interfazDeltaTime / 1000)
 	
