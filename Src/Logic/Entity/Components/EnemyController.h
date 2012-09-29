@@ -105,6 +105,7 @@ namespace Logic
 		especificado.
 		*/
 		virtual void timeElapsed();
+		virtual unsigned int getThaId();
 
 		/**
 		Método heredado de la interfaz IDeathListener que será llamado

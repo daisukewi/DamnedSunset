@@ -144,7 +144,15 @@ namespace Logic
 			//Eliminamos la entidad en el siguiente tick
 			CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
 		}
+
 	} // timeElapsed
+
+	//---------------------------------------------------------
+
+	unsigned int CDetonadorGranadaEnvenenar::getThaId()
+	{
+		return _entity->getEntityID();
+	}
 
 } // namespace Logic
 

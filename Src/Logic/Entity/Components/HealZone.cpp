@@ -129,15 +129,18 @@ namespace Logic
 			message->removePtr();
 			
 			BaseSubsystems::CServer::getSingletonPtr()->addClockListener(1000, this);
-			
-
 		}else{
 			
 		}
-		
-		
 
 	} // timeElapsed
+
+	//---------------------------------------------------------
+
+	unsigned int CHealZone::getThaId()
+	{
+		return _entity->getEntityID();
+	}
 
 } // namespace Logic
 

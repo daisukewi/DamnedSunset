@@ -115,5 +115,12 @@ namespace Logic
 
 	} // timeElapsed
 
+	//---------------------------------------------------------
+
+	unsigned int CDetonadorBolaTeltr::getThaId()
+	{
+		return _entity->getEntityID();
+	}
+
 } // namespace Logic
 

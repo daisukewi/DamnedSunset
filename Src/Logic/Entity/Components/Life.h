@@ -71,6 +71,20 @@ namespace Logic
 		*/
 		virtual void process(IMessage *message);
 
+		/**
+		Método heredado de la interfaz IClockListener que será llamado
+		por el temporizador cuando se acabe el tiempo de espera
+		especificado.
+		*/
+		virtual void timeElapsed();
+
+		/**
+		Método heredado de la interfaz IClockListener que será llamado
+		por el temporizador cuando se acabe el tiempo de espera
+		especificado.
+		*/
+		virtual unsigned int getThaId();
+
 		void actualizarVidaInterfaz();
 		void actualizarVidaBillboard();
 
@@ -137,12 +151,6 @@ namespace Logic
 		*/
 		TListenersList _listeners;
 	private:
-		/**
-		Método heredado de la interfaz IClockListener que será llamado
-		por el temporizador cuando se acabe el tiempo de espera
-		especificado.
-		*/
-		virtual void timeElapsed();
 
 		/**
 		Indica si hay que llamar a una función de lua cuando esta entidad muera.

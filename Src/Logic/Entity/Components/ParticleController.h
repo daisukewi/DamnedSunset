@@ -115,7 +115,8 @@ namespace Logic
 		especificado.
 		*/
 		virtual void timeElapsed();
-		
+		virtual unsigned int getThaId();
+
 	private:
 
 		typedef std::list<Graphics::CParticleEffect*> TParticleList;

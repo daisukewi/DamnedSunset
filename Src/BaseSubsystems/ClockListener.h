@@ -42,6 +42,8 @@ namespace BaseSubsystems
 		*/
 		virtual void timeElapsed() = 0;
 
+		virtual unsigned int getThaId() = 0;
+
 	}; // IClockListener
 
 } // namespace BaseSubsystems

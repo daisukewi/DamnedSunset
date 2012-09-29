@@ -162,6 +162,11 @@ namespace Logic
 		}
 	}
 
+	unsigned int CDayNightController::getThaId()
+	{
+		return _entity->getEntityID();
+	}
+
 	//---------------------------------------------------------
 
 } // namespace Logic

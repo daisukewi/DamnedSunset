@@ -214,6 +214,13 @@ namespace Logic
 
 	//---------------------------------------------------------
 
+	unsigned int CEnemyController::getThaId()
+	{
+		return _entity->getEntityID();
+	}
+
+	//---------------------------------------------------------
+
 	void CEnemyController::entityDeath(CEntity* entity)
 	{
 		/* 

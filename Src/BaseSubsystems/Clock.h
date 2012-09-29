@@ -169,17 +169,14 @@ namespace BaseSubsystems
 		/**
 		Tipo Lista de oyentes del temporizador.
 		*/
-		typedef std::list<std::pair<int, IClockListener*>> TListenersList;
+		typedef std::pair<unsigned int, IClockListener*> TListenerRef;
+		typedef std::pair<int, TListenerRef> TListenerEntry;
+		typedef std::list<TListenerEntry> TListenersList;
 
 		/**
 		Lista de todos los oyentes del temporizador.
 		*/
 		TListenersList _listeners;
-
-		/**
-		Lista de oyentes a borrar en cada tick.
-		*/
-		TListenersList _deferredRemoveListenersList;
 
 	}; // IClock
 

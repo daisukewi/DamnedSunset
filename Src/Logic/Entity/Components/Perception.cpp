@@ -281,6 +281,11 @@ namespace Logic
 	} // timeElapsed
 
 	//---------------------------------------------------------
+
+	unsigned int CPerception::getThaId()
+	{
+		return _entity->getEntityID();
+	}
 	
 } // namespace Logic
 

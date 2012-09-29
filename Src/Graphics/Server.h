@@ -231,6 +231,13 @@ namespace Graphics
 		especificado.
 		*/
 		virtual void timeElapsed();
+		
+		/**
+		Método heredado de la interfaz IClockListener que será llamado
+		por el temporizador cuando se acabe el tiempo de espera
+		especificado.
+		*/
+		virtual unsigned int getThaId();
 
 	protected:
 		

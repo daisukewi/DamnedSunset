@@ -130,8 +130,16 @@ namespace Logic
 		}else{
 			//Eliminamos la entidad en el siguiente tick
 			CEntityFactory::getSingletonPtr()->deferredDeleteEntity(_entity);
-		}	
+		}
+
 	} // timeElapsed
+
+	//---------------------------------------------------------
+
+	unsigned int CDetonadorGranadaAturdir::getThaId()
+	{
+		return _entity->getEntityID();
+	}
 
 } // namespace Logic
 

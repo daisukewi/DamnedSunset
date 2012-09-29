@@ -161,10 +161,15 @@ namespace Logic
 		}else{
 			_auxReduceTime = _reduceTime;
 		}
-		
-		
 
 	} // timeElapsed
+
+	//---------------------------------------------------------
+
+	unsigned int CReduceDamage::getThaId()
+	{
+		return _entity->getEntityID();
+	}
 
 } // namespace Logic
 

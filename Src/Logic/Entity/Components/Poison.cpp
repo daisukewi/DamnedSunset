@@ -136,5 +136,12 @@ namespace Logic
 		}
 	} // timeElapsed
 
+	//---------------------------------------------------------
+
+	unsigned int CPoison::getThaId()
+	{
+		return _entity->getEntityID();
+	}
+
 } // namespace Logic
 

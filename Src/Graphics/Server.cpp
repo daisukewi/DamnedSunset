@@ -20,7 +20,6 @@ la ventana, etc.
 #include "BaseSubsystems/Server.h"
 #include "BaseSubsystems/Math.h"
 
-
 #include "Graphics\Scene.h"
 #include "Graphics\Camera.h"
 
@@ -289,6 +288,11 @@ namespace Graphics
 		_particleToDelete++;
 		if (_particleToDelete >= _numParticles)
 			_particleToDelete = 0;
+	}
+
+	unsigned int CServer::getThaId()
+	{
+		return 0;
 	}
 
 	void CServer::createSquare(float &point1, float &point2, float &point3, float &point4){

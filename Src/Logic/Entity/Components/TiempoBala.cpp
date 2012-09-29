@@ -72,7 +72,7 @@ namespace Logic
 		}
 	} // process
 
-
+	//---------------------------------------------------------
 
 	void CTiempoBala::timeElapsed()
 	{
@@ -89,7 +89,15 @@ namespace Logic
 		}
 		delete _entitiesID;
 		_entitiesID = NULL;
+
 	} // timeElapsed
+
+	//---------------------------------------------------------
+
+	unsigned int CTiempoBala::getThaId()
+	{
+		return _entity->getEntityID();
+	}
 
 } // namespace Logic
 

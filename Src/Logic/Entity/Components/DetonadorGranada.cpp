@@ -84,10 +84,16 @@ namespace Logic
 			if ( _entity->getPosition().y < 0 ) {
 				_entity->setPosition( Vector3(_entity->getPosition().x, 0 , _entity->getPosition().z) );
 			}
-
-
 	}
 
+	//---------------------------------------------------------
+
+	unsigned int CDetonadorGranada::getThaId()
+	{
+		return _entity->getEntityID();
+	}
+
+	//---------------------------------------------------------
 
 	void CDetonadorGranada::timeElapsed()
 	{

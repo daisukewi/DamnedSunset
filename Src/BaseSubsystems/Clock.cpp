@@ -15,10 +15,13 @@ Contiene la implementación de un interfaz para un temporizador.
 
 #include "Clock.h"
 #include <cassert>
+#include "Logic/Server.h"
+#include "Logic/Maps/Map.h"
 
 namespace BaseSubsystems {
 
-	void IClock::updateTime() {
+	void IClock::updateTime()
+	{
 		unsigned long newTime = getPhysicalTime();
 		_lastRealFrameDuration = newTime - _lastTime;
 		_lastFrameDuration =  _lastRealFrameDuration / _factorRalentizar;
@@ -26,8 +29,8 @@ namespace BaseSubsystems {
 
 		//Para que el tiempo no pueda ser mayor de uno, suele darse cuando ponemos un punto de interrupcion, y da resultados raros, asi lo evitamos
 		//Si el tick dura mas de medio segundo, lo fijamos en medio segundo
-		assert((_lastFrameDuration = _lastFrameDuration>500?500:_lastFrameDuration) || true);
-		assert((_lastRealFrameDuration = _lastRealFrameDuration>500?500:_lastRealFrameDuration) || true);
+		assert((_lastFrameDuration = _lastFrameDuration > 500 ? 500 : _lastFrameDuration) || true);
+		assert((_lastRealFrameDuration = _lastRealFrameDuration > 500 ? 500 : _lastRealFrameDuration) || true);
 
 		notifyListeners();
 
@@ -37,7 +40,8 @@ namespace BaseSubsystems {
 
 	void IClock::addListener(int clock, IClockListener* listener)
 	{
-		_listeners.push_front(std::pair<int, IClockListener*> (clock, listener));
+		unsigned int thaid = listener->getThaId();
+		_listeners.push_front(TListenerEntry (clock, TListenerRef (thaid, listener)));
 
 	} // addListener
 
@@ -49,7 +53,7 @@ namespace BaseSubsystems {
 		it = _listeners.begin();
 		end = _listeners.end();
 
-		for (; it != end; it++)
+		while (it != end)
 		{
 			// Actualizo el cronómetro del listener con el tiempo transcurrido.
 			it->first -= _lastFrameDuration;
@@ -57,27 +61,23 @@ namespace BaseSubsystems {
 			// Si el cronómetro ha llegado a cero o menos, notifico al listener y lo anoto para borrarlo de la lista.
 			if (it->first <= 0)
 			{
-				try
+				unsigned int tha_id = it->second.first;
+				if (tha_id == 0 || Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(tha_id) != NULL)
 				{
-					it->second->timeElapsed();
-					_deferredRemoveListenersList.push_front(*it);
+					try
+					{
+						it->second.second->timeElapsed();
+					}
+					catch (std::exception* e)
+					{
+						
+					}
 				}
-				catch (char *str)
-				{
-				}
+				_listeners.remove(*it++);
 			}
+			else
+				++it;
 		}
-
-		// Borro los que he dejado pendientes de borrar
-		it = _deferredRemoveListenersList.begin();
-		end = _deferredRemoveListenersList.end();
-
-		for (; it != end; it++)
-		{
-			_listeners.remove(*it);
-		}
-
-		_deferredRemoveListenersList.clear();
 
 	} // notifyListeners
 

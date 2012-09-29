@@ -103,6 +103,7 @@ namespace Logic
 		especificado.
 		*/
 		virtual void timeElapsed();
+		virtual unsigned int getThaId();
 
 	protected:
 

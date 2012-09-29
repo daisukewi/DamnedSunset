@@ -450,6 +450,13 @@ namespace Logic
 
 	//---------------------------------------------------------
 
+	unsigned int CLife::getThaId()
+	{
+		return _entity->getEntityID();
+	}
+
+	//---------------------------------------------------------
+
 	void CLife::actualizarVidaBillboard()
 	{
 		float porcentajeVida = _life/_maxLife;

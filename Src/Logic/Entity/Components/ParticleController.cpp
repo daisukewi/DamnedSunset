@@ -112,6 +112,13 @@ namespace Logic
 		Graphics::CParticleEffect *aux = _particleList.front();
 		_particleList.pop_front();
 		delete aux;
-	
 	}
+
+	//---------------------------------------------------------
+
+	unsigned int CParticleController::getThaId()
+	{
+		return _entity->getEntityID();
+	}
+
 } // namespace Logic
