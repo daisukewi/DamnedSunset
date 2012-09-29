@@ -3,8 +3,9 @@ function inicializarInterfaz()
 	persSelect = 1
 	--fpsWindow = 0
 	textWindow = 0
-	horas = 21
-	minutos = 00
+	-- HACK - Inicializo de forma super guarra la cantidad de tiempo a mostrar durante el transcurso de la noche. Lo suyo sería que se leyera del arquetipos.
+	minutos = 2
+	segundos = 2
 
 	if (winMgr) then
 		print("WARNING - inicializarInterfaz - Interfaz ya inicializada")

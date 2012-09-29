@@ -1,19 +1,17 @@
 function interfazTick(text)
 	--fpsWindow:setText(text)
-	minutos = minutos + 1
-
-	if minutos <= 9 and minutos >= 0 then
-		winMgr:getWindow("Interfaz/ToSunsetText"):setText(horas .. " : 0" .. minutos)
+	
+	if ((segundos <= 9) and (segundos >= 0)) then
+		winMgr:getWindow("Interfaz/ToSunsetText"):setText("0" .. minutos .. " : 0" .. segundos)
 	else
-		winMgr:getWindow("Interfaz/ToSunsetText"):setText(horas .. " : " .. minutos)
+		winMgr:getWindow("Interfaz/ToSunsetText"):setText("0" .. minutos .. " : " .. segundos)
 	end
-
-	if minutos == 59 then
-		horas = horas + 1
-		minutos = -1
-		if horas == 24 then
-			horas = 00
-		end
+	
+	segundos = segundos - (interfazDeltaTime / 1000)
+	
+	if (segundos <= 0) then
+		minutos = minutos - 1
+		segundos = 59
 	end
 
 	winMgr:getWindow("Interfaz/Recursos"):setText("Solenium: " .. god.solenium)

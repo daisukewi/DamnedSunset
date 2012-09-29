@@ -125,6 +125,7 @@ namespace GUI {
 			text << "\"FPS: " << (_nFrames*1000)/_time << "\"";
 			//_fpsWindow->setText(text.str());
 			std::stringstream script;
+			script << "interfazDeltaTime = " << _time << " ";
 			script << "interfazTick" << "(" << text.str() << ")";
 			ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 
