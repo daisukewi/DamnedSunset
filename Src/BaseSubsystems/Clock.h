@@ -178,6 +178,8 @@ namespace BaseSubsystems
 		*/
 		TListenersList _listeners;
 
+		unsigned int _currentTime;
+
 	}; // IClock
 
 } // namespace BaseSubsystems

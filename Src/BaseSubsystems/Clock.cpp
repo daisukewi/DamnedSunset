@@ -32,6 +32,7 @@ namespace BaseSubsystems {
 		assert((_lastFrameDuration = _lastFrameDuration > 500 ? 500 : _lastFrameDuration) || true);
 		assert((_lastRealFrameDuration = _lastRealFrameDuration > 500 ? 500 : _lastRealFrameDuration) || true);
 
+		_currentTime += _lastFrameDuration;
 		notifyListeners();
 
 	} // updateTime
@@ -40,9 +41,25 @@ namespace BaseSubsystems {
 
 	void IClock::addListener(int clock, IClockListener* listener)
 	{
-		unsigned int thaid = listener->getThaId();
-		_listeners.push_front(TListenerEntry (clock, TListenerRef (thaid, listener)));
+		unsigned int tha_id = listener->getThaId();
+		unsigned int his_time = _currentTime + clock; // Calculamos el momento cuando se debe avisar
+		TListenerEntry tha_element(his_time, TListenerRef (tha_id, listener));
 
+		if (_listeners.empty())
+			_listeners.push_front(tha_element);
+		else
+		{
+			// Insertamos el listener en la cola ordenada.
+			TListenersList::iterator it = _listeners.begin();
+			while (it != _listeners.end() && it->first <= his_time)
+				++it;
+
+			if (it == _listeners.end())
+				_listeners.push_back(tha_element);
+			else
+				_listeners.insert(it, tha_element);
+		}
+		
 	} // addListener
 
 	//--------------------------------------------------------
@@ -53,30 +70,23 @@ namespace BaseSubsystems {
 		it = _listeners.begin();
 		end = _listeners.end();
 
-		while (it != end)
+		// Avisamos a los que tengamos primeros en la cola
+		// que ya haya pasado su tiempo
+		while (it != end && it->first <= _currentTime)
 		{
-			// Actualizo el cronómetro del listener con el tiempo transcurrido.
-			it->first -= _lastFrameDuration;
-
-			// Si el cronómetro ha llegado a cero o menos, notifico al listener y lo anoto para borrarlo de la lista.
-			if (it->first <= 0)
+			unsigned int tha_id = it->second.first;
+			if (tha_id == 0 || Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(tha_id) != NULL)
 			{
-				unsigned int tha_id = it->second.first;
-				if (tha_id == 0 || Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(tha_id) != NULL)
+				try
 				{
-					try
-					{
-						it->second.second->timeElapsed();
-					}
-					catch (std::exception* e)
-					{
-						
-					}
+					it->second.second->timeElapsed();
 				}
-				_listeners.remove(*it++);
+				catch (std::exception* e)
+				{
+						
+				}
 			}
-			else
-				++it;
+			_listeners.remove(*it++);
 		}
 
 	} // notifyListeners
