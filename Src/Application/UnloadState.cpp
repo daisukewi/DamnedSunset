@@ -105,7 +105,7 @@ namespace Application {
 		CApplicationState::tick(msecs);
 
 		//Después de descargar la escena, volver al menú
-		_app->setState("credits");
+		_app->setState("menu");
 
 	} // tick
 

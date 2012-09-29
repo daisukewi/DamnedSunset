@@ -26,7 +26,7 @@ Contiene la implementación del estado de menú.
 
 namespace Application {
 
-	CMenuState::~CMenuState() 
+	CMenuState::~CMenuState()
 	{
 	} // ~CMenuState
 
@@ -133,7 +133,7 @@ namespace Application {
 	} // mouseMoved
 
 	//--------------------------------------------------------
-		
+	
 	bool CMenuState::mousePressed(const GUI::CMouseState &mouseState)
 	{
 		return false;
@@ -142,13 +142,12 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-
 	bool CMenuState::mouseReleased(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
 	} // mouseReleased
-			
+	
 	//--------------------------------------------------------
 		
 	bool CMenuState::startReleased(const CEGUI::EventArgs& e)
@@ -159,12 +158,12 @@ namespace Application {
 		return true;
 
 	} // startReleased
-			
+	
 	//--------------------------------------------------------
 
 	bool CMenuState::exitReleased(const CEGUI::EventArgs& e)
 	{
-		_app->setState("credits");
+		_app->exitRequest();
 		return true;
 
 	} // exitReleased
