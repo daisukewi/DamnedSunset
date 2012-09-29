@@ -9,6 +9,7 @@ Contiene la implementación del componente que controla la percepción de los enem
 
 #include "Perception.h"
 
+#include "Logic/Server.h"
 #include "Logic/Entity/Entity.h"
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
@@ -108,46 +109,44 @@ namespace Logic
 		if (!message->getType().compare("MIsTouched"))
 		{
 			MIsTouched *m = static_cast <MIsTouched*> (message);
-			if (m->getTouched())
+			CEntity *ent = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(m->getEntityID());
+			if (ent)
 			{
-				if (!m->getEntity()->getTag().compare("Player"))
+				if (m->getTouched())
 				{
-					std::stringstream script;
-					script << "enemyEventParam = { target = " << m->getEntity()->getEntityID() << " } ";
-					script << "enemyEvent(\"OnPlayerSeen\", " << _entity->getEntityID() << ")";
-					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-				}
-
-				if (!m->getEntity()->getTag().compare("playerBuilding"))
-				{
-					std::stringstream script;
-					script << "enemyEventParam = { target = " << m->getEntity()->getEntityID() << " } ";
-					script << "enemyEvent(\"OnBuildingSeen\", " << _entity->getEntityID() << ")";
-					ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
-				}
-			}
-			else
-			{
-				try
-				{
-					if (!m->getEntity()->getTag().compare("Player"))
+					if (!ent->getTag().compare("Player"))
 					{
 						std::stringstream script;
-						script << "enemyEventParam = { target = " << m->getEntity()->getEntityID() << " } ";
+						script << "enemyEventParam = { target = " << m->getEntityID() << " } ";
+						script << "enemyEvent(\"OnPlayerSeen\", " << _entity->getEntityID() << ")";
+						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+					}
+
+					if (!ent->getTag().compare("playerBuilding"))
+					{
+						std::stringstream script;
+						script << "enemyEventParam = { target = " << m->getEntityID() << " } ";
+						script << "enemyEvent(\"OnBuildingSeen\", " << _entity->getEntityID() << ")";
+						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
+					}
+				}
+				else
+				{
+					if (!ent->getTag().compare("Player"))
+					{
+						std::stringstream script;
+						script << "enemyEventParam = { target = " << m->getEntityID() << " } ";
 						script << "enemyEvent(\"OnPlayerLost\", " << _entity->getEntityID() << ")";
 						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 					}
 
-					if (!m->getEntity()->getTag().compare("playerBuilding"))
+					if (!ent->getTag().compare("playerBuilding"))
 					{
 						std::stringstream script;
-						script << "enemyEventParam = { target = " << m->getEntity()->getEntityID() << " } ";
+						script << "enemyEventParam = { target = " << m->getEntityID() << " } ";
 						script << "enemyEvent(\"OnBuildingLost\", " << _entity->getEntityID() << ")";
 						ScriptManager::CServer::getSingletonPtr()->executeScript(script.str().c_str());
 					}
-				}
-				catch (char *str)
-				{
 				}
 			}
 		}else if(!message->getType().compare("MIASleep")){

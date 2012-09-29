@@ -13,6 +13,7 @@ entidad es tocada. El mensaje se envía a la entidad que se ha tocado.
 
 #include "DamageTrigger.h"
 
+#include "Logic/Server.h"
 #include "Logic/Entity/Entity.h"
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
@@ -56,10 +57,14 @@ namespace Logic
 
 			if (m->getTouched())
 			{
-				MDamaged *m2 = new MDamaged();
-				m2->setHurt(_damage);
-				m2->setKiller(_entity);
-				m->getEntity()->emitMessage(m2);
+				CEntity *ent = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(m->getEntityID());
+				if (ent)
+				{
+					MDamaged *m2 = new MDamaged();
+					m2->setHurt(_damage);
+					m2->setKiller(_entity);
+					ent->emitMessage(m2);
+				}
 			}
 		}
 

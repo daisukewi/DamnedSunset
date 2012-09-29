@@ -76,7 +76,7 @@ namespace Logic
 	{
 		if (!message->getType().compare("MIsTouched")){
 				MIsTouched *m = static_cast <MIsTouched*> (message);
-				Logic::CEntity *ent = m->getEntity();
+				CEntity *ent = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(m->getEntityID());
 				//Si el trigger lo ha activado un enemigo
 				if (!ent->getType().compare("Enemy")){
 

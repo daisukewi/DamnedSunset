@@ -81,39 +81,38 @@ namespace Logic
 		if (!message->getType().compare("MIsTouched"))
 		{
 			MIsTouched *m = static_cast <MIsTouched*> (message);
-
-			if (m->getTouched() && !m->getEntity()->getType().compare("Enemy"))
+			CEntity *ent = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(m->getEntityID());
+			if (ent)
 			{
-				_enemiesID.push_back(m->getEntity()->getEntityID());
-				if (!_attacking)
+				if (m->getTouched() && !ent->getType().compare("Enemy"))
 				{
-					//Si no estaba atacando, ponemos para que dispare al siguiente tick y ponemos la animacion
-					_attacking = true;
-					MSetAnimation *m_anim = new MSetAnimation();
-					m_anim->setAnimationName("torreta");
-					m_anim->setLoop(true);
-					_entity->emitMessage(m_anim);
+					_enemiesID.push_back(m->getEntityID());
+					if (!_attacking)
+					{
+						//Si no estaba atacando, ponemos para que dispare al siguiente tick y ponemos la animacion
+						_attacking = true;
+						MSetAnimation *m_anim = new MSetAnimation();
+						m_anim->setAnimationName("torreta");
+						m_anim->setLoop(true);
+						_entity->emitMessage(m_anim);
+					}
 				}
-				/*
-				// Orientamos la torreta hacia el enemigo al que dispara
-				float yaw = atan((_enemy->getPosition().x - _entity->getPosition().x) / (_enemy->getPosition().z - _entity->getPosition().z));
-				if ((_enemy->getPosition().z - _entity->getPosition().z) >= 0)
-					yaw += Math::PI;
-				_entity->setYaw(yaw);
-				*/
+				else if (!m->getTouched())
+				{
+					_enemiesID.remove(m->getEntityID());
+					_attacking = !(_enemiesID.empty());
 
+					if (!_attacking)
+					{
+						MStopAnimation *m_stop = new MStopAnimation();
+						m_stop->setAnimationName("torreta");
+						_entity->emitMessage(m_stop);
+					}
+				}
 			}
-			else if (!m->getTouched())
+			else
 			{
-				_enemiesID.remove(m->getEntity()->getEntityID());
-				_attacking = !(_enemiesID.empty());
-
-				if (!_attacking)
-				{
-					MStopAnimation *m_stop = new MStopAnimation();
-					m_stop->setAnimationName("torreta");
-					_entity->emitMessage(m_stop);
-				}
+				std::cout << "\n ENEMIGO HA MUERTO \n";
 			}
 		}
 		/*

@@ -39,19 +39,20 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void MIsTouched::setEntity(CEntity *entity)
-	{
-		_entity = entity;
 
-	} // setEntity
+	void MIsTouched::setEntityID(unsigned int entityID)
+	{
+		_entityID = entityID;
+
+	} // setEntityID
 
 	//---------------------------------------------------------
 
-	CEntity* MIsTouched::getEntity()
+	unsigned int MIsTouched::getEntityID()
 	{
-		return _entity;
+		return _entityID;
 	
-	} // getEntity
+	} // getEntityID
 
 	//---------------------------------------------------------
 

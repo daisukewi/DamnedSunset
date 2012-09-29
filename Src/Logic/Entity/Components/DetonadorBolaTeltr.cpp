@@ -3,6 +3,7 @@
 #include "Logic/Server.h"
 #include "BaseSubsystems/Server.h"
 #include "Logic/Maps/EntityFactory.h"
+#include "Logic/Maps/Map.h"
 
 #include "Map/MapEntity.h"
 
@@ -54,12 +55,16 @@ namespace Logic
 		if (!message->getType().compare("MIsTouched"))
 		{
 			MIsTouched *m = static_cast <MIsTouched*> (message);
-			if (m->getTouched() && !m->getEntity()->getType().compare("Enemy"))
+			CEntity *ent = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(m->getEntityID());
+			if (ent)
 			{
-				_entidades.push_back(m->getEntity());
-			} else if (!m->getTouched())
-			{
-				_entidades.remove(m->getEntity());
+				if (m->getTouched() && !ent->getType().compare("Enemy"))
+				{
+					_entidades.push_back(ent);
+				} else if (!m->getTouched())
+				{
+					_entidades.remove(ent);
+				}
 			}
 		}
 	} // process

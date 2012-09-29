@@ -143,8 +143,7 @@ namespace Logic
 		{
 			m->setTouched(false);
 		}
-
-		m->setEntity(const_cast<CEntity *> (otherEntity));
+		m->setEntityID(otherEntity->getEntityID());
 
 		_entity->emitMessage(m);
 	}

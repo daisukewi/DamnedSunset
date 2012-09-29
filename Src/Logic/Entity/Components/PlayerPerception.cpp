@@ -72,29 +72,26 @@ namespace Logic
 
 	void CPlayerPerception::process(IMessage *message)
 	{
-		if (!message->getType().compare("MIsTouched")){
-			try
-			{
-				MIsTouched *m = static_cast <MIsTouched*> (message);
-				Logic::CEntity *ent = m->getEntity();
+		if (!message->getType().compare("MIsTouched"))
+		{
+			MIsTouched *m = static_cast <MIsTouched*> (message);
+			CEntity *ent = Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(m->getEntityID());
+			if (ent)
+				{
 				//Si el trigger lo ha activado un enemigo
-				if (!ent->getType().compare("Enemy")){
-
+				if (!ent->getType().compare("Enemy"))
+				{
 					//si ha entrado se añade a la lista de enemigos detntro del trigger
-					if (m->getTouched()){
+					if (m->getTouched())
+					{
 						_enemyEntities.push_back(ent->getEntityID());
 						std::cout << "\n ENEMIGO HA ENTRADO \n";
-
-
-					
 					//Si ha salido, eliminar de la lista y avisar a LUA(si está deseleccionado la entidad) de que lo ha dejado de ver
 					}else{
 						std::cout << "\n ENEMIGO HA SALIDO \n";
-
 						std::stringstream script;
 						script << "playerEventParam = { target = " << ent->getEntityID() << ", distance = " << 0 << " } ";
-							
-
+						
 						//if(true){
 						if (!_entity->getSelected()){	
 							script << "playerEvent(\"OnEnemyLost\", " << _entity->getEntityID() << ")";
@@ -114,10 +111,11 @@ namespace Logic
 						_enemyTriggerOut.push_back(ent->getEntityID());	
 					}
 				}
-			}
-			catch (char *str)
-			{
-			}
+				}
+				else
+				{
+					std::cout << "\n ENEMIGO HA MUERTO \n";
+				}
 		}
 	} // process
 

@@ -50,18 +50,18 @@ namespace Logic
 		bool getTouched();
 
 		/**
-		Método que establece la entidad a la que hay que avisar.
+		Método que establece el ID de la entidad en el mensaje.
 
-		@param entity Entidad a guardar en el mensaje.
+		@param entityID int a almacenar en el mensaje.
 		*/
-		void setEntity(CEntity *entity);
+		void setEntityID(unsigned int entityID);
 
 		/**
-		Método que devuelve la entidad almacenada en el mensaje.
+		Método que devuelve el ID de la entidad almacenada en el mensaje.
 
-		@return Entidad guardada en el mensaje.
+		@return ID alamacenado en el mensaje.
 		*/
-		CEntity* getEntity();
+		unsigned int getEntityID();
 
 	protected:
 
@@ -71,9 +71,9 @@ namespace Logic
 		bool _touched;
 
 		/**
-		Entidad a la que hay que avisar del mensaje.
+		ID de la entidad a la que hay que avisar del mensaje.
 		*/
-		CEntity *_entity;
+		unsigned int _entityID;
 
 	}; // class MIsTouched
 
