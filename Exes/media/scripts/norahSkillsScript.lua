@@ -71,8 +71,8 @@ end
 -- La habilidad de confusión es de tipo INMEDIATO
 
 function norahEnemigosContraEnemigos()
-	-- Miro si la habilidad está en cooldown, si lo está no hago nada.
-	if (players[god.playersSelected[1]].currentSkillsCooldown[2] <= 0) then
+	-- Miro si la habilidad está en cooldown y si el personaje está muerto, si lo está no hago nada.
+	if ((players[god.playersSelected[1]].currentSkillsCooldown[2] <= 0) and (players[god.playersSelected[1]].life > 0)) then
 		--Aunque no es de tipo inmediato, de momento hago como si lo fuese y afecta a los de alrededor de ella
 		enemigosContraEnemigos(god.playersSelected[1])
 		
@@ -116,8 +116,8 @@ end
 -- La habilidad de curación de masas es de tipo INMEDIATO
 
 function norahHealZone()
-	-- Miro si la habilidad está en cooldown, si lo está no hago nada.
-	if (players[god.playersSelected[1]].currentSkillsCooldown[4] <= 0) then
+	-- Miro si la habilidad está en cooldown y si el personaje está muerto, si lo está no hago nada.
+	if ((players[god.playersSelected[1]].currentSkillsCooldown[4] <= 0) and (players[god.playersSelected[1]].life > 0)) then
 		-- HACK: pongo la cantidad de curación que hago con la curación de masas aquí directamente. Es una guarrada superlativa pero no hay tiempo para otra cosa.
 		activateMassHeal(god.playersSelected[1], 500)
 		

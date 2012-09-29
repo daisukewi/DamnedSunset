@@ -132,8 +132,8 @@ end
 -- La habilidad de bullet time es de tipo INMEDIATO
 
 function bulletTime()
-	-- Miro si la habilidad está en cooldown, si lo está no hago nada.
-	if (players[god.playersSelected[1]].currentSkillsCooldown[4] <= 0) then
+	-- Miro si la habilidad está en cooldown y si el personaje está muerto, si lo está no hago nada.
+	if ((players[god.playersSelected[1]].currentSkillsCooldown[4] <= 0) and (players[god.playersSelected[1]].life > 0)) then
 		activateBulletTime(god.playersSelected[1])
 
 		-- Activo el cooldown de la habilidad

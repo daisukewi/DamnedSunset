@@ -81,8 +81,8 @@ function godSelectedStateEvent(event)
 		nextState = 2
 	-- Evento de click en una habilidad del personaje seleccionado.
 	elseif (event == "OnSkillClick") then
-		-- Si el cooldown de la habilidad es cero o menos la hago.
-		if (players[god.playersSelected[1]].currentSkillsCooldown[skillParameters.skill] <= 0) then
+		-- Si el cooldown de la habilidad es cero o menos y el personaje esta vivo la hago.
+		if ((players[god.playersSelected[1]].currentSkillsCooldown[skillParameters.skill] <= 0) and (players[god.playersSelected[1]].life > 0)) then
 			-- Empiezo la habilidad.
 			god.startSkillFunction()
 
@@ -96,7 +96,7 @@ function godSelectedStateEvent(event)
 			-- Paso al estado de gestión de la habilidad.
 			nextState = 3
 		else
-			-- En el caso de que la habiliad esté todavía en tiempo de cooldown me quedo en el estado actual sin hacer nada.
+			-- En el caso de que la habiliad esté todavía en tiempo de cooldown o el personaje esté muerto me quedo en el estado actual sin hacer nada.
 			nextState = 2
 		end
 	-- Evento de teclado

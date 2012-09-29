@@ -352,33 +352,37 @@ namespace Logic
 			
 		} else if (!message->getType().compare("MHealed"))
 		{
-			MHealed *mh = static_cast <MHealed*> (message);
-			// Aumentar la vida de la entidad
-			_life += mh->getHeal();
-
-			// Si la entidad se ha curado del todo paramos
-			if (_life >= _maxLife)
+			// Los mensajes de curación solo deberían afectar si la entidad no está muerta.
+			if (!_death) 
 			{
-				_life = _maxLife;
-				MCureEntity *m = new MCureEntity();
-				m->setCure(false);
-				mh->getHealer()->emitMessage(m, this);
+				MHealed *mh = static_cast <MHealed*> (message);
+				// Aumentar la vida de la entidad
+				_life += mh->getHeal();
+
+				// Si la entidad se ha curado del todo paramos
+				if (_life >= _maxLife)
+				{
+					_life = _maxLife;
+					MCureEntity *m = new MCureEntity();
+					m->setCure(false);
+					mh->getHealer()->emitMessage(m, this);
+				}
+
+				//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
+				MParticleEffect *rc_message = new MParticleEffect();
+				rc_message->setPoint(_entity->getPosition());
+				rc_message->setEffect(_lifeCureEffect);
+				_entity->emitMessage(rc_message,this);
+
+				//Sonido
+				MSoundEffect *m_sound = new MSoundEffect();
+				m_sound->setSoundEffect(_lifeCureSound);
+				_entity->emitMessage(m_sound);
+
+				//Actualizamos la barra de vida
+				actualizarVidaBillboard();
+				actualizarVidaInterfaz();
 			}
-
-			//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
-			MParticleEffect *rc_message = new MParticleEffect();
-			rc_message->setPoint(_entity->getPosition());
-			rc_message->setEffect(_lifeCureEffect);
-			_entity->emitMessage(rc_message,this);
-
-			//Sonido
-			MSoundEffect *m_sound = new MSoundEffect();
-			m_sound->setSoundEffect(_lifeCureSound);
-			_entity->emitMessage(m_sound);
-
-			//Actualizamos la barra de vida
-			actualizarVidaBillboard();
-			actualizarVidaInterfaz();
 		}else if (!message->getType().compare("MAturdido"))
 		{
 			MAturdido *m = static_cast <MAturdido*> (message);
