@@ -583,10 +583,10 @@ Archetype = {
 		radioDisparoPotente = 100,
 		damageDisparoPotente = 300,
 
-		angleLanzallamas = 30,
+		angleLanzallamas = 60,
 		radioLanzallamas = 80,
 		damageLanzallamas = 100,
-		timeLanzallamas = 1500,
+		timeLanzallamas = 5000,
 		frecDamageLlamas = 500,
 		
 		lanzadorLlamasEffect = "FlameThrower",
