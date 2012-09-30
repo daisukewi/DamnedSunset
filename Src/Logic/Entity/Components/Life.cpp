@@ -347,8 +347,8 @@ namespace Logic
 
 			if (m->getAdd())
 				addListener(m->getListener());
-			else
-				removeListener(m->getListener());
+			//else
+			//	removeListener(m->getListener());
 			
 		} else if (!message->getType().compare("MHealed"))
 		{
