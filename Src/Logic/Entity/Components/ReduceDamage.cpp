@@ -180,7 +180,7 @@ namespace Logic
 
 			message2->addPtr();
 			
-			if (ent1){{
+			if (ent1){
 			float difX = ent1->getPosition().x - _entity->getPosition().x;
 			float difZ = ent1->getPosition().z - _entity->getPosition().z;
 
