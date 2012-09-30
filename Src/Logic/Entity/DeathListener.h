@@ -48,6 +48,8 @@ namespace Logic
 		*/
 		virtual void entityDeath(CEntity* entity) = 0;
 
+		virtual unsigned int getDeathID() = 0;
+
 	}; // IDeathListener
 
 } // namespace Logic

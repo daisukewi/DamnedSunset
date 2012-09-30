@@ -179,5 +179,12 @@ namespace Logic
 
 	} // entityDeath
 
+	//---------------------------------------------------------
+
+	unsigned int CAttack::getDeathID()
+	{
+		return _entity->getEntityID();
+	} // getDeathID
+
 } // namespace Logic
 

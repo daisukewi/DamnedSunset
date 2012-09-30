@@ -144,12 +144,14 @@ namespace Logic
 		/**
 		Tipo Lista de oyentes de la muerte de la entidad.
 		*/
-		typedef std::list<IDeathListener*> TListenersList;
+		typedef std::pair<unsigned int, IDeathListener*> TListenerRef;
+		typedef std::list<TListenerRef> TListenersList;
 
 		/**
 		Lista de todos los oyentes de la muerte de la entidad.
 		*/
 		TListenersList _listeners;
+
 	private:
 
 		/**

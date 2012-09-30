@@ -94,6 +94,7 @@ namespace Logic
 		cuando la entidad muera.
 		*/
 		virtual void entityDeath(CEntity* entity);
+		virtual unsigned int getDeathID();
 
 	protected:
 

@@ -412,7 +412,8 @@ namespace Logic
 
 	void CLife::addListener(IDeathListener* listener)
 	{
-		_listeners.push_back(listener);
+		TListenerRef id_listener(listener->getDeathID(), listener);
+		_listeners.push_back(id_listener);
 	
 	} // addListener
 
@@ -420,7 +421,8 @@ namespace Logic
 
 	void CLife::removeListener(IDeathListener* listener)
 	{
-		_listeners.remove(listener);
+		TListenerRef id_listener(listener->getDeathID(), listener);
+		_listeners.remove(id_listener);
 
 	} // removeListener
 
@@ -433,8 +435,17 @@ namespace Logic
 		end = _listeners.end();
 
 		for (; it != end; it++)
-			if ((*it) != NULL)
-				(*it)->entityDeath(_entity);
+		{
+			unsigned int tha_id = it->first;
+			if (tha_id == 0 || Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(tha_id) != NULL)
+			{
+				it->second->entityDeath(_entity);
+			}
+			else
+			{
+				std::cout << "\n ENEMIGO HA MUERTO \n";
+			}
+		}
 
 		_listeners.clear();
 		

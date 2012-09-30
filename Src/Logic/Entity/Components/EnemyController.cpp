@@ -231,5 +231,13 @@ namespace Logic
 
 	} // entityDeath
 
+	//---------------------------------------------------------
+
+	unsigned int CEnemyController::getDeathID()
+	{
+		return _entity->getEntityID();
+
+	} // getDeathID
+
 } // namespace Logic
 
