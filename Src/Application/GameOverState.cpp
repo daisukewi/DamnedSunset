@@ -16,6 +16,9 @@ Contiene la implementación del estado de game over.
 
 #include "GameOverState.h"
 
+#include "BaseSubsystems/Server.h"
+#include "BaseSubsystems/Clock.h"
+
 #include "Logic/Server.h"
 #include "Logic/Maps/EntityFactory.h"
 #include "Logic/Maps/Map.h"
@@ -83,6 +86,8 @@ namespace Application {
 
 	void CGameOverState::deactivate() 
 	{
+		BaseSubsystems::CServer::getSingletonPtr()->clearClockListeners();
+
 		// Desactivamos la ventana de interfaz
 		GUI::CServer::getSingletonPtr()->getInterfazController()->deactivate();
 
