@@ -112,7 +112,7 @@ namespace Logic
 	{
 		if (!message->getType().compare("MKeyboardEvent")){
 			//IMPORTANTE Habrá que pensar donde se van a detectar las teclas
-			MKeyboardEvent* m = static_cast <MKeyboardEvent*> (message);	
+			MKeyboardEvent* m = static_cast <MKeyboardEvent*> (message);
 			processKeyboardEvent(m->getKey());
 		}
 		else if (!message->getType().compare("MMouseEvent"))
@@ -198,49 +198,37 @@ namespace Logic
 		}
 
 
-		////Si se está haciendo multiselección mandar dibujar a LUA el cuadrado de selección
-		//if (_multiSelection){
-		//	//Obtener las posición actual del ratón
-		//	Vector2 mousePosition = GUI::CServer::getSingletonPtr()->getMouseRelPos();
-
-		//	//Cambiar de posición relativa a absoluta de las posiciones del ratón y el cuadrado de selección
-
-		//	//Punto 1 del cuadrado de selección
-		//	Vector2 aux1 //GUI::CServer::getSingletonPtr()->positionRelToAbs(_mousePositionPressed);
-		//	
-		//	//Punto 2 del cuadrado de selección
-		//	Vector2 point2;
-		//	point2.x = _mousePositionPressed.x;
-		//	point2.y = mousePosition.y;
-		//	Vector2 aux2 = GUI::CServer::getSingletonPtr()->positionRelToAbs(point2);
-
-		//	//Punto 3 del cuadrado de selección
-		//	Vector2 aux3 = GUI::CServer::getSingletonPtr()->positionRelToAbs(mousePosition);
-		//	
-		//	//Punto 4 del cuadrado de selección
-		//	Vector2 point4;
-		//	point4.x = mousePosition.x;
-		//	point4.y = _mousePositionPressed.y;
-		//	Vector2 aux4 = GUI::CServer::getSingletonPtr()->positionRelToAbs(point4);
-
-		//	
-		//
-		//	
-		//	
-		//	std::stringstream procSelec;
-
-		//	procSelec << "drawSquare("<< aux1.x  << "," << aux1.y << ","<<   
-		//								 aux2.x  << "," << aux2.y << ","<< 
-		//								 aux3.x  << "," << aux3.y << ","<<
-		//								 aux4.x  << "," << aux4.y << ","<<")";
-
-		//	ScriptManager::CServer::getSingletonPtr()->executeScript(procSelec.str().c_str());
-
-		//}
-		float aux = 1.0;
+		//Si se está haciendo multiselección mandar dibujar a LUA el cuadrado de selección
 		if (_multiSelection){
-			Graphics::CServer::getSingletonPtr()->createSquare(aux,aux,aux,aux);
+			//Obtener las posición actual del ratón
+			Vector2 mousePosition = GUI::CServer::getSingletonPtr()->getMouseRelPos();
+
+			//Cambiar de posición relativa a absoluta de las posiciones del ratón y el cuadrado de selección
+
+			//Punto 1 del cuadrado de selección
+			Vector2 aux1 = GUI::CServer::getSingletonPtr()->positionRelToAbs(_mousePositionPressed);
+			
+			//Punto 2 del cuadrado de selección
+			Vector2 point2;
+			point2.x = _mousePositionPressed.x;
+			point2.y = mousePosition.y;
+			Vector2 aux2 = GUI::CServer::getSingletonPtr()->positionRelToAbs(point2);
+
+			//Punto 3 del cuadrado de selección
+			Vector2 aux3 = GUI::CServer::getSingletonPtr()->positionRelToAbs(mousePosition);
+			
+			//Punto 4 del cuadrado de selección
+			Vector2 point4;
+			point4.x = mousePosition.x;
+			point4.y = _mousePositionPressed.y;
+			Vector2 aux4 = GUI::CServer::getSingletonPtr()->positionRelToAbs(point4);
+
+		
+		//	Graphics::CServer::getSingletonPtr()->createSquare(aux1,aux2,aux3,aux4, true);
+			
+		}else{
 		}
+	
 
 	} // tick
 
@@ -386,6 +374,8 @@ namespace Logic
 
 				_waitingForSelectable = false;
 			}
+
+			//Graphics::CServer::getSingletonPtr()->createSquare(Vector2(),Vector2(),Vector2(),Vector2(), false);
 		}
 
 		
@@ -406,7 +396,7 @@ namespace Logic
 
 		Vector3 point;
 
-		CEntity* targetedEntity = Logic::CServer::getSingletonPtr()->raycastFromViewport(&point, Physics::PG_CHARACTERS | Physics::PG_BUILDING);
+		CEntity* targetedEntity = Logic::CServer::getSingletonPtr()->raycastFromViewport(&point,Physics::PG_SELECTION  | Physics::PG_CHARACTERS | Physics::PG_BUILDING);
 		if (targetedEntity == NULL)
 		{
 			processActionClick();
@@ -478,6 +468,7 @@ namespace Logic
 
 	void CSelectionController::processKeyboardEvent(GUI::Key::TKeyID key){
 		std::string aux;
+		int skill = 0;
 
 		switch (key){
 
@@ -505,8 +496,20 @@ namespace Logic
 			aux = "NUMBER4";
 			break;
 
-		case GUI::Key::TKeyID::NUMBER5:
-			aux = "NUMBER5";
+		case GUI::Key::TKeyID::Q:
+			skill = 1;
+			break;
+
+		case GUI::Key::TKeyID::W:
+			skill = 2;
+			break;
+
+		case GUI::Key::TKeyID::E:
+			skill = 3;
+			break;
+
+		case GUI::Key::TKeyID::R:
+			skill = 4;
 			break;
 
 		default:
@@ -514,10 +517,21 @@ namespace Logic
 			break;
 		}
 
-		std::stringstream procKey;
-		procKey << "keyEventParameters = { key = \"" << aux << "\" } " ;
-		procKey << "godEvent(\"OnKeyEvent\")" ;
-		ScriptManager::CServer::getSingletonPtr()->executeScript(procKey.str().c_str());
+		if (skill == 0){
+			std::stringstream procKey;
+			procKey << "keyEventParameters = { key = \"" << aux << "\" } " ;
+			procKey << "godEvent(\"OnKeyEvent\")" ;
+			ScriptManager::CServer::getSingletonPtr()->executeScript(procKey.str().c_str());
+		}else{
+			/*std::stringstream procKey;
+			procKey << "clickBoton" << skill <<"()";
+			ScriptManager::CServer::getSingletonPtr()->executeScript(procKey.str().c_str());
+		
+			std::stringstream procKey;
+			procKey << "skillParameters = { skill = " << skill << ", } " ;
+			procKey << "godEvent(\"OnSkillClick\")" ;
+			ScriptManager::CServer::getSingletonPtr()->executeScript(procKey.str().c_str());*/
+		}
 
 	} //processKeyboardEvent
 
