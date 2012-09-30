@@ -346,7 +346,10 @@ namespace Logic
 			MEntityDeathListener *m = static_cast <MEntityDeathListener*> (message);
 
 			if (m->getAdd())
-				addListener(m->getListener());
+			{
+				TListenerRef id_listener(m->getListenerID(), m->getListener());
+				addListener(id_listener);
+			}
 			//else
 			//	removeListener(m->getListener());
 			
@@ -410,19 +413,17 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CLife::addListener(IDeathListener* listener)
+	void CLife::addListener(TListenerRef listener)
 	{
-		TListenerRef id_listener(listener->getDeathID(), listener);
-		_listeners.push_back(id_listener);
+		_listeners.push_back(listener);
 	
 	} // addListener
 
 	//---------------------------------------------------------
 
-	void CLife::removeListener(IDeathListener* listener)
+	void CLife::removeListener(TListenerRef listener)
 	{
-		TListenerRef id_listener(listener->getDeathID(), listener);
-		_listeners.remove(id_listener);
+		_listeners.remove(listener);
 
 	} // removeListener
 
@@ -436,8 +437,8 @@ namespace Logic
 
 		for (; it != end; it++)
 		{
-			unsigned int tha_id = it->first;
-			if (tha_id == 0 || Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(tha_id) != NULL)
+			unsigned int death_id = it->first;
+			if (death_id == 0 || Logic::CServer::getSingletonPtr()->getMap()->getEntityByID(death_id) != NULL)
 			{
 				it->second->entityDeath(_entity);
 			}

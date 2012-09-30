@@ -41,6 +41,13 @@ namespace Logic
 		void setListener(IDeathListener *listener);
 
 		/**
+		Establece el ID del listener en el mensaje.
+
+		@param listenerID el ID del listener que se almacena en el mensaje.
+		*/
+		void setListenerID(unsigned int listenerID);
+
+		/**
 		Establece en el mensaje el valor booleano que indica si el listener debe ser quitado o añadido.
 
 		@param add deberá ser true si se quiere que el listener se añada y false en caso contrario.
@@ -55,6 +62,13 @@ namespace Logic
 		IDeathListener* getListener();
 
 		/**
+		Devuelve el ID del listener almacenado en el mensaje.
+
+		@return El ID del listener almacenado en el mensaje.
+		*/
+		unsigned int getListenerID();
+
+		/**
 		Devuelve si hay que añadir o quitar el listener del valor almacenado en el mensaje.
 
 		@return true si el listener deber añadido y false en caso contrario.
@@ -67,6 +81,11 @@ namespace Logic
 		Listener que hay que añadir.
 		*/
 		IDeathListener *_listener;
+
+		/**
+		ID del listener que hay que añadir.
+		*/
+		unsigned int _listenerID;
 
 		/**
 		Indica si el listener debe ser añadido o quitado.

@@ -91,19 +91,25 @@ namespace Logic
 	protected:
 
 		/**
+		Tipo Lista de oyentes de la muerte de la entidad.
+		*/
+		typedef std::pair<unsigned int, IDeathListener*> TListenerRef;
+		typedef std::list<TListenerRef> TListenersList;
+
+		/**
 		Añade un nuevo listener para escuchar la muerte de la entidad a la que pertenece
 		este componente.
 
 		@param listener listener a añadir.
 		*/
-		void addListener(IDeathListener* listener);
+		void addListener(TListenerRef listener);
 
 		/**
 		Borra el listener de la lista de listeners.
 
 		@param listener listener a borrar.
 		*/
-		void removeListener(IDeathListener* listener);
+		void removeListener(TListenerRef listener);
 
 		/**
 		Notifica a todos los listeners de la muerte de la entidad y
@@ -140,12 +146,6 @@ namespace Logic
 		Billboard que indica si está confundido
 		*/
 		Graphics::CBillboard * _billboardConfusion;
-
-		/**
-		Tipo Lista de oyentes de la muerte de la entidad.
-		*/
-		typedef std::pair<unsigned int, IDeathListener*> TListenerRef;
-		typedef std::list<TListenerRef> TListenersList;
 
 		/**
 		Lista de todos los oyentes de la muerte de la entidad.

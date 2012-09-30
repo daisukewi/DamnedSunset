@@ -38,6 +38,22 @@ namespace Logic
 
 	//---------------------------------------------------------
 
+	void MEntityDeathListener::setListenerID(unsigned int listenerID)
+	{
+		_listenerID = listenerID;
+		
+	} // setListenerID
+
+	//---------------------------------------------------------
+
+	unsigned int MEntityDeathListener::getListenerID()
+	{
+		return _listenerID;
+		
+	} // getListenerID
+
+	//---------------------------------------------------------
+
 	void MEntityDeathListener::setAdd(bool add)
 	{
 		_add = add;

@@ -540,6 +540,7 @@ namespace Logic
 	bool CEntity::addDeathListener(IDeathListener* listener)
 	{
 		MEntityDeathListener *m = new MEntityDeathListener();
+		m->setListenerID(listener->getDeathID());
 		m->setAdd(true);
 		m->setListener(listener);
 
@@ -552,6 +553,7 @@ namespace Logic
 	bool CEntity::removeDeathListener(IDeathListener* listener)
 	{
 		MEntityDeathListener *m = new MEntityDeathListener();
+		m->setListenerID(listener->getDeathID());
 		m->setAdd(false);
 		m->setListener(listener);
 
