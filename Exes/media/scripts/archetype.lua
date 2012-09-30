@@ -515,7 +515,7 @@ Archetype = {
 		selection_collision_group = 7,
 
 		reduceDamageTime = 5000,
-		reduceDamageDistance = 10,
+		reduceDamageDistance = 20,
 		reduceDamage = -1.0,
 		lifeCureSound = "teletransporte.mp3",
 		lifeCureEffect = "Heal",
