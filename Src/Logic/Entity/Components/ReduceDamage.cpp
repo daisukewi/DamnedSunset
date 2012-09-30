@@ -74,6 +74,9 @@ namespace Logic
 
 			_numEnt = Physics::CServer::getSingletonPtr()->detectCollisions( _entity->getPosition(),_reduceDistance,_entidades);
 
+			CEntity * ent1 = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick");
+			CEntity * ent2 = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Norah");
+			CEntity * ent3 = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack");
 
 			//Envío del mensaje al componente que se encarga de mostrar los efectos de partículas
 			MParticleEffect *rc_message = new MParticleEffect();
@@ -92,14 +95,36 @@ namespace Logic
 			message->setDamageAction(DamageMessage::ADD_DAMAGE_MODIFICATION);
 			try {
 				message->addPtr();
-				for (int i =0; i < _numEnt; ++i)
+				/*for (int i =0; i < _numEnt; ++i)
 				{
 					if (!_entidades[i]->getTag().compare("Player") ){
 					
 						_entidades[i]->emitMessage(message);
 					
 					}
+				}*/
+				if (ent1){
+				float difX = ent1->getPosition().x - _entity->getPosition().x;
+				float difZ = ent1->getPosition().z - _entity->getPosition().z;
+
+				if ((_reduceDistance*_reduceDistance) >= (difX*difX + difZ*difZ)){
+					ent1->emitMessage(message);
 				}
+				}
+
+				if (ent2)
+				{
+
+				float difX = ent2->getPosition().x - _entity->getPosition().x;
+				float difZ = ent2->getPosition().z - _entity->getPosition().z;
+
+				if ((_reduceDistance*_reduceDistance) >= (difX*difX + difZ*difZ)){
+					ent2->emitMessage(message);
+				}
+				}
+
+				ent3->emitInstantMessage(message);
+
 				message->removePtr();
 			}
 		   catch( char * str ) {
@@ -118,21 +143,31 @@ namespace Logic
 		MDamaged *message = new MDamaged();
 		message->setDamageModification(_reduceDamage*-1.0);
 		message->setDamageAction(DamageMessage::ADD_DAMAGE_MODIFICATION);
+		
+		CEntity * ent1 = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Erick");
+		CEntity * ent2 = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Norah");
+		CEntity * ent3 = Logic::CServer::getSingletonPtr()->getMap()->getEntityByName("Jack");
 
 		message->addPtr();
-		for (int i =0; i < _numEnt; ++i)
-		{
+	
 			try 
 			{
-				if (!_entidades[i]->getTag().compare("Player") ){
-					_entidades[i]->emitMessage(message);
-				}
+
+					if (ent1){
+					ent1->emitMessage(message);
+					}
+					ent3->emitMessage(message);
+				
+					if (ent2){
+					ent2->emitMessage(message);
+					}
+				
 			}
 			catch (char *str)
 			{
 			}
 
-		}
+		
 		message->removePtr();
 
 		if (_auxReduceTime > 0){
@@ -144,15 +179,27 @@ namespace Logic
 			message2->setDamageAction(DamageMessage::ADD_DAMAGE_MODIFICATION);
 
 			message2->addPtr();
-			for (int i =0; i < _numEnt; ++i)
-			{
+			
+			if (ent1){{
+			float difX = ent1->getPosition().x - _entity->getPosition().x;
+			float difZ = ent1->getPosition().z - _entity->getPosition().z;
 
-				if (!_entidades[i]->getTag().compare("Player") ){
-					
-					_entidades[i]->emitMessage(message2);
-				}
+			if ((_reduceDistance*_reduceDistance) >= (difX*difX + difZ*difZ)){
+				ent1->emitMessage(message2);
+			}
+			}
+
+			if (ent2){
+			float difX = ent2->getPosition().x - _entity->getPosition().x;
+			float difZ = ent2->getPosition().z - _entity->getPosition().z;
+
+			if ((_reduceDistance*_reduceDistance) >= (difX*difX + difZ*difZ)){
+				ent2->emitMessage(message2);
+			}
 					
 			}
+			ent3->emitMessage(message2);
+
 			message2->removePtr();
 			
 			BaseSubsystems::CServer::getSingletonPtr()->addClockListener(1000, this);
