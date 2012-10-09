@@ -1,7 +1,7 @@
 /**
 @file GridMap.h
 
-Contiene la implementación de la clase CGridMap, Un mapa de celdas lógico.
+Contiene la implementaciï¿½n de la clase CGridMap, Un mapa de celdas lï¿½gico.
 
 @see Logic::GridMap
 
@@ -60,7 +60,6 @@ namespace Logic {
 			int row = i / _nMapCols;
 			int col = i % _nMapCols;
 			_gridMap[i] = CGridTile(row, col);
-      
 		}
 
 	} // initMap
@@ -290,7 +289,7 @@ namespace Logic {
 				name << "Tile_" << i << "_" << j;
 				vecPos << i << " " << j;
 
-				// Le ponemos un nuevo nombre para poder hacer spawn y la posición del edificio fantasma
+				// Le ponemos un nuevo nombre para poder hacer spawn y la posiciï¿½n del edificio fantasma
 				waypointInfo->setName(name.str());
 				waypointInfo->setAttribute("grid_position", vecPos.str());
 
@@ -322,7 +321,7 @@ namespace Logic {
 					name << "Obstacle_" << row << "_" << col;
 					vecPos << pos.x << " 0 " << pos.y;
 
-					// Le ponemos un nuevo nombre para poder hacer spawn y la posición del edificio fantasma
+					// Le ponemos un nuevo nombre para poder hacer spawn y la posiciï¿½n del edificio fantasma
 					obstacleInfo->setName(name.str());
 					obstacleInfo->setAttribute("position", vecPos.str());
 
