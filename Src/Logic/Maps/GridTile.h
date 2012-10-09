@@ -31,6 +31,12 @@ namespace Logic
 		friend class CTerrainTile;
 
 	public:
+  
+		/**
+		Constructor por defecto
+		*/
+		CGridTile() : _row(-1), _col(-1), _terrain(0), _building(NULL) {}
+  
 		/**
 		Constructor.
 		*/

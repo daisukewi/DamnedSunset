@@ -163,7 +163,7 @@ namespace Logic
 		*/
 		int getIndexTileFromCoord( const int row, const int col );
 		
-		typedef TGridTile** TGridMap;
+		typedef TGridTile TGridMap;
 
 		/**
 		Grid de tiles donde se almacena el mapa lógico del escenario.

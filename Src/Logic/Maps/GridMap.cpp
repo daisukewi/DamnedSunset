@@ -1,7 +1,7 @@
 /**
 @file GridMap.h
 
-Contiene la implementación de la clase CGridMap, Un mapa de celdas lógico.
+Contiene la implementaciï¿½n de la clase CGridMap, Un mapa de celdas lï¿½gico.
 
 @see Logic::GridMap
 
@@ -33,13 +33,7 @@ namespace Logic {
 	CGridMap::~CGridMap()
 	{
 		// Libera la memoria utilizada para almacenar el mapa lógico.
-		for (int i = 0; i < _nMapRows; ++i)
-		{
-			for (int j = 0; j < _nMapCols; ++j)
-				delete(_gridMap[i][j]);
-			delete(_gridMap[i]);
-		}
-		delete(_gridMap);
+		delete[] _gridMap;
 	}
 
 	//--------------------------------------------------------
@@ -57,12 +51,15 @@ namespace Logic {
 		_halfGrid = gridSize / 2;
 
 		// Reserva memoria para almacenar el mapa lógico e inicializa cada casilla.
-		_gridMap = new TGridTile*[_nMapRows];
-		for (int i = 0; i < _nMapRows; ++i)
+		// Usa un array unidimensional como si fuera uno bidimensional. De esta manera,
+		// se reducen las reservas de memoria y todas las celdas quedan en posiciones contiguas de memoria
+		int totalTiles = _nMapRows * _nMapCols;
+		_gridMap = new CGridTile[totalTiles];
+		for (int i = 0; i < totalTiles; ++i)
 		{
-			_gridMap[i] = new TGridTile[_nMapCols];
-			for (int j = 0; j < _nMapCols; ++j)
-				_gridMap[i][j] = new CGridTile(i, j);
+			int row = i / _nMapCols;
+			int col = i % _nMapCols;
+			_gridMap[i] = CGridTile(row, col);
 		}
 
 	} // initMap
@@ -143,7 +140,13 @@ namespace Logic {
 
 	const TGridTile CGridMap::getTileFromCoord(const int row, const int col)
 	{
-		return _gridMap[row][col];
+		// Esto es feo de cojones, pero tocar todos los posibles sitios donde se 
+		// llama a esto para ajustarlo a una referencia constante ( const CGridTile&)
+		// me parece incluso peor ahora mismo
+		
+		// En teoría esto es un atributo de la clase y no se va a tocar mientras 
+		// exista el mapa, por lo tanto es seguro devolver la dirección
+		return &(_gridMap[row * _nMapCols + col]);
 
 	} // getTileFromCoord
 
@@ -286,7 +289,7 @@ namespace Logic {
 				name << "Tile_" << i << "_" << j;
 				vecPos << i << " " << j;
 
-				// Le ponemos un nuevo nombre para poder hacer spawn y la posición del edificio fantasma
+				// Le ponemos un nuevo nombre para poder hacer spawn y la posiciï¿½n del edificio fantasma
 				waypointInfo->setName(name.str());
 				waypointInfo->setAttribute("grid_position", vecPos.str());
 
@@ -318,7 +321,7 @@ namespace Logic {
 					name << "Obstacle_" << row << "_" << col;
 					vecPos << pos.x << " 0 " << pos.y;
 
-					// Le ponemos un nuevo nombre para poder hacer spawn y la posición del edificio fantasma
+					// Le ponemos un nuevo nombre para poder hacer spawn y la posiciï¿½n del edificio fantasma
 					obstacleInfo->setName(name.str());
 					obstacleInfo->setAttribute("position", vecPos.str());
 
