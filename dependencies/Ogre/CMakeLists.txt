@@ -158,6 +158,7 @@ if (MSVC)
   # This doesn't work on VS 2010
   # MSVC only builds for intel anyway
   set(OGRE_TEST_BIG_ENDIAN FALSE)
+  set ( CMAKE_CXX_FLAGS "/MP")
 else()
   include(TestBigEndian)
   test_big_endian(OGRE_TEST_BIG_ENDIAN)
