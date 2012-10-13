@@ -48,6 +48,7 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\..\dependencies\include\PhysX\Cooking\include;..\..\dependencies\include\PhysX\Foundation\include;..\..\dependencies\include\PhysX\NxCharacter\include;..\..\dependencies\include\PhysX\Physics\include;..\..\dependencies\include\PhysX\PhysXLoader\include;..\..\Src;..\..\dependencies\include\OGRE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -61,6 +62,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <AdditionalIncludeDirectories>..\..\dependencies\include\PhysX\Cooking\include;..\..\dependencies\include\PhysX\Foundation\include;..\..\dependencies\include\PhysX\NxCharacter\include;..\..\dependencies\include\PhysX\Physics\include;..\..\dependencies\include\PhysX\PhysXLoader\include;..\..\Src;..\..\dependencies\include\OGRE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
