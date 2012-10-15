@@ -1,0 +1,32 @@
+# Generated files
+[dD]ebug*/
+[rR]elease/
+
+# Generated executables
+Exes/*
+!Exes/resources.cfg
+!Exes/media/
+!Exes/DamnedSunset.ico
+
+
+# Ogre dependencies generated files
+dependencies/OgreDependencies
+
+# "Ogre and friends" include files
+dependencies/include/OGRE
+dependencies/include/OIS
+dependencies/include/zzip
+dependencies/include/cg
+dependencies/include/freetype
+dependencies/include/*.h
+
+# Ogre cmake generated files
+dependencies/Ogre/build
+
+# User-specific visual studio files
+*.vcxproj.user
+*.suo
+*.sdf
+
+# Ant output file
+vslog.txt
